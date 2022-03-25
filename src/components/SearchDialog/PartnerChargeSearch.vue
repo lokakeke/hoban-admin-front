@@ -1,0 +1,90 @@
+<template>
+    <dialog-base :instance="instance" :title="'파트너 담당자 검색'">
+        <search-form :search-param.sync="searchParam" :search-list="searchList" @search="search" :cols="4"
+                     disable-pagination :init-search="initSearch"></search-form>
+        <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="regionCd" disable-pagination
+                      hide-default-footer class="click-row" @click:row="select($event)">
+            <template v-slot:item.telNo="{ item }">
+                <mask-tel-number :text="item.telNo" @search="viewTelNo(item)" />
+            </template>
+        </v-data-table>
+        <template v-slot:actions>
+            <v-btn outlined rounded color="primary" @click="close()">
+                <v-icon left>close</v-icon>
+                닫기
+            </v-btn>
+        </template>
+    </dialog-base>
+</template>
+
+<script>
+import DialogBase from '@/components/Dialog/DialogBase'
+import partnerChargeService from 'Api/modules/partner/partnerCharge.service'
+import MaskTelNumber from 'Components/Mask/MaskTelNumber.vue'
+
+export default {
+  extends: DialogBase,
+  components: { MaskTelNumber },
+  name: 'PartnerChargeSearch',
+  data () {
+    return {
+      searchParam: {
+        q: {}
+      },
+      ptnrNo: '',
+      disabled: false,
+      initSearch: false,
+      list: [],
+      headers: [
+        { text: '담당자 ID', value: 'ptnrChrgId', align: 'center' },
+        { text: '담당자 명', value: 'chrgNm', align: 'center' },
+        { text: '전화 번호', value: 'telNo', align: 'center' },
+        { text: '이메일', value: 'email', align: 'center' }
+      ]
+    }
+  },
+  mounted () {
+    if (this.instance.params.ptnrNo) {
+      this.ptnrNo = parseInt(this.instance.params.ptnrNo)
+      this.disabled = true
+      this.initSearch = true
+    }
+  },
+  computed: {
+    searchList () {
+      return [
+        {
+          key: 'ptnrNo',
+          label: '파트너 선택',
+          type: 'partner',
+          required: true,
+          defaultValue: this.ptnrNo,
+          disabled: this.disabled
+        }
+      ]
+    }
+  },
+  methods: {
+    search () {
+      // 조회
+      partnerChargeService.selectPartnerChargeList(this.searchParam.q.ptnrNo).then(res => {
+        this.list = res.data
+      })
+    },
+    async viewTelNo (item) {
+      const res = await partnerChargeService.selectPartnerChargeDetail({
+        ptnrNo: item.ptnrNo,
+        ptnrChrgId: item.ptnrChrgId
+      })
+      item.telNo = res.data.telNo
+    },
+    select (row) {
+      if (row.ptnrNo && row.ptnrChrgId) {
+        this.$dialog.confirm(`${row.chrgNm} 을 선택 하시겠습니까?`).then(() => {
+          this.close({ data: row })
+        })
+      }
+    }
+  }
+}
+</script>

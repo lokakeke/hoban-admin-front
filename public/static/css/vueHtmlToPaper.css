@@ -1,0 +1,16 @@
+html > body > .v-data-table__wrapper table,
+html > body > .v-data-table__wrapper tr,
+html > body > .v-data-table__wrapper td,
+html > body > .v-data-table__wrapper th
+{
+    border:1px solid grey !important;
+    border-collapse: collapse;
+    font-size: 9px;
+    text-align: center;
+}
+
+html > body > .v-data-table__wrapper button{
+    border:none;
+    background: none;
+    font-size: 9px;
+}

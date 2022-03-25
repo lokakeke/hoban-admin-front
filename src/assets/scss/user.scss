@@ -1,0 +1,397 @@
+// vue dialog -- vuejs dialog 의 기본 스타일을 변경 : jsh
+%vue-dialog-icon-style {
+  padding-right: 10px;
+  font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
+  font-size: 2em;
+  content: '\f1f0';
+  color: #e6a23c;
+}
+
+%vue-dialog-btn-style {
+  min-width: 60px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.dg-view-wrapper {
+  .dg-content-body {
+    border-bottom: none;
+    padding-bottom: 5px;
+
+    .dg-content {
+      vertical-align: middle;
+    }
+
+    .dg-title {
+      vertical-align: middle;
+    }
+
+    .dg-title::before {
+      @extend %vue-dialog-icon-style;
+    }
+
+    &.dg-content-body--has-title .dg-content {
+      font-size: 16px;
+    }
+
+    &:not(.dg-content-body--has-title) .dg-content::before {
+      @extend %vue-dialog-icon-style;
+    }
+  }
+
+  .dg-content-footer {
+    text-align: right;
+    .dg-btn--ok {
+      @extend %vue-dialog-btn-style;
+      border: 1px solid;
+      float: none;
+    }
+
+    .dg-btn--cancel {
+      @extend %vue-dialog-btn-style;
+    }
+  }
+}
+
+// code content
+.v-application {
+  code {
+    display: block;
+    background-color: #282b2e;
+    white-space: pre;
+  }
+}
+
+// cursor pointer
+.pointer {
+  cursor: pointer;
+}
+.cursor-default {
+  cursor: default;
+}
+
+
+// menu list style
+.menu-list {
+  border: 1px solid $sono;
+  border-radius: 28px;
+  margin-bottom: 5px;
+  color: $sono;
+  cursor: move;
+  .v-list-item__action {
+    margin: 0;
+  }
+  &.v-list-item--link{
+    cursor: pointer;
+    &.active{
+      cursor: default;
+    }
+  }
+  &.v-list-item--link:before{
+    border-radius: 28px;
+  }
+  &:not(.active).v-list-item--link:hover {
+    background: #EFEBE9!important;
+  }
+  .v-list-item__content {
+    color: $sono;
+  }
+  .v-btn {
+    .v-btn__content {
+      color: $sono;
+      .v-icon{
+        color: $sono;
+      }
+    }
+  }
+  .v-icon{
+    color: $sono;
+  }
+  &.active {
+    color: #FFFFFF;
+    background: $sono;
+    .v-list-item__content {
+      color: #FFFFFF;
+    }
+    .v-btn .v-btn__content {
+      color: #FFFFFF;
+      .v-icon{
+        color: #FFFFFF;
+      }
+    }
+    .v-btn--disabled .v-btn__content .v-icon{
+      color: #FFFFFF!important;
+    }
+    .v-icon{
+      color: #FFFFFF!important;
+    }
+  }
+}
+
+// border style
+.border-right {
+  border-right: 1px solid rgba(0,0,0,0.12);
+}
+.border-top {
+  border-top: 1px solid rgba(0,0,0,0.12);
+}
+.border-left {
+  border-left: 1px solid rgba(0,0,0,0.12);
+}
+.border-bottom {
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+// button outline 0
+button:focus {outline:0;}
+
+// button + button margin
+button.v-btn + button.v-btn {
+  margin-left: 0.5em;
+}
+
+// row click table
+.click-row {
+  > div > table > tbody > tr:not(.v-data-table__expanded__content) {
+    cursor: pointer;
+  }
+}
+
+.grab-row {
+  .v-data-table__wrapper tr:not(.v-data-table__expanded__content) :not(.pointer){
+    cursor: grab;
+  }
+  .v-data-table__wrapper:active tr:not(.v-data-table__expanded__content) :not(.pointer){
+    cursor: grabbing;
+  }
+}
+
+.v-text-field {
+  padding-top: 8px;
+}
+.v-btn__content .v-icon {
+  font-size: 20px;
+}
+.v-label {
+  font-size: $base-font-size;
+  &.v-label--active {
+    font-size: 16px;
+  }
+}
+input {
+  font-size: $base-font-size!important;
+}
+.v-list-item{
+  min-height: 38px;
+  .v-list-item__content {
+    font-size: $base-font-size!important;
+    .v-list-item__title {
+      font-size: $base-font-size!important;
+    }
+  }
+}
+
+/* transition */
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .2s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+  /* .component-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all .1s ease;
+}
+.slide-fade-leave-active {
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter {
+  transform: translateX(50px);
+  opacity: 0;
+}
+.slide-fade-leave-to {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+// list dense action
+.v-list--dense {
+  .v-list-item__action{
+    margin : 0;
+  }
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+.navigation .v-list-item--link:before {
+  background-color: transparent;
+}
+
+.custom-select.theme--light.v-input:not(.v-input--is-disabled) input{
+  color: $sono;
+  font-size: 12px;
+  text-align: center;
+}
+.custom-select.theme--light.v-text-field > .v-input__control > .v-input__slot:before {
+  border: none;
+}
+.custom-select.v-text-field > .v-input__control > .v-input__slot:before, .v-text-field > .v-input__control > .v-input__slot:after {
+  width: 0!important;
+}
+.vc-relative .vc-arrows-container{
+  z-index: 7;
+}
+
+.v-data-table__wrapper thead tr {
+  background-color: #EEEEEE;
+}
+
+// table border
+.bordered table {
+  border-collapse: separate;
+  border-spacing: 0;
+  /*thead, tbody {
+    tr {
+      td, th {
+        border-left: $border-basic;
+        &:last-child {
+          border-right: $border-basic;
+        }
+      }
+    }
+  }*/
+  thead {
+    tr {
+      &:first-child th {
+        border-top: $border-basic;
+      }
+      td, th {
+        border-left: $border-basic;
+        &:last-child {
+          border-right: $border-basic;
+        }
+      }
+    }
+  }
+  tbody {
+    tr {
+      td, th {
+        border-left: $border-basic;
+        &:last-child {
+          border-right: $border-basic;
+        }
+      }
+    }
+    tr:first-child {
+      td, th {
+        border-top: $border-basic;
+      }
+    }
+    tr:last-child {
+      td, th {
+        border-bottom: $border-basic;
+      }
+    }
+  }
+}
+
+.add-text-input .v-input__append-outer {
+  margin-top: 0;
+}
+
+.box-shadow-none {
+  .app-card{
+    box-shadow: none;
+  }
+}
+
+.v-application--is-ltr .menu-sidebar {
+  .v-list-group__header__prepend-icon:last-of-type:not(:only-child), .v-list-item__icon:last-of-type:not(:only-child) {
+    margin-left: 0;
+  }
+}
+//왼쪽 메뉴 z-index 기본 6에서 30으로 변경
+.v-navigation-drawer--fixed {
+  z-index: 30 !important;
+}
+
+.vld-overlay.is-active {
+  outline-color: transparent;
+}
+
+// sticky table
+.sticky-table{
+  &.v-data-table--fixed-header {
+    thead tr th {
+      background-color: #EEEEEE!important;
+    }
+  }
+  table {
+    border-collapse: separate !important;
+    thead {
+      .sticky {
+        z-index: 10!important;
+      }
+    }
+    tbody {
+      .sticky {
+        z-index: 9!important;
+      }
+    }
+    tr {
+      td.sticky {
+        position: sticky;
+        background-color: #F5F5F5;
+        border-right: 1px rgba(0, 0, 0, 0.12) solid!important;
+        &+td {
+          border-left: none!important;
+        }
+        &+th {
+          border-left: none!important;
+        }
+      }
+      th.sticky {
+        position: sticky;
+        background-color: #EEEEEE;
+        border-right: 1px rgba(0, 0, 0, 0.12) solid!important;
+        &+th {
+          border-left: none!important;
+        }
+        &+td {
+          border-left: none!important;
+        }
+      }
+    }
+  }
+}
+
+.border-top-primary {
+  border-top: 2px #009688 solid;
+}
+
+.theme--light.v-data-table.v-data-table--fixed-header table tr th {
+  background-color: #EEEEEE;
+}
+
+.contents-850 {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+// autocomplete chip style 보정
+.v-autocomplete:not(.v-input--is-focused).v-select--chips input {
+ max-height: 32px;
+ padding: 8px 0 8px;
+}
