@@ -88,8 +88,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import boardQnaService from "Api/modules/system/boardQna.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import boardQnaService from 'Api/modules/system/boardQna.service'
 
 export default {
   name: 'BoardQuestionManagementService',

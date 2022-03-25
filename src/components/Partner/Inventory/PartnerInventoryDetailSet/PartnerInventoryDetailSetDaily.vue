@@ -138,7 +138,7 @@
 </template>
 
 <script>
-import partnerInventoryDetailSetService from "@/api/modules/partner/partnerInventoryDetailSet.service"
+import partnerInventoryDetailSetService from 'Api/modules/partner/partnerInventoryDetailSet.service'
 
 export default {
   model: {

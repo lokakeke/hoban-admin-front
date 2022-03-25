@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import calculationService from "Api/modules/ota/calculation.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import calculationService from 'Api/modules/ota/calculation.service'
 
 export default {
   extends: DialogBase,

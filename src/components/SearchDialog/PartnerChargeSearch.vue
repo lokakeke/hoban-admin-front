@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import partnerChargeService from 'Api/modules/partner/partnerCharge.service'
 import MaskTelNumber from 'Components/Mask/MaskTelNumber.vue'
 

@@ -82,9 +82,9 @@
 </template>
 
 <script>
-import commonCodeService from "Api/modules/system/commonCode.service"
-import service from "Api/modules/partner/partner.service"
-import accountAuthService from "Api/modules/system/accountAuth.service"
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import service from 'Api/modules/partner/partner.service'
+import accountAuthService from 'Api/modules/system/accountAuth.service'
 
 export default {
   name: 'PartnerProfilePartnerInformation',

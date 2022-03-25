@@ -176,10 +176,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import DialogBase from "@/components/Dialog/DialogBase"
-import depositRequestService from "Api/modules/api/depositRequest.service"
-import commonCodeService from "Api/modules/system/commonCode.service"
+import { mapGetters } from 'vuex'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import depositRequestService from 'Api/modules/api/depositRequest.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
 
 const DEFAULT_FORM = {
   depoKey: '',

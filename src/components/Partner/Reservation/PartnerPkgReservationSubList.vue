@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import partnerPkgReservationService from "Api/modules/partner/partnerPkgReservation.service"
+import partnerPkgReservationService from 'Api/modules/partner/partnerPkgReservation.service'
 
 export default {
   name: 'PartnerPkgReservationSubList',

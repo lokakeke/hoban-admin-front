@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import service from "Api/modules/api/depositRequest.service"
+import service from 'Api/modules/api/depositRequest.service'
 
 export default {
   name: 'DepositRequestManagement',

@@ -119,10 +119,10 @@
 </template>
 
 <script>
-import StringUtil from "@/utils/string.util"
-import DialogBase from "@/components/Dialog/DialogBase"
-import commonCodeService from "Api/modules/system/commonCode.service"
-import partnerApiService from "Api/modules/partner/partnerApi.service"
+import StringUtil from '@/utils/string.util'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import partnerApiService from 'Api/modules/partner/partnerApi.service'
 
 export default {
   extends: DialogBase,

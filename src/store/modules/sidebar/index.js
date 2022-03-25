@@ -1,7 +1,7 @@
 /**
  * Sidebar Module
  */
-import menuService from "Api/modules/system/menu.service"
+import menuService from 'Api/modules/system/menu.service'
 
 const state = {
   menus: null,

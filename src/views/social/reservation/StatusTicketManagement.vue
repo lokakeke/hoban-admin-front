@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import StatusTicketTab1 from "./StatusTicketTab1"
-import StatusTicketTab2 from "./StatusTicketTab2"
-import StatusTicketTab3 from "./StatusTicketTab3"
-import StatusTicketTab4 from "./StatusTicketTab4"
-import StatusTicketTab5 from "./StatusTicketTab5"
-import StatusTicketTab6 from "./StatusTicketTab6"
+import StatusTicketTab1 from './StatusTicketTab1'
+import StatusTicketTab2 from './StatusTicketTab2'
+import StatusTicketTab3 from './StatusTicketTab3'
+import StatusTicketTab4 from './StatusTicketTab4'
+import StatusTicketTab5 from './StatusTicketTab5'
+import StatusTicketTab6 from './StatusTicketTab6'
 
 export default {
   components: { StatusTicketTab1, StatusTicketTab2, StatusTicketTab3, StatusTicketTab4, StatusTicketTab5, StatusTicketTab6 },

@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import menuAuthService from "Api/modules/system/menuAuth.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import menuAuthService from 'Api/modules/system/menuAuth.service'
 
 export default {
   extends: DialogBase,

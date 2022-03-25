@@ -99,8 +99,8 @@
 </template>
 
 <script>
-import NotificationDetails from "./NotificationDetails"
-import { mapActions, mapGetters } from "vuex"
+import NotificationDetails from './NotificationDetails'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: { NotificationDetails },

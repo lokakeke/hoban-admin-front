@@ -144,9 +144,9 @@
 </template>
 
 <script>
-import boardNoticeService from "Api/modules/system/boardNotice.service"
-import storeService from "Api/modules/system/store.service"
-import partnerService from "Api/modules/partner/partner.service"
+import boardNoticeService from 'Api/modules/system/boardNotice.service'
+import storeService from 'Api/modules/system/store.service'
+import partnerService from 'Api/modules/partner/partner.service'
 
 export default {
   name: 'BoardNoticeViewForm',

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import PackageInfoComponent from "./PackageInfoComponent"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import PackageInfoComponent from './PackageInfoComponent'
 
 export default {
   extends: DialogBase,

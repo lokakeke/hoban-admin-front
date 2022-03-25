@@ -110,9 +110,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import DialogBase from "@/components/Dialog/DialogBase"
-import depositAccountService from "Api/modules/api/depositAccount.service"
+import { mapGetters } from 'vuex'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import depositAccountService from 'Api/modules/api/depositAccount.service'
 
 export default {
   props: {

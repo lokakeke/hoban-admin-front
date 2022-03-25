@@ -74,10 +74,10 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import CalculateDialog from "./CalculateDialog"
-import calculationService from "Api/modules/ota/calculation.service"
-import { mapGetters } from "vuex"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import CalculateDialog from './CalculateDialog'
+import calculationService from 'Api/modules/ota/calculation.service'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { CalculateDialog },

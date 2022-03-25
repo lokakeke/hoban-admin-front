@@ -50,12 +50,12 @@
 </template>
 
 <script>
-import BasicInformation from "./BasicInformation"
-import RoomTypeInformation from "./RoomTypeInformation"
-import SellerRegisterForm from "./SellerRegisterForm"
-import HolidayInformation from "./HolidayInformation"
-import RoomPackageTypeForm from "./RoomPackageTypeForm"
-import DialogBase from "@/components/Dialog/DialogBase"
+import BasicInformation from './BasicInformation'
+import RoomTypeInformation from './RoomTypeInformation'
+import SellerRegisterForm from './SellerRegisterForm'
+import HolidayInformation from './HolidayInformation'
+import RoomPackageTypeForm from './RoomPackageTypeForm'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

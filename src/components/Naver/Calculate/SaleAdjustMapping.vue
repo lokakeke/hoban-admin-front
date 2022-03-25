@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import saleAdjustService from "Api/modules/naver/calculateSaleAdjust.service"
-import itemService from "Api/modules/naver/item.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import saleAdjustService from 'Api/modules/naver/calculateSaleAdjust.service'
+import itemService from 'Api/modules/naver/item.service'
 
 export default {
   extends: DialogBase,

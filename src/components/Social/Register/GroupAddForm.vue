@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import ticketCalcService from "Api/modules/social/ticketCalc.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import ticketCalcService from 'Api/modules/social/ticketCalc.service'
 
 export default {
   extends: DialogBase,

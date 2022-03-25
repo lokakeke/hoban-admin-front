@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import commonCodeService from "Api/modules/system/commonCode.service"
-import depositRequestService from "Api/modules/api/depositRequest.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import depositRequestService from 'Api/modules/api/depositRequest.service'
 
 export default {
   name: 'DepositRequestApprovalDialog',

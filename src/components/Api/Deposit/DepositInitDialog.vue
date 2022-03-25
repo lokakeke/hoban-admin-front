@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import DepositInitInsuranceTab from "./DepositInitInsuranceTab"
-import DepositInitCustomTab from "./DepositInitCustomTab"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DepositInitInsuranceTab from './DepositInitInsuranceTab'
+import DepositInitCustomTab from './DepositInitCustomTab'
 
 export default {
   name: 'depositInitDialog',

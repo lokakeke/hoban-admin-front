@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import itemService from "Api/modules/naver/item.service"
-import PackageInfoComponent from "./PackageInfoComponent"
-import DialogBase from "@/components/Dialog/DialogBase"
-import { mapGetters } from "vuex"
+import itemService from 'Api/modules/naver/item.service'
+import PackageInfoComponent from './PackageInfoComponent'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   extends: DialogBase,

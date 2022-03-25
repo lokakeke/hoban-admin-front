@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import packageService from "Api/modules/ota/package.service"
+import packageService from 'Api/modules/ota/package.service'
 
 export default {
   props: {

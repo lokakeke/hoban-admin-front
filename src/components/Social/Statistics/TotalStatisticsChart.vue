@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import { Chart } from "highcharts-vue"
-import excelMixin from "Mixins/excelMixin"
+import { Chart } from 'highcharts-vue'
+import excelMixin from 'Mixins/excelMixin'
 
 export default {
   name: 'TotalStatisticsChart',

@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import CommonTooltip from 'Components/Common/CommonTooltip.vue'
 import itemService from 'Api/modules/naver/item.service'
 import service from 'Api/modules/naver/calculateSaleAdjust.service'

@@ -147,9 +147,9 @@
 </template>
 
 <script>
-import roomTypeService from "Api/modules/ota/roomType.service"
-import commonCodeService from "../../../api/modules/system/commonCode.service"
-import { mapGetters } from "vuex"
+import roomTypeService from 'Api/modules/ota/roomType.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'BasicInformation',

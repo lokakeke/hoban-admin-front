@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import packageService from "Api/modules/ota/package.service"
-import { mapGetters } from "vuex"
+import packageService from 'Api/modules/ota/package.service'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SellerRegisterForm',

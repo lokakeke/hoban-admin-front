@@ -115,9 +115,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import StringUtil from "@/utils/string.util"
-import partnerApiService from "Api/modules/partner/partnerApi.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import StringUtil from '@/utils/string.util'
+import partnerApiService from 'Api/modules/partner/partnerApi.service'
 
 export default {
   extends: DialogBase,

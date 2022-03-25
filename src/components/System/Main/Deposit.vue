@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import depositAccountService from "Api/modules/api/depositAccount.service"
+import depositAccountService from 'Api/modules/api/depositAccount.service'
 
 export default {
   name: 'Deposit',

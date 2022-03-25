@@ -439,120 +439,117 @@
 </template>
 
 <script>
-import NumberUtils from "@/utils/number.util"
-import roomService from "Api/modules/ota/roomReservation.service"
-
-
-
+import NumberUtils from '@/utils/number.util'
+import roomService from 'Api/modules/ota/roomReservation.service'
 
 export default {
-    name: "PartnerRoomAndMemberInfo",
-    props: {
-        /**
+  name: 'PartnerRoomAndMemberInfo',
+  props: {
+    /**
          * 객실/패키지
          */
-        roomType: {
-            type: Object
-        },
-        /**
+    roomType: {
+      type: Object
+    },
+    /**
          * 예약 상세 정보 객체
          */
-        rsvDetail: {
-            type: Object
-        },
-        /**
+    rsvDetail: {
+      type: Object
+    },
+    /**
          * 작업 상태
          */
-        workStatus: {
-            type: String
-        }
+    workStatus: {
+      type: String
+    }
+  },
+  data () {
+    return {
+      rsvDetailCopy: {}, // rsvDetail 정보 복사본
+      key: 0 // 강제 렌더링을 위한 변수
+    }
+  },
+  computed: {
+    totalAmt () { // 판매가
+      return NumberUtils.numberWithCommas(this.rsvDetailCopy.saleAmt)
     },
-    data() {
-        return {
-            rsvDetailCopy: {}, // rsvDetail 정보 복사본
-            key: 0 // 강제 렌더링을 위한 변수
-        }
+    rcpmny () { // 입금가
+      return NumberUtils.numberWithCommas(this.rsvDetailCopy.payAmt)
     },
-    computed: {
-        totalAmt() { // 판매가
-            return NumberUtils.numberWithCommas(this.rsvDetailCopy.saleAmt)
-        },
-        rcpmny() { // 입금가
-            return NumberUtils.numberWithCommas(this.rsvDetailCopy.payAmt)
-        },
-        ciYmd() {
-            if (this.rsvDetailCopy.ciYmd) {
-                return moment(this.rsvDetailCopy.ciYmd).format("YYYY-MM-DD")
-            }
-            return ""
-        },
-        coYmd() {
-            if (this.rsvDetailCopy.coYmd) {
-                return moment(this.rsvDetailCopy.coYmd).format("YYYY-MM-DD")
-            }
-            return ""
-        }
+    ciYmd () {
+      if (this.rsvDetailCopy.ciYmd) {
+        return moment(this.rsvDetailCopy.ciYmd).format('YYYY-MM-DD')
+      }
+      return ''
     },
-    watch: {
-        rsvDetail: {
-            handler(newVal) {
-                this.rsvDetailCopy = newVal
-                if (this.workStatus === "" || this.workStatus === "detail") {
-                    this.key += 1 // 이용자 연락처가 바뀐걸 인식하지 못하는 버그를 위한 변수
-                }
-            }
-        },
-        rsvDetailCopy: {
-            handler(newVal) {
-                if (
-                    this.rsvDetailCopy.smsPhone &&
+    coYmd () {
+      if (this.rsvDetailCopy.coYmd) {
+        return moment(this.rsvDetailCopy.coYmd).format('YYYY-MM-DD')
+      }
+      return ''
+    }
+  },
+  watch: {
+    rsvDetail: {
+      handler (newVal) {
+        this.rsvDetailCopy = newVal
+        if (this.workStatus === '' || this.workStatus === 'detail') {
+          this.key += 1 // 이용자 연락처가 바뀐걸 인식하지 못하는 버그를 위한 변수
+        }
+      }
+    },
+    rsvDetailCopy: {
+      handler (newVal) {
+        if (
+          this.rsvDetailCopy.smsPhone &&
                     this.rsvDetailCopy.smsPhone.length > 12 &&
                     this.rsvDetailCopy.payAmt
-                ) {
-                    this.$emit("change-rsv-detail", newVal)
-                }
-            },
-            deep: true
+        ) {
+          this.$emit('change-rsv-detail', newVal)
         }
-    },
-    methods: {
-        /**
+      },
+      deep: true
+    }
+  },
+  methods: {
+    /**
          * 일별 요금조회 팝업 오픈
          */
-        openDayAmtInfo() {
-            this.$store.dispatch("dialog/open", {
-                componentPath: "/Ota/RoomReservation/popup/DayAmtPopup",
-                params: {
-                    dayAmtList: this.dayAmtList
-                },
-                options: {
-                    fullscreen: false,
-                    scrollable: true,
-                    width: 700
-                }
-            })
+    openDayAmtInfo () {
+      this.$store.dispatch('dialog/open', {
+        componentPath: '/Ota/RoomReservation/popup/DayAmtPopup',
+        params: {
+          dayAmtList: this.dayAmtList
         },
-        /**
+        options: {
+          fullscreen: false,
+          scrollable: true,
+          width: 700
+        }
+      })
+    },
+    /**
          * 일별 요금조회 팝업 오픈(예약 후)
          */
-        async openDayAmtInfoAfterRsv() {
-            let type = ""
-            // 객실인지 패키지 인지 확인
-            this.roomType.value === "OTA_ROOM_API" ? type = "room" : type = "pkg"
-            const res = await roomService.selectAmountAfterRsv(type, this.rsvDetailCopy.keyRsvNo)
-            await this.$store.dispatch("dialog/open", {
-                componentPath: "/Ota/RoomReservation/popup/DayAmtPopup",
-                params: {
-                    dayAmtList: res.data,
-                    isBefore: false
-                },
-                options: {
-                    fullscreen: false,
-                    scrollable: true,
-                    width: 700
-                }
-            })
+    async openDayAmtInfoAfterRsv () {
+      let type = ''
+      // 객실인지 패키지 인지 확인
+      this.roomType.value === 'OTA_ROOM_API' ? type = 'room' : type = 'pkg'
+      const res = await roomService.selectAmountAfterRsv(type, this.rsvDetailCopy.keyRsvNo)
+      await this.$store.dispatch('dialog/open', {
+        componentPath: '/Ota/RoomReservation/popup/DayAmtPopup',
+        params: {
+          dayAmtList: res.data,
+          isBefore: false
+        },
+        options: {
+          fullscreen: false,
+          scrollable: true,
+          width: 700
         }
+      })
     }
+  }
 }
 </script>

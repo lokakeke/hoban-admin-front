@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import service from "Api/modules/api/serviceIp.service"
-import serviceManagementService from "Api/modules/api/serviceManagement.service"
-import commonCodeService from "Api/modules/system/commonCode.service"
+import service from 'Api/modules/api/serviceIp.service'
+import serviceManagementService from 'Api/modules/api/serviceManagement.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
 
 export default {
   props: { item: Object, isNew: Boolean, insertData: Object, insert: Function },

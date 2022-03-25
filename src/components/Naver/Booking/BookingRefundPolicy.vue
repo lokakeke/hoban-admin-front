@@ -268,9 +268,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import service from "Api/modules/naver/booking.service"
-import { mapGetters } from "vuex"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import service from 'Api/modules/naver/booking.service'
+import { mapGetters } from 'vuex'
 
 export default {
   extends: DialogBase,

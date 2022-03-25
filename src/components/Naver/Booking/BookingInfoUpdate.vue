@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import service from "Api/modules/naver/booking.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import service from 'Api/modules/naver/booking.service'
 
 export default {
   extends: DialogBase,

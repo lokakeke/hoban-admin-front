@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { Chart } from "highcharts-vue"
+import { Chart } from 'highcharts-vue'
 
 export default {
   name: 'Chart',

@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import service from "Api/modules/partner/partnerMenuAuth.service"
+import service from 'Api/modules/partner/partnerMenuAuth.service'
 
 export default {
   props: { load: Function },

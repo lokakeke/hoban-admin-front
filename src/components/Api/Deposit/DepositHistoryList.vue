@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import service from "Api/modules/api/depositHistory.service"
+import service from 'Api/modules/api/depositHistory.service'
 
 export default {
   name: 'DepositHistoryManagement',

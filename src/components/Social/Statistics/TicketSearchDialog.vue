@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import statisticsService from "Api/modules/social/statistics.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import statisticsService from 'Api/modules/social/statistics.service'
 
 export default {
   extends: DialogBase,

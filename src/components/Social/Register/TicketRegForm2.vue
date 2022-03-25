@@ -165,10 +165,10 @@
 </template>
 
 <script>
-import ticketCalcService from "Api/modules/social/ticketCalc.service"
-import commonCodeService from "Api/modules/system/commonCode.service"
-import storeService from "Api/modules/system/store.service"
-import ticketSearchService from "../../../api/modules/social/ticketSearch.service"
+import ticketCalcService from 'Api/modules/social/ticketCalc.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import storeService from 'Api/modules/system/store.service'
+import ticketSearchService from 'Api/modules/social/ticketSearch.service'
 
 export default {
   props: { data: Object, close: Function, step: Function },

@@ -1,11 +1,11 @@
 /**
  * 메뉴바 오른쪽 상단의 알림
  */
-import Vue from "vue"
-import router from "@/router"
-import store from "@/store"
-import systemService from "Api/modules/notification/notification.service"
-import partnerService from "Api/modules/notification/partnerNotification.service"
+import Vue from 'vue'
+import router from '@/router'
+import store from '@/store'
+import systemService from 'Api/modules/notification/notification.service'
+import partnerService from 'Api/modules/notification/partnerNotification.service'
 
 // state
 const state = {

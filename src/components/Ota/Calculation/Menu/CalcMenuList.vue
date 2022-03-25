@@ -23,15 +23,15 @@
             v-on="on"
           >{{ calcMenuCode.commCdNm }}</v-btn>
         </template>
-        클릭하면 "{{ calcMenu.ptnrNm }}" 파트너에게 "{{ calcMenuCode.commCdNm }}" 정산 메뉴를 {{ calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? '숨깁니다.' : '노출합니다.' }}
+        클릭하면 "{{ calcMenu.ptnrNm }}" 파트너에게 " {{ calcMenuCode.commCdNm }}" 정산 메뉴를 {{ calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? '숨깁니다.' : '노출합니다.' }}
       </v-tooltip>
     </v-list-item>
   </v-list>
 </template>
 
 <script>
-import calculationMenuService from "Api/modules/ota/calculationMenu.service"
-import commonCodeService from "Api/modules/system/commonCode.service"
+import calculationMenuService from 'Api/modules/ota/calculationMenu.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
 
 export default {
   name: 'CalcMenuList',

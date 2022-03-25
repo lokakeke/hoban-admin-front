@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import ticketService from "Api/modules/social/ticket.service"
+import ticketService from 'Api/modules/social/ticket.service'
 
 export default {
   props: { data: Object, close: Function, step: Function },

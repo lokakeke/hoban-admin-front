@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import PartnerInventoryDetailSetDaily
   from 'Components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetDaily.vue'
 

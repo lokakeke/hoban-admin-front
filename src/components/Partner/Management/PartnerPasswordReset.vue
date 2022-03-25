@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import partnerAuthService from "Api/modules/partner/partnerAuth.service"
-import partnerChargeService from "Api/modules/partner/partnerCharge.service"
-import MaskTelNumber from "@/components/Mask/MaskTelNumber.vue"
+import partnerAuthService from 'Api/modules/partner/partnerAuth.service'
+import partnerChargeService from 'Api/modules/partner/partnerCharge.service'
+import MaskTelNumber from 'Components/Mask/MaskTelNumber.vue'
 
 export default {
   components: { MaskTelNumber },

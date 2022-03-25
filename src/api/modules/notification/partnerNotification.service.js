@@ -1,4 +1,4 @@
-import api from "Api"
+import api from 'Api'
 
 /**
  * Partner Notification 관련

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import BoardRoomAmountView from 'Components/Board/Amount/BoardRoomAmountView.vue'
 
 export default {

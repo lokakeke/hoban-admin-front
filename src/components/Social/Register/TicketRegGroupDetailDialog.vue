@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
