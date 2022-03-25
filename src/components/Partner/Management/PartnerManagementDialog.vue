@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import PartnerBasicInformation from "./PartnerBasicInformation"
-import PartnerAddChargeManagement from "./PartnerAddChargeManagement"
-import PartnerApiManagement from "./PartnerApiManagement"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import PartnerBasicInformation from './PartnerBasicInformation'
+import PartnerAddChargeManagement from './PartnerAddChargeManagement'
+import PartnerApiManagement from './PartnerApiManagement'
 
 export default {
   extends: DialogBase,

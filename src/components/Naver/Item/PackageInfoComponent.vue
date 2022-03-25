@@ -108,8 +108,8 @@
 
 <script>
 
-import itemService from "Api/modules/naver/item.service"
-import PackageRoomInfoComponent from "./PackageRoomInfoComponent"
+import itemService from 'Api/modules/naver/item.service'
+import PackageRoomInfoComponent from 'Components/Naver/Item/PackageRoomInfoComponent.vue'
 
 export default {
   name: 'PackageInfoComponent',

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import ItemInfoComponent from 'Components/Naver/Item/ItemInfoComponent.vue'
 import CommonSnackbars from 'Components/Common/CommonSnackbars.vue'
 import itemService from 'Api/modules/naver/item.service'

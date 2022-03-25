@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import systemService from "Api/modules/notification/notification.service"
-import partnerService from "Api/modules/notification/partnerNotification.service"
+import systemService from 'Api/modules/notification/notification.service'
+import partnerService from 'Api/modules/notification/partnerNotification.service'
 
-import { mapGetters } from "vuex"
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'NotificationDetails',

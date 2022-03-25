@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import excelMixin from "Mixins/excelMixin"
-import DialogBase from "@/components/Dialog/DialogBase"
-import service from "Api/modules/naver/calculateDay.service"
+import excelMixin from 'Mixins/excelMixin'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import service from 'Api/modules/naver/calculateDay.service'
 
 export default {
   extends: DialogBase,

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import OnlyRoomInfoComponent from "./OnlyRoomInfoComponent"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import OnlyRoomInfoComponent from './OnlyRoomInfoComponent'
 
 export default {
   extends: DialogBase,

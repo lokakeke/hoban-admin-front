@@ -1,9 +1,9 @@
-import primaryTheme from "Themes/primaryTheme"
-import dangerTheme from "Themes/dangerTheme"
-import warningTheme from "Themes/warningTheme"
-import infoTheme from "Themes/infoTheme"
-import accentTheme from "Themes/accentTheme"
-import successTheme from "Themes/successTheme"
+import primaryTheme from 'Themes/primaryTheme'
+import dangerTheme from 'Themes/dangerTheme'
+import warningTheme from 'Themes/warningTheme'
+import infoTheme from 'Themes/infoTheme'
+import accentTheme from 'Themes/accentTheme'
+import successTheme from 'Themes/successTheme'
 
 // languages
 export const languages = [

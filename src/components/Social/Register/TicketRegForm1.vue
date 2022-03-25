@@ -297,8 +297,8 @@
 </template>
 
 <script>
-import ticketSearchService from "Api/modules/social/ticketSearch.service"
-import commonCodeService from "Api/modules/system/commonCode.service"
+import ticketSearchService from 'Api/modules/social/ticketSearch.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
 
 export default {
   props: { data: Object, complete: Boolean, close: Function, step: Function },

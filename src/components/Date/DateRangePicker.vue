@@ -75,8 +75,7 @@
 </template>
 
 <script>
-import DatePicker from "./DatePicker"
-
+import DatePicker from 'Components/Date/DatePicker.vue'
 
 export default {
   name: 'DateRangePicker',

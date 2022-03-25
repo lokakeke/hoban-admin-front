@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import menuService from "Api/modules/system/menu.service"
+import menuService from 'Api/modules/system/menu.service'
 
 export default {
   name: 'MenuManagementForm',

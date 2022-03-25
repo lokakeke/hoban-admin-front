@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import calcPenaltyRuleService from "Api/modules/ota/calculationPenaltyRule.service"
+import calcPenaltyRuleService from 'Api/modules/ota/calculationPenaltyRule.service'
 
 export default {
   name: 'PenaltyRuleTable',

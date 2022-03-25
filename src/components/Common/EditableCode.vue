@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import StringUtil from "@/utils/string.util"
+import StringUtil from '@/utils/string.util'
 
 export default {
   name: 'EditableCode',

@@ -87,9 +87,9 @@
 </template>
 
 <script>
-import itemService from "Api/modules/naver/item.service"
-import commonCodeService from "../../../api/modules/system/commonCode.service"
-import { mapGetters } from "vuex"
+import itemService from 'Api/modules/naver/item.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'OnlyRoomInfoComponent',

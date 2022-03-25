@@ -69,9 +69,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import boardNoticeService from "Api/modules/system/boardNotice.service"
-import smsNotiManagementService from "Api/modules/system/smsNotiManagement.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import boardNoticeService from 'Api/modules/system/boardNotice.service'
+import smsNotiManagementService from 'Api/modules/system/smsNotiManagement.service'
 
 export default {
   name: 'BoardNoticeTalkSendDialog',

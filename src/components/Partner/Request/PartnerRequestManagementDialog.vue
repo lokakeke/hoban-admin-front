@@ -97,9 +97,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import partnerRequestService from "Api/modules/partner/partnerRequest.service"
-import commonCodeService from "Api/modules/system/commonCode.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import partnerRequestService from 'Api/modules/partner/partnerRequest.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
 
 const DEFAULT_FORM = {
   title: '',

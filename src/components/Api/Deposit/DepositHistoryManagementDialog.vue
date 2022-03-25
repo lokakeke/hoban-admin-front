@@ -104,8 +104,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import depositHistoryService from "Api/modules/api/depositHistory.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import depositHistoryService from 'Api/modules/api/depositHistory.service'
 
 export default {
   name: 'DepositHistoryManagementDialog',

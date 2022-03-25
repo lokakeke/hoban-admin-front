@@ -116,9 +116,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import packageService from "Api/modules/ota/package.service"
-import calculationService from "Api/modules/ota/calculation.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import packageService from 'Api/modules/ota/package.service'
+import calculationService from 'Api/modules/ota/calculation.service'
 
 export default {
   extends: DialogBase,

@@ -214,10 +214,9 @@
 </template>
 
 <script>
-import commonService from "Api/modules/system/commonCode.service"
-import roomService from "Api/modules/ota/roomReservation.service"
-import partnerTermService from "Api/modules/partner/partnerTerm.service"
-
+import commonService from 'Api/modules/system/commonCode.service'
+import roomService from 'Api/modules/ota/roomReservation.service'
+import partnerTermService from 'Api/modules/partner/partnerTerm.service'
 
 export default {
   props: {

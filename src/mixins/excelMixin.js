@@ -1,7 +1,5 @@
-import api from "Api"
+import api from 'Api'
 // (woojung)
-
-
 
 const excelMixin = {
   methods: {

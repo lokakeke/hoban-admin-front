@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import roomTypeService from "Api/modules/ota/roomType.service"
+import roomTypeService from 'Api/modules/ota/roomType.service'
 
 export default {
   name: 'PartnerExceptionSetting',

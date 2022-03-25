@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import packageService from "../../../api/modules/ota/package.service"
-import commonCodeService from "Api/modules/system/commonCode.service"
+import packageService from 'Api/modules/ota/package.service'
+import commonCodeService from 'Api/modules/system/commonCode.service'
 
 export default {
   name: 'RoomPackageTypeForm',

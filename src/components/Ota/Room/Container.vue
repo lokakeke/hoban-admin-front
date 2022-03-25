@@ -50,11 +50,11 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import BasicInformation from "./BasicInformation"
-import PartnerExceptionSetting from "./PartnerExceptionSetting"
-import RoomTypeInformation from "./RoomTypeInformation"
-import HolidayInformation from "./HolidayInformation"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import BasicInformation from './BasicInformation'
+import PartnerExceptionSetting from './PartnerExceptionSetting'
+import RoomTypeInformation from './RoomTypeInformation'
+import HolidayInformation from './HolidayInformation'
 
 export default {
   extends: DialogBase,

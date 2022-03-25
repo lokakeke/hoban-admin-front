@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import partnerApiService from "Api/modules/partner/partnerApi.service"
+import partnerApiService from 'Api/modules/partner/partnerApi.service'
 
 export default {
   name: 'PartnerApiManagement',

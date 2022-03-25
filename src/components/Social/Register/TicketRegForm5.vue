@@ -139,8 +139,8 @@
 </template>
 
 <script>
-import ticketSearchService from "Api/modules/social/ticketSearch.service"
-import "moment/locale/ko"
+import ticketSearchService from 'Api/modules/social/ticketSearch.service'
+import 'moment/locale/ko'
 // moment.locale('ko');
 
 export default {

@@ -215,33 +215,33 @@
 </template>
 
 <script>
-import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble, Node } from "tiptap"
+import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble, Node } from 'tiptap'
 import {
-    Blockquote,
-    Bold,
-    BulletList,
-    Code,
-    CodeBlock,
-    HardBreak,
-    Heading,
-    History,
-    Image,
-    Italic,
-    Link,
-    ListItem,
-    OrderedList,
-    Placeholder,
-    Strike,
-    Table,
-    TableCell,
-    TableHeader,
-    TableRow,
-    TodoItem,
-    TodoList,
-    Underline
-} from "tiptap-extensions"
-import { toggleBlockType } from "tiptap-commands"
-import VEditorBtn from "./VEditorBtn"
+  Blockquote,
+  Bold,
+  BulletList,
+  Code,
+  CodeBlock,
+  HardBreak,
+  Heading,
+  History,
+  Image,
+  Italic,
+  Link,
+  ListItem,
+  OrderedList,
+  Placeholder,
+  Strike,
+  Table,
+  TableCell,
+  TableHeader,
+  TableRow,
+  TodoItem,
+  TodoList,
+  Underline
+} from 'tiptap-extensions'
+import { toggleBlockType } from 'tiptap-commands'
+import VEditorBtn from './VEditorBtn'
 
 class CustomParagraph extends Node {
   get name () {

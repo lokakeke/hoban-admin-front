@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import CommonTooltip from "@/components/Common/CommonTooltip"
+import CommonTooltip from 'Components/Common/CommonTooltip.vue'
 
 export default {
   name: 'ItemInfoComponent',

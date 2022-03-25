@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import BoardNoticeViewForm from 'Components/Board/Notice/BoardNoticeViewForm.vue'
 
 export default {

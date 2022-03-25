@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import itemService from "Api/modules/naver/item.service"
-import DialogBase from "@/components/Dialog/DialogBase"
+import itemService from 'Api/modules/naver/item.service'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

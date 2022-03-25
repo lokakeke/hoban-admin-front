@@ -218,7 +218,7 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import SelectAllList from 'Components/Select/SelectAllList.vue'
 import boardNoticeService from 'Api/modules/system/boardNotice.service'
 import storeService from 'Api/modules/system/store.service'

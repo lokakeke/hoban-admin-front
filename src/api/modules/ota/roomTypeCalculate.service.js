@@ -1,5 +1,5 @@
-import tempJsonData from "./temp/calcData"
-import store from "@/store"
+import tempJsonData from './temp/calcData'
+import store from '@/store'
 
 const roomTypeCalculateService = {
   /**

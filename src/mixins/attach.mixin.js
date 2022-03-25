@@ -1,5 +1,5 @@
-import draggable from "vuedraggable"
-import ImageCompressor from "image-compressor.js"
+import draggable from 'vuedraggable'
+import ImageCompressor from 'image-compressor.js'
 
 const mixin = {
   components: {

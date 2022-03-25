@@ -371,7 +371,7 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import NumberUtils from '@/utils/number.util'
 import CommissionOption from 'Components/Ota/Commission/Option/CommissionOption.vue'
 import commonCodeService from 'Api/modules/system/commonCode.service'

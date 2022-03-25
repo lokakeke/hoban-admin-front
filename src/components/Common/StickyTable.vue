@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { ResizeObserver as Polyfill } from "@juggle/resize-observer"
+import { ResizeObserver as Polyfill } from '@juggle/resize-observer'
 
 export default {
   name: 'StickyTable',

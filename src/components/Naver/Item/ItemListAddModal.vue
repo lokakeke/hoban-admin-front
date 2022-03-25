@@ -182,11 +182,11 @@
 </template>
 
 <script>
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import ItemInfoComponent from './ItemInfoComponent'
 import CommonSnackbars from 'Components/Common/CommonSnackbars.vue'
 import itemService from 'Api/modules/naver/item.service'
-import CommonTooltip from '@/components/Common/CommonTooltip'
+import CommonTooltip from 'Components/Common/CommonTooltip.vue'
 
 export default {
   extends: DialogBase,

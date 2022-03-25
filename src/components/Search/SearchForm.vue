@@ -368,10 +368,9 @@
    * @event refresh: 필수 항목을 제외한 모든 항목이 초기화하여 검색된다.
    **/
 
-import commonCodeService from "Api/modules/system/commonCode.service"
-import partnerService from "Api/modules/partner/partner.service"
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import partnerService from 'Api/modules/partner/partner.service'
 // (woojung)
-
 
 export default {
   props: {

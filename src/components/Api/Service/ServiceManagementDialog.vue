@@ -49,10 +49,10 @@
 </template>
 
 <script>
-import ApiServiceTab from "./ApiServiceTab"
-import InformationTab from "./InformationTab"
-import IPManagementTab from "./IPManagementTab"
-import DialogBase from "@/components/Dialog/DialogBase"
+import ApiServiceTab from './ApiServiceTab'
+import InformationTab from './InformationTab'
+import IPManagementTab from './IPManagementTab'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

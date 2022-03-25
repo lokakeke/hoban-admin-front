@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import service from "Api/modules/api/serviceOpen.service"
+import service from 'Api/modules/api/serviceOpen.service'
 
 export default {
   props: { item: Object, isNew: Boolean, insertData: Object },

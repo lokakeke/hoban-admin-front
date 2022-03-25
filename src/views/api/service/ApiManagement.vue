@@ -98,8 +98,8 @@
 </template>
 
 <script>
-import commonCodeService from "Api/modules/system/commonCode.service"
-import serviceOpenService from "Api/modules/api/serviceOpen.service"
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import serviceOpenService from 'Api/modules/api/serviceOpen.service'
 
 export default {
   name: 'ApiManagement',

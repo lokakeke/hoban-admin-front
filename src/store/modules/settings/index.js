@@ -1,11 +1,10 @@
 /**
  * Settings Module
  */
-import { headerFilters, languages, routerAnimations, sidebarBackgroundImages, sidebarFilters, themes } from "./data"
+import { headerFilters, languages, routerAnimations, sidebarBackgroundImages, sidebarFilters, themes } from './data'
 
-import boardNoticeService from "Api/modules/system/boardNotice.service"
+import boardNoticeService from 'Api/modules/system/boardNotice.service'
 // (woojung)
-
 
 const state = { // dark mode
   collapseSidebar: false, // mini sidevar

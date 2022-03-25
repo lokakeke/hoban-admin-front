@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import service from "Api/modules/naver/business.service"
-import DialogBase from "@/components/Dialog/DialogBase"
-import BusinessInfoComponent from "./BusinessInfoComponent"
+import service from 'Api/modules/naver/business.service'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import BusinessInfoComponent from './BusinessInfoComponent'
 
 export default {
   extends: DialogBase,

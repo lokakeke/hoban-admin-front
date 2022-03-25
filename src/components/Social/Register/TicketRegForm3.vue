@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import commonCodeService from "Api/modules/system/commonCode.service"
-import ticketService from "Api/modules/social/ticket.service"
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import ticketService from 'Api/modules/social/ticket.service'
 
 export default {
   props: { data: Object, close: Function, step: Function },

@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import service from "Api/modules/naver/scheduleSend.service"
-import DialogBase from "@/components/Dialog/DialogBase"
-import itemService from "Api/modules/naver/item.service"
+import service from 'Api/modules/naver/scheduleSend.service'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import itemService from 'Api/modules/naver/item.service'
 
 export default {
   extends: DialogBase,

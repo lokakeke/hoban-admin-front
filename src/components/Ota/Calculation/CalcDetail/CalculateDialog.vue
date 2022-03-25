@@ -276,10 +276,10 @@
 </template>
 
 <script>
-import calculationService from "Api/modules/ota/calculation.service"
-import VirtualScrollTable from "../../../Common/VirtualScrollTable"
-import excelMixin from "../../../../mixins/excelMixin"
-import { mapGetters } from "vuex"
+import calculationService from 'Api/modules/ota/calculation.service'
+import VirtualScrollTable from 'Components/Common/VirtualScrollTable.vue'
+import excelMixin from 'Mixins/excelMixin'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'CalculateDialog',

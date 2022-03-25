@@ -199,9 +199,9 @@
 </template>
 
 <script>
-import excelMixin from "Mixins/excelMixin"
-import boardAmountService from "Api/modules/system/boardAmount.service"
-import roomReservation from "Api/modules/ota/roomReservation.service"
+import excelMixin from 'Mixins/excelMixin'
+import boardAmountService from 'Api/modules/system/boardAmount.service'
+import roomReservation from 'Api/modules/ota/roomReservation.service'
 
 export default {
   name: 'BoardPackageAmountView',

@@ -1,15 +1,15 @@
 // Routes - 중간 모듈단위로 import 하여 사용
-import MainRoutes from "./modules/main"
-import SystemRoutes from "./modules/system"
-import SocialRoutes from "./modules/social"
-import OtaRoutes from "./modules/ota"
-import ApiRoutes from "./modules/api"
-import PartnerRoutes from "./modules/partner"
-import NaverRoutes from "./modules/naver"
-import BoardRoutes from "./modules/board"
+import MainRoutes from './modules/main'
+import SystemRoutes from './modules/system'
+import SocialRoutes from './modules/social'
+import OtaRoutes from './modules/ota'
+import ApiRoutes from './modules/api'
+import PartnerRoutes from './modules/partner'
+import NaverRoutes from './modules/naver'
+import BoardRoutes from './modules/board'
 
-import Vue from "vue"
-import Router from "vue-router"
+import Vue from 'vue'
+import Router from 'vue-router'
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {

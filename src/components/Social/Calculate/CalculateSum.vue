@@ -354,7 +354,7 @@
 </template>
 
 <script>
-import calculateService from "Api/modules/social/calculate.service"
+import calculateService from 'Api/modules/social/calculate.service'
 
 export default {
   name: 'CalculateSum',

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import partnerAuthService from "Api/modules/partner/partnerAuth.service"
+import partnerAuthService from 'Api/modules/partner/partnerAuth.service'
 
 export default {
   name: 'PartnerLoginForAdmin',

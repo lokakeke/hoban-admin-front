@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import storeService from "Api/modules/system/store.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import storeService from 'Api/modules/system/store.service'
 
 export default {
   name: 'CommissionOptionGroupCreateDialog',

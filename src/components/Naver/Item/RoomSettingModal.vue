@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import itemService from "Api/modules/naver/item.service"
-import DialogBase from "@/components/Dialog/DialogBase"
-import { mapGetters } from "vuex"
-import OnlyRoomInfoComponent from "./OnlyRoomInfoComponent"
+import itemService from 'Api/modules/naver/item.service'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import { mapGetters } from 'vuex'
+import OnlyRoomInfoComponent from './OnlyRoomInfoComponent'
 
 export default {
   extends: DialogBase,

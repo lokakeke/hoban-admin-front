@@ -77,8 +77,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import packageService from "Api/modules/ota/package.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import packageService from 'Api/modules/ota/package.service'
 
 export default {
   extends: DialogBase,

@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import boardQnaService from "Api/modules/system/boardQna.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import boardQnaService from 'Api/modules/system/boardQna.service'
 
 const DEFAULT_FORM = {
   title: '',

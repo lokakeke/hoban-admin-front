@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import roomTypeService from "Api/modules/ota/roomType.service"
-import DialogBase from "@/components/Dialog/DialogBase"
+import roomTypeService from 'Api/modules/ota/roomType.service'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

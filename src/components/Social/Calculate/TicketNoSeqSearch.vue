@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import calculateService from "Api/modules/social/calculate.service"
-import excelMixin from "Mixins/excelMixin"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import calculateService from 'Api/modules/social/calculate.service'
+import excelMixin from 'Mixins/excelMixin'
 
 export default {
   extends: DialogBase,

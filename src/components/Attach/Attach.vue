@@ -77,9 +77,9 @@
 </template>
 
 <script>
-import VInput from "vuetify/lib/components/VInput/VInput"
-import AttachMixin from "Mixins/attach.mixin"
-import StringUtil from "@/utils/string.util"
+import VInput from 'vuetify/lib/components/VInput/VInput'
+import AttachMixin from 'Mixins/attach.mixin'
+import StringUtil from '@/utils/string.util'
 
 export default {
   name: 'Attach',

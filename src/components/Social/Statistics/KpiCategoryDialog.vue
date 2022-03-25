@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import DialogBase from "@/components/Dialog/DialogBase"
-import kpiService from "Api/modules/social/kpi.service"
+import DialogBase from 'Components/Dialog/DialogBase.vue'
+import kpiService from 'Api/modules/social/kpi.service'
 
 export default {
   extends: DialogBase,

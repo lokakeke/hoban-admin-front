@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import authService from "Api/modules/system/accountAuth.service"
+import authService from 'Api/modules/system/accountAuth.service'
 
 export default {
   props: {

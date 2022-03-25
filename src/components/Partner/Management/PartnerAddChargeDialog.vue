@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import partnerChargeService from "Api/modules/partner/partnerCharge.service"
-import DialogBase from "@/components/Dialog/DialogBase"
+import partnerChargeService from 'Api/modules/partner/partnerCharge.service'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

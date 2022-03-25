@@ -203,7 +203,7 @@
 <script>
 import service from 'Api/modules/naver/booking.service'
 import itemService from 'Api/modules/naver/item.service'
-import DialogBase from '@/components/Dialog/DialogBase'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 import BookingInfoComponent from 'Components/Naver/Booking/BookingInfoComponent.vue'
 import BookingManagementTable from 'Components/Naver/Booking/BookingManagementTable.vue'
 import { mapGetters } from 'vuex'

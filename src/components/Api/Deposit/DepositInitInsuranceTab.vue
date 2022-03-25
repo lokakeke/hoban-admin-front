@@ -199,9 +199,9 @@
 </template>
 
 <script>
-import AppCard from "../../App/AppCard.vue"
-import commonCodeService from "Api/modules/system/commonCode.service"
-import depositAccountService from "Api/modules/api/depositAccount.service"
+import AppCard from 'Components/App/AppCard.vue'
+import commonCodeService from 'Api/modules/system/commonCode.service'
+import depositAccountService from 'Api/modules/api/depositAccount.service'
 
 export default {
   components: { AppCard },

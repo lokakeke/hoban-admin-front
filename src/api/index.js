@@ -1,8 +1,8 @@
-import Vue from "vue"
-import axios from "axios"
+import Vue from 'vue'
+import axios from 'axios'
 
-import NProgress from "nprogress"
-import store from "@/store"
+import NProgress from 'nprogress'
+import store from '@/store'
 
 // 알림쪽 spinner 삭제
 NProgress.configure({ showSpinner: false })

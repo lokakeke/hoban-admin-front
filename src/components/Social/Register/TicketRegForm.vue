@@ -54,12 +54,12 @@
 </template>
 
 <script>
-import TicketRegForm1 from "./TicketRegForm1"
-import TicketRegForm2 from "./TicketRegForm2"
-import TicketRegForm3 from "./TicketRegForm3"
-import TicketRegForm4 from "./TicketRegForm4"
-import TicketRegForm5 from "./TicketRegForm5"
-import DialogBase from "@/components/Dialog/DialogBase"
+import TicketRegForm1 from './TicketRegForm1'
+import TicketRegForm2 from './TicketRegForm2'
+import TicketRegForm3 from './TicketRegForm3'
+import TicketRegForm4 from './TicketRegForm4'
+import TicketRegForm5 from './TicketRegForm5'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

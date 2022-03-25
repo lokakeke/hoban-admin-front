@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import storeService from "Api/modules/system/store.service"
+import storeService from 'Api/modules/system/store.service'
 
 export default {
   props: {

@@ -223,9 +223,9 @@
 </template>
 
 <script>
-import excelMixin from "Mixins/excelMixin"
-import boardAmountService from "Api/modules/system/boardAmount.service"
-import roomTypeService from "Api/modules/ota/roomType.service"
+import excelMixin from 'Mixins/excelMixin'
+import boardAmountService from 'Api/modules/system/boardAmount.service'
+import roomTypeService from 'Api/modules/ota/roomType.service'
 
 export default {
   name: 'BoardRoomAmountView',

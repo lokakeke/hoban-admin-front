@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import ticketSearchService from "Api/modules/social/ticketSearch.service"
-import DialogBase from "@/components/Dialog/DialogBase"
+import ticketSearchService from 'Api/modules/social/ticketSearch.service'
+import DialogBase from 'Components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

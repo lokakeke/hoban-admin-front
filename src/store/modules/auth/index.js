@@ -1,8 +1,8 @@
-import store from "@/store"
-import accountAuthService from "Api/modules/system/accountAuth.service"
-import router from "@/router"
-import Nprogress from "nprogress"
-import util from "@/utils/cookie.util"
+import store from '@/store'
+import accountAuthService from 'Api/modules/system/accountAuth.service'
+import router from '@/router'
+import Nprogress from 'nprogress'
+import util from '@/utils/cookie.util'
 
 /**
  * Auth Module

@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import { ResizeObserver as Polyfill } from "@juggle/resize-observer"
-import StringUtil from "@/utils/string.util"
+import { mapGetters } from 'vuex'
+import { ResizeObserver as Polyfill } from '@juggle/resize-observer'
+import StringUtil from '@/utils/string.util'
 
 export default {
   props: {
