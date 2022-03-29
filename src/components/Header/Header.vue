@@ -16,7 +16,10 @@
             <v-app-bar-nav-icon @click.stop="close" class="v-step-0 ml-1" title="메뉴 최소화"></v-app-bar-nav-icon>
             <v-container fluid class="py-0 pr-1">
                 <v-row align="center" no-gutters>
-                    <v-col lg="10" md="9" sm="8" cols="7">
+                    <v-col>
+                        <gnb-menu></gnb-menu>
+                    </v-col>
+                    <v-col lg="6" md="9" sm="8" cols="7">
                         <page-title-bar></page-title-bar>
                     </v-col>
                     <v-col lg="2" md="3" sm="4" cols="5" class="text-right">
@@ -39,6 +42,7 @@ import Sidebar from 'Components/Sidebar/Sidebar.vue'
 import Notifications from 'Components/Header/Notifications.vue'
 import PageTitleBar from 'Components/Header/PageTitleBar.vue'
 import { mapActions, mapGetters } from 'vuex'
+import GnbMenu from '@/components/Sidebar/GnbMenu'
 
 export default {
   props: {
@@ -114,6 +118,7 @@ export default {
     }
   },
   components: {
+    GnbMenu,
     appSidebar: Sidebar,
     Notifications,
     PageTitleBar

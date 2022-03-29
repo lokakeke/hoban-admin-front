@@ -8,11 +8,6 @@ Hoban Hotel&Resort API 관리 시스템 홈페이지
   다운로드: https://nodejs.org/ko
 * git client 최신 버전 설치.
   다운로드: https://git-scm.com/downloads
-* ESLint 설치.
-  `npm install -g eslint`
-* Vue CLI 설치.
-  `npm install -g @vue/cli`
-  <br />
 
 ##설치 (최초 1회 실행)
 1. cmd(Mac은 Terminal) 실행.
@@ -57,7 +52,7 @@ cmd에서 `package.json`이 존재하는 디렉토리로 이동 후 아래 명�
 
 ##소스에 문제가 없는데 개발서버 or 배포 스크립트 실행이 안되는 경우
 1. `/node_modules` 디렉토리 삭제.
-2. 위의 설치 과정(`npm install`)을 실행.
+2. 위의 설치 과정(`yarn install`)을 실행.
 3. 다시 작업 시도
 
 ## 기타

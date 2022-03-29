@@ -75,10 +75,10 @@
 
 // menu list style
 .menu-list {
-  border: 1px solid $sono;
+  border: 1px solid $hoban;
   border-radius: 28px;
   margin-bottom: 5px;
-  color: $sono;
+  color: $hoban;
   cursor: move;
   .v-list-item__action {
     margin: 0;
@@ -96,22 +96,22 @@
     background: #EFEBE9!important;
   }
   .v-list-item__content {
-    color: $sono;
+    color: $hoban;
   }
   .v-btn {
     .v-btn__content {
-      color: $sono;
+      color: $hoban;
       .v-icon{
-        color: $sono;
+        color: $hoban;
       }
     }
   }
   .v-icon{
-    color: $sono;
+    color: $hoban;
   }
   &.active {
     color: #FFFFFF;
-    background: $sono;
+    background: $hoban;
     .v-list-item__content {
       color: #FFFFFF;
     }
@@ -240,7 +240,7 @@ input {
 }
 
 .custom-select.theme--light.v-input:not(.v-input--is-disabled) input{
-  color: $sono;
+  color: $hoban;
   font-size: 12px;
   text-align: center;
 }

@@ -52,6 +52,9 @@ router.beforeEach(async (to, from, next) => {
     /** 로그인이 되어있는 경우 **/
     // 메뉴 접근 권한 체크 후 진행
     const res = await store.dispatch('sidebar/checkMenus', to)
+    await store.dispatch('sidebar/setCurrentMenu', to)
+    // await store.dispatch('sidebar/setCurrentMenu', to)
+
     if (res.success) {
       // 비밀번호 확인필요한 메뉴인지 체크
       if (to.meta.checkPassword === true) {
