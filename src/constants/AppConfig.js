@@ -2,9 +2,9 @@
  * App Config File
  */
 export default {
-  sonoHnrLogo: '/static/img/logo/logo_sono_hnr.svg', // Sono Hotel and Resort Logo,
-  sonoLogo: '/static/img/logo/logo_sono.svg', // Sono Logo,
-  brand: '소노 마케팅', // Brand Name
+  hobanHnrLogo: '/static/img/logo/logo_n.png', // Hoban Hotel and Resort Logo,
+  hobanLogo: '/static/img/logo/logo_n.png', // Hoban Logo,
+  brand: '호반', // Brand Name
   copyrightText: 'Daemyung Corporation LTD, All Rights Reserved.', // Copyright Text
   enableUserTour: process.env.NODE_ENV === 'production' // Enable User Tour
 }

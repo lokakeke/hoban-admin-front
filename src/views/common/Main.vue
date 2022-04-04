@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <img :src="logo" width="800px" height="800px" alt="site logo">
+<!--    <img :src="logo" width="800px" height="800px" alt="site logo">-->
   </v-row>
 </template>
 
@@ -11,7 +11,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      logo: AppConfig.sonoHnrLogo
+      logo: AppConfig.hobanHnrLogo
     }
   },
   computed: {

@@ -42,9 +42,6 @@ export default {
       }
     }
   },
-  mounted () {
-    this.password = this.value
-  },
   data () {
     return {
       capsLock: false,
@@ -54,8 +51,13 @@ export default {
   },
   methods: {
     checkCapsLock (e) {
-      this.capsLock = e.getModifierState('CapsLock')
+      if (e.getModifierState) {
+        this.capsLock = e.getModifierState('CapsLock')
+      }
     }
+  },
+  mounted () {
+    this.password = this.value
   }
 }
 </script>

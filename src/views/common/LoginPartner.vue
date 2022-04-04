@@ -14,7 +14,7 @@
     <div class="session-right text-center">
       <div class="session-table-cell">
         <div class="session-content" @keypress.enter="submit">
-          <img :src="appLogo" class="img-responsive mb-0" width="220" alt="logo" />
+          <img :src="appLogo" class="img-responsive mb-0" alt="logo" />
           <h2 class="mt-8 mb-4">소노 파트너 센터에 오신걸 환영합니다.</h2>
           <p class="fs-14">{{$t('message.enterUsernameAndPasswordToAccessControlPanelOf')}}</p>
           <v-form class="mb-5" ref="form" lazy-validation autocomplete="off">
@@ -48,7 +48,7 @@ export default {
     return {
       loginId: '',
       loginPw: '',
-      appLogo: AppConfig.sonoHnrLogo,
+      appLogo: AppConfig.hobanHnrLogo,
       items: [
         { src: '/static/img/session/crop_solbeach.jpg', logoSrc: '/static/img/session/logo_small_solBeach.png' },
         { src: '/static/img/session/crop_sonobelle.jpg', logoSrc: '/static/img/session/logo_small_sonoBelle.png' },

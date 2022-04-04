@@ -2,39 +2,11 @@
 .session-wrapper {
   position: relative;
   height: 100%;
-  .session-left {
-    text-align: center;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 600px;
-    height: 100%;
-    overflow: hidden;
-    top: 0;
-    bottom: 0;
-    .slick-slider {
-      width: 31.25rem; //500px
-      .slick-dots {
-        li {
-          &.slick-active {
-            color: $light;
-          }
-          button:before {
-            color: $light;
-          }
-        }
-      }
-    }
-  }
-  .session-right {
-    margin-left: 31.25rem; //500px;
-    .session-table-cell {
-      padding-top: 5rem; //80px;
-      .session-content {
-        max-width: 31.25rem; //500px;
-        margin: 0 auto;
-      }
+  .session-table-cell {
+    padding-top: 5rem; //80px;
+    .session-content {
+      max-width: 31.25rem; //500px;
+      margin: 0 auto;
     }
   }
 }
@@ -146,39 +118,8 @@
 
 // Responsive
 @media (max-width: 1200px) {
-  .session-wrapper {
-    .session-left {
-      .slick-slider {
-        width: 25rem; //400px;
-      }
-    }
-    .session-right {
-      margin-left: 25rem; //400px;
-    }
-  }
 }
 @media (max-width: 1000px) {
-  .session-wrapper {
-    .session-right {
-      .session-content {
-        max-width: 18.75rem !important; //300px;
-      }
-    }
-  }
 }
 @media (max-width: 800px) {
-  .session-wrapper {
-    .session-left {
-      display: none;
-    }
-    .session-right {
-      margin-left: 0;
-      .session-table-cell {
-        padding: 1.875rem 1.875rem 0; //30px
-      }
-      .session-content {
-        max-width: 27.5rem !important; //440px;
-      }
-    }
-  }
 }
