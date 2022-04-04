@@ -34,7 +34,7 @@
                                 </v-list-item-action>
                                 <v-list-item-content>
                                     <v-list-item-title :class="code.useYn === 'N' ? 'strike' : '' ">
-                                        {{ code.commCdNm }} ({{ code.commCd }})
+                                        {{ code.commonCodeName }} ({{ code.commonCode }})
                                     </v-list-item-title>
                                 </v-list-item-content>
                                 <v-list-item-action>
@@ -65,7 +65,7 @@
               </template>
             </app-card>
             <app-card :heading="'코드 리스트'" col-classes="col-sm-12 col-md-6">
-                <template v-slot:items v-if="param.parentCommCd">
+                <template v-slot:items v-if="param.parentCommonCode">
                     <v-btn outlined rounded small color="orange" @click="sort(children)">
                         <v-icon small>refresh</v-icon>
                         원래대로
@@ -74,24 +74,24 @@
                         <v-icon small>swap_vert</v-icon>
                         순서 저장
                     </v-btn>
-                    <v-btn outlined rounded small color="primary" @click="addCode(param.parentCommCd)">
+                    <v-btn outlined rounded small color="primary" @click="addCode(param.parentCommonCode)">
                         <v-icon small>add</v-icon>
                         코드 추가
                     </v-btn>
                 </template>
-                <v-row v-if="!param.parentCommCd" align="center" justify="center">
+                <v-row v-if="!param.parentCommonCode" align="center" justify="center">
                     상위코드를 선택해 주세요.
                 </v-row>
                 <template v-else-if="children && children.length > 0">
                     <v-list dense>
                         <draggable v-model="children">
-                            <v-list-item v-for="child of children" :key="child.sortSeq" class="menu-list" :class="child.active? 'active' : ''" @click="viewCode(child)">
+                            <v-list-item v-for="child of children" :key="child.sortOrder" class="menu-list" :class="child.active? 'active' : ''" @click="viewCode(child)">
                                 <v-list-item-action>
                                     <v-icon>search</v-icon>
                                 </v-list-item-action>
                                 <v-list-item-content>
                                     <v-list-item-title :class="child.useYn === 'N' ? 'strike' : '' ">
-                                        {{ child.commCdNm }}
+                                        {{ child.commonCodeName }}
                                     </v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
@@ -101,7 +101,7 @@
                 <v-row v-else align="center" justify="center">
                     {{parentCodeName}} 하위 코드리스트가 없습니다.
                 </v-row>
-                <div v-if="param.parentCommCd">
+                <div v-if="param.parentCommonCode">
                     <v-divider class="my-4"></v-divider>
                     <v-row align="end" justify="center">
                         <v-btn outlined rounded small color="orange" @click="sort(children)">
@@ -112,7 +112,7 @@
                             <v-icon small>swap_vert</v-icon>
                             순서 저장
                         </v-btn>
-                        <v-btn outlined rounded small color="primary" @click="addCode(param.parentCommCd)">
+                        <v-btn outlined rounded small color="primary" @click="addCode(param.parentCommonCode)">
                             <v-icon small>add</v-icon>
                             코드 추가
                         </v-btn>
@@ -143,7 +143,7 @@ export default {
       codeList: [],
       children: [],
       param: {
-        parentCommCd: ''
+        parentCommonCode: ''
       },
       dialog: false,
       form: {},
@@ -154,21 +154,21 @@ export default {
   computed: {
     parentCodeName () {
       let txt = ''
-      if (this.param.parentCommCd) {
-        const match = _.find(this.codeList, { commCd: this.param.parentCommCd })
+      if (this.param.parentCommonCode) {
+        const match = _.find(this.codeList, { commonCode: this.param.parentCommonCode })
         if (match) {
-          txt = match.commCdNm + ' - '
+          txt = match.commonCodeName + ' - '
         }
       }
       return txt
     },
     filteredList () {
-      return this.codeList.filter(data => data.commCdNm.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1 || data.commCd.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1)
+      return this.codeList.filter(data => data.commonCodeName.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1 || data.commonCode.toLowerCase().indexOf(this.filter.toLowerCase()) !== -1)
     }
   },
   methods: {
     /** 공통 코드 조회 */
-    getCommCdList () {
+    getCommonCodeList () {
       commonCodeService.selectCommonCode('CODE_IND').then(res => {
         this.codes = res.data
       })
@@ -176,10 +176,10 @@ export default {
     /** 하위 리스트 children에 세팅 */
     viewChildren (code) {
       for (const row of this.codeList) {
-        row.active = row.commCdNo === code.commCdNo
+        row.active = row.commonCodeSeq === code.commonCodeSeq
       }
       this.children = code.children
-      this.param.parentCommCd = code.commCd
+      this.param.parentCommonCode = code.commonCode
     },
     /** 하위 코드 리스트 보기 */
     viewCode (code) {
@@ -187,22 +187,22 @@ export default {
       this.dialog = !this.dialog
     },
     /** 코드 추가하기 */
-    addCode (parentCommCd) {
-      if (parentCommCd !== undefined) {
-        this.form = { parentCommCd: parentCommCd }
+    addCode (parentCommonCode) {
+      if (parentCommonCode !== undefined) {
+        this.form = { parentCommonCode }
       } else {
         this.form = {}
       }
       this.form.useYn = 'Y'
       this.dialog = !this.dialog
-      this.getCommCdList()
+      this.getCommonCodeList()
     },
     /** 재조회 */
     reload () {
       commonCodeService.selectCommonCodeList({}).then(res => {
         this.codeList = res.data
-        if (this.param.parentCommCd) {
-          this.viewChildren(_.find(this.codeList, { commCd: this.param.parentCommCd }))
+        if (this.param.parentCommonCode) {
+          this.viewChildren(_.find(this.codeList, { commonCode: this.param.parentCommonCode }))
         }
       })
     },
@@ -212,8 +212,8 @@ export default {
       const changeList = []
       for (let index = 0; index < codeList.length; index++) {
         const order = index + 1
-        if (order !== codeList[index].sortSeq) {
-          changeList.push({ commCdNo: codeList[index].commCdNo, sortSeq: order })
+        if (order !== codeList[index].sortOrder) {
+          changeList.push({ commonCodeSeq: codeList[index].commonCodeSeq, sortOrder: order })
         }
       }
       if (changeList.length === 0) {
