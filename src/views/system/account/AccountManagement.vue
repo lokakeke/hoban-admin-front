@@ -41,7 +41,7 @@ export default {
       return [
         { key: 'emplNo', label: '관리자 사번', type: 'text' },
         { key: 'loginId', label: '로그인 ID', type: 'text' },
-        { key: 'mngmUserNm', label: '성명', type: 'text' },
+        { key: 'adminName', label: '성명', type: 'text' },
         { key: 'menuAuthGrupId', label: '메뉴 권한 그룹', type: 'select', list: this.groupList, listValue: 'grupId', listText: 'grupNm' },
         { key: 'useYn', label: '미사용 계정', type: 'boolean', trueValue: 'N' },
         { key: 'lockYn', label: '잠김 계정', type: 'boolean', trueValue: 'Y' }
@@ -62,7 +62,7 @@ export default {
       headers: [
         { text: '관리자 사번', value: 'emplNo', align: 'center' },
         { text: '로그인 ID', value: 'loginId', align: 'center' },
-        { text: '성명', value: 'mngmUserNm', align: 'center' },
+        { text: '성명', value: 'adminName', align: 'center' },
         { text: '휴대폰 번호', value: 'telNo', align: 'center' },
         { text: '이메일 주소', value: 'email', align: 'center' },
         { text: '사용 여부', value: 'useYn', align: 'center' },

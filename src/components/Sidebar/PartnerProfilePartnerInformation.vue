@@ -84,7 +84,7 @@
 <script>
 import commonCodeService from 'Api/modules/system/commonCode.service'
 import service from 'Api/modules/partner/partner.service'
-import accountAuthService from 'Api/modules/system/accountAuth.service'
+import adminAuthService from 'Api/modules/system/adminAuth.service'
 
 export default {
   name: 'PartnerProfilePartnerInformation',
@@ -158,7 +158,7 @@ export default {
       if (this.mainAuth) {
         this.validForm(this.$refs.form).then(() => {
           this.$dialog.confirm('업체 정보를 수정 하시겠습니까?').then(() => {
-            accountAuthService.updateAccountProfile(this.form).then(res => {
+            adminAuthService.updateAccountProfile(this.form).then(res => {
               this.$dialog.alert('업체 정보가 수정되었습니다.').then(() => {
                 this.$emit('change')
               })

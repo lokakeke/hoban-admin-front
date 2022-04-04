@@ -23,7 +23,7 @@
 
 <script>
 import DialogBase from 'Components/Dialog/DialogBase.vue'
-import accountAuthService from 'Api/modules/system/accountAuth.service'
+import adminAuthService from 'Api/modules/system/adminAuth.service'
 
 export default {
   extends: DialogBase,
@@ -42,7 +42,7 @@ export default {
     async confirm () {
       try {
         await this.validForm(this.$refs.form)
-        await accountAuthService.confirmPassword(this.password)
+        await adminAuthService.confirmPassword(this.password)
         this.close({ check: true })
       } catch (e) {
       }

@@ -30,7 +30,7 @@ export default {
       },
       list: [],
       headers: [
-        { text: '사원 명', value: 'mngmUserNm', align: 'center', sortable: false },
+        { text: '사원 명', value: 'adminName', align: 'center', sortable: false },
         { text: '사원 번호', value: 'emplNo', align: 'center', sortable: false },
         { text: '사용 여부', value: 'useYn', align: 'center', sortable: false }
       ]
@@ -39,7 +39,7 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'mngmUserNm', label: '사원명', type: 'text' },
+        { key: 'adminName', label: '사원명', type: 'text' },
         { key: 'emplNo', label: '사원 번호', type: 'text' }
       ]
     }
@@ -54,7 +54,7 @@ export default {
     },
     select (row) {
       if (row.emplNo) {
-        this.$dialog.confirm(`${row.mngmUserNm} 을 선택 하시겠습니까?`).then(() => {
+        this.$dialog.confirm(`${row.adminName} 을 선택 하시겠습니까?`).then(() => {
           this.close({ data: row })
         })
       }

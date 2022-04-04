@@ -1,29 +1,31 @@
 <template>
-  <dialog-base :instance="instance">
-    <template v-slot:title>
-      파트너({{partner.ptnrNm}}) - 담당자({{profile.chrgNm}}) 프로필
-    </template>
-    <v-tabs v-model="tab" color="info">
-      <v-tab
-        v-for="(tabItem, index) in tabItems"
-        :key="tabItem.tab"
-        class="subtitle-1">
-        <v-icon left>{{tab === index? 'radio_button_checked': 'radio_button_unchecked'}}</v-icon> {{ tabItem.tab }}
-      </v-tab>
-    </v-tabs>
-    <v-tabs-slider></v-tabs-slider>
-    <v-tabs-items v-model="tab">
-      <v-tab-item
-        v-for="tabItem in tabItems"
-        :key="tabItem.tab">
-        <component :is="tabItem.component" :partner="partner" :profile="profile" :main-auth="mainAuth" :partner-no="partner.ptnrNo" :is-modify="true" @change="getUserProfile"></component>
-      </v-tab-item>
-    </v-tabs-items>
-  </dialog-base>
+    <dialog-base :instance="instance">
+        <template v-slot:title>
+            파트너({{ partner.ptnrNm }}) - 담당자({{ profile.chrgNm }}) 프로필
+        </template>
+        <v-tabs v-model="tab" color="info">
+            <v-tab
+                v-for="(tabItem, index) in tabItems"
+                :key="tabItem.tab"
+                class="subtitle-1">
+                <v-icon left>{{ tab === index ? 'radio_button_checked' : 'radio_button_unchecked' }}</v-icon>
+                {{ tabItem.tab }}
+            </v-tab>
+        </v-tabs>
+        <v-tabs-slider></v-tabs-slider>
+        <v-tabs-items v-model="tab">
+            <v-tab-item
+                v-for="tabItem in tabItems"
+                :key="tabItem.tab">
+                <component :is="tabItem.component" :partner="partner" :profile="profile" :main-auth="mainAuth"
+                           :partner-no="partner.ptnrNo" :is-modify="true" @change="getUserProfile"></component>
+            </v-tab-item>
+        </v-tabs-items>
+    </dialog-base>
 </template>
 
 <script>
-import accountAuthService from 'Api/modules/system/accountAuth.service'
+import adminAuthService from 'Api/modules/system/adminAuth.service'
 import DialogBase from 'Components/Dialog/DialogBase.vue'
 import PartnerProfilePartnerInformation from './PartnerProfilePartnerInformation'
 import PartnerProfileBasicInformation from './PartnerProfileBasicInformation'
@@ -47,7 +49,7 @@ export default {
   },
   methods: {
     getUserProfile () {
-      accountAuthService.selectProfile().then(res => {
+      adminAuthService.selectProfile().then(res => {
         this.mainAuth = res.data.mainAuthYn === 'Y'
         this.partner = res.data.partner
         this.profile = res.data.profile
