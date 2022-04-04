@@ -7,7 +7,7 @@ const commonCodeService = {
    * 공통코드 전체 목록조회
    */
   selectCommonCodeList (param) {
-    return api.get('/api/system/commonCode', { params: param })
+    return api.get('/api/cms/system/commonCode', { params: param })
   },
 
   /**
@@ -15,15 +15,15 @@ const commonCodeService = {
    * @param parentCommCd 부모공통코드
    * @param noCache store cache 사용여부
    */
-  selectCommonCode (parentCommCd, noCache = false) {
-    if (noCache !== true && store.getters['commonCode/wrapper'][parentCommCd]) {
+  selectCommonCode (parentCommonCode, noCache = false) {
+    if (noCache !== true && store.getters['commonCode/wrapper'][parentCommonCode]) {
       return Promise.resolve({
-        data: store.getters['commonCode/wrapper'][parentCommCd]
+        data: store.getters['commonCode/wrapper'][parentCommonCode]
       })
     } else {
-      return api.get(`/api/system/commonCode/${parentCommCd}`).then(res => {
+      return api.get(`/api/cms/system/commonCode/${parentCommonCode}`).then(res => {
         store.commit('commonCode/setCommonCode', {
-          parentCommCd,
+          parentCommonCode,
           codeList: res.data
         })
         return Promise.resolve(res)
@@ -35,63 +35,63 @@ const commonCodeService = {
    * 공통코드 등록
    */
   insertCommonCode (form) {
-    return api.post('/api/system/commonCode', form)
+    return api.post('/api/cms/system/commonCode', form)
   },
 
   /**
    * 공통코드 수정
    */
   updateCommonCode (form) {
-    return api.post(`/api/system/commonCode/update/${form.commCdNo}`, form)
+    return api.post(`/api/cms/system/commonCode/update/${form.commonCodeSeq}`, form)
   },
 
   /**
    * 공통코드 삭제
    */
-  deleteCommonCode (commCdNo) {
-    return api.post(`/api/system/commonCode/delete/${commCdNo}`)
+  deleteCommonCode (commonCodeSeq) {
+    return api.post(`/api/cms/system/commonCode/delete/${commonCodeSeq}`)
   },
 
   /**
    * 공통코드 순서변경
    */
   updateCommonCodeOrder (orderList) {
-    return api.post('/api/system/commonCode/order', orderList)
+    return api.post('/api/cms/system/commonCode/order', orderList)
   },
 
   /**
    * 가맹점 구분코드 조회
    */
-  selectPtnrType (commCd) {
-    return api.get(`/api/system/commonCode/ptnrType/${commCd}`)
+  selectPtnrType (commonCode) {
+    return api.get(`/api/cms/system/commonCode/ptnrType/${commonCode}`)
   },
 
   /**
    * 서비스 구분 전체 목록 조회(feign을 타게 됨)
    */
-  selectServiceDivisionList (commCd) {
-    return api.get(`/api/system/commonCode/serviceDivision/${commCd}`)
+  selectServiceDivisionList (commonCode) {
+    return api.get(`/api/cms/system/commonCode/serviceDivision/${commonCode}`)
   },
 
   /**
    * 상위 공통코드 등록 시 코드 자동 완성을 위한 조회
    */
-  selectCommCdOfCommCd (commCd) {
-    return api.get(`/api/system/commonCode/commCdOfCommCd/${commCd}`)
+  selectCommCdOfCommCd (commonCode) {
+    return api.get(`/api/cms/system/commonCode/${commonCode}/next`)
   },
 
   /**
    * 공통코드 여러개 조회
    */
   selectCommonCodeArray (codes) {
-    return api.get(`/api/system/commonCode/commonCodeArray/${codes}`)
+    return api.get(`/api/cms/system/commonCode/commonCodeArray/${codes}`)
   },
 
   /**
    * DGNS 공통코드 목록 조회
    */
   selectDGNSCommonCodeList (commTypeCd) {
-    return api.get(`/api/system/commonCode/dgnsCommonCodeList/${commTypeCd}`)
+    return api.get(`/api/cms/system/commonCode/dgnsCommonCodeList/${commTypeCd}`)
   }
 
 }

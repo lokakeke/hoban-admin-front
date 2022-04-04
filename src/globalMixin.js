@@ -57,7 +57,7 @@ const globalMixin = {
       })
     },
     sort (menus) {
-      menus = menus.sort((a, b) => a.sortSeq - b.sortSeq)
+      menus = menus.sort((a, b) => a.sortOrder - b.sortOrder)
     },
     cloneDeep (origin) {
       return JSON.parse(JSON.stringify(origin))

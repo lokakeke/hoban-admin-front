@@ -12,7 +12,7 @@
                 <v-icon>close</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
-            <v-toolbar-title>공통코드 {{ form.commCdNo ? "상세/수정" : "입력" }}</v-toolbar-title>
+            <v-toolbar-title>공통코드 {{ form.commonCodeSeq ? "상세/수정" : "입력" }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn dark text @click="close">Close</v-btn>
@@ -20,32 +20,35 @@
         </v-toolbar>
         <v-container v-if="form !== undefined">
             <v-form ref="form" lazy-validation>
-                <template v-if="form.parentCommCd">
+                <template v-if="form.parentCommonCode">
                     <v-label>상위 코드</v-label>
-                    <v-text-field v-model="form.parentCommCd" :rules="emptyRules" label="" class="pt-0"
+                    <v-text-field v-model="form.parentCommonCode" :rules="emptyRules" label="" class="pt-0"
                                   disabled></v-text-field>
                     <v-label>코드</v-label>
-                    <v-text-field v-model.trim="form.commCd" :rules="emptyRules" label="" required
+                    <v-text-field v-model.trim="form.commonCode" :rules="emptyRules" label="" required
                                   class="pt-0"></v-text-field>
                 </template>
                 <template v-else>
                     <v-label>코드</v-label>
                     <v-row>
-                        <v-col v-if="!form.commCdNo">
-                            <v-autocomplete v-model="commCdText" :items="codeReset" :item-value="'commCd'"
-                                            :item-text="'commCdNm'" :rules="emptyRules" label required class="pt-0"
+                        <!-- 최상의 코드 등록시 -->
+                        <v-col v-if="!form.commonCodeSeq">
+                            ㅏㅏㅏㅏ
+                            <v-autocomplete v-model="commCdText" :items="codeReset" :item-value="'commonCode'"
+                                            :item-text="'commonCodeName'" :rules="emptyRules" label required class="pt-0"
                                             @change="newCommCd(commCdText)"></v-autocomplete>
                         </v-col>
                         <v-col>
-                            <v-text-field v-model="form.commCd" :rules="emptyRules" label required class="pt-0" readonly
-                                          :disabled="form.commCdNo !== undefined && form.commCdNo !== null"></v-text-field>
+                            ㅇㅇㅇㅇ
+                            <v-text-field v-model="form.commonCode" :rules="emptyRules" label required class="pt-0" readonly
+                                          :disabled="form.commonCodeSeq !== undefined && form.commonCodeSeq !== null"></v-text-field>
                         </v-col>
                     </v-row>
                 </template>
                 <v-label>코드 이름</v-label>
-                <v-text-field v-model="form.commCdNm" :rules="emptyRules" label="" required class="pt-0"></v-text-field>
+                <v-text-field v-model="form.commonCodeName" :rules="emptyRules" label="" required class="pt-0"></v-text-field>
                 <v-label>코드 설명</v-label>
-                <v-textarea auto-grow filled color="deep-purple" rows="1" v-model="form.commCdDesc" label=""
+                <v-textarea auto-grow filled color="deep-purple" rows="1" v-model="form.commonCodeDesc" label=""
                             class="pt-0"></v-textarea>
 
                 <v-label>아이템01</v-label>
@@ -109,14 +112,14 @@ export default {
   methods: {
     newCommCd (item) {
       commonCodeService.selectCommCdOfCommCd(item).then(res => {
-        this.$set(this.form, 'commCd', res.data)
+        this.$set(this.form, 'commonCode', res.data)
       })
     },
     /** 수정 */
     emit () {
       this.validForm(this.$refs.form).then(() => {
-        this.$dialog.confirm(this.form.commCdNo ? '공통코드를 수정하시겠습니까?' : '공통코드를 입력하시겠습니까?').then(() => {
-          if (this.form.commCdNo) {
+        this.$dialog.confirm(this.form.commonCodeSeq ? '공통코드를 수정하시겠습니까?' : '공통코드를 입력하시겠습니까?').then(() => {
+          if (this.form.commonCodeSeq) {
             commonCodeService.updateCommonCode(this.form).then(res => {
               this.$dialog.alert('수정되었습니다.')
               this.$emit('reload')
@@ -141,8 +144,8 @@ export default {
     deleteCommCd () {
       // 삭제 로직 추가
       this.$dialog.confirm('정말로 삭제 하시겠습니다?').then(() => {
-        if (this.form.commCdNo) {
-          commonCodeService.deleteCommonCode(this.form.commCdNo)
+        if (this.form.commonCodeSeq) {
+          commonCodeService.deleteCommonCode(this.form.commonCodeSeq)
           this.$emit('reload')
           this.close()
         }

@@ -59,10 +59,13 @@ const menuService = {
       message: '',
       redirectPath: ''
     }
+    // FIXME 메뉴, 메뉴 권한 완성 후 하위 주석 해제 (woojung)
     // 메뉴 접근권한 : 로그인 필요여부
-    const checkAuth = to.meta.auth !== false
+    // const checkAuth = to.meta.auth !== false // 주석 해제
+    const checkAuth = true
     // 메뉴 접근권한 : 나의 메뉴 필요여부
-    const checkRequiresAuth = to.meta.requiresAuth !== false
+    // const checkRequiresAuth = to.meta.requiresAuth !== false // 주석 해제
+    const checkRequiresAuth = false
     // 권한 체크
     if (checkAuth) {
       if (checkRequiresAuth) {
