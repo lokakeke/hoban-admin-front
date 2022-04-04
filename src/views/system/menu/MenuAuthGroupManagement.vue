@@ -228,7 +228,7 @@ export default {
       headers: [
         { text: '사번', value: 'emplNo', align: 'center' },
         { text: '아이디', value: 'loginId', align: 'center' },
-        { text: '이름', value: 'mngmUserNm', align: 'center' },
+        { text: '이름', value: 'adminName', align: 'center' },
         { text: '상세보기', value: 'action', align: 'center' }
       ],
       search: '',
@@ -275,7 +275,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/System/Menu/MenuAuthGroupManagementUser',
         params: {
-          title: `개인 메뉴 설정(${item.mngmUserNm}) - ${this.groupName} 권한`,
+          title: `개인 메뉴 설정(${item.adminName}) - ${this.groupName} 권한`,
           user: item,
           menuList: this.menuFullList,
           selectMenu: this.menuList

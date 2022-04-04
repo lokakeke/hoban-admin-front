@@ -730,7 +730,7 @@ export default {
           closeCallback: param => {
             if (param && param.data) {
               item.value = param.data.emplNo
-              item.text = param.data.mngmUserNm
+              item.text = param.data.adminName
             }
           }
         }

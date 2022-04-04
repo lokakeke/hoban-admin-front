@@ -13,20 +13,24 @@
       style="height: calc(100% - 64px - 56px - 56px);"
     >
       <div class="transparent navigation">
+                      <div
+                        class="subtitle-2 font-weight-black px-4 py-2 border-top">
+                        <v-icon v-if="this.currentSidebar.iconFont" left color="#5c4037">{{this.currentSidebar.iconFont}}</v-icon>
+                        {{this.currentSidebar.menuNm}}
+                      </div>
         <v-list dense class="menu-sidebar">
-          <div v-for="(category, key) in this.menus" :key="key">
+          <div v-for="(category, key) in this.currentSidebar.children" :key="key">
+            <!-- category header -->
             <div
               class="subtitle-2 font-weight-black px-4 py-2"
               :class="key !== 0? 'border-top': ''">
-              <v-icon v-if="category.iconFont" left color="#5c4037">{{ category.iconFont }}</v-icon>
-              <v-icon v-if="category.iconFont" left color="#5c4037">dd</v-icon>
-              {{category.menuNm}}
+              <v-icon v-if="category.iconFont" left color="#5c4037">{{category.iconFont}}</v-icon>
             </div>
-            <template v-for="item in category.children">
+            <template>
               <v-list-group
-                v-if="item.children && item.children.length > 0"
+                v-if="category && category.children.length > 0"
                 class="mb-1"
-                :key="item.menuId"
+                :key="category.menuId"
                 prepend-icon="arrow_right"
                 no-action
                 :value="checkRouter(item)"
@@ -35,13 +39,13 @@
                 <template v-slot:activator>
                   <v-list-item-content>
                     <v-list-item-title>
-                      <span>{{ item.menuNm }} + dept1</span>
+                      <span>{{ category.menuNm }} + dept1</span>
                     </v-list-item-title>
                   </v-list-item-content>
                 </template>
                 <v-list-item
-                  v-for="subItem in getExistChildren(item.children)"
-                  :key="item.menuId + subItem.menuId"
+                  v-for="subItem in getExistChildren(category.children)"
+                  :key="category.menuId + subItem.menuId"
                   :to="subItem.menuPath"
                   :ripple="false"
                 >
@@ -56,18 +60,18 @@
               <v-list-group
                 v-else
                 class="not-submenu mb-1"
-                :key="item.menuId"
+                :key="category.menuId"
                 prepend-icon="arrow_right"
                 append-icon=""
                 no-action
-                :value="checkRouter(item)"
+                :value="checkRouter(category)"
                 :ripple="false"
               >
                 <template v-slot:activator>
-                  <v-list-item :to="item.menuPath" @click.native.stop="" :ripple="false">
+                  <v-list-item :to="category.menuPath" @click.native.stop="" :ripple="false">
                     <v-list-item-content>
                       <v-list-item-title>
-                        <span>{{ item.menuNm }} </span>
+                        <span>{{ category.menuNm }}</span>
                       </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
@@ -100,22 +104,36 @@ export default {
       }
     }
   },
+  created () {
+    console.log(this.currentSidebar)
+  },
   components: {
     UserBlock,
     AppLogo,
     MenuSearch
   },
   computed: {
-    ...mapGetters({ sidebarSelectedFilter: 'settings/sidebarSelectedFilter', sideMenus: 'sidebar/sideMenus', currentSidebar: 'sidebar/currentSidebar' }),
+    ...mapGetters({ sidebarSelectedFilter: 'settings/sidebarSelectedFilter', sideMenus: 'sidebar/sideMenus', currentSidebar: 'sidebar/currentSidebar', currentMenu: 'sidebar/currentMenu' }),
     menus () {
-      return this.currentSidebar ? [this.currentSidebar] : [this.sideMenus[0]]
+      const parentId = this.currentMenu.parentId
+      const result = this.sideMenus.filter(menu => menu.menuId === parentId)
+      return result || this.sidebar[0]
     }
   },
-  mounted () {
-    console.log(this.menus)
-  },
-
   methods: {
+    findMenuByPath: (menu, path) => {
+      if (menu.menuPath === path) {
+        return menu
+      }
+      if (!menu.children || menu.children.length === 0) return undefined
+      for (const index in menu.children) {
+        const value = this.findMenuByPath(menu.children[index], path)
+        if (value) {
+          return value
+        }
+      }
+      return undefined
+    },
     textTruncate (text) {
       return textTruncate(text, 18)
     },

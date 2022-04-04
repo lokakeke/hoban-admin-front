@@ -6,7 +6,7 @@ const Menu = () => import('Views/system/menu/MenuManagement.vue')
 // menu auth
 const MenuAuth = () => import('Views/system/menu/MenuAuthGroupManagement.vue')
 
-// 파크너 menu auth
+// 파트너 menu auth
 const PartnerAuth = () =>
   import('Views/partner/menu/PartnerMenuAuthManagement.vue')
 

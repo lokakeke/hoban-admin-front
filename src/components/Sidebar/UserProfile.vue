@@ -17,7 +17,7 @@
         </v-col>
         <v-col sm="6" md="3">
           <v-label>관리자 이름</v-label>
-          <v-text-field v-model="form.mngmUserNm" label="" :rules="emptyRules" required></v-text-field>
+          <v-text-field v-model="form.adminName" label="" :rules="emptyRules" required></v-text-field>
         </v-col>
         <v-col sm="6" md="3">
           <v-label>로그인 아이디</v-label>
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import accountAuthService from 'Api/modules/system/accountAuth.service'
+import adminAuthService from 'Api/modules/system/adminAuth.service'
 import { mapGetters } from 'vuex'
 import DialogBase from 'Components/Dialog/DialogBase.vue'
 
@@ -110,7 +110,7 @@ export default {
   methods: {
     getUserProfile () {
       this.form = {}
-      accountAuthService.selectProfile().then(res => {
+      adminAuthService.selectProfile().then(res => {
         this.passwordForm = {
           loginPw: '',
           newPw: '',
@@ -128,7 +128,7 @@ export default {
     async confirmCurrentPassword () {
       try {
         await this.validForm(this.$refs.passwordForm)
-        await accountAuthService.confirmPassword(this.passwordForm.loginPw)
+        await adminAuthService.confirmPassword(this.passwordForm.loginPw)
         this.confirmPassword = true
         this.$refs.passwordForm.resetValidation()
       } catch (e) {}
@@ -136,12 +136,12 @@ export default {
     submit () {
       this.validForm(this.$refs.form).then(() => {
         this.$dialog.confirm('사용자 정보를 수정하시겠습니까?').then(() => {
-          accountAuthService.updateAccountProfile(this.form).then(res => {
+          adminAuthService.updateAccountProfile(this.form).then(res => {
             this.$dialog.alert('저장되었습니다.')
             // 사용자 정보 저장
             this.$store.dispatch('auth/user', {
               loginId: this.form.loginId,
-              name: this.form.mngmUserNm,
+              name: this.form.adminName,
               number: this.form.emplNo
             })
           })
@@ -153,7 +153,7 @@ export default {
         this.$dialog.confirm('비밀번호를 수정하시겠습니까?<br/> 비밀번호 수정 시 다시 로그인 하셔야 합니다.').then(() => {
           this.passwordForm.loginId = this.form.loginId
           this.passwordForm.emplNo = this.form.emplNo
-          accountAuthService.updateAccountPassword(this.passwordForm).then(res => {
+          adminAuthService.updateAccountPassword(this.passwordForm).then(res => {
             this.$dialog.alert('저장되었습니다.<br/>다시 로그인 해주세요.').then(() => {
               this.$store.dispatch('auth/logout').then(() => {
                 this.close()

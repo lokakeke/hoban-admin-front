@@ -1,5 +1,5 @@
 import store from '@/store'
-import accountAuthService from 'Api/modules/system/accountAuth.service'
+import adminAuthService from 'Api/modules/system/adminAuth.service'
 import router from '@/router'
 import Nprogress from 'nprogress'
 import util from '@/utils/cookie.util'
@@ -56,7 +56,7 @@ const actions = {
     } else if (getters.jwtToken && (!getters.user || !getters.partnerYn)) {
       // Case 2. 토큰만 존재하는 경우 : 서버에서 사용자 정보 가져오기
       try {
-        const res = await accountAuthService.get()
+        const res = await adminAuthService.get()
         // 사용자 정보 저장
         commit('setPartnerYn', res.data.partnerYn)
         commit('setUser', res.data)
@@ -87,7 +87,7 @@ const actions = {
    */
   async preLogin ({ commit }, { loginId, loginPw, partnerYn }) {
     // 1차 로그인 인증(id/password)
-    const res = await accountAuthService.preLogin({ loginId, loginPw, partnerYn })
+    const res = await adminAuthService.preLogin({ loginId, loginPw, partnerYn })
     return Promise.resolve(res)
   },
   /**
@@ -104,7 +104,7 @@ const actions = {
     // 사용자 메뉴 초기화
     await store.dispatch('sidebar/setMenus', null)
     // login
-    const res = await accountAuthService.login({ loginId, loginPw, partnerYn, requestCode, requestId })
+    const res = await adminAuthService.login({ loginId, loginPw, partnerYn, requestCode, requestId })
     // 사용자 정보 저장
     commit('setPartnerYn', partnerYn)
     commit('setJWTToken', res.headers['jwt-header'])
@@ -120,7 +120,7 @@ const actions = {
     commit('setPartnerYn', null)
     commit('setJWTToken', null)
     commit('setUser', null)
-    await accountAuthService.logout()
+    await adminAuthService.logout()
     // 파트너로그인 페이지 에서 로그인 하였을 경우 파트너 로그인 페이지로 보낸다.
     const partnerLogin = store.getters['sidebar/partnerLogin']
     router.push({ path: partnerLogin ? '/partnerLogin' : '/login' })

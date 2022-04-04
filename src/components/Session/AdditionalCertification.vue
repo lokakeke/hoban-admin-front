@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import accountAuthService from 'Api/modules/system/accountAuth.service'
+import adminAuthService from 'Api/modules/system/adminAuth.service'
 import maskTelNumber from 'Components/Mask/MaskTelNumber.vue'
 import DialogBase from 'Components/Dialog/DialogBase.vue'
 
@@ -116,7 +116,7 @@ export default {
         if ((this.type === 'S' && !this.data.telNo) || (this.type === 'E' && !this.data.email)) {
           this.$dialog.alert('발송 정보가 존재하지 않습니다.')
         } else {
-          const res = await accountAuthService.requestCode({
+          const res = await adminAuthService.requestCode({
             loginId: this.data.loginId,
             loginPw: this.data.loginPw,
             partnerYn: 'N',

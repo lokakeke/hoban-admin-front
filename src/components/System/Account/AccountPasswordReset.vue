@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import authService from 'Api/modules/system/accountAuth.service'
+import adminAuthService from 'Api/modules/system/adminAuth.service'
 
 export default {
   props: {
@@ -43,23 +43,23 @@ export default {
       let msg = ''
       if (this.type === 'S') {
         if (!this.item.telNo) {
-          this.$dialog.alert(`${this.item.mngmUserNm} 의 전화 번호 정보가 없습니다.`)
+          this.$dialog.alert(`${this.item.adminName} 의 전화 번호 정보가 없습니다.`)
           return
         }
-        msg = `${this.item.mngmUserNm} 의 임시 비밀번호 발급을 진행하시겠습니까?<br/>`
+        msg = `${this.item.adminName} 의 임시 비밀번호 발급을 진행하시겠습니까?<br/>`
         msg += '발송 타입 : S.M.S<br/>'
         msg += `발송 정보 : ${this.item.telNo}`
       } else {
         if (!this.item.email) {
-          this.$dialog.alert(`${this.item.mngmUserNm} 의 이메일 정보가 없습니다.`)
+          this.$dialog.alert(`${this.item.adminName} 의 이메일 정보가 없습니다.`)
           return
         }
-        msg = `${this.item.mngmUserNm} 의 임시 비밀번호 발급을 진행하시겠습니까?<br/>`
+        msg = `${this.item.adminName} 의 임시 비밀번호 발급을 진행하시겠습니까?<br/>`
         msg += '발송 타입 : E-MAIL<br/>'
         msg += `발송 정보 : ${this.item.email}`
       }
       this.$dialog.confirm(msg).then(() => {
-        authService.createTemporaryPassword(this.item.loginId, this.type).then(res => {
+        adminAuthService.createTemporaryPassword(this.item.loginId, this.type).then(res => {
           console.log('임시 비밀번호 확인용 : ', res.data)
           this.$dialog.alert('임시 비밀번호가 발급되었습니다.')
           this.expand = false

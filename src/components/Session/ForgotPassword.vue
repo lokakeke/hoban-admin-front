@@ -23,7 +23,7 @@
                     </template>
                     <template v-else>
                         <v-text-field v-model="form.emplNo" :rules="emptyRules" label="* 사원번호" required></v-text-field>
-                        <v-text-field v-model="form.mngmUserNm" :rules="emptyRules" label="* 이름"
+                        <v-text-field v-model="form.adminName" :rules="emptyRules" label="* 이름"
                                       required></v-text-field>
                     </template>
                     <v-radio-group v-model="form.type" row hide-details :rules="emptyRules">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import accountAuthService from 'Api/modules/system/accountAuth.service'
+import adminAuth from 'Api/modules/system/adminAuth.service'
 import partnerAuthService from 'Api/modules/partner/partnerAuth.service'
 import DialogBase from 'Components/Dialog/DialogBase.vue'
 import { mapGetters } from 'vuex'
@@ -62,7 +62,7 @@ export default {
         emplNo: '',
         addCrtfNo: '',
         ptnrChrgId: '',
-        mngmUserNm: '',
+        adminName: '',
         ptnrNm: '',
         type: 'E'
       }
@@ -81,7 +81,7 @@ export default {
             this.close()
           })
         } else {
-          accountAuthService.createTemporaryPasswordForLogin(this.form).then(res => {
+          adminAuth.createTemporaryPasswordForLogin(this.form).then(res => {
             console.log('임시 비밀번호 확인용 : ', res.data)
             this.$dialog.alert('임시 비밀번호가 발급되었습니다.')
             this.close()

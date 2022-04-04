@@ -43,7 +43,7 @@
       <v-row>
         <v-col sm="6" md="4">
           <v-label>사용자 이름</v-label>
-          <v-text-field v-model="form.mngmUserNm" label="" :rules="emptyRules"></v-text-field>
+          <v-text-field v-model="form.adminName" label="" :rules="emptyRules"></v-text-field>
         </v-col>
         <v-col sm="6" md="4">
           <v-label>휴대폰 번호</v-label>
