@@ -103,6 +103,7 @@ service.interceptors.response.use(
       }
     } catch (e) {
     }
+    console.log('error', error)
     let authFail = false
     // 인증 토큰을 확인해야될 로직 추가
     let errorTitle = '오류'

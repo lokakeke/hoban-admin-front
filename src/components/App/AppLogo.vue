@@ -11,7 +11,7 @@ import AppConfig from 'Constants/AppConfig'
 export default {
   data () {
     return {
-      appLogo: AppConfig.sonoLogo
+      appLogo: AppConfig.hobanLogo
     }
   }
 }

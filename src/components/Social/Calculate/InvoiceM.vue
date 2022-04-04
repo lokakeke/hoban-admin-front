@@ -16,13 +16,13 @@
             <h1 class="headline-text mb-7">I N V O I C E</h1>
           </v-col>
 
-          <!-- 소노 호텔 & 리조트 로고 -->
+          <!-- 호반 호텔 & 리조트 로고 -->
           <v-col cols="12" class="mb-0 pl-3 font-weight-black subtitle-1 black--text pt-0">
             <v-row justify="space-between" align="end">
               <v-col cols="3">
                 <v-text-field v-model="form.corpNm" hide-details dense prefix="(주)"></v-text-field>
               </v-col>
-              <img :src="logo" width="150px" alt="소노 호텔&리조트"/>
+              <img :src="logo" width="150px" alt="호반 호텔&리조트"/>
             </v-row>
           </v-col>
           <v-col cols="4" class="pl-3 font-weight-black subtitle-1 black--text pt-0">
@@ -247,13 +247,13 @@
               <h1 class="headline-text mb-7">I N V O I C E</h1>
             </v-col>
 
-            <!-- 소노 호텔 & 리조트 로고 -->
+            <!-- 호반 호텔 & 리조트 로고 -->
             <v-col cols="12" class="mb-0 pl-3 font-weight-black subtitle-1 black--text pt-0">
               <v-row style="position: relative;">
                 <v-col cols="3">
                   <span>(주) {{form.corpNm}}</span>
                 </v-col>
-                <img style="position: absolute; right: 20px; top: -15px;" :src="logo" width="150px" alt="소노 호텔&리조트"/>
+                <img style="position: absolute; right: 20px; top: -15px;" :src="logo" width="150px" alt="호반 호텔&리조트"/>
               </v-row>
             </v-col>
             <v-col cols="4" class="pl-3 font-weight-black subtitle-1 black--text pt-0" style="padding-top: 0px;">
@@ -466,7 +466,7 @@ export default {
       /**
          * logo 경로
          */
-      logo: '/static/img/logo/logo_sono_hnr.svg'
+      logo: '/static/img/logo/logo_n.png'
     }
   },
   computed: {
@@ -508,7 +508,7 @@ export default {
         }
         // 법인명 값 없을경우 기본값
         if (!_.some(this.form.corpNm)) {
-          this.form.corpNm = '소노호텔앤리조트'
+          this.form.corpNm = '호반호텔앤리조트'
         }
         // 주소 값 없을경우 기본값
         if (!_.some(this.form.addr)) {

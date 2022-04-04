@@ -210,7 +210,7 @@ export default {
      * 엑셀 다운로드
      */
     exportExcel () {
-      this.downLoadExcel('/api/naver/calculate/month/excel', '(주) 소노호텔앤리조트_월정산_상세', this.searchParam, '.csv')
+      this.downLoadExcel('/api/naver/calculate/month/excel', '(주) 호반호텔앤리조트_월정산_상세', this.searchParam, '.csv')
     },
     /**
      * 월정산 데이터 생성

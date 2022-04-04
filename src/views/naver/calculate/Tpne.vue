@@ -190,7 +190,7 @@ export default {
      * 엑셀 다운로드
      */
     exportExcel () {
-      this.downLoadExcel('/api/naver/calculate/tpne/excel', '(주) 소노호텔앤리조트_TPNE정산_상세', this.searchParam, '.csv')
+      this.downLoadExcel('/api/naver/calculate/tpne/excel', '(주) 호반호텔앤리조트_TPNE정산_상세', this.searchParam, '.csv')
     },
     /**
      * headers button

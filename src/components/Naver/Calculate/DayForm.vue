@@ -148,7 +148,7 @@ export default {
     exportExcel (value) {
       this.searchParam.q.dayCalcMstNo = this.instance.params.form.dayCalcMstNo
       this.searchParam.q.calcAprlYn = null // 개별 다운로드는 승인여부에 관계없으므로 null
-      this.downLoadExcel(`/api/naver/calculate/${value}`, `(주) 소노호텔앤리조트_일정산${value === 'excelMst' ? '' : '_상세'}`, this.searchParam, '.csv')
+      this.downLoadExcel(`/api/naver/calculate/${value}`, `(주) 호반호텔앤리조트_일정산${value === 'excelMst' ? '' : '_상세'}`, this.searchParam, '.csv')
     }
   }
 }

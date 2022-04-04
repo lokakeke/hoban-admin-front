@@ -372,7 +372,7 @@ export default {
       this.searchParam.q.dmItemIds = _.join(this.searchParam.q.dmItemIds, ',')
       // status 검색
       this.searchParam.q.status = _.join(this.searchParam.q.status, ',')
-      this.downLoadExcel('/api/naver/booking/excel', '(주) 소노호텔앤리조트_예약자관리', this.searchParam, '.csv')
+      this.downLoadExcel('/api/naver/booking/excel', '(주) 호반호텔앤리조트_예약자관리', this.searchParam, '.csv')
     },
     selectPhone (booking) {
       service.selectBookingForPhone(booking.bookingId).then(res => {

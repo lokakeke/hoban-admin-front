@@ -153,7 +153,7 @@ export default {
         console.log(res.data)
         this.requestTel = true
         // 셋팅 해준다.
-        this.data.requestTelNo = res.data
+        this.data.requestTelNo = res.data.requestCode
         this.telResTimeData = '03:00'
         this.telPolling = setInterval(() => {
           // 1찍 감소
@@ -187,7 +187,7 @@ export default {
       }).then(res => {
         this.requestEmail = true
         // 셋팅 해준다.
-        this.data.requestEmail = res.data
+        this.data.requestEmail = res.data.requestCode
         this.emailResTimeData = '03:00'
         this.emailPolling = setInterval(() => {
           // 1찍 감소

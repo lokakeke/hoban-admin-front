@@ -291,7 +291,7 @@ export default {
       if (value === 'excelMst') {
         this.searchParam.q.completedYn = 'Y'
       }
-      this.downLoadExcel(`/api/naver/calculate/${value}`, `(주) 소노호텔앤리조트_일정산${value === 'excelMst' ? '' : '_상세'}`, this.searchParam, '.csv')
+      this.downLoadExcel(`/api/naver/calculate/${value}`, `(주) 호반호텔앤리조트_일정산${value === 'excelMst' ? '' : '_상세'}`, this.searchParam, '.csv')
     }
   }
 }

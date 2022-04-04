@@ -127,7 +127,7 @@ export default {
           this.request = true
           // 시간체크 시작
           this.startInterval()
-          this.requestCode = res.data
+          this.requestCode = res.data.requestCode
           await this.$nextTick()
           document.getElementById('requestCode').focus()
         }

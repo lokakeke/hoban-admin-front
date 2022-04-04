@@ -142,8 +142,8 @@ export default {
           this.request = true
           // 시간체크 시작
           this.startInterval()
-          console.log('인증번호 :' + res.data)
-          this.requestCode = res.data
+          console.log('인증번호 :' + res.data.requestCode)
+          this.requestCode = res.data.requestCode
           this.$nextTick(() => {
             document.getElementById('requestCode').focus()
           })
