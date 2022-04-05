@@ -33,8 +33,8 @@
 import service from '@/api/modules/partner/partner.service'
 import authService from '@/api/modules/partner/partnerMenuAuth.service'
 import maskTelNumber from '@/components/Mask/MaskTelNumber.vue'
-import PartnerPasswordReset from '@/components/Partner//PartnerPasswordReset.vue'
-import PartnerLoginForAdmin from '@/components/Partner//PartnerLoginForAdmin.vue'
+import PartnerPasswordReset from '@/components/Partner/management/PartnerPasswordReset.vue'
+import PartnerLoginForAdmin from '@/components/Partner/management/PartnerLoginForAdmin.vue'
 import excelMixin from '@/mixins/excelMixin'
 
 export default {

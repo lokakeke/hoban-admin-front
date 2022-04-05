@@ -42,7 +42,7 @@ import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import Notifications from '@/components/Header/Notifications.vue'
 import PageTitleBar from '@/components/Header/PageTitleBar.vue'
 import { mapActions, mapGetters } from 'vuex'
-import GnbMenu from '@/components/Sidebar/GnbMenu'
+import GnbMenu from '@/components/Sidebar/GnbMenu.vue'
 
 export default {
   props: {

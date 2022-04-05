@@ -108,7 +108,7 @@ export const menus = [
     iconFont: 'settings',
     children: [
       { menuId: 11, menuName: '메뉴 관리', menuPath: '/system/menu' },
-      { menuId: 12, menuName: '메뉴 권한 관리', menuPath: '/system/menuAuth' },
+      { menuId: 12, menuName: '메뉴 권한 관리', menuPath: '/system/menuAuthGroup' },
       { menuId: 13, menuName: '관리자 관리', menuPath: '/system/account' },
       { menuId: 14, menuName: '공통코드 관리', menuPath: '/system/commonCode' },
       { menuId: 15, menuName: '알림 관리', menuPath: '/system/notification' },
