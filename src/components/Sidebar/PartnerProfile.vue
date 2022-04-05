@@ -30,7 +30,7 @@ import DialogBase from '@/components/Dialog/DialogBase.vue'
 import PartnerProfilePartnerInformation from './PartnerProfilePartnerInformation'
 import PartnerProfileBasicInformation from './PartnerProfileBasicInformation'
 import PartnerProfilePassword from './PartnerProfilePassword'
-import PartnerAddCharge from '@/components/Partner//PartnerAddCharge.vue'
+import PartnerAddCharge from '@/components/Partner/management/PartnerAddCharge.vue'
 
 export default {
   extends: DialogBase,

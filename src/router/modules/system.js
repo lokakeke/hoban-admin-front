@@ -3,8 +3,8 @@ import Full from 'Container/Full.vue'
 // menu
 const Menu = () => import('@/views/system/menu/Menu.vue')
 
-// menu auth
-const MenuAuth = () => import('@/views/system/menu/MenuAuthGroup.vue')
+// menu auth group
+const menuAuthGroup = () => import('@/views/system/menu/MenuAuthGroup.vue')
 
 // 파트너 menu auth
 const PartnerAuth = () =>
@@ -57,9 +57,9 @@ export default {
       }
     },
     {
-      path: 'menuAuth',
-      component: MenuAuth,
-      name: 'menuAuth',
+      path: 'menuAuthGroup',
+      component: menuAuthGroup,
+      name: 'menuAuthGroup',
       meta: {
         auth: true,
         requiresAuth: true,

@@ -189,7 +189,7 @@
 import service from '@/api/modules/partner/partner.service'
 import authService from '@/api/modules/partner/partnerMenuAuth.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
-import PartnerPasswordReset from '@/components/Partner//PartnerPasswordReset.vue'
+import PartnerPasswordReset from '@/components/Partner/management/PartnerPasswordReset.vue'
 
 export default {
   components: { PartnerPasswordReset },
