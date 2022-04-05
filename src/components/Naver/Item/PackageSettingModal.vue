@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import itemService from 'Api/modules/naver/item.service'
+import itemService from '@/api/modules/naver/item.service'
 import PackageInfoComponent from './PackageInfoComponent'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -38,9 +38,9 @@ export default {
         dmStoreId: '',
         dmItemId: '',
         mid: '',
-        storeCd: '',
-        rmTypeCd: '',
-        rsvBlckCd: ''
+        storeCode: '',
+        rmTypeCode: '',
+        rsvBlckCode: ''
       },
       isValidPkg: false
     }
@@ -62,9 +62,9 @@ export default {
       dmStoreId: this.instance.params.dgnsItemInfo.dmStoreId,
       dmItemId: this.instance.params.dgnsItemInfo.dmItemId,
       mid: this.instance.params.dgnsItemInfo.mid,
-      storeCd: this.instance.params.dgnsItemInfo.storeCd,
-      rmTypeCd: this.instance.params.dgnsItemInfo.rmTypeCd,
-      rsvBlckCd: this.instance.params.dgnsItemInfo.rsvBlckCd
+      storeCode: this.instance.params.dgnsItemInfo.storeCode,
+      rmTypeCode: this.instance.params.dgnsItemInfo.rmTypeCode,
+      rsvBlckCode: this.instance.params.dgnsItemInfo.rsvBlckCode
     })
     this.$nextTick(() => {
       this.originRoomInfo = _.cloneDeep(this.roomInfo)
@@ -76,10 +76,10 @@ export default {
         this.$dialog.alert('패키지를 검색해주세요.')
         return
       }
-      if (!this.roomInfo.rmTypeCd || !this.roomInfo.storeCd) {
+      if (!this.roomInfo.rmTypeCode || !this.roomInfo.storeCode) {
         this.$dialog.alert('객실을 선택해주세요.')
         return
-      } else if (!this.roomInfo.rsvBlckCd) {
+      } else if (!this.roomInfo.rsvBlckCode) {
         this.$dialog.alert('블럭코드를 선택해주세요.')
         return
       }
@@ -88,9 +88,9 @@ export default {
           dmStoreId: this.roomInfo.dmStoreId,
           dmItemId: this.roomInfo.dmItemId,
           mid: this.roomInfo.mid,
-          storeCd: this.roomInfo.storeCd,
-          rmTypeCd: this.roomInfo.rmTypeCd,
-          rsvBlckCd: this.roomInfo.rsvBlckCd,
+          storeCode: this.roomInfo.storeCode,
+          rmTypeCode: this.roomInfo.rmTypeCode,
+          rsvBlckCode: this.roomInfo.rsvBlckCode,
           pkgYn: 'Y'
         }
         itemService.updateDgnsItemInfo(this.roomInfo.dmItemId, dgnsItemInfo).then(() => {

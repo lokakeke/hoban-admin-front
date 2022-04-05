@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const partnerService = {
 
@@ -6,28 +6,28 @@ const partnerService = {
      * 가맹점 목록 조회
      */
   selectPartnerList (param) {
-    return api.get('/api/system/partnerManagement/list', { params: param })
+    return api.get('/api/cms/system/partner/list', { params: param })
   },
 
   /**
    * 가맹점 전체 목록 조회
    */
   selectPartnerFullList () {
-    return api.get('/api/system/partnerManagement/fullList')
+    return api.get('/api/cms/system/partner/fullList')
   },
 
   /**
      * 가맹점 기본정보 등록
      */
-  insertPartnerManagement (param) {
-    return api.post('/api/system/partnerManagement/insert', param)
+  insertPartner (param) {
+    return api.post('/api/cms/system/partner/insert', param)
   },
 
   /**
      * 가맹점 기본정보 수정
      */
-  updatePartnerManagement (param) {
-    return api.post(`/api/system/partnerManagement/update/${param.ptnrNo}`, param)
+  updatePartner (param) {
+    return api.post(`/api/cms/system/partner/update/${param.ptnrNo}`, param)
   },
 
   /**
@@ -35,22 +35,22 @@ const partnerService = {
    * @param id
    */
   checkLoginId (id) {
-    return api.get(`/api/system/partnerManagement/check/${id}`)
+    return api.get(`/api/cms/system/partner/check/${id}`)
   },
 
   /**
    * 가맹점 기본정보 수정 - 프로필 화면
    * @param param
    */
-  updatePartnerManagementBasicInfo (param) {
-    return api.post(`/api/system/partnerManagement/updateBasic/${param.ptnrNo}`, param)
+  updatePartnerBasicInfo (param) {
+    return api.post(`/api/cms/system/partner/updateBasic/${param.ptnrNo}`, param)
   },
 
   /**
      * 가맹점 상세(기본정보) 조회
      */
   selectPartnerDetails (partnerNo) {
-    return api.get(`/api/system/partnerManagement/detail/${partnerNo}`)
+    return api.get(`/api/cms/system/partner/detail/${partnerNo}`)
   },
 
   /**
@@ -58,7 +58,7 @@ const partnerService = {
    * @returns {promise<any>}
    */
   createAddCrtfNo () {
-    return api.get('/api/system/partnerManagement/createAddCrtfNo')
+    return api.get('/api/cms/system/partner/createAddCrtfNo')
   },
 
   /**
@@ -66,7 +66,7 @@ const partnerService = {
    * @returns {promise<any>}
    */
   selectPtnrInfoForRsv (param) {
-    return api.get('/api/system/partnerManagement/ptnrInfoForRsv', { params: param })
+    return api.get('/api/cms/system/partner/ptnrInfoForRsv', { params: param })
   }
 }
 

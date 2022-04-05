@@ -20,7 +20,7 @@
         </v-col>
         <v-col cols="3" v-if="newItem.memNo">
           <v-text-field
-            v-model="newItem.memNm"
+            v-model="newItem.memName"
             label="회원명"
             disabled
             outlined
@@ -40,7 +40,7 @@
         </v-col>
         <v-col cols="3" v-if="newItem.pkgNo">
           <v-text-field
-            v-model="newItem.pkgNm"
+            v-model="newItem.pkgName"
             label="패키지명"
             disabled
             outlined
@@ -70,7 +70,7 @@
         </v-col>
         <v-col cols="3">
           <v-text-field
-            v-model="newItem.guestNm"
+            v-model="newItem.guestName"
             label="이용자명"
             required
             outlined
@@ -119,7 +119,7 @@
         </v-col>
         <v-col cols="3" v-if="newItem.pkgNo">
           <v-text-field
-            v-model="newItem.agentNm"
+            v-model="newItem.agentName"
             label="Agent명"
             disabled
             outlined
@@ -139,7 +139,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -179,11 +179,11 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.newItem.memNo = params.data.memNo
-              this.newItem.memNm = params.data.memNm
-              this.newItem.rsvGuestlnm = params.data.ptnrNm
+              this.newItem.memName = params.data.memName
+              this.newItem.rsvGuestlnm = params.data.ptnrName
               this.newItem.rsvGuestTelNo = params.data.capTelNo
               this.newItem.agentCd = params.data.agentCd
-              this.newItem.agentNm = params.data.agentCdNm
+              this.newItem.agentName = params.data.agentCdName
             }
           }
         }
@@ -207,7 +207,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.newItem.agentCd = params.data.agentCd
-              this.newItem.agentNm = params.data.agentCdNm
+              this.newItem.agentName = params.data.agentCdName
             }
           }
         }

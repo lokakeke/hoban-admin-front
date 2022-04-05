@@ -15,7 +15,7 @@
       <tbody>
       <tr v-for="(item, index) of list" :key="index">
         <td class="text-center">{{item.resultCode === '0000' ? '성공' : '실패'}}</td>
-        <td class="text-center">{{item.guestNm}}</td>
+        <td class="text-center">{{item.guestName}}</td>
         <td class="text-center">{{item.rsvNo}}</td>
         <td class="text-center" v-html="item.resultMsg"></td>
       </tr>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

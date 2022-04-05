@@ -14,7 +14,7 @@
                   <v-col cols="6">
                     <v-list-item>
                       <v-list-item-content>지역:</v-list-item-content>
-                      <v-list-item-content>{{ pkgInfo.lcalNm }}({{ pkgInfo.lcalCd }})</v-list-item-content>
+                      <v-list-item-content>{{ pkgInfo.lcalName }}({{ pkgInfo.lcalCode }})</v-list-item-content>
                     </v-list-item>
                   </v-col>
                   <v-col cols="6">
@@ -28,7 +28,7 @@
                   <v-col cols="6">
                     <v-list-item>
                       <v-list-item-content>패키지명:</v-list-item-content>
-                      <v-list-item-content>{{ pkgInfo.pkgNm }}</v-list-item-content>
+                      <v-list-item-content>{{ pkgInfo.pkgName }}</v-list-item-content>
                     </v-list-item>
                   </v-col>
                   <v-col cols="6">
@@ -86,9 +86,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import packageService from 'Api/modules/ota/package.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import packageService from '@/api/modules/ota/package.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   extends: DialogBase,
@@ -123,7 +123,7 @@ export default {
     async getPkgSaleType () {
       const response = await commonCodeService.selectCommonCode('OTA0004')
       for (const data of response.data) {
-        this.pkgSaleType.push(data.commCd)
+        this.pkgSaleType.push(data.commCode)
       }
     },
     // 패키지 번호 유효성 검증

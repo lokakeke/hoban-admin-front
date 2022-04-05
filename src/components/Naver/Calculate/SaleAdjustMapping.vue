@@ -28,8 +28,8 @@
                 <v-icon>remove</v-icon>
               </v-btn>
             </template>
-            <template v-slot:item.storeCd="{item}">
-              {{ item.storeNm + ' (' + item.storeCd + ')' }}
+            <template v-slot:item.storeCode="{item}">
+              {{ item.storeName + ' (' + item.storeCode + ')' }}
             </template>
             <template v-slot:item.bookingId="{item}">
               {{ item.bookingId ? item.bookingId : '-' }}
@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import saleAdjustService from 'Api/modules/naver/calculateSaleAdjust.service'
-import itemService from 'Api/modules/naver/item.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import saleAdjustService from '@/api/modules/naver/calculateSaleAdjust.service'
+import itemService from '@/api/modules/naver/item.service'
 
 export default {
   extends: DialogBase,
@@ -89,7 +89,7 @@ export default {
       list: [],
       headers: [
         { text: '선택', value: 'add', align: 'center', sortable: false },
-        { text: '사업장명', value: 'storeCd', align: 'center', sortable: false },
+        { text: '사업장명', value: 'storeCode', align: 'center', sortable: false },
         { text: '회원/패키지번호', value: 'mid', align: 'center', sortable: false },
         { text: '네이버예약ID', value: 'bookingId', align: 'center', sortable: false },
         { text: 'DGNS회원/예약자명', value: 'name', align: 'center', sortable: false },
@@ -113,7 +113,7 @@ export default {
      */
     searchList () {
       return [
-        { key: 'storeCd', label: '서비스', type: 'select', list: this.storeList, listValue: 'storeCd', listText: 'storeNm', cols: 6 },
+        { key: 'storeCode', label: '서비스', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 6 },
         { key: 'mid', label: '회원번호/패키지번호', type: 'text', cols: 3 },
         { key: 'pkgYn', label: '패키지여부', type: 'select', list: this.pkgYnList, cols: 3 },
         { key: 'bookingId', label: '네이버예약ID', type: 'text', cols: 3 },
@@ -136,12 +136,12 @@ export default {
      * 사업장 리스트 조회
      */
     itemService.selectOnlyRoomList().then((response) => {
-      const data = _.orderBy(response.data, 'storeCd')
+      const data = _.orderBy(response.data, 'storeCode')
       this.storeList = []
       data.map(obj => {
         this.storeList.push({
-          storeNm: `${obj.storeNm} (${obj.storeCd})`,
-          storeCd: obj.storeCd
+          storeName: `${obj.storeName} (${obj.storeCode})`,
+          storeCode: obj.storeCode
         })
       })
     })

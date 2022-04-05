@@ -6,7 +6,7 @@
             v-for="parentMenu in this.menus.filter(menu => !menu.parentMenuId)" :key="parentMenu.menuId"
             @click="(e) => handleClickChip(e,parentMenu)"
             :color="checkSelectedChip(parentMenu)"
-        >{{ parentMenu.menuNm }}
+        >{{ parentMenu.menuName }}
         </v-chip>
     </div>
 </template>

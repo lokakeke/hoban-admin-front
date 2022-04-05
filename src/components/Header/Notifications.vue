@@ -41,14 +41,14 @@
       <v-list class="dropdown-list" v-if="depth === 1">
         <v-list-item
           v-for="typeNoti in typeNotiList"
-          :key="typeNoti.notifyCdNm"
+          :key="typeNoti.notifyCodeName"
           @click="showMessageNotifications(typeNoti)"
         >
           <v-list-item-icon class="pl-3">
             <v-icon medium color="teal darken-2">mdi-email</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="typeNoti.notifyCdNm"></v-list-item-title>
+            <v-list-item-title v-text="typeNoti.notifyCodeName"></v-list-item-title>
             <v-list-item-subtitle v-text="typeNoti.fromNow"></v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
@@ -66,14 +66,14 @@
           <v-list class="dropdown-list">
             <v-list-item
               v-for="notification in notifications"
-              :key="notification.notifyNm"
+              :key="notification.notifyName"
               @click="showDetailNotifications(notification)"
             >
               <v-list-item-icon class="pl-3">
                 <v-icon medium color="teal darken-2">mdi-email</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title v-text="notification.notifyNm"></v-list-item-title>
+                <v-list-item-title v-text="notification.notifyName"></v-list-item-title>
                 <v-list-item-subtitle v-text="notification.fromNow"></v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
@@ -129,9 +129,9 @@ export default {
     })
   },
   async mounted () {
-    await this.getNotificationType()
+    // await this.getNotificationType()
     // await this.$store.dispatch('notification/getNotificationType')
-    this.addNotificationObserver()
+    // this.addNotificationObserver()
   },
   destroyed () {
     this.clearInterval()

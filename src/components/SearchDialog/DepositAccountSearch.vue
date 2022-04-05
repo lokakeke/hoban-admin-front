@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import depositAccountService from 'Api/modules/api/depositAccount.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import depositAccountService from '@/api/modules/api/depositAccount.service'
 
 export default {
   name: 'DepositAccountSearch',
@@ -67,8 +67,8 @@ export default {
           align: 'center',
           sortable: false
         },
-        { text: '파트너명', value: 'ptnrNm', align: 'center', sortable: false },
-        { text: '업무유형명', value: 'taskTypeNm', align: 'center', sortable: false },
+        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
+        { text: '업무유형명', value: 'taskTypeName', align: 'center', sortable: false },
         {
           text: '누적 입금액',
           value: 'accmltRcpmnyAmt',
@@ -91,15 +91,15 @@ export default {
     searchList () {
       const searchList = [
         { key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 },
-        { key: 'ptnrNm', label: '파트너명', type: 'text', cols: 2 },
+        { key: 'ptnrName', label: '파트너명', type: 'text', cols: 2 },
         {
           key: 'taskType',
           label: '예치금 구분',
           type: 'code',
-          commCd: 'COMM0009',
+          commCode: 'COMM0009',
           cols: 2
         },
-        { key: 'agentCd', label: 'agent코드', type: 'text', cols: 2 }
+        { key: 'agentCode', label: 'agent코드', type: 'text', cols: 2 }
       ]
       if (this.isPartner) {
         // 파트너의 경우 파트너명 검색을 제거
@@ -125,7 +125,7 @@ export default {
       if (row.depoKey) {
         this.$dialog
           .confirm(
-            `${row.ptnrNm} - ${row.depoKey} 예치금 계좌를 선택 하시겠습니까?`
+            `${row.ptnrName} - ${row.depoKey} 예치금 계좌를 선택 하시겠습니까?`
           )
           .then(() => {
             this.close({ data: row })

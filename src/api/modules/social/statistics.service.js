@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 // (woojung)
 
 // 상품카테고리 - 상품구분 - 지역 리스트 만들기
@@ -10,11 +10,11 @@ const getStoreList = (param) => {
       // child 검사
       const child = store.children.find(data => data.childKey === row.childKey)
       if (!child) {
-        store.children.push({ childNm: row.childNm, childKey: row.childKey })
+        store.children.push({ childName: row.childName, childKey: row.childKey })
       }
     } else {
-      const addRow = { parentNm: row.parentNm, parentKey: row.parentKey, children: [] }
-      addRow.children.push({ childNm: row.childNm, childKey: row.childKey })
+      const addRow = { parentName: row.parentName, parentKey: row.parentKey, children: [] }
+      addRow.children.push({ childName: row.childName, childKey: row.childKey })
       storeList.push(addRow)
     }
   }
@@ -152,12 +152,12 @@ const statisticsService = {
     const title = '지역별'
     const saleData = { series: [], drilldown: [], categories: searchPeriod, list: [], title, kind: param.saleKind === 'S' ? '판매' : param.saleKind === 'U' ? '사용' : '취소' }
     for (const store of storeList) {
-      const row = { name: store.parentNm, data: [] }
+      const row = { name: store.parentName, data: [] }
       for (const period of searchPeriod) {
         const drillId = store.parentKey + '_' + period
         // 해당 데이터 filter
         const stndYmd = moment(period, format).format(format)
-        const filterStore = chartData.filter(data => data.stndYmd === stndYmd && data.parentNm === store.parentNm)
+        const filterStore = chartData.filter(data => data.stndYmd === stndYmd && data.parentName === store.parentName)
         row.data.push({
           name: period,
           drilldown: drillId,
@@ -165,10 +165,10 @@ const statisticsService = {
           amt: filterStore.reduce((sum, data) => sum + data.amt || 0, 0) / 1000
         })
         // drill down 셋팅
-        const drillData = { name: store.parentNm, id: drillId, data: [] }
+        const drillData = { name: store.parentName, id: drillId, data: [] }
         for (const child of store.children) {
           const filterChild = filterStore.find(data => data.childKey === child.childKey) || { qty: 0, amt: 0 }
-          drillData.data.push({ name: child.childNm + ' ( ' + period + ' )', cnt: filterChild.qty, amt: filterChild.amt / 1000, period: period })
+          drillData.data.push({ name: child.childName + ' ( ' + period + ' )', cnt: filterChild.qty, amt: filterChild.amt / 1000, period: period })
         }
         saleData.drilldown.push(drillData)
       }
@@ -180,10 +180,10 @@ const statisticsService = {
       const filterParents = chartData.filter(data => data.parentKey === store.parentKey)
       for (const child of store.children) {
         const filterChildren = filterParents.filter(data => data.childKey === child.childKey)
-        const amtRow = { name: child.childNm, label: saleData.kind + '금액 (천원)', data: [] }
+        const amtRow = { name: child.childName, label: saleData.kind + '금액 (천원)', data: [] }
         const cntRow = { label: saleData.kind + '수량 (건)', data: [] }
         if (!includeStore) {
-          amtRow.parent = store.parentNm
+          amtRow.parent = store.parentName
           amtRow.rowSpan = store.children.length * 2
           includeStore = true
         }

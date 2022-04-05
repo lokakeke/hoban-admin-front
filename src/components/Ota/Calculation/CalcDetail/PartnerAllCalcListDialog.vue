@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import calculationService from 'Api/modules/ota/calculation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import calculationService from '@/api/modules/ota/calculation.service'
 
 export default {
   extends: DialogBase,
@@ -44,7 +44,7 @@ export default {
 
       tableHeaders: [
         { text: '파트너번호', value: 'ptnrNo', align: 'center', width: '20%' },
-        { text: '파트너명', value: 'ptnrNm', align: 'center', width: '60%' },
+        { text: '파트너명', value: 'ptnrName', align: 'center', width: '60%' },
         { text: '객실 승인시간', value: 'roomAprlDt', align: 'center', width: '20%' },
         { text: '패키지 승인시간', value: 'pkgAprlDt', align: 'center', width: '20%' },
         { text: '위약 승인시간', value: 'bkpmsAprlDt', align: 'center', width: '20%' }

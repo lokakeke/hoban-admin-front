@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import packageService from 'Api/modules/ota/package.service'
+import packageService from '@/api/modules/ota/package.service'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -96,7 +96,7 @@ export default {
       searchSalePartner: '',
       saleHeaders: [
         { text: '판매여부', value: 'existYn', align: 'center', width: '20%' },
-        { text: '업체 명', value: 'ptnrNm', align: 'start', width: '80%' }
+        { text: '업체 명', value: 'ptnrName', align: 'start', width: '80%' }
       ],
       salePartnerList: []
     }

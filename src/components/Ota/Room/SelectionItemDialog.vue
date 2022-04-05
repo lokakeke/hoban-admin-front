@@ -16,7 +16,7 @@
                         hide-default-footer
           >
             <template v-slot:item.store="{item}">
-              {{item.storeNm}} ({{ item.storeCd }})
+              {{item.storeName}} ({{ item.storeCode }})
             </template>
             <template v-slot:item.todayRsvYn="{item}">
               {{ item.todayRsvYn === 'Y' ? '가능' : '불가능' }}
@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import roomTypeService from 'Api/modules/ota/roomType.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import roomTypeService from '@/api/modules/ota/roomType.service'
 
 export default {
   extends: DialogBase,
@@ -51,7 +51,7 @@ export default {
         { text: '객실 수 범위', value: 'rmCnt', align: 'center', sortable: false },
         { text: '당일예약 여부', value: 'todayRsvYn', align: 'center', sortable: false },
         { text: '당일예약 시간', value: 'todayRsvTime', align: 'center', sortable: false },
-        { text: '블럭코드', value: 'rsvBlckCd', align: 'center', sortable: false },
+        { text: '블럭코드', value: 'rsvBlckCode', align: 'center', sortable: false },
         { text: '판매유무', value: 'useYn', align: 'center', sortable: false }
       ]
     }

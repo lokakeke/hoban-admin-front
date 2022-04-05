@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import partnerInventoryRateService from 'Api/modules/partner/partnerInventoryRate.service'
+import partnerInventoryRateService from '@/api/modules/partner/partnerInventoryRate.service'
 
 export default {
   name: 'PartnerInventoryRateOptionDay',

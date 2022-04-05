@@ -33,11 +33,11 @@
         </v-col>
         <v-col sm="6" md="3">
           <v-label>메뉴 그룹 권한</v-label>
-          <v-text-field :value="form.menuAuthGrupNm" label="" disabled></v-text-field>
+          <v-text-field :value="form.menuAuthGrupName" label="" disabled></v-text-field>
         </v-col>
         <v-col sm="6" md="3">
           <v-label>부서</v-label>
-          <v-text-field :value="form.deptCdNm" label="" disabled></v-text-field>
+          <v-text-field :value="form.deptCodeName" label="" disabled></v-text-field>
         </v-col>
       </v-row>
       <v-row justify="end">
@@ -80,9 +80,9 @@
 </template>
 
 <script>
-import adminAuthService from 'Api/modules/system/adminAuth.service'
+import adminAuthService from '@/api/modules/system/adminAuth.service'
 import { mapGetters } from 'vuex'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

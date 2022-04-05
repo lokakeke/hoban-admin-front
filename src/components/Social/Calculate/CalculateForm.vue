@@ -15,13 +15,13 @@
       <v-row>
           <v-col cols="12" class="pt-0">
               <v-card tile>
-                  <div v-if="data.calcInd && data.ptnrNm">
+                  <div v-if="data.calcInd && data.ptnrName">
                       <v-card-title>
                           정산 정보
                       </v-card-title>
                       <v-card-text class="subtitle-1">
                           <span class="mr-10">정산 구분 : <span class="font-weight-bold">{{data.calcInd === 'A' ? '월정산' : '딜정산'}}</span></span>
-                          <span class="mr-10">업체 명 : <span class="font-weight-bold">{{data.ptnrNm}}</span></span>
+                          <span class="mr-10">업체 명 : <span class="font-weight-bold">{{data.ptnrName}}</span></span>
                       </v-card-text>
                   </div>
               </v-card>
@@ -53,7 +53,7 @@ import InvoiceM from './InvoiceM'
 import TicketBlackacre from './TicketBlackacre'
 import TicketDist from './TicketDist'
 import RoomDist from './RoomDist'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

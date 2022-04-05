@@ -21,7 +21,7 @@
           <v-col cols="12" class="mb-0 pl-3 font-weight-black subtitle-1 black--text pt-0">
             <v-row justify="space-between" align="end">
               <v-col cols="2">
-                <v-text-field v-model="form.corpNm" hide-details dense prefix="(주)"></v-text-field>
+                <v-text-field v-model="form.corpName" hide-details dense prefix="(주)"></v-text-field>
               </v-col>
               <img :src="logo" width="150px" alt="호반 호텔&리조트"/>
             </v-row>
@@ -56,13 +56,13 @@
             발 신 자
           </v-col>
           <v-col cols="9" class="body-1 black--text py-2 pl-3">
-            <v-text-field v-model="form.sendNm" hide-details dense></v-text-field>
+            <v-text-field v-model="form.sendName" hide-details dense></v-text-field>
           </v-col>
           <v-col cols="3" class="body-1 black--text text-center py-2 border-right border-bottom">
             수 신 자
           </v-col>
           <v-col cols="9" class="body-1 black--text py-2 pl-3 border-bottom">
-            <v-text-field v-model="form.rcvcNm" hide-details dense></v-text-field>
+            <v-text-field v-model="form.rcvcName" hide-details dense></v-text-field>
           </v-col>
 
           <!-- 인보이스 기본정보 2 -->
@@ -72,7 +72,7 @@
             </v-row>
           </v-col>
           <v-col cols="9" class="body-1 black--text py-2 pl-3 mt-4 border-top success--text">
-            <v-text-field v-model="form.itemNm" hide-details dense prepend-inner-icon="mdi-18px mdi-square-inc">
+            <v-text-field v-model="form.itemName" hide-details dense prepend-inner-icon="mdi-18px mdi-square-inc">
             </v-text-field>
           </v-col>
           <v-col cols="3" class="body-1 black--text py-2 text-center border-right">
@@ -122,9 +122,9 @@
               </thead>
               <tbody v-if="form.invoiceList && form.invoiceList.length > 0">
               <tr v-for="(item, index) of form.invoiceList" :key="index" @click="detailInfo(item)" class="pointer">
-                <td>{{item.saleChnnlNm}}</td>
+                <td>{{item.saleChnnlName}}</td>
                 <td>{{item.ticketNo}}</td>
-                <td>{{item.itemNm}}</td>
+                <td>{{item.itemName}}</td>
                 <td>{{item.sellAmt | price}}</td>
                 <td>{{item.stndBgnYmd}} ~ {{item.stndEndYmd}}</td>
                 <td>{{item.useQty | price}}</td>
@@ -241,9 +241,9 @@
           <v-col cols="7"></v-col>
           <v-row justify="end" align="center" class="pr-4 mt-5">
             <div class="pl-5 font-weight-black subtitle-1 primary--text">
-              <div class="mb-1">주 식 회 사 <span class="ml-3">{{form.corpNm}}</span></div>
+              <div class="mb-1">주 식 회 사 <span class="ml-3">{{form.corpName}}</span></div>
               <div class="float-left">대 표 이 사</div>
-              <v-text-field v-model="form.ceoNm" hide-details dense class="float-left ml-5 mt-0" style="width: 100px"></v-text-field>
+              <v-text-field v-model="form.ceoName" hide-details dense class="float-left ml-5 mt-0" style="width: 100px"></v-text-field>
               <span class="mr-4">(인)</span>
             </div>
           </v-row>
@@ -261,7 +261,7 @@
             <v-col cols="12" class="mb-0 pl-3 font-weight-black subtitle-1 black--text pt-0">
               <v-row style="position: relative;">
                 <v-col cols="3">
-                  <span>(주) {{form.corpNm}}</span>
+                  <span>(주) {{form.corpName}}</span>
                 </v-col>
                 <img style="position: absolute; right: 20px; top: -15px;" :src="logo" width="150px" alt="호반 호텔&리조트"/>
               </v-row>
@@ -289,13 +289,13 @@
               발 신 자
             </v-col>
             <v-col cols="9" class="body-1 black--text py-2 pl-3">
-              <span class="invoiceContent">{{form.sendNm}}</span>
+              <span class="invoiceContent">{{form.sendName}}</span>
             </v-col>
             <v-col cols="3" class="invoiceTitle body-1 black--text text-center py-2 border-right border-bottom">
               수 신 자
             </v-col>
             <v-col cols="9" class="body-1 black--text py-2 pl-3 border-bottom">
-              <span class="invoiceContent">{{form.rcvcNm}}</span>
+              <span class="invoiceContent">{{form.rcvcName}}</span>
             </v-col>
 
             <!-- 인보이스 기본정보 2 -->
@@ -303,7 +303,7 @@
               상 품
             </v-col>
             <v-col cols="9" class="body-1 black--text py-2 pl-3">
-              <span class="invoiceContent">{{form.itemNm}}</span>
+              <span class="invoiceContent">{{form.itemName}}</span>
             </v-col>
             <v-col cols="3" class="invoiceTitle body-1 black--text py-2 text-center border-right">
               정 산 기 간
@@ -353,9 +353,9 @@
                 </thead>
                 <tbody v-if="form.invoiceList && form.invoiceList.length > 0">
                 <tr v-for="(item, index) of form.invoiceList" :key="index+item.ticketNo" class="pointer">
-                  <td>{{item.saleChnnlNm}}</td>
+                  <td>{{item.saleChnnlName}}</td>
                   <td>{{item.ticketNo}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.sellAmt | price}}</td>
                   <td>{{item.stndBgnYmd}} ~ {{item.stndEndYmd}}</td>
                   <td>{{item.useQty | price}}</td>
@@ -428,8 +428,8 @@
             </v-col>
             <v-row style="position: absolute; right: 30px; top: 10px;" align="center" class="ceoClass pr-4 mt-5">
               <div class="pl-5 font-weight-black subtitle-1 primary--text">
-                <div class="mb-1">주 식 회 사 <span class="ml-3" style="padding-left: 10px;">{{form.corpNm}}</span></div>
-                <div class="float-left">대 표 이 사 <span style="padding-left: 10px;">{{form.ceoNm}}</span> <span style="padding-left: 20px;">(인)</span>
+                <div class="mb-1">주 식 회 사 <span class="ml-3" style="padding-left: 10px;">{{form.corpName}}</span></div>
+                <div class="float-left">대 표 이 사 <span style="padding-left: 10px;">{{form.ceoName}}</span> <span style="padding-left: 20px;">(인)</span>
                 </div>
               </div>
             </v-row>
@@ -441,7 +441,7 @@
 </template>
 
 <script>
-import calculateService from 'Api/modules/social/calculate.service'
+import calculateService from '@/api/modules/social/calculate.service'
 
 export default {
   name: 'Invoice',
@@ -467,19 +467,19 @@ export default {
       addInvoiceList: [], // 추가정산 목록
       addInvoiceAmtSum: 0, // 추가정산 합계
       form: {
-        corpNm: '',
+        corpName: '',
         addr: '', // 주소
         invoiceNo: '', // Invoice No
         issuYmd: '', // Invoice Date
-        sendNm: '', // 발신자
-        rcvcNm: '', // 수신자
-        itemNm: '', // 상품명
+        sendName: '', // 발신자
+        rcvcName: '', // 수신자
+        itemName: '', // 상품명
         calcYmd: '', // 정산기간
         deposit: 0, // 입금금액
         taxInvoice: 0, // 세금계산서 금액
         rcpmnyAcnoNo: '', // 입금계좌
         rcpmnyTerm: '', // 입금기한
-        ceoNm: '', // 대표자명
+        ceoName: '', // 대표자명
         invoiceList: [] // Invoice List
       },
       /**
@@ -530,8 +530,8 @@ export default {
           this.form = res.data.invoiceInfo
         }
         // 법인명 값 없을경우 기본값
-        if (!_.some(this.form.corpNm)) {
-          this.form.corpNm = '호반호텔앤리조트'
+        if (!_.some(this.form.corpName)) {
+          this.form.corpName = '호반호텔앤리조트'
         }
         // 주소 값 없을경우 기본값
         if (!_.some(this.form.addr)) {

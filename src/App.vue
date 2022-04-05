@@ -26,10 +26,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import DialogContainer from 'Components/Dialog/DialogContainer.vue'
-import VueLoadingOverlay from 'Components/LoadingOverlay/VueLoadingOverlay.vue'
-import CommonSnackbars from 'Components/Common/CommonSnackbars.vue'
-import depositAccountService from 'Api/modules/api/depositAccount.service'
+import DialogContainer from '@/components/Dialog/DialogContainer.vue'
+import VueLoadingOverlay from '@/components/LoadingOverlay/VueLoadingOverlay.vue'
+import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'
+import depositAccountService from '@/api/modules/api/depositAccount.service'
 // (woojung)d
 
 export default {
@@ -106,7 +106,7 @@ export default {
       }
     }, 10 * 60 * 1000) // 10분 간격
     // 파트너 예치금 부족 주기적 확인
-    this.checkPartnerDeposit()
+    // this.checkPartnerDeposit()
     this.partnerDepositInterval = setInterval(this.checkPartnerDeposit, 30 * 60 * 1000) // 30분 간격
   },
   beforeDestroy () {

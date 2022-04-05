@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 import store from '@/store'
 
 const commonCodeService = {
@@ -12,7 +12,7 @@ const commonCodeService = {
 
   /**
    * 공통코드 코드 조회
-   * @param parentCommCd 부모공통코드
+   * @param parentCommCode 부모공통코드
    * @param noCache store cache 사용여부
    */
   selectCommonCode (parentCommonCode, noCache = false) {
@@ -76,7 +76,7 @@ const commonCodeService = {
   /**
    * 상위 공통코드 등록 시 코드 자동 완성을 위한 조회
    */
-  selectCommCdOfCommCd (commonCode) {
+  selectCommCodeOfCommCode (commonCode) {
     return api.get(`/api/cms/system/commonCode/${commonCode}/next`)
   },
 
@@ -90,8 +90,8 @@ const commonCodeService = {
   /**
    * DGNS 공통코드 목록 조회
    */
-  selectDGNSCommonCodeList (commTypeCd) {
-    return api.get(`/api/cms/system/commonCode/dgnsCommonCodeList/${commTypeCd}`)
+  selectDGNSCommonCodeList (commTypeCode) {
+    return api.get(`/api/cms/system/commonCode/dgnsCommonCodeList/${commTypeCode}`)
   }
 
 }

@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import calculationDayService from 'Api/modules/ota/calculationDay.service'
+import calculationDayService from '@/api/modules/ota/calculationDay.service'
 
 const EVENT_TYPES = [
   { value: 'peak', text: '성수기', color: 'orange' },

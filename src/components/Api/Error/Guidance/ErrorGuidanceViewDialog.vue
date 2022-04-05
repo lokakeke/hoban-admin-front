@@ -22,7 +22,7 @@
       <v-row>
         <v-col cols="12">
           <v-label>오류코드 / 메시지</v-label>
-          <v-text-field :value="`${errorGuidance.errCd} / ${errorGuidance.errMsg}`" readonly></v-text-field>
+          <v-text-field :value="`${errorGuidance.errCode} / ${errorGuidance.errMsg}`" readonly></v-text-field>
         </v-col>
         <v-col cols="12">
           <v-label>오류일자</v-label>
@@ -30,24 +30,24 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col :cols="errorGuidance.procNm ? 6 : 12">
+        <v-col :cols="errorGuidance.procName ? 6 : 12">
           <v-label>처리상태</v-label>
           <v-text-field readonly>
             <template v-slot:prepend-inner>
-              <span class="green--text" v-if="errorGuidance.procStatCd === 'Y'">
+              <span class="green--text" v-if="errorGuidance.procStatCode === 'Y'">
                 <v-icon small>mdi-check-circle-outline</v-icon>
                 처리완료
               </span>
-              <span class="red--text" v-if="errorGuidance.procStatCd === 'N'">
+              <span class="red--text" v-if="errorGuidance.procStatCode === 'N'">
                 <v-icon small>mdi-alert-circle-outline</v-icon>
                 처리필요
               </span>
             </template>
           </v-text-field>
         </v-col>
-        <v-col cols="6" v-if="errorGuidance.procNm">
+        <v-col cols="6" v-if="errorGuidance.procName">
           <v-label>처리자</v-label>
-          <v-text-field :value="errorGuidance.procNm" readonly></v-text-field>
+          <v-text-field :value="errorGuidance.procName" readonly></v-text-field>
         </v-col>
         <v-col cols="12" v-if="errorGuidance.memo">
           <v-label>처리메모</v-label>
@@ -81,8 +81,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import errorGuidanceService from 'Api/modules/api/errorGuidance.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import errorGuidanceService from '@/api/modules/api/errorGuidance.service'
 
 export default {
   name: 'ErrorGuidanceViewDialog',
@@ -122,7 +122,7 @@ export default {
      * 처리여부
      */
     isProcessed () {
-      return Boolean(this.errorGuidance.procStatCd === 'Y')
+      return Boolean(this.errorGuidance.procStatCode === 'Y')
     }
   },
   methods: {
@@ -151,7 +151,7 @@ export default {
     openErrorGuidanceProcessDialog () {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Error/Guidance/ErrorGuidanceProcessDialog',
+        componentPath: '@/api/Error/Guidance/ErrorGuidanceProcessDialog',
         params: {
           errSeq: this.errorGuidance.errSeq
         },

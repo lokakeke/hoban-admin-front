@@ -1,5 +1,5 @@
 import store from '@/store'
-import adminAuthService from 'Api/modules/system/adminAuth.service'
+import adminAuthService from '@/api/modules/system/adminAuth.service'
 import router from '@/router'
 import Nprogress from 'nprogress'
 import util from '@/utils/cookie.util'

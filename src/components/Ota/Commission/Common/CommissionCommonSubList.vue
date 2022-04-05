@@ -19,11 +19,11 @@
         <v-toolbar flat>
           <v-toolbar-title>
             <template v-if="commissionType === 'MemberInd'">
-              {{ commission.memIndNm }}
+              {{ commission.memIndName }}
               <v-chip x-small class="ml-1">{{ commission.memInd }}</v-chip>
             </template>
             <template v-else>
-              {{ commission.memNm }}
+              {{ commission.memName }}
               <v-chip x-small class="ml-1">{{ commission.memNo }}</v-chip>
             </template>
             {{ commissionTypeText }} 수수료 리스트
@@ -225,9 +225,9 @@ export default {
         params: {
           commissionType: this.commissionType,
           memNo: this.commission.memNo,
-          memNm: this.commission.memNm,
+          memName: this.commission.memName,
           memInd: this.commission.memInd,
-          memIndNm: this.commission.memIndNm,
+          memIndName: this.commission.memIndName,
           existApplyYmdList
         },
         options: {
@@ -275,9 +275,9 @@ export default {
         params: {
           commissionType: this.commissionType,
           memNo: item.memNo,
-          memNm: item.memNm,
+          memName: item.memName,
           memInd: item.memInd,
-          memIndNm: item.memIndNm,
+          memIndName: item.memIndName,
           applyYmd: item.applyYmd,
           applyBgnYmd: item.applyBgnYmd,
           applyEndYmd: item.applyEndYmd

@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import ticketSearchService from 'Api/modules/social/ticketSearch.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import ticketSearchService from '@/api/modules/social/ticketSearch.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -44,7 +44,7 @@ export default {
     return {
       headers: [
         { text: '우대번호', value: 'ticketNo', align: 'center', sortable: false },
-        { text: '우대번호 명', value: 'ticketNm', align: 'center', sortable: false },
+        { text: '우대번호 명', value: 'ticketName', align: 'center', sortable: false },
         { text: '우대번호 유효기간', value: 'vaildThruYmd', align: 'center', sortable: false },
         { text: '발행매수', value: 'issuQty', align: 'center', sortable: false },
         { text: '그룹상품', value: 'groupList', align: 'center', sortable: false }

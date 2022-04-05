@@ -6,7 +6,7 @@
         <v-col cols="6">
           <v-label>API 구분</v-label>
           <v-text-field
-            v-model="form.apiIndNm"
+            v-model="form.apiIndName"
             label
             readonly
             placeholder=""
@@ -115,9 +115,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import StringUtil from '@/utils/string.util'
-import partnerApiService from 'Api/modules/partner/partnerApi.service'
+import partnerApiService from '@/api/modules/partner/partnerApi.service'
 
 export default {
   extends: DialogBase,
@@ -126,7 +126,7 @@ export default {
     return {
       form: {
         apiInd: null,
-        apiIndNm: null,
+        apiIndName: null,
         apiUrl: null,
         apiMethod: null,
         apiHeader: null,
@@ -166,10 +166,10 @@ export default {
         ' {\n' +
         '  "type" : "ROOM"\n' +
         '  ,"dateTime" : "' + moment().format('YYYY-MM-DD HH:mm:SS') + '"\n' +
-        '  ,"storeCd" : "02"\n' +
-        '  ,"storeNm" : "소노벨 비발디파크 B · C (구 오크 · 파인)"\n' +
-        '  ,"rmTypeCd" : "00B28"\n' +
-        '  ,"rmTypeNm" : "스위트 오크(클린)"\n' +
+        '  ,"storeCode" : "02"\n' +
+        '  ,"storeName" : "소노벨 비발디파크 B · C (구 오크 · 파인)"\n' +
+        '  ,"rmTypeCode" : "00B28"\n' +
+        '  ,"rmTypeName" : "스위트 오크(클린)"\n' +
         '  , "ciYmd" : "' + this.now + '"\n' +
         '  , "orgRmAmt" : "120000"\n' +
         '  , "saleRmAmt" : "135000"\n' +
@@ -178,10 +178,10 @@ export default {
         ' {\n' +
         '  "type" : "ROOM"\n' +
         '  ,"dateTime" : "' + moment().format('YYYY-MM-DD HH:mm:SS') + '"\n' +
-        '  ,"storeCd" : "02"\n' +
-        '  ,"storeNm" : "소노벨 비발디파크 B · C (구 오크 · 파인)"\n' +
-        '  ,"rmTypeCd" : "00B28"\n' +
-        '  ,"rmTypeNm" : "스위트 오크(클린)"\n' +
+        '  ,"storeCode" : "02"\n' +
+        '  ,"storeName" : "소노벨 비발디파크 B · C (구 오크 · 파인)"\n' +
+        '  ,"rmTypeCode" : "00B28"\n' +
+        '  ,"rmTypeName" : "스위트 오크(클린)"\n' +
         '  , "ciYmd" : "' + moment(this.now).add(1, 'days').format('YYYYMMDD') + '"\n' +
         '  , "orgRmAmt" : "120000"\n' +
         '  , "saleRmAmt" : "135000"\n' +
@@ -190,10 +190,10 @@ export default {
         ' {\n' +
         '  "type" : "ROOM"\n' +
         '  ,"dateTime" : "' + moment().format('YYYY-MM-DD HH:mm:SS') + '"\n' +
-        '  ,"storeCd" : "02"\n' +
-        '  ,"storeNm" : "소노벨 비발디파크 B · C (구 오크 · 파인)"\n' +
-        '  ,"rmTypeCd" : "00B28"\n' +
-        '  ,"rmTypeNm" : "스위트 오크(클린)"\n' +
+        '  ,"storeCode" : "02"\n' +
+        '  ,"storeName" : "소노벨 비발디파크 B · C (구 오크 · 파인)"\n' +
+        '  ,"rmTypeCode" : "00B28"\n' +
+        '  ,"rmTypeName" : "스위트 오크(클린)"\n' +
         '  , "ciYmd" : "' + moment(this.now).add(2, 'days').format('YYYYMMDD') + '"\n' +
         '  , "orgRmAmt" : "120000"\n' +
         '  , "saleRmAmt" : "135000"\n' +

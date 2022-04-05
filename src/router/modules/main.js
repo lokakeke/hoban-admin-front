@@ -1,8 +1,8 @@
 import Full from 'Container/Full.vue'
 
-const Main = () => import('Views/common/Main.vue')
-const OtaMain = () => import('Views/system/main/OtaMain.vue')
-const SocialMain = () => import('Views/system/main/SocialMain.vue')
+const Main = () => import('@/views/common/Main.vue')
+const OtaMain = () => import('@/views/system/main/OtaMain.vue')
+const SocialMain = () => import('@/views/system/main/SocialMain.vue')
 
 export default {
   path: '/main',

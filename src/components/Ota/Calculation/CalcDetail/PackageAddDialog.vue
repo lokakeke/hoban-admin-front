@@ -65,7 +65,7 @@
           <v-row v-if="pkgInfo">
             <v-col cols="12">
               <v-card>
-                <v-card-title>{{ pkgInfo.pkgNm }}</v-card-title>
+                <v-card-title>{{ pkgInfo.pkgName }}</v-card-title>
                 <v-divider />
                 <v-card-text>
                   <v-list dense>
@@ -76,7 +76,7 @@
 
                     <v-list-item>
                       <v-list-item-content>지역</v-list-item-content>
-                      <v-list-item-content class="align-end">{{ pkgInfo.lcalNm }} ({{ pkgInfo.lcalCd }})</v-list-item-content>
+                      <v-list-item-content class="align-end">{{ pkgInfo.lcalName }} ({{ pkgInfo.lcalCd }})</v-list-item-content>
                     </v-list-item>
 
                     <v-list-item>
@@ -86,7 +86,7 @@
 
                     <v-list-item>
                       <v-list-item-content>패키지 판매 유형</v-list-item-content>
-                      <v-list-item-content class="align-end">{{ pkgInfo.pkgSaleTypeNm}} ({{ pkgInfo.pkgSaleType }})</v-list-item-content>
+                      <v-list-item-content class="align-end">{{ pkgInfo.pkgSaleTypeName}} ({{ pkgInfo.pkgSaleType }})</v-list-item-content>
                     </v-list-item>
                   </v-list>
                 </v-card-text>
@@ -116,9 +116,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import packageService from 'Api/modules/ota/package.service'
-import calculationService from 'Api/modules/ota/calculation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import packageService from '@/api/modules/ota/package.service'
+import calculationService from '@/api/modules/ota/calculation.service'
 
 export default {
   extends: DialogBase,

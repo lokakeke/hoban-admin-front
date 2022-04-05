@@ -183,8 +183,8 @@
 </template>
 
 <script>
-import calculationService from 'Api/modules/ota/calculation.service'
-import calculateCompareService from 'Api/modules/ota/calculateCompare.service'
+import calculationService from '@/api/modules/ota/calculation.service'
+import calculateCompareService from '@/api/modules/ota/calculateCompare.service'
 
 export default {
   name: 'CalculateComparativeContrast',
@@ -230,12 +230,12 @@ export default {
         },
         {
           text: '회원명',
-          value: 'memNm',
+          value: 'memName',
           align: 'center',
           sortable: true,
           filter: value => {
-            if (!this.sysCalSearchForMemNm) return true
-            return value.toString().toLocaleUpperCase().indexOf(this.sysCalSearchForMemNm) !== -1
+            if (!this.sysCalSearchForMemName) return true
+            return value.toString().toLocaleUpperCase().indexOf(this.sysCalSearchForMemName) !== -1
           }
         },
         {
@@ -314,12 +314,12 @@ export default {
         },
         {
           text: '회원명',
-          value: 'memNm',
+          value: 'memName',
           align: 'center',
           sortable: true,
           filter: value => {
-            if (!this.handCalSearchForMemNm) return true
-            return value.toString().toLocaleUpperCase().indexOf(this.handCalSearchForMemNm) !== -1
+            if (!this.handCalSearchForMemName) return true
+            return value.toString().toLocaleUpperCase().indexOf(this.handCalSearchForMemName) !== -1
           }
         },
         {
@@ -374,14 +374,14 @@ export default {
         }
       ],
       handCalSearchForMemNo: '', // 수기정산 검색 - 회원번호
-      handCalSearchForMemNm: '', // 수기정산 검색 - 회원명
+      handCalSearchForMemName: '', // 수기정산 검색 - 회원명
       handCalSearchForCiYmd: '', // 수기정산 검색 - 입실일자
       handCalSearchForRoomNo: '', // 수기정산 검색 - 객실번호
       handCalSearchForAccruedAmt: '', // 수기정산 검색 - 발생금액
       handCalSearchForRsvNo: '', // 수기정산 검색 - 예약번호
       handCalSearchForKeyRsvNo: '', // 수기정산 검색 - Key예약번호
       sysCalSearchForMemNo: '', // 시스템 정산 검색 - 회원번호
-      sysCalSearchForMemNm: '', // 시스템 정산 검색 - 회원명
+      sysCalSearchForMemName: '', // 시스템 정산 검색 - 회원명
       sysCalSearchForCiYmd: '', // 시스템 정산 검색 - 입실일자
       sysCalSearchForRoomNo: '', // 시스템 정산 검색 - 객실번호
       sysCalSearchForAccruedAmt: '', // 시스템 정산 검색 - 발생금액
@@ -396,7 +396,7 @@ export default {
       amtHeaders: [
         { text: '구분', value: 'gubun', align: 'center', sortable: true },
         { text: '회원번호', value: 'sysMemNo', align: 'center', sortable: true },
-        { text: '회원명', value: 'sysMemNm', align: 'center', sortable: true },
+        { text: '회원명', value: 'sysMemName', align: 'center', sortable: true },
         { text: '입실일자', value: 'sysCiYmd', align: 'center', sortable: true },
         { text: '객실번호', value: 'excelRoomNo', align: 'center', sortable: true },
         { text: '예약총금액', value: 'sysTotAmt', align: 'center', sortable: true },
@@ -409,7 +409,7 @@ export default {
       rsvHeaders: [
         { text: '구분', value: 'gubun', align: 'center', sortable: true },
         { text: '회원번호', value: 'memNo', align: 'center', sortable: true },
-        { text: '회원명', value: 'memNm', align: 'center', sortable: true },
+        { text: '회원명', value: 'memName', align: 'center', sortable: true },
         { text: '입실일자', value: 'ciYmd', align: 'center', sortable: true },
         { text: '객실번호', value: 'roomNo', align: 'center', sortable: true },
         { text: '발생금액', value: 'amt', align: 'center', sortable: true },
@@ -489,7 +489,7 @@ export default {
         componentPath: '/Ota/Calculation/CalcCompare/SearchDialog',
         params: {
           memNo: this.sysCalSearchForMemNo,
-          memNm: this.sysCalSearchForMemNm,
+          memName: this.sysCalSearchForMemName,
           ciYmd: this.sysCalSearchForCiYmd,
           roomNo: this.sysCalSearchForRoomNo,
           accruedAmt: this.sysCalSearchForAccruedAmt,
@@ -502,7 +502,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.sysCalSearchForMemNo = params.data.memNo
-              this.sysCalSearchForMemNm = params.data.memNm
+              this.sysCalSearchForMemName = params.data.memName
               this.sysCalSearchForCiYmd = params.data.ciYmd
               this.sysCalSearchForRoomNo = params.data.roomNo
               this.sysCalSearchForAccruedAmt = params.data.accruedAmt
@@ -525,7 +525,7 @@ export default {
         componentPath: '/Ota/Calculation/CalcCompare/SearchDialog',
         params: {
           memNo: this.handCalSearchForMemNo,
-          memNm: this.handCalSearchForMemNm,
+          memName: this.handCalSearchForMemName,
           ciYmd: this.handCalSearchForCiYmd,
           roomNo: this.handCalSearchForRoomNo,
           accruedAmt: this.handCalSearchForAccruedAmt,
@@ -538,7 +538,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.handCalSearchForMemNo = params.data.memNo
-              this.handCalSearchForMemNm = params.data.memNm
+              this.handCalSearchForMemName = params.data.memName
               this.handCalSearchForCiYmd = params.data.ciYmd
               this.handCalSearchForRoomNo = params.data.roomNo
               this.handCalSearchForAccruedAmt = params.data.accruedAmt

@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import calculationService from 'Api/modules/ota/calculation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import calculationService from '@/api/modules/ota/calculation.service'
 
 export default {
   extends: DialogBase,
@@ -61,7 +61,7 @@ export default {
         { text: '추가여부', value: 'addYn', align: 'center' },
         { text: '사용금액', value: 'saleAmt', align: 'center' },
         { text: '추가금액', value: 'addAmt', align: 'center' },
-        { text: '메뉴명', value: 'pkgMenuNm', align: 'center' }
+        { text: '메뉴명', value: 'pkgMenuName', align: 'center' }
       ],
       items: []
     }

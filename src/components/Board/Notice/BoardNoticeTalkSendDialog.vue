@@ -36,7 +36,7 @@
                   class="ma-1"
                   v-for="partner in notice.ptnrList"
                   :key="partner.ptnrNo"
-                >{{ partner.ptnrNm }}</v-chip>
+                >{{ partner.ptnrName }}</v-chip>
               </div>
               <div class="mt-2" v-else>
                 <!-- 전체 파트너 -->
@@ -69,9 +69,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import boardNoticeService from 'Api/modules/system/boardNotice.service'
-import smsNotiManagementService from 'Api/modules/system/smsNotiManagement.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import boardNoticeService from '@/api/modules/system/boardNotice.service'
+import smsNotiService from '@/api/modules/system/smsNoti.service'
 
 export default {
   name: 'BoardNoticeTalkSendDialog',
@@ -142,13 +142,13 @@ export default {
      * 알림톡 템플릿 가져오기
      */
     async selectTalkTemplate () {
-      const res = await smsNotiManagementService.selectList({
+      const res = await smsNotiService.selectList({
         useYn: 'Y'
       })
       let talkTemplate = null
-      res.data.some((smsNotiManagement) => {
-        if (smsNotiManagement.notifyId === 'RMS_NOTI_01') {
-          talkTemplate = smsNotiManagement
+      res.data.some((smsNoti) => {
+        if (smsNoti.notifyId === 'RMS_NOTI_01') {
+          talkTemplate = smsNoti
         }
         return Boolean(talkTemplate)
       })

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AppConfig from 'Constants/AppConfig'
+import AppConfig from '@/constants/AppConfig'
 import { mapGetters } from 'vuex'
 
 export default {

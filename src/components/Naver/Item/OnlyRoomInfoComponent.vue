@@ -18,10 +18,10 @@
       <v-col cols="6">
         <div class="font-weight-bold subtitle-1">사업장 선택<span class="font-sm font-weight-light"> (사업장명, 사업장코드로 검색 가능합니다.)</span></div>
         <v-autocomplete
-          v-model="storeCd"
+          v-model="storeCode"
           :items="storeList"
-          item-value="storeCd"
-          item-text="storeNm"
+          item-value="storeCode"
+          item-text="storeName"
           :rules="emptyRules"
           @change="selectStore"
           autocomplete="off"
@@ -37,7 +37,7 @@
       </v-col>
       <v-col cols="12" class="pb-0">
         <v-autocomplete :style="{'max-width':'250px'}"
-                        :items="rsvBlckCdList" label="블럭코드" v-model="rsvBlckCd" @change="selectRsvBlckCd()" :rules="emptyRules"></v-autocomplete>
+                        :items="rsvBlckCodeList" label="블럭코드" v-model="rsvBlckCode" @change="selectRsvBlckCode()" :rules="emptyRules"></v-autocomplete>
       </v-col>
       <v-col cols="10" class="pt-1 pb-0">
         <v-alert dense outlined type="error" class="font-sm">
@@ -59,24 +59,24 @@
               :no-data-text="'검색 결과가 없습니다.'"
               :headers="headers"
               :items="rmTypeList"
-              item-key="rmTypeCd"
+              item-key="rmTypeCode"
               hide-default-footer
               disable-pagination
               dense
               class="bordered pointer"
             >
               <template v-slot:item.isSelected="{ item }">
-                <v-simple-checkbox v-model="item.isSelected" @input="selectRoom(item)" :disabled="(viewStoreCd !== storeCd.storeCd && item.isExist) || (item.isExist && !item.isOriginSelected)"></v-simple-checkbox>
+                <v-simple-checkbox v-model="item.isSelected" @input="selectRoom(item)" :disabled="(viewStoreCode !== storeCode.storeCode && item.isExist) || (item.isExist && !item.isOriginSelected)"></v-simple-checkbox>
               </template>
               <template v-slot:item.isExist="{ item }">
                 <v-chip v-if="item.isExist" small color="success">등록</v-chip>
                 <v-chip v-else small color="gray">미등록</v-chip>
               </template>
-              <template v-slot:item.rmTypeCd="{ item }">
-                <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.rmTypeCd }}</span>
+              <template v-slot:item.rmTypeCode="{ item }">
+                <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.rmTypeCode }}</span>
               </template>
-              <template v-slot:item.rmTypeNm="{ item }">
-                <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.rmTypeNm }}</span>
+              <template v-slot:item.rmTypeName="{ item }">
+                <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.rmTypeName }}</span>
               </template>
             </v-data-table>
           </app-card>
@@ -87,8 +87,8 @@
 </template>
 
 <script>
-import itemService from 'Api/modules/naver/item.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import itemService from '@/api/modules/naver/item.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -99,7 +99,7 @@ export default {
       required: true
     },
     originRoomInfo: {},
-    viewStoreCd: {
+    viewStoreCode: {
       type: String,
       default: ''
     },
@@ -111,20 +111,20 @@ export default {
   data: function () {
     return {
       mid: '',
-      storeCd: '',
+      storeCode: '',
       storeList: [],
       rmTypeList: [],
       headers: [
         { text: '선택', value: 'isSelected', align: 'center', sortable: false },
         { text: '등록여부', value: 'isExist', align: 'center' },
-        { text: '객실유형코드', value: 'rmTypeCd', align: 'left' },
-        { text: '객실유형명', value: 'rmTypeNm', align: 'left' }
+        { text: '객실유형코드', value: 'rmTypeCode', align: 'left' },
+        { text: '객실유형명', value: 'rmTypeName', align: 'left' }
       ],
       /**
        *  prop받은 블럭코드를 받을 data, 블럭코드목록
        */
-      rsvBlckCd: '',
-      rsvBlckCdList: []
+      rsvBlckCode: '',
+      rsvBlckCodeList: []
     }
   },
   computed: {
@@ -153,7 +153,7 @@ export default {
     /**
      *  블럭리스트 주입
      */
-    this.selectBlckCd()
+    this.selectBlckCode()
     /**
      *  회원번호 주입
      */
@@ -164,7 +164,7 @@ export default {
   methods: {
     async getOnlyRoomList () {
       await itemService.selectOnlyRoomList().then((response) => {
-        const data = _.orderBy(response.data, 'storeCd')
+        const data = _.orderBy(response.data, 'storeCode')
         this.storeList = []
         data.map(obj => {
           // 기존 등록된 객실 정보가 체크 및 텍스트 볼드처리
@@ -172,8 +172,8 @@ export default {
             let isSelected = false
             let isOriginSelected = false
             if (this.originRoomInfo &&
-              this.originRoomInfo.storeCd === roomObj.storeCd &&
-              this.originRoomInfo.rmTypeCd === roomObj.rmTypeCd) {
+              this.originRoomInfo.storeCode === roomObj.storeCode &&
+              this.originRoomInfo.rmTypeCode === roomObj.rmTypeCode) {
               isSelected = true
               isOriginSelected = true
             }
@@ -181,20 +181,20 @@ export default {
             roomObj.isOriginSelected = isOriginSelected
           })
           this.storeList.push({
-            storeNm: `${obj.storeNm} (${obj.storeCd})`,
-            storeCd: obj.storeCd,
+            storeName: `${obj.storeName} (${obj.storeCode})`,
+            storeCode: obj.storeCode,
             rmTypeList: obj.rmTypeList
           })
         })
-        if (this.viewStoreCd) {
-          this.storeCd = this.storeList.find(store => { return store.storeCd === this.viewStoreCd })
-          this.rmTypeList = this.storeCd.rmTypeList
+        if (this.viewStoreCode) {
+          this.storeCode = this.storeList.find(store => { return store.storeCode === this.viewStoreCode })
+          this.rmTypeList = this.storeCode.rmTypeList
         }
       })
     },
     addItemInfo () {
       const selectRmTypeInfo = this.rmTypeList.find(item => { return item.isSelected === true })
-      if (!this.storeCd) {
+      if (!this.storeCode) {
         this.$dialog.alert('사업장을 선택해주세요.')
         return
       } else if (!selectRmTypeInfo) {
@@ -203,17 +203,17 @@ export default {
       } else if (this.mid === '') {
         this.$dialog.alert('회원번호를 입력해주세요.')
         return
-      } else if (this.rsvBlckCd === '') {
+      } else if (this.rsvBlckCode === '') {
         this.$dialog.alert('블럭코드를 선택해주세요.')
         return
       }
       const itemInfo = {
         dmStoreId: this.dmStoreId,
-        rsvBlckCd: this.rsvBlckCd,
-        storeCd: this.storeCd.storeCd,
-        storeNm: this.storeCd.storeNm,
-        rmTypeCd: selectRmTypeInfo.rmTypeCd,
-        rmTypeNm: selectRmTypeInfo.rmTypeNm,
+        rsvBlckCode: this.rsvBlckCode,
+        storeCode: this.storeCode.storeCode,
+        storeName: this.storeCode.storeName,
+        rmTypeCode: selectRmTypeInfo.rmTypeCode,
+        rmTypeName: selectRmTypeInfo.rmTypeName,
         mid: this.mid,
         pkgYn: 'N'
       }
@@ -236,65 +236,65 @@ export default {
       }
       if (room.isSelected) {
         this.rmTypeList.forEach(i => {
-          if (room.rmTypeCd !== i.rmTypeCd) {
+          if (room.rmTypeCode !== i.rmTypeCode) {
             i.isSelected = false
           }
         })
         this.$store.dispatch('naver/setRoomInfo', {
-          storeCd: room.storeCd,
-          rmTypeCd: room.rmTypeCd
+          storeCode: room.storeCode,
+          rmTypeCode: room.rmTypeCode
         })
       }
     },
-    selectRsvBlckCd () {
+    selectRsvBlckCode () {
       this.$store.dispatch('naver/setRoomInfo', {
-        rsvBlckCd: this.rsvBlckCd
+        rsvBlckCode: this.rsvBlckCode
       })
     },
-    async selectBlckCd () {
+    async selectBlckCode () {
       await commonCodeService.selectCommonCode('PKG_BLCK_CD').then(res => {
-        this.rsvBlckCdList = res.data ? _.map(res.data, 'commCd') : []
+        this.rsvBlckCodeList = res.data ? _.map(res.data, 'commCode') : []
         /**
          *  블럭코드 주입
          */
-        if (this.originRoomInfo && this.originRoomInfo.rsvBlckCd) {
-          this.rsvBlckCd = this.originRoomInfo.rsvBlckCd
+        if (this.originRoomInfo && this.originRoomInfo.rsvBlckCode) {
+          this.rsvBlckCode = this.originRoomInfo.rsvBlckCode
         }
       })
     },
     selectStore () {
-      this.rmTypeList = this.storeCd.rmTypeList
+      this.rmTypeList = this.storeCode.rmTypeList
       // 수정일 경우
-      if (this.viewStoreCd !== this.storeCd.storeCd) {
+      if (this.viewStoreCode !== this.storeCode.storeCode) {
         this.$store.dispatch('naver/setRoomInfo', {
-          storeCd: '',
-          rmTypeCd: '',
+          storeCode: '',
+          rmTypeCode: '',
           mid: '',
-          rsvBlckCd: ''
+          rsvBlckCode: ''
         })
         this.mid = ''
-        this.rsvBlckCd = ''
+        this.rsvBlckCode = ''
         this.rmTypeList.forEach(roomObj => {
           roomObj.isSelected = false
           roomObj.isOriginSelected = false
         })
       } else {
-        // storeCd 가 같을 경우 기존 데이터로 원복
+        // storeCode 가 같을 경우 기존 데이터로 원복
         this.$store.dispatch('naver/setRoomInfo', {
-          storeCd: this.originRoomInfo.storeCd,
-          rmTypeCd: this.originRoomInfo.rmTypeCd,
+          storeCode: this.originRoomInfo.storeCode,
+          rmTypeCode: this.originRoomInfo.rmTypeCode,
           mid: this.originRoomInfo.mid,
-          rsvBlckCd: this.originRoomInfo.rsvBlckCd
+          rsvBlckCode: this.originRoomInfo.rsvBlckCode
         })
         this.mid = _.cloneDeep(this.originRoomInfo.mid)
-        this.rsvBlckCd = _.cloneDeep(this.originRoomInfo.rsvBlckCd)
+        this.rsvBlckCode = _.cloneDeep(this.originRoomInfo.rsvBlckCode)
         // 기존 등록된 객실 정보가 체크 및 텍스트 볼드처리
         this.rmTypeList.forEach(roomObj => {
           let isSelected = false
           let isOriginSelected = false
           if (this.originRoomInfo &&
-            this.originRoomInfo.storeCd === roomObj.storeCd &&
-            this.originRoomInfo.rmTypeCd === roomObj.rmTypeCd) {
+            this.originRoomInfo.storeCode === roomObj.storeCode &&
+            this.originRoomInfo.rmTypeCode === roomObj.rmTypeCode) {
             isSelected = true
             isOriginSelected = true
           }

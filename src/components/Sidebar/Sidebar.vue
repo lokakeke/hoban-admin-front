@@ -20,7 +20,7 @@
               :class="key !== 0? 'border-top': ''">
               <v-icon v-if="category.iconFont" left color="#5c4037">{{ category.iconFont }}</v-icon>
               <v-icon v-if="category.iconFont" left color="#5c4037">dd</v-icon>
-              {{category.menuNm}}
+              {{category.menuName}}
             </div>
             <template v-for="item in category.children">
               <v-list-group
@@ -35,7 +35,7 @@
                 <template v-slot:activator>
                   <v-list-item-content>
                     <v-list-item-title>
-                      <span>{{ item.menuNm }} + dept1</span>
+                      <span>{{ item.menuName }} + dept1</span>
                     </v-list-item-title>
                   </v-list-item-content>
                 </template>
@@ -48,7 +48,7 @@
                   <v-list-item-content>
                     <v-list-item-title>
                       <v-icon small>subdirectory_arrow_right</v-icon>
-                      {{ subItem.menuNm }}
+                      {{ subItem.menuName }}
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -67,7 +67,7 @@
                   <v-list-item :to="item.menuPath" @click.native.stop="" :ripple="false">
                     <v-list-item-content>
                       <v-list-item-title>
-                        <span>{{ item.menuNm }} </span>
+                        <span>{{ item.menuName }} </span>
                       </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
@@ -86,10 +86,10 @@
 </template>
 
 <script>
-import UserBlock from 'Components/Sidebar/UserBlock.vue'
-import AppLogo from 'Components/App/AppLogo.vue'
-import MenuSearch from 'Components/Sidebar/MenuSearch.vue'
-import { textTruncate } from 'Helpers/helpers'
+import UserBlock from '@/components/Sidebar/UserBlock.vue'
+import AppLogo from '@/components/App/AppLogo.vue'
+import MenuSearch from '@/components/Sidebar/MenuSearch.vue'
+import { textTruncate } from '@/helpers/helpers'
 import { mapGetters } from 'vuex'
 
 export default {

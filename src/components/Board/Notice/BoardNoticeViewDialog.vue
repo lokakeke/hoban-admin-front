@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import BoardNoticeViewForm from 'Components/Board/Notice/BoardNoticeViewForm.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import BoardNoticeViewForm from '@/components/Board/Notice/BoardNoticeViewForm.vue'
 
 export default {
   name: 'BoardNoticeViewDialog',
@@ -33,7 +33,7 @@ export default {
     openUpdateBoardNoticeDialog () {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Board/Notice/BoardNoticeManagementDialog',
+        componentPath: '/Board/Notice/BoardNoticeDialog',
         params: {
           noticeSeq: this.instance.params.noticeSeq
         },

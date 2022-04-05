@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import adminAuthService from 'Api/modules/system/adminAuth.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import adminAuthService from '@/api/modules/system/adminAuth.service'
 
 export default {
   extends: DialogBase,

@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import RegionStatistics from 'Components/Social/Statistics/RegionStatistics.vue'
-import ChannelStatistics from 'Components/Social/Statistics/ChannelStatistics.vue'
-import PartnerStatistics from 'Components/Social/Statistics/PartnerStatistics.vue'
-import TicketStatistics from 'Components/Social/Statistics/TicketStatistics.vue'
-import StatisticsSearchForm from 'Components/Social/Statistics/StatisticsSearchForm.vue'
+import RegionStatistics from '@/components/Social/Statistics/RegionStatistics.vue'
+import ChannelStatistics from '@/components/Social/Statistics/ChannelStatistics.vue'
+import PartnerStatistics from '@/components/Social/Statistics/PartnerStatistics.vue'
+import TicketStatistics from '@/components/Social/Statistics/TicketStatistics.vue'
+import StatisticsSearchForm from '@/components/Social/Statistics/StatisticsSearchForm.vue'
 
 export default {
   name: 'SocialStatistics',

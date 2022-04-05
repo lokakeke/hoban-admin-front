@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const partnerPkgReservationService = {
 
@@ -6,7 +6,7 @@ const partnerPkgReservationService = {
    * 파트너 패키지예약 요청 리스트
    */
   selectPartnerPkgReservationApplyList (param) {
-    return api.get('/api/system/partnerPkgReservation/applyList', {
+    return api.get('/api/cms/system/partnerPkgReservation/applyList', {
       params: param
     })
   },
@@ -16,7 +16,7 @@ const partnerPkgReservationService = {
    * @param appSeq 요청번호
    */
   selectPartnerPkgReservationApply (appSeq) {
-    return api.get(`/api/system/partnerPkgReservation/applyData/${appSeq}`)
+    return api.get(`/api/cms/system/partnerPkgReservation/applyData/${appSeq}`)
   },
 
   /**
@@ -24,21 +24,21 @@ const partnerPkgReservationService = {
    * @param appSeq 요청번호
    */
   selectPartnerPkgRsvApplyDataList (appSeq) {
-    return api.get(`/api/system/partnerPkgReservation/applyDataList/${appSeq}`)
+    return api.get(`/api/cms/system/partnerPkgReservation/applyDataList/${appSeq}`)
   },
 
   /**
    * 파트너 판매가능 패키지 리스트
    */
   selectPartnerPkgList () {
-    return api.get('/api/system/partnerPkgReservation/pkgList')
+    return api.get('/api/cms/system/partnerPkgReservation/pkgList')
   },
 
   /**
    * 파트너 패키지 정보 조회
    */
   selectPartnerPkgInfo (param) {
-    return api.get('/api/system/partnerPkgReservation/pkgInfo', {
+    return api.get('/api/cms/system/partnerPkgReservation/pkgInfo', {
       params: param
     })
   },
@@ -47,7 +47,7 @@ const partnerPkgReservationService = {
    * 파트너 패키지예약 판매가능 대매사 리스트
    */
   selectPartnerPkgAgentList () {
-    return api.get('/api/system/partnerPkgReservation/agentList')
+    return api.get('/api/cms/system/partnerPkgReservation/agentList')
   },
 
   /**
@@ -56,7 +56,7 @@ const partnerPkgReservationService = {
    * 추후 삭제 처리(20201124-구지훈 / 신규개발(insertPartnerPkgApply 따른 사용정지)
    */
   insertPartnerPkgReservationApply (form) {
-    return api.post('/api/system/partnerPkgReservation/insertApply', form)
+    return api.post('/api/cms/system/partnerPkgReservation/insertApply', form)
   },
 
   /**
@@ -66,7 +66,7 @@ const partnerPkgReservationService = {
    * 추후 삭제 처리(20201130-구지훈 / 신규개발(updatePartnerPkgApply 따른 사용정지)
    */
   updatePartnerPkgReservationApply (appSeq, form) {
-    return api.post(`/api/system/partnerPkgReservation/updateApply/${appSeq}`, form)
+    return api.post(`/api/cms/system/partnerPkgReservation/updateApply/${appSeq}`, form)
   },
 
   /**
@@ -76,7 +76,7 @@ const partnerPkgReservationService = {
    * 추후 삭제 처리(20210113-구지훈 / 신규개발(processPartnerPkgRsvApply 따른 사용정지)
    */
   processPartnerPkgReservationApply (appSeq, form) {
-    return api.post(`/api/system/partnerPkgReservation/processApply/${appSeq}`, form)
+    return api.post(`/api/cms/system/partnerPkgReservation/processApply/${appSeq}`, form)
   },
 
   /**
@@ -85,7 +85,7 @@ const partnerPkgReservationService = {
    * @param form
    */
   processPartnerPkgRsvApply (appSeq, form) {
-    return api.post(`/api/system/partnerPkgReservation/processPkgApply/${appSeq}`, form)
+    return api.post(`/api/cms/system/partnerPkgReservation/processPkgApply/${appSeq}`, form)
   },
 
   /**
@@ -93,7 +93,7 @@ const partnerPkgReservationService = {
    * @param appSeq
    */
   cancelPartnerPkgReservation (appSeq) {
-    return api.get(`/api/system/partnerPkgReservation/cancel/${appSeq}`)
+    return api.get(`/api/cms/system/partnerPkgReservation/cancel/${appSeq}`)
   },
 
   /**
@@ -101,7 +101,7 @@ const partnerPkgReservationService = {
    * @param appSeq 신청번호
    */
   updatePartnerPkgReApply (appSeq) {
-    return api.get(`/api/system/partnerPkgReservation/reApply/${appSeq}`)
+    return api.get(`/api/cms/system/partnerPkgReservation/reApply/${appSeq}`)
   },
 
   /**
@@ -109,7 +109,7 @@ const partnerPkgReservationService = {
    * @param form 신청내용
    */
   insertPartnerPkgApply (form) {
-    return api.post('/api/system/partnerPkgReservation/insertPkgApply', form)
+    return api.post('/api/cms/system/partnerPkgReservation/insertPkgApply', form)
   },
 
   /**
@@ -118,7 +118,7 @@ const partnerPkgReservationService = {
    * @param form 수정내용
    */
   updatePartnerPkgApply (appSeq, form) {
-    return api.post(`/api/system/partnerPkgReservation/updatePkgApply/${appSeq}`, form)
+    return api.post(`/api/cms/system/partnerPkgReservation/updatePkgApply/${appSeq}`, form)
   }
 
 }

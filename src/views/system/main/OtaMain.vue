@@ -16,8 +16,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Notice from 'Components/System/Main/Notice.vue'
-import Deposit from 'Components/System/Main/Deposit.vue'
+import Notice from '@/components/System/Main/Notice.vue'
+import Deposit from '@/components/System/Main/Deposit.vue'
 
 export default {
   components: { Notice, Deposit },

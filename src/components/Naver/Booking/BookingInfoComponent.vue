@@ -86,7 +86,7 @@
                 </v-col>
                 <v-col cols="8" class="pt-0 pb-0">
                     <div class="text-left subtitle-1 pt-2 font-weight-bold">
-                        {{ !isDgns ? form.dmItemName : form.rmTypeNm + "(" + form.dmItemName + ")" }}
+                        {{ !isDgns ? form.dmItemName : form.rmTypeName + "(" + form.dmItemName + ")" }}
                     </div>
                 </v-col>
                 <!-- 이용기간-->
@@ -240,7 +240,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import CommonTooltip from 'Components/Common/CommonTooltip.vue'
+import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
 export default {
   name: 'BookingInfoComponent',

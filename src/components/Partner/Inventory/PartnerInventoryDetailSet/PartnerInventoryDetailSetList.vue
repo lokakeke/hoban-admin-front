@@ -24,12 +24,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item of list" :key="item.storeCd + item.rmTypeCd + item.date"
+        <tr v-for="item of list" :key="item.storeCode + item.rmTypeCode + item.date"
             class="pointer" :class="checkSelect(item)" @click="show(item)">
-          <td class="text-center">{{item.storeCd}}</td>
-          <td class="text-left">{{item.storeNm | textTruncate(30)}}</td>
-          <td class="text-center">{{item.rsvBlckCd}}</td>
-          <td class="text-left">{{item.rmTypeNm | textTruncate(20)}} - <small>{{item.rmTypeCd}}</small></td>
+          <td class="text-center">{{item.storeCode}}</td>
+          <td class="text-left">{{item.storeName | textTruncate(30)}}</td>
+          <td class="text-center">{{item.rsvBlckCode}}</td>
+          <td class="text-left">{{item.rmTypeName | textTruncate(20)}} - <small>{{item.rmTypeCode}}</small></td>
           <td class="text-center">{{item.date}}</td>
           <td class="text-right pr-2" :class="item.color + '--text'">{{item.stockQty}}</td>
         </tr>
@@ -48,7 +48,7 @@
 <script>
 import partnerInventoryDetailSetService from '@/api/modules/partner/partnerInventoryDetailSet.service'
 import PartnerInventoryDetailSetDaily
-  from 'Components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetDaily.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetDaily.vue'
 
 export default {
   components: { PartnerInventoryDetailSetDaily },
@@ -86,10 +86,10 @@ export default {
       return this.origin.filter(data =>
         (this.available ? data.stockQty > 0 : true) &&
         (
-          (data.storeNm || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1 ||
-          (data.storeCd || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1 ||
-          (data.rmTypeNm || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1 ||
-          (data.rmTypeCd || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1 ||
+          (data.storeName || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1 ||
+          (data.storeCode || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1 ||
+          (data.rmTypeName || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1 ||
+          (data.rmTypeCode || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1 ||
           (data.date || '').toLowerCase().replace(/\s/gi, '').indexOf(keyword) > -1
         )
       )
@@ -103,7 +103,7 @@ export default {
     async search (isRefresh) {
       try {
         const param = {
-          storeCd: this.value.storeCd || null,
+          storeCode: this.value.storeCode || null,
           startDate: this.value.selectDate[0],
           endDate: this.value.selectDate[1]
         }
@@ -111,8 +111,8 @@ export default {
         this.origin = res.data
         if (isRefresh) {
           // 선택된 데이터 를 다시 맵핑해준다.
-          this.show(this.origin.find(data => data.storeCd === this.select.storeCd &&
-            data.rmTypeCd === this.select.rmTypeCd &&
+          this.show(this.origin.find(data => data.storeCode === this.select.storeCode &&
+            data.rmTypeCode === this.select.rmTypeCode &&
             data.date === this.select.date
           ))
         }
@@ -130,7 +130,7 @@ export default {
      * @param item
      */
     checkSelect (item) {
-      if (this.select && this.select.storeCd === item.storeCd && this.select.rmTypeCd === item.rmTypeCd && this.select.date === item.date) {
+      if (this.select && this.select.storeCode === item.storeCode && this.select.rmTypeCode === item.rmTypeCode && this.select.date === item.date) {
         return 'teal lighten-4'
       } else {
         return ''

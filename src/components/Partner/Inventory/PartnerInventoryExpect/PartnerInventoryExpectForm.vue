@@ -6,8 +6,8 @@
                 <select-all-list
                     v-model="form.storeList"
                     :items="storeList"
-                    item-value="storeCd"
-                    item-text="storeNm"
+                    item-value="storeCode"
+                    item-text="storeName"
                     label="영업장을 선택해 주세요."
                     multiple clearable deletable-chips chips small-chips dense single-line required />
             </v-col>
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import SelectAllList from 'Components/Select/SelectAllList.vue'
-import partnerInventoryExpectService from 'Api/modules/partner/partnerInventoryExpect.service'
+import SelectAllList from '@/components/Select/SelectAllList.vue'
+import partnerInventoryExpectService from '@/api/modules/partner/partnerInventoryExpect.service'
 
 export default {
   components: { SelectAllList },

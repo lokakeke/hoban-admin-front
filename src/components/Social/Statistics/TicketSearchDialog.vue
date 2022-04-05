@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import statisticsService from 'Api/modules/social/statistics.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import statisticsService from '@/api/modules/social/statistics.service'
 
 export default {
   extends: DialogBase,
@@ -52,10 +52,10 @@ export default {
       selected: [],
       headers: [
         { text: '우대번호', value: 'ticketNo', align: 'center' },
-        { text: '우대번호 명', value: 'ticketNm', align: 'center' },
+        { text: '우대번호 명', value: 'ticketName', align: 'center' },
         { text: '판매기간', value: 'saleYmd', align: 'center' },
         { text: '판매채널', value: 'saleChnnl', align: 'center' },
-        { text: '파트너사', value: 'ptnrNm', align: 'center' }
+        { text: '파트너사', value: 'ptnrName', align: 'center' }
       ]
     }
   },
@@ -63,8 +63,8 @@ export default {
     searchList () {
       return [
         { key: 'ticketNo', label: '우대번호', type: 'text', cols: 3 },
-        { key: 'ticketNm', label: '우대번호명', type: 'text', cols: 3 },
-        { key: 'ptnrNm', label: '파트너명', type: 'text', cols: 3 },
+        { key: 'ticketName', label: '우대번호명', type: 'text', cols: 3 },
+        { key: 'ptnrName', label: '파트너명', type: 'text', cols: 3 },
         { key: 'saleChnnl', label: '채널명', type: 'text', cols: 3 }
       ]
     }

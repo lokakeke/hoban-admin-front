@@ -10,7 +10,7 @@
     </v-list-item-icon>
     <v-list-item-content>{{ amtCndText }}</v-list-item-content>
     <v-list-item-action>
-      <strong class="text-body-1">{{ option.cmsnAmt | price }}{{ option.cmsnTypeNm }}</strong>
+      <strong class="text-body-1">{{ option.cmsnAmt | price }}{{ option.cmsnTypeName }}</strong>
     </v-list-item-action>
     <v-list-item-avatar v-if="writeAuth">
       <v-btn x-small icon color="error" @click.stop.prevent="deleteOption" title="삭제">
@@ -50,14 +50,14 @@ export default {
      * 수수료 조건 텍스트
      */
     amtCndText () {
-      if (this.option.amtCndTypeCd !== 'AL') {
+      if (this.option.amtCndTypeCode !== 'AL') {
         // 조건유형 = "항상"이 아닌경우
         return `${this.$options.filters.price(this.option.amtCndVal)}원 ${
-          this.option.amtCndTypeNm
+          this.option.amtCndTypeName
         }`
       } else {
         // 조건유형 = "항상"인경우
-        return this.option.amtCndTypeNm
+        return this.option.amtCndTypeName
       }
     }
   },

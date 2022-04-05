@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const calculationService = {
   /**
@@ -35,12 +35,12 @@ const calculationService = {
    * @Method modifyMonthCalcHistoryStatus
    * @description 특정 달의 정산 데이터 정산상태 변경
    * @param calcSeq -> history seq
-   * @param aprlCd -> 정산이력 상태코드
+   * @param aprlCode -> 정산이력 상태코드
    * @returns [{정산 데이터}]
    */
-  modifyMonthCalcHistoryStatus (calcSeq, aprlCd) {
-    return api.post(`/api/ota/calculation/${calcSeq}/status/update/${aprlCd}`, {
-      aprlCd: aprlCd
+  modifyMonthCalcHistoryStatus (calcSeq, aprlCode) {
+    return api.post(`/api/ota/calculation/${calcSeq}/status/update/${aprlCode}`, {
+      aprlCode: aprlCode
     })
   },
 

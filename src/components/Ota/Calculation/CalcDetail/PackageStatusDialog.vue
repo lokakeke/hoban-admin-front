@@ -59,8 +59,8 @@
                     <span v-else class="blue--text">포함됨</span>
                   </template>
                 </template>
-                <template v-slot:item.pkgNm="{ item }">
-                  <span :title="item.pkgNm">{{ item.pkgNm | textTruncate(18) }}</span>
+                <template v-slot:item.pkgName="{ item }">
+                  <span :title="item.pkgName">{{ item.pkgName | textTruncate(18) }}</span>
                 </template>
                 <template v-slot:item.rsvYmd="{ item }">
                   {{ item.rsvYmd | date }}
@@ -68,11 +68,11 @@
                 <template v-slot:item.coYmd="{ item }">
                   {{ item.coYmd | date }}
                 </template>
-                <template v-slot:item.rsvGuestNm="{ item }">
-                  <span :title="item.rsvGuestNm">{{ item.rsvGuestNm | textTruncate(18) }}</span>
+                <template v-slot:item.rsvGuestName="{ item }">
+                  <span :title="item.rsvGuestName">{{ item.rsvGuestName | textTruncate(18) }}</span>
                 </template>
-                <template v-slot:item.userNm="{ item }">
-                  <span :title="item.userNm">{{ item.userNm | textTruncate(18) }}</span>
+                <template v-slot:item.userName="{ item }">
+                  <span :title="item.userName">{{ item.userName | textTruncate(18) }}</span>
                 </template>
                 <template v-slot:item.saleAmt="{ item }">
                   {{ item.saleAmt | price }}
@@ -106,8 +106,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import calculationService from 'Api/modules/ota/calculation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import calculationService from '@/api/modules/ota/calculation.service'
 
 export default {
   extends: DialogBase,
@@ -121,13 +121,13 @@ export default {
       statusHeader: [
         { text: '선택', value: 'checked', align: 'center', filterable: false },
         { text: '패키지번호', value: 'pkgNo', align: 'center', filterable: false },
-        { text: '패키지명', value: 'pkgNm', align: 'center', filterable: false },
+        { text: '패키지명', value: 'pkgName', align: 'center', filterable: false },
         { text: '판매번호', value: 'saleNo', align: 'center', filterable: false },
         { text: '예약일자', value: 'rsvYmd', align: 'center', filterable: false },
         { text: '퇴실일자', value: 'coYmd', align: 'center', filterable: false },
-        { text: '예약자명', value: 'rsvGuestNm', align: 'center' },
+        { text: '예약자명', value: 'rsvGuestName', align: 'center' },
         { text: '예약번호', value: 'rsvNo', align: 'center' },
-        { text: '사용자명', value: 'userNm', align: 'center' },
+        { text: '사용자명', value: 'userName', align: 'center' },
         { text: '판매금액', value: 'saleAmt', align: 'center', filterable: false },
         { text: '입금순번', value: 'rcpmnySeq', align: 'center', filterable: false },
         { text: '입금일자', value: 'rcpmnyYmd', align: 'center', filterable: false },

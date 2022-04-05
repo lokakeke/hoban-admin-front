@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 export default {
   /**
@@ -63,7 +63,7 @@ export default {
    * 네이버 첨부파일 조회
    */
   selectNaverFile (params) {
-    return api.get(`/api/system/attach/${params.refFldCd}/${params.refNo}`)
+    return api.get(`/api/cms/system/attach/${params.refFldCode}/${params.refNo}`)
   },
 
   /**

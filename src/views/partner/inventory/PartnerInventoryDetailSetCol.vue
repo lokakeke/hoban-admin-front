@@ -16,9 +16,9 @@
 
 <script>
 import PartnerInventoryDetailSetForm
-  from 'Components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetForm.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetForm.vue'
 import PartnerInventoryDetailSetList
-  from 'Components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetList.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetList.vue'
 import partnerInventoryRateService from '@/api/modules/partner/partnerInventoryRate.service'
 
 export default {
@@ -34,7 +34,7 @@ export default {
   async mounted () {
     // 전체 파트너 리스트 조회
     const res = await partnerInventoryRateService.selectPartnerInventoryRateList()
-    this.partnerOrigin = res.data.managementList.concat(res.data.noneManagementList)
+    this.partnerOrigin = res.data.managementList.concat(res.data.noneList)
   }
 }
 </script>

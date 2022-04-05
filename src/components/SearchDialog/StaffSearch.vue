@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/common/staff.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/common/staff.service'
 
 export default {
   extends: DialogBase,

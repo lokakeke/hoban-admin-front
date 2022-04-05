@@ -28,7 +28,7 @@
           </v-row>
           <v-row v-if="holidayType !== 'package' || holidayType === ''">
             <v-col>
-<!--              :item-value="holidayType === 'store' ? 'storeCd' : 'rmTypeCd'"-->
+<!--              :item-value="holidayType === 'store' ? 'storeCode' : 'rmTypeCode'"-->
               <v-select :item-text="setItemText"
                         :item-value="setItemValue"
                         :items="items"
@@ -46,8 +46,8 @@
                       close
                       v-bind="attrs"
                   >
-                    <strong v-if="holidayType === 'store'">{{ item.storeNm }}</strong>
-                    <strong v-else>{{ item.rmTypeNm }}</strong>
+                    <strong v-if="holidayType === 'store'">{{ item.storeName }}</strong>
+                    <strong v-else>{{ item.rmTypeName }}</strong>
                   </v-chip>
                 </template>
               </v-select>
@@ -102,7 +102,7 @@
                   <v-select :items="reasonItems"
                             @change="selectReason"
                             hide-details
-                            item-text="commCdDesc"
+                            item-text="commCodeDesc"
                             item-value="commCdDesc"
                             label="선택"
                             v-model="reasonItem"
@@ -127,8 +127,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   extends: DialogBase,
@@ -231,18 +231,18 @@ export default {
 
                   if (finder === undefined) {
                     this.events.push({
-                      name: isStore ? `${item.storeNm} 휴일` : `${item.storeNm} - ${item.rmTypeNm} 휴일`,
+                      name: isStore ? `${item.storeName} 휴일` : `${item.storeName} - ${item.rmTypeName} 휴일`,
                       start: targetDay,
                       color: this.holidayItems.find(data => data.name === this.holidayType).color,
                       type: this.holidayType,
                       memo: this.holidayMemo,
                       hldyCd: isStore ? 'S' : 'R',
                       rmTypeCd: isStore ? null : item.rmTypeCd,
-                      rmTypeNm: isStore ? null : item.rmTypeNm,
+                      rmTypeName: isStore ? null : item.rmTypeName,
                       storeCd: item.storeCd,
-                      storeNm: item.storeNm,
-                      store: item.storeCd ? `${item.storeNm} (${item.storeCd})` : '-',
-                      rmType: isStore ? '-' : item.rmTypeCd ? `${item.rmTypeNm} (${item.rmTypeCd})` : '-'
+                      storeName: item.storeName,
+                      store: item.storeCd ? `${item.storeName} (${item.storeCd})` : '-',
+                      rmType: isStore ? '-' : item.rmTypeCd ? `${item.rmTypeName} (${item.rmTypeCd})` : '-'
                     })
                   }
                 })
@@ -261,9 +261,9 @@ export default {
                     memo: this.holidayMemo,
                     hldyCd: 'P',
                     rmTypeCd: '',
-                    rmTypeNm: '',
+                    rmTypeName: '',
                     storeCd: '',
-                    storeNm: ''
+                    storeName: ''
                   })
                 }
               }
@@ -281,7 +281,7 @@ export default {
     },
     setItemText (item) {
       const isStore = this.holidayType === 'store'
-      return isStore ? `${item.storeNm}` : `${item.storeNm} (${item.storeCd}) - ${item.rmTypeNm} (${item.rmTypeCd})`
+      return isStore ? `${item.storeName}` : `${item.storeName} (${item.storeCd}) - ${item.rmTypeName} (${item.rmTypeCd})`
     },
     setItemValue (item) {
       const isStore = this.holidayType === 'store'

@@ -8,8 +8,8 @@
           <v-autocomplete
             v-model="form.apiInd"
             :items="apiIndList"
-            item-value="commCd"
-            item-text="commCdNm"
+            item-value="commCode"
+            item-text="commCodeName"
             :rules="emptyRules"
             autocomplete="off"
             @change="setApiIndInfo"
@@ -120,9 +120,9 @@
 
 <script>
 import StringUtil from '@/utils/string.util'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import partnerApiService from 'Api/modules/partner/partnerApi.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import partnerApiService from '@/api/modules/partner/partnerApi.service'
 
 export default {
   extends: DialogBase,
@@ -192,7 +192,7 @@ export default {
     setApiIndInfo () {
       let apiIndObj = null
       this.apiIndList.some((apiIndItem) => {
-        if (apiIndItem.commCd === this.form.apiInd) {
+        if (apiIndItem.commCode === this.form.apiInd) {
           apiIndObj = apiIndItem
           return true
         }

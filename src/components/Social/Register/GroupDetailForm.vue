@@ -8,7 +8,7 @@
         <v-card tile>
             <v-card-text class="subtitle-1">
               <span class="mr-10">정산 그룹번호 : <span class="font-weight-bold">{{calcNo}}</span></span>
-              <span class="mr-10">정산 그룹번호 명 : <span class="font-weight-bold">{{calcNm}}</span></span>
+              <span class="mr-10">정산 그룹번호 명 : <span class="font-weight-bold">{{calcName}}</span></span>
             </v-card-text>
         </v-card>
       </v-col>
@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import ticketCalcService from 'Api/modules/social/ticketCalc.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import ticketCalcService from '@/api/modules/social/ticketCalc.service'
 
 export default {
   extends: DialogBase,
@@ -38,19 +38,19 @@ export default {
     return {
       headers: [
         { text: '우대번호', value: 'ticketNo', align: 'center', sortable: false },
-        { text: '우대번호 명', value: 'ticketNm', align: 'center', sortable: false },
+        { text: '우대번호 명', value: 'ticketName', align: 'center', sortable: false },
         { text: '우대번호 유효기간', value: 'vaildThruYmd', align: 'center', sortable: false },
         { text: '등록자', value: 'crtId', align: 'center', sortable: false }
       ],
       calcNo: String,
-      calcNm: String,
+      calcName: String,
       detailList: []
     }
   },
   mounted () {
     if (this.instance.params.data) {
       this.calcNo = this.instance.params.data.calcNo
-      this.calcNm = this.instance.params.data.calcNm
+      this.calcName = this.instance.params.data.calcName
     }
     this.search()
   },

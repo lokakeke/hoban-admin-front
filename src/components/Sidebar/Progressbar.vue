@@ -20,7 +20,7 @@
             <v-divider class="ma-0"></v-divider>
             <v-list-item v-for="item in progressList" :key="item.brcNo">
                 <v-list-item-content>
-                    <v-list-item-title>{{item.brcNm +'  - ' + item.cnt + ' / '+ item.totCnt}}</v-list-item-title>
+                    <v-list-item-title>{{item.brcName +'  - ' + item.cnt + ' / '+ item.totCnt}}</v-list-item-title>
                     <v-list-item-subtitle>
                         <v-progress-linear class="mt-0 mb-0" :value="item.cnt/item.totCnt*100"></v-progress-linear>
                     </v-list-item-subtitle>
@@ -75,14 +75,14 @@ export default {
       /* inventoryService.selectInventoryProgress().then(res=>{
                     this.progressList = res.data;
                     const testList = [
-                        {brcNm: '비발디파크', cnt: 10, totCnt: 100},
-                        {brcNm: '델피노', cnt: 8, totCnt: 100},
-                        {brcNm: '소노 여수', cnt: 7, totCnt: 100},
-                        {brcNm: '소노 단양', cnt: 30, totCnt: 100},
-                        {brcNm: '삼척', cnt: 45, totCnt: 100},
-                        {brcNm: '양양', cnt: 66, totCnt: 100},
-                        {brcNm: '거제', cnt: 71, totCnt: 100},
-                        {brcNm: '제주', cnt: 11, totCnt: 100},
+                        {brcName: '비발디파크', cnt: 10, totCnt: 100},
+                        {brcName: '델피노', cnt: 8, totCnt: 100},
+                        {brcName: '소노 여수', cnt: 7, totCnt: 100},
+                        {brcName: '소노 단양', cnt: 30, totCnt: 100},
+                        {brcName: '삼척', cnt: 45, totCnt: 100},
+                        {brcName: '양양', cnt: 66, totCnt: 100},
+                        {brcName: '거제', cnt: 71, totCnt: 100},
+                        {brcName: '제주', cnt: 11, totCnt: 100},
                     ];
                     this.progressList = testList;
                     if(init){

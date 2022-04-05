@@ -10,28 +10,28 @@
     <v-list-item v-for="calcMenu in calcMenuList" :key="calcMenu.ptnrNo" class="calc-menu-item">
       <div>
         <v-chip x-small>{{ calcMenu.ptnrNo }}</v-chip>
-        <span class="ml-2">{{ calcMenu.ptnrNm }}</span>
+        <span class="ml-2">{{ calcMenu.ptnrName }}</span>
       </div>
       <v-spacer></v-spacer>
-      <v-tooltip bottom v-for="calcMenuCode in calcMenuCodeList" :key="calcMenuCode.commCd">
+      <v-tooltip bottom v-for="calcMenuCode in calcMenuCodeList" :key="calcMenuCode.commCode">
         <template v-slot:activator="{ on }">
           <v-btn
-            :color="calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? 'green' : 'grey'"
+            :color="calcMenu.openCalcMenu[calcMenuCode.commCode] === true ? 'green' : 'grey'"
             class="ml-1"
-            :style="{ 'color': calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? 'white' : '#ddd' }"
+            :style="{ 'color': calcMenu.openCalcMenu[calcMenuCode.commCode] === true ? 'white' : '#ddd' }"
             @click="toggleCalcMenu(calcMenu, calcMenuCode)"
             v-on="on"
-          >{{ calcMenuCode.commCdNm }}</v-btn>
+          >{{ calcMenuCode.commCodeName }}</v-btn>
         </template>
-        클릭하면 "{{ calcMenu.ptnrNm }}" 파트너에게 " {{ calcMenuCode.commCdNm }}" 정산 메뉴를 {{ calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? '숨깁니다.' : '노출합니다.' }}
+        클릭하면 "{{ calcMenu.ptnrName }}" 파트너에게 " {{ calcMenuCode.commCodeName }}" 정산 메뉴를 {{ calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? '숨깁니다.' : '노출합니다.' }}
       </v-tooltip>
     </v-list-item>
   </v-list>
 </template>
 
 <script>
-import calculationMenuService from 'Api/modules/ota/calculationMenu.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import calculationMenuService from '@/api/modules/ota/calculationMenu.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   name: 'CalcMenuList',
@@ -84,7 +84,7 @@ export default {
     /**
      * 정산 메뉴 열기/닫기
      */
-    async toggleCalcMenu ({ ptnrNo, ptnrNm, openCalcMenu }, calcMenuCode) {
+    async toggleCalcMenu ({ ptnrNo, ptnrName, openCalcMenu }, calcMenuCode) {
       if (this.writeAuth === true) {
         const openYn = openCalcMenu[calcMenuCode.commCd] === true ? 'N' : 'Y'
         await calculationMenuService.toggleCalcMenu(

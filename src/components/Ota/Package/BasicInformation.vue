@@ -36,15 +36,15 @@
               <v-row>
                 <v-col class="subtitle-1" cols="12">
                   <v-row no-gutters>
-                    <v-col cols="12" lg="3" md="6" sm="12">패키지명 : {{ masterInformation.pkgNm }} ({{ masterInformation.pkgNo }})</v-col>
-                    <v-col cols="12" lg="3" md="6" sm="12">판매유형 : {{ masterInformation.pkgSaleTypeNm }} ({{ masterInformation.pkgSaleType }})</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">지불구분 : {{ masterInformation.pkgPymtNm }} ({{ masterInformation.pkgPymtInd }})</v-col>
+                    <v-col cols="12" lg="3" md="6" sm="12">패키지명 : {{ masterInformation.pkgName }} ({{ masterInformation.pkgNo }})</v-col>
+                    <v-col cols="12" lg="3" md="6" sm="12">판매유형 : {{ masterInformation.pkgSaleTypeName }} ({{ masterInformation.pkgSaleType }})</v-col>
+                    <v-col cols="12" lg="2" md="6" sm="12">지불구분 : {{ masterInformation.pkgPymtName }} ({{ masterInformation.pkgPymtInd }})</v-col>
                     <v-col cols="12" lg="2" md="6" sm="12">조식유무 : {{ masterInformation.brkfstInYn === '1' ? '포함' : '미포함' }}</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">지역구분 : {{ masterInformation.lcalNm }} ({{ masterInformation.lcalCd }})</v-col>
+                    <v-col cols="12" lg="2" md="6" sm="12">지역구분 : {{ masterInformation.lcalName }} ({{ masterInformation.lcalCode }})</v-col>
                     <v-col cols="12" lg="3" md="6" sm="12">시작/종료일 : {{ pkgMstTermFormat }}</v-col>
                     <v-col cols="12" lg="3" md="6" sm="12">참고사항 : {{ masterInformation.pkgReferMatter ? masterInformation.pkgReferMatter : '-' }}</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">관리사번 : {{masterInformation.mngmEmplNm}} ({{ masterInformation.mngmEmplNo }})</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">회원구분 : {{ masterInformation.memIndCd ? masterInformation.memIndCd : '-' }}</v-col>
+                    <v-col cols="12" lg="2" md="6" sm="12">관리사번 : {{masterInformation.mngmEmplName}} ({{ masterInformation.mngmEmplNo }})</v-col>
+                    <v-col cols="12" lg="2" md="6" sm="12">회원구분 : {{ masterInformation.memIndCode ? masterInformation.memIndCd : '-' }}</v-col>
                     <v-col cols="12" lg="2" md="6" sm="12">게시구분 : {{ masterInformation.postInd ? masterInformation.postInd : '-' }}</v-col>
                   </v-row>
                 </v-col>
@@ -59,13 +59,13 @@
                                 disable-pagination
                                 hide-default-footer>
                     <template v-slot:item.pkgValidInd="{item}">
-                      {{ item.pkgValidIndNm }} ({{ item.pkgValidIndCd }})
+                      {{ item.pkgValidIndName }} ({{ item.pkgValidIndCd }})
                     </template>
                     <template v-slot:item.dstbAmt="{item}">
                       {{ item.dstbAmt ? item.dstbAmt : '-' }}
                     </template>
                     <template v-slot:item.tableInd="{item}">
-                      {{ item.tableIndNm }} ({{ item.tableIndCd }})
+                      {{ item.tableIndName }} ({{ item.tableIndCd }})
                     </template>
                     <template v-slot:item.grupIssue="{item}">
                       {{ item.grupIssue ? item.grupIssue : '-' }}
@@ -100,7 +100,7 @@
                 label="판매 패키지명"
                 clearable
                 :rules="emptyRules"
-                v-model="form.pkgNm"
+                v-model="form.pkgName"
                 :readonly="!writeAuth"
             />
           </v-col>
@@ -238,8 +238,8 @@
 </template>
 
 <script>
-import packageService from 'Api/modules/ota/package.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import packageService from '@/api/modules/ota/package.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   name: 'BasicInformation',
@@ -263,7 +263,7 @@ export default {
       headers: [
         { text: '패키지 메뉴순번', value: 'pkgMenuSeq', align: 'center', sortable: false },
         { text: '인원수량', value: 'persQty', align: 'center', sortable: false },
-        { text: '패키지 메뉴명', value: 'pkgMenuNm', align: 'center', sortable: false },
+        { text: '패키지 메뉴명', value: 'pkgMenuName', align: 'center', sortable: false },
         { text: '패키지 유효구분', value: 'pkgValidInd', align: 'center', sortable: false },
         { text: '패키지 유효기간', value: 'pkgVaildThru', align: 'center', sortable: false },
         { text: '배분금액', value: 'dstbAmt', align: 'center', sortable: false },
@@ -287,7 +287,7 @@ export default {
       todayRsvMinute: '',
       form: {
         pkgNo: '',
-        pkgNm: '',
+        pkgName: '',
         saleBgnYmd: '',
         saleEndYmd: '',
         todayRsvYn: 'N',
@@ -350,7 +350,7 @@ export default {
         if (response.data === '' || this.isEdit) {
           if (this.isEdit) {
             const data = response.data
-            this.form.pkgNm = data.pkgNm
+            this.form.pkgName = data.pkgName
             this.form.saleBgnYmd = moment(data.saleBgnYmd).format('YYYYMMDD')
             this.form.saleEndYmd = moment(data.saleEndYmd).format('YYYYMMDD')
             this.form.todayRsvYn = data.todayRsvYn

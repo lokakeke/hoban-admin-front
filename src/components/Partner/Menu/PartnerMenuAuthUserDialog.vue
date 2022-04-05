@@ -12,7 +12,7 @@
       <v-col sm="6" md="3" v-for="menu of menus" :key="menu.menuId"
              class="border-bottom border-left border-top border-right">
         <h4 class="headline font-weight-bold text-center" :class="{ 'strike': menu.menuUseYn === 'N' }">
-          {{menu.menuNm}}
+          {{menu.menuName}}
           <v-divider></v-divider>
         </h4>
         <v-list two-line>
@@ -20,7 +20,7 @@
             <template v-if="subItem.children && subItem.children.length > 0">
               <v-list-item :key="subItem.menuId">
                 <v-list-item-content>
-                  <div class="title font-weight-bold" :class="{ 'strike': subItem.menuUseYn === 'N' }">{{subItem.menuNm}}</div>
+                  <div class="title font-weight-bold" :class="{ 'strike': subItem.menuUseYn === 'N' }">{{subItem.menuName}}</div>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item v-for="sub of subItem.children" :key="sub.menuId" class="pl-6">
@@ -29,7 +29,7 @@
                   <v-checkbox v-model="sub.include" @change="check(sub)" class=""></v-checkbox>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title :class="{ 'strike': sub.menuUseYn === 'N' }">{{sub.menuNm}}</v-list-item-title>
+                  <v-list-item-title :class="{ 'strike': sub.menuUseYn === 'N' }">{{sub.menuName}}</v-list-item-title>
                   <v-list-item-subtitle>
                     메뉴권한 :
                     <template v-if="sub.group">
@@ -52,7 +52,7 @@
                   <v-checkbox v-model="subItem.include" @change="check(subItem)"></v-checkbox>
                 </v-list-item-action>
                 <v-list-item-content>
-                  <v-list-item-title :class="{ 'strike': subItem.menuUseYn === 'N' }">{{subItem.menuNm}}</v-list-item-title>
+                  <v-list-item-title :class="{ 'strike': subItem.menuUseYn === 'N' }">{{subItem.menuName}}</v-list-item-title>
                   <v-list-item-subtitle>
                     메뉴권한 :
                     <template v-if="subItem.group">
@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/partner/partnerMenuAuth.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/partner/partnerMenuAuth.service'
 
 export default {
   extends: DialogBase,
@@ -120,7 +120,7 @@ export default {
     setUpMenu (menus) {
       const array = []
       for (const menu of menus) {
-        const row = { menuId: menu.menuId, menuNm: menu.menuNm, menuUseYn: menu.useYn }
+        const row = { menuId: menu.menuId, menuName: menu.menuName, menuUseYn: menu.useYn }
         // 메뉴그룹 권한 체크
         const group = _.find(this.selectMenu, { menuId: menu.menuId })
         if (group) {
@@ -170,7 +170,7 @@ export default {
       return array
     },
     setMenu () {
-      this.$dialog.confirm('파트너사(' + this.user.ptnrNm + ') 의 개인 메뉴권한을<br/>적용 하시겠습니까?').then(() => {
+      this.$dialog.confirm('파트너사(' + this.user.ptnrName + ') 의 개인 메뉴권한을<br/>적용 하시겠습니까?').then(() => {
         // 메뉴 권한 리스트를 작성
         const array = this.selectInclude(this.menus)
         service.updatePartnerMenuAuthUser(this.user.ptnrNo, array).then(res => {

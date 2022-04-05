@@ -60,7 +60,7 @@
               <template v-slot:event="{ event }">
                 <v-row align="center" no-gutters style="padding-top: 1px;" @click="detail(event)">
                   <v-col cols="10" class="text-ellipse pl-2">
-                    {{ '[' + event.failStatusNm + ']에서 실패' }}
+                    {{ '[' + event.failStatusName + ']에서 실패' }}
                   </v-col>
                   <v-col cols="2" class="font-weight-bold text-right pr-2">
                     {{ event.saleCnt }}
@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import itemService from 'Api/modules/naver/item.service'
-import service from 'Api/modules/naver/bookingLog.service'
+import itemService from '@/api/modules/naver/item.service'
+import service from '@/api/modules/naver/bookingLog.service'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -155,7 +155,7 @@ export default {
           this.itemList.forEach(item => {
             events.push({
               failStatus: item.FAIL_STATUS,
-              failStatusNm: !item.FAIL_STATUS ? '(없음)' : this.setStatus[item.FAIL_STATUS].text,
+              failStatusName: !item.FAIL_STATUS ? '(없음)' : this.setStatus[item.FAIL_STATUS].text,
               saleCnt: item.COUNT,
               sum: null,
               start: moment(item.FAIL_DATE).format('YYYY-MM-DD'),

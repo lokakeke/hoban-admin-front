@@ -15,9 +15,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import systemService from 'Api/modules/notification/notification.service'
-import partnerService from 'Api/modules/notification/partnerNotification.service'
-import notiManageService from 'Api/modules/system/notificationManagement.service'
+import systemService from '@/api/modules/notification/notification.service'
+import partnerService from '@/api/modules/notification/partnerNotification.service'
+import notiManageService from '@/api/modules/system/notification.service'
 
 export default {
   name: 'NotificationBoard',
@@ -31,8 +31,8 @@ export default {
       },
       list: [],
       headers: [
-        { text: '알림 구분', value: 'notifyCdNm', align: 'center' },
-        { text: '알림 메세지', value: 'notifyNm', align: 'center' },
+        { text: '알림 구분', value: 'notifyCodeName', align: 'center' },
+        { text: '알림 메세지', value: 'notifyName', align: 'center' },
         { text: '알림명', value: 'title', align: 'center' },
         { text: '생성 일시', value: 'crtDt', align: 'center' },
         { text: '읽음 여부', value: 'readingYn', align: 'center' },
@@ -50,8 +50,8 @@ export default {
     ...mapGetters({ partnerYn: 'auth/partnerYn' }),
     searchList () {
       return [
-        { key: 'notifyType', label: '알림 구분', type: 'select', list: this.groupList, listValue: 'notifyType', listText: 'notifyCdNm' },
-        { key: 'notifyId', label: '알림 메세지', type: 'select', list: this.notiIdList, listValue: 'notifyId', listText: 'notifyNm' },
+        { key: 'notifyType', label: '알림 구분', type: 'select', list: this.groupList, listValue: 'notifyType', listText: 'notifyCodeName' },
+        { key: 'notifyId', label: '알림 메세지', type: 'select', list: this.notiIdList, listValue: 'notifyId', listText: 'notifyName' },
         { key: 'title', label: '알림명', type: 'text' },
         { key: 'readingYn', label: '읽음 여부', type: 'select', list: this.readingValue, listValue: 'value', listText: 'text' }
       ]

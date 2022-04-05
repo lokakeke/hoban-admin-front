@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="4" v-if="origin.memNo">
           <v-text-field
-            v-model="origin.memNm"
+            v-model="origin.memName"
             label="회원명"
             outlined
             hide-details
@@ -12,9 +12,9 @@
             disabled
           />
         </v-col>
-        <v-col cols="4" v-if="origin.pkgNm">
+        <v-col cols="4" v-if="origin.pkgName">
           <v-text-field
-            v-model="origin.pkgNm"
+            v-model="origin.pkgName"
             label="패키지명"
             outlined
             hide-details
@@ -24,7 +24,7 @@
         </v-col>
         <v-col cols="4">
           <v-text-field
-            v-model="origin.storeNm"
+            v-model="origin.storeName"
             label="영업장명"
             outlined
             hide-details
@@ -34,7 +34,7 @@
         </v-col>
         <v-col cols="4">
           <v-text-field
-            v-model="origin.rmTypeNm"
+            v-model="origin.rmTypeName"
             label="객실유형명"
             outlined
             hide-details
@@ -56,7 +56,7 @@
         </v-col>
         <v-col cols="4">
           <v-text-field
-            v-model="origin.guestNm"
+            v-model="origin.guestName"
             label="이용자명"
             outlined
             hide-details
@@ -78,7 +78,7 @@
       <v-row>
         <v-col cols="4">
            <v-text-field
-            v-model="newInfo.rmTypeCd"
+            v-model="newInfo.rmTypeCode"
             label="객실유형"
             outlined
             hide-details
@@ -97,7 +97,7 @@
         </v-col>
         <v-col cols="4">
            <v-text-field
-            v-model="newInfo.rmTypeNm"
+            v-model="newInfo.rmTypeName"
             label="객실유형명"
             outlined
             hide-details
@@ -120,7 +120,7 @@
         </v-col>
         <v-col cols="4">
           <v-text-field
-            v-model="newInfo.guestNm"
+            v-model="newInfo.guestName"
             label="이용자명"
             outlined
             hide-details
@@ -155,7 +155,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -179,7 +179,7 @@ export default {
   },
   methods: {
     save () {
-      if (this.newInfo.rmTypeCd === this.origin.rmTypeCd) {
+      if (this.newInfo.rmTypeCode === this.origin.rmTypeCode) {
         this.$dialog.alert('같은 객실유형으로 변경할 수 없습니다.')
         return
       }
@@ -194,10 +194,10 @@ export default {
     copy () {
       const res = {}
       res.chainRsvNo = this.origin.chainRsvNo
-      res.guestNm = this.origin.guestNm
+      res.guestName = this.origin.guestName
       res.smsPhone = this.origin.smsPhone
-      res.rmTypeNm = this.newInfo.rmTypeNm
-      res.rmTypeCd = this.newInfo.rmTypeCd
+      res.rmTypeName = this.newInfo.rmTypeName
+      res.rmTypeCode = this.newInfo.rmTypeCode
       this.newInfo = res
     },
     /**
@@ -206,11 +206,11 @@ export default {
     openPopup () {
       if (this.origin.roomType === 'OTA_ROOM_API') {
         const rmTypeItems = {}
-        rmTypeItems.storeCd = this.origin.storeCd
+        rmTypeItems.storeCode = this.origin.storeCode
         this.openRmTypePopup(rmTypeItems)
       } else if (this.origin.roomType === 'OTA_PKG_API') {
         const rmTypeItems = {}
-        rmTypeItems.storeCd = this.origin.storeCd
+        rmTypeItems.storeCode = this.origin.storeCode
         rmTypeItems.pkgNo = this.origin.pkgNo
         this.openRmTypePopup(rmTypeItems)
       } else {
@@ -221,7 +221,7 @@ export default {
      * 객실유형 조회 팝업 오픈
      */
     openRmTypePopup (items) {
-      if (this.origin.storeCd && this.origin.rmTypeCd) {
+      if (this.origin.storeCode && this.origin.rmTypeCode) {
         this.$store.dispatch('dialog/open', {
           componentPath: '/Ota/RoomReservation/popup/RmTypePopup',
           params: {
@@ -246,8 +246,8 @@ export default {
      * 객실 유형 정보 조회 결과값 매핑
      */
     mapRmTypeInfoResult (result) {
-      this.$set(this.newInfo, 'rmTypeCd', result.rmTypeCd)
-      this.$set(this.newInfo, 'rmTypeNm', result.rmTypeNm)
+      this.$set(this.newInfo, 'rmTypeCode', result.rmTypeCode)
+      this.$set(this.newInfo, 'rmTypeName', result.rmTypeName)
     },
     /**
      * 초기화

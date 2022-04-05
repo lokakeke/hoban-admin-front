@@ -7,9 +7,9 @@ export default {
     return new Promise((resolve) => {
       resolve({
         data: [
-          { partnerNm: '여행창조', sellYn: 'Y' },
-          { partnerNm: '콘도24', sellYn: 'N' },
-          { partnerNm: '호텔패키지', sellYn: 'N' }
+          { partnerName: '여행창조', sellYn: 'Y' },
+          { partnerName: '콘도24', sellYn: 'N' },
+          { partnerName: '호텔패키지', sellYn: 'N' }
         ]
       })
     })

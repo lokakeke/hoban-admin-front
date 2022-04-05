@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/api/apiHistory.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/api/apiHistory.service'
 
 export default {
   extends: DialogBase,
@@ -34,14 +34,14 @@ export default {
     searchList () {
       return [
         { key: 'businessId', label: 'Business Id', type: 'text', defaultValue: this.businessId, cols: 4 },
-        { key: 'ptnrNm', label: '파트너 명', type: 'text', cols: 4 },
+        { key: 'ptnrName', label: '파트너 명', type: 'text', cols: 4 },
         {
           key: 'taskType',
           label: '구분값',
           type: 'select',
           list: this.serviceList,
           listValue: 'taskType',
-          listText: 'apiNm',
+          listText: 'apiName',
           cols: 4
         }
       ]
@@ -58,8 +58,8 @@ export default {
       headers: [
         { text: 'No', value: 'number', align: 'center' },
         { text: 'Business Id', value: 'businessId', align: 'center' },
-        { text: '파트너 명', value: 'ptnrNm', align: 'center' },
-        { text: '구분값', value: 'apiNm', align: 'center' }
+        { text: '파트너 명', value: 'ptnrName', align: 'center' },
+        { text: '구분값', value: 'apiName', align: 'center' }
       ],
       businessId: '',
       partnerList: [],
@@ -77,7 +77,7 @@ export default {
       })
     },
     selectSvcList () {
-      service.selectCommCdForPartner().then(res => {
+      service.selectCommCodeForPartner().then(res => {
         this.serviceList = res.data
       })
     },

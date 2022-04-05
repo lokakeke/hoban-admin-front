@@ -36,7 +36,7 @@
                 </v-col>
             </v-row>
         </template>
-        <v-row dense align="center" v-for="store of typeFilterList" :key="store.storeCd"
+        <v-row dense align="center" v-for="store of typeFilterList" :key="store.storeCode"
                class="pa-0 pr-2 store-type border-bottom">
             <v-col lg="6" cols="12">
                 <v-row no-gutters align="center">
@@ -46,7 +46,7 @@
                     <v-btn small icon @click="checkStore(store)" class="mr-1">
                         <v-icon color="primary">{{ storeIcon(store) }}</v-icon>
                     </v-btn>
-                    <span @click="expand(store)" class="store-label primary--text pointer">{{ store.storeNm }}<small> - {{ store.storeCd
+                    <span @click="expand(store)" class="store-label primary--text pointer">{{ store.storeName }}<small> - {{ store.storeCode
                         }}</small></span>
                 </v-row>
             </v-col>
@@ -56,14 +56,14 @@
             </v-col>
             <v-col cols="12" v-show="store.expand" class="pl-12 ml-1 pr-4 py-0">
                 <v-row dense class="room-type pointer border-bottom"
-                       v-for="rmType of store.rmTypeList" :key="rmType.storeCd + '_' + rmType.rmTypeCd"
+                       v-for="rmType of store.rmTypeList" :key="rmType.storeCode + '_' + rmType.rmTypeCode"
                        @click="checkRmType(rmType)">
                     <v-col lg="6" cols="12">
                         <v-row no-gutters align="center">
                             <v-icon class="mr-2">
                                 {{ rmType.inventoryDistbYn === "Y" ? "check_box" : "check_box_outline_blank" }}
                             </v-icon>
-                            <span>{{ rmType.rmTypeNm }}<small> - {{ rmType.rmTypeCd }}</small></span>
+                            <span>{{ rmType.rmTypeName }}<small> - {{ rmType.rmTypeCode }}</small></span>
                         </v-row>
                     </v-col>
                     <v-col lg="6" cols="12" class="text-right">
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import partnerInventoryRateService from 'Api/modules/partner/partnerInventoryRate.service'
+import partnerInventoryRateService from '@/api/modules/partner/partnerInventoryRate.service'
 
 export default {
   name: 'PartnerInventoryRateOptionType',
@@ -96,15 +96,15 @@ export default {
       if (this.searchKeyword) {
         const keyword = this.searchKeyword.toLowerCase().replace(/\s/gi, '')
         return this.typeList.filter(store => {
-          const storeNm = (store.storeNm || '').toLowerCase().replace(/\s/gi, '')
-          const storeCd = (store.storeCd || '').toLowerCase()
-          if (storeNm.indexOf(keyword) > -1 || storeCd.indexOf(keyword) > -1) {
+          const storeName = (store.storeName || '').toLowerCase().replace(/\s/gi, '')
+          const storeCode = (store.storeCode || '').toLowerCase()
+          if (storeName.indexOf(keyword) > -1 || storeCode.indexOf(keyword) > -1) {
             return true
           } else {
             return (store.rmTypeList || []).filter(rm => {
-              const rmTypeNm = (rm.rmTypeNm || '').toLowerCase().replace(/\s/gi, '')
-              const rmTypeCd = (rm.rmTypeCd || '').toLowerCase()
-              return rmTypeNm.indexOf(keyword) > -1 || rmTypeCd.indexOf(keyword) > -1
+              const rmTypeName = (rm.rmTypeName || '').toLowerCase().replace(/\s/gi, '')
+              const rmTypeCode = (rm.rmTypeCode || '').toLowerCase()
+              return rmTypeName.indexOf(keyword) > -1 || rmTypeCode.indexOf(keyword) > -1
             }).length > 0
           }
         })

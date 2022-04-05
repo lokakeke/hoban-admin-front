@@ -37,13 +37,13 @@
       </tbody>
       <tbody v-else>
       <template v-for="store of list">
-        <tr v-for="(rmType, index) of store.rmTypeList" :key="store.storeCd + '_' + rmType.rmTypeCd">
-          <th v-if="index === 0" :rowspan="store.rmTypeList.length" class="text-center">{{store.storeCd}}</th>
-          <th v-if="index === 0" :rowspan="store.rmTypeList.length" class="text-center" v-html="store.storeNm"></th>
-          <td class="text-center">{{rmType.rmTypeCd}}</td>
-          <td class="text-center">{{rmType.rmTypeNm}}</td>
+        <tr v-for="(rmType, index) of store.rmTypeList" :key="store.storeCode + '_' + rmType.rmTypeCode">
+          <th v-if="index === 0" :rowspan="store.rmTypeList.length" class="text-center">{{store.storeCode}}</th>
+          <th v-if="index === 0" :rowspan="store.rmTypeList.length" class="text-center" v-html="store.storeName"></th>
+          <td class="text-center">{{rmType.rmTypeCode}}</td>
+          <td class="text-center">{{rmType.rmTypeName}}</td>
           <!--<td class="text-right"></td>-->
-          <td class="text-right" v-for="date of rmType.dateList" :key="store.storeCd + '_' + rmType.rmTypeCd + '_' + date.date">{{date.value | price}}</td>
+          <td class="text-right" v-for="date of rmType.dateList" :key="store.storeCode + '_' + rmType.rmTypeCode + '_' + date.date">{{date.value | price}}</td>
         </tr>
       </template>
       </tbody>
@@ -52,10 +52,10 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import storeService from 'Api/modules/system/store.service'
-import blockService from 'Api/modules/common/block.service'
-import roomService from 'Api/modules/ota/roomReservation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import storeService from '@/api/modules/system/store.service'
+import blockService from '@/api/modules/common/block.service'
+import roomService from '@/api/modules/ota/roomReservation.service'
 
 export default {
   extends: DialogBase,
@@ -76,8 +76,8 @@ export default {
     searchList () {
       return [
         { key: 'ciYmd', label: '기준 일자 ( ~ 10일 )', type: 'date', required: true, cols: 3, defaultValue: moment().format('YYYYMMDD') },
-        { key: 'storeCd', label: '영업장 ( 미선택 시 전체 영업장 )', type: 'select', list: this.storeList, listValue: 'storeCd', listText: 'storeNm', cols: 6 },
-        { key: 'rsvBlckCd', label: '예약 블럭', type: 'select', list: this.blockList, listValue: 'rsvBlckCd', listText: 'label', required: true, cols: 3, defaultValue: '104' }
+        { key: 'storeCode', label: '영업장 ( 미선택 시 전체 영업장 )', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 6 },
+        { key: 'rsvBlckCode', label: '예약 블럭', type: 'select', list: this.blockList, listValue: 'rsvBlckCode', listText: 'label', required: true, cols: 3, defaultValue: '104' }
       ]
     }
   },
@@ -89,7 +89,7 @@ export default {
     // 블럭 리스트 조회
     roomService.selectRsvBlockInfo({}).then(res => {
       for (const block of res.data) {
-        block.label = block.rsvBlckCdNm + ' ( ' + block.rsvBlckCd + ' )'
+        block.label = block.rsvBlckCodeName + ' ( ' + block.rsvBlckCode + ' )'
       }
       this.blockList = res.data
     })

@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const partnerInventoryRateService = {
 
@@ -6,7 +6,7 @@ const partnerInventoryRateService = {
    * 파트너 인벤토리 재고설정 정보 조회
    */
   selectPartnerInventoryRateList () {
-    return api.get('/api/system/partnerInventoryRate/list')
+    return api.get('/api/cms/system/partnerInventoryRate/list')
   },
 
   /**
@@ -14,14 +14,14 @@ const partnerInventoryRateService = {
    * @param list
    */
   insertPartnerInventoryRateList (list) {
-    return api.post('/api/system/partnerInventoryRate/insert', list)
+    return api.post('/api/cms/system/partnerInventoryRate/insert', list)
   },
 
   /**
    * 파트너 인벤토리 재고설정 요일 설정 정보 조회
    */
   selectPartnerInventoryRateDayList () {
-    return api.get('/api/system/partnerInventoryRate/dayList')
+    return api.get('/api/cms/system/partnerInventoryRate/dayList')
   },
 
   /**
@@ -29,14 +29,14 @@ const partnerInventoryRateService = {
    * @param list
    */
   insertPartnerInventoryRateDayList (list) {
-    return api.post('/api/system/partnerInventoryRate/dayInsert', list)
+    return api.post('/api/cms/system/partnerInventoryRate/dayInsert', list)
   },
 
   /**
    * 파트너 인벤토리 재고설정 객실 설정 정보 조회
    */
   selectPartnerInventoryRateTypeList () {
-    return api.get('/api/system/partnerInventoryRate/typeList')
+    return api.get('/api/cms/system/partnerInventoryRate/typeList')
   },
 
   /**
@@ -44,7 +44,7 @@ const partnerInventoryRateService = {
    * @param list
    */
   insertPartnerInventoryRateTypeList (list) {
-    return api.post('/api/system/partnerInventoryRate/typeInsert', list)
+    return api.post('/api/cms/system/partnerInventoryRate/typeInsert', list)
   }
 }
 

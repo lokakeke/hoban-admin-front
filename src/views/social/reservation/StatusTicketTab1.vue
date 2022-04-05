@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import statusTicketService from 'Api/modules/social/statusTicket.service'
+import statusTicketService from '@/api/modules/social/statusTicket.service'
 
 export default {
   props: ['tab'],

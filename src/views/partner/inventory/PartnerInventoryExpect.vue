@@ -19,9 +19,9 @@
 
 <script>
 import PartnerInventoryExpectForm
-  from 'Components/Partner/Inventory/PartnerInventoryExpect/PartnerInventoryExpectForm.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryExpect/PartnerInventoryExpectForm.vue'
 import PartnerInventoryExpectList
-  from 'Components/Partner/Inventory/PartnerInventoryExpect/PartnerInventoryExpectList.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryExpect/PartnerInventoryExpectList.vue'
 
 export default {
   components: { PartnerInventoryExpectForm, PartnerInventoryExpectList },

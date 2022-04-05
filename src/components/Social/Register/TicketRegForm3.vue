@@ -8,8 +8,8 @@
                     <v-select
                       v-model="form.itemAttrb"
                       :items="itemAttrbList"
-                      item-text="commCdNm"
-                      item-value="commCd"
+                      item-text="commCodeName"
+                      item-value="commCode"
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -19,8 +19,8 @@
                     <v-select
                       v-model="form.itemType"
                       :items="itemTypeList"
-                      item-text="commCdNm"
-                      item-value="commCd"
+                      item-text="commCodeName"
+                      item-value="commCode"
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -28,10 +28,10 @@
                   <v-col sm="6" md="4">
                     <v-label>영업장</v-label>
                     <v-combobox
-                      v-model="form.lcalCd"
+                      v-model="form.lcalCode"
                       counter="100"
                       placeholder="영업장을 입력해 주세요."
-                      :items="lcalCdList"
+                      :items="lcalCodeList"
                       :rules="maxLengthRules(100).concat(emptyRules)"
                     ></v-combobox>
                   </v-col>
@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import ticketService from 'Api/modules/social/ticket.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import ticketService from '@/api/modules/social/ticket.service'
 
 export default {
   props: { data: Object, close: Function, step: Function },
@@ -57,7 +57,7 @@ export default {
     return {
       itemAttrbList: [], // 상시전략 구분
       itemTypeList: [], // 상품유형 목록
-      lcalCdList: [], // 판매 영업장 목록
+      lcalCodeList: [], // 판매 영업장 목록
       form: {},
       initForm: {
         itemAttrb: 'STRATEGY',
@@ -74,7 +74,7 @@ export default {
     // 공통코드 조회
     this.getCommonCode()
     // 판매영업장 조회
-    this.selectLcalCdList()
+    this.selectLcalCodeList()
     // 통계정보 조회
     this.search()
   },
@@ -98,14 +98,14 @@ export default {
       })
     },
     // 판매영업장 조회
-    selectLcalCdList () {
+    selectLcalCodeList () {
       const list = []
-      ticketService.selectLcalCdList().then(res => {
+      ticketService.selectLcalCodeList().then(res => {
         if (res.data) {
           res.data.forEach(item => {
-            list.push(item.lcalCd)
+            list.push(item.lcalCode)
           })
-          this.lcalCdList = list
+          this.lcalCodeList = list
         }
       })
     },

@@ -17,11 +17,11 @@ Router.prototype.push = function push (location) {
 }
 
 // session components
-const Login = () => import('Views/common/Login.vue')
-const LoginPartner = () => import('Views/common/LoginPartner.vue')
+const Login = () => import('@/views/common/Login.vue')
+const LoginPartner = () => import('@/views/common/LoginPartner.vue')
 
 // Error components
-const error404 = () => import('Views/common/404.vue')
+const error404 = () => import('@/views/common/404.vue')
 
 Vue.use(Router)
 

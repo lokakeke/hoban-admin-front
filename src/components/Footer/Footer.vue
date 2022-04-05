@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import AppConfig from 'Constants/AppConfig'
-import { getCurrentAppLayout } from 'Helpers/helpers'
+import AppConfig from '@/constants/AppConfig'
+import { getCurrentAppLayout } from '@/helpers/helpers'
 
 export default {
   data () {

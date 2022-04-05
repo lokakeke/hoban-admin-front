@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import BoardRoomAmountView from 'Components/Board/Amount/BoardRoomAmountView.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import BoardRoomAmountView from '@/components/Board/Amount/BoardRoomAmountView.vue'
 
 export default {
   name: 'BoardRoomAmountSearchDialog',

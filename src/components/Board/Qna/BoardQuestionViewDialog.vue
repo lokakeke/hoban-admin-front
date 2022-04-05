@@ -13,7 +13,7 @@
         </v-col>
         <v-col md="6" cols="12">
           <v-label>작성자</v-label>
-          <v-text-field :value="`${form.ptnrChrgNm || '?'} (${form.ptnrNm})`" readonly disabled></v-text-field>
+          <v-text-field :value="`${form.ptnrChrgName || '?'} (${form.ptnrName})`" readonly disabled></v-text-field>
         </v-col>
         <v-col md="6" cols="12">
           <v-label>작성일</v-label>
@@ -32,7 +32,7 @@
         <v-card class="mt-6" v-for="answer in answList" :key="answer.answSeq">
           <v-card-title>
             <v-icon color="info" class="mr-2">mdi-message-reply</v-icon>
-            {{ answer.answNm }}님이 {{ answer.crtDt | dateSet }}에 등록한 답변입니다.
+            {{ answer.answName }}님이 {{ answer.crtDt | dateSet }}에 등록한 답변입니다.
           </v-card-title>
           <v-card-text>
             <v-editor :content="answer.contents" readonly></v-editor>
@@ -88,11 +88,11 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import boardQnaService from 'Api/modules/system/boardQna.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import boardQnaService from '@/api/modules/system/boardQna.service'
 
 export default {
-  name: 'BoardQuestionManagementService',
+  name: 'BoardQuestionService',
   extends: DialogBase,
   data () {
     return {
@@ -147,7 +147,7 @@ export default {
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Board/Qna/BoardQuestionManagementDialog',
+        componentPath: '/Board/Qna/BoardQuestionDialog',
         params: {
           qstnSeq: this.form.qstnSeq
         },
@@ -186,7 +186,7 @@ export default {
     openCreateBoardAnswerDialog () {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Board/Qna/BoardAnswerManagementDialog',
+        componentPath: '/Board/Qna/BoardAnswerDialog',
         params: {
           question: this.form,
           qstnSeq: this.form.qstnSeq
@@ -209,7 +209,7 @@ export default {
     openUpdateBoardAnswerDialog ({ qstnSeq, answSeq }) {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Board/Qna/BoardAnswerManagementDialog',
+        componentPath: '/Board/Qna/BoardAnswerDialog',
         params: {
           question: this.form,
           qstnSeq,

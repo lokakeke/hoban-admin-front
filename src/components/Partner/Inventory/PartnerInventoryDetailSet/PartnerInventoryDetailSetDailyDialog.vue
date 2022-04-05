@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import PartnerInventoryDetailSetDaily
-  from 'Components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetDaily.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetDaily.vue'
 
 export default {
   components: { PartnerInventoryDetailSetDaily },

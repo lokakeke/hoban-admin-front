@@ -30,8 +30,8 @@
           <span v-else>{{ item.title }} </span>
           <v-chip color="red" v-if="$options.filters.isDayDifferentCount(item.crtDt, 4)" outlined small>New</v-chip>
         </template>
-        <template v-slot:[`item.crtNm`]="{item}">
-          <mask-name :text="item.crtNm" />
+        <template v-slot:[`item.crtName`]="{item}">
+          <mask-name :text="item.crtName" />
         </template>
         <template v-slot:[`item.crtDt`]="{item}">
           {{ item.crtDt | dateSet }}
@@ -53,9 +53,9 @@
 </template>
 
 <script>
-import MaskName from 'Components/Mask/MaskName.vue'
-import boardNoticeService from 'Api/modules/system/boardNotice.service'
-import storeService from 'Api/modules/system/store.service'
+import MaskName from '@/components/Mask/MaskName.vue'
+import boardNoticeService from '@/api/modules/system/boardNotice.service'
+import storeService from '@/api/modules/system/store.service'
 
 export default {
   name: 'BoardNotice',
@@ -81,7 +81,7 @@ export default {
         },
         {
           text: '공지유형',
-          value: 'noticeTypeNm',
+          value: 'noticeTypeName',
           align: 'center',
           sortable: false
         },
@@ -99,7 +99,7 @@ export default {
         },
         {
           text: '등록자',
-          value: 'crtNm',
+          value: 'crtName',
           align: 'center',
           sortable: false
         },
@@ -135,20 +135,20 @@ export default {
           ]
         },
         {
-          key: 'noticeTypeNm',
+          key: 'noticeTypeName',
           label: '공지유형',
           type: 'select',
           list: this.noticeTypeList,
-          listValue: 'noticeTypeNm',
-          listText: 'noticeTypeNm'
+          listValue: 'noticeTypeName',
+          listText: 'noticeTypeName'
         },
         {
-          key: 'storeCd',
+          key: 'storeCode',
           label: '영업장',
           type: 'select',
           list: this.storeList,
-          listValue: 'storeCd',
-          listText: 'storeNm'
+          listValue: 'storeCode',
+          listText: 'storeName'
         },
         {
           key: 'crtDt',
@@ -271,7 +271,7 @@ export default {
     openCreateBoardNoticeDialog () {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Board/Notice/BoardNoticeManagementDialog',
+        componentPath: '/Board/Notice/BoardNoticeDialog',
         options: {
           width: '900px',
           fullscreen: false,

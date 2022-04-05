@@ -2,8 +2,8 @@
   <v-container fluid>
     <v-form ref="form">
       <v-row justify="space-between">
-        <v-col :key="type.typeCd" cols="auto" v-for="type in typeList">
-          <v-checkbox :label="type.typeNm"
+        <v-col :key="type.typeCode" cols="auto" v-for="type in typeList">
+          <v-checkbox :label="type.typeName"
                       :value="true"
                       false-value="N"
                       true-value="Y"
@@ -19,11 +19,11 @@
                           class="mt-0"
                           hide-details
                           row
-                          v-model="form.typeCd"
+                          v-model="form.typeCode"
           >
             <v-radio :key="item.name"
-                      :label="item.commCdNm"
-                      :value="item.commCd"
+                      :label="item.commCodeName"
+                      :value="item.commCode"
                       v-for="item in typeItem"
             />
           </v-radio-group>
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import packageService from 'Api/modules/ota/package.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import packageService from '@/api/modules/ota/package.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   name: 'RoomPackageTypeForm',
@@ -60,14 +60,14 @@ export default {
   created () {
     this.pkgNo = this.pkgNoProp
     this.init()
-    this.getCommCdList()
+    this.getCommCodeList()
     this.getPackageTypeList()
   },
   methods: {
     getPackageTypeList () {
       if (this.isEdit) {
         packageService.selectRoomPackageInformation(this.pkgNo).then((response) => {
-          this.typeList = response.data.packTypeCdList
+          this.typeList = response.data.packTypeCodeList
           this.form.typeCd = response.data.typeCd
           this.form.title = response.data.title
         }).catch((error) => {

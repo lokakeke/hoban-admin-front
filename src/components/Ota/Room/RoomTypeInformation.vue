@@ -132,24 +132,24 @@
 </template>
 
 <script>
-import roomTypeService from 'Api/modules/ota/roomType.service'
+import roomTypeService from '@/api/modules/ota/roomType.service'
 
 export default {
   name: 'RoomTypeInformation',
   props: {
     isEdit: Boolean,
-    storeCdProp: String
+    storeCodeProp: String
   },
   data: function () {
     return {
       originList: [],
       roomTypeTableHeaders: [
-        { text: '객실유형코드', value: 'rmTypeCd', align: 'center', sortable: false, width: '35%' },
-        { text: '객실유형명', value: 'rmTypeNm', align: 'center', sortable: false, width: '65%' }
+        { text: '객실유형코드', value: 'rmTypeCode', align: 'center', sortable: false, width: '35%' },
+        { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false, width: '65%' }
       ],
       roomTypeApplyTableHeaders: [
-        { text: '객실유형코드', value: 'rmTypeCd', align: 'center', sortable: false, width: '15%' },
-        { text: '객실유형명', value: 'rmTypeNm', align: 'center', sortable: false, width: '35%' },
+        { text: '객실유형코드', value: 'rmTypeCode', align: 'center', sortable: false, width: '15%' },
+        { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false, width: '35%' },
         { text: '판매시작일자', value: 'saleBgnYmd', align: 'center', sortable: false, width: '15%' },
         { text: '판매종료일자', value: 'saleEndYmd', align: 'center', sortable: false, width: '15%' },
         { text: '판매여부', value: 'useYn', align: 'center', sortable: false, width: '20%' }

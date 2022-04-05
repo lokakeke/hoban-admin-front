@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import PartnerInventoryRateTab from 'Components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateTab.vue'
+import PartnerInventoryRateTab from '@/components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateTab.vue'
 import PartnerInventoryRateOptionTab
-  from 'Components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateOptionTab.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateOptionTab.vue'
 
 export default {
   components: { PartnerInventoryRateTab, PartnerInventoryRateOptionTab },
-  name: 'PartnerInventoryManagement',
+  name: 'PartnerInventory',
   data () {
     return {
       tab: null,

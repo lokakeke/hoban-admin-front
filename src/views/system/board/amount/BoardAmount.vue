@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import BoardRoomAmountView from 'Components/Board/Amount/BoardRoomAmountView.vue'
-import BoardPackageAmountView from 'Components/Board/Amount/BoardPackageAmountView.vue'
+import BoardRoomAmountView from '@/components/Board/Amount/BoardRoomAmountView.vue'
+import BoardPackageAmountView from '@/components/Board/Amount/BoardPackageAmountView.vue'
 
 export default {
   name: 'BoardAmount',

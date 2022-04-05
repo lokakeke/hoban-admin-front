@@ -30,17 +30,17 @@
           {{item.crtDt | dateSet}}
         </template>
         <!-- 승인상태 -->
-        <template v-slot:item.aprlNm="{item}">
-          <template v-if="item.aprlCd === 'A' && !isPartner">
+        <template v-slot:item.aprlName="{item}">
+          <template v-if="item.aprlCode === 'A' && !isPartner">
             <v-btn @click="approval(item)"
                    color="primary"
                    rounded
             >
-              {{ item.aprlNm }}
+              {{ item.aprlName }}
             </v-btn>
           </template>
           <template v-else>
-            {{ item.aprlNm }}
+            {{ item.aprlName }}
           </template>
         </template>
         <!-- 승인일시 -->
@@ -64,10 +64,10 @@
 </template>
 
 <script>
-import service from 'Api/modules/api/depositRequest.service'
+import service from '@/api/modules/api/depositRequest.service'
 
 export default {
-  name: 'DepositRequestManagement',
+  name: 'DepositRequest',
   data () {
     return {
       searchParam: {
@@ -80,14 +80,14 @@ export default {
       headers: [
         { text: '신청순번', value: 'appSeq', align: 'center', sortable: false },
         { text: '예치금KEY', value: 'depoKey', align: 'center', sortable: false },
-        { text: '파트너명', value: 'ptnrNm', align: 'center', sortable: false },
-        { text: '업무유형', value: 'taskTypeNm', align: 'center', sortable: false },
-        { text: '입금구분', value: 'rcpmnyAcctNm', align: 'center', sortable: false },
+        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
+        { text: '업무유형', value: 'taskTypeName', align: 'center', sortable: false },
+        { text: '입금구분', value: 'rcpmnyAcctName', align: 'center', sortable: false },
         { text: '입금예정일', value: 'rcpmnyPlanYmd', align: 'center', sortable: false },
         { text: '금액', value: 'amt', align: 'center', sortable: false },
-        { text: '입금내용', value: 'rcpmnyNm', align: 'center', sortable: false },
+        { text: '입금내용', value: 'rcpmnyName', align: 'center', sortable: false },
         { text: '등록일시', value: 'crtDt', align: 'center', sortable: false },
-        { text: '승인상태', value: 'aprlNm', align: 'center', sortable: false },
+        { text: '승인상태', value: 'aprlName', align: 'center', sortable: false },
         { text: '처리일시', value: 'procDt', align: 'center', sortable: false }
       ]
     }
@@ -96,11 +96,11 @@ export default {
     searchList () {
       const searchList = [
         { key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 },
-        { key: 'ptnrNm', label: '파트너명', type: 'text', cols: 2 },
-        { key: 'rcpmnyAcct', label: '입금구분', type: 'code', commCd: 'COMM0004', cols: 2 },
+        { key: 'ptnrName', label: '파트너명', type: 'text', cols: 2 },
+        { key: 'rcpmnyAcct', label: '입금구분', type: 'code', commCode: 'COMM0004', cols: 2 },
         { key: 'rcpmnyAcnoNo', label: '입금계좌번호', type: 'text', cols: 2 },
-        { key: 'rcpmnyNm', label: '입금내용', type: 'text', cols: 2 },
-        { key: 'aprlCd', label: '승인상태', type: 'code', commCd: 'COMM0003', cols: 2 }
+        { key: 'rcpmnyName', label: '입금내용', type: 'text', cols: 2 },
+        { key: 'aprlCode', label: '승인상태', type: 'code', commCode: 'COMM0003', cols: 2 }
       ]
       if (this.isPartner) {
         // 파트너의 경우 파트너명 검색을 제거
@@ -132,7 +132,7 @@ export default {
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Deposit/DepositRequestManagementDialog',
+        componentPath: '@/api/Deposit/DepositRequestDialog',
         params: {
           isNew,
           item,
@@ -154,7 +154,7 @@ export default {
      */
     openViewDepositInit () {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Deposit/DepositInitDialog',
+        componentPath: '@/api/Deposit/DepositInitDialog',
         params: {
         },
         options: {
@@ -173,7 +173,7 @@ export default {
      */
     approval (item) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Deposit/DepositRequestApprovalDialog',
+        componentPath: '@/api/Deposit/DepositRequestApprovalDialog',
         params: {
           depositRequest: item
         },

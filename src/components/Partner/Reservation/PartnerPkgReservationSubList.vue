@@ -14,15 +14,15 @@
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>
-            <v-chip x-small class="ml-1">{{aprlNm}}</v-chip>
+            <v-chip x-small class="ml-1">{{aprlName}}</v-chip>
             신청 리스트
           </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
       </template>
       <!-- 패키지명 -->
-      <template v-slot:item.pkgNm="{ item }">
-        {{ item.pkgNm}} ({{ item.pkgNo }})
+      <template v-slot:item.pkgName="{ item }">
+        {{ item.pkgName}} ({{ item.pkgNo }})
       </template>
       <!-- 판매기간 -->
       <template v-slot:item.saleBgnYmd="{ item }">
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import partnerPkgReservationService from 'Api/modules/partner/partnerPkgReservation.service'
+import partnerPkgReservationService from '@/api/modules/partner/partnerPkgReservation.service'
 
 export default {
   name: 'PartnerPkgReservationSubList',
@@ -48,7 +48,7 @@ export default {
     /**
      * 신청상태
      */
-    aprlNm: {
+    aprlName: {
       type: String,
       required: true
     }
@@ -62,9 +62,9 @@ export default {
       headers: [
         { text: '예약번호(4자리)', value: 'rsvNo', align: 'center', sortable: false },
         { text: 'KEY예약번호(10자리)', value: 'keyRsvNo', align: 'center', sortable: false },
-        { text: '패키지명', value: 'pkgNm', align: 'center', sortable: false },
-        { text: '영업장명', value: 'storeNm', align: 'center', sortable: false },
-        { text: '객실유형명', value: 'rmTypeNm', align: 'center', sortable: false },
+        { text: '패키지명', value: 'pkgName', align: 'center', sortable: false },
+        { text: '영업장명', value: 'storeName', align: 'center', sortable: false },
+        { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false },
         { text: '객실수', value: 'rmCnt', align: 'center', sortable: false },
         { text: '박수', value: 'nights', align: 'center', sortable: false },
         { text: '판매기간', value: 'saleBgnYmd', align: 'center', sortable: false },

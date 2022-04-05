@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import service from 'Api/modules/naver/scheduleSend.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import itemService from 'Api/modules/naver/item.service'
+import service from '@/api/modules/naver/scheduleSend.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import itemService from '@/api/modules/naver/item.service'
 
 export default {
   extends: DialogBase,
@@ -83,11 +83,11 @@ export default {
         { text: '서비스ID', value: 'businessId', align: 'center', sortable: false },
         { text: '서비스명', value: 'serviceName', align: 'center', sortable: false },
         { text: '상품명', value: 'name', align: 'center', sortable: false },
-        { text: '영업장코드', value: 'storeCd', align: 'center', sortable: false },
-        { text: '객실타입코드', value: 'rmTypeCd', align: 'center', sortable: false },
+        { text: '영업장코드', value: 'storeCode', align: 'center', sortable: false },
+        { text: '객실타입코드', value: 'rmTypeCode', align: 'center', sortable: false },
         { text: '패키지여부', value: 'pkgYn', align: 'center', sortable: false },
         { text: '회원번호/패키지번호', value: 'mid', align: 'center', sortable: false },
-        { text: '블럭코드', value: 'rsvBlckCd', align: 'center', sortable: false },
+        { text: '블럭코드', value: 'rsvBlckCode', align: 'center', sortable: false },
         { text: '네이버상품ID', value: 'bizItemId', align: 'center', sortable: false },
         { text: '네이버스케줄ID', value: 'scheduleId', align: 'center', sortable: false },
         { text: '스케줄생성시작일', value: 'startDate', align: 'center', sortable: false },
@@ -119,8 +119,8 @@ export default {
      */
     searchList () {
       return [
-        { key: 'rmTypeCd', label: '객실타입코드', type: 'text', cols: 4 },
-        { key: 'rsvBlckCd', label: '블럭코드', type: 'text', cols: 4 },
+        { key: 'rmTypeCode', label: '객실타입코드', type: 'text', cols: 4 },
+        { key: 'rsvBlckCode', label: '블럭코드', type: 'text', cols: 4 },
         { key: 'mid', label: '회원/패키지번호', type: 'text', cols: 4 },
         { key: 'sorts', label: '정렬', type: 'select', list: this.searchVal.sorts, listValue: 'value', listText: 'text', cols: 4 },
         { key: 'dmItemIds', label: '상품명', type: 'select', list: this.searchVal.dmItemIds, listValue: 'value', listText: 'text', cols: 4 },

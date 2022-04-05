@@ -8,12 +8,12 @@
         <v-col sm="6" md="4">
           <v-label>업무 구분</v-label>
           <v-autocomplete v-if="isNewData" v-model="useForm.taskType" clearable autocomplete="off" @change="changeTaskType"
-                          :items="businessList" :item-value="'commCd'" :item-text="'commCdNm'" :rules="emptyRules"></v-autocomplete>
-          <v-text-field v-else v-model="useForm.taskTypeCdNm" label="" :rules="emptyRules" disabled></v-text-field>
+                          :items="businessList" :item-value="'commCode'" :item-text="'commCodeName'" :rules="emptyRules"></v-autocomplete>
+          <v-text-field v-else v-model="useForm.taskTypeCodeName" label="" :rules="emptyRules" disabled></v-text-field>
         </v-col>
         <v-col sm="6" md="4">
           <v-label>업무 구분명</v-label>
-          <v-text-field v-model="useForm.taskTypeNm" label="" :rules="emptyRules" clearable></v-text-field>
+          <v-text-field v-model="useForm.taskTypeName" label="" :rules="emptyRules" clearable></v-text-field>
         </v-col>
         <v-col sm="6" md="4">
           <v-label>회원 번호</v-label>
@@ -23,13 +23,13 @@
         <v-col sm="6" md="6">
           <v-label>판매 채널</v-label>
           <v-autocomplete v-model="useForm.saleChnnl" clearable autocomplete="off" :disabled="isPartner"
-                          :items="saleChannelList" :item-value="'commCd'" :item-text="'commCdNm'" :rules="emptyRules"></v-autocomplete>
+                          :items="saleChannelList" :item-value="'commCode'" :item-text="'commCodeName'" :rules="emptyRules"></v-autocomplete>
         </v-col>
         <v-col sm="6" md="6">
           <v-label>대매사</v-label>
-          <v-text-field v-model="useForm.agentCdNm" label="" :rules="emptyRules" readonly @click="openAgent" :disabled="isPartner">
-            <template v-slot:append v-if="useForm.agentCd">
-              ({{useForm.agentCd}})
+          <v-text-field v-model="useForm.agentCodeName" label="" :rules="emptyRules" readonly @click="openAgent" :disabled="isPartner">
+            <template v-slot:append v-if="useForm.agentCode">
+              ({{useForm.agentCode}})
             </template>
             <template v-slot:append-outer v-if="!isPartner">
               <v-btn outlined color="info" @click="openAgent" tabindex="-1"><v-icon left>search</v-icon> 조회</v-btn>
@@ -49,7 +49,7 @@
         <v-col sm="6" md="6">
           <v-label>예치금 키</v-label>
           <v-text-field
-            :value="useForm.ptnrNm"
+            :value="useForm.ptnrName"
             readonly
             @click="isNewData === false ? openDepositAccount() : null"
           >
@@ -97,8 +97,8 @@
 </template>
 
 <script>
-import DatePicker from 'Components/Date/DatePicker.vue'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DatePicker from '@/components/Date/DatePicker.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   components: { DatePicker },

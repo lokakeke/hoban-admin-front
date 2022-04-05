@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import roomService from 'Api/modules/ota/roomReservation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import roomService from '@/api/modules/ota/roomReservation.service'
 
 import { mapGetters } from 'vuex'
 
@@ -70,7 +70,7 @@ export default {
         },
         {
           text: '패키지명',
-          value: 'pkgNm',
+          value: 'pkgName',
           align: 'center',
           width: '50%'
         },
@@ -108,7 +108,7 @@ export default {
         },
         {
           text: '패키지명',
-          value: 'pkgNm',
+          value: 'pkgName',
           align: 'center',
           width: '40%'
         },
@@ -154,7 +154,7 @@ export default {
     filterList () {
       if (this.pkgList && this.pkgList.length > 0) {
         if (this.filterText) {
-          return this.pkgList.filter(data => data.pkgNo.indexOf(this.filterText) !== -1 || data.pkgNm.indexOf(this.filterText) !== -1 || data.pkgDesc.indexOf(this.filterText) !== -1)
+          return this.pkgList.filter(data => data.pkgNo.indexOf(this.filterText) !== -1 || data.pkgName.indexOf(this.filterText) !== -1 || data.pkgDesc.indexOf(this.filterText) !== -1)
         } else {
           return this.pkgList
         }
@@ -183,8 +183,8 @@ export default {
       if (this.isPartner) { // 파트너인 경우
         param.ptnrNo = this.user.number
       }
-      param.storeCd = this.rsvInfo.storeCd
-      param.rmTypeCd = this.rsvInfo.rmTypeCd
+      param.storeCode = this.rsvInfo.storeCode
+      param.rmTypeCode = this.rsvInfo.rmTypeCode
       param.nights = this.rsvInfo.nights
       param.rmCnt = this.rsvInfo.rmCnt
       param.ciYmd = this.rsvInfo.ciYmd

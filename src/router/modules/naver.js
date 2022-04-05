@@ -1,43 +1,43 @@
 import Full from 'Container/Full.vue'
 
 // Booking
-const Booking = () => import('Views/naver/booking/BookingManagement.vue')
+const Booking = () => import('@/views/naver/booking/Booking.vue')
 
 // Booking Calendar
-const BookingCalendar = () => import('Views/naver/booking/BookingCalendarView.vue')
+const BookingCalendar = () => import('@/views/naver/booking/BookingCalendarView.vue')
 
 // Business
-const Business = () => import('Views/naver/business/BusinessManagement.vue')
+const Business = () => import('@/views/naver/business/Business.vue')
 
 // Item
-const Item = () => import('Views/naver/item/ItemManagement.vue')
+const Item = () => import('@/views/naver/item/Item.vue')
 
 // Option
-const Option = () => import('Views/naver/item/OptionManagement.vue')
+const Option = () => import('@/views/naver/item/Option.vue')
 
 // Schedule
-const Schedule = () => import('Views/naver/schedule/ScheduleManagement.vue')
+const Schedule = () => import('@/views/naver/schedule/Schedule.vue')
 
 // ScheduleTemp
-const ScheduleTemp = () => import('Views/naver/schedule/ScheduleTempManagement.vue')
+const ScheduleTemp = () => import('@/views/naver/schedule/ScheduleTemp.vue')
 
 // SimpleSchedule
-const SimpleSchedule = () => import('Views/naver/schedule/SimpleScheduleManagement.vue')
+const SimpleSchedule = () => import('@/views/naver/schedule/SimpleSchedule.vue')
 
-// naverTokenManagement
-const NaverTokenManagement = () => import('Views/naver/token/NaverTokenManagement.vue')
+// naverToken
+const NaverToken = () => import('@/views/naver/token/NaverToken.vue')
 
 // ScheduleSend
-const ScheduleSend = () => import('Views/naver/scheduleSend/ScheduleSend.vue')
+const ScheduleSend = () => import('@/views/naver/scheduleSend/ScheduleSend.vue')
 
 // RsvLog
-const BookingLog = () => import('Views/naver/bookingLog/BookingLog.vue')
+const BookingLog = () => import('@/views/naver/bookingLog/BookingLog.vue')
 
 // 정산
-const CalculateMonth = () => import('Views/naver/calculate/Month.vue')
-const CalculateDay = () => import('Views/naver/calculate/Day.vue')
-const CalculateSaleAdjust = () => import('Views/naver/calculate/SaleAdjust.vue')
-const CalculateTpne = () => import('Views/naver/calculate/Tpne.vue')
+const CalculateMonth = () => import('@/views/naver/calculate/Month.vue')
+const CalculateDay = () => import('@/views/naver/calculate/Day.vue')
+const CalculateSaleAdjust = () => import('@/views/naver/calculate/SaleAdjust.vue')
+const CalculateTpne = () => import('@/views/naver/calculate/Tpne.vue')
 
 export default {
     path: '/naver',
@@ -49,47 +49,47 @@ export default {
     },
     children: [
         {
-            path: 'businessManagement',
+            path: 'business',
             component: Business,
-            name: 'businessManagement',
+            name: 'business',
             meta: {
                 auth: true,
                 requiresAuth: true,
                 title: '서비스 관리',
-                breadcrumb: 'Business Management'
+                breadcrumb: 'Business '
             }
         },
         {
-            path: 'itemManagement',
+            path: 'item',
             component: Item,
-            name: 'itemManagement',
+            name: 'item',
             meta: {
                 auth: true,
                 requiresAuth: true,
                 title: '상품 관리',
-                breadcrumb: 'Item Management'
+                breadcrumb: 'Item '
             }
         },
         {
-            path: 'optionManagement',
+            path: 'option',
             component: Option,
-            name: 'optionManagement',
+            name: 'option',
             meta: {
                 auth: true,
                 requiresAuth: true,
                 title: '옵션 관리',
-                breadcrumb: 'Option Management'
+                breadcrumb: 'Option '
             }
         },
         {
-            path: 'scheduleManagement',
+            path: 'schedule',
             component: Schedule,
-            name: 'scheduleManagement',
+            name: 'schedule',
             meta: {
                 auth: true,
                 requiresAuth: true,
                 title: '일정 관리',
-                breadcrumb: 'Schedule Management'
+                breadcrumb: 'Schedule '
             }
         },
         {
@@ -104,36 +104,36 @@ export default {
             }
         },
         {
-            path: 'bookingManagement',
+            path: 'booking',
             component: Booking,
-            name: 'bookingManagement',
+            name: 'booking',
             meta: {
                 auth: true,
                 requiresAuth: true,
                 title: '예약자 관리',
-                breadcrumb: 'Booking Management'
+                breadcrumb: 'Booking '
             }
         },
         {
-            path: 'scheduleTempManagement',
+            path: 'scheduleTemp',
             component: ScheduleTemp,
-            name: 'scheduleTempManagement',
+            name: 'scheduleTemp',
             meta: {
                 auth: true,
                 requiresAuth: true,
                 title: '임시 일정 관리',
-                breadcrumb: 'Schedule Temp Management'
+                breadcrumb: 'Schedule Temp '
             }
         },
         {
-            path: 'simpleScheduleManagement',
+            path: 'simpleSchedule',
             component: SimpleSchedule,
-            name: 'simpleScheduleManagement',
+            name: 'simpleSchedule',
             meta: {
                 auth: true,
                 requiresAuth: true,
                 title: '간단예약 관리',
-                breadcrumb: 'Simple Schedule Management'
+                breadcrumb: 'Simple Schedule '
             }
         },
         {
@@ -188,7 +188,7 @@ export default {
                 auth: true,
                 requiresAuth: true,
                 title: '매출조정 관리',
-                breadcrumb: 'Calculate Sale Adjust Management'
+                breadcrumb: 'Calculate Sale Adjust '
             }
         },
         {
@@ -199,18 +199,18 @@ export default {
                 auth: true,
                 requiresAuth: true,
                 title: 'TPNE 정산 관리',
-                breadcrumb: 'Calculate TPNE Management'
+                breadcrumb: 'Calculate TPNE '
             }
         },
         {
-            path: 'naverTokenManagement',
-            component: NaverTokenManagement,
-            name: 'naverTokenManagement',
+            path: 'naverToken',
+            component: NaverToken,
+            name: 'naverToken',
             meta: {
                 auth: true,
                 requiresAuth: true,
                 title: '토큰 관리',
-                breadcrumb: 'Naver Token Management'
+                breadcrumb: 'Naver Token '
             }
         }
     ]

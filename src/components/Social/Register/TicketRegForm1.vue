@@ -37,7 +37,7 @@
                   </v-col>
                   <v-col sm="4" md="3">
                       <v-label>우대번호 명</v-label>
-                      <v-text-field v-model="form.ticketNm" label="" disabled class="text--black"></v-text-field>
+                      <v-text-field v-model="form.ticketName" label="" disabled class="text--black"></v-text-field>
                   </v-col>
                   <v-col sm="4" md="3">
                       <v-label>우대번호 유효기간</v-label>
@@ -52,11 +52,11 @@
               <v-row v-if="writeAuth">
                 <v-col sm="4" md="3">
                   <v-label>우대구분</v-label>
-                  <v-text-field v-model="form.pvlIndCd" label="" disabled></v-text-field>
+                  <v-text-field v-model="form.pvlIndCode" label="" disabled></v-text-field>
                 </v-col>
                 <v-col sm="4" md="3">
                   <v-label>실적분과</v-label>
-                  <v-text-field v-model="form.actualDvidCd" label="" disabled></v-text-field>
+                  <v-text-field v-model="form.actualDvidCode" label="" disabled></v-text-field>
                 </v-col>
                 <v-col sm="4" md="3">
                   <v-label>신청자</v-label>
@@ -71,11 +71,11 @@
               <v-row>
                 <v-col sm="4" md="3" class="pr-12">
                     <v-label>우대번호 명</v-label>
-                    <v-text-field v-model="form.ticketRealNm" label="" class=""></v-text-field>
+                    <v-text-field v-model="form.ticketRealName" label="" class=""></v-text-field>
                 </v-col>
                 <v-col sm="4" md="2">
                     <v-label>판매 파트너명</v-label>
-                    <v-text-field v-model="form.ptnrNm" label="" :rules="emptyRules" required disabled></v-text-field>
+                    <v-text-field v-model="form.ptnrName" label="" :rules="emptyRules" required disabled></v-text-field>
                 </v-col>
                 <v-col align-self="start" sm="2" md="1" class="pl-0 pt-10">
                   <v-btn outlined color="info" @click="openPartnerTerm" tabindex="-1" v-if="writeAuth"><v-icon left>search</v-icon> 조회</v-btn>
@@ -112,7 +112,7 @@
                     class="bordered"
                   >
                     <template v-slot:item.chrgType="{item}">
-                      <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCdNm" item-value="commCd"></v-select>
+                      <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCodeName" item-value="commCode"></v-select>
                     </template>
                     <template v-slot:item.action="{ item }">
                       <v-btn small color="accent" rounded outlined @click="chrgRemove(item)">
@@ -141,7 +141,7 @@
                     class="bordered"
                   >
                     <template v-slot:item.chrgType="{item}">
-                      <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCdNm" item-value="commCd" :disabled="item.isNew === 'Y' ? false : true"></v-select>
+                      <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCodeName" item-value="commCode" :disabled="item.isNew === 'Y' ? false : true"></v-select>
                     </template>
                     <template v-slot:item.action="{ item }">
                       <v-btn small color="accent" rounded outlined @click="accountEmpRemove(item)">
@@ -195,9 +195,9 @@
                       <tbody>
                       <tr align="center" v-for="(item, index) in items" :key="index">
                         <td>{{item.ticketNo}} ( {{item.remainCnt | price}}개 )</td>
-                        <td>{{item.ticketNm}}</td>
-                        <td>{{item.itemNm}}</td>
-                        <td>{{item.itemInd | label(itemIndList, 'commCd', 'commCdNm')}}</td>
+                        <td>{{item.ticketName}}</td>
+                        <td>{{item.itemName}}</td>
+                        <td>{{item.itemInd | label(itemIndList, 'commCode', 'commCodeName')}}</td>
                         <td>{{item.amt | price}}</td>
                         <td>{{item.qty | price}}</td>
                       </tr>
@@ -297,8 +297,8 @@
 </template>
 
 <script>
-import ticketSearchService from 'Api/modules/social/ticketSearch.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import ticketSearchService from '@/api/modules/social/ticketSearch.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   props: { data: Object, complete: Boolean, close: Function, step: Function },
@@ -337,12 +337,12 @@ export default {
     chrgHeaders () {
       if (this.isPartner) {
         return [
-          { text: '담당자 명', value: 'chrgNm', align: 'center', sortable: false, width: '40%' },
+          { text: '담당자 명', value: 'chrgName', align: 'center', sortable: false, width: '40%' },
           { text: '담당 유형', value: 'chrgType', align: 'center', sortable: false, width: '40%' }
         ]
       } else {
         return [
-          { text: '담당자 명', value: 'chrgNm', align: 'center', sortable: false, width: '40%' },
+          { text: '담당자 명', value: 'chrgName', align: 'center', sortable: false, width: '40%' },
           { text: '담당 유형', value: 'chrgType', align: 'center', sortable: false, width: '40%' },
           { text: '삭제', value: 'action', align: 'center', sortable: false, width: '20%' }
         ]
@@ -367,7 +367,7 @@ export default {
     },
     // 판매 업체 담당자 disabled
     chargeDisableYn () {
-      return !(this.form.ptnrNm !== undefined && this.form.ptnrNm !== '')
+      return !(this.form.ptnrName !== undefined && this.form.ptnrName !== '')
     },
     // 우대번호 상품정보 disabled
     ticketDetailYn () {
@@ -431,7 +431,7 @@ export default {
               // 판매 업체 담당자 초기화
               this.form.chrgList = []
               this.$set(this.form, 'ptnrNo', params.data.ptnrNo)
-              this.$set(this.form, 'ptnrNm', params.data.ptnrNm + '(' + params.data.taskTypeNm + ')')
+              this.$set(this.form, 'ptnrName', params.data.ptnrName + '(' + params.data.taskTypeName + ')')
               this.$set(this.form, 'termSeq', params.data.termSeq)
             }
           }
@@ -456,7 +456,7 @@ export default {
             if (params && params.data) {
               const row = params.data
               // 메인 우대번호
-              const rowArr = ['ticketNo', 'ticketNm', 'ticketRealNm', 'issuQty', 'vaildThruBgnYmd', 'vaildThruEndYmd', 'vaildThruYmd', 'useImprtyYn', 'pvlIndCd', 'actualDvidCd', 'applcntEmplNo', 'issuEmplNo']
+              const rowArr = ['ticketNo', 'ticketName', 'ticketRealName', 'issuQty', 'vaildThruBgnYmd', 'vaildThruEndYmd', 'vaildThruYmd', 'useImprtyYn', 'pvlIndCode', 'actualDvidCode', 'applcntEmplNo', 'issuEmplNo']
               for (const arr of rowArr) {
                 this.$set(this.form, arr, row[arr])
               }
@@ -465,7 +465,7 @@ export default {
               // 판매업체 담당자 초기화
               this.form.chrgList = []
               for (const ticket of row.groupList) {
-                const groupTicket = { ticketNo: ticket.ticketNo, remainCnt: ticket.remainCnt, ticketNm: ticket.ticketNm, itemNm: '', itemInd: '', amt: 0, qty: 1, useYn: '', cancelPsblYn: '', issuQtyList: [] }
+                const groupTicket = { ticketNo: ticket.ticketNo, remainCnt: ticket.remainCnt, ticketName: ticket.ticketName, itemName: '', itemInd: '', amt: 0, qty: 1, useYn: '', cancelPsblYn: '', issuQtyList: [] }
                 this.form.groupList.push(groupTicket)
               }
               // 우대번호 결합상품 총 합계
@@ -525,7 +525,7 @@ export default {
           // 우대번호 결합상품 총 합 요금
           this.sumAmtGroupList()
           // 메인 우대번호 명 변경 했을경우, 변경된 값 set
-          this.setMainTicketNm()
+          this.setMainTicketName()
           // 우대번호 잔여수량 확인
           this.checkRemainCnt()
           // 엑셀 다운로드 순번 select box (우대번호, 순번, 난수번호)
@@ -550,10 +550,10 @@ export default {
       })
     },
     // 메인 우대번호 명 변경 했을경우, 변경된 값 set
-    setMainTicketNm () {
+    setMainTicketName () {
       if (this.form.groupList.length > 0) {
-        if (this.form.ticketNm !== this.form.groupList[0].ticketNm) {
-          this.form.groupList[0].ticketNm = this.form.ticketNm
+        if (this.form.ticketName !== this.form.groupList[0].ticketName) {
+          this.form.groupList[0].ticketName = this.form.ticketName
         }
       }
     },
@@ -633,7 +633,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               // 담당자명, 담당 유형 추가
-              this.form.chrgList.push({ chrgNm: params.data.chrgNm, chrgType: 'A', ptnrChrgId: params.data.ptnrChrgId, ticketNo: this.form.ticketNo })
+              this.form.chrgList.push({ chrgName: params.data.chrgName, chrgType: 'A', ptnrChrgId: params.data.ptnrChrgId, ticketNo: this.form.ticketNo })
             }
           }
         }
@@ -675,7 +675,7 @@ export default {
     // 등록, 수정
     submit () {
       this.validForm(this.$refs.form).then(() => {
-        if (this.form.ticketNm === undefined) {
+        if (this.form.ticketName === undefined) {
           this.$dialog.alert('우대번호를 조회해 주세요.')
           return
         }
@@ -721,7 +721,7 @@ export default {
     checkFormValidation () {
       let valid = true
       this.form.groupList.forEach(item => {
-        if (!item.itemNm) {
+        if (!item.itemName) {
           this.$dialog.alert('상품명은 필수입니다.').then(() => {
             this.openGroupDialog()
           })

@@ -3,11 +3,11 @@
         <template v-slot:title>
             파트너 패키지예약 {{ isModify ? "상세보기" : "신규 신청" }}
             <span v-if="isModify" class="ml-3 font-weight-bold">
-        <span v-if="form.aprlCd === 'A'" :class="form.cancelYn === 'Y'? 'warning--text': ''">
+        <span v-if="form.aprlCode === 'A'" :class="form.cancelYn === 'Y'? 'warning--text': ''">
           {{ " - " + (form.cancelYn === "Y" ? "취소 됨" : "신청 중") }}
         </span>
-        <span v-else-if="form.aprlCd">
-          {{ " - 처리완료 : " + form.aprlNm }}
+        <span v-else-if="form.aprlCode">
+          {{ " - 처리완료 : " + form.aprlName }}
         </span>
       </span>
         </template>
@@ -29,7 +29,7 @@
                             <v-row no-gutters>
                                 <v-col cols="12" v-on="on">
                                     <div class="font-weight-bold info--text body-1">대매사</div>
-                                    <v-text-field :value="form.agentCdNm" dense
+                                    <v-text-field :value="form.agentCodeName" dense
                                                   :rules="emptyRules"
                                                   placeholder="대매사를 선택 해주세요."
                                                   readonly
@@ -42,13 +42,13 @@
                         <v-list-item v-for="(info, index) of agentList" :key="index" class="border-bottom px-2"
                                      @click="selectAgent(info)">
                             <v-list-item-action class="mr-2">
-                                <v-icon>{{ info.agentCd === form.agentCd ? "check_box" : "check_box_outline_blank" }}
+                                <v-icon>{{ info.agentCode === form.agentCode ? "check_box" : "check_box_outline_blank" }}
                                 </v-icon>
                             </v-list-item-action>
                             <v-list-item-content>
                                 <v-row dense no-gutters align="center">
                                     <v-col cols="12" class="py-3">
-                                        {{ info.agentCdNm }} ( {{ info.agentCd }} )
+                                        {{ info.agentCodeName }} ( {{ info.agentCode }} )
                                     </v-col>
                                 </v-row>
                             </v-list-item-content>
@@ -92,7 +92,7 @@
                         </v-col>
                         <v-col md="6" class="text-right">
                             <v-btn rounded outlined @click="pkgPutInList" color="info"
-                                   v-if="form.aprlCd === '' || form.aprlCd === 'A'">
+                                   v-if="form.aprlCode === '' || form.aprlCode === 'A'">
                                 <v-icon small>add</v-icon>
                                 추가
                             </v-btn>
@@ -137,7 +137,7 @@
                                     <v-card-text class="py-0">
                                         <v-row dense align="center">
                                             <v-col cols="6" class="font-weight-black subtitle-1">
-                                                {{ index + 1 }} - {{ item.pkgNm }} ({{ item.pkgNo }})
+                                                {{ index + 1 }} - {{ item.pkgName }} ({{ item.pkgNo }})
                                             </v-col>
                                             <v-col cols="6" class="text-right">
                                                 <v-btn v-if="writeAuth && canSubmit" small color="accent" rounded
@@ -159,7 +159,7 @@
                                                         <v-row dense>
                                                             <v-col cols="3">
                                                                 <v-text-field
-                                                                    v-model="item.storeNm"
+                                                                    v-model="item.storeName"
                                                                     v-on="on"
                                                                     :rules="emptyRules"
                                                                     readonly
@@ -170,7 +170,7 @@
                                                             </v-col>
                                                             <v-col cols="3">
                                                                 <v-text-field
-                                                                    :value="item.rmTypeNm"
+                                                                    :value="item.rmTypeName"
                                                                     v-on="on"
                                                                     :rules="emptyRules"
                                                                     readonly
@@ -225,7 +225,7 @@
                                                             </v-col>
                                                             <v-col cols="3">
                                                                 <v-text-field
-                                                                    :value="item.rsvBlckCd"
+                                                                    :value="item.rsvBlckCode"
                                                                     v-on="on"
                                                                     :rules="emptyRules"
                                                                     readonly
@@ -259,7 +259,7 @@
                                  placeholder="입실일자를 선택 해주세요."
                                  clearable />
                 </v-col>
-                <template v-if="form.aprlCd === '' || form.aprlCd === 'A'">
+                <template v-if="form.aprlCode === '' || form.aprlCode === 'A'">
                     <v-col cols="3" class="font-weight-bold success--text">
                         <div>* 패키지 휴일일자인 경우 전체 객실타입 신청이 불가능 합니다.</div>
                         <div>* 영업장 / 객실타입 휴일일자인 경우 해당 객실타입만 신청이 불가능 합니다.</div>
@@ -270,7 +270,7 @@
                 <template v-if="isModify">
                     <v-col cols="3">
                         <div class="font-weight-bold info--text body-1">파트너</div>
-                        <v-text-field v-model="form.ptnrNm" dense
+                        <v-text-field v-model="form.ptnrName" dense
                                       :rules="emptyRules"
                                       placeholder="이용자 명을 입력 해주세요."
                                       :hide-details="!writable"
@@ -278,7 +278,7 @@
                     </v-col>
                     <v-col cols="3">
                         <div class="font-weight-bold info--text body-1">신청 파트너 담당자</div>
-                        <v-text-field v-model="form.chrgNm" dense
+                        <v-text-field v-model="form.chrgName" dense
                                       :rules="emptyRules"
                                       placeholder="이용자 명을 입력 해주세요."
                                       :hide-details="!writable"
@@ -288,11 +288,11 @@
             </v-row>
 
             <!-- 신규 / 신청 중인 상태일 경우 휴일 노출 -->
-            <partner-pkg-reservation-holiday v-if="form.aprlCd === '' || form.aprlCd === 'A'"
+            <partner-pkg-reservation-holiday v-if="form.aprlCode === '' || form.aprlCode === 'A'"
                                              class="pt-3"
                                              :pkgNo="selectPkgInfo.pkgNo"
-                                             :storeCd="selectPkgInfo.storeCd"
-                                             :rmTypeCd="selectPkgInfo.rmTypeCd"
+                                             :storeCode="selectPkgInfo.storeCode"
+                                             :rmTypeCode="selectPkgInfo.rmTypeCode"
                                              :ciYmd="form.ciYmd">
             </partner-pkg-reservation-holiday>
 
@@ -301,9 +301,9 @@
                 <v-row>
                     <v-col cols="2">
                         <div class="font-weight-bold info--text body-1">처리 상태</div>
-                        <v-text-field :value="form.aprlNm" dense readonly hide-details />
+                        <v-text-field :value="form.aprlName" dense readonly hide-details />
                     </v-col>
-                    <template v-if="form.aprlCd === 'B'">
+                    <template v-if="form.aprlCode === 'B'">
                         <v-col cols="2">
                             <div class="font-weight-bold info--text body-1">예약번호</div>
                             <v-text-field :value="form.rsvNo" dense readonly hide-details>
@@ -331,7 +331,7 @@
                     </v-col>
                     <!-- <v-col cols="2">
                       <div class="font-weight-bold info--text body-1">처리 담당자</div>
-                      <v-text-field :value="form.aprlChrgNm" dense readonly hide-details />
+                      <v-text-field :value="form.aprlChrgName" dense readonly hide-details />
                     </v-col> -->
                 </v-row>
                 <v-row align="end">
@@ -340,7 +340,7 @@
                         <v-textarea :value="form.memo" class="mt-3" hide-details readonly outlined rows="2" />
                     </v-col>
                     <v-col cols="6" class="text-right">
-                        <v-btn v-if="form.aprlCd === 'C'" color="info" rounded @click="reApply()">
+                        <v-btn v-if="form.aprlCode === 'C'" color="info" rounded @click="reApply()">
                             <v-icon left>check</v-icon>
                             재신청
                         </v-btn>
@@ -352,7 +352,7 @@
                 </v-row>
             </app-card>
         </v-form>
-        <template v-slot:actions v-if="form.aprlCd === '' || form.aprlCd === 'A'">
+        <template v-slot:actions v-if="form.aprlCode === '' || form.aprlCode === 'A'">
             <v-btn v-if="writeAuth && canSubmit && isModify" color="warning" rounded @click="cancel">
                 <v-icon left>cancel</v-icon>
                 취소
@@ -370,9 +370,10 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import partnerPkgReservationService from 'Api/modules/partner/partnerPkgReservation.service'
-import PartnerPkgReservationHoliday from 'Components/Partner/Reservation/PartnerPkgReservationHoliday.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import partnerPkgReservationService from '@/api/modules/partner/partnerPkgReservation.service'
+import PartnerPkgReservationHoliday from '@/components/Partner/Reservation/PartnerPkgReservationHoliday.vue'
+
 console.log('HI')
 export default {
   extends: DialogBase,
@@ -389,17 +390,17 @@ export default {
       // 게시물 데이터
       form: {
         pkgNo: '',
-        pkgNm: '',
-        agentCd: '',
-        agentCdNm: '',
+        pkgName: '',
+        agentCode: '',
+        agentCodeName: '',
         userName: '',
         userTel: '',
-        storeCd: '',
-        rmTypeCd: '',
+        storeCode: '',
+        rmTypeCode: '',
         ciYmd: '',
         nights: '',
         rmCnt: '',
-        aprlCd: '',
+        aprlCode: '',
         pkgPutInList: [] // 패키지 신청 목록
       },
       // 선택 패키지
@@ -421,8 +422,8 @@ export default {
       // 휴일정보
       selectPkgInfo: {
         pkgNo: '',
-        storeCd: '',
-        rmTypeCd: ''
+        storeCode: '',
+        rmTypeCode: ''
       }
     }
   },
@@ -480,18 +481,18 @@ export default {
     pkgPutInHeaders () {
       if (this.isPartner) {
         return [
-          { text: '패키지 명', value: 'pkgNm', align: 'center', sortable: false, width: '20%' },
-          { text: '영업장명', value: 'storeNm', align: 'center', sortable: false, width: '10%' },
-          { text: '객실유형명', value: 'rmTypeNm', align: 'center', sortable: false, width: '10%' },
-          { text: '예약블럭', value: 'rsvBlckCd', align: 'center', sortable: false, width: '10%' },
+          { text: '패키지 명', value: 'pkgName', align: 'center', sortable: false, width: '20%' },
+          { text: '영업장명', value: 'storeName', align: 'center', sortable: false, width: '10%' },
+          { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false, width: '10%' },
+          { text: '예약블럭', value: 'rsvBlckCode', align: 'center', sortable: false, width: '10%' },
           { text: '삭제', value: 'action', align: 'center', sortable: false, width: '10%' }
         ]
       } else {
         return [
-          { text: '패키지 명', value: 'pkgNm', align: 'center', sortable: false, width: '20%' },
-          { text: '영업장명', value: 'storeNm', align: 'center', sortable: false, width: '10%' },
-          { text: '객실유형명', value: 'rmTypeNm', align: 'center', sortable: false, width: '10%' },
-          { text: '예약블럭', value: 'rsvBlckCd', align: 'center', sortable: false, width: '10%' }
+          { text: '패키지 명', value: 'pkgName', align: 'center', sortable: false, width: '20%' },
+          { text: '영업장명', value: 'storeName', align: 'center', sortable: false, width: '10%' },
+          { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false, width: '10%' },
+          { text: '예약블럭', value: 'rsvBlckCode', align: 'center', sortable: false, width: '10%' }
         ]
       }
     }
@@ -536,7 +537,7 @@ export default {
           // 변경가능 셋팅
           this.canSubmit = res.data.canSubmit
           // 신청상태가 아니라면 writable false
-          this.writable = res.data.aprlCd === 'A'
+          this.writable = res.data.aprlCode === 'A'
         }
       } catch (e) {
       }
@@ -576,8 +577,8 @@ export default {
          * @param info
          */
     selectAgent (info) {
-      this.form.agentCd = info.agentCd
-      this.form.agentCdNm = info.agentCdNm + ' ( ' + info.agentCd + ' )'
+      this.form.agentCode = info.agentCode
+      this.form.agentCodeName = info.agentCodeName + ' ( ' + info.agentCode + ' )'
     },
     /**
          * 예약내역 팝업창 호출
@@ -629,8 +630,8 @@ export default {
         return
       }
       this.selectPkgInfo.pkgNo = data.pkgNo
-      this.selectPkgInfo.storeCd = data.storeCd
-      this.selectPkgInfo.rmTypeCd = data.rmTypeCd
+      this.selectPkgInfo.storeCode = data.storeCode
+      this.selectPkgInfo.rmTypeCode = data.rmTypeCode
     },
     /**
          * 패키지 신청 목록 삭제
@@ -655,7 +656,7 @@ export default {
         componentPath: '/SearchDialog/PartnerPkgPutInDialog',
         params: {
           ptnrNo: this.form.ptnrNo,
-          aprlCd: this.form.aprlCd,
+          aprlCode: this.form.aprlCode,
           pkgPutInList: this.form.pkgPutInList
         },
         options: {
@@ -668,13 +669,13 @@ export default {
             if (params && params.data) {
               // 신청 목록 추가
               this.form.pkgPutInList.push({
-                pkgNm: params.data.pkgNm,
+                pkgName: params.data.pkgName,
                 pkgNo: params.data.pkgNo,
-                storeNm: params.data.storeNm,
-                storeCd: params.data.storeCd,
-                rmTypeNm: params.data.rmTypeNm,
-                rmTypeCd: params.data.rmTypeCd,
-                rsvBlckCd: params.data.rsvBlckCd,
+                storeName: params.data.storeName,
+                storeCode: params.data.storeCode,
+                rmTypeName: params.data.rmTypeName,
+                rmTypeCode: params.data.rmTypeCode,
+                rsvBlckCode: params.data.rsvBlckCode,
                 saleBgnYmd: params.data.saleBgnYmd,
                 saleEndYmd: params.data.saleEndYmd,
                 todayRsvYn: params.data.todayRsvYn,

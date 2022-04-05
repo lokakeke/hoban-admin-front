@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 import store from '@/store'
 
 const menuService = {
@@ -7,35 +7,35 @@ const menuService = {
      * 메뉴 전체 목록조회
      */
   selectMenuList () {
-    return api.get('/api/system/menu/list')
+    return api.get('/api/cms/system/menu/list')
   },
 
   /**
      * 사용자 메뉴 목록조회
      */
   selectMyMenuList () {
-    return api.get('/api/system/menu/myList')
+    return api.get('/api/cms/system/menu/myList')
   },
 
   /**
      * 메뉴 등록
      */
   insertMenu (form) {
-    return api.post('/api/system/menu/insert', form)
+    return api.post('/api/cms/system/menu/insert', form)
   },
 
   /**
      * 메뉴 수정
      */
   updateMenu (form) {
-    return api.post(`/api/system/menu/update/${form.menuId}`, form)
+    return api.post(`/api/cms/system/menu/update/${form.menuId}`, form)
   },
 
   /**
      * 메뉴 순서변경
      */
   updateMenuOrder (orderList) {
-    return api.post('/api/system/menu/order', orderList)
+    return api.post('/api/cms/system/menu/order', orderList)
   },
 
   /**
@@ -43,7 +43,7 @@ const menuService = {
    * @param menuId
    */
   deleteMenu (menuId) {
-    return api.get(`/api/system/menu/delete/${menuId}`)
+    return api.get(`/api/cms/system/menu/delete/${menuId}`)
   },
 
   /**
@@ -115,7 +115,7 @@ const menuService = {
    * 나의 API 권한 리스트 재조회 요청
    */
   memoryMyMenu () {
-    return api.get('/api/system/menu/memoryMyApiList')
+    return api.get('/api/cms/system/menu/memoryMyApiList')
   }
 }
 export default menuService

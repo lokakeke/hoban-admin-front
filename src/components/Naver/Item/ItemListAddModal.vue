@@ -159,16 +159,16 @@
                   패키지 정보
                 </v-card-title>
                 <v-card-text class="black--text">
-                  패키지명 : {{ itemInfo.pkgNm }} ({{ itemInfo.mid }})
+                  패키지명 : {{ itemInfo.pkgName }} ({{ itemInfo.mid }})
                 </v-card-text>
                 <v-card-text class="black--text pt-0">
-                  영업장명 : {{ itemInfo.storeNm }} ({{ itemInfo.storeCd }})
+                  영업장명 : {{ itemInfo.storeName }} ({{ itemInfo.storeCode }})
                 </v-card-text>
                 <v-card-text class="black--text pt-0">
-                  객실타입명 : {{ itemInfo.rmTypeNm }} ({{ itemInfo.rmTypeCd }})
+                  객실타입명 : {{ itemInfo.rmTypeName }} ({{ itemInfo.rmTypeCode }})
                 </v-card-text>
                 <v-card-text class="black--text pt-0">
-                  블럭코드 : {{ itemInfo.rsvBlckCd }}
+                  블럭코드 : {{ itemInfo.rsvBlckCode }}
                 </v-card-text>
               </v-card>
               <item-info-component :originItemInfo="itemInfo" ref="itemInfo"></item-info-component>
@@ -182,11 +182,11 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import ItemInfoComponent from './ItemInfoComponent'
-import CommonSnackbars from 'Components/Common/CommonSnackbars.vue'
-import itemService from 'Api/modules/naver/item.service'
-import CommonTooltip from 'Components/Common/CommonTooltip.vue'
+import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'
+import itemService from '@/api/modules/naver/item.service'
+import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
 export default {
   extends: DialogBase,

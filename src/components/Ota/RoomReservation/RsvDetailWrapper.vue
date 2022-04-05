@@ -22,16 +22,16 @@
                     </v-btn>
                     <v-btn outlined rounded color="green" class="my-1 px-1 room-step-2 package-step-2"
                            @click="changeMemInfo"
-                           :disabled="rsvDetail.rsvState !== '예약' || (!rsvDetail.pkgNm && !rsvDetail.memNm)">고객정보변경
+                           :disabled="rsvDetail.rsvState !== '예약' || (!rsvDetail.pkgName && !rsvDetail.memName)">고객정보변경
                     </v-btn>
                     <v-btn outlined rounded color="green" class="my-1 px-1 room-step-3 package-step-3"
                            @click="changeRsvInfo"
-                           :disabled="rsvDetail.rsvState !== '예약' || (!rsvDetail.pkgNm && !rsvDetail.memNm) || rsvDetail.payAmt === '0'">
+                           :disabled="rsvDetail.rsvState !== '예약' || (!rsvDetail.pkgName && !rsvDetail.memName) || rsvDetail.payAmt === '0'">
                         예약정보변경
                     </v-btn>
                     <v-btn outlined rounded color="green" class="my-1 px-1 room-step-4 package-step-4"
                            @click="changeRsvType"
-                           :disabled="rsvDetail.rsvState !== '예약' || (!rsvDetail.pkgNm && !rsvDetail.memNm)">예약이관
+                           :disabled="rsvDetail.rsvState !== '예약' || (!rsvDetail.pkgName && !rsvDetail.memName)">예약이관
                     </v-btn>
                     <v-btn outlined rounded color="green" class="my-1 px-1 room-step-5"
                            v-if="roomType.value === 'OTA_ROOM_API'" @click="splitNights"
@@ -43,7 +43,7 @@
                     </v-btn>
                     <v-btn outlined rounded color="green" class="my-1 px-1 package-step-5"
                            v-if="roomType.value === 'OTA_PKG_API'" @click="pkgTodayRsv"
-                           :disabled="(workStatus === '' && !rsvDetail.pkgNm && !rsvDetail.memNm) || groupFlag === 'naver'">
+                           :disabled="(workStatus === '' && !rsvDetail.pkgName && !rsvDetail.memName) || groupFlag === 'naver'">
                         당일예약패키지
                     </v-btn>
                     <v-btn outlined rounded color="blue" class="my-1 px-1 room-step-7 package-step-6"
@@ -52,7 +52,7 @@
                     </v-btn>
                     <v-btn outlined rounded color="green" class="my-1 px-1 room-step-8 package-step-7"
                            @click="copyPopup"
-                           :disabled="(!rsvDetail.pkgNm && !rsvDetail.memNm) || groupFlag === 'naver'">복사(F7)
+                           :disabled="(!rsvDetail.pkgName && !rsvDetail.memName) || groupFlag === 'naver'">복사(F7)
                     </v-btn>
                     <v-btn outlined rounded color="red" class="my-1 px-1 room-step-9 package-step-8"
                            @click="openCancelPopup"
@@ -77,15 +77,15 @@
 </template>
 
 <script>
-import RsvDetailInfo from 'Components/Ota/RoomReservation/RsvDetailInfo.vue'
+import RsvDetailInfo from '@/components/Ota/RoomReservation/RsvDetailInfo.vue'
 
-import VueTour from 'Components/Common/VueTour.vue'
+import VueTour from '@/components/Common/VueTour.vue'
 import { mapGetters } from 'vuex'
 
-import roomService from 'Api/modules/ota/roomReservation.service'
-import productService from 'Api/modules/ota/product.service'
-import roomTypeService from 'Api/modules/ota/roomType.service'
-import packageService from 'Api/modules/ota/package.service'
+import roomService from '@/api/modules/ota/roomReservation.service'
+import productService from '@/api/modules/ota/product.service'
+import roomTypeService from '@/api/modules/ota/roomType.service'
+import packageService from '@/api/modules/ota/package.service'
 
 export default {
   components: { RsvDetailInfo, VueTour },
@@ -381,10 +381,10 @@ export default {
     async checkAllValidation () {
       try {
         await this.$refs.child.checkValidation()
-        // 패키지인 경우 agentCd 필수 확인
+        // 패키지인 경우 agentCode 필수 확인
         if (
           this.roomType.value === 'OTA_PKG_API' &&
-                    !this.rsvDetail.agentCd
+                    !this.rsvDetail.agentCode
         ) {
           this.$dialog.alert('agent 코드는 필수입니다.')
         } else {
@@ -468,11 +468,11 @@ export default {
               if (params && params.data) {
                 const rsvInfo = {}
                 rsvInfo.keyRsvNo = this.rsvDetail.keyRsvNo
-                rsvInfo.guestNm = params.data.guestNm
+                rsvInfo.guestName = params.data.guestName
                 rsvInfo.smsPhone = params.data.smsPhone
                 rsvInfo.chainRsvNo = params.data.chainRsvNo
                 rsvInfo.loginId = this.user.number
-                rsvInfo.agentCd = params.data.agentCd
+                rsvInfo.agentCode = params.data.agentCode
                 // 객실
                 if (params.data.memNo) {
                   rsvInfo.memNo = params.data.memNo
@@ -616,7 +616,7 @@ export default {
               closeCallback: (params) => {
                 if (params && params.data) {
                   const cancelReason = {}
-                  cancelReason.cancelResnCd = params.data.cancelResnCd
+                  cancelReason.cancelResnCode = params.data.cancelResnCode
                   cancelReason.cancelResnDesc = params.data.cancelResnDesc
                   this.rsvCancel(cancelReason) // 실제 예약취소 실행
                 }
@@ -637,7 +637,7 @@ export default {
               closeCallback: (params) => {
                 if (params && params.data) {
                   const cancelReason = {}
-                  cancelReason.cancelResnCd = params.data.cancelResnCd
+                  cancelReason.cancelResnCode = params.data.cancelResnCode
                   cancelReason.cancelResnDesc = params.data.cancelResnDesc
                   this.updateCancelResn(cancelReason)
                 }
@@ -658,7 +658,7 @@ export default {
         const param = {}
         param.keyRsvNo = this.rsvDetail.keyRsvNo
         param.keySeq = this.rsvDetail.keySeq
-        param.cancelResnCd = cancelReason.cancelResnCd
+        param.cancelResnCode = cancelReason.cancelResnCode
         param.cancelResnDesc = cancelReason.cancelResnDesc
         param.updId = this.user.number // 수정자
         // 취소 사유 변경
@@ -679,7 +679,7 @@ export default {
       if (this.rsvDetail.rsvNo) {
         const param = {}
         param.keyRsvNo = this.rsvDetail.keyRsvNo
-        param.cancelResnCd = cancelReason.cancelResnCd
+        param.cancelResnCode = cancelReason.cancelResnCode
         param.cancelResnDesc = cancelReason.cancelResnDesc
         param.updId = this.user.number // 수정자
         if (this.roomType.value === 'OTA_ROOM_API') { // 객실
@@ -694,7 +694,7 @@ export default {
             this.$dialog.alert(res.data.resultMsg)
           }
         } else { // 패키지
-          param.agentCd = this.rsvDetail.agentCd
+          param.agentCode = this.rsvDetail.agentCode
           // 패키지 예약 취소
           const res = await roomService.cancelPkgRsv(this.path, param)
           if (res.data.resultCode === '0000') {
@@ -732,7 +732,7 @@ export default {
                     this.$dialog.alert('회원번호는 필수입니다.')
                   }
                 } else { // 패키지
-                  if (params.data.agentCd) {
+                  if (params.data.agentCode) {
                     params.data.rsvNo = ''
                     this.preSave(params.data)
                   } else {
@@ -784,17 +784,17 @@ export default {
     setRsvParams (item) {
       const rsvInfo = {}
       rsvInfo.updId = this.user.number
-      rsvInfo.userName = item.guestNm // 이용자명
+      rsvInfo.userName = item.guestName // 이용자명
       rsvInfo.userTel = item.smsPhone // 이용자 연락처
       rsvInfo.comRsvNo = item.chainRsvNo // 업체 예약번호(주문번호)
-      rsvInfo.storeCd = item.storeCd
+      rsvInfo.storeCode = item.storeCode
       rsvInfo.ciYmd = item.ciYmd
-      rsvInfo.rmTypeCd = item.rmTypeCd
+      rsvInfo.rmTypeCode = item.rmTypeCode
       rsvInfo.adultCnt = item.adultCnt
       rsvInfo.childCnt = item.childCnt
-      rsvInfo.rsvBlckCd = item.rsvBlckCd
-      rsvInfo.agentCd = item.agentCd
-      rsvInfo.ptnrNm = item.rsvGuestlnm// 예약자명(예약파트너명)
+      rsvInfo.rsvBlckCode = item.rsvBlckCode
+      rsvInfo.agentCode = item.agentCode
+      rsvInfo.ptnrName = item.rsvGuestlnm// 예약자명(예약파트너명)
       rsvInfo.payAmt = item.payAmt // 총합계
       return rsvInfo
     },
@@ -812,14 +812,14 @@ export default {
         if (item.memNo) { // 객실
           rsvInfo.memNo = item.memNo
           // 재고 확인을 위한 정보 조회
-          const infoRes = await roomTypeService.selectRoomTypeInformation(rsvInfo.storeCd)
+          const infoRes = await roomTypeService.selectRoomTypeInformation(rsvInfo.storeCode)
           rsvInfo.srchRmMonth = rsvInfo.nights
           rsvInfo.rsvStdDay = infoRes.data.todayRsvYn
           rsvInfo.rsvStdTm = infoRes.data.todayRsvTime
-          rsvInfo.rmTypeCd = Array(item.rmTypeCd)
+          rsvInfo.rmTypeCode = Array(item.rmTypeCode)
           // 재고 조회
           const inventoryRes = await productService.checkRoomLeaveCnt(rsvInfo)
-          rsvInfo.rmTypeCd = item.rmTypeCd
+          rsvInfo.rmTypeCode = item.rmTypeCode
           let flag = true
           // 각 날짜별 재고 확인
           for (const oneRes of inventoryRes.data) {
@@ -841,7 +841,7 @@ export default {
         } else { // 패키지
           rsvInfo.pkgNo = item.pkgNo
           rsvInfo.srchRmMonth = rsvInfo.nights
-          rsvInfo.rmTypeCd = Array(item.rmTypeCd)
+          rsvInfo.rmTypeCode = Array(item.rmTypeCode)
           if (this.groupFlag === 'naver') {
             this.path = 'naver'
             rsvInfo.rsvStdDay = 'Y'
@@ -854,7 +854,7 @@ export default {
           }
           // 재고 조회
           const inventoryRes = await productService.checkPackageLeaveCnt(rsvInfo)
-          rsvInfo.rmTypeCd = item.rmTypeCd
+          rsvInfo.rmTypeCode = item.rmTypeCode
           let flag = true
           // 각 날짜별 재고 확인
           for (const oneRes of inventoryRes.data) {
@@ -938,7 +938,7 @@ export default {
       if (this.rsvDetail.rsvNo) {
         const origin = {}
         origin.chainRsvNo = this.rsvDetail.chainRsvNo // 업체예약번호
-        origin.guestNm = this.rsvDetail.guestNm
+        origin.guestName = this.rsvDetail.guestName
         origin.smsPhone = this.rsvDetail.smsPhone
         this.$store.dispatch('dialog/open', {
           componentPath: '/Ota/RoomReservation/popup/MemInfoChangePopup',
@@ -958,7 +958,7 @@ export default {
                     rsvInfoCopy.smsPhone = params.data.smsPhone
                   }
                   if (params.data.guestLnm) {
-                    rsvInfoCopy.guestNm = params.data.guestLnm
+                    rsvInfoCopy.guestName = params.data.guestLnm
                   }
                   if (params.data.chainRsvNo) {
                     rsvInfoCopy.chainRsvNo = params.data.chainRsvNo

@@ -41,7 +41,7 @@
             disable-pagination
             disable-sort
             :loading="isLoading"
-            group-by="lcalNm"
+            group-by="lcalName"
             loading-text="조회 중입니다. 잠시만 기다려주세요..."
             class="bordered">
             <template v-slot:group.header="{ group, toggle, isOpen }">
@@ -89,8 +89,8 @@
 </template>
 
 <script>
-import excelMixin from 'Mixins/excelMixin'
-import calculateTpneService from 'Api/modules/naver/calculateTpne.service'
+import excelMixin from '@/mixins/excelMixin'
+import calculateTpneService from '@/api/modules/naver/calculateTpne.service'
 
 export default {
   name: 'Tpne',
@@ -103,7 +103,7 @@ export default {
       },
       list: [],
       headers: [
-        { text: '사업장', value: 'lcalNm', align: 'center', sortable: false },
+        { text: '사업장', value: 'lcalName', align: 'center', sortable: false },
         { text: '패키지번호', value: 'mid', align: 'center', sortable: false },
         { text: '후불금액', value: 'aftpayAmt', align: 'right', sortable: false },
         { text: '호텔앤리조트 금액', value: 'sonoAmt', align: 'right', sortable: false },
@@ -165,17 +165,17 @@ export default {
     },
     lcalTotalAftpayAmt (group) {
       return _.sumBy(_.filter(this.list, (item) => {
-        return item.lcalNm === group
+        return item.lcalName === group
       }), 'aftpayAmt')
     },
     lcalTotalSoneAmt (group) {
       return _.sumBy(_.filter(this.list, (item) => {
-        return item.lcalNm === group
+        return item.lcalName === group
       }), 'sonoAmt')
     },
     lcalTotalTpneAmt (group) {
       return _.sumBy(_.filter(this.list, (item) => {
-        return item.lcalNm === group
+        return item.lcalName === group
       }), 'tpneAmt')
     },
     /**

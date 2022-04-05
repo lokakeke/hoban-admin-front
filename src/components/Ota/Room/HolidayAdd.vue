@@ -29,7 +29,7 @@
           <v-row v-if="holidayType !== 'store'">
             <v-col>
               <v-select :item-text=setItemText
-                        :item-value="'rmTypeCd'"
+                        :item-value="'rmTypeCode'"
                         :items="roomList"
                         :rules="emptyRules"
                         chips
@@ -45,7 +45,7 @@
                       close
                       v-bind="attrs"
                   >
-                    <strong>{{ item.rmTypeNm }}</strong>
+                    <strong>{{ item.rmTypeName }}</strong>
                   </v-chip>
                 </template>
               </v-select>
@@ -100,8 +100,8 @@
                   <v-select :items="reasonItems"
                             @change="selectReason"
                             hide-details
-                            item-text="commCdDesc"
-                            item-value="commCdDesc"
+                            item-text="commCodeDesc"
+                            item-value="commCodeDesc"
                             label="선택"
                             v-model="reasonItem"
                   >
@@ -125,8 +125,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   extends: DialogBase,
@@ -220,20 +220,20 @@ export default {
 
               if (this.holidayType !== 'store') {
                 this.selected.forEach(selectItem => {
-                  const item = this.roomList.find(item => item.rmTypeCd === selectItem)
-                  const finder = this.events.find(event => event.start === targetDay && event.storeCd === selectItem.storeCd && event.rmTypeCd === selectItem.rmTypeCd)
+                  const item = this.roomList.find(item => item.rmTypeCode === selectItem)
+                  const finder = this.events.find(event => event.start === targetDay && event.storeCode === selectItem.storeCode && event.rmTypeCode === selectItem.rmTypeCd)
 
                   if (finder === undefined) {
                     this.events.push({
-                      name: `${item.rmTypeNm} 휴일`,
+                      name: `${item.rmTypeName} 휴일`,
                       start: targetDay,
                       color: this.holidayItems.find(data => data.name === this.holidayType).color,
                       type: this.holidayType,
                       memo: this.holidayMemo,
                       rmTypeCd: item.rmTypeCd,
-                      rmTypeNm: item.rmTypeNm,
+                      rmTypeName: item.rmTypeName,
                       storeCd: item.storeCd,
-                      storeNm: item.storeNm
+                      storeName: item.storeName
                     })
                   }
                 })
@@ -245,15 +245,15 @@ export default {
 
                 if (finder === undefined) {
                   this.events.push({
-                    name: `영업장(${this.storeInformation.storeNm}) 휴일`,
+                    name: `영업장(${this.storeInformation.storeName}) 휴일`,
                     start: targetDay,
                     color: this.holidayItems.find(data => data.name === this.holidayType).color,
                     type: this.holidayType,
                     memo: this.holidayMemo,
                     rmTypeCd: '',
-                    rmTypeNm: '',
+                    rmTypeName: '',
                     storeCd: this.storeInformation.storeCd,
-                    storeNm: this.storeInformation.storeNm
+                    storeName: this.storeInformation.storeName
                   })
                 }
               }
@@ -276,7 +276,7 @@ export default {
     },
 
     setItemText (item) {
-      return `${item.rmTypeNm} - ${item.rmTypeCd}`
+      return `${item.rmTypeName} - ${item.rmTypeCd}`
     }
   }
 }

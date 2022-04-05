@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import partnerRequestService from 'Api/modules/partner/partnerRequest.service'
+import partnerRequestService from '@/api/modules/partner/partnerRequest.service'
 
 export default {
   name: 'PartnerRequest',
@@ -64,12 +64,12 @@ export default {
         },
         {
           text: '요청유형',
-          value: 'requestTypeNm',
+          value: 'requestTypeName',
           align: 'center'
         },
         {
           text: '상태',
-          value: 'aprlNm',
+          value: 'aprlName',
           align: 'center'
         },
         {
@@ -84,7 +84,7 @@ export default {
         },
         {
           text: '등록자명',
-          value: 'ptnrNm',
+          value: 'ptnrName',
           align: 'center'
         },
         {
@@ -103,7 +103,7 @@ export default {
       // 파트너 여부에 따라 다르다.
       if (this.isPartner) {
         return [
-          { key: 'aprlCd', label: '상태', type: 'code', commCd: 'OTA0003', cols: 2 },
+          { key: 'aprlCode', label: '상태', type: 'code', commCode: 'OTA0003', cols: 2 },
           { key: 'title', label: '제목', type: 'text', cols: 2 },
           { key: 'contents', label: '요청사유', type: 'text', cols: 2 },
           { key: 'keyRsvNo', label: 'KEY예약번호', type: 'text', cols: 2 },
@@ -111,7 +111,7 @@ export default {
         ]
       } else {
         return [
-          { key: 'aprlCd', label: '상태', type: 'code', commCd: 'OTA0003', cols: 2 },
+          { key: 'aprlCode', label: '상태', type: 'code', commCode: 'OTA0003', cols: 2 },
           { key: 'title', label: '제목', type: 'text', cols: 2 },
           { key: 'contents', label: '요청사유', type: 'text', cols: 2 },
           { key: 'keyRsvNo', label: 'KEY예약번호', type: 'text', cols: 2 },
@@ -183,7 +183,7 @@ export default {
     openCreatePartnerRequestDialog () {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner/Request/PartnerRequestManagementDialog',
+        componentPath: '/Partner/Request/PartnerRequestDialog',
         options: {
           width: '900px',
           fullscreen: false,

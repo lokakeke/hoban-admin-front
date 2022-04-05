@@ -16,7 +16,7 @@
       </thead>
       <tbody>
       <tr v-for="(item, index) of list" :key="index">
-        <td class="text-center">{{item.ptnrNm}}</td>
+        <td class="text-center">{{item.ptnrName}}</td>
         <td class="text-center">{{item.sendStatus === 'S' ? '성공' : '실패'}}</td>
         <td class="text-center">{{item.roomRsvNo}}</td>
         <td class="text-center">{{item.keyRsvNo}}</td>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

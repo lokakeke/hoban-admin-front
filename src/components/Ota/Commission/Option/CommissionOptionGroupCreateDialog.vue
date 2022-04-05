@@ -6,8 +6,8 @@
         <v-select
           v-model="form.store"
           :items="storeList"
-          item-text="storeNm"
-          item-value="storeCd"
+          item-text="storeName"
+          item-value="storeCode"
           return-object
           required
           placeholder="설정할 영업장을 선택해 주세요"
@@ -18,8 +18,8 @@
         <v-select
           v-model="form.roomType"
           :items="form.store.rmTypeList"
-          item-text="rmTypeNm"
-          item-value="rmTypeCd"
+          item-text="rmTypeName"
+          item-value="rmTypeCode"
           return-object
           required
           placeholder="설정할 객실유형을 선택해 주세요"
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import storeService from 'Api/modules/system/store.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import storeService from '@/api/modules/system/store.service'
 
 export default {
   name: 'CommissionOptionGroupCreateDialog',
@@ -89,19 +89,19 @@ export default {
   },
   async created () {
     this.isLoading = true
-    if (this.instance.params.storeCd && this.instance.params.storeNm) {
+    if (this.instance.params.storeCd && this.instance.params.storeName) {
       // 입력받은 영업장 코드가 있는 경우
       this.form.store = {
         storeCd: this.instance.params.storeCd,
-        storeNm: this.instance.params.storeNm
+        storeName: this.instance.params.storeName
       }
       if (this.instance.params.useRoomType !== true) {
         this.close(this.form) // 바로 등록
-      } else if (this.instance.params.rmTypeCd && this.instance.params.rmTypeNm) {
+      } else if (this.instance.params.rmTypeCd && this.instance.params.rmTypeName) {
         // 입력받은 객실유형 코드가 있는 경우
         this.form.roomType = {
           rmTypeCd: this.instance.params.rmTypeCd,
-          rmTypeNm: this.instance.params.rmTypeNm
+          rmTypeName: this.instance.params.rmTypeName
         }
         this.close(this.form) // 바로 등록
       }

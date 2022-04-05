@@ -82,13 +82,13 @@
             <th class="text-center">합계</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
             <th class="text-center">제주 제외 합계</th>
-            <th v-for="local in localList" :key="local.commCd"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCdNm"/>
+            <th v-for="local in localList" :key="local.commCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
           </tr>
           </thead>
           <tbody v-if="totalAllList">
           <tr v-for="(item, index) in totalAllList" :key="index">
-            <td class="text-center py-1" :class="index % 5 === 3 ? 'font-weight-bold': ''">{{ item.amtTypeNm }}</td>
+            <td class="text-center py-1" :class="index % 5 === 3 ? 'font-weight-bold': ''">{{ item.amtTypeName }}</td>
             <td class="text-center py-1 font-weight-bold">{{ item.totSum | price }}</td>
             <td class="text-center py-1" :class="index % 5 === 3 ? 'font-weight-bold': ''">{{ item.aftpayAmt26 | price }}</td>
             <td class="text-center py-1 font-weight-bold">{{ item.totSum - item.aftpayAmt26 | price }}</td>
@@ -133,17 +133,17 @@
             <th class="text-center">합계</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
             <th class="text-center">제주 제외 합계</th>
-            <th v-for="local in localList" :key="local.commCd"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCdNm"/>
+            <th v-for="local in localList" :key="local.commCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
           </tr>
           </thead>
           <tbody v-if="ptnrAllList">
           <tr v-for="(item, index) in ptnrAllList" :key="index">
             <td class="text-center py-1" v-if="index % 5 === 0" rowspan="5" :class="index % 5 === 0 && index+5 != ptnrAllList.length ? 'bottom-border' : ''">
-              {{ item.ptnrNm }}
+              {{ item.ptnrName }}
             </td>
             <td class="text-center py-1" :class="index % 5 === 4 ? 'bottom-border' : ''">
-              <span :class="index % 5 === 3 ? 'font-weight-bold': ''">{{ item.amtTypeNm }}</span>
+              <span :class="index % 5 === 3 ? 'font-weight-bold': ''">{{ item.amtTypeName }}</span>
             </td>
             <td class="text-center py-1 font-weight-bold" :class="index % 5 === 4 ? 'bottom-border' : ''">{{ item.totSum | price }}</td>
             <td class="text-center py-1" :class="index % 5 === 4 ? 'bottom-border' : ''">
@@ -217,8 +217,8 @@
           <tr>
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
-            <th v-for="local in localList" :key="local.commCd"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCdNm"/>
+            <th v-for="local in localList" :key="local.commCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
           </tr>
           </thead>
           <tbody v-if="totAmt">
@@ -263,13 +263,13 @@
           <tr>
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
-            <th v-for="local in localList" :key="local.commCd"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCdNm"/>
+            <th v-for="local in localList" :key="local.commCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
           </tr>
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.ptnrNm }}</td>
+            <td class="text-center py-1">{{ item.ptnrName }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt02 | price }}</td>
@@ -309,8 +309,8 @@
           <tr>
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
-            <th v-for="local in localList" :key="local.commCd"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCdNm"/>
+            <th v-for="local in localList" :key="local.commCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
           </tr>
           </thead>
           <tbody v-if="totAmt">
@@ -359,13 +359,13 @@
           <tr>
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
-            <th v-for="local in localList" :key="local.commCd"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCdNm"/>
+            <th v-for="local in localList" :key="local.commCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
           </tr>
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.ptnrNm }}</td>
+            <td class="text-center py-1">{{ item.ptnrName }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt02 | price }}</td>
@@ -406,9 +406,9 @@
           </thead>
           <tbody v-if="pkgBackDataList">
           <tr v-for="(item, index) in pkgBackDataList" :key="index">
-            <td class="text-center py-1">{{ item.lcalNm }}</td>
+            <td class="text-center py-1">{{ item.lcalName }}</td>
             <td class="text-center py-1">{{ item.memNo }}</td>
-            <td class="text-center py-1">{{ item.pkgNm }}</td>
+            <td class="text-center py-1">{{ item.pkgName }}</td>
             <td class="text-center py-1">{{ item.aftpayAmt | price }}</td>
           </tr>
           </tbody>
@@ -434,7 +434,7 @@
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
             <th v-for="(local, index) in breakLocalList" :key="index"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCdNm"/>
+                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
           </tr>
           </thead>
           <tbody v-if="totAmt">
@@ -480,12 +480,12 @@
             <th class="text-center font-weight-medium">파트너사</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
             <th v-for="(local, index) in breakLocalList" :key="index"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCdNm"/>
+                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
           </tr>
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.ptnrNm }}</td>
+            <td class="text-center py-1">{{ item.ptnrName }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt0001 | price }}</td>
@@ -511,10 +511,10 @@
 </template>
 
 <script>
-import monthlyUsedCalcService from 'Api/modules/ota/monthlyUsedCalculation.service'
+import monthlyUsedCalcService from '@/api/modules/ota/monthlyUsedCalculation.service'
 
-import excelMixin from 'Mixins/excelMixin'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import excelMixin from '@/mixins/excelMixin'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 import { mapGetters } from 'vuex'
 
@@ -641,7 +641,7 @@ export default {
 
       // 위약금 지역 정보 리스트 생성(비발디파크 -> 비발디, 소노펠리체로 분리)
       const localList = _.cloneDeep(this.localList)
-      localList.splice(1, 1, { commCdNm: '비발디' }, { commCdNm: '소노펠리체' })
+      localList.splice(1, 1, { commCodeName: '비발디' }, { commCdName: '소노펠리체' })
       this.breakLocalList = localList
     },
     /**

@@ -3,7 +3,7 @@
  */
 import { headerFilters, languages, routerAnimations, sidebarBackgroundImages, sidebarFilters, themes } from './data'
 
-import boardNoticeService from 'Api/modules/system/boardNotice.service'
+import boardNoticeService from '@/api/modules/system/boardNotice.service'
 // (woojung)
 
 const state = { // dark mode

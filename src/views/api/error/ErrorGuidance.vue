@@ -18,12 +18,12 @@
                 @click:row="openViewErrorGuidanceDialog"
                 class="click-row bordered"
             >
-                <template v-slot:[`item.procStatCd`]="{ item }">
-          <span class="green--text" v-if="item.procStatCd === 'Y'">
+                <template v-slot:[`item.procStatCode`]="{ item }">
+          <span class="green--text" v-if="item.procStatCode === 'Y'">
             <v-icon small>mdi-check-circle-outline</v-icon>
             처리완료
           </span>
-                    <span class="red--text" v-if="item.procStatCd === 'N'">
+                    <span class="red--text" v-if="item.procStatCode === 'N'">
             <v-icon small>mdi-alert-circle-outline</v-icon>
             처리필요
           </span>
@@ -36,8 +36,8 @@
                 <template v-slot:[`item.errDt`]="{ item }">
                     {{ item.errDt | dateSet }}
                 </template>
-                <template v-slot:[`item.procNm`]="{ item }">
-                    <mask-name :text="item.procNm" v-if="item.procNm" />
+                <template v-slot:[`item.procName`]="{ item }">
+                    <mask-name :text="item.procName" v-if="item.procName" />
                     <span class="grey--text" v-else>-</span>
                 </template>
                 <template v-slot:[`item.procDt`]="{ item }">
@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import MaskName from 'Components/Mask/MaskName.vue'
-import errorGuidanceService from 'Api/modules/api/errorGuidance.service'
+import MaskName from '@/components/Mask/MaskName.vue'
+import errorGuidanceService from '@/api/modules/api/errorGuidance.service'
 
 export default {
   name: 'ErrorGuidance',
@@ -111,7 +111,7 @@ export default {
         },
         {
           text: '처리상태',
-          value: 'procStatCd',
+          value: 'procStatCode',
           align: 'center',
           sortable: false
         }
@@ -129,7 +129,7 @@ export default {
       headers.push(...[
         {
           text: '오류코드',
-          value: 'errCd',
+          value: 'errCode',
           align: 'center',
           sortable: false
         },
@@ -147,7 +147,7 @@ export default {
         },
         {
           text: '처리자',
-          value: 'procNm',
+          value: 'procName',
           align: 'center',
           sortable: false
         },
@@ -163,7 +163,7 @@ export default {
     searchList () {
       const searchList = [
         {
-          key: 'procStatCd',
+          key: 'procStatCode',
           label: '처리상태',
           type: 'select',
           list: [
@@ -188,7 +188,7 @@ export default {
         searchList.push({ key: 'keyRsvNo', label: '예약키번호', type: 'text' })
       }
       searchList.push(...[
-        { key: 'errCd', label: '오류코드', type: 'text' },
+        { key: 'errCode', label: '오류코드', type: 'text' },
         { key: 'errMsg', label: '오류메시지', type: 'text' },
         { key: 'memo', label: '메모', type: 'text' },
         {
@@ -229,7 +229,7 @@ export default {
     openViewErrorGuidanceDialog ({ errSeq }) {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Error/Guidance/ErrorGuidanceViewDialog',
+        componentPath: '@/api/Error/Guidance/ErrorGuidanceViewDialog',
         params: {
           errSeq
         },

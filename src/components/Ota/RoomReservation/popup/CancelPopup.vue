@@ -7,7 +7,7 @@
                           autocomplete="off"
                           :items="cancelResnList"
                           :item-value="'commCd'"
-                          :item-text="'commCdNm'"
+                          :item-text="'commCdName'"
                           hide-details
                           label="취소코드"
                           :rules="emptyRules"
@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonService from '@/api/modules/system/commonCode.service'
 
 export default {
   extends: DialogBase,
@@ -69,7 +69,7 @@ export default {
      */
     modifyCancelDesc (info) {
       const cancel = this.cancelResnList.filter(data => data.commCd === info)
-      this.newItem.cancelResnDesc = cancel[0].commCdNm
+      this.newItem.cancelResnDesc = cancel[0].commCdName
     },
     /**
      * 저장(취소실행)

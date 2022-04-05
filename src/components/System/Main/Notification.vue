@@ -41,9 +41,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import systemService from 'Api/modules/notification/notification.service'
-import partnerService from 'Api/modules/notification/partnerNotification.service'
-import StickyTable from 'Components/Common/StickyTable.vue'
+import systemService from '@/api/modules/notification/notification.service'
+import partnerService from '@/api/modules/notification/partnerNotification.service'
+import StickyTable from '@/components/Common/StickyTable.vue'
 
 export default {
   name: 'Notification',
@@ -58,8 +58,8 @@ export default {
       },
       list: [],
       headers: [
-        { text: '알림 구분', value: 'notifyCdNm', align: 'center' },
-        { text: '알림 메세지', value: 'notifyNm', align: 'center' },
+        { text: '알림 구분', value: 'notifyCodeName', align: 'center' },
+        { text: '알림 메세지', value: 'notifyName', align: 'center' },
         { text: '읽음 여부', value: 'readingYn', align: 'center' },
         { text: '알림명', value: 'title', align: 'center' },
         { text: '생성 일시', value: 'crtDt', align: 'center' },

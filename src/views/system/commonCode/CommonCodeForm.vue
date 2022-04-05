@@ -34,9 +34,9 @@
                         <!-- 최상의 코드 등록시 -->
                         <v-col v-if="!form.commonCodeSeq">
                             ㅏㅏㅏㅏ
-                            <v-autocomplete v-model="commCdText" :items="codeReset" :item-value="'commonCode'"
+                            <v-autocomplete v-model="commCodeText" :items="codeReset" :item-value="'commonCode'"
                                             :item-text="'commonCodeName'" :rules="emptyRules" label required class="pt-0"
-                                            @change="newCommCd(commCdText)"></v-autocomplete>
+                                            @change="newCommCode(commCodeText)"></v-autocomplete>
                         </v-col>
                         <v-col>
                             ㅇㅇㅇㅇ
@@ -74,7 +74,7 @@
                         <v-icon small left>check</v-icon>
                         입력
                     </v-btn>
-                    <v-btn v-if="form.useYn === 'N'" outlined rounded small color="red" @click="deleteCommCd">
+                    <v-btn v-if="form.useYn === 'N'" outlined rounded small color="red" @click="deleteCommCode">
                         <v-icon small left>check</v-icon>
                         삭제
                     </v-btn>
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   props: ['dialog', 'data', 'codeReset'],
@@ -97,7 +97,7 @@ export default {
   data () {
     return {
       form: {},
-      commCdText: ''
+      commCodeText: ''
     }
   },
   mounted () {
@@ -110,8 +110,8 @@ export default {
     }
   },
   methods: {
-    newCommCd (item) {
-      commonCodeService.selectCommCdOfCommCd(item).then(res => {
+    newCommCode (item) {
+      commonCodeService.selectCommCodeOfCommCode(item).then(res => {
         this.$set(this.form, 'commonCode', res.data)
       })
     },
@@ -141,7 +141,7 @@ export default {
       this.form = _.cloneDeep(this.data)
     },
     /** 삭제 */
-    deleteCommCd () {
+    deleteCommCode () {
       // 삭제 로직 추가
       this.$dialog.confirm('정말로 삭제 하시겠습니다?').then(() => {
         if (this.form.commonCodeSeq) {

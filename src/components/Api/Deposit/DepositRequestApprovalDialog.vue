@@ -5,15 +5,15 @@
         <v-col cols="12">
           <v-label>입금구분</v-label>
           <v-autocomplete
-            v-model="form.aprlCd"
-            :items="aprlCdList"
-            item-value="commCd"
-            item-text="commCdNm"
+            v-model="form.aprlCode"
+            :items="aprlCodeList"
+            item-value="commCode"
+            item-text="commCodeName"
             :rules="[...emptyRules, v => v !== 'A' || '승인완료 혹은 반려를 선택해 주세요.']"
             autocomplete="off"
           ></v-autocomplete>
         </v-col>
-        <v-col cols="12" v-if="form.aprlCd === 'C'">
+        <v-col cols="12" v-if="form.aprlCode === 'C'">
           <v-label>반려사유</v-label>
           <v-textarea auto-grow no-resize rows="1" v-model="form.memo"></v-textarea>
         </v-col>
@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import depositRequestService from 'Api/modules/api/depositRequest.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import depositRequestService from '@/api/modules/api/depositRequest.service'
 
 export default {
   name: 'DepositRequestApprovalDialog',
@@ -46,7 +46,7 @@ export default {
       // 폼
       form: null,
       // 승인코드 목록
-      aprlCdList: []
+      aprlCodeList: []
     }
   },
   methods: {
@@ -54,17 +54,17 @@ export default {
      * 초기화
      */
     init () {
-      this.selectAprlCdList()
+      this.selectAprlCodeList()
       this.form = _.cloneDeep(this.instance.params.depositRequest)
     },
     /**
      * 승인코드 목록 조회
      */
-    async selectAprlCdList () {
-      this.aprlCdList = []
+    async selectAprlCodeList () {
+      this.aprlCodeList = []
       try {
         const response = await commonCodeService.selectCommonCode('COMM0003')
-        this.aprlCdList = response.data
+        this.aprlCodeList = response.data
       } catch (e) {
         console.error(e)
       }
@@ -77,8 +77,8 @@ export default {
         depositRequestService
           .approvalDepositRequest({
             appSeq: this.form.appSeq,
-            aprlCd: this.form.aprlCd,
-            memo: this.form.aprlCd === 'C' ? this.form.memo : null
+            aprlCode: this.form.aprlCode,
+            memo: this.form.aprlCode === 'C' ? this.form.memo : null
           })
           .then(res => {
             this.$dialog.alert('완료되었습니다.')

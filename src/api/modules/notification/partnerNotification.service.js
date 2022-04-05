@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 /**
  * Partner Notification 관련
@@ -9,7 +9,7 @@ const service = {
      * 모든 알림 조회
      */
   selectAllNotification (param) {
-    return api.get('/api/system/partnerNotification/allNotification', { params: param })
+    return api.get('/api/cms/system/partnerNotification/allNotification', { params: param })
   },
 
   /**
@@ -18,7 +18,7 @@ const service = {
   selectNotificationType () {
     api.disableProgress()
 
-    return api.get('/api/system/partnerNotification/notificationType')
+    return api.get('/api/cms/system/partnerNotification/notificationType')
   },
 
   /**
@@ -27,7 +27,7 @@ const service = {
   selectNotificationGroup (param) {
     api.disableProgress()
 
-    return api.get('/api/system/partnerNotification/notificationGroup', { params: param })
+    return api.get('/api/cms/system/partnerNotification/notificationGroup', { params: param })
   },
 
   /**
@@ -36,7 +36,7 @@ const service = {
   selectNotificationList (param) {
     api.disableProgress()
 
-    return api.get('/api/system/partnerNotification/notificationList', { params: param })
+    return api.get('/api/cms/system/partnerNotification/notificationList', { params: param })
   },
 
   /**
@@ -45,7 +45,7 @@ const service = {
   readNotification (param) {
     api.disableProgress()
 
-    return api.post('/api/system/partnerNotification/readNotification', param)
+    return api.post('/api/cms/system/partnerNotification/readNotification', param)
   },
 
   /**
@@ -54,7 +54,7 @@ const service = {
   readAllNotification (param) {
     api.disableProgress()
 
-    return api.post('/api/system/partnerNotification/readAllNotification', param)
+    return api.post('/api/cms/system/partnerNotification/readAllNotification', param)
   }
 }
 export default service

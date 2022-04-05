@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const kpiService = {
 
@@ -16,7 +16,7 @@ const kpiService = {
     const res = await api.get(`/api/social/kpi/category/${kpiSeq}`)
     return res.data || {
       kpiSeq: '',
-      kpiIndNm: '',
+      kpiIndName: '',
       useYn: 'Y'
     }
   },

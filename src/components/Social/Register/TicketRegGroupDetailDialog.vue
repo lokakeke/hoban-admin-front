@@ -20,8 +20,8 @@
         item-key="index"
         hide-default-footer
       >
-        <template v-slot:item.dtlNm="{item}">
-          <v-text-field v-model="item.dtlNm" label="" :rules="emptyRules"></v-text-field>
+        <template v-slot:item.dtlName="{item}">
+          <v-text-field v-model="item.dtlName" label="" :rules="emptyRules"></v-text-field>
         </template>
         <template v-slot:item.dtlAmt="{item}">
           <v-currency-field v-model="item.dtlAmt" label :rules="numberRules.concat(emptyRules)" :disabled="setAmtDisable(item)"></v-currency-field>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -73,7 +73,7 @@ export default {
       // 우대번호 결합상품 상세 Modal Header
       issuQtyheaders: [
         { text: '우대번호', value: 'ticketNo', align: 'center', sortable: false },
-        { text: '상품 명', value: 'dtlNm', align: 'center', sortable: false },
+        { text: '상품 명', value: 'dtlName', align: 'center', sortable: false },
         { text: '요금', value: 'dtlAmt', align: 'center', sortable: false },
         { text: '직영유무', value: 'directOprtYn', align: 'center', sortable: false },
         { text: '삭제', value: 'action', align: 'center', sortable: false }
@@ -91,7 +91,7 @@ export default {
   methods: {
     // 우대번호 결합 상품 추가
     addIssuQtyDetail () {
-      this.issuQtyList.push({ ticketNo: this.issuQtyTicketNo, dtlNm: '', dtlAmt: 0, directOprtYn: 'Y' })
+      this.issuQtyList.push({ ticketNo: this.issuQtyTicketNo, dtlName: '', dtlAmt: 0, directOprtYn: 'Y' })
     },
     setAmtDisable (item) {
       let disabled = false

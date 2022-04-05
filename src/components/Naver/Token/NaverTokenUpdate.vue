@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/naver/token.service'
-import CommonSnackbars from 'Components/Common/CommonSnackbars.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/naver/token.service'
+import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'
 
 export default {
   extends: DialogBase,

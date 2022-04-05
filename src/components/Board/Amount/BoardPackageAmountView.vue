@@ -4,7 +4,7 @@
       <v-col md="6" cols="12">
         <v-label>패키지</v-label>
         <v-text-field
-          :value="form.pkgNm"
+          :value="form.pkgName"
           hide-details
           dense
           readonly
@@ -24,10 +24,10 @@
       <v-col md="6" cols="12">
         <v-label>영업장</v-label>
         <v-select
-          v-model="form.storeCds"
+          v-model="form.storeCodes"
           :items="storeList"
-          item-value="storeCd"
-          item-text="storeNm"
+          item-value="storeCode"
+          item-text="storeName"
           dense
           multiple
           required
@@ -48,25 +48,25 @@
                 <v-icon>{{ getStoreSelectIcon(item) }}</v-icon>
               </v-list-item-action>
               <v-list-item-action>
-                <v-chip x-small class="mr-1">{{ item.storeCd }}</v-chip>
+                <v-chip x-small class="mr-1">{{ item.storeCode }}</v-chip>
               </v-list-item-action>
-              <v-list-item-content>{{ item.storeNm }}</v-list-item-content>
+              <v-list-item-content>{{ item.storeName }}</v-list-item-content>
             </v-list-item>
           </template>
           <template v-slot:selection="{ item, index }">
             <template v-if="index === 0">
-              <template v-if="form.storeCds.length === storeList.length">
+              <template v-if="form.storeCodes.length === storeList.length">
                 <span>전체 영업장</span>
               </template>
               <template v-else>
-                <v-chip x-small class="mt-1 mr-1">{{ item.storeCd }}</v-chip>
-                <span class="body-2">{{ item.storeNm }}</span>
+                <v-chip x-small class="mt-1 mr-1">{{ item.storeCode }}</v-chip>
+                <span class="body-2">{{ item.storeName }}</span>
               </template>
             </template>
             <span
-              v-if="form.storeCds.length !== storeList.length && index === 1"
+              v-if="form.storeCodes.length !== storeList.length && index === 1"
               class="grey--text body-2 ml-1"
-            >외 {{ form.storeCds.length - 1 }}개 영업장</span>
+            >외 {{ form.storeCodes.length - 1 }}개 영업장</span>
           </template>
         </v-select>
         <v-text-field dense disabled placeholder="먼저 패키지를 선택해 주세요." v-else></v-text-field>
@@ -116,15 +116,15 @@
           </v-btn>
         </v-col>
       </v-row>
-      <div v-for="store in packageRoomAmount.storeList" :key="store.storeCd">
+      <div v-for="store in packageRoomAmount.storeList" :key="store.storeCode">
         <v-card class="pl-3 pr-3">
           <v-row class="mt-6 mb-1">
             <v-col md="9" cols="12" class="text-md-left text-center">
               <v-chip x-small class="mr-1">{{ packageRoomAmount.searchParam.pkgNo }}</v-chip>
-              <span class="body-2">{{ packageRoomAmount.searchParam.pkgNm }}</span>
+              <span class="body-2">{{ packageRoomAmount.searchParam.pkgName }}</span>
               <span class="grey--text caption ml-2 mr-2">/</span>
-              <v-chip x-small class="mr-1">{{ store.storeCd }}</v-chip>
-              <span class="body-2">{{ store.storeNm}}</span>
+              <v-chip x-small class="mr-1">{{ store.storeCode }}</v-chip>
+              <span class="body-2">{{ store.storeName}}</span>
             </v-col>
             <v-col md="3" cols="12" class="text-md-right text-center">
               <span class="body-2">{{ packageRoomAmount.searchParam.startYmd | date }} ~ {{ packageRoomAmount.searchParam.endYmd | date }}</span>
@@ -156,9 +156,9 @@
           <template v-slot:body>
             <tbody>
             <template v-for="packageRoomAmountItem in store.roomAmountList">
-              <tr :key="packageRoomAmountItem.rmTypeCd">
+              <tr :key="packageRoomAmountItem.rmTypeCode">
                 <td class="text-right fixed_column" :class="{ 'grey lighten-2 grey--text': !packageRoomAmountItem.amount }">
-                  {{ packageRoomAmountItem.rmTypeNm }}
+                  {{ packageRoomAmountItem.rmTypeName }}
                 </td>
                 <template v-if="packageRoomAmountItem.amount">
                   <td class="text-right" v-for="(amountItem, amountYmd) in packageRoomAmountItem.amount" :key="amountYmd">
@@ -199,9 +199,9 @@
 </template>
 
 <script>
-import excelMixin from 'Mixins/excelMixin'
-import boardAmountService from 'Api/modules/system/boardAmount.service'
-import roomReservation from 'Api/modules/ota/roomReservation.service'
+import excelMixin from '@/mixins/excelMixin'
+import boardAmountService from '@/api/modules/system/boardAmount.service'
+import roomReservation from '@/api/modules/ota/roomReservation.service'
 
 export default {
   name: 'BoardPackageAmountView',
@@ -215,11 +215,11 @@ export default {
         // 패키지번호
         pkgNo: null,
         // 패키지명
-        pkgNm: null,
+        pkgName: null,
         // 영업장코드 목록
-        storeCds: [],
+        storeCodes: [],
         // 객실유형코드 목록
-        rmTypeCds: [],
+        rmTypeCodes: [],
         // 조회기간
         dateRange: [
           moment(this.nowYmd).format('YYYYMMDD'),
@@ -250,11 +250,11 @@ export default {
      * 영업장 선택항목 체크박스 아이콘
      */
     storeSelectIcon () {
-      if (this.storeList.length === this.form.storeCds.length) {
+      if (this.storeList.length === this.form.storeCodes.length) {
         return 'check_box'
       } else if (
         this.storeList.length > 0 &&
-        this.form.storeCds.length > 0
+        this.form.storeCodes.length > 0
       ) {
         return 'indeterminate_check_box'
       }
@@ -410,14 +410,14 @@ export default {
           width: 1400,
           closeCallback: async (params) => {
             if (params && params.data) {
-              if (params.data.localCd) {
+              if (params.data.localCode) {
                 this.$dialog.alert('네이버 패키지는 선택하실 수 없습니다.')
                 this.form.pkgNo = null
-                this.form.pkgNm = null
+                this.form.pkgName = null
                 return false
               }
               this.form.pkgNo = params.data.pkgNo
-              this.form.pkgNm = params.data.pkgNm
+              this.form.pkgName = params.data.pkgName
               await this.selectPackageStoreList()
             }
           }
@@ -428,7 +428,7 @@ export default {
      * 패키지의 영업장 목록 조회
      */
     async selectPackageStoreList () {
-      this.form.storeCds = []
+      this.form.storeCodes = []
       const params = {
         pkgNo: this.form.pkgNo,
         useYn: 'Y'
@@ -444,12 +444,12 @@ export default {
       if (!this.storeList || this.storeList.length === 0) {
         return false
       }
-      if (this.form.storeCds.length > 0) {
-        this.form.storeCds = []
+      if (this.form.storeCodes.length > 0) {
+        this.form.storeCodes = []
       } else {
-        this.form.storeCds = []
+        this.form.storeCodes = []
         this.storeList.forEach((store) => {
-          this.form.storeCds.push(store.storeCd)
+          this.form.storeCodes.push(store.storeCode)
         })
       }
     },
@@ -458,9 +458,9 @@ export default {
      */
     getStoreSelectIcon (item) {
       let isSelected = false
-      if (this.form.storeCds) {
-        this.form.storeCds.some((storeCd) => {
-          if (storeCd === item.storeCd) {
+      if (this.form.storeCodes) {
+        this.form.storeCodes.some((storeCode) => {
+          if (storeCode === item.storeCode) {
             isSelected = true
           }
           return isSelected
@@ -478,7 +478,7 @@ export default {
         return
       }
       // 영업장
-      if (this.form.storeCds.length === 0) {
+      if (this.form.storeCodes.length === 0) {
         this.$dialog.alert('영업장을 하나 이상 선택해 주세요.')
         return
       }
@@ -498,13 +498,13 @@ export default {
       this.packageRoomAmount = null
       const searchParam = {
         pkgNo: this.form.pkgNo,
-        storeCds: this.form.storeCds.join(','),
+        storeCodes: this.form.storeCodes.join(','),
         startYmd: this.form.dateRange[0],
         endYmd: this.form.dateRange[1]
       }
       await this.selectBoardPackageRoomAmount(
         searchParam,
-        this.form.pkgNm
+        this.form.pkgName
       )
     },
     /**
@@ -514,13 +514,13 @@ export default {
       if (this.isAllowPrevSearch === true) {
         const searchParam = {
           pkgNo: this.packageRoomAmount.searchParam.pkgNo,
-          storeCds: this.packageRoomAmount.searchParam.storeCds,
+          storeCodes: this.packageRoomAmount.searchParam.storeCodes,
           startYmd: this.prevStartYmd,
           endYmd: this.prevEndYmd
         }
         this.selectBoardPackageRoomAmount(
           searchParam,
-          this.packageRoomAmount.searchParam.pkgNm
+          this.packageRoomAmount.searchParam.pkgName
         )
       }
     },
@@ -531,24 +531,24 @@ export default {
       if (this.isAllowNextSearch === true) {
         const searchParam = {
           pkgNo: this.packageRoomAmount.searchParam.pkgNo,
-          storeCds: this.packageRoomAmount.searchParam.storeCds,
+          storeCodes: this.packageRoomAmount.searchParam.storeCodes,
           startYmd: this.nextStartYmd,
           endYmd: this.nextEndYmd
         }
         this.selectBoardPackageRoomAmount(
           searchParam,
-          this.packageRoomAmount.searchParam.pkgNm
+          this.packageRoomAmount.searchParam.pkgName
         )
       }
     },
     /**
      * 패키지 요금 조회
      */
-    async selectBoardPackageRoomAmount (searchParam, pkgNm) {
+    async selectBoardPackageRoomAmount (searchParam, pkgName) {
       const res = await boardAmountService.selectBoardPackageRoomAmount({
         q: searchParam
       })
-      searchParam.pkgNm = pkgNm
+      searchParam.pkgName = pkgName
       this.packageRoomAmount = Object.assign(
         {},
         {
@@ -563,7 +563,7 @@ export default {
      */
     async downloadRoomAmountExcel () {
       this.downLoadExcel(
-        '/api/system/board/amount/package/room/excel',
+        '/api/cms/system/board/amount/package/room/excel',
         '패키지 요금 조회',
         {
           q: this.packageRoomAmount.searchParam

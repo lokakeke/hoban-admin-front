@@ -39,17 +39,17 @@
               <v-row>
                 <v-col cols="12" class="py-0">
                   <v-row class="subtitle-1">
-                    <v-col cols="4">패키지명 : {{ packageMasterInfo.pkgNm }} ({{ packageMasterInfo.pkgNo }})</v-col>
-                    <v-col cols="3">지역구분 : {{ packageMasterInfo.lcalNm }} ({{ packageMasterInfo.lcalCd }})</v-col>
-                    <v-col cols="3">판매유형 : {{ packageMasterInfo.pkgSaleTypeNm }} ({{ packageMasterInfo.pkgSaleType }})</v-col>
-                    <v-col cols="2">지불구분 : {{ packageMasterInfo.pkgPymtNm }} ({{ packageMasterInfo.pkgPymtInd }})</v-col>
+                    <v-col cols="4">패키지명 : {{ packageMasterInfo.pkgName }} ({{ packageMasterInfo.pkgNo }})</v-col>
+                    <v-col cols="3">지역구분 : {{ packageMasterInfo.lcalName }} ({{ packageMasterInfo.lcalCode }})</v-col>
+                    <v-col cols="3">판매유형 : {{ packageMasterInfo.pkgSaleTypeName }} ({{ packageMasterInfo.pkgSaleType }})</v-col>
+                    <v-col cols="2">지불구분 : {{ packageMasterInfo.pkgPymtName }} ({{ packageMasterInfo.pkgPymtInd }})</v-col>
                   </v-row>
                   <v-row class="subtitle-1">
                     <v-col cols="4">시작/종료일 : {{ pkgTerm }}</v-col>
                     <v-col cols="8">참고사항 : {{ packageMasterInfo.pkgReferMatter ? packageMasterInfo.pkgReferMatter : '-' }}</v-col>
                   </v-row>
                   <v-row class="subtitle-1">
-                    <v-col cols="4">회원구분 : {{ packageMasterInfo.memIndCd ? packageMasterInfo.memIndCd : '-' }}</v-col>
+                    <v-col cols="4">회원구분 : {{ packageMasterInfo.memIndCode ? packageMasterInfo.memIndCode : '-' }}</v-col>
                     <v-col cols="3">조식유무 : {{ packageMasterInfo.brkfstInYn === '1' ? '포함' : '미포함' }}</v-col>
                     <v-col cols="3">게시구분 : {{ packageMasterInfo.postInd ? packageMasterInfo.postInd : '-' }}</v-col>
                     <v-col cols="2">관리사번 : {{ packageMasterInfo.mngmEmplNo }}</v-col>
@@ -66,13 +66,13 @@
                       dense
                       class="bordered">
                       <template v-slot:item.pkgValidInd="{item}">
-                        {{ item.pkgValidIndNm }} ({{ item.pkgValidIndCd }})
+                        {{ item.pkgValidIndName }} ({{ item.pkgValidIndCode }})
                       </template>
                       <template v-slot:item.dstbAmt="{item}">
                         {{ item.dstbAmt ? item.dstbAmt : '-' }}
                       </template>
                       <template v-slot:item.tableInd="{item}">
-                        {{ item.tableIndNm }} ({{ item.tableIndCd }})
+                        {{ item.tableIndName }} ({{ item.tableIndCode }})
                       </template>
                       <template v-slot:item.grupIssue="{item}">
                         {{ item.grupIssue ? item.grupIssue : '-' }}
@@ -83,8 +83,8 @@
                       <template v-slot:item.etc02="{item}">
                         {{ item.etc02 ? item.etc02 : '-' }}
                       </template>
-                      <template v-slot:item.useLcalCd="{item}">
-                        {{ item.useLcalCd ? item.useLcalCd : '-' }}
+                      <template v-slot:item.useLcalCode="{item}">
+                        {{ item.useLcalCode ? item.useLcalCode : '-' }}
                       </template>
                     </v-data-table>
                   </app-card>
@@ -100,7 +100,7 @@
                                  :isPackageSearch="isPackageSearch"
                                  :pkgNo="pkgNo"
                                  :originRoomInfo="originRoomInfo"
-                                 :pkgNm="packageMasterInfo.pkgNm"
+                                 :pkgName="packageMasterInfo.pkgName"
                                  :type="type"
     ></package-room-info-component>
   </v-container>
@@ -108,8 +108,8 @@
 
 <script>
 
-import itemService from 'Api/modules/naver/item.service'
-import PackageRoomInfoComponent from 'Components/Naver/Item/PackageRoomInfoComponent.vue'
+import itemService from '@/api/modules/naver/item.service'
+import PackageRoomInfoComponent from '@/components/Naver/Item/PackageRoomInfoComponent.vue'
 
 export default {
   name: 'PackageInfoComponent',
@@ -151,7 +151,7 @@ export default {
       headers: [
         { text: '패키지 메뉴순번', value: 'pkgMenuSeq', align: 'center', sortable: false },
         { text: '인원수량', value: 'persQty', align: 'center', sortable: false },
-        { text: '패키지 메뉴명', value: 'pkgMenuNm', align: 'center', sortable: false },
+        { text: '패키지 메뉴명', value: 'pkgMenuName', align: 'center', sortable: false },
         { text: '패키지 유효구분', value: 'pkgValidInd', align: 'center', sortable: false },
         { text: '패키지 유효기간', value: 'pkgVaildThru', align: 'center', sortable: false },
         { text: '배분금액', value: 'dstbAmt', align: 'center', sortable: false },
@@ -162,7 +162,7 @@ export default {
         { text: '비고01', value: 'etc01', align: 'center', sortable: false },
         { text: '비고02', value: 'etc02', align: 'center', sortable: false },
         { text: '패키지메뉴오픈여부', value: 'pkgMenuOpen', align: 'center', sortable: false },
-        { text: '사용가능지역', value: 'useLcalCd', align: 'center', sortable: false }
+        { text: '사용가능지역', value: 'useLcalCode', align: 'center', sortable: false }
       ]
     }
   },
@@ -196,9 +196,9 @@ export default {
       if (!this.validatePackageNumber()) {
         this.$store.dispatch('naver/setRoomInfo', {
           mid: this.pkgNo,
-          storeCd: '',
-          rmTypeCd: '',
-          rsvBlckCd: ''
+          storeCode: '',
+          rmTypeCode: '',
+          rsvBlckCode: ''
         })
         return
       }
@@ -206,17 +206,17 @@ export default {
       if (this.viewPkgNo !== this.pkgNo) {
         this.$store.dispatch('naver/setRoomInfo', {
           mid: this.pkgNo,
-          storeCd: '',
-          rmTypeCd: '',
-          rsvBlckCd: ''
+          storeCode: '',
+          rmTypeCode: '',
+          rsvBlckCode: ''
         })
       } else {
         // pkgNo 가 같을 경우 기존 데이터로 원복
         this.$store.dispatch('naver/setRoomInfo', {
           mid: this.pkgNo,
-          storeCd: this.originRoomInfo.storeCd,
-          rmTypeCd: this.originRoomInfo.rmTypeCd,
-          rsvBlckCd: this.originRoomInfo.rsvBlckCd
+          storeCode: this.originRoomInfo.storeCode,
+          rmTypeCode: this.originRoomInfo.rmTypeCode,
+          rsvBlckCode: this.originRoomInfo.rsvBlckCode
         })
       }
       itemService.selectPackageMasterInfo(this.pkgNo).then((response) => {

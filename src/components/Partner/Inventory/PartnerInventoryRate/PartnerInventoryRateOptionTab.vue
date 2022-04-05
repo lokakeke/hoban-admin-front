@@ -7,9 +7,9 @@
 
 <script>
 import PartnerInventoryRateOptionDay
-  from 'Components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateOptionDay.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateOptionDay.vue'
 import PartnerInventoryRateOptionType
-  from 'Components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateOptionType.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateOptionType.vue'
 
 export default {
   components: { PartnerInventoryRateOptionDay, PartnerInventoryRateOptionType },

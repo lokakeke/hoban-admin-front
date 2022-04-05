@@ -22,7 +22,7 @@
             <v-card flat>
               <v-card-subtitle class="py-3">
                 <h3 class="my-0">
-                  <v-chip color="info" class="mr-1" small>{{ notice.noticeTypeNm }}</v-chip>
+                  <v-chip color="info" class="mr-1" small>{{ notice.noticeTypeName }}</v-chip>
                   <span class="red--text" v-if="notice.emrgncYn === 'Y'">[긴급]</span>
                   {{ notice.title }}
                 </h3>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

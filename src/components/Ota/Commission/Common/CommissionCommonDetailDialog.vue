@@ -7,7 +7,7 @@
           <!-- 회원구분 수수료는 회원구분을 노출 -->
           <v-col md="3" sm="6" cols="12">
             <v-label>회원구분명</v-label>
-            <v-text-field :value="commissionMap.memIndNm" disabled readonly></v-text-field>
+            <v-text-field :value="commissionMap.memIndName" disabled readonly></v-text-field>
           </v-col>
           <v-col md="3" sm="6" cols="12">
             <v-label>회원구분</v-label>
@@ -18,7 +18,7 @@
           <!-- 기본 / 프로모션 수수료는 회원번호를 노출 -->
           <v-col md="3" sm="6" cols="12">
             <v-label>회원명</v-label>
-            <v-text-field :value="commissionMap.memNm" disabled readonly></v-text-field>
+            <v-text-field :value="commissionMap.memName" disabled readonly></v-text-field>
           </v-col>
           <v-col md="3" sm="6" cols="12">
             <v-label>회원번호</v-label>
@@ -36,7 +36,7 @@
               <div>정산유형은 수수료가 정산되는 시점입니다.</div>
             </v-tooltip>
           </v-label>
-          <v-text-field :value="commissionMap.calcTypeNm" disabled readonly></v-text-field>
+          <v-text-field :value="commissionMap.calcTypeName" disabled readonly></v-text-field>
         </v-col>
         <template v-if="commissionType === 'Promotion'">
           <!-- 프로모션 수수료는 적용기간을 노출 -->
@@ -172,19 +172,19 @@
               <template v-if="commissionMap.storeOptionList.length > 0">
                 <div
                   v-for="(store, storeIndex) in commissionMap.storeOptionList"
-                  :key="store.storeCd"
+                  :key="store.storeCode"
                 >
                   <v-divider></v-divider>
                   <v-list>
                     <v-list-group value="true" no-action>
                       <template v-slot:activator>
                         <v-list-item-title>
-                          {{ store.storeNm }}
+                          {{ store.storeName }}
                           <v-btn
                             x-small
                             icon
                             color="info"
-                            @click.stop.prevent="openCreateStoreOptionDialog(store.storeCd, store.storeNm)"
+                            @click.stop.prevent="openCreateStoreOptionDialog(store.storeCd, store.storeName)"
                             title="영업장에 새로운 설정 등록"
                             v-if="writeAuth"
                           >
@@ -270,7 +270,7 @@
                     <v-list-group value="true" no-action>
                       <template v-slot:activator>
                         <v-list-item-title>
-                          {{ store.storeNm }}
+                          {{ store.storeName }}
                           <v-btn
                             x-small
                             icon
@@ -291,12 +291,12 @@
                       >
                         <template v-slot:activator>
                           <v-list-item-title>
-                            {{ roomType.rmTypeNm }}
+                            {{ roomType.rmTypeName }}
                             <v-btn
                               x-small
                               icon
                               color="info"
-                              @click.stop.prevent="openCreateRoomTypeOptionDialog(store.storeCd, store.storeNm, roomType.rmTypeCd, roomType.rmTypeNm)"
+                              @click.stop.prevent="openCreateRoomTypeOptionDialog(store.storeCd, store.storeName, roomType.rmTypeCd, roomType.rmTypeName)"
                               title="객실유형에 새로운 설정 등록"
                               v-if="writeAuth"
                             >
@@ -371,17 +371,17 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import NumberUtils from '@/utils/number.util'
-import CommissionOption from 'Components/Ota/Commission/Option/CommissionOption.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import CommissionOption from '@/components/Ota/Commission/Option/CommissionOption.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 const EMPTY_OPTION_OBJECT = {
   amtCndTypeCd: 'AL',
-  amtCndTypeNm: '항상',
+  amtCndTypeName: '항상',
   amtCndVal: null,
   cmsnTypeCd: 'W',
-  cmsnTypeNm: '원',
+  cmsnTypeName: '원',
   cmsnAmt: 0
 }
 
@@ -559,9 +559,9 @@ export default {
         if (this.isCopy === true) {
           // 복사의 경우 조회해온 수수료 Map의 회원번호, 회원명을 복사될 정보로 변경, 적용일자를 삭제
           commissionMap.memNo = this.instance.params.copyTarget.memNo
-          commissionMap.memNm = this.instance.params.copyTarget.memNm
+          commissionMap.memName = this.instance.params.copyTarget.memName
           commissionMap.memInd = this.instance.params.copyTarget.memInd
-          commissionMap.memIndNm = this.instance.params.copyTarget.memIndNm
+          commissionMap.memIndName = this.instance.params.copyTarget.memIndName
           commissionMap.applyYmd = null
           commissionMap.applyBgnYmd = null
           commissionMap.applyEndYmd = null
@@ -572,8 +572,8 @@ export default {
         this.orgCommissionMap = commissionMap
       } else {
         // 등록
-        this.orgCommissionMap.memNm = this.instance.params.memNm
-        this.orgCommissionMap.memIndNm = this.instance.params.memIndNm
+        this.orgCommissionMap.memName = this.instance.params.memName
+        this.orgCommissionMap.memIndName = this.instance.params.memIndName
       }
     },
     /**
@@ -611,14 +611,14 @@ export default {
     /**
      * 영업장별 설정 목록에 새로운 설정 추가 Dialog 열기
      */
-    openCreateStoreOptionDialog (storeCd, storeNm) {
+    openCreateStoreOptionDialog (storeCd, storeName) {
       this.$store.dispatch('dialog/open', {
         componentPath:
           '/Ota/Commission/Option/CommissionOptionGroupCreateDialog',
         params: {
           useStore: true,
           storeCd,
-          storeNm
+          storeName
         },
         options: {
           width: '500px',
@@ -636,7 +636,7 @@ export default {
                 this.commissionMap.storeOptionList.push({
                   index: this.commissionMap.storeOptionList.length + 1,
                   storeCd: result.store.storeCd,
-                  storeNm: result.store.storeNm,
+                  storeName: result.store.storeName,
                   optionList: []
                 })
                 targetStore = this.commissionMap.storeOptionList[
@@ -646,7 +646,7 @@ export default {
               targetStore.optionList.push({
                 index: targetStore.optionList.length + 1,
                 storeCd: result.store.storeCd,
-                storeNm: result.store.storeNm,
+                storeName: result.store.storeName,
                 ...EMPTY_OPTION_OBJECT
               })
             }
@@ -657,17 +657,17 @@ export default {
     /**
      * 객실유형별 설정 목록에 새로운 설정 추가 Dialog 열기
      */
-    openCreateRoomTypeOptionDialog (storeCd, storeNm, rmTypeCd, rmTypeNm) {
+    openCreateRoomTypeOptionDialog (storeCd, storeName, rmTypeCd, rmTypeName) {
       this.$store.dispatch('dialog/open', {
         componentPath:
           '/Ota/Commission/Option/CommissionOptionGroupCreateDialog',
         params: {
           useStore: true,
           storeCd,
-          storeNm,
+          storeName,
           useRoomType: true,
           rmTypeCd,
-          rmTypeNm
+          rmTypeName
         },
         options: {
           width: '500px',
@@ -687,7 +687,7 @@ export default {
                 this.commissionMap.roomTypeOptionList.push({
                   index: this.commissionMap.storeOptionList.length + 1,
                   storeCd: result.store.storeCd,
-                  storeNm: result.store.storeNm,
+                  storeName: result.store.storeName,
                   roomTypeList: []
                 })
                 targetStore = this.commissionMap.roomTypeOptionList[
@@ -705,9 +705,9 @@ export default {
                 targetStore.roomTypeList.push({
                   index: targetStore.roomTypeList.length + 1,
                   storeCd: result.store.storeCd,
-                  storeNm: result.store.storeNm,
+                  storeName: result.store.storeName,
                   rmTypeCd: result.roomType.rmTypeCd,
-                  rmTypeNm: result.roomType.rmTypeNm,
+                  rmTypeName: result.roomType.rmTypeName,
                   optionList: []
                 })
                 targetRoomType =
@@ -716,9 +716,9 @@ export default {
               targetRoomType.optionList.push({
                 index: targetRoomType.optionList.length + 1,
                 storeCd: result.store.storeCd,
-                storeNm: result.store.storeNm,
+                storeName: result.store.storeName,
                 rmTypeCd: result.roomType.rmTypeCd,
-                rmTypeNm: result.roomType.rmTypeNm,
+                rmTypeName: result.roomType.rmTypeName,
                 ...EMPTY_OPTION_OBJECT
               })
             }
@@ -827,7 +827,7 @@ export default {
       const response = await commonCodeService.selectCommonCode('CMSN0002')
       response.data.forEach(item => {
         const amtCndType = {
-          text: item.commCdNm,
+          text: item.commCdName,
           value: item.commCd,
           desc: item.commCdDesc, // 설명
           sign: item.item01, // 기호

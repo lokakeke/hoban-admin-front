@@ -3,11 +3,11 @@
     <template v-slot:title>
       파트너 객실예약 {{isModify? '상세보기' : '신규 신청'}}
       <span v-if="isModify" class="ml-3 font-weight-bold">
-        <span v-if="form.aprlCd === 'A'" :class="form.cancelYn === 'Y'? 'warning--text': ''">
+        <span v-if="form.aprlCode === 'A'" :class="form.cancelYn === 'Y'? 'warning--text': ''">
           {{' - ' + (form.cancelYn === 'Y' ? '취소 됨' : '신청 중')}}
         </span>
-        <span v-else-if="form.aprlCd">
-          {{' - 처리완료 : ' + form.aprlNm}}
+        <span v-else-if="form.aprlCode">
+          {{' - 처리완료 : ' + form.aprlName}}
         </span>
       </span>
     </template>
@@ -27,7 +27,7 @@
               <v-row no-gutters>
                 <v-col cols="6" v-on="on" :class="writable? 'pr-1': 'pr-3'">
                   <div class="font-weight-bold info--text body-1">회원번호</div>
-                  <v-text-field :value="form.memNm" dense
+                  <v-text-field :value="form.memName" dense
                                 :rules="emptyRules"
                                 placeholder="회원번호를 선택 해주세요."
                                 readonly
@@ -36,7 +36,7 @@
                 </v-col>
                 <v-col cols="6" v-on="on" :class="writable? 'pl-1': 'pl-3'">
                   <div class="font-weight-bold info--text body-1">대매사</div>
-                  <v-text-field :value="form.agentCdNm" dense
+                  <v-text-field :value="form.agentCodeName" dense
                                 :rules="emptyRules"
                                 placeholder="대매사를 선택 해주세요."
                                 readonly
@@ -49,7 +49,7 @@
           <v-list dense>
             <v-list-item v-for="(info, index) of roomUseList" :key="index" class="border-bottom px-2" @click="selectInfo(info)">
               <v-list-item-action class="mr-2">
-                <v-icon>{{info.memNo === form.memNo && info.agentCd === form.agentCd ? 'check_box': 'check_box_outline_blank'}}</v-icon>
+                <v-icon>{{info.memNo === form.memNo && info.agentCode === form.agentCode ? 'check_box': 'check_box_outline_blank'}}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-row dense no-gutters align="center">
@@ -57,13 +57,13 @@
                     회원번호
                   </v-col>
                   <v-col cols="4" class="border-left pl-2">
-                    <p class="mb-1">{{info.memNm}}</p>
+                    <p class="mb-1">{{info.memName}}</p>
                     ( {{info.memNo}} )
                   </v-col>
                   <v-col cols="2" class="border-left pl-2">대매사</v-col>
                   <v-col cols="4" class="border-left pl-2">
-                    <p class="mb-1">{{info.agentCdNm}}</p>
-                    ( {{info.agentCd}} )
+                    <p class="mb-1">{{info.agentCodeName}}</p>
+                    ( {{info.agentCode}} )
                   </v-col>
                 </v-row>
               </v-list-item-content>
@@ -94,10 +94,10 @@
       <v-row :dense="writable">
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">영업장</div>
-          <v-autocomplete v-model="form.storeCd" dense
+          <v-autocomplete v-model="form.storeCode" dense
                           :items="storeList"
-                          item-value="storeCd"
-                          :item-text="item => '(' + item.storeCd +')' + item.storeNm"
+                          item-value="storeCode"
+                          :item-text="item => '(' + item.storeCode +')' + item.storeName"
                           :rules="emptyRules"
                           :disabled="!canSubmit"
                           :hide-details="!writable"
@@ -106,19 +106,19 @@
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">객실 타입</div>
-          <v-autocomplete v-model="form.rmTypeCd" dense
+          <v-autocomplete v-model="form.rmTypeCode" dense
                           :items="rmTypeList"
-                          item-value="rmTypeCd"
-                          :item-text="item => '(' + item.rmTypeCd +') ' + item.rmTypeNm"
+                          item-value="rmTypeCode"
+                          :item-text="item => '(' + item.rmTypeCode +') ' + item.rmTypeName"
                           :disabled="!canSubmit"
                           :hide-details="!writable"
                           placeholder="객실타입을 선택 해주세요."
                           :rules="emptyRules" />
         </v-col>
-        <template v-if="form.aprlCd === '' || form.aprlCd === 'A'">
+        <template v-if="form.aprlCode === '' || form.aprlCode === 'A'">
           <v-col cols="3" class="font-weight-bold success--text">
             <div>* 선택하신 영업장 최대 예약가능 <span class="primary--text">박수 / 객실 수</span> 까지만 신청이 가능합니다.</div>
-            <div v-if="form.storeCd">
+            <div v-if="form.storeCode">
               * 선택 영업장 최대 예약가능 <span class="primary--text">박수 : </span><span class="red--text">{{selectStore.nights}}</span>
               <span class="primary--text"> / 객실 수 : </span><span class="red--text">{{selectStore.rmCnt}}</span>
             </div>
@@ -132,7 +132,7 @@
         <template v-if="isModify">
           <v-col cols="3">
             <div class="font-weight-bold info--text body-1">파트너</div>
-            <v-text-field v-model="form.ptnrNm" dense
+            <v-text-field v-model="form.ptnrName" dense
                           :rules="emptyRules"
                           placeholder="이용자 명을 입력 해주세요."
                           :hide-details="!writable"
@@ -140,7 +140,7 @@
           </v-col>
           <v-col cols="3">
             <div class="font-weight-bold info--text body-1">신청 파트너 담당자</div>
-            <v-text-field v-model="form.chrgNm" dense
+            <v-text-field v-model="form.chrgName" dense
                           :rules="emptyRules"
                           placeholder="이용자 명을 입력 해주세요."
                           :hide-details="!writable"
@@ -188,16 +188,16 @@
       </v-row>
 
       <!-- 신규 / 신청 중인 상태일 경우 휴일 노출 -->
-      <partner-reservation-holiday v-if="form.aprlCd === '' || form.aprlCd === 'A'" :storeCd="form.storeCd" :rmTypeCd="form.rmTypeCd" :ciYmd="form.ciYmd"></partner-reservation-holiday>
+      <partner-reservation-holiday v-if="form.aprlCode === '' || form.aprlCode === 'A'" :storeCode="form.storeCode" :rmTypeCode="form.rmTypeCode" :ciYmd="form.ciYmd"></partner-reservation-holiday>
 
       <!-- 관리자 처리 후 결과 노출 -->
       <app-card v-else heading="객실예약 신청내역 처리결과" custom-classes="border" content-classes="pt-2" class="pt-2">
         <v-row>
           <v-col cols="2">
             <div class="font-weight-bold info--text body-1">처리 상태</div>
-            <v-text-field :value="form.aprlNm" dense readonly hide-details />
+            <v-text-field :value="form.aprlName" dense readonly hide-details />
           </v-col>
-          <template v-if="form.aprlCd === 'B'">
+          <template v-if="form.aprlCode === 'B'">
             <v-col cols="2">
               <div class="font-weight-bold info--text body-1">예약번호</div>
               <v-text-field :value="form.rsvNo" dense readonly hide-details>
@@ -225,7 +225,7 @@
           </v-col>
           <!-- <v-col cols="2">
             <div class="font-weight-bold info--text body-1">처리 담당자</div>
-            <v-text-field :value="form.aprlChrgNm" dense readonly hide-details />
+            <v-text-field :value="form.aprlChrgName" dense readonly hide-details />
           </v-col> -->
         </v-row>
         <v-row align="end">
@@ -234,13 +234,13 @@
             <v-textarea :value="form.memo" class="mt-3" hide-details readonly outlined rows="2" />
           </v-col>
           <v-col cols="6" class="text-right">
-            <v-btn v-if="form.aprlCd === 'C'" color="info" rounded @click="reApply()" ><v-icon left>check</v-icon>재신청</v-btn>
+            <v-btn v-if="form.aprlCode === 'C'" color="info" rounded @click="reApply()" ><v-icon left>check</v-icon>재신청</v-btn>
             <v-btn color="primary" rounded @click="close"><v-icon left>close</v-icon>닫기</v-btn>
           </v-col>
         </v-row>
       </app-card>
     </v-form>
-    <template v-slot:actions v-if="form.aprlCd === '' || form.aprlCd === 'A'">
+    <template v-slot:actions v-if="form.aprlCode === '' || form.aprlCode === 'A'">
       <v-btn v-if="writeAuth && canSubmit && isModify" color="warning" rounded @click="cancel"><v-icon left>cancel</v-icon>취소</v-btn>
       <v-btn v-if="writeAuth && canSubmit" color="info" rounded @click="submit"><v-icon left>check</v-icon>{{isModify? '수정': '등록'}} (F4)</v-btn>
       <v-btn color="primary" rounded @click="close"><v-icon left>close</v-icon>닫기</v-btn>
@@ -249,10 +249,10 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import storeService from 'Api/modules/system/store.service'
-import partnerReservationService from 'Api/modules/partner/partnerReservation.service'
-import PartnerReservationHoliday from 'Components/Partner/Reservation/PartnerReservationHoliday.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import storeService from '@/api/modules/system/store.service'
+import partnerReservationService from '@/api/modules/partner/partnerReservation.service'
+import PartnerReservationHoliday from '@/components/Partner/Reservation/PartnerReservationHoliday.vue'
 
 export default {
   extends: DialogBase,
@@ -268,17 +268,17 @@ export default {
       // 게시물 데이터
       form: {
         memNo: '',
-        memNm: '',
-        agentCd: '',
-        agentCdNm: '',
+        memName: '',
+        agentCode: '',
+        agentCodeName: '',
         userName: '',
         userTel: '',
-        storeCd: '',
-        rmTypeCd: '',
+        storeCode: '',
+        rmTypeCode: '',
         ciYmd: '',
         nights: '',
         rmCnt: '',
-        aprlCd: ''
+        aprlCode: ''
       },
       // 수정/신규 입력 가능 여부
       canSubmit: false,
@@ -339,7 +339,7 @@ export default {
           // 변경가능 셋팅
           this.canSubmit = res.data.canSubmit
           // 신청상태가 아니라면 writable false
-          this.writable = res.data.aprlCd === 'A'
+          this.writable = res.data.aprlCode === 'A'
         }
       } catch (e) {}
     },
@@ -372,10 +372,10 @@ export default {
      */
     changeStore (init) {
       if (init !== true) {
-        this.form.rmTypeCd = ''
+        this.form.rmTypeCode = ''
       }
-      if (this.form.storeCd) {
-        const index = this.storeList.findIndex(data => data.storeCd === this.form.storeCd)
+      if (this.form.storeCode) {
+        const index = this.storeList.findIndex(data => data.storeCode === this.form.storeCode)
         if (index > -1) {
           if (this.storeList[index].rmTypeList) {
             this.rmTypeList = this.storeList[index].rmTypeList
@@ -391,9 +391,9 @@ export default {
      */
     selectInfo (info) {
       this.form.memNo = info.memNo
-      this.form.memNm = info.memNm + ' ( ' + info.memNo + ' )'
-      this.form.agentCd = info.agentCd
-      this.form.agentCdNm = info.agentCdNm + ' ( ' + info.agentCd + ' )'
+      this.form.memName = info.memName + ' ( ' + info.memNo + ' )'
+      this.form.agentCode = info.agentCode
+      this.form.agentCodeName = info.agentCodeName + ' ( ' + info.agentCode + ' )'
     },
     /**
      * 예약내역 팝업창 호출

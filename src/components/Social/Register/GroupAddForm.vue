@@ -11,13 +11,13 @@
         </v-col>
         <v-col sm="4" md="8">
           <v-label>우대번호 명</v-label>
-          <v-text-field v-model="form.ticketNm" label="" disabled></v-text-field>
+          <v-text-field v-model="form.ticketName" label="" disabled></v-text-field>
         </v-col>
       </v-row>
       <v-row>
         <v-col sm="4" md="12">
           <v-label>정산 그룹 명</v-label>
-          <v-text-field v-model="form.calcNm" label="" @keypress.enter="add"></v-text-field>
+          <v-text-field v-model="form.calcName" label="" @keypress.enter="add"></v-text-field>
         </v-col>
       </v-row>
     </v-form>
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import ticketCalcService from 'Api/modules/social/ticketCalc.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import ticketCalcService from '@/api/modules/social/ticketCalc.service'
 
 export default {
   extends: DialogBase,
@@ -40,14 +40,14 @@ export default {
       data: {},
       form: {
         ticketNo: '',
-        ticketNm: ''
+        ticketName: ''
       }
     }
   },
   mounted () {
     if (this.instance.params.data) {
       this.form.ticketNo = this.instance.params.data.ticketNo
-      this.form.ticketNm = this.instance.params.data.ticketNm
+      this.form.ticketName = this.instance.params.data.ticketName
     }
   },
   methods: {

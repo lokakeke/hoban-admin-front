@@ -19,8 +19,8 @@
                 <v-icon>{{ item.selectedYn === 'Y' ? 'check_box': 'check_box_outline_blank' }}</v-icon>
               </v-btn>
             </template>
-            <template v-slot:realGuestNm="{item}">
-              <mask-name :text="item.realGuestNm" />
+            <template v-slot:realGuestName="{item}">
+              <mask-name :text="item.realGuestName" />
             </template>
             <template v-slot:smsPhone="{item}">
               <template v-if="item.smsPhone">
@@ -59,8 +59,8 @@
                 <v-icon>{{ item.selectedYn === 'Y' ? 'check_box': 'check_box_outline_blank' }}</v-icon>
               </v-btn>
             </template>
-            <template v-slot:realGuestNm="{item}">
-              <mask-name :text="item.realGuestNm" />
+            <template v-slot:realGuestName="{item}">
+              <mask-name :text="item.realGuestName" />
             </template>
             <template v-slot:smsPhone="{item}">
               <template v-if="item.smsPhone">
@@ -84,15 +84,15 @@
 </template>
 
 <script>
-import RsvSearchForm from 'Components/Ota/RoomReservation/RsvSearchForm.vue'
-import PartnerRsvSearchForm from 'Components/Ota/RoomReservation/Partner/PartnerRsvSearchForm.vue'
-import roomService from 'Api/modules/ota/roomReservation.service'
-import partnerService from 'Api/modules/partner/partnerTerm.service'
+import RsvSearchForm from '@/components/Ota/RoomReservation/RsvSearchForm.vue'
+import PartnerRsvSearchForm from '@/components/Ota/RoomReservation/Partner/PartnerRsvSearchForm.vue'
+import roomService from '@/api/modules/ota/roomReservation.service'
+import partnerService from '@/api/modules/partner/partnerTerm.service'
 
 import { mapGetters } from 'vuex'
-import excelMixin from 'Mixins/excelMixin'
-import maskName from 'Components/Mask/MaskName.vue'
-import VirtualScrollTable from 'Components/Common/VirtualScrollTable.vue'
+import excelMixin from '@/mixins/excelMixin'
+import maskName from '@/components/Mask/MaskName.vue'
+import VirtualScrollTable from '@/components/Common/VirtualScrollTable.vue'
 
 export default {
   components: { maskName, RsvSearchForm, PartnerRsvSearchForm, VirtualScrollTable },
@@ -137,7 +137,7 @@ export default {
         },
         {
           name: '이용자',
-          value: 'guestNm',
+          value: 'guestName',
           align: 'center',
           sortable: true,
           size: 2
@@ -172,7 +172,7 @@ export default {
         },
         {
           name: '영업장명',
-          value: 'storeNm',
+          value: 'storeName',
           align: 'center',
           sortable: true,
           size: 4,
@@ -181,14 +181,14 @@ export default {
         },
         {
           name: '동',
-          value: 'dongCdNm',
+          value: 'dongCodeName',
           align: 'center',
           sortable: false,
           size: 1
         },
         {
           name: '객실유형명',
-          value: 'rmTypeNm',
+          value: 'rmTypeName',
           align: 'center',
           sortable: false,
           size: 3,
@@ -197,7 +197,7 @@ export default {
         },
         {
           name: '타입',
-          value: 'rsvTypeNm',
+          value: 'rsvTypeName',
           align: 'center',
           sortable: false,
           size: 1
@@ -219,9 +219,9 @@ export default {
       path: '', // 파트너 or 관리자
       partnerInfo: { // 파트너 정보
         memNo: '',
-        memNm: '',
+        memName: '',
         termSeq: '',
-        agentCd: '',
+        agentCode: '',
         rsvGuestTelNo: ''
       },
       selectedList: [], // 체크박스가 선택된 예약정보들 목록
@@ -254,9 +254,9 @@ export default {
       if (this.isPartner) {
         const res = await partnerService.selectDefaultPtnrInfo()
         this.partnerInfo.memNo = res.data.memNo
-        this.partnerInfo.memNm = res.data.memNm
+        this.partnerInfo.memName = res.data.memName
         this.partnerInfo.termSeq = res.data.termSeq
-        this.partnerInfo.agentCd = res.data.agentCd
+        this.partnerInfo.agentCode = res.data.agentCode
         this.partnerInfo.rsvGuestTelNo = res.data.rsvGuestTelNo
       }
     },
@@ -294,7 +294,7 @@ export default {
         if (
           this.searchParam.q.memNo ||
           this.searchParam.q.pkgNo ||
-          this.searchParam.q.agentCd
+          this.searchParam.q.agentCode
         ) {
           if (this.searchParam.q.memNo && !this.searchParam.q.memNo.startsWith('5')) {
             this.$dialog.alert('회원번호는 5로 시작해야 합니다')
@@ -351,7 +351,7 @@ export default {
               closeCallback: (params) => {
                 if (params && params.data) {
                   const cancelReason = {}
-                  cancelReason.cancelResnCd = params.data.cancelResnCd
+                  cancelReason.cancelResnCode = params.data.cancelResnCode
                   cancelReason.cancelResnDesc = params.data.cancelResnDesc
                   this.rsvCancel(cancelReason) // 실제 예약취소 실행
                 }
@@ -370,7 +370,7 @@ export default {
               closeCallback: (params) => {
                 if (params && params.data) {
                   const cancelReason = {}
-                  cancelReason.cancelResnCd = params.data.cancelResnCd
+                  cancelReason.cancelResnCode = params.data.cancelResnCode
                   cancelReason.cancelResnDesc = params.data.cancelResnDesc
                   this.updateCancelResn(cancelReason)
                 }
@@ -393,7 +393,7 @@ export default {
         const oneRsv = {}
         oneRsv.keyRsvNo = row.keyRsvNo
         oneRsv.keySeq = row.keySeq
-        oneRsv.cancelResnCd = cancelReason.cancelResnCd
+        oneRsv.cancelResnCode = cancelReason.cancelResnCode
         oneRsv.cancelResnDesc = cancelReason.cancelResnDesc
         oneRsv.updId = this.user.number // 수정자
         param.push(oneRsv)
@@ -411,14 +411,14 @@ export default {
         const oneRsv = {}
         oneRsv.rsvNo = rsv.rsvNo
         oneRsv.keyRsvNo = rsv.keyRsvNo
-        oneRsv.guestNm = rsv.guestNm
-        oneRsv.cancelResnCd = cancelReason.cancelResnCd
+        oneRsv.guestName = rsv.guestName
+        oneRsv.cancelResnCode = cancelReason.cancelResnCode
         oneRsv.cancelResnDesc = cancelReason.cancelResnDesc
         oneRsv.updId = this.user.number // 수정자
         if (rsv.memNo && rsv.memNo.startsWith('56')) { // 객실
           oneRsv.memNo = rsv.memNo
         } else { // 패키지
-          oneRsv.agentCd = rsv.agentCd
+          oneRsv.agentCode = rsv.agentCode
         }
         param.push(oneRsv)
       }
@@ -455,7 +455,7 @@ export default {
       if (this.rsvList.length > 0) {
         const searchParam = _.cloneDeep(this.searchParam)
         searchParam.q.ciDate = _.join(searchParam.q.ciDate, ',')
-        searchParam.q.statusCd = _.join(searchParam.q.statusCd, ',')
+        searchParam.q.statusCode = _.join(searchParam.q.statusCode, ',')
         this.downLoadExcel('/api/ota/roomReservation/excel', '객실 예약 관리', searchParam, '.csv')
       } else {
         this.$dialog.alert('다운로드할 예약이 없습니다.')

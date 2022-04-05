@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import TotalStatisticsForm from 'Components/Social/Statistics/TotalStatisticsForm.vue'
-import TotalStatisticsChart from 'Components/Social/Statistics/TotalStatisticsChart.vue'
-import statisticsService from 'Api/modules/social/statistics.service'
+import TotalStatisticsForm from '@/components/Social/Statistics/TotalStatisticsForm.vue'
+import TotalStatisticsChart from '@/components/Social/Statistics/TotalStatisticsChart.vue'
+import statisticsService from '@/api/modules/social/statistics.service'
 
 export default {
   name: 'TotalStatistics',

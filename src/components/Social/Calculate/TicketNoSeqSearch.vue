@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import calculateService from 'Api/modules/social/calculate.service'
-import excelMixin from 'Mixins/excelMixin'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import calculateService from '@/api/modules/social/calculate.service'
+import excelMixin from '@/mixins/excelMixin'
 
 export default {
   extends: DialogBase,
@@ -38,7 +38,7 @@ export default {
       headers: [
         { text: '우대번호', value: 'ticketNo', align: 'center', sortable: false },
         { text: '순번', value: 'ticketSeq', align: 'center', sortable: false },
-        { text: '우대번호 명', value: 'ticketNm', align: 'center', sortable: false },
+        { text: '우대번호 명', value: 'ticketName', align: 'center', sortable: false },
         { text: '사용수량', value: 'useQty', align: 'center', sortable: false },
         { text: '사용일', value: 'useDt', align: 'center', sortable: false },
         { text: '쿠폰번호', value: 'copnNo', align: 'center', sortable: false }
@@ -57,8 +57,8 @@ export default {
       this.calcSeq = this.instance.params.calcSeq
       this.ticketNo = this.instance.params.ticketNo
     }
-    if (this.instance.params.lcalCd) {
-      this.searchParam.q.lcalCd = this.instance.params.lcalCd
+    if (this.instance.params.lcalCode) {
+      this.searchParam.q.lcalCode = this.instance.params.lcalCode
     }
     this.search()
   },

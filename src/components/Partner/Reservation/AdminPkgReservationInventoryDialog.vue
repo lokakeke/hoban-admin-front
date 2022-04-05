@@ -1,7 +1,7 @@
 <template>
     <dialog-base :instance="instance">
         <template v-slot:title>
-            블럭 조회 - {{rowInfo.pkgNm}}
+            블럭 조회 - {{rowInfo.pkgName}}
         </template>
         <v-simple-table class="bordered">
           <thead>
@@ -25,7 +25,7 @@
     </dialog-base>
 </template>
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -60,8 +60,8 @@ export default {
       // dgns 블럭재고 셋팅 - 객실기본 블럭코드 + 104 블럭코드
       const blockData = this.rowInfo.blockList || []
       const blockList = []
-      if (this.rowInfo.rsvBlckCd) {
-        blockList.push(this.setBlockData(blockData, this.rowInfo.rsvBlckCd, dateList))
+      if (this.rowInfo.rsvBlckCode) {
+        blockList.push(this.setBlockData(blockData, this.rowInfo.rsvBlckCode, dateList))
       }
       blockList.push(this.setBlockData(blockData, '104', dateList))
       this.blockList = blockList
@@ -69,13 +69,13 @@ export default {
     /**
      * 블럭 재고량 데이터 처리
      * @param blockList dgns 재고리스트
-     * @param blockCd 블럭코드
+     * @param blockCode 블럭코드
      * @param dateList 일자리스트
      */
-    setBlockData (blockList, blockCd, dateList) {
-      const row = { block: blockCd }
+    setBlockData (blockList, blockCode, dateList) {
+      const row = { block: blockCode }
       for (const date of dateList) {
-        const index = blockList.findIndex(data => data.rsvBlckCd === blockCd && data.ciYmd === date.value)
+        const index = blockList.findIndex(data => data.rsvBlckCode === blockCode && data.ciYmd === date.value)
         if (index > -1) {
           row[date.value] = blockList[index].stockQty
         } else {

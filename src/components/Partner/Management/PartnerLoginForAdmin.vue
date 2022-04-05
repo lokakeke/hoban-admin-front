@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import partnerAuthService from 'Api/modules/partner/partnerAuth.service'
+import partnerAuthService from '@/api/modules/partner/partnerAuth.service'
 
 export default {
   name: 'PartnerLoginForAdmin',
@@ -27,7 +27,7 @@ export default {
         this.$dialog.alert('잘못된 접근입니다.')
         return false
       }
-      this.$dialog.confirm(`로그아웃하고 ${this.item.ptnrNm}(${this.item.loginId}) 파트너로 로그인합니다. 계속 진행하시겠습니까?`)
+      this.$dialog.confirm(`로그아웃하고 ${this.item.ptnrName}(${this.item.loginId}) 파트너로 로그인합니다. 계속 진행하시겠습니까?`)
         .then(() => {
           // 사용자 메뉴 초기화
           this.$store.dispatch('sidebar/setMenus', null)

@@ -7,7 +7,7 @@
       <v-row>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">패키지</div>
-          <v-text-field v-model="form.pkgNm" dense
+          <v-text-field v-model="form.pkgName" dense
                         :rules="emptyRules"
                         @click="openPackagePopup(form)"
                         placeholder="패키지를 선택 해주세요."
@@ -38,7 +38,7 @@
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">예약블럭</div>
-          <v-text-field v-model="form.rsvBlckCd" dense
+          <v-text-field v-model="form.rsvBlckCode" dense
                         placeholder="패키지를 선택 해주세요."
                         :rules="emptyRules"
                         readonly
@@ -48,28 +48,28 @@
       <v-row>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">영업장</div>
-          <v-autocomplete v-model="form.storeCd" dense
+          <v-autocomplete v-model="form.storeCode" dense
                           autocomplete="off"
                           :items="storeList"
-                          :item-value="'storeCd'"
-                          :item-text="'storeNm'"
+                          :item-value="'storeCode'"
+                          :item-text="'storeName'"
                           placeholder="영업장을 선택 해주세요."
                           :rules="emptyRules"
-                          @change="changeRmtypeCd(form.storeCd)"
+                          @change="changeRmtypeCode(form.storeCode)"
           />
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">객실유형</div>
-          <v-autocomplete v-model="form.rmTypeCd" dense
+          <v-autocomplete v-model="form.rmTypeCode" dense
                           :items="rmTypeList"
-                          :item-value="'rmTypeCd'"
-                          :item-text="'rmTypeNm'"
+                          :item-value="'rmTypeCode'"
+                          :item-text="'rmTypeName'"
                           placeholder="객실유형을 선택 해주세요."
                           :rules="emptyRules" />
         </v-col>
       </v-row>
     </v-form>
-    <template v-slot:actions v-if="this.aprlCd === '' || this.aprlCd === 'A'">
+    <template v-slot:actions v-if="this.aprlCode === '' || this.aprlCode === 'A'">
       <v-btn v-if="writeAuth" color="info" rounded @click="submit"><v-icon left>check</v-icon>등록 (F4)</v-btn>
       <v-btn color="primary" rounded @click="close"><v-icon left>close</v-icon>닫기</v-btn>
     </template>
@@ -77,8 +77,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import packageService from 'Api/modules/ota/package.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import packageService from '@/api/modules/ota/package.service'
 
 export default {
   extends: DialogBase,
@@ -88,14 +88,14 @@ export default {
       // 파라미터
       form: {
         pkgNo: '',
-        pkgNm: '',
-        storeCd: '',
-        storeNm: '',
-        rmTypeCd: '',
-        rmTypeNm: '',
+        pkgName: '',
+        storeCode: '',
+        storeName: '',
+        rmTypeCode: '',
+        rmTypeName: '',
         nights: '',
         rmCnt: '',
-        aprlCd: '',
+        aprlCode: '',
         saleBgnYmd: '',
         saleEndYmd: '',
         todayRsvYn: '',
@@ -106,7 +106,7 @@ export default {
       // 예약가능 객실 리스트
       rmTypeList: [],
       // 신청 상태
-      aprlCd: '',
+      aprlCode: '',
       // 패키지예약 신청 목록
       pkgPutInList: []
     }
@@ -114,7 +114,7 @@ export default {
   mounted () {
     try {
       // 파라미터 셋팅
-      this.aprlCd = this.instance.params.aprlCd
+      this.aprlCode = this.instance.params.aprlCode
       // 패키지예약 신청 목록 셋팅
       this.pkgPutInList = this.instance.params.pkgPutInList
       // 수정 상태 이며, 상태값이 신청인 경우
@@ -144,10 +144,10 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.$set(this.form, 'pkgNo', params.data.pkgNo)
-              this.$set(this.form, 'pkgNm', params.data.pkgNm)
+              this.$set(this.form, 'pkgName', params.data.pkgName)
               this.$set(this.form, 'rmCnt', params.data.rmCnt)
               this.$set(this.form, 'nights', params.data.stayNights)
-              this.$set(this.form, 'rsvBlckCd', params.data.rsvBlckCd)
+              this.$set(this.form, 'rsvBlckCode', params.data.rsvBlckCode)
               this.$set(this.form, 'saleBgnYmd', params.data.saleBgnYmd)
               this.$set(this.form, 'saleEndYmd', params.data.saleEndYmd)
               this.$set(this.form, 'todayRsvYn', params.data.todayRsvYn)
@@ -171,10 +171,10 @@ export default {
     },
     /**
      * 영업장 선택 이벤트
-     * @param storeCd 선택 영업장코드
+     * @param storeCode 선택 영업장코드
      */
-    changeRmtypeCd (storeCd) {
-      const index = this.storeList.findIndex(data => data.storeCd === storeCd)
+    changeRmtypeCode (storeCode) {
+      const index = this.storeList.findIndex(data => data.storeCode === storeCode)
       if (index > -1 && this.storeList[index].rmTypeList) {
         this.rmTypeList = []
         this.rmTypeList = this.storeList[index].rmTypeList
@@ -187,9 +187,9 @@ export default {
       try {
         await this.validForm(this.$refs.form)
         // 영업장명 가져오기
-        this.form.storeNm = this.storeList.find(item => item.storeCd === this.form.storeCd).storeNm
+        this.form.storeName = this.storeList.find(item => item.storeCode === this.form.storeCode).storeName
         // 객실유형명 가져오기
-        this.form.rmTypeNm = this.rmTypeList.find(item => item.rmTypeCd === this.form.rmTypeCd).rmTypeNm
+        this.form.rmTypeName = this.rmTypeList.find(item => item.rmTypeCode === this.form.rmTypeCode).rmTypeName
         // 중복체크
         if (this.duplicateCheck(this.form)) {
           this.close({
@@ -204,8 +204,8 @@ export default {
     duplicateCheck (item) {
       for (const row of this.pkgPutInList) {
         if (row.pkgNo === item.pkgNo &&
-              row.storeCd === item.storeCd &&
-              row.rmTypeCd === item.rmTypeCd) {
+              row.storeCode === item.storeCode &&
+              row.rmTypeCode === item.rmTypeCode) {
           this.$dialog.alert('이미 등록된 패키지 정보입니다. 다른 패키지 정보로 시도해주세요.')
           return false
         }

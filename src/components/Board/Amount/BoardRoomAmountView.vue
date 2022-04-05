@@ -4,7 +4,7 @@
       <v-col md="6" cols="12">
         <v-label>회원</v-label>
         <v-text-field
-          :value="form.memNm"
+          :value="form.memName"
           hide-details
           dense
           readonly
@@ -24,7 +24,7 @@
       <v-col md="6" cols="12">
         <v-label>영업장</v-label>
         <v-text-field
-          :value="form.storeNm"
+          :value="form.storeName"
           hide-details
           dense
           readonly
@@ -32,7 +32,7 @@
           @click="openStorePopup"
         >
           <template v-slot:prepend-inner>
-            <v-chip x-small class="mt-2" v-if="form.storeCd">{{ form.storeCd }}</v-chip>
+            <v-chip x-small class="mt-2" v-if="form.storeCode">{{ form.storeCode }}</v-chip>
           </template>
           <template v-slot:append>
             <v-btn icon small color="primary" tabindex="-1" @click="openStorePopup">
@@ -44,10 +44,10 @@
       <v-col md="6" cols="12">
         <v-label>객실유형</v-label>
         <v-select
-          v-model="form.rmTypeCds"
+          v-model="form.rmTypeCodes"
           :items="roomTypeList"
-          item-value="rmTypeCd"
-          item-text="rmTypeNm"
+          item-value="rmTypeCode"
+          item-text="rmTypeName"
           multiple
           required
           placeholder="객실유형을 선택해 주세요."
@@ -67,25 +67,25 @@
                 <v-icon>{{ getRoomTypeSelectIcon(item) }}</v-icon>
               </v-list-item-action>
               <v-list-item-action>
-                <v-chip x-small class="mr-1">{{ item.rmTypeCd }}</v-chip>
+                <v-chip x-small class="mr-1">{{ item.rmTypeCode }}</v-chip>
               </v-list-item-action>
-              <v-list-item-content>{{ item.rmTypeNm }}</v-list-item-content>
+              <v-list-item-content>{{ item.rmTypeName }}</v-list-item-content>
             </v-list-item>
           </template>
           <template v-slot:selection="{ item, index }">
             <template v-if="index === 0">
-              <template v-if="form.rmTypeCds.length === roomTypeList.length">
+              <template v-if="form.rmTypeCodes.length === roomTypeList.length">
                 <span>전체 객실유형</span>
               </template>
               <template v-else>
-                <v-chip x-small class="mt-1 mr-1">{{ item.rmTypeCd }}</v-chip>
-                <span class="body-2">{{ item.rmTypeNm }}</span>
+                <v-chip x-small class="mt-1 mr-1">{{ item.rmTypeCode }}</v-chip>
+                <span class="body-2">{{ item.rmTypeName }}</span>
               </template>
             </template>
             <span
-              v-if="form.rmTypeCds.length !== roomTypeList.length && index === 1"
+              v-if="form.rmTypeCodes.length !== roomTypeList.length && index === 1"
               class="grey--text body-2 ml-1"
-            >외 {{ form.rmTypeCds.length - 1 }}개 객실유형</span>
+            >외 {{ form.rmTypeCodes.length - 1 }}개 객실유형</span>
           </template>
         </v-select>
         <v-text-field disabled placeholder="먼저 영업장을 선택해 주세요." v-else></v-text-field>
@@ -135,10 +135,10 @@
         <v-row class="mt-6 mb-1">
           <v-col md="9" cols="12" class="text-md-left text-center">
             <v-chip x-small class="mr-1">{{ roomAmount.searchParam.memNo }}</v-chip>
-            <span class="body-2">{{ roomAmount.searchParam.memNm }}</span>
+            <span class="body-2">{{ roomAmount.searchParam.memName }}</span>
             <span class="grey--text caption ml-2 mr-2">/</span>
-            <v-chip x-small class="mr-1">{{ roomAmount.searchParam.storeCd }}</v-chip>
-            <span class="body-2">{{ roomAmount.searchParam.storeNm}}</span>
+            <v-chip x-small class="mr-1">{{ roomAmount.searchParam.storeCode }}</v-chip>
+            <span class="body-2">{{ roomAmount.searchParam.storeName}}</span>
           </v-col>
           <v-col md="3" cols="12" class="text-md-right text-center">
             <span
@@ -172,11 +172,11 @@
         <template v-slot:body>
           <tbody>
             <template v-for="roomAmountItem in roomAmount.roomAmountList">
-              <tr :key="roomAmountItem.rmTypeCd">
+              <tr :key="roomAmountItem.rmTypeCode">
                 <td
                   class="text-right fixed_column"
                   :class="{ 'grey lighten-2 grey--text': !roomAmountItem.amount }"
-                >{{ roomAmountItem.rmTypeNm }}</td>
+                >{{ roomAmountItem.rmTypeName }}</td>
                 <template v-if="roomAmountItem.amount">
                   <td
                     class="text-right"
@@ -223,9 +223,9 @@
 </template>
 
 <script>
-import excelMixin from 'Mixins/excelMixin'
-import boardAmountService from 'Api/modules/system/boardAmount.service'
-import roomTypeService from 'Api/modules/ota/roomType.service'
+import excelMixin from '@/mixins/excelMixin'
+import boardAmountService from '@/api/modules/system/boardAmount.service'
+import roomTypeService from '@/api/modules/ota/roomType.service'
 
 export default {
   name: 'BoardRoomAmountView',
@@ -239,13 +239,13 @@ export default {
         // 회원번호
         memNo: null,
         // 회원명
-        memNm: null,
+        memName: null,
         // 영업장코드
-        storeCd: null,
+        storeCode: null,
         // 영업장명
-        storeNm: null,
+        storeName: null,
         // 객실유형코드 목록
-        rmTypeCds: [],
+        rmTypeCodes: [],
         // 조회기간
         dateRange: [
           moment(this.nowYmd).format('YYYYMMDD'),
@@ -271,11 +271,11 @@ export default {
      * 객실유형 선택항목 체크박스 아이콘
      */
     roomTypeSelectIcon () {
-      if (this.roomTypeList.length === this.form.rmTypeCds.length) {
+      if (this.roomTypeList.length === this.form.rmTypeCodes.length) {
         return 'check_box'
       } else if (
         this.roomTypeList.length > 0 &&
-        this.form.rmTypeCds.length > 0
+        this.form.rmTypeCodes.length > 0
       ) {
         return 'indeterminate_check_box'
       }
@@ -436,7 +436,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.form.memNo = params.data.memNo
-              this.form.memNm = params.data.memNm
+              this.form.memName = params.data.memName
             }
           }
         }
@@ -461,8 +461,8 @@ export default {
           width: 900,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.form.storeCd = params.data.storeCd
-              this.form.storeNm = params.data.storeNm
+              this.form.storeCode = params.data.storeCode
+              this.form.storeName = params.data.storeName
               this.selectStoreRoomUseList()
             }
           }
@@ -473,8 +473,8 @@ export default {
      * 영업장의 객실유형 목록 조회
      */
     async selectStoreRoomUseList () {
-      this.form.rmTypeCds = []
-      const res = await roomTypeService.selectStoreRoomUseList(this.form.storeCd)
+      this.form.rmTypeCodes = []
+      const res = await roomTypeService.selectStoreRoomUseList(this.form.storeCode)
       this.roomTypeList = res.data
       this.chooseAllRoomType()
     },
@@ -488,12 +488,12 @@ export default {
         return
       }
       // 영업장코드
-      if (!this.form.storeCd) {
+      if (!this.form.storeCode) {
         this.$dialog.alert('영업장을 선택해 주세요.')
         return
       }
       // 객실유형
-      if (this.form.rmTypeCds.length === 0) {
+      if (this.form.rmTypeCodes.length === 0) {
         this.$dialog.alert('객실유형을 하나 이상 선택해 주세요.')
         return
       }
@@ -513,15 +513,15 @@ export default {
       this.roomAmount = null
       const searchParam = {
         memNo: this.form.memNo,
-        storeCd: this.form.storeCd,
-        rmTypeCds: this.form.rmTypeCds.join(','),
+        storeCode: this.form.storeCode,
+        rmTypeCodes: this.form.rmTypeCodes.join(','),
         startYmd: this.form.dateRange[0],
         endYmd: this.form.dateRange[1]
       }
       await this.selectBoardRoomAmount(
         searchParam,
-        this.form.memNm,
-        this.form.storeNm
+        this.form.memName,
+        this.form.storeName
       )
     },
     /**
@@ -531,15 +531,15 @@ export default {
       if (this.isAllowPrevSearch === true) {
         const searchParam = {
           memNo: this.roomAmount.searchParam.memNo,
-          storeCd: this.roomAmount.searchParam.storeCd,
-          rmTypeCds: this.roomAmount.searchParam.rmTypeCds,
+          storeCode: this.roomAmount.searchParam.storeCode,
+          rmTypeCodes: this.roomAmount.searchParam.rmTypeCodes,
           startYmd: this.prevStartYmd,
           endYmd: this.prevEndYmd
         }
         this.selectBoardRoomAmount(
           searchParam,
-          this.roomAmount.searchParam.memNm,
-          this.roomAmount.searchParam.storeNm
+          this.roomAmount.searchParam.memName,
+          this.roomAmount.searchParam.storeName
         )
       }
     },
@@ -550,27 +550,27 @@ export default {
       if (this.isAllowNextSearch === true) {
         const searchParam = {
           memNo: this.roomAmount.searchParam.memNo,
-          storeCd: this.roomAmount.searchParam.storeCd,
-          rmTypeCds: this.roomAmount.searchParam.rmTypeCds,
+          storeCode: this.roomAmount.searchParam.storeCode,
+          rmTypeCodes: this.roomAmount.searchParam.rmTypeCodes,
           startYmd: this.nextStartYmd,
           endYmd: this.nextEndYmd
         }
         this.selectBoardRoomAmount(
           searchParam,
-          this.roomAmount.searchParam.memNm,
-          this.roomAmount.searchParam.storeNm
+          this.roomAmount.searchParam.memName,
+          this.roomAmount.searchParam.storeName
         )
       }
     },
     /**
      * 객실 요금 조회
      */
-    async selectBoardRoomAmount (searchParam, memNm, storeNm) {
+    async selectBoardRoomAmount (searchParam, memName, storeName) {
       const res = await boardAmountService.selectBoardRoomAmount({
         q: searchParam
       })
-      searchParam.memNm = memNm
-      searchParam.storeNm = storeNm
+      searchParam.memName = memName
+      searchParam.storeName = storeName
       this.roomAmount = Object.assign(
         {},
         {
@@ -586,7 +586,7 @@ export default {
      */
     async downloadRoomAmountExcel () {
       this.downLoadExcel(
-        '/api/system/board/amount/room/excel',
+        '/api/cms/system/board/amount/room/excel',
         '객실 요금 조회',
         {
           q: this.roomAmount.searchParam
@@ -600,12 +600,12 @@ export default {
       if (!this.roomTypeList || this.roomTypeList.length === 0) {
         return false
       }
-      if (this.form.rmTypeCds.length > 0) {
-        this.form.rmTypeCds = []
+      if (this.form.rmTypeCodes.length > 0) {
+        this.form.rmTypeCodes = []
       } else {
-        this.form.rmTypeCds = []
+        this.form.rmTypeCodes = []
         this.roomTypeList.forEach((roomType) => {
-          this.form.rmTypeCds.push(roomType.rmTypeCd)
+          this.form.rmTypeCodes.push(roomType.rmTypeCode)
         })
       }
     },
@@ -614,9 +614,9 @@ export default {
      */
     getRoomTypeSelectIcon (item) {
       let isSelected = false
-      if (this.form.rmTypeCds) {
-        this.form.rmTypeCds.some((rmTypeCd) => {
-          if (rmTypeCd === item.rmTypeCd) {
+      if (this.form.rmTypeCodes) {
+        this.form.rmTypeCodes.some((rmTypeCode) => {
+          if (rmTypeCode === item.rmTypeCode) {
             isSelected = true
           }
           return isSelected

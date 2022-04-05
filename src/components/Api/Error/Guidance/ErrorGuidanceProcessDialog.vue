@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import errorGuidanceService from 'Api/modules/api/errorGuidance.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import errorGuidanceService from '@/api/modules/api/errorGuidance.service'
 
 export default {
   name: 'ErrorGuidanceViewDialog',

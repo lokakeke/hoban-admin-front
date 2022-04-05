@@ -7,7 +7,7 @@
       <v-row>
         <v-col cols="4">
           <v-label>닉네임</v-label>
-          <v-text-field v-model="form.chrgNm" label="" :rules="emptyRules" clearable></v-text-field>
+          <v-text-field v-model="form.chrgName" label="" :rules="emptyRules" clearable></v-text-field>
         </v-col>
         <v-col cols="4">
           <v-label>휴대폰 번호</v-label>
@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import partnerChargeService from 'Api/modules/partner/partnerCharge.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -73,9 +73,9 @@ export default {
     },
     async deleteCharge () {
       try {
-        await this.$dialog.confirm(`담당자(${this.form.chrgNm})를 삭제 하시겠습니까?`)
+        await this.$dialog.confirm(`담당자(${this.form.chrgName})를 삭제 하시겠습니까?`)
         await partnerChargeService.deletePartnerCharge(this.form.ptnrNo, this.form.ptnrChrgId)
-        await this.$dialog.alert(`담당자(${this.form.chrgNm})를 삭제 하였습니다.`)
+        await this.$dialog.alert(`담당자(${this.form.chrgName})를 삭제 하였습니다.`)
         this.close({ search: true })
       } catch (e) {}
     }

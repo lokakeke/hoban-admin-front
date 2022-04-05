@@ -7,9 +7,9 @@
       <v-row>
         <v-col sm="4" md="6">
           <v-label>법인구분</v-label>
-          <v-select v-model="form.corpInd" :items="corpIndList" item-text="commCdNm" item-value="commCd">
-            <template v-slot:item="{ item }">{{ item.commCdNm }} <span v-if="item.commCd === 'D'">({{ptnrNm}})</span></template>
-            <template v-slot:selection="{ item }">{{ item.commCdNm }} <span v-if="item.commCd === 'D'">({{ptnrNm}})</span></template>
+          <v-select v-model="form.corpInd" :items="corpIndList" item-text="commCodeName" item-value="commCode">
+            <template v-slot:item="{ item }">{{ item.commCodeName }} <span v-if="item.commCode === 'D'">({{ptnrName}})</span></template>
+            <template v-slot:selection="{ item }">{{ item.commCodeName }} <span v-if="item.commCode === 'D'">({{ptnrName}})</span></template>
           </v-select>
         </v-col>
         <v-col sm="12" md="6">
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   extends: DialogBase,
@@ -52,7 +52,7 @@ export default {
     if (this.instance.params) {
       this.isNew = this.instance.params.isNew
       this.form = this.instance.params.commForm
-      this.ptnrNm = this.instance.params.ptnrNm
+      this.ptnrName = this.instance.params.ptnrName
     }
     // 법인구분 공통코드 조회
     this.getCommonCode()
@@ -65,9 +65,9 @@ export default {
         if (res.data) {
           // 판매업체명
           // res.data.forEach(item => {
-          //   if (item.commCd === 'D') {
-          //     console.log(item.commCdNm)
-          //     item.commCdNm = (item.commCdNm + ' (' + this.ptnrNm + ')')
+          //   if (item.commCode === 'D') {
+          //     console.log(item.commCodeName)
+          //     item.commCodeName = (item.commCodeName + ' (' + this.ptnrName + ')')
           //   }
           // })
           this.corpIndList = res.data

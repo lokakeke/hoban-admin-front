@@ -3,11 +3,11 @@
     <template v-slot:title>
       파트너 패키지예약 상세
       <span class="ml-3 font-weight-bold">
-        <span v-if="form.aprlCd === 'A'" :class="form.cancelYn === 'Y'? 'warning--text': ''">
+        <span v-if="form.aprlCode === 'A'" :class="form.cancelYn === 'Y'? 'warning--text': ''">
           {{' - ' + (form.cancelYn === 'Y' ? '취소 됨' : '신청 중')}}
         </span>
-        <span v-else-if="form.aprlCd">
-          {{' - 처리완료 : ' + form.aprlNm}}
+        <span v-else-if="form.aprlCode">
+          {{' - 처리완료 : ' + form.aprlName}}
         </span>
       </span>
     </template>
@@ -15,7 +15,7 @@
       <v-row>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">대매사</div>
-          <v-text-field v-model="form.agentCdNm" dense readonly />
+          <v-text-field v-model="form.agentCodeName" dense readonly />
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">이용자 명</div>
@@ -39,7 +39,7 @@
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">파트너</div>
-          <v-text-field v-model="form.ptnrNm" dense readonly />
+          <v-text-field v-model="form.ptnrName" dense readonly />
         </v-col>
       </v-row>
       <v-row>
@@ -66,30 +66,30 @@
                   <template v-slot:item.saleBgnYmd="{item}">
                     {{item.saleBgnYmd | date}} ~ {{item.saleEndYmd | date}}
                   </template>
-                  <template v-slot:item.pkgNm="{item}">
-                    {{item.pkgNm}} ({{item.pkgNo}})
+                  <template v-slot:item.pkgName="{item}">
+                    {{item.pkgName}} ({{item.pkgNo}})
                   </template>
                   <template v-slot:item.defaultBlck="{item}">
-                    <span v-if="form.aprlCd === 'A'" class="pinter blue--text">
+                    <span v-if="form.aprlCode === 'A'" class="pinter blue--text">
                       <v-chip :color="item.defaultBlck > 0 && item.specialBlck  > 0 ? 'gray' : 'primary'" @click="oepnBlckList(item)">
-                        {{item.rsvBlckCd + ' : ' + (item.defaultBlck > 0 ? '부족' : '가능')
+                        {{item.rsvBlckCode + ' : ' + (item.defaultBlck > 0 ? '부족' : '가능')
                         + ' / 104 : ' +  (item.specialBlck  > 0 ? '부족' : '가능') }}
                       </v-chip>
                     </span>
                     <span v-else>
                       <v-chip color="info">
-                        {{item.rsvBlckCd + ' : ' + (item.defaultBlck > 0 ? '부족' : '가능')
+                        {{item.rsvBlckCode + ' : ' + (item.defaultBlck > 0 ? '부족' : '가능')
                         + ' / 104 : ' +  (item.specialBlck  > 0 ? '부족' : '가능') }}
                       </v-chip>
                     </span>
                   </template>
-                  <template v-slot:item.rsvBlckCd="{item}">
-                    <v-radio-group v-if="form.aprlCd === 'A'" v-model="item.reserveBlckCd" row>
-                      <v-radio :label="item.rsvBlckCd" :value="item.rsvBlckCd"></v-radio>
+                  <template v-slot:item.rsvBlckCode="{item}">
+                    <v-radio-group v-if="form.aprlCode === 'A'" v-model="item.reserveBlckCode" row>
+                      <v-radio :label="item.rsvBlckCode" :value="item.rsvBlckCode"></v-radio>
                       <v-radio label="104" value="104"></v-radio>
                     </v-radio-group>
                     <span v-else>
-                      {{item.rsvBlckCd}}
+                      {{item.rsvBlckCode}}
                     </span>
                   </template>
                 </v-data-table>
@@ -99,13 +99,13 @@
       </v-row>
     </app-card>
     <div v-if="form.cancelYn === 'Y'"></div>
-    <app-card heading="패키지예약 신청내역 처리" custom-classes="border" content-classes="pt-2" class="pt-2" v-else-if="form.aprlCd === 'A'">
+    <app-card heading="패키지예약 신청내역 처리" custom-classes="border" content-classes="pt-2" class="pt-2" v-else-if="form.aprlCode === 'A'">
       <v-form ref="replyForm" lazy-validation autocomplete="off">
         <v-row>
           <v-col cols="3">
             <div class="font-weight-bold info--text body-1">처리 상태</div>
-            <v-radio-group v-model="replyForm.aprlCd" row class="mt-2"
-                           :rules="emptyRules" @change="changeAprlCd">
+            <v-radio-group v-model="replyForm.aprlCode" row class="mt-2"
+                           :rules="emptyRules" @change="changeAprlCode">
               <v-radio label="승인" value="B"></v-radio>
               <v-radio label="불가" value="C"></v-radio>
             </v-radio-group>
@@ -142,10 +142,10 @@
       <v-row>
         <v-col cols="2">
           <div class="font-weight-bold info--text body-1">처리 상태</div>
-          <v-text-field :value="form.aprlNm" dense readonly hide-details
-                        :class="form.aprlCd === 'B'? 'approval' : form.aprlCd === 'C' ? 'restoration' : 'application'" />
+          <v-text-field :value="form.aprlName" dense readonly hide-details
+                        :class="form.aprlCode === 'B'? 'approval' : form.aprlCode === 'C' ? 'restoration' : 'application'" />
         </v-col>
-        <template v-if="form.aprlCd === 'B'">
+        <template v-if="form.aprlCode === 'B'">
           <v-col cols="2">
             <div class="font-weight-bold info--text body-1">예약번호</div>
             <v-text-field :value="form.rsvNo" dense readonly hide-details>
@@ -173,7 +173,7 @@
         </v-col>
         <v-col cols="2">
           <div class="font-weight-bold info--text body-1">처리 담당자</div>
-          <v-text-field :value="form.aprlChrgNm" dense readonly hide-details />
+          <v-text-field :value="form.aprlChrgName" dense readonly hide-details />
         </v-col>
       </v-row>
       <v-row>
@@ -201,8 +201,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import partnerPkgReservationService from 'Api/modules/partner/partnerPkgReservation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import partnerPkgReservationService from '@/api/modules/partner/partnerPkgReservation.service'
 
 export default {
   extends: DialogBase,
@@ -215,20 +215,20 @@ export default {
       // 신청 정보 데이터
       form: {
         pkgNo: '',
-        pkgNm: '',
-        agentCd: '',
-        agnetCdNm: '',
+        pkgName: '',
+        agentCode: '',
+        agnetCodeName: '',
         userName: '',
         userTel: '',
-        storeCd: '',
-        rmTypeCd: '',
+        storeCode: '',
+        rmTypeCode: '',
         ciYmd: '',
         nights: '',
         rmCnt: '',
-        rsvBlckCd: '',
-        aprlCd: '',
-        aprlNm: '',
-        aprlChrgNm: '',
+        rsvBlckCode: '',
+        aprlCode: '',
+        aprlName: '',
+        aprlChrgName: '',
         memo: '',
         errMsg: '',
         rsvNo: '',
@@ -241,8 +241,8 @@ export default {
       replyForm: {
         memo: '',
         errMsg: '',
-        aprlCd: '',
-        rsvBlckCd: '',
+        aprlCode: '',
+        rsvBlckCode: '',
         selectedList: []
       },
       // 수정 가능 여부
@@ -260,10 +260,10 @@ export default {
       this.headers = [
         { text: '선택', value: 'data-table-select', align: 'center' },
         { text: '잔여블럭여부', value: 'defaultBlck', align: 'center' },
-        { text: '예약블럭', value: 'rsvBlckCd', align: 'center' },
-        { text: '패키지명', value: 'pkgNm', align: 'center' },
-        { text: '영업장명', value: 'storeNm', align: 'center' },
-        { text: '객실유형명', value: 'rmTypeNm', align: 'center' },
+        { text: '예약블럭', value: 'rsvBlckCode', align: 'center' },
+        { text: '패키지명', value: 'pkgName', align: 'center' },
+        { text: '영업장명', value: 'storeName', align: 'center' },
+        { text: '객실유형명', value: 'rmTypeName', align: 'center' },
         { text: '객실수', value: 'rmCnt', align: 'center' },
         { text: '박수', value: 'nights', align: 'center' },
         { text: '판매기간', value: 'saleBgnYmd', align: 'center' },
@@ -285,7 +285,7 @@ export default {
         if (this.param.appSeq) {
           const res = await partnerPkgReservationService.selectPartnerPkgRsvApplyDataList(this.param.appSeq)
           this.form = res.data
-          if (res.data.aprlCd === 'B') {
+          if (res.data.aprlCode === 'B') {
             this.replyForm.selectedList = res.data.pkgPutInList.filter(data => data.rsvNo !== undefined)
           }
           this.canSubmit = res.data.canSubmit
@@ -303,12 +303,12 @@ export default {
         if (!this.canSubmit) {
           return
         }
-        if (this.replyForm.selectedList.length < 1 && this.replyForm.aprlCd === 'B') {
+        if (this.replyForm.selectedList.length < 1 && this.replyForm.aprlCode === 'B') {
           this.$dialog.alert('패키지예약 신청 목록을 선택해 주세요.')
           return
         }
-        if (this.replyForm.selectedList.length > 0 && this.replyForm.aprlCd === 'B') {
-          if (this.replyForm.selectedList[0].reserveBlckCd === undefined) {
+        if (this.replyForm.selectedList.length > 0 && this.replyForm.aprlCode === 'B') {
+          if (this.replyForm.selectedList[0].reserveBlckCode === undefined) {
             this.$dialog.alert('선택한 신청목록 내 예약블럭을 선택해 주세요.')
             return
           }
@@ -317,14 +317,14 @@ export default {
         await this.validForm(this.$refs.replyForm)
         let confirmMsg = '패키지예약 신청을 처리 하시겠습니까?<br/>승인인 경우에도 예약실패 시 승인되지 않습니다.'
         // 재고 오버부킹 가능 여부 조회
-        if (this.replyForm.aprlCd === 'B') {
+        if (this.replyForm.aprlCode === 'B') {
           if (this.replyForm.selectedList[0].defaultBlck === undefined || this.replyForm.selectedList[0].specialBlck === undefined) {
             this.$dialog.alert('일시적 오류가 발생하였습니다.')
             return
           }
 
-          if ((this.replyForm.selectedList[0].reserveBlckCd ===
-                this.replyForm.selectedList[0].rsvBlckCd
+          if ((this.replyForm.selectedList[0].reserveBlckCode ===
+                this.replyForm.selectedList[0].rsvBlckCode
             ? this.replyForm.selectedList[0].defaultBlck
             : this.replyForm.selectedList[0].specialBlck) > 0) {
             confirmMsg += '<br/><br/>신청 재고가 D.G.N.S 선택재고보다 많습니다.<br/>오버부킹이 가능한 관리자 이면 오버부킹 처리가 됩니다. 그래도 진행 하시겠습니까?'
@@ -368,9 +368,9 @@ export default {
     /**
      * 처리상태 불가일 시 블럭코드 초기화
      */
-    changeAprlCd () {
-      if (this.replyForm.aprlCd === 'C') {
-        this.replyForm.rsvBlckCd = ''
+    changeAprlCode () {
+      if (this.replyForm.aprlCode === 'C') {
+        this.replyForm.rsvBlckCode = ''
       }
     },
     changeAppSeq (changeAppSeq) {

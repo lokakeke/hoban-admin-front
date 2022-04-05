@@ -1,40 +1,40 @@
 import Full from 'Container/Full.vue'
 
 // menu
-const Menu = () => import('Views/system/menu/MenuManagement.vue')
+const Menu = () => import('@/views/system/menu/Menu.vue')
 
 // menu auth
-const MenuAuth = () => import('Views/system/menu/MenuAuthGroupManagement.vue')
+const MenuAuth = () => import('@/views/system/menu/MenuAuthGroup.vue')
 
 // 파트너 menu auth
 const PartnerAuth = () =>
-  import('Views/partner/menu/PartnerMenuAuthManagement.vue')
+  import('@/views/partner/menu/PartnerMenuAuth.vue')
 
 // account
-const AccountManagement = () =>
-  import('Views/system/account/AccountManagement.vue')
+const Account = () =>
+  import('@/views/system/account/Account.vue')
 
 // 공통 코드
-const CommonCode = () => import('Views/system/commonCode/CommonCode.vue')
+const CommonCode = () => import('@/views/system/commonCode/CommonCode.vue')
 
 // 알림 설정
 const Notification = () =>
-  import('Views/system/notification/NotificationManagement.vue')
+  import('@/views/system/notification/Notification.vue')
 
 // 문자 알림 설정
 const SMSNotification = () =>
-  import('Views/system/notification/SMSNotificationManagement.vue')
+  import('@/views/system/notification/SMSNotification.vue')
 
 // 내부 IP 관리
-const IpManagement = () => import('Views/system/ip/IpManagement.vue')
+const Ip = () => import('@/views/system/ip/Ip.vue')
 
 // 전체 알림 게시판
 const NotificationBoard = () =>
-  import('Views/system/notification/NotificationBoard.vue')
+  import('@/views/system/notification/NotificationBoard.vue')
 
 // 예약 제한
 const ReservationExcept = () =>
-  import('Views/system/reservationExcept/ReservationExcept.vue')
+  import('@/views/system/reservationExcept/ReservationExcept.vue')
 
 export default {
   path: '/system',
@@ -46,86 +46,86 @@ export default {
   },
   children: [
     {
-      path: 'menuManagement',
+      path: 'menu',
       component: Menu,
-      name: 'menuManagement',
+      name: 'menu',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '메뉴 관리',
-        breadcrumb: 'Menu Management'
+        breadcrumb: 'Menu'
       }
     },
     {
-      path: 'menuAuthManagement',
+      path: 'menuAuth',
       component: MenuAuth,
-      name: 'menuAuthManagement',
+      name: 'menuAuth',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '메뉴 권한 관리',
-        breadcrumb: 'Menu Auth Management'
+        breadcrumb: 'Menu Auth'
       }
     },
     {
-      path: 'accountManagement',
-      component: AccountManagement,
-      name: 'accountManagement',
+      path: 'account',
+      component: Account,
+      name: 'account',
       meta: {
         auth: true,
         title: '관리자 관리',
         checkPassword: false,
-        breadcrumb: 'Account Management'
+        breadcrumb: 'Account'
       }
     },
     {
-      path: 'commonCodeManagement',
+      path: 'commonCode',
       component: CommonCode,
-      name: 'commonCodeManagement',
+      name: 'commonCode',
       meta: {
         auth: true,
         title: '공통코드 관리',
-        breadcrumb: 'Common Code Management'
+        breadcrumb: 'Common Code'
       }
     },
     {
-      path: 'notificationManagement',
+      path: 'notification',
       component: Notification,
-      name: 'notificationManagement',
+      name: 'notification',
       meta: {
         auth: true,
         title: '알림 관리',
-        breadcrumb: 'Notification Management'
+        breadcrumb: 'Notification'
       }
     },
     {
-      path: 'smsNotificationManagement',
+      path: 'smsNotification',
       component: SMSNotification,
-      name: 'smsNotificationManagement',
+      name: 'smsNotification',
       meta: {
         auth: true,
         title: '카카오 알림톡 관리',
-        breadcrumb: 'SMS Notification Management'
+        breadcrumb: 'SMS Notification'
       }
     },
     {
-      path: 'partnerMenuAuthManagement',
+      path: 'partnerMenuAuth',
       component: PartnerAuth,
-      name: 'partnerMenuAuthManagement',
+      name: 'partnerMenuAuth',
       meta: {
         auth: true,
         title: '파트너 메뉴권한 관리',
-        breadcrumb: 'Partner Menu Auth Management'
+        breadcrumb: 'Partner Menu Auth '
       }
     },
     {
-      path: 'ipManagement',
-      component: IpManagement,
-      name: 'ipManagement',
+      path: 'ip',
+      component: Ip,
+      name: 'ip',
       meta: {
         auth: true,
         title: '내부 IP 관리',
-        breadcrumb: 'Inbound Ip Management'
+        breadcrumb: 'Inbound Ip '
       }
     },
     {

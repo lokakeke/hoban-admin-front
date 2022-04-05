@@ -1,26 +1,26 @@
-import api from 'Api'
+import api from '@/api'
 
 export default {
 
   /**
    * 파트너의 객실 예약 가능여부 조회
    */
-  selectPossibleRoomInventory (rmTypeCd, param) {
-    return api.post(`/api/product/room/${rmTypeCd}`, param)
+  selectPossibleRoomInventory (rmTypeCode, param) {
+    return api.post(`/api/product/room/${rmTypeCode}`, param)
   },
 
   /**
    * 패키지 객실 예약 가능 여부 조회
    */
-  selectPossiblePkgInventory (rmTypeCd, param) {
-    return api.post(`/api/product/package/room/${rmTypeCd}`, param)
+  selectPossiblePkgInventory (rmTypeCode, param) {
+    return api.post(`/api/product/package/room/${rmTypeCode}`, param)
   },
 
   /**
    * 잔여 객실 현황 조회
    */
-  selectLeaveRooms (rsvBlckCd, param) {
-    return api.post(`/api/product/room/block/${rsvBlckCd}`, param)
+  selectLeaveRooms (rsvBlckCode, param) {
+    return api.post(`/api/product/room/block/${rsvBlckCode}`, param)
   },
 
   /**
