@@ -7,7 +7,7 @@
       <v-row>
         <v-col cols="6">
           <div class="v-label font-weight-bold info--text">KPI 구분 명</div>
-          <v-text-field v-model="form.kpiIndNm" hide-details :rules="emptyRules"></v-text-field>
+          <v-text-field v-model="form.kpiIndName" hide-details :rules="emptyRules"></v-text-field>
         </v-col>
         <v-col cols="6">
           <div class="v-label font-weight-bold info--text">사용 여부</div>
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import kpiService from 'Api/modules/social/kpi.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import kpiService from '@/api/modules/social/kpi.service'
 
 export default {
   extends: DialogBase,
@@ -38,7 +38,7 @@ export default {
       isNew: true,
       form: {
         kpiSeq: '',
-        kpiIndNm: '',
+        kpiIndName: '',
         useYn: 'Y'
       }
     }

@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 export default {
 
@@ -40,8 +40,8 @@ export default {
   /**
    * 패키지명 조회
    */
-  selectPkgNmSaleAdjust (param) {
-    return api.get(`/api/naver/calculate/saleAdjust/selectPkgNmSaleAdjust/${param.mid}`)
+  selectPkgNameSaleAdjust (param) {
+    return api.get(`/api/naver/calculate/saleAdjust/selectPkgNameSaleAdjust/${param.mid}`)
   },
 
   /**

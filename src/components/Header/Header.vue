@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import Sidebar from 'Components/Sidebar/Sidebar.vue'
-import Notifications from 'Components/Header/Notifications.vue'
-import PageTitleBar from 'Components/Header/PageTitleBar.vue'
+import Sidebar from '@/components/Sidebar/Sidebar.vue'
+import Notifications from '@/components/Header/Notifications.vue'
+import PageTitleBar from '@/components/Header/PageTitleBar.vue'
 import { mapActions, mapGetters } from 'vuex'
 import GnbMenu from '@/components/Sidebar/GnbMenu'
 
@@ -54,15 +54,8 @@ export default {
   data () {
     return {
       drawer: null,
-      backgroundImage: true, // 사이드바 백그라운드 이미지 노출 여부
+      backgroundImage: false, // 사이드바 백그라운드 이미지 노출 여부
       sidebarImages: '/static/img/session/crop_solbeach.jpg' // 사이드바 백그라운드 이미지 URL
-      /**
-             * '/static/img/session/crop_solbeach.jpg'
-             * '/static/img/session/crop_sonobelle.jpg'
-             * '/static/img/session/crop_sonocalm.jpg'
-             * '/static/img/session/crop_sonofelice.jpg'
-             * '/static/img/session/crop_sonomoon.jpg'
-             **/
     }
   },
   computed: {

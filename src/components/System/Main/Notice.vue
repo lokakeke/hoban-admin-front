@@ -1,5 +1,5 @@
 <template>
-  <app-card :heading="noticeTypeNm || '공지사항'" col-classes="col-6">
+  <app-card :heading="noticeTypeName || '공지사항'" col-classes="col-6">
     <v-col cols="12" class="primary--text pa-0 pb-2 pl-1">
       총 {{searchParam.total}} 건 {{searchParam.page}} / {{pages}} 페이지
     </v-col>
@@ -19,8 +19,8 @@
       <template v-slot:item.title="{item}">
         {{ item.title | textTruncate(20)}}
       </template>
-      <template v-slot:item.crtNm="{item}">
-        <mask-name :text="item.crtNm" auto-height />
+      <template v-slot:item.crtName="{item}">
+        <mask-name :text="item.crtName" auto-height />
       </template>
       <template v-slot:item.crtDt="{item}">
         {{ item.crtDt | date }}
@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import MaskName from 'Components/Mask/MaskName.vue'
-import boardNoticeService from 'Api/modules/system/boardNotice.service'
+import MaskName from '@/components/Mask/MaskName.vue'
+import boardNoticeService from '@/api/modules/system/boardNotice.service'
 
 export default {
   name: 'Notice',
@@ -45,7 +45,7 @@ export default {
     MaskName
   },
   props: {
-    noticeTypeNm: {
+    noticeTypeName: {
       type: String,
       default () {
         return ''
@@ -70,7 +70,7 @@ export default {
       headers: [
         {
           text: '공지유형',
-          value: 'noticeTypeNm',
+          value: 'noticeTypeName',
           align: 'center'
         },
         {
@@ -80,7 +80,7 @@ export default {
         },
         {
           text: '등록자',
-          value: 'crtNm',
+          value: 'crtName',
           align: 'center'
         },
         {
@@ -112,7 +112,7 @@ export default {
      */
     async selectBoardNoticeList () {
       // 공지유형 셋팅
-      this.searchParam.q.noticeTypeNm = this.noticeTypeNm
+      this.searchParam.q.noticeTypeName = this.noticeTypeName
       if (this.useYn) {
         this.searchParam.q.useYn = this.useYn
       }

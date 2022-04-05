@@ -25,9 +25,9 @@
                 :is="item.component"
                 :is-edit="isEdit"
                 :ref="item.name"
-                :store-cd-prop="storeCdProp"
+                :store-cd-prop="storeCodeProp"
                 @nextStep="nextStep($event)"
-                @setStoreCd="setStoreCd($event)"
+                @setStoreCode="setStoreCode($event)"
                 v-if="step === item.step"
               />
               <v-row>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import BasicInformation from './BasicInformation'
 import PartnerExceptionSetting from './PartnerExceptionSetting'
 import RoomTypeInformation from './RoomTypeInformation'
@@ -61,13 +61,13 @@ export default {
   name: 'StepperContainer',
   data () {
     return {
-      storeCdProp: '',
+      storeCodeProp: '',
       isEdit: Boolean,
       step: 1
     }
   },
   mounted () {
-    this.storeCdProp = this.instance.params.storeCd === '' ? '' : this.instance.params.storeCd
+    this.storeCodeProp = this.instance.params.storeCode === '' ? '' : this.instance.params.storeCd
     this.isEdit = this.instance.params.isEdit
   },
   computed: {

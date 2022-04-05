@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import calculationService from 'Api/modules/ota/calculation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import calculationService from '@/api/modules/ota/calculation.service'
 
 export default {
   extends: DialogBase,
@@ -37,7 +37,7 @@ export default {
 
       tableHeaders: [
         { text: '파트너번호', value: 'ptnrNo', align: 'center', width: '20%' },
-        { text: '파트너명', value: 'ptnrNm', align: 'center', width: '60%' },
+        { text: '파트너명', value: 'ptnrName', align: 'center', width: '60%' },
         { text: '승인시간', value: 'ptnrAprlDt', align: 'center', width: '20%' },
         { text: '정산유무', value: 'calcYn', align: 'center', width: '20%' }
       ],

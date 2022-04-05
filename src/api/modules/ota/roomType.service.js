@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const roomTypeService = {
   /**
@@ -31,18 +31,18 @@ const roomTypeService = {
   /**
    * @returns 블록코드 리스트
    */
-  selectBlckCd () {
+  selectBlckCode () {
     return api.get('/api/ota/room/blocks')
   },
 
   /**
    * @returns 객실유형 기본정보 조회
    */
-  selectRoomTypeInformation (storeCd) {
-    return api.get(`/api/ota/room/store/${storeCd}`)
+  selectRoomTypeInformation (storeCode) {
+    return api.get(`/api/ota/room/store/${storeCode}`)
   },
-  selectRoomTypeInformationPartner (storeCd, ptnrNo) {
-    return api.get(`/api/ota/room/store/${storeCd}`, {
+  selectRoomTypeInformationPartner (storeCode, ptnrNo) {
+    return api.get(`/api/ota/room/store/${storeCode}`, {
       params: {
         ptnrNo: ptnrNo
       }
@@ -66,50 +66,50 @@ const roomTypeService = {
   /**
    * @returns 영업장 객실리스트 출력
    */
-  selectStoreRoomUseList (storeCd) {
-    const param = { storeCd: storeCd, useYn: 1 }
+  selectStoreRoomUseList (storeCode) {
+    const param = { storeCode: storeCode, useYn: 1 }
     return api.get('/api/ota/roomReservation/rmTypeAndDongInfo', { params: param })
   },
   /**
    * @returns 영업장 객실리스트 출력
    */
-  selectStoreRoomList (storeCd) {
-    return api.get(`/api/ota/room/store/${storeCd}/rooms`)
+  selectStoreRoomList (storeCode) {
+    return api.get(`/api/ota/room/store/${storeCode}/rooms`)
   },
 
   /**
    * @returns 영업장 객실리스트 판매 등록
    */
-  insertStoreRoomList (storeCd, param) {
-    return api.post(`/api/ota/room/store/${storeCd}/rooms`, param)
+  insertStoreRoomList (storeCode, param) {
+    return api.post(`/api/ota/room/store/${storeCode}/rooms`, param)
   },
 
   /**
    * @returns 영업장 객실리스트 수정
    */
-  updateStoreRoomList (storeCd, param) {
-    return api.post(`/api/ota/room/store/${storeCd}/rooms/modify`, param)
+  updateStoreRoomList (storeCode, param) {
+    return api.post(`/api/ota/room/store/${storeCode}/rooms/modify`, param)
   },
 
   /**
    * @returns 휴일 조회
    */
-  selectHolidayList (storeCd) {
-    return api.get(`/api/ota/room/store/${storeCd}/holiday`)
+  selectHolidayList (storeCode) {
+    return api.get(`/api/ota/room/store/${storeCode}/holiday`)
   },
 
   /**
    * @returns 휴일 추가
    */
-  insertHolidayList (storeCd, param) {
-    return api.post(`/api/ota/room/store/${storeCd}/holiday`, param)
+  insertHolidayList (storeCode, param) {
+    return api.post(`/api/ota/room/store/${storeCode}/holiday`, param)
   },
 
   /**
    * @returns 휴일 수정
    */
-  updateHolidayList (storeCd, param) {
-    return api.post(`/api/ota/room/store/${storeCd}/holiday/modify`, param)
+  updateHolidayList (storeCode, param) {
+    return api.post(`/api/ota/room/store/${storeCode}/holiday/modify`, param)
   },
 
   /**
@@ -129,15 +129,15 @@ const roomTypeService = {
   /**
    * 파트너 목록 조회 (영업장 별)
    */
-  selectStoreInPartnerList (storeCd) {
-    return api.get(`/api/ota/room/partners/store/${storeCd}`)
+  selectStoreInPartnerList (storeCode) {
+    return api.get(`/api/ota/room/partners/store/${storeCode}`)
   },
 
   /**
    * 파트너 별 영업장 기본 설정 예외적용
    */
-  insertStorePartnerExceptSetting (storeCd, param) {
-    return api.post(`/api/ota/room/partner/setting/exception/store/${storeCd}`, param)
+  insertStorePartnerExceptSetting (storeCode, param) {
+    return api.post(`/api/ota/room/partner/setting/exception/store/${storeCode}`, param)
   }
 }
 

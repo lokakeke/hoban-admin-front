@@ -9,15 +9,15 @@
         <v-row>
           <v-col class="subtitle-1" cols="12">
             <v-row no-gutters>
-              <v-col cols="12" lg="3" md="6" sm="12">패키지명 : {{ pkgMstInfo.pkgNm }} ({{ pkgMstInfo.pkgNo }})</v-col>
-              <v-col cols="12" lg="3" md="6" sm="12">판매유형 : {{ pkgMstInfo.pkgSaleTypeNm }} ({{ pkgMstInfo.pkgSaleType }})</v-col>
-              <v-col cols="12" lg="2" md="6" sm="12">지불구분 : {{ pkgMstInfo.pkgPymtNm }} ({{ pkgMstInfo.pkgPymtInd }})</v-col>
+              <v-col cols="12" lg="3" md="6" sm="12">패키지명 : {{ pkgMstInfo.pkgName }} ({{ pkgMstInfo.pkgNo }})</v-col>
+              <v-col cols="12" lg="3" md="6" sm="12">판매유형 : {{ pkgMstInfo.pkgSaleTypeName }} ({{ pkgMstInfo.pkgSaleType }})</v-col>
+              <v-col cols="12" lg="2" md="6" sm="12">지불구분 : {{ pkgMstInfo.pkgPymtName }} ({{ pkgMstInfo.pkgPymtInd }})</v-col>
               <v-col cols="12" lg="2" md="6" sm="12">조식유무 : {{ pkgMstInfo.brkfstInYn === '1' ? '포함' : '미포함' }}</v-col>
-              <v-col cols="12" lg="2" md="6" sm="12">지역구분 : {{ pkgMstInfo.lcalNm }} ({{ pkgMstInfo.lcalCd }})</v-col>
+              <v-col cols="12" lg="2" md="6" sm="12">지역구분 : {{ pkgMstInfo.lcalName }} ({{ pkgMstInfo.lcalCode }})</v-col>
               <v-col cols="12" lg="3" md="6" sm="12">시작/종료일 : {{ pkgTerm }}</v-col>
               <v-col cols="12" lg="3" md="6" sm="12">참고사항 : {{ pkgMstInfo.pkgReferMatter ? pkgMstInfo.pkgReferMatter : '-' }}</v-col>
               <v-col cols="12" lg="2" md="6" sm="12">관리사번 : {{ pkgMstInfo.mngmEmplNo }}</v-col>
-              <v-col cols="12" lg="2" md="6" sm="12">회원구분 : {{ pkgMstInfo.memIndCd ? pkgMstInfo.memIndCd : '-' }}</v-col>
+              <v-col cols="12" lg="2" md="6" sm="12">회원구분 : {{ pkgMstInfo.memIndCode ? pkgMstInfo.memIndCode : '-' }}</v-col>
               <v-col cols="12" lg="2" md="6" sm="12">게시구분 : {{ pkgMstInfo.postInd ? pkgMstInfo.postInd : '-' }}</v-col>
             </v-row>
           </v-col>
@@ -31,13 +31,13 @@
                           disable-pagination
                           hide-default-footer>
               <template v-slot:item.pkgValidInd="{item}">
-                {{ item.pkgValidIndNm }} ({{ item.pkgValidIndCd }})
+                {{ item.pkgValidIndName }} ({{ item.pkgValidIndCode }})
               </template>
               <template v-slot:item.dstbAmt="{item}">
                 {{ item.dstbAmt ? item.dstbAmt : '-' }}
               </template>
               <template v-slot:item.tableInd="{item}">
-                {{ item.tableIndNm }} ({{ item.tableIndCd }})
+                {{ item.tableIndName }} ({{ item.tableIndCd }})
               </template>
               <template v-slot:item.grupIssue="{item}">
                 {{ item.grupIssue ? item.grupIssue : '-' }}
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -71,7 +71,7 @@ export default {
       pkgMstInfoTableHeaders: [
         { text: '패키지 메뉴순번', value: 'pkgMenuSeq', align: 'center', sortable: false },
         { text: '인원수량', value: 'persQty', align: 'center', sortable: false },
-        { text: '패키지 메뉴명', value: 'pkgMenuNm', align: 'center', sortable: false },
+        { text: '패키지 메뉴명', value: 'pkgMenuName', align: 'center', sortable: false },
         { text: '패키지 유효구분', value: 'pkgValidInd', align: 'center', sortable: false },
         { text: '패키지 유효기간', value: 'pkgVaildThru', align: 'center', sortable: false },
         { text: '배분금액', value: 'dstbAmt', align: 'center', sortable: false },

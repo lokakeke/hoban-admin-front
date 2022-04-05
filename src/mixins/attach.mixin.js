@@ -9,7 +9,7 @@ const mixin = {
     return {
       attachHeaders: { 'jwt-header': this.$store.getters['auth/jwtToken'] },
       attachData: {
-        refFldCd: this.refFldCd,
+        refFldCode: this.refFldCode,
         atflFldVal: this.atflFldVal
       },
       uploadFiles: []
@@ -106,13 +106,13 @@ const mixin = {
         }
       }
       if (!newFile && oldFile) {
-        const deleteFileCd = '_deleted'
+        const deleteFileCode = '_deleted'
         // remove
         if (oldFile.success && oldFile.filePath) {
-          if (!this.value[deleteFileCd]) {
-            this.value[deleteFileCd] = []
+          if (!this.value[deleteFileCode]) {
+            this.value[deleteFileCode] = []
           }
-          this.value[deleteFileCd].push(oldFile)
+          this.value[deleteFileCode].push(oldFile)
         }
         this.$refs.upload.remove(oldFile)
       }

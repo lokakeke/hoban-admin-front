@@ -36,7 +36,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>회원(패키지)명:</v-list-item-content>
-                  <v-list-item-content>{{ rsvInfo.memNm }}</v-list-item-content>
+                  <v-list-item-content>{{ rsvInfo.memName }}</v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>투숙객명:</v-list-item-content>
@@ -52,11 +52,11 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>평형:</v-list-item-content>
-                  <v-list-item-content>{{ rsvInfo.pyeongNm }}</v-list-item-content>
+                  <v-list-item-content>{{ rsvInfo.pyeongName }}</v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>영업장:</v-list-item-content>
-                  <v-list-item-content>{{ rsvInfo.storeNm }}({{ rsvInfo.storeCd }})</v-list-item-content>
+                  <v-list-item-content>{{ rsvInfo.storeName }}({{ rsvInfo.storeCd }})</v-list-item-content>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-content>객실번호:</v-list-item-content>
@@ -113,8 +113,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import calculationService from 'Api/modules/ota/calculation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import calculationService from '@/api/modules/ota/calculation.service'
 
 export default {
   extends: DialogBase,

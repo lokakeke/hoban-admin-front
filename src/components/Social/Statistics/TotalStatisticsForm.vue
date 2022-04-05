@@ -26,7 +26,7 @@
           v-model="searchForm.kpiSeq"
           :items="kpiList"
           item-value="kpiSeq"
-          item-text="kpiIndNm"
+          item-text="kpiIndName"
           placeholder="KPI 카테고리를 선택해 주세요."
           no-data-text="검색 가능한 KPI 카테고리가 없습니다."
           label="KPI 카테고리"
@@ -71,9 +71,9 @@
 </template>
 
 <script>
-import SelectAllList from 'Components/Select/SelectAllList.vue'
-import statisticsService from 'Api/modules/social/statistics.service'
-import kpiService from 'Api/modules/social/kpi.service'
+import SelectAllList from '@/components/Select/SelectAllList.vue'
+import statisticsService from '@/api/modules/social/statistics.service'
+import kpiService from '@/api/modules/social/kpi.service'
 
 export default {
   name: 'TotalStatisticsForm',

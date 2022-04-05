@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import partnerInventoryExpectService from 'Api/modules/partner/partnerInventoryExpect.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import partnerInventoryExpectService from '@/api/modules/partner/partnerInventoryExpect.service'
 
 export default {
   extends: DialogBase,

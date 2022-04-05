@@ -14,9 +14,9 @@
           </v-label>
           <v-currency-field
             v-model="option.amtCndVal"
-            :disabled="option.amtCndTypeCd === 'AL'"
+            :disabled="option.amtCndTypeCode === 'AL'"
             :rules="amtCndValRules"
-            :placeholder="option.amtCndTypeCd === 'AL' ? '필요없음' : '조건값을 입력해 주세요'"
+            :placeholder="option.amtCndTypeCode === 'AL' ? '필요없음' : '조건값을 입력해 주세요'"
             maxlength="12"
           ></v-currency-field>
         </v-col>
@@ -35,7 +35,7 @@
               </ul>
             </v-tooltip>
           </v-label>
-          <v-select v-model="option.amtCndTypeCd" :items="amtCndTypeList" required>
+          <v-select v-model="option.amtCndTypeCode" :items="amtCndTypeList" required>
             <template v-slot:item="{ item }">{{ item.text }} ({{ item.sign }})</template>
             <template v-slot:selection="{ item }">{{ item.text }} ({{ item.sign }})</template>
           </v-select>
@@ -48,15 +48,15 @@
         </v-col>
         <v-col cols="6">
           <v-label>수수료유형</v-label>
-          <v-select v-model="option.cmsnTypeCd" :items="cmsnTypeList" required></v-select>
+          <v-select v-model="option.cmsnTypeCode" :items="cmsnTypeList" required></v-select>
         </v-col>
       </v-row>
       <v-divider class="mt-3 mb-3"></v-divider>
       <v-label>설정 미리보기</v-label>
       <h2 class="text-center mt-5">
         {{ amtCndText }}
-        <br v-if="option.amtCndTypeCd !== 'AL'" />
-        {{ (option.cmsnAmt || '?') | price }}{{ getCmsnTypeNm(option.cmsnTypeCd) }}의 수수료가 적용됩니다.
+        <br v-if="option.amtCndTypeCode !== 'AL'" />
+        {{ (option.cmsnAmt || '?') | price }}{{ getCmsnTypeName(option.cmsnTypeCd) }}의 수수료가 적용됩니다.
       </h2>
       <v-divider class="mt-5 mb-7"></v-divider>
       <v-row justify="end" class="mt-5">
@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   name: 'CommissionOptionConfigDialog',
@@ -103,10 +103,10 @@ export default {
      */
     dialogTitle () {
       let typeText = '전체'
-      if (this.option.storeNm) {
-        typeText = `${this.option.storeNm}`
-        if (this.option.rmTypeNm) {
-          typeText = `${this.option.storeNm} > ${this.option.rmTypeNm}`
+      if (this.option.storeName) {
+        typeText = `${this.option.storeName}`
+        if (this.option.rmTypeName) {
+          typeText = `${this.option.storeName} > ${this.option.rmTypeName}`
         }
       }
       return `${typeText} 설정 편집`
@@ -115,15 +115,15 @@ export default {
      * 조건유형 텍스트
      */
     amtCndText () {
-      const amtCndTypeNm = this.getAmtCndTypeNm(this.option.amtCndTypeCd)
+      const amtCndTypeName = this.getAmtCndTypeName(this.option.amtCndTypeCd)
       if (this.option.amtCndTypeCd !== 'AL') {
         // 조건유형 = "항상"이 아닌경우
         return `가격이 ${this.$options.filters.price(
           this.option.amtCndVal || '?'
-        )}원 ${amtCndTypeNm}인 경우,`
+        )}원 ${amtCndTypeName}인 경우,`
       } else {
         // 조건유형 = "항상"인경우
-        return amtCndTypeNm
+        return amtCndTypeName
       }
     },
     /**
@@ -152,32 +152,32 @@ export default {
     /**
      * 조건유형명 가져오기
      */
-    getAmtCndTypeNm (amtCndTypeCd) {
-      let amtCndTypeNm = ''
+    getAmtCndTypeName (amtCndTypeCd) {
+      let amtCndTypeName = ''
       const amtCndTypeList = this.amtCndTypeList || []
       amtCndTypeList.some(amtCndType => {
         if (amtCndType.value === amtCndTypeCd) {
-          amtCndTypeNm = amtCndType.text
+          amtCndTypeName = amtCndType.text
           return true
         }
         return false
       })
-      return amtCndTypeNm
+      return amtCndTypeName
     },
     /**
      * 수수료유형명 가져오기
      */
-    getCmsnTypeNm (cmsnTypeCd) {
-      let cmsnTypeNm = ''
+    getCmsnTypeName (cmsnTypeCd) {
+      let cmsnTypeName = ''
       const cmsnTypeList = this.cmsnTypeList || []
       cmsnTypeList.some(cmsnType => {
         if (cmsnType.value === cmsnTypeCd) {
-          cmsnTypeNm = cmsnType.text
+          cmsnTypeName = cmsnType.text
           return true
         }
         return false
       })
-      return cmsnTypeNm
+      return cmsnTypeName
     },
     /**
      * 조건유형 목록 가져오기
@@ -187,7 +187,7 @@ export default {
       const response = await commonCodeService.selectCommonCode('CMSN0002')
       response.data.forEach(item => {
         const amtCndType = {
-          text: item.commCdNm,
+          text: item.commCdName,
           value: item.commCd,
           desc: item.commCdDesc, // 설명
           sign: item.item01, // 기호
@@ -205,7 +205,7 @@ export default {
       const response = await commonCodeService.selectCommonCode('CMSN0003')
       response.data.forEach(item => {
         const cmsnType = {
-          text: item.commCdNm,
+          text: item.commCdName,
           value: item.commCd
         }
         cmsnTypeList.push(cmsnType)
@@ -223,10 +223,10 @@ export default {
      */
     save () {
       this.validForm(this.$refs.form).then(() => {
-        this.option.amtCndTypeNm = this.getAmtCndTypeNm(
+        this.option.amtCndTypeName = this.getAmtCndTypeName(
           this.option.amtCndTypeCd
         )
-        this.option.cmsnTypeNm = this.getCmsnTypeNm(this.option.cmsnTypeCd)
+        this.option.cmsnTypeName = this.getCmsnTypeName(this.option.cmsnTypeCd)
         this.close(this.option)
       })
     }

@@ -1,35 +1,35 @@
 import Full from 'Container/Full.vue'
 
 // partner
-const partner = () => import('Views/partner/management/PartnerManagement.vue')
+const partner = () => import('@/views/partner/management/Partner.vue')
 
 // partner inventory rate
 const partnerInventoryRate = () =>
-  import('Views/partner/inventory/PartnerInventoryRate.vue')
+  import('@/views/partner/inventory/PartnerInventoryRate.vue')
 
 // partner inventory expect
 const partnerInventoryExpect = () =>
-  import('Views/partner/inventory/PartnerInventoryExpect.vue')
+  import('@/views/partner/inventory/PartnerInventoryExpect.vue')
 
 // partner inventory detail set column
 const partnerInventoryDetailSetCol = () =>
-  import('Views/partner/inventory/PartnerInventoryDetailSetCol.vue')
+  import('@/views/partner/inventory/PartnerInventoryDetailSetCol.vue')
 
 // partner inventory detail set row
 const partnerInventoryDetailSetRow = () =>
-  import('Views/partner/inventory/PartnerInventoryDetailSetRow.vue')
+  import('@/views/partner/inventory/PartnerInventoryDetailSetRow.vue')
 
 // partner inventory rsv
 const partnerInventoryRsv = () =>
-  import('Views/partner/inventory/PartnerInventoryRsv.vue')
+  import('@/views/partner/inventory/PartnerInventoryRsv.vue')
 
 // partner reservation app
 const partnerReservationApp = () =>
-  import('Views/partner/reservation/PartnerReservationAppList.vue')
+  import('@/views/partner/reservation/PartnerReservationAppList.vue')
 
 // partner package reservation app
 const partnerPkgReservationApp = () =>
-  import('Views/partner/reservation/PartnerPkgReservationAppList.vue')
+  import('@/views/partner/reservation/PartnerPkgReservationAppList.vue')
 
 export default {
   path: '/partner',
@@ -41,12 +41,12 @@ export default {
   },
   children: [
     {
-      path: 'partnerManagement',
+      path: 'partner',
       component: partner,
-      name: 'partnerManagement',
+      name: 'partner',
       meta: {
         title: '파트너 등록관리',
-        breadcrumb: 'Partner Management'
+        breadcrumb: 'Partner '
       }
     },
     {

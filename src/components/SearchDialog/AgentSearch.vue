@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import service from 'Api/modules/api/serviceManagement.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import service from '@/api/modules/api/service.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -30,18 +30,18 @@ export default {
       },
       list: [],
       headers: [
-        { text: 'Agent 이름', value: 'custNm', align: 'center', sortable: false },
+        { text: 'Agent 이름', value: 'custName', align: 'center', sortable: false },
         { text: 'Agent 번호', value: 'grupCustNo', align: 'center', sortable: false },
-        { text: '대표자 성명', value: 'ceoNm', align: 'center', sortable: false }
+        { text: '대표자 성명', value: 'ceoName', align: 'center', sortable: false }
       ]
     }
   },
   computed: {
     searchList () {
       return [
-        { key: 'custNm', label: 'Agent 이름', type: 'text' },
+        { key: 'custName', label: 'Agent 이름', type: 'text' },
         { key: 'grupCustNo', label: 'Agent 번호', type: 'text' },
-        { key: 'ceoNm', label: '대표자 성명', type: 'text' }
+        { key: 'ceoName', label: '대표자 성명', type: 'text' }
       ]
     }
   },
@@ -57,8 +57,8 @@ export default {
     },
     select (row) {
       if (row.grupCustNo) {
-        this.$dialog.confirm(`${row.custNm} 를 선택 하시겠습니까?`).then(() => {
-          this.close({ data: { agentCd: row.grupCustNo, agentCdNm: row.custNm } })
+        this.$dialog.confirm(`${row.custName} 를 선택 하시겠습니까?`).then(() => {
+          this.close({ data: { agentCode: row.grupCustNo, agentCodeName: row.custName } })
         })
       }
     }

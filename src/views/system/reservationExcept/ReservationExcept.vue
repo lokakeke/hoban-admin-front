@@ -25,7 +25,7 @@
                     <v-icon>edit</v-icon>
                   </v-list-item-action>
                   <v-list-item-content>
-                    <v-list-item-title :class="except.useYn === 'N'? 'strike' : ''">{{ except.exclNm }} ({{ except.bgnDt | dateSet }} ~ {{ except.endDt | dateSet }})</v-list-item-title>
+                    <v-list-item-title :class="except.useYn === 'N'? 'strike' : ''">{{ except.exclName }} ({{ except.bgnDt | dateSet }} ~ {{ except.endDt | dateSet }})</v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-icon>keyboard_arrow_right</v-icon>
@@ -52,7 +52,7 @@
         <template v-else>
           <v-form ref="detail" lazy-validation>
             <v-label>예약 제한 이름</v-label>
-            <v-text-field v-model="detail.exclNm" :rules="emptyRules" label required class="pt-0"/>
+            <v-text-field v-model="detail.exclName" :rules="emptyRules" label required class="pt-0"/>
 
             <v-row>
               <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
@@ -145,7 +145,7 @@
       <v-container fluid>
         <v-form ref="form" lazy-validation>
           <v-label>예약 제한 이름</v-label>
-          <v-text-field v-model="form.exclNm" :rules="emptyRules" label required class="pt-0"></v-text-field>
+          <v-text-field v-model="form.exclName" :rules="emptyRules" label required class="pt-0"></v-text-field>
 
           <v-row>
             <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
@@ -227,8 +227,8 @@
 </template>
 
 <script>
-import reservationExceptService from 'Api/modules/system/reservationExcept.service'
-import CommonTooltip from 'Components/Common/CommonTooltip.vue'
+import reservationExceptService from '@/api/modules/system/reservationExcept.service'
+import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
 // (woojung)
 
@@ -254,7 +254,7 @@ export default {
     filteredList () {
       if (this.exceptList && this.exceptList.length > 0) {
         if (this.filterText) {
-          return this.exceptList.filter(data => data.exclNm.indexOf(this.filterText) !== -1)
+          return this.exceptList.filter(data => data.exclName.indexOf(this.filterText) !== -1)
         } else {
           return this.exceptList
         }

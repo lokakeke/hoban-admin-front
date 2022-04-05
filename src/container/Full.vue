@@ -14,7 +14,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Header from 'Components/Header/Header.vue'
+import Header from '@/components/Header/Header.vue'
 
 export default {
   components: {

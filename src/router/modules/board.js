@@ -1,15 +1,15 @@
 import Full from 'Container/Full.vue'
 
 // 공지사항
-const BoardNotice = () => import('Views/system/board/notice/BoardNotice.vue')
+const BoardNotice = () => import('@/views/system/board/notice/BoardNotice.vue')
 const BoardNoticeView = () =>
-  import('Views/system/board/notice/BoardNoticeView.vue')
+  import('@/views/system/board/notice/BoardNoticeView.vue')
 
 // 요금 조회
-const BoardAmount = () => import('Views/system/board/amount/BoardAmount.vue')
+const BoardAmount = () => import('@/views/system/board/amount/BoardAmount.vue')
 
 // Q&A
-const BoardQna = () => import('Views/system/board/qna/BoardQna.vue')
+const BoardQna = () => import('@/views/system/board/qna/BoardQna.vue')
 
 export default {
   path: '/board',

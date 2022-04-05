@@ -16,7 +16,7 @@
         </v-col>
         <v-col lg="1" md="2" sm="2" cols="3">
           <v-checkbox
-            v-model="isRsvBlckCd"
+            v-model="isRsvBlckCode"
             label="예약블럭"
             false-value="N"
             true-value="Y"
@@ -40,7 +40,7 @@
         </v-col>
         <v-col v-if="roomType.value === 'OTA_ROOM_API'" lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.memNm"
+            v-model="form.memName"
             label="회원명"
             disabled
             clearable
@@ -64,7 +64,7 @@
         </v-col>
         <v-col v-if="roomType.value === 'OTA_PKG_API'" lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.pkgNm"
+            v-model="form.pkgName"
             label="패키지명"
             disabled
             clearable
@@ -100,7 +100,7 @@
       <v-row>
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.agentCd"
+            v-model="form.agentCode"
             label="Agent코드"
             clearable
             hide-details
@@ -116,7 +116,7 @@
         </v-col>
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.storeCd"
+            v-model="form.storeCode"
             label="영업장코드/명"
             clearable
             hide-details
@@ -132,7 +132,7 @@
         </v-col>
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.storeNm"
+            v-model="form.storeName"
             label="영업장명"
             disabled
             clearable
@@ -142,7 +142,7 @@
         </v-col>
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.guestNm"
+            v-model="form.guestName"
             label="이용자명"
             clearable
             hide-details
@@ -188,9 +188,9 @@
         class="mr-2"
         v-for="(item, index) of statusList"
         :key="index"
-        v-model="form.statusCd"
-        :label="item.commCdNm"
-        :value="item.commCd"
+        v-model="form.statusCode"
+        :label="item.commCodeName"
+        :value="item.commCode"
         dense
         multiple
         hide-details
@@ -214,9 +214,9 @@
 </template>
 
 <script>
-import commonService from 'Api/modules/system/commonCode.service'
-import roomService from 'Api/modules/ota/roomReservation.service'
-import partnerTermService from 'Api/modules/partner/partnerTerm.service'
+import commonService from '@/api/modules/system/commonCode.service'
+import roomService from '@/api/modules/ota/roomReservation.service'
+import partnerTermService from '@/api/modules/partner/partnerTerm.service'
 
 export default {
   props: {
@@ -250,24 +250,24 @@ export default {
     return {
       form: {
         memNo: '',
-        memNm: '',
+        memName: '',
         pkgNo: '',
-        pkgNm: '',
+        pkgName: '',
         ciDate: [moment().format('YYYYMMDD'), moment().add(30, 'day').format('YYYYMMDD')], // 오늘부터 30일
         rsvNo: '',
         keyRsvNo: '',
-        agentCd: '',
-        storeCd: '',
-        storeNm: '',
-        guestNm: '',
+        agentCode: '',
+        storeCode: '',
+        storeName: '',
+        guestName: '',
         smsPhone: '',
-        statusCd: [],
+        statusCode: [],
         chainRsvNo: '' // 업체 예약번호
       },
       checkAll: false, // 전체선택 default = false
       statusList: [], // 예약상태 목록
       isSearch: true,
-      isRsvBlckCd: 'N' // 예약블럭 검색 여부
+      isRsvBlckCode: 'N' // 예약블럭 검색 여부
     }
   },
   mounted () {
@@ -302,20 +302,20 @@ export default {
      */
     changeType (type) {
       this.form.memNo = ''
-      this.form.memNm = ''
+      this.form.memName = ''
       this.form.pkgNo = ''
-      this.form.pkgNm = ''
+      this.form.pkgName = ''
       this.$emit('change-type', type)
     },
     /**
      * 예약상태 리스트 체크박스 생성
      */
     checkAllList (param) {
-      if (!param || !this.form.statusCd || this.form.statusCd.length === 0) {
+      if (!param || !this.form.statusCode || this.form.statusCode.length === 0) {
         return 'check_box_outline_blank'
-      } else if (param.length === this.form.statusCd.length) {
+      } else if (param.length === this.form.statusCode.length) {
         return 'check_box'
-      } else if (this.form.statusCd.length > 0) {
+      } else if (this.form.statusCode.length > 0) {
         return 'indeterminate_check_box'
       }
     },
@@ -326,18 +326,18 @@ export default {
       // 초기화
       if (!param || param.length === 0) {
         return
-      } else if (!this.form.statusCd) {
-        this.form.statusCd = []
-        this.form.statusCd.push('RS')
-        this.form.statusCd.push('CI')
+      } else if (!this.form.statusCode) {
+        this.form.statusCode = []
+        this.form.statusCode.push('RS')
+        this.form.statusCode.push('CI')
       }
-      if (param.length === this.form.statusCd.length) {
-        this.form.statusCd = []
-        this.form.statusCd.push('RS')
-        this.form.statusCd.push('CI')
+      if (param.length === this.form.statusCode.length) {
+        this.form.statusCode = []
+        this.form.statusCode.push('RS')
+        this.form.statusCode.push('CI')
       } else {
-        this.form.statusCd = param.map(data => {
-          return data.commCd
+        this.form.statusCode = param.map(data => {
+          return data.commCode
         })
       }
     },
@@ -349,7 +349,7 @@ export default {
       this.statusList = res.data
       for (const code of this.statusList) {
         if (code.item01 === 'Y') {
-          this.form.statusCd.push(code.commCd)
+          this.form.statusCode.push(code.commCode)
         }
       }
     },
@@ -369,7 +369,7 @@ export default {
       const res = await partnerTermService.selectPartnerTermList(param)
       if (res.data && res.data.length === 1) {
         this.$set(this.form, 'memNo', res.data[0].memNo)
-        this.$set(this.form, 'memNm', res.data[0].memNm)
+        this.$set(this.form, 'memName', res.data[0].memName)
         this.$set(this.form, 'ptnrNo', res.data[0].ptnrNo)
       } else {
         this.openPartnerInfo()
@@ -394,10 +394,10 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.$set(this.form, 'memNo', params.data.memNo)
-              this.$set(this.form, 'memNm', params.data.memNm)
+              this.$set(this.form, 'memName', params.data.memName)
               this.$set(this.form, 'ptnrNo', params.data.ptnrNo)
-              this.form.storeCd = ''
-              this.form.storeNm = ''
+              this.form.storeCode = ''
+              this.form.storeName = ''
             }
           }
         }
@@ -408,12 +408,12 @@ export default {
      */
     async searchStoreInfo (item) {
       const param = {}
-      param.storeCd = item.storeCd
+      param.storeCode = item.storeCode
       param.useYn = '1'
       const res = await roomService.selectStoreInfoForSearch(param)
       if (res.data && res.data.length === 1) {
-        this.$set(item, 'storeCd', res.data[0].storeCd)
-        this.$set(item, 'storeNm', res.data[0].storeNm)
+        this.$set(item, 'storeCode', res.data[0].storeCode)
+        this.$set(item, 'storeName', res.data[0].storeName)
       } else {
         this.openStorePopup(item)
       }
@@ -437,8 +437,8 @@ export default {
           width: 900,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(item, 'storeCd', params.data.storeCd)
-              this.$set(item, 'storeNm', params.data.storeNm)
+              this.$set(item, 'storeCode', params.data.storeCode)
+              this.$set(item, 'storeName', params.data.storeName)
             }
           }
         }
@@ -461,7 +461,7 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(this.form, 'agentCd', params.data.agentCd)
+              this.$set(this.form, 'agentCode', params.data.agentCode)
               this.$set(this.form, 'ptnrNo', params.data.ptnrNo)
             }
           }
@@ -488,9 +488,9 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.$set(this.form, 'pkgNo', params.data.pkgNo)
-              this.$set(this.form, 'pkgNm', params.data.pkgNm)
-              this.form.storeCd = ''
-              this.form.storeNm = ''
+              this.$set(this.form, 'pkgName', params.data.pkgName)
+              this.form.storeCode = ''
+              this.form.storeName = ''
             }
           }
         }
@@ -503,29 +503,29 @@ export default {
       this.validForm(this.$refs.form).then(() => {
         if (isRefresh === true) { // 초기화
           this.form.memNo = ''
-          this.form.memNm = ''
+          this.form.memName = ''
           this.form.pkgNo = ''
-          this.form.pkgNm = ''
+          this.form.pkgName = ''
           this.form.ciDate = [moment().format('YYYYMMDD'), moment().add(30, 'day').format('YYYYMMDD')]
           this.form.rsvNo = ''
           this.form.keyRsvNo = ''
-          this.form.agentCd = ''
-          this.form.storeCd = ''
-          this.form.storeNm = ''
-          this.form.guestNm = ''
+          this.form.agentCode = ''
+          this.form.storeCode = ''
+          this.form.storeName = ''
+          this.form.guestName = ''
           this.form.smsPhone = ''
           this.form.chainRsvNo = ''
-          this.form.statusCd = []
-          this.form.statusCd.push('RS')
-          this.form.statusCd.push('CI')
-          this.form.statusCd.push('NS')
+          this.form.statusCode = []
+          this.form.statusCode.push('RS')
+          this.form.statusCode.push('CI')
+          this.form.statusCode.push('NS')
         } else { // 검색
           const searchForm = _.cloneDeep(this.searchParam)
           searchForm.page = 1
-          if (this.isRsvBlckCd === 'Y') {
-            this.$set(this.form, 'rsvBlckCd', '104')
+          if (this.isRsvBlckCode === 'Y') {
+            this.$set(this.form, 'rsvBlckCode', '104')
           } else {
-            this.$set(this.form, 'rsvBlckCd', '')
+            this.$set(this.form, 'rsvBlckCode', '')
           }
           searchForm.q = this.form
           this.$emit('update:searchParam', searchForm)

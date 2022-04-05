@@ -24,7 +24,7 @@
                 v-for="ptnr in list"
                 :key="ptnr.ptnrNo"
               >
-                {{ptnr.ptnrNm}}
+                {{ptnr.ptnrName}}
               </v-chip>
             </div>
           </v-col>
@@ -45,8 +45,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import depositAccountService from 'Api/modules/api/depositAccount.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import depositAccountService from '@/api/modules/api/depositAccount.service'
 
 export default {
   props: { propForm: Object, propList: Array, propGubun: Object },

@@ -4,8 +4,8 @@
 import Vue from 'vue'
 import router from '@/router'
 import store from '@/store'
-import systemService from 'Api/modules/notification/notification.service'
-import partnerService from 'Api/modules/notification/partnerNotification.service'
+import systemService from '@/api/modules/notification/notification.service'
+import partnerService from '@/api/modules/notification/partnerNotification.service'
 
 // state
 const state = {
@@ -154,7 +154,7 @@ const actions = {
    */
   async readAllByName ({ state, getters, dispatch }) {
     try {
-      await Vue.dialog.confirm('[' + state.selectedItem.notifyNm + ']를(을) 전부 읽음 처리 하시겟습니까?', { confirmButtonText: '확인', cancelButtonText: '취소', type: 'info', dangerouslyUseHTMLString: true })
+      await Vue.dialog.confirm('[' + state.selectedItem.notifyName + ']를(을) 전부 읽음 처리 하시겟습니까?', { confirmButtonText: '확인', cancelButtonText: '취소', type: 'info', dangerouslyUseHTMLString: true })
       if (getters.isPartner) {
         const res = await partnerService.readAllNotification(state.selectedItem)
         if (res.data) {

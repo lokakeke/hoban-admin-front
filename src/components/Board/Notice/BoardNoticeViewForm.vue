@@ -19,15 +19,15 @@
       </v-col>
       <v-col md="6" cols="12">
         <v-label>작성자</v-label>
-        <v-text-field :value="form.crtNm" readonly disabled></v-text-field>
+        <v-text-field :value="form.crtName" readonly disabled></v-text-field>
       </v-col>
       <v-col md="6" cols="12">
         <v-label>작성일</v-label>
         <v-text-field :value="form.crtDt | dateSet" readonly disabled></v-text-field>
       </v-col>
-      <v-col md="6" cols="12" v-if="form.updNm">
+      <v-col md="6" cols="12" v-if="form.updName">
         <v-label>수정자</v-label>
-        <v-text-field :value="form.updNm" readonly disabled></v-text-field>
+        <v-text-field :value="form.updName" readonly disabled></v-text-field>
       </v-col>
       <v-col md="6" cols="12" v-if="form.updDt">
         <v-label>수정일</v-label>
@@ -36,7 +36,7 @@
     </v-row>
     <v-card>
       <v-card-subtitle>
-        <v-chip color="info">{{ form.noticeTypeNm }}</v-chip>
+        <v-chip color="info">{{ form.noticeTypeName }}</v-chip>
         <br />
         <h1 class="mt-2">
           <span class="red--text" v-if="form.emrgncYn === 'Y'">[긴급]</span>
@@ -69,8 +69,8 @@
             v-for="confirm in form.cnfirmList"
             :key="confirm.ptnrNo + confirm.ptnrChrgId"
           >
-            {{ confirm.ptnrChrgNm || '?' }}
-            <small class="grey--text ml-1">({{ confirm.ptnrNm }})</small>
+            {{ confirm.ptnrChrgName || '?' }}
+            <small class="grey--text ml-1">({{ confirm.ptnrName }})</small>
             <small class="grey--text ml-1">{{ confirm.crtDt | dateSet }}</small>
           </v-chip>
         </div>
@@ -84,8 +84,8 @@
           <v-chip
             class="ma-1"
             v-for="store in form.storeList"
-            :key="store.storeCd"
-          >{{ store.storeNm }}</v-chip>
+            :key="store.storeCode"
+          >{{ store.storeName }}</v-chip>
         </div>
         <div class="mt-2" v-else>
           <!-- 전체 영업장 -->
@@ -113,7 +113,7 @@
             class="ma-1"
             v-for="partner in form.ptnrList"
             :key="partner.ptnrNo"
-          >{{ partner.ptnrNm }}</v-chip>
+          >{{ partner.ptnrName }}</v-chip>
         </div>
         <div class="mt-2" v-else>
           <!-- 전체 파트너 -->
@@ -144,9 +144,9 @@
 </template>
 
 <script>
-import boardNoticeService from 'Api/modules/system/boardNotice.service'
-import storeService from 'Api/modules/system/store.service'
-import partnerService from 'Api/modules/partner/partner.service'
+import boardNoticeService from '@/api/modules/system/boardNotice.service'
+import storeService from '@/api/modules/system/store.service'
+import partnerService from '@/api/modules/partner/partner.service'
 
 export default {
   name: 'BoardNoticeViewForm',
@@ -180,14 +180,14 @@ export default {
     /**
      * 마스킹된 작성자명
      */
-    maskedCrtNm () {
-      if (!this.form || !this.form.crtNm) {
+    maskedCrtName () {
+      if (!this.form || !this.form.crtName) {
         return ''
       }
       // 가나다 형태의 이름의 가운데를 변환한다.
-      const crtNm = this.form.crtNm
-      const length = crtNm.length
-      const textArr = crtNm.split('')
+      const crtName = this.form.crtName
+      const length = crtName.length
+      const textArr = crtName.split('')
       let hiddenName = textArr[0]
       for (let i = 0; i < length - 2; i++) {
         hiddenName += '*'
@@ -273,7 +273,7 @@ export default {
     openUpdateBoardNoticeDialog () {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Board/Notice/BoardNoticeManagementDialog',
+        componentPath: '/Board/Notice/BoardNoticeDialog',
         params: {
           noticeSeq: this.form.noticeSeq
         },

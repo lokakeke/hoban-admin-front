@@ -20,9 +20,9 @@
           <span class="info--text" v-if="item.answYn === 'Y'">답변완료</span>
           <span class="error--text" v-else>답변대기</span>
         </template>
-        <template v-slot:item.ptnrChrgNm="{item}">
-          {{ item.ptnrChrgNm || '?' }}
-          <small class="grey--text mr-1">({{ item.ptnrNm }})</small>
+        <template v-slot:item.ptnrChrgName="{item}">
+          {{ item.ptnrChrgName || '?' }}
+          <small class="grey--text mr-1">({{ item.ptnrName }})</small>
         </template>
         <template v-slot:item.crtDt="{item}">{{ item.crtDt | dateSet }}</template>
       </v-data-table>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import boardQnaService from 'Api/modules/system/boardQna.service'
+import boardQnaService from '@/api/modules/system/boardQna.service'
 
 export default {
   name: 'BoardQna',
@@ -77,7 +77,7 @@ export default {
         },
         {
           text: '등록자명',
-          value: 'ptnrChrgNm',
+          value: 'ptnrChrgName',
           align: 'center',
           sortable: false
         },
@@ -166,7 +166,7 @@ export default {
     openCreateBoardQuestionDialog () {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Board/Qna/BoardQuestionManagementDialog',
+        componentPath: '/Board/Qna/BoardQuestionDialog',
         options: {
           width: '900px',
           fullscreen: false,

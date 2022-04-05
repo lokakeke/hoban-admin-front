@@ -34,8 +34,8 @@
             <v-btn small color="info" text block><v-icon small>search</v-icon>{{ item.rsvNo }}</v-btn>
           </span>
                 </template>
-                <template v-slot:guestNm="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.guestNm }}</span>
+                <template v-slot:guestName="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.guestName }}</span>
                 </template>
                 <template v-slot:smsPhone="{item}">
                     <template v-if="item.smsPhone">
@@ -52,17 +52,17 @@
                 <template v-slot:rmCnt="{item}">
                     <span :class="`font-${selectedSize}`">{{ item.rmCnt }}</span>
                 </template>
-                <template v-slot:storeNm="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.storeNm }}</span>
+                <template v-slot:storeName="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.storeName }}</span>
                 </template>
-                <template v-slot:dongCdNm="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.dongCdNm }}</span>
+                <template v-slot:dongCodeName="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.dongCodeName }}</span>
                 </template>
-                <template v-slot:rmTypeNm="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.rmTypeNm }}</span>
+                <template v-slot:rmTypeName="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.rmTypeName }}</span>
                 </template>
-                <template v-slot:rsvTypeNm="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.rsvTypeNm }}</span>
+                <template v-slot:rsvTypeName="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.rsvTypeName }}</span>
                 </template>
             </virtual-scroll-table>
         </app-card>
@@ -80,8 +80,8 @@
                     <thead>
                     <tr>
                         <th class="text-center">날짜</th>
-                        <th v-for="room in originList" :key="room.rmTypeCd"
-                            class="text-center font-weight-medium text--darken-1" v-html="room.rmTypeNm" />
+                        <th v-for="room in originList" :key="room.rmTypeCode"
+                            class="text-center font-weight-medium text--darken-1" v-html="room.rmTypeName" />
                     </tr>
                     </thead>
                     <tbody>
@@ -99,8 +99,8 @@
 </template>
 
 <script>
-import roomService from 'Api/modules/ota/roomReservation.service'
-import VirtualScrollTable from 'Components/Common/VirtualScrollTable.vue'
+import roomService from '@/api/modules/ota/roomReservation.service'
+import VirtualScrollTable from '@/components/Common/VirtualScrollTable.vue'
 
 export default {
   components: { VirtualScrollTable },

@@ -7,10 +7,10 @@
 
 <script>
 import PartnerInventoryRateManageList
-  from 'Components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateManageList.vue'
+  from '@/components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateManageList.vue'
 import PartnerInventoryRateNoneManageList
-  from 'Components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateNoneManageList.vue'
-import partnerInventoryRateService from 'Api/modules/partner/partnerInventoryRate.service'
+  from '@/components/Partner/Inventory/PartnerInventoryRate/PartnerInventoryRateNoneManageList.vue'
+import partnerInventoryRateService from '@/api/modules/partner/partnerInventoryRate.service'
 
 export default {
   components: { PartnerInventoryRateManageList, PartnerInventoryRateNoneManageList },
@@ -34,8 +34,8 @@ export default {
         await this.$store.dispatch('partner/inventory/initList')
         const inventory = await partnerInventoryRateService.selectPartnerInventoryRateList()
         this.companyData = inventory.data.companyData || { rate: '' }
-        await this.$store.dispatch('partner/inventory/setManagementList', inventory.data.managementList || [])
-        await this.$store.dispatch('partner/inventory/setNoneManagementList', inventory.data.noneManagementList.map(data => {
+        await this.$store.dispatch('partner/inventory/setList', inventory.data.managementList || [])
+        await this.$store.dispatch('partner/inventory/setNoneList', inventory.data.noneList.map(data => {
           data.add = false
           return data
         }) || [])

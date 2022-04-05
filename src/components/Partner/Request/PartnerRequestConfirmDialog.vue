@@ -1,6 +1,6 @@
 <template>
   <dialog-base :title="`위약취소환불 조회`" :instance="instance">
-    <template v-slot:buttons v-if="writeAuth && form.aprlCd === 'A'">
+    <template v-slot:buttons v-if="writeAuth && form.aprlCode === 'A'">
       <v-btn dark text @click="save()">
         <v-icon left>check</v-icon>처리
       </v-btn>
@@ -15,15 +15,15 @@
         </v-col>
         <v-col md="6" cols="12">
           <v-label>신청자</v-label>
-          <v-text-field :value="form.ptnrNm" readonly disabled></v-text-field>
+          <v-text-field :value="form.ptnrName" readonly disabled></v-text-field>
         </v-col>
         <v-col md="6" cols="12">
           <v-label>신청일</v-label>
           <v-text-field :value="form.crtDt | dateSet" readonly disabled></v-text-field>
         </v-col>
-        <v-col md="6" cols="12" v-if="form.aprlIdNm">
+        <v-col md="6" cols="12" v-if="form.aprlIdName">
           <v-label>처리 담당자</v-label>
-          <v-text-field :value="form.aprlIdNm" readonly disabled></v-text-field>
+          <v-text-field :value="form.aprlIdName" readonly disabled></v-text-field>
         </v-col>
         <v-col md="6" cols="12" v-if="form.aprlDt">
           <v-label>처리 일자</v-label>
@@ -32,7 +32,7 @@
       </v-row>
       <v-card>
         <v-card-subtitle>
-          <v-chip color="info">{{ form.requestTypeNm }}</v-chip>
+          <v-chip color="info">{{ form.requestTypeName }}</v-chip>
           <br />
           <h1 class="mt-2"> {{ form.title }} </h1>
         </v-card-subtitle>
@@ -50,10 +50,10 @@
           readonly
         ></attach>
       </div>
-      <v-row v-if="writeAuth&form.aprlCd === 'A'">
+      <v-row v-if="writeAuth&form.aprlCode === 'A'">
         <v-col md="6" cols="12">
             <v-label>처리 상태</v-label>
-            <v-radio-group v-model="form.procAprlCd" row class="mt-2">
+            <v-radio-group v-model="form.procAprlCode" row class="mt-2">
               <v-radio label="승인" value="B"></v-radio>
               <v-radio label="불가" value="C"></v-radio>
             </v-radio-group>
@@ -64,13 +64,13 @@
         </v-col>
         <v-col md="6" cols="12">
           <v-label>취소 코드</v-label>
-          <v-autocomplete v-model="form.cancelResnCd"
+          <v-autocomplete v-model="form.cancelResnCode"
                           autocomplete="off"
                           :items="cancelResnList"
-                          :item-value="'commCd'"
-                          :item-text="'commCdNm'"
+                          :item-value="'commCode'"
+                          :item-text="'commCodeName'"
                           hide-details
-                          @change="modifyCancelDesc(form.cancelResnCd)"
+                          @change="modifyCancelDesc(form.cancelResnCode)"
           />
         </v-col>
         <v-col md="6" cols="12">
@@ -81,7 +81,7 @@
       <v-row v-else>
         <v-col md="6" cols="12">
           <v-label>처리 상태</v-label>
-          <v-radio-group v-model="form.aprlCd" disabled readonly row class="mt-2">
+          <v-radio-group v-model="form.aprlCode" disabled readonly row class="mt-2">
             <v-radio label="승인" value="B"></v-radio>
             <v-radio label="불가" value="C"></v-radio>
           </v-radio-group>
@@ -92,7 +92,7 @@
         </v-col>
         <v-col md="6" cols="12">
           <v-label>취소 코드</v-label>
-          <v-text-field :value="form.cancelResnNm" readonly disabled></v-text-field>
+          <v-text-field :value="form.cancelResnName" readonly disabled></v-text-field>
         </v-col>
         <v-col md="6" cols="12">
           <v-label>취소 사유</v-label>
@@ -100,7 +100,7 @@
         </v-col>
       </v-row>
       <v-row justify="end" class="mt-5">
-        <v-btn outlined rounded color="info" @click="save()" v-if="writeAuth && form.aprlCd === 'A'">
+        <v-btn outlined rounded color="info" @click="save()" v-if="writeAuth && form.aprlCode === 'A'">
           <v-icon>check</v-icon>처리
         </v-btn>
         <v-btn outlined rounded color="primary" @click="close()">
@@ -112,12 +112,12 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import partnerRequestService from 'Api/modules/partner/partnerRequest.service'
-import commonService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import partnerRequestService from '@/api/modules/partner/partnerRequest.service'
+import commonService from '@/api/modules/system/commonCode.service'
 
 export default {
-  name: 'PartnerRequestManagementDialog',
+  name: 'PartnerRequestDialog',
   extends: DialogBase,
   data () {
     return {
@@ -130,7 +130,7 @@ export default {
   computed: {
   },
   mounted () {
-    this.selectCancelTypeCdList()
+    this.selectCancelTypeCodeList()
   },
   methods: {
     /**
@@ -156,8 +156,8 @@ export default {
       )
       res.data.orgCancelResnDesc = res.data.cancelResnDesc
       res.data.cancelResnDesc = null
-      res.data.orgcancelResnCd = res.data.cancelResnCd
-      res.data.cancelResnCd = null
+      res.data.orgcancelResnCode = res.data.cancelResnCode
+      res.data.cancelResnCode = null
       return res.data
     },
     /**
@@ -166,7 +166,7 @@ export default {
     save () {
       this.validForm(this.$refs.form).then(() => {
         const form = _.cloneDeep(this.form)
-        form.aprlCd = form.procAprlCd
+        form.aprlCode = form.procAprlCode
         form.cancelResnDesc = form.orgCancelResnDesc + '\n' + '\n' + form.cancelResnDesc
 
         partnerRequestService.updatePartnerRequestForAdmin(form).then(res => {
@@ -176,23 +176,23 @@ export default {
       })
     },
     /** 취소 사유 코드 목록 조회 */
-    selectCancelTypeCdList () {
+    selectCancelTypeCodeList () {
       commonService.selectDGNSCommonCodeList('RSV0096').then(res => {
         // 단순변심 코드 제외
-        const cancelCdList = []
+        const cancelCodeList = []
 
         res.data.forEach(item => {
-          if (item.commCd === '01') return true
-          cancelCdList.push(item)
+          if (item.commCode === '01') return true
+          cancelCodeList.push(item)
         })
 
-        this.cancelResnList = cancelCdList
+        this.cancelResnList = cancelCodeList
       })
     },
     /** 취소 사유 코드 선택/변경시 */
     modifyCancelDesc (info) {
-      const cancel = this.cancelResnList.filter(data => data.commCd === info)
-      this.form.cancelResnDesc = cancel[0].commCdNm
+      const cancel = this.cancelResnList.filter(data => data.commCode === info)
+      this.form.cancelResnDesc = cancel[0].commCodeName
     },
     /**
      * 입력폼 초기화

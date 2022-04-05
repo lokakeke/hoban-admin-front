@@ -1,57 +1,57 @@
 import Full from 'Container/Full.vue'
 
 // room
-const Room = () => import('Views/ota/room/RoomTypeManagement.vue')
+const Room = () => import('@/views/ota/room/RoomType.vue')
 
 // package
-const Package = () => import('Views/ota/package/RoomPackageManagement.vue')
+const Package = () => import('@/views/ota/package/RoomPackage.vue')
 
 // room reservation
 const RoomReservation = () =>
-  import('Views/ota/roomReservation/RoomReservationManagement.vue')
+  import('@/views/ota/roomReservation/RoomReservation.vue')
 
 // room reservation cancel
 const MultipleRsvCancel = () =>
-  import('Views/ota/roomReservation/MultipleRsvCancel.vue')
+  import('@/views/ota/roomReservation/MultipleRsvCancel.vue')
 
 // deposit
 const depositAccount = () =>
-  import('Views/api/deposit/DepositAccountManagement.vue')
+  import('@/views/api/deposit/DepositAccount.vue')
 const depositTransaction = () =>
-  import('Views/api/deposit/DepositTransactionManagement.vue')
+  import('@/views/api/deposit/DepositTransaction.vue')
 const depositFailure = () =>
-  import('Views/api/deposit/DepositFailureManagement.vue')
+  import('@/views/api/deposit/DepositFailure.vue')
 
 // commission
 const commissionBasic = () =>
-  import('Views/ota/commission/CommissionBasicManagement.vue')
+  import('@/views/ota/commission/CommissionBasic.vue')
 const commissionPromotion = () =>
-  import('Views/ota/commission/CommissionPromotionManagement.vue')
+  import('@/views/ota/commission/CommissionPromotion.vue')
 
 // calculation
 const calculation = () =>
-  import('Views/ota/calculation/CalculateManagement.vue')
+  import('@/views/ota/calculation/Calculate.vue')
 const calculationPackage = () =>
-  import('Views/ota/calculation/PackageCalculateManagement.vue')
+  import('@/views/ota/calculation/PackageCalculate.vue')
 const calculationRoomType = () =>
-  import('Views/ota/calculation/RoomTypeCalculateManagement.vue')
+  import('@/views/ota/calculation/RoomTypeCalculate.vue')
 const calculationPenaltyRule = () =>
-  import('Views/ota/calculation/PenaltyRuleManagement.vue')
-const calculationDay = () => import('Views/ota/calculation/DayManagement.vue')
+  import('@/views/ota/calculation/PenaltyRule.vue')
+const calculationDay = () => import('@/views/ota/calculation/Day.vue')
 const calculationMenu = () =>
-  import('Views/ota/calculation/MenuManagement.vue')
+  import('@/views/ota/calculation/Menu.vue')
 const partnerCalculationStatus = () =>
-  import('Views/ota/calculation/PartnerCalculationStatus.vue')
+  import('@/views/ota/calculation/PartnerCalculationStatus.vue')
 const monthlyUsedCalculation = () =>
-  import('Views/ota/calculation/MonthlyUsedCalculation.vue')
+  import('@/views/ota/calculation/MonthlyUsedCalculation.vue')
 const calculateComparativeContrast = () =>
-  import('Views/ota/calculation/CalculateComparativeContrast.vue')
+  import('@/views/ota/calculation/CalculateComparativeContrast.vue')
 
 // errorGuidance
-const errorGuidance = () => import('Views/api/error/ErrorGuidance.vue')
+const errorGuidance = () => import('@/views/api/error/ErrorGuidance.vue')
 
 // request
-const partnerRequest = () => import('Views/partner/request/PartnerRequest.vue')
+const partnerRequest = () => import('@/views/partner/request/PartnerRequest.vue')
 
 export default {
   path: '/ota',
@@ -63,36 +63,36 @@ export default {
   },
   children: [
     {
-      path: 'roomTypeManagement',
+      path: 'roomType',
       component: Room,
-      name: 'ota.roomTypeManagement',
+      name: 'ota.roomType',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '객실(Room Only) 등록관리',
-        breadcrumb: 'RoomTypeManagement'
+        breadcrumb: 'RoomType'
       }
     },
     {
-      path: 'roomPackageManagement',
+      path: 'roomPackage',
       component: Package,
-      name: 'ota.roomPackageManagement',
+      name: 'ota.roomPackage',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '객실(PKG) 등록관리',
-        breadcrumb: 'RoomPackageManagement'
+        breadcrumb: 'RoomPackage'
       }
     },
     {
-      path: 'roomReservationManagement',
+      path: 'roomReservation',
       component: RoomReservation,
-      name: 'ota.roomReservationManagement',
+      name: 'ota.roomReservation',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '객실예약관리',
-        breadcrumb: 'roomReservationManagement'
+        breadcrumb: 'roomReservation'
       }
     },
     {
@@ -107,124 +107,124 @@ export default {
       }
     },
     {
-      path: 'depositAccountManagement',
+      path: 'depositAccount',
       component: depositAccount,
-      name: 'ota.depositAccountManagement',
+      name: 'ota.depositAccount',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '예치금 계좌 관리',
-        breadcrumb: 'Deposit Account Management'
+        breadcrumb: 'Deposit Account '
       }
     },
     {
-      path: 'depositTransactionManagement',
+      path: 'depositTransaction',
       component: depositTransaction,
-      name: 'ota.depositTransactionManagement',
+      name: 'ota.depositTransaction',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '예치금 입출금 관리',
-        breadcrumb: 'Deposit Transaction Management'
+        breadcrumb: 'Deposit Transaction '
       }
     },
     {
-      path: 'depositFailureManagement',
+      path: 'depositFailure',
       component: depositFailure,
-      name: 'ota.depositFailureManagement',
+      name: 'ota.depositFailure',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '예치금 입출금 실패이력 조회',
-        breadcrumb: 'Deposit Failure Management'
+        breadcrumb: 'Deposit Failure '
       }
     },
     {
-      path: 'calculateManagement',
+      path: 'calculate',
       component: calculation,
-      name: 'ota.calculateManagement',
+      name: 'ota.calculate',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '정산',
-        breadcrumb: 'Calculate Management'
+        breadcrumb: 'Calculate '
       }
     },
     {
-      path: 'packageCalculateManagement',
+      path: 'packageCalculate',
       component: calculationPackage,
-      name: 'ota.packageCalculateManagement',
+      name: 'ota.packageCalculate',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '패키지 정산',
-        breadcrumb: 'Package Calculate Management'
+        breadcrumb: 'Package Calculate '
       }
     },
     {
-      path: 'roomTypeCalculateManagement',
+      path: 'roomTypeCalculate',
       component: calculationRoomType,
-      name: 'ota.roomTypeCalculateManagement',
+      name: 'ota.roomTypeCalculate',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '객실 정산',
-        breadcrumb: 'RoomType Calculate Management'
+        breadcrumb: 'RoomType Calculate '
       }
     },
     {
-      path: 'commissionBasicManagement',
+      path: 'commissionBasic',
       component: commissionBasic,
-      name: 'ota.commissionBasicManagement',
+      name: 'ota.commissionBasic',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '기본 수수료 관리',
-        breadcrumb: 'Commission Basic Management'
+        breadcrumb: 'Commission Basic '
       }
     },
     {
-      path: 'commissionPromotionManagement',
+      path: 'commissionPromotion',
       component: commissionPromotion,
-      name: 'ota.commissionPromotionManagement',
+      name: 'ota.commissionPromotion',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '프로모션 수수료 관리',
-        breadcrumb: 'Commission Promotion Management'
+        breadcrumb: 'Commission Promotion '
       }
     },
     {
-      path: 'penaltyRuleManagement',
+      path: 'penaltyRule',
       component: calculationPenaltyRule,
-      name: 'ota.penaltyRuleManagement',
+      name: 'ota.penaltyRule',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '위약 규정 관리',
-        breadcrumb: 'Penalty Rule Management'
+        breadcrumb: 'Penalty Rule '
       }
     },
     {
-      path: 'dayManagement',
+      path: 'day',
       component: calculationDay,
-      name: 'ota.dayManagement',
+      name: 'ota.day',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '정산 일자 관리',
-        breadcrumb: 'Caculation Day Management'
+        breadcrumb: 'Caculation Day '
       }
     },
     {
-      path: 'menuManagement',
+      path: 'menu',
       component: calculationMenu,
-      name: 'ota.menuManagement',
+      name: 'ota.menu',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '정산 메뉴 관리',
-        breadcrumb: 'Caculation Menu Management'
+        breadcrumb: 'Caculation Menu '
       }
     },
     {

@@ -54,7 +54,7 @@
                             <v-card-text class="py-0">
                                 <v-row dense align="center">
                                     <v-col cols="3" class="font-weight-black subtitle-1">
-                                        {{ item.ptnrNm }} <small>({{ item.ptnrId }})</small>
+                                        {{ item.ptnrName }} <small>({{ item.ptnrId }})</small>
                                     </v-col>
                                     <v-menu
                                         offset-y
@@ -76,7 +76,7 @@
                                                     </v-col>
                                                     <v-col cols="6">
                                                         <v-text-field
-                                                            :value="item.agentCdNm"
+                                                            :value="item.agentCodeName"
                                                             v-on="on"
                                                             :rules="emptyRules"
                                                             readonly
@@ -94,18 +94,18 @@
                                                          class="border-bottom px-2" @click="selectInfo(item, info)">
                                                 <v-list-item-action class="mr-2">
                                                     <v-icon>
-                                                        {{ info.memNo === item.memNo && info.agentCd === item.agentCd ? "check_box" : "check_box_outline_blank" }}
+                                                        {{ info.memNo === item.memNo && info.agentCode === item.agentCode ? "check_box" : "check_box_outline_blank" }}
                                                     </v-icon>
                                                 </v-list-item-action>
                                                 <v-list-item-content>
                                                     <v-row dense no-gutters align="center">
                                                         <v-col cols="6" class="border-left pl-1">
-                                                            <p class="mb-1">{{ info.memNm }}</p>
+                                                            <p class="mb-1">{{ info.memName }}</p>
                                                             ( {{ info.memNo }} )
                                                         </v-col>
                                                         <v-col cols="6" class="border-left pl-2">
-                                                            <p class="mb-1">{{ info.agentCdNm }}</p>
-                                                            ( {{ info.agentCd }} )
+                                                            <p class="mb-1">{{ info.agentCodeName }}</p>
+                                                            ( {{ info.agentCode }} )
                                                         </v-col>
                                                     </v-row>
                                                 </v-list-item-content>
@@ -171,7 +171,7 @@
 </template>
 
 <script>
-import partnerInventoryRateService from 'Api/modules/partner/partnerInventoryRate.service'
+import partnerInventoryRateService from '@/api/modules/partner/partnerInventoryRate.service'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -213,7 +213,7 @@ export default {
   computed: {
     ...mapGetters({
       managementList: 'partner/inventory/managementList',
-      noneManagementList: 'partner/inventory/noneManagementList'
+      noneList: 'partner/inventory/noneList'
     }),
     expectDate () {
       // 당일 10시 인지 아닌지 판단.
@@ -227,7 +227,7 @@ export default {
     },
     filterList () {
       if (this.searchKeyword) {
-        return this.list.filter(data => data.ptnrNm.includes(this.searchKeyword))
+        return this.list.filter(data => data.ptnrName.includes(this.searchKeyword))
       } else {
         return this.list
       }
@@ -276,7 +276,7 @@ export default {
             rate: partner.rate,
             sortSeq: sortSeq,
             memNo: partner.memNo,
-            agentCd: partner.agentCd
+            agentCode: partner.agentCode
           })
           sortSeq++
         }
@@ -292,15 +292,15 @@ export default {
          */
     async removePartner (item) {
       try {
-        await this.$dialog.confirm(`${item.ptnrNm}를 재고관리목록에서 제거 하시겠습니까?`)
+        await this.$dialog.confirm(`${item.ptnrName}를 재고관리목록에서 제거 하시겠습니까?`)
         // 관리 리스트에서 제거
         const list = this.list
         list.splice(list.findIndex(data => data.ptnrNo === item.ptnrNo), 1)
-        await this.$store.dispatch('partner/inventory/setManagementList', list)
+        await this.$store.dispatch('partner/inventory/setList', list)
         // 미관리 리스트에 추가
-        const noneManagementList = this.noneManagementList
-        noneManagementList.push(Object.assign({}, item, { rate: '', add: false }))
-        await this.$store.dispatch('partner/inventory/setNoneManagementList', noneManagementList)
+        const noneList = this.noneList
+        noneList.push(Object.assign({}, item, { rate: '', add: false }))
+        await this.$store.dispatch('partner/inventory/setNoneList', noneList)
       } catch (e) {
       }
     },
@@ -320,8 +320,8 @@ export default {
          */
     selectInfo (item, info) {
       item.memNo = info.memNo
-      item.agentCd = info.agentCd
-      item.agentCdNm = info.agentCdNm
+      item.agentCode = info.agentCode
+      item.agentCodeName = info.agentCodeName
     },
     /**
          * 일자별 재할당 팝업 호출

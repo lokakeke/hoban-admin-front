@@ -78,7 +78,7 @@
 
 <script>
 import VInput from 'vuetify/lib/components/VInput/VInput'
-import AttachMixin from 'Mixins/attach.mixin'
+import AttachMixin from '@/mixins/attach.mixin'
 import StringUtil from '@/utils/string.util'
 
 export default {
@@ -90,13 +90,13 @@ export default {
   },
   data () {
     return {
-      uploadUrl: '/zuul/api/system/attach/upload', // 파일 업로드용 URL (/zuul prefix를 붙이지 않으면 파라미터가 손실됨)
-      downloadUrl: '/api/system/attach/download/' // 파일 다운로드용 URL
+      uploadUrl: '/zuul/api/cms/system/attach/upload', // 파일 업로드용 URL (/zuul prefix를 붙이지 않으면 파라미터가 손실됨)
+      downloadUrl: '/api/cms/system/attach/download/' // 파일 다운로드용 URL
     }
   },
   props: {
     // 참조항목코드 (ex: exBoard)
-    refFldCd: {
+    refFldCode: {
       type: String,
       required: true
     },

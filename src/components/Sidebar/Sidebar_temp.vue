@@ -16,7 +16,7 @@
                       <div
                         class="subtitle-2 font-weight-black px-4 py-2 border-top">
                         <v-icon v-if="this.currentSidebar.iconFont" left color="#5c4037">{{this.currentSidebar.iconFont}}</v-icon>
-                        {{this.currentSidebar.menuNm}}
+                        {{this.currentSidebar.menuName}}
                       </div>
         <v-list dense class="menu-sidebar">
           <div v-for="(category, key) in this.currentSidebar.children" :key="key">
@@ -39,7 +39,7 @@
                 <template v-slot:activator>
                   <v-list-item-content>
                     <v-list-item-title>
-                      <span>{{ category.menuNm }} + dept1</span>
+                      <span>{{ category.menuName }} + dept1</span>
                     </v-list-item-title>
                   </v-list-item-content>
                 </template>
@@ -52,7 +52,7 @@
                   <v-list-item-content>
                     <v-list-item-title>
                       <v-icon small>subdirectory_arrow_right</v-icon>
-                      {{ subItem.menuNm }}
+                      {{ subItem.menuName }}
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -71,7 +71,7 @@
                   <v-list-item :to="category.menuPath" @click.native.stop="" :ripple="false">
                     <v-list-item-content>
                       <v-list-item-title>
-                        <span>{{ category.menuNm }}</span>
+                        <span>{{ category.menuName }}</span>
                       </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
@@ -90,10 +90,10 @@
 </template>
 
 <script>
-import UserBlock from 'Components/Sidebar/UserBlock.vue'
-import AppLogo from 'Components/App/AppLogo.vue'
-import MenuSearch from 'Components/Sidebar/MenuSearch.vue'
-import { textTruncate } from 'Helpers/helpers'
+import UserBlock from '@/components/Sidebar/UserBlock.vue'
+import AppLogo from '@/components/App/AppLogo.vue'
+import MenuSearch from '@/components/Sidebar/MenuSearch.vue'
+import { textTruncate } from '@/helpers/helpers'
 import { mapGetters } from 'vuex'
 
 export default {

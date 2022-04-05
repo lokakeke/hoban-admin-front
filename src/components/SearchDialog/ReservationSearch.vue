@@ -10,7 +10,7 @@
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">예약 블럭</div>
-        <v-text-field :value="form.rsvBlck + ' - ' + form.rsvBlckCd" hide-details readonly></v-text-field>
+        <v-text-field :value="form.rsvBlck + ' - ' + form.rsvBlckCode" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">KEY 예약 번호</div>
@@ -30,7 +30,7 @@
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">이용자 명</div>
-        <v-text-field :value="form.guestNm" hide-details readonly></v-text-field>
+        <v-text-field :value="form.guestName" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">이용자 연락처</div>
@@ -38,11 +38,11 @@
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">영업장</div>
-        <v-text-field :value="form.storeNm + ' - ' + form.storeCd" hide-details readonly></v-text-field>
+        <v-text-field :value="form.storeName + ' - ' + form.storeCode" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">객실 유형</div>
-        <v-text-field :value="form.rmTypeNm + ' - ' + form.rmTypeCd" hide-details readonly></v-text-field>
+        <v-text-field :value="form.rmTypeName + ' - ' + form.rmTypeCode" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="12" v-if="form.cancelResnDesc">
         <div class="v-label font-weight-bold info--text">취소 사유</div>
@@ -50,7 +50,7 @@
       </v-col>
       <v-col cols="12">
         <div class="v-label font-weight-bold info--text">{{isPkg ? '패키지 정보' : '회원 정보'}}</div>
-        <v-text-field :value="form.memNm + ' - ( ' + form.memNo + ' )'" hide-details readonly></v-text-field>
+        <v-text-field :value="form.memName + ' - ( ' + form.memNo + ' )'" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">체크인 / 체크아웃</div>
@@ -58,7 +58,7 @@
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">대매사</div>
-        <v-text-field :value="(form.agentNm || '') + ' - ' + (form.agentCd || '')" hide-details readonly></v-text-field>
+        <v-text-field :value="(form.agentName || '') + ' - ' + (form.agentCode || '')" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">박수</div>
@@ -78,11 +78,11 @@
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">등록자</div>
-        <v-text-field :value="form.crtNm" hide-details readonly></v-text-field>
+        <v-text-field :value="form.crtName" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">수정자</div>
-        <v-text-field :value="form.updNm" hide-details readonly></v-text-field>
+        <v-text-field :value="form.updName" hide-details readonly></v-text-field>
       </v-col>
     </v-row>
     <v-row v-else class="font-weight-bold title my-10" justify="center">
@@ -92,8 +92,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import rsvService from 'Api/modules/ota/roomReservation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import rsvService from '@/api/modules/ota/roomReservation.service'
 
 export default {
   extends: DialogBase,

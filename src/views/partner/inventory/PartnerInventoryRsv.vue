@@ -23,23 +23,23 @@
           <span v-else>-</span>
         </template>
         <template v-slot:autoCancelYn="{ item }">
-          <span :class="{ 'red--text': item.autoCancelYn === 'Y' }">{{item.autoCancelYnNm}}</span>
+          <span :class="{ 'red--text': item.autoCancelYn === 'Y' }">{{item.autoCancelYnName}}</span>
         </template>
-        <template v-slot:sendStatusNm="{ item }">
+        <template v-slot:sendStatusName="{ item }">
           <span v-if="item.sendStatus === 'S'" @click="openRsv(item)" class="blue--text pointer">
-            {{item.sendStatusNm}}
+            {{item.sendStatusName}}
           </span>
           <v-tooltip v-else-if="item.sendStatus === 'E'" bottom z-index="1000">
             <template v-slot:activator="{ on }">
               <span class="red--text pointer" v-on="on">
-                {{item.sendStatusNm}}
+                {{item.sendStatusName}}
                 <!--<v-icon small>help_outline</v-icon>-->
                 <v-icon small>mdi-comment-question-outline</v-icon>
               </span>
             </template>
             <div v-html="item.errMsg"></div>
           </v-tooltip>
-          <span v-else>{{item.sendStatusNm}}</span>
+          <span v-else>{{item.sendStatusName}}</span>
         </template>
       </sticky-table>
       <!--<v-data-table v-dragscroll="{target: '.v-data-table__wrapper'}"
@@ -61,23 +61,23 @@
           <span v-else>-</span>
         </template>
         <template v-slot:item.autoCancelYn="{ item }">
-          <span :class="{ 'red&#45;&#45;text': item.autoCancelYn === 'Y' }">{{item.autoCancelYnNm}}</span>
+          <span :class="{ 'red&#45;&#45;text': item.autoCancelYn === 'Y' }">{{item.autoCancelYnName}}</span>
         </template>
-        <template v-slot:item.sendStatusNm="{ item }">
+        <template v-slot:item.sendStatusName="{ item }">
           <span v-if="item.sendStatus === 'S'" class="pointer blue&#45;&#45;text" @click="openRsv(item)">
-            {{item.sendStatusNm}}
+            {{item.sendStatusName}}
           </span>
           <v-tooltip v-else-if="item.sendStatus === 'E'" bottom z-index="1000">
             <template v-slot:activator="{ on }">
               <span class="red&#45;&#45;text pointer" v-on="on">
-                {{item.sendStatusNm}}
+                {{item.sendStatusName}}
                 &lt;!&ndash;<v-icon small>help_outline</v-icon>&ndash;&gt;
                 <v-icon small>mdi-comment-question-outline</v-icon>
               </span>
             </template>
             <div v-html="item.errMsg"></div>
           </v-tooltip>
-          <span v-else>{{item.sendStatusNm}}</span>
+          <span v-else>{{item.sendStatusName}}</span>
         </template>
       </v-data-table>-->
       <search-pagination v-model="searchParam" :total-visible="10" circle @change="search"></search-pagination>
@@ -88,8 +88,8 @@
 <script>
 import partnerInventoryRsvService from '@/api/modules/partner/partnerInventoryRsv.service'
 import storeService from '@/api/modules/system/store.service'
-import commonService from 'Api/modules/system/commonCode.service'
-import StickyTable from 'Components/Common/StickyTable.vue'
+import commonService from '@/api/modules/system/commonCode.service'
+import StickyTable from '@/components/Common/StickyTable.vue'
 
 export default {
   name: 'PartnerInventoryRsv',
@@ -97,13 +97,13 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'storeCd', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCd', listText: 'storeNm', cols: 4 },
-        { key: 'rmTypeCd', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCd', listText: 'rmTypeNm', cols: 4 },
+        { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 4 },
+        { key: 'rmTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCode', listText: 'rmTypeName', cols: 4 },
         { key: 'ptnrNo', label: '파트너', type: 'partner', cols: 4 },
         { key: 'memNo', label: '회원 번호', type: 'text', cols: 3 },
-        { key: 'sendType', label: '전송 타입', type: 'code', commCd: 'OTA0002', cols: 3 },
-        { key: 'sendStatus', label: '전송 상태', type: 'code', commCd: 'OTA0001', cols: 3 },
-        { key: 'rsvStatus', label: '예약 상태', type: 'select', list: this.rmStatusList, listValue: 'commCd', listText: 'commCdNm', cols: 3 },
+        { key: 'sendType', label: '전송 타입', type: 'code', commCode: 'OTA0002', cols: 3 },
+        { key: 'sendStatus', label: '전송 상태', type: 'code', commCode: 'OTA0001', cols: 3 },
+        { key: 'rsvStatus', label: '예약 상태', type: 'select', list: this.rmStatusList, listValue: 'commCode', listText: 'commCodeName', cols: 3 },
         { key: 'crtDt', label: '입력 일자', type: 'date', format: 'YYYYMMDD', cols: 3 },
         { key: 'ciYmd', label: '기준 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 3 },
         { key: 'autoCancelYn', label: '자동취소 건', type: 'boolean', trueValue: 'Y', falseValue: 'N', cols: 3 }
@@ -125,16 +125,16 @@ export default {
       headers: [
         { text: '예약번호(4)', value: 'roomRsvNo', align: 'center' },
         { text: '예약번호', value: 'keyRsvNo', align: 'center' },
-        { text: '전송상태', value: 'sendStatusNm', align: 'center' },
+        { text: '전송상태', value: 'sendStatusName', align: 'center' },
         { text: '예약상태', value: 'rsvStatus', align: 'center' },
         { text: '객실 수', value: 'rmCnt', align: 'center' },
-        { text: '파트너', value: 'ptnrNm', align: 'center' },
-        { text: '영업장', value: 'storeNm', align: 'center' },
-        { text: '객실타입', value: 'rmTypeNm', align: 'center' },
+        { text: '파트너', value: 'ptnrName', align: 'center' },
+        { text: '영업장', value: 'storeName', align: 'center' },
+        { text: '객실타입', value: 'rmTypeName', align: 'center' },
         { text: '기준일자', value: 'ciYmdDate', align: 'center' },
         { text: '회원번호', value: 'memNo', align: 'center' },
-        { text: '대매사', value: 'agentNm', align: 'center' },
-        { text: '전송타입', value: 'sendTypeNm', align: 'center' },
+        { text: '대매사', value: 'agentName', align: 'center' },
+        { text: '전송타입', value: 'sendTypeName', align: 'center' },
         { text: '입력일자', value: 'crtDate', align: 'center' },
         { text: '자동취소', value: 'autoCancelYn', align: 'center' }
       ]

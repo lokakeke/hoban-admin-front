@@ -52,7 +52,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import menuService from 'Api/modules/system/menu.service'
+import menuService from '@/api/modules/system/menu.service'
 import cookieUtil from '@/utils/cookie.util'
 
 export default {

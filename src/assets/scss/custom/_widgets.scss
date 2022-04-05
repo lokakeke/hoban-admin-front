@@ -628,7 +628,7 @@
 			padding: 0 1.5rem;
 			.v-list-item__content *{
 				line-height: 1.5;
-			}		
+			}
          .v-list-item__content i{
 				color: $gray-light;
 				font-size: 12px;
@@ -893,12 +893,12 @@
          .v-list-item__avatar {
             justify-content: flex-start;
 				margin: 0 !important;
-				min-width:56px !important; 
+				min-width:56px !important;
 			}
 			.v-list-item__content{
 				padding: 0;
 				p,h6{
-					line-height: 1.5;	
+					line-height: 1.5;
 				}
 			}
 			.v-list-item__action{
@@ -928,7 +928,7 @@
                justify-content: flex-start !important;
             }
          }
-         
+
          &:hover {
             .v-list-item__action {
               opacity:1;
@@ -1519,7 +1519,7 @@
    }
 }
 
-/*================ Project Management =================*/
+/*================ Project  =================*/
 
 .project-management{
    table{
@@ -1560,7 +1560,7 @@
    height: auto;
    width:auto;
 }
-/*=================== Project Task Management ================*/
+/*=================== Project Task  ================*/
 
 .project-task-management{
    .v-list{

@@ -58,9 +58,9 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <td>{{item.saleChnnlNm}}</td>
+                  <td>{{item.saleChnnlName}}</td>
                   <td>{{item.ticketNo}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.sellAmt1 | price}}</td>
                   <td>{{item.sellQty1 | price}}</td>
                   <td>{{item.saleAmt1 | price}}</td>
@@ -111,9 +111,9 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <td>{{item.saleChnnlNm}}</td>
+                  <td>{{item.saleChnnlName}}</td>
                   <td>{{item.ticketNo}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.sellAmt2 | price}}</td>
                   <td>{{item.useQty2 | price}}</td>
                   <td>{{item.useAmt2 | price}}</td>
@@ -164,9 +164,9 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <td>{{item.saleChnnlNm}}</td>
+                  <td>{{item.saleChnnlName}}</td>
                   <td>{{item.ticketNo}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.sellAmt3 | price}}</td>
                   <td>{{item.sellQty3 | price}}</td>
                   <td>{{item.saleAmt3 | price}}</td>
@@ -244,9 +244,9 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <td>{{item.saleChnnlNm}}</td>
+                  <td>{{item.saleChnnlName}}</td>
                   <td>{{item.ticketNo}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.sellAmt1 | price}}</td>
                   <td>{{item.sellQty1 | price}}</td>
                   <td>{{item.saleAmt1 | price}}</td>
@@ -297,9 +297,9 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <td>{{item.saleChnnlNm}}</td>
+                  <td>{{item.saleChnnlName}}</td>
                   <td>{{item.ticketNo}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.sellAmt2 | price}}</td>
                   <td>{{item.useQty2 | price}}</td>
                   <td>{{item.useAmt2 | price}}</td>
@@ -350,9 +350,9 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <td>{{item.saleChnnlNm}}</td>
+                  <td>{{item.saleChnnlName}}</td>
                   <td>{{item.ticketNo}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.sellAmt3 | price}}</td>
                   <td>{{item.sellQty3 | price}}</td>
                   <td>{{item.saleAmt3 | price}}</td>
@@ -387,7 +387,7 @@
 
 <script>
 
-import calculateService from 'Api/modules/social/calculate.service'
+import calculateService from '@/api/modules/social/calculate.service'
 
 export default {
   name: 'TicketBlackacre',

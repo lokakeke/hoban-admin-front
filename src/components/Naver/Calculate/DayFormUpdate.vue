@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/naver/calculateDay.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/naver/calculateDay.service'
 
 export default {
   extends: DialogBase,

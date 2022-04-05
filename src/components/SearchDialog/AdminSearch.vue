@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import accountService from 'Api/modules/system/account.service'
-import maskTelNumber from 'Components/Mask/MaskTelNumber.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import accountService from '@/api/modules/system/account.service'
+import maskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 
 export default {
   extends: DialogBase,

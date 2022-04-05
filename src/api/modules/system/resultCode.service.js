@@ -1,11 +1,11 @@
-import api from 'Api'
+import api from '@/api'
 
 const resultCodeService = {
   /**
      * ApiMessage 조회
      */
   selectApiMessage () {
-    return api.get('/api/system/apiMessage')
+    return api.get('/api/cms/system/apiMessage')
   }
 }
 

@@ -196,7 +196,7 @@ export default {
         if (this.form.ptnrList) {
           list.push({ ptnrNo: 0, label: '본사재고', count: Math.floor(Math.random() * 25) })
           for (const ptnr of this.form.ptnrList.ptnrList) {
-            list.push({ ptnrNo: ptnr.ptnrNo, label: ptnr.ptnrNm, count: Math.floor(Math.random() * 25) })
+            list.push({ ptnrNo: ptnr.ptnrNo, label: ptnr.ptnrName, count: Math.floor(Math.random() * 25) })
           }
           // 등록 / 예상 판단 후 bg 다르게 먹임
           color = Math.random() >= 0.5 ? this.registerColor : this.expectColor

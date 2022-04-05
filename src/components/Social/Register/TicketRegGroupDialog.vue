@@ -12,11 +12,11 @@
         :items="groupList"
         hide-default-footer
       >
-        <template v-slot:item.itemNm="{item}">
-          <v-text-field v-model="item.itemNm" label :rules="emptyRules"></v-text-field>
+        <template v-slot:item.itemName="{item}">
+          <v-text-field v-model="item.itemName" label :rules="emptyRules"></v-text-field>
         </template>
         <template v-slot:item.itemInd="{item}">
-          <v-select v-model="item.itemInd" :items="itemIndList" item-text="commCdNm" item-value="commCd"></v-select>
+          <v-select v-model="item.itemInd" :items="itemIndList" item-text="commCodeName" item-value="commCode"></v-select>
         </template>
         <template v-slot:item.amt="{item}">
           {{item.amt | price}}
@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   extends: DialogBase,
@@ -66,8 +66,8 @@ export default {
       // 우대번호 결합 Modal Header
       ticketGroupHeaders: [
         { text: '우대번호', value: 'ticketNo', align: 'center', sortable: false, width: '5%' },
-        { text: '우대번호 명', value: 'ticketNm', align: 'center', sortable: false, width: '20%' },
-        { text: '상품명', value: 'itemNm', align: 'center', sortable: false, width: '20%' },
+        { text: '우대번호 명', value: 'ticketName', align: 'center', sortable: false, width: '20%' },
+        { text: '상품명', value: 'itemName', align: 'center', sortable: false, width: '20%' },
         { text: '상품구분', value: 'itemInd', align: 'center', sortable: false, width: '10%' },
         { text: '요금', value: 'amt', align: 'center', sortable: false, width: '5%' },
         { text: '수량', value: 'qty', align: 'center', sortable: false, width: '5%' },

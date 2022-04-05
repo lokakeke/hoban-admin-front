@@ -24,8 +24,8 @@
               <v-autocomplete
                 v-model="form.taskType"
                 :items="taskTypeList"
-                item-value="commCd"
-                item-text="commCdNm"
+                item-value="commCode"
+                item-text="commCodeName"
                 :rules="emptyRules"
                 autocomplete="off"
                 clearable
@@ -46,7 +46,7 @@
                 v-model="form.depoKey"
                 :items="origin"
                 item-value="depoKey"
-                item-text="ptnrNm"
+                item-text="ptnrName"
                 :rules="emptyRules"
                 autocomplete="off"
                 clearable
@@ -191,10 +191,10 @@
 </template>
 
 <script>
-import AppCard from 'Components/App/AppCard.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import depositAccountService from 'Api/modules/api/depositAccount.service'
-import depositRequestService from 'Api/modules/api/depositRequest.service'
+import AppCard from '@/components/App/AppCard.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import depositAccountService from '@/api/modules/api/depositAccount.service'
+import depositRequestService from '@/api/modules/api/depositRequest.service'
 
 export default {
   components: { AppCard },
@@ -206,9 +206,9 @@ export default {
       searchTargetText: '',
       headerDepositRequest: [
         { text: '신청순번', value: 'appSeq', align: 'center' },
-        { text: '입금구분', value: 'rcpmnyAcctNm', align: 'center' },
+        { text: '입금구분', value: 'rcpmnyAcctName', align: 'center' },
         { text: '금액', value: 'amt', align: 'center' },
-        { text: '입금내용', value: 'rcpmnyNm', align: 'center' },
+        { text: '입금내용', value: 'rcpmnyName', align: 'center' },
         { text: '등록일시', value: 'crtDt', align: 'center' },
         { text: '처리일시', value: 'procDt', align: 'center' }
       ],
@@ -227,7 +227,7 @@ export default {
       },
       // 예치금 신청 리스트 조회 변수
       searchParamOfDepositRequest: {
-        q: { depoKey: '', aprlCd: '' },
+        q: { depoKey: '', aprlCode: '' },
         page: 1,
         size: 100000,
         total: 0
@@ -275,7 +275,7 @@ export default {
       const targetPartner = this.origin.filter(item => item.depoKey === this.form.depoKey)
 
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Deposit/DepositInitApprovalCustomDialog',
+        componentPath: '@/api/Deposit/DepositInitApprovalCustomDialog',
         params: {
           propForm: this.form,
           propList: list,
@@ -339,7 +339,7 @@ export default {
       }
       const searchParamOfDepositRequest = _.cloneDeep(this.searchParamOfDepositRequest)
       searchParamOfDepositRequest.q.depoKey = this.form.depoKey
-      searchParamOfDepositRequest.q.aprlCd = 'B' // 승인완료 건
+      searchParamOfDepositRequest.q.aprlCode = 'B' // 승인완료 건
       depositRequestService.selectDepositRequestList(searchParamOfDepositRequest).then(res => {
         res.data.forEach(item => {
           item.rnum = 'Y'

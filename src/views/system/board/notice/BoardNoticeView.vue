@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import BoardNoticeViewForm from 'Components/Board/Notice/BoardNoticeViewForm.vue'
+import BoardNoticeViewForm from '@/components/Board/Notice/BoardNoticeViewForm.vue'
 
 export default {
   name: 'BoardNoticeView',

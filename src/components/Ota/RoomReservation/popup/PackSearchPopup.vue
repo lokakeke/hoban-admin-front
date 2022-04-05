@@ -23,10 +23,10 @@
             </tbody>
             <tbody else>
             <tr v-for="(pack, index) in pkgList" :key="index" @click="choosePkg(pack)" :class="pack.color">
-              <td class="text-center" v-if="pack.topLine" :rowspan="pack.rnum" :class="pack.topLine ? 'top-border' : ''">{{ pack.lcalNm }}</td>
+              <td class="text-center" v-if="pack.topLine" :rowspan="pack.rnum" :class="pack.topLine ? 'top-border' : ''">{{ pack.lcalName }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''" v-html="pack.storeNames"/>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgNo }}</td>
-              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgNm }}</td>
+              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgName }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.saleBgnYmd }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.saleEndYmd }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''"><v-simple-checkbox v-model="pack.flag" disabled/></td>
@@ -53,9 +53,9 @@
             <tbody else>
             <tr v-for="(pack, index) in pkgList" :key="index" @click="choosePkg(pack)" :class="pack.color">
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgNo }}</td>
-              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgNm }}</td>
-              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.processedStoreNm }}</td>
-              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.rmTypeNm }}</td>
+              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgName }}</td>
+              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.processedStoreName }}</td>
+              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.rmTypeName }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.saleBgnYmd }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.saleEndYmd }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.rsvBlckCd }}</td>
@@ -91,10 +91,10 @@
             </tbody>
             <tbody else>
             <tr v-for="(pack, index) in pkgList" :key="index" @click="choosePkg(pack)" :class="pack.color">
-              <td class="text-center" v-if="pack.topLine" :rowspan="pack.rnum" :class="pack.topLine ? 'top-border' : ''">{{ pack.lcalNm }}</td>
+              <td class="text-center" v-if="pack.topLine" :rowspan="pack.rnum" :class="pack.topLine ? 'top-border' : ''">{{ pack.lcalName }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''" v-html="pack.storeNames"/>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgNo }}</td>
-              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgNm }}</td>
+              <td class="text-center" :class="pack.topLine ? 'top-border' : ''">{{ pack.pkgName }}</td>
               <td class="text-center" :class="pack.topLine ? 'top-border' : ''">
                 <v-tooltip v-if="pack.pkgDesc" top>
                   <template v-slot:activator="{ on }">
@@ -118,8 +118,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import roomService from 'Api/modules/ota/roomReservation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import roomService from '@/api/modules/ota/roomReservation.service'
 
 import { mapGetters } from 'vuex'
 
@@ -171,7 +171,7 @@ export default {
           cols: 3
         },
         {
-          key: 'storeNm',
+          key: 'storeName',
           label: '영업장명',
           type: 'text',
           cols: 3
@@ -199,13 +199,13 @@ export default {
     ptnrSearchList () {
       return [
         {
-          key: 'lcalNm',
+          key: 'lcalName',
           label: '지역명',
           type: 'text',
           cols: 3
         },
         {
-          key: 'storeNm',
+          key: 'storeName',
           label: '영업장명',
           type: 'text',
           cols: 3
@@ -246,18 +246,18 @@ export default {
       const param = {}
       if (this.isPartner) { // 파트너
         // 지역명
-        if (this.searchForm.lcalNm) {
-          param.lcalNm = this.searchForm.lcalNm
+        if (this.searchForm.lcalName) {
+          param.lcalName = this.searchForm.lcalName
         }
-        if (this.searchParam.q.lcalNm) {
-          param.lcalNm = this.searchParam.q.lcalNm
+        if (this.searchParam.q.lcalName) {
+          param.lcalName = this.searchParam.q.lcalName
         }
         // 영업장명
-        if (this.searchForm.storeNm) {
-          param.storeNm = this.searchForm.storeNm
+        if (this.searchForm.storeName) {
+          param.storeName = this.searchForm.storeName
         }
-        if (this.searchParam.q.storeNm) {
-          param.storeNm = this.searchParam.q.storeNm
+        if (this.searchParam.q.storeName) {
+          param.storeName = this.searchParam.q.storeName
         }
         // 패키지 번호/명 세팅
         if (this.searchParam.q.pkgNo) {
@@ -281,8 +281,8 @@ export default {
           param.pkgNo = this.searchParam.q.pkgNo
         }
         // 영업장명 세팅
-        if (this.searchParam.q.storeNm) {
-          param.storeNm = this.searchParam.q.storeNm
+        if (this.searchParam.q.storeName) {
+          param.storeName = this.searchParam.q.storeName
         }
         // 사용여부 세팅
         if (this.searchParam.q.useYn) {
@@ -356,7 +356,7 @@ export default {
             }
             this.pkgList[i].topLine = topLine // 지역코드가 달라질 경우 구분선 추가
             this.pkgList[i].color = this.color[colorNum] // 배경색 추가
-            this.pkgList[i].lcalNm = this.pkgList[i].lcalNm + '(' + this.pkgList[i].lcalCd + ')'
+            this.pkgList[i].lcalName = this.pkgList[i].lcalName + '(' + this.pkgList[i].lcalCd + ')'
             this.pkgList[i].saleBgnYmd = moment(this.pkgList[i].saleBgnYmd).format('YYYY-MM-DD')
             this.pkgList[i].saleEndYmd = moment(this.pkgList[i].saleEndYmd).format('YYYY-MM-DD')
             if (this.isPartner) {
@@ -378,8 +378,8 @@ export default {
             }
             this.pkgList[i].topLine = topLine // 영업장코드가 달라질 경우 구분선 추가
             this.pkgList[i].color = this.color[colorNum] // 배경색 추가
-            this.pkgList[i].processedStoreNm = this.pkgList[i].storeNm + '(' + this.pkgList[i].storeCd + ')'
-            this.pkgList[i].rmTypeNm = this.pkgList[i].rmTypeNm + '(' + this.pkgList[i].rmTypeCd + ')'
+            this.pkgList[i].processedStoreName = this.pkgList[i].storeName + '(' + this.pkgList[i].storeCd + ')'
+            this.pkgList[i].rmTypeName = this.pkgList[i].rmTypeName + '(' + this.pkgList[i].rmTypeCd + ')'
             this.pkgList[i].saleBgnYmd = moment(this.pkgList[i].saleBgnYmd).format('YYYY-MM-DD')
             this.pkgList[i].saleEndYmd = moment(this.pkgList[i].saleEndYmd).format('YYYY-MM-DD')
           }

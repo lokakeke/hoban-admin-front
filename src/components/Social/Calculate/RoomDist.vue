@@ -39,9 +39,9 @@
                 </thead>
                 <tbody v-if="roomList && roomList.length > 0">
                   <tr v-for="(item, index) of roomList" :key="index">
-                    <td>{{item.corpNm}}</td>
-                    <td>{{item.lcalCdNm}}</td>
-                    <td>{{item.itemNm}}</td>
+                    <td>{{item.corpName}}</td>
+                    <td>{{item.lcalCodeName}}</td>
+                    <td>{{item.itemName}}</td>
                     <td>{{item.ticketNo}}</td>
                     <td>{{item.useQty1 | price}}</td>
                     <td>{{item.totQty | price}}</td>
@@ -105,9 +105,9 @@
                 </thead>
                 <tbody v-if="ticketList && ticketList.length > 0">
                 <tr v-for="(item, index) of ticketList" :key="index">
-                  <td>{{item.corpNm}}</td>
-                  <td>{{item.lcalCdNm}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.corpName}}</td>
+                  <td>{{item.lcalCodeName}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.ticketNo}}</td>
                   <td>{{item.useQty1 | price}}</td>
                   <td>{{item.totQty | price}}</td>
@@ -189,9 +189,9 @@
                 </thead>
                 <tbody v-if="roomList && roomList.length > 0">
                 <tr v-for="(item, index) of roomList" :key="index">
-                  <td>{{item.corpNm}}</td>
-                  <td>{{item.lcalCdNm}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.corpName}}</td>
+                  <td>{{item.lcalCodeName}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.ticketNo}}</td>
                   <td>{{item.useQty1 | price}}</td>
                   <td>{{item.totQty | price}}</td>
@@ -255,9 +255,9 @@
                 </thead>
                 <tbody v-if="ticketList && ticketList.length > 0">
                 <tr v-for="(item, index) of ticketList" :key="index">
-                  <td>{{item.corpNm}}</td>
-                  <td>{{item.lcalCdNm}}</td>
-                  <td>{{item.itemNm}}</td>
+                  <td>{{item.corpName}}</td>
+                  <td>{{item.lcalCodeName}}</td>
+                  <td>{{item.itemName}}</td>
                   <td>{{item.ticketNo}}</td>
                   <td>{{item.useQty1 | price}}</td>
                   <td>{{item.totQty | price}}</td>
@@ -314,7 +314,7 @@
 </template>
 
 <script>
-import calculateService from 'Api/modules/social/calculate.service'
+import calculateService from '@/api/modules/social/calculate.service'
 
 export default {
   name: 'RoomDist',

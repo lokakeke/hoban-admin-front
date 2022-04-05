@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import packageService from 'Api/modules/ota/package.service'
+import packageService from '@/api/modules/ota/package.service'
 
 export default {
   props: {
@@ -51,13 +51,13 @@ export default {
         return ''
       }
     },
-    storeCd: {
+    storeCode: {
       type: String,
       default () {
         return ''
       }
     },
-    rmTypeCd: {
+    rmTypeCode: {
       type: String,
       default () {
         return ''
@@ -100,8 +100,8 @@ export default {
     events () {
       if (this.originEvents && this.originEvents.length > 0) {
         // 객실타입 코드가 있다면 필터링 : 영업장 휴일 + 선택된 객실타입 만 보이기
-        if (this.rmTypeCd) {
-          return this.originEvents.filter(data => data.rmTypeCd === null || data.rmTypeCd === this.rmTypeCd)
+        if (this.rmTypeCode) {
+          return this.originEvents.filter(data => data.rmTypeCode === null || data.rmTypeCode === this.rmTypeCode)
         } else {
           return this.originEvents
         }
@@ -146,18 +146,18 @@ export default {
         const events = []
         data.forEach(event => {
           events.push({
-            name: event.hldyCd === 'P' ? '패키지 휴일' : event.hldyCd === 'S' ? `${event.storeNm} 휴일` : `${event.storeNm} - ${event.rmTypeNm} 휴일`,
+            name: event.hldyCode === 'P' ? '패키지 휴일' : event.hldyCode === 'S' ? `${event.storeName} 휴일` : `${event.storeName} - ${event.rmTypeName} 휴일`,
             start: moment(event.stndYmd).format('YYYY-MM-DD'),
-            color: event.hldyCd === 'P' ? 'red' : event.hldyCd === 'S' ? 'green' : 'blue',
-            type: event.hldyCd === 'P' ? 'package' : event.hldyCd === 'S' ? 'store' : 'room',
+            color: event.hldyCode === 'P' ? 'red' : event.hldyCode === 'S' ? 'green' : 'blue',
+            type: event.hldyCode === 'P' ? 'package' : event.hldyCode === 'S' ? 'store' : 'room',
             memo: event.memo,
-            hldyCd: event.hldyCd,
-            rmTypeCd: event.rmTypeCd,
-            rmTypeNm: event.rmTypeNm,
-            storeCd: event.storeCd,
-            storeNm: event.storeNm,
-            store: event.storeCd ? `${event.storeNm} (${event.storeCd})` : '-',
-            rmType: event.rmTypeCd ? `${event.rmTypeNm} (${event.rmTypeCd})` : '-'
+            hldyCode: event.hldyCode,
+            rmTypeCode: event.rmTypeCode,
+            rmTypeName: event.rmTypeName,
+            storeCode: event.storeCode,
+            storeName: event.storeName,
+            store: event.storeCode ? `${event.storeName} (${event.storeCode})` : '-',
+            rmType: event.rmTypeCode ? `${event.rmTypeName} (${event.rmTypeCode})` : '-'
           })
         })
         this.originEvents = events

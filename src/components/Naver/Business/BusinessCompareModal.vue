@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import BusinessInfoComponent from './BusinessInfoComponent'
-import service from 'Api/modules/naver/business.service'
+import service from '@/api/modules/naver/business.service'
 
 export default {
   extends: DialogBase,

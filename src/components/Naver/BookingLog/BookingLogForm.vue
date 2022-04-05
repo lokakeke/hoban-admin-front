@@ -90,11 +90,11 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/naver/bookingLog.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/naver/bookingLog.service'
 import { mapGetters } from 'vuex'
-import MaskPhoneNumber from 'Components/Mask/MaskPhoneNumber.vue'
-import MaskEmail from 'Components/Mask/MaskEmail.vue'
+import MaskPhoneNumber from '@/components/Mask/MaskPhoneNumber.vue'
+import MaskEmail from '@/components/Mask/MaskEmail.vue'
 
 export default {
   extends: DialogBase,
@@ -170,13 +170,13 @@ export default {
       },
       {
         text: '영업장코드',
-        value: 'storeCd',
+        value: 'storeCode',
         align: 'center',
         sortable: false
       },
       {
         text: '객실타입코드',
-        value: 'rmTypeCd',
+        value: 'rmTypeCode',
         align: 'center',
         sortable: false
       },
@@ -194,7 +194,7 @@ export default {
       },
       {
         text: '블럭코드',
-        value: 'rsvBlckCd',
+        value: 'rsvBlckCode',
         align: 'center',
         sortable: false
       },

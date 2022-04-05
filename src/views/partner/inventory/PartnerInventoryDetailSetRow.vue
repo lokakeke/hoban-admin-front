@@ -6,10 +6,10 @@
         <v-col cols="6" class="pt-0">
           <p class="pb-0 mb-0">국내 O.T.A 객실유형 관리중 영업장</p>
           <v-autocomplete
-            v-model="form.storeCd"
+            v-model="form.storeCode"
             :items="storeList"
-            item-value="storeCd"
-            item-text="storeNm"
+            item-value="storeCode"
+            item-text="storeName"
             placeholder="영업장을 선택해 주세요." />
         </v-col>
         <v-col cols="6" class="pt-0">
@@ -61,15 +61,15 @@
         </tbody>
         <tbody v-else>
           <template v-for="(store, storeIndex) of list">
-            <tr v-for="(rmType, index) of store.rmTypeList" :key="store.storeCd + '_' + rmType.rmTypeCd">
+            <tr v-for="(rmType, index) of store.rmTypeList" :key="store.storeCode + '_' + rmType.rmTypeCode">
               <th v-if="index === 0" :rowspan="store.rmTypeList.length" class="text-center" :class="(storeIndex + 1) !== list.length? 'bottom-border' : ''">
-                <span v-html="store.storeNm"></span>
-                <div class="font-weight-bold">( {{store.storeCd}} )</div>
+                <span v-html="store.storeName"></span>
+                <div class="font-weight-bold">( {{store.storeCode}} )</div>
               </th>
-              <td class="text-center" :class="(index + 1) === store.rmTypeList.length? 'bottom-border' : ''">{{rmType.rmTypeCd}}</td>
-              <td class="text-center" :class="(index + 1) === store.rmTypeList.length? 'bottom-border' : ''">{{rmType.rmTypeNm}}</td>
+              <td class="text-center" :class="(index + 1) === store.rmTypeList.length? 'bottom-border' : ''">{{rmType.rmTypeCode}}</td>
+              <td class="text-center" :class="(index + 1) === store.rmTypeList.length? 'bottom-border' : ''">{{rmType.rmTypeName}}</td>
               <!--<td class="text-right"></td>-->
-              <td v-for="date of rmType.dateList" :key="store.storeCd + '_' + rmType.rmTypeCd + '_' + date.date" :class="(index + 1) === store.rmTypeList.length? 'bottom-border' : ''">
+              <td v-for="date of rmType.dateList" :key="store.storeCode + '_' + rmType.rmTypeCode + '_' + date.date" :class="(index + 1) === store.rmTypeList.length? 'bottom-border' : ''">
                 <v-row justify="end" class="px-1" :class="[date.color + '--text', date.color === 'blue'? 'pointer': '']" @click="popDetailSet(date, store, rmType)">
                   {{date.value | price}}
                 </v-row>
@@ -88,9 +88,9 @@
 <script>
 import partnerInventoryRateService from '@/api/modules/partner/partnerInventoryRate.service'
 import PartnerInventoryDetailSetDaily
-  from 'Components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetDaily.vue'
-import storeService from 'Api/modules/system/store.service'
-import blockService from 'Api/modules/common/block.service'
+  from '@/components/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetDaily.vue'
+import storeService from '@/api/modules/system/store.service'
+import blockService from '@/api/modules/common/block.service'
 
 export default {
   name: 'PartnerInventoryDetailSet',
@@ -98,9 +98,9 @@ export default {
   data () {
     return {
       form: {
-        storeCd: '',
+        storeCode: '',
         selectDate: [moment().format('YYYY-MM-DD'), moment().add(10, 'days').format('YYYY-MM-DD')],
-        rsvBlckCd: '104', // 104 블럭 셋팅
+        rsvBlckCode: '104', // 104 블럭 셋팅
         onlyPartnerRmType: 'Y' // 파트너 관리중인 영업장/객실만 셋팅하도록
       },
       list: [],
@@ -127,11 +127,11 @@ export default {
   async mounted () {
     // 영업장 조회
     const store = await storeService.selectPartnerInventoryStoreList()
-    const storeAll = [{ storeCd: '', storeNm: '전체' }]
+    const storeAll = [{ storeCode: '', storeName: '전체' }]
     this.storeList = storeAll.concat(store.data)
     // 전체 파트너 리스트 조회
     const res = await partnerInventoryRateService.selectPartnerInventoryRateList()
-    this.partnerOrigin = res.data.managementList.concat(res.data.noneManagementList)
+    this.partnerOrigin = res.data.managementList.concat(res.data.noneList)
   },
   methods: {
     async search (isRefresh) {
@@ -161,8 +161,8 @@ export default {
       this.dateList = dateList
       return {
         q: {
-          storeCd: this.form.storeCd,
-          rsvBlckCd: this.form.rsvBlckCd,
+          storeCode: this.form.storeCode,
+          rsvBlckCode: this.form.rsvBlckCode,
           onlyPartnerRmType: this.form.onlyPartnerRmType,
           ciYmd: moment(startDate).format('YYYYMMDD'),
           searchDay
@@ -183,25 +183,25 @@ export default {
     popDetailSet (data, store, rmType) {
       if (data.value && !isNaN(data.value) && parseInt(data.value) > 0) {
         this.select = {
-          storeCd: store.storeCd,
-          storeNm: store.storeNm,
-          rmTypeCd: rmType.rmTypeCd,
-          rmTypeNm: rmType.rmTypeNm,
+          storeCode: store.storeCode,
+          storeName: store.storeName,
+          rmTypeCode: rmType.rmTypeCode,
+          rmTypeName: rmType.rmTypeName,
           stockQty: data.value,
           date: moment(data.date).format('YYYY-MM-DD'),
-          rsvBlckCd: '104'
+          rsvBlckCode: '104'
         }
         /* this.$store.dispatch('dialog/open', {
           componentPath: '/Partner/Inventory/PartnerInventoryDetailSet/PartnerInventoryDetailSetDailyDialog',
           params: {
             select: {
-              storeCd: store.storeCd,
-              storeNm: store.storeNm,
-              rmTypeCd: rmType.rmTypeCd,
-              rmTypeNm: rmType.rmTypeNm,
+              storeCode: store.storeCode,
+              storeName: store.storeName,
+              rmTypeCode: rmType.rmTypeCode,
+              rmTypeName: rmType.rmTypeName,
               stockQty: data.value,
               date: moment(data.date).format('YYYY-MM-DD'),
-              rsvBlckCd: '104'
+              rsvBlckCode: '104'
             },
             partnerOrigin: this.partnerOrigin
           },

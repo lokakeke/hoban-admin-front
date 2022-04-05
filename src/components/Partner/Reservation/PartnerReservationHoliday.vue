@@ -41,17 +41,17 @@
 </template>
 
 <script>
-import roomTypeService from 'Api/modules/ota/roomType.service'
+import roomTypeService from '@/api/modules/ota/roomType.service'
 
 export default {
   props: {
-    storeCd: {
+    storeCode: {
       type: String,
       default () {
         return ''
       }
     },
-    rmTypeCd: {
+    rmTypeCode: {
       type: String,
       default () {
         return ''
@@ -94,8 +94,8 @@ export default {
     events () {
       if (this.originEvents && this.originEvents.length > 0) {
         // 객실타입 코드가 있다면 필터링 : 영업장 휴일 + 선택된 객실타입 만 보이기
-        if (this.rmTypeCd) {
-          return this.originEvents.filter(data => data.rmTypeCd === null || data.rmTypeCd === this.rmTypeCd)
+        if (this.rmTypeCode) {
+          return this.originEvents.filter(data => data.rmTypeCode === null || data.rmTypeCode === this.rmTypeCode)
         } else {
           return this.originEvents
         }
@@ -112,7 +112,7 @@ export default {
     /**
      * 영업장 코드가 변경되면 휴일을 다시 검색한다.
      */
-    storeCd (newVal) {
+    storeCode (newVal) {
       if (newVal) {
         this.searchHoliday()
       }
@@ -132,26 +132,26 @@ export default {
      */
     async searchHoliday () {
       try {
-        if (!this.storeCd) {
+        if (!this.storeCode) {
           return
         }
-        const res = await roomTypeService.selectHolidayList(this.storeCd)
+        const res = await roomTypeService.selectHolidayList(this.storeCode)
         const data = res.data
         const events = []
         data.forEach(event => {
           events.push({
-            name: event.hldyCd === 'S' ? '영업장 휴일' : `${event.rmTypeNm} 휴일`,
+            name: event.hldyCode === 'S' ? '영업장 휴일' : `${event.rmTypeName} 휴일`,
             start: moment(event.stndYmd).format('YYYY-MM-DD'),
-            color: event.hldyCd === 'S' ? 'green' : 'blue',
-            type: event.hldyCd === 'S' ? 'store' : 'room',
+            color: event.hldyCode === 'S' ? 'green' : 'blue',
+            type: event.hldyCode === 'S' ? 'store' : 'room',
             memo: event.memo,
-            hldyCd: event.hldyCd,
-            rmTypeCd: event.rmTypeCd,
-            rmTypeNm: event.rmTypeNm,
-            storeCd: event.storeCd,
-            storeNm: event.storeNm,
-            store: `${event.storeNm} (${event.storeCd})`,
-            rmType: event.rmTypeCd === null ? '-' : `${event.rmTypeNm} (${event.rmTypeCd})`
+            hldyCode: event.hldyCode,
+            rmTypeCode: event.rmTypeCode,
+            rmTypeName: event.rmTypeName,
+            storeCode: event.storeCode,
+            storeName: event.storeName,
+            store: `${event.storeName} (${event.storeCode})`,
+            rmType: event.rmTypeCode === null ? '-' : `${event.rmTypeName} (${event.rmTypeCode})`
           })
         })
         this.originEvents = events

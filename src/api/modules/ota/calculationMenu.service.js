@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const calculationMenuService = {
   /**
@@ -17,11 +17,11 @@ const calculationMenuService = {
   /**
    * 정산 > 메뉴 목록 열기/닫기
    * @param ptnrNo 파트너 번호
-   * @param calcMenuCd 정산 메뉴 코드
+   * @param calcMenuCode 정산 메뉴 코드
    * @param openYn 열기 여부 [Y/N]
    */
-  toggleCalcMenu (ptnrNo, calcMenuCd, openYn) {
-    return api.post(`/api/ota/calculation/menu/toggle/${ptnrNo}/${calcMenuCd}/${openYn}`)
+  toggleCalcMenu (ptnrNo, calcMenuCode, openYn) {
+    return api.post(`/api/ota/calculation/menu/toggle/${ptnrNo}/${calcMenuCode}/${openYn}`)
   }
 }
 

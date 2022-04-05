@@ -111,9 +111,9 @@
 </template>
 
 <script>
-import excelMixin from 'Mixins/excelMixin'
-import service from 'Api/modules/naver/calculateDay.service'
-import CommonSnackbars from 'Components/Common/CommonSnackbars.vue'
+import excelMixin from '@/mixins/excelMixin'
+import service from '@/api/modules/naver/calculateDay.service'
+import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'
 
 export default {
   name: 'Day',

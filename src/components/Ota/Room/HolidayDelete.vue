@@ -10,7 +10,7 @@
           <v-select
               :items="types"
               item-text="text"
-              item-value="hldyCd"
+              item-value="hldyCode"
               label="휴일을 제거할 타입을 지정해주세요"
               v-model="type"
           >
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -40,9 +40,9 @@ export default {
     return {
       events: [],
       types: [
-        { text: '전체', hldyCd: 'A' },
-        { text: '영업장', hldyCd: 'S' },
-        { text: '객실', hldyCd: 'R' }
+        { text: '전체', hldyCode: 'A' },
+        { text: '영업장', hldyCode: 'S' },
+        { text: '객실', hldyCode: 'R' }
       ],
       type: ''
     }
@@ -60,7 +60,7 @@ export default {
       try {
         await this.$dialog.confirm('오늘날짜를 기준으로 휴일 데이터가 모두 삭제됩니다. 계속 진행하시겠습니까?')
 
-        const typeFilterEvents = this.type === 'A' ? this.events : this.events.filter((event) => event.hldyCd === this.type)
+        const typeFilterEvents = this.type === 'A' ? this.events : this.events.filter((event) => event.hldyCode === this.type)
 
         const today = moment().format('YYYY-MM-DD')
         const filterEvents = typeFilterEvents.filter((event) => {
@@ -69,7 +69,7 @@ export default {
 
         const resultEvents = this.events.filter(data => {
           return filterEvents.findIndex(row => {
-            return data.storeCd === row.storeCd && data.hldyCd === row.hldyCd && data.rmTypeCd === row.rmTypeCd && data.start === row.start
+            return data.storeCode === row.storeCode && data.hldyCode === row.hldyCode && data.rmTypeCode === row.rmTypeCode && data.start === row.start
           }) === -1
         })
 

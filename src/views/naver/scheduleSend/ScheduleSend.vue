@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import service from 'Api/modules/naver/scheduleSend.service'
+import service from '@/api/modules/naver/scheduleSend.service'
 
 export default {
   name: 'ScheduleSend',

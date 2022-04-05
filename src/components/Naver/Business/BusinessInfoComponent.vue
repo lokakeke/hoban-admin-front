@@ -568,7 +568,7 @@
 </template>
 
 <script>
-import CommonTooltip from 'Components/Common/CommonTooltip.vue'
+import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
 export default {
   name: 'BusinessInfoComponent',

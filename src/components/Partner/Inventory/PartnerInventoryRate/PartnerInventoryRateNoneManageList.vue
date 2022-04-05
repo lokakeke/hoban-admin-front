@@ -25,7 +25,7 @@
                     <v-card-text class="py-0">
                         <v-row class="font-weight-black subtitle-1" align="center">
                             <v-col cols="7" class="py-0">
-                                {{ item.ptnrNm }} <small>({{ item.ptnrId }})</small>
+                                {{ item.ptnrName }} <small>({{ item.ptnrId }})</small>
                             </v-col>
                             <v-col cols="5" class="text-right success--text subtitle-1 pr-5">
                                 <v-icon left>arrow_forward</v-icon>
@@ -53,18 +53,18 @@ export default {
     }
   },
   watch: {
-    noneManagementList (newList) {
+    noneList (newList) {
       this.list = newList
     }
   },
   computed: {
     ...mapGetters({
       managementList: 'partner/inventory/managementList',
-      noneManagementList: 'partner/inventory/noneManagementList'
+      noneList: 'partner/inventory/noneList'
     }),
     filterList () {
       if (this.searchKeyword) {
-        return this.list.filter(data => data.ptnrNm.includes(this.searchKeyword))
+        return this.list.filter(data => data.ptnrName.includes(this.searchKeyword))
       } else {
         return this.list
       }
@@ -73,15 +73,15 @@ export default {
   methods: {
     async addPartner (item) {
       try {
-        await this.$dialog.confirm(`${item.ptnrNm} 파트너를 재고관리 리스트에 추가하시겠습니까?`)
+        await this.$dialog.confirm(`${item.ptnrName} 파트너를 재고관리 리스트에 추가하시겠습니까?`)
         // 미관리 리스트에서 제거
         const list = _.cloneDeep(this.list)
         list.splice(list.findIndex(data => data.ptnrNo === item.ptnrNo), 1)
-        await this.$store.dispatch('partner/inventory/setNoneManagementList', list)
+        await this.$store.dispatch('partner/inventory/setNoneList', list)
         // 관리 리스트에 추가
         const managementList = _.cloneDeep(this.managementList)
-        managementList.push(Object.assign({}, item, { rate: '', memNo: '', agentCd: '' }))
-        await this.$store.dispatch('partner/inventory/setManagementList', managementList)
+        managementList.push(Object.assign({}, item, { rate: '', memNo: '', agentCode: '' }))
+        await this.$store.dispatch('partner/inventory/setList', managementList)
       } catch (e) {
       }
     }

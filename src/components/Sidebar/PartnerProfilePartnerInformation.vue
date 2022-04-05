@@ -9,7 +9,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>업체 명</v-label>
-            <v-text-field type="text" v-model="form.ptnrNm" :rules="emptyRules" disabled></v-text-field>
+            <v-text-field type="text" v-model="form.ptnrName" :rules="emptyRules" disabled></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>추가 인증번호 (* 파트너 담당자 추가시 필요)</v-label>
@@ -24,7 +24,7 @@
         <v-row>
           <v-col cols="3">
             <v-label>관리자 성명</v-label>
-            <v-text-field type="text" v-model="form.ceoNm" :rules="emptyRules"></v-text-field>
+            <v-text-field type="text" v-model="form.ceoName" :rules="emptyRules"></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>관리자 연락처</v-label>
@@ -58,11 +58,11 @@
               </thead>
               <tbody>
               <tr v-for="(term, index) in form.terms" :key="index" @click="openDialog(term)">
-                <td class="text-center">{{term.taskType | label(businessList, 'commCd', 'commCdNm')}}</td>
-                <td class="text-center">{{term.taskTypeNm}}</td>
+                <td class="text-center">{{term.taskType | label(businessList, 'commCode', 'commCodeName')}}</td>
+                <td class="text-center">{{term.taskTypeName}}</td>
                 <td class="text-center">{{term.memNo}}</td>
-                <td class="text-center">{{term.saleChnnl | label(saleChannelList, 'commCd', 'commCdNm')}}
-                <td class="text-center">{{term.agentCdNm}}
+                <td class="text-center">{{term.saleChnnl | label(saleChannelList, 'commCode', 'commCodeName')}}
+                <td class="text-center">{{term.agentCodeName}}
                 <td class="text-center">{{term.useBgnYmd | date}} ~ {{term.useEndYmd | date}}</td>
                 <td class="text-center">{{term.mgtNo}}</td>
                 <td class="text-center">{{term.depoYn === 'Y'? '적용': '미적용'}}</td>
@@ -82,9 +82,9 @@
 </template>
 
 <script>
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import service from 'Api/modules/partner/partner.service'
-import adminAuthService from 'Api/modules/system/adminAuth.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import service from '@/api/modules/partner/partner.service'
+import adminAuthService from '@/api/modules/system/adminAuth.service'
 
 export default {
   name: 'PartnerProfilePartnerInformation',
@@ -139,7 +139,7 @@ export default {
       useForm.useEndYmd = moment(useForm.useEndYmd).format('YYYYMMDD')
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner/Management/PartnerBasicAddDialog',
+        componentPath: '/Partner//PartnerBasicAddDialog',
         params: {
           isNewData: false,
           useForm,

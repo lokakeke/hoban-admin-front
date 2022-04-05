@@ -8,7 +8,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>대상 파트너사</v-label>
-            <v-text-field :value="targetPartner.ptnrNm" readonly disabled></v-text-field>
+            <v-text-field :value="targetPartner.ptnrName" readonly disabled></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>객실 기준일자</v-label>
@@ -111,8 +111,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import depositAccountService from 'Api/modules/api/depositAccount.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import depositAccountService from '@/api/modules/api/depositAccount.service'
 
 export default {
   props: {
@@ -132,9 +132,9 @@ export default {
       targetPartner: Object,
       headerDepositRequest: [
         { text: '신청순번', value: 'appSeq', align: 'center' },
-        { text: '입금구분', value: 'rcpmnyAcctNm', align: 'center' },
+        { text: '입금구분', value: 'rcpmnyAcctName', align: 'center' },
         { text: '금액', value: 'amt', align: 'center' },
-        { text: '입금내용', value: 'rcpmnyNm', align: 'center' },
+        { text: '입금내용', value: 'rcpmnyName', align: 'center' },
         { text: '등록일시', value: 'crtDt', align: 'center' },
         { text: '처리일시', value: 'procDt', align: 'center' }
       ],
@@ -184,7 +184,7 @@ export default {
         list: this.list,
         gubun: this.gubun,
         ptnrNo: this.targetPartner.ptnrNo,
-        ptnrNm: this.targetPartner.ptnrNm,
+        ptnrName: this.targetPartner.ptnrName,
         loginId: this.user.number
       }
       depositAccountService.updateScheduleDepositInitCustomList(paramList).then(res => {

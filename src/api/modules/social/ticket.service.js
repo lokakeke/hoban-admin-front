@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 export default {
   /**
@@ -46,7 +46,7 @@ export default {
   /**
    * 영업장 목록 조회
    */
-  selectLcalCdList () {
+  selectLcalCodeList () {
     return api.get('/api/social/ticket/statis/lcal/list')
   }
 }

@@ -3,15 +3,15 @@
     <v-form ref="form" lazy-validation autocomplete="off">
       <v-row>
         <v-col cols="12">
-          <v-autocomplete v-model="newItem.cancelResnCd"
+          <v-autocomplete v-model="newItem.cancelResnCode"
                           autocomplete="off"
                           :items="cancelResnList"
-                          :item-value="'commCd'"
-                          :item-text="'commCdNm'"
+                          :item-value="'commCode'"
+                          :item-text="'commCodeName'"
                           hide-details
                           label="취소코드"
                           :rules="emptyRules"
-                          @change="modifyCancelDesc(newItem.cancelResnCd)"
+                          @change="modifyCancelDesc(newItem.cancelResnCode)"
           />
         </v-col>
         <v-col v-if="originInfo && originInfo.cancelResnDesc" cols="12">
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonService from '@/api/modules/system/commonCode.service'
 
 export default {
   extends: DialogBase,
@@ -57,7 +57,7 @@ export default {
     }
   },
   mounted () {
-    this.selectCancelTypeCdList()
+    this.selectCancelTypeCodeList()
     this.originInfo = _.cloneDeep(this.instance.params.originInfo)
     this.$store.dispatch('keypress/addKeyEventList', {
       eventList: [
@@ -72,7 +72,7 @@ export default {
     /**
      * 취소 사유 코드 목록 조회
      */
-    async selectCancelTypeCdList () {
+    async selectCancelTypeCodeList () {
       const res = await commonService.selectDGNSCommonCodeList('RSV0096')
       this.isPartner ? this.cancelResnList = [res.data[0]] : this.cancelResnList = res.data
     },
@@ -80,22 +80,22 @@ export default {
      * 취소 사유 코드 선택/변경 시
      */
     modifyCancelDesc (info) {
-      const cancel = this.cancelResnList.filter(data => data.commCd === info)
-      this.newItem.cancelResnDesc = cancel[0].commCdNm
+      const cancel = this.cancelResnList.filter(data => data.commCode === info)
+      this.newItem.cancelResnDesc = cancel[0].commCodeName
     },
     /**
      * 취소 사유 수정 실행
      */
     update () {
       this.validForm(this.$refs.form).then(() => {
-        if (!this.newItem.cancelResnCd) {
+        if (!this.newItem.cancelResnCode) {
           this.$dialog.alert('취소 코드값을 선택해 주세요.')
         } else {
           this.$dialog.confirm('예약을 취소하시겠습니까?').then(() =>
             this.close({
               data:
                 {
-                  cancelResnCd: this.newItem.cancelResnCd,
+                  cancelResnCode: this.newItem.cancelResnCode,
                   cancelResnDesc: this.newItem.cancelResnDesc
                 }
             })

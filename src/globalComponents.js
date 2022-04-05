@@ -2,34 +2,34 @@
  * Vuely Global Components
  */
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import AppSectionLoader from 'Components/App/AppSectionLoader.vue'
+import AppSectionLoader from '@/components/App/AppSectionLoader.vue'
 
 // app card
-import AppCard from 'Components/App/AppCard.vue'
+import AppCard from '@/components/App/AppCard.vue'
 
 // search pagination
-import SearchPagination from 'Components/Search/SearchPagination.vue'
+import SearchPagination from '@/components/Search/SearchPagination.vue'
 
 // search form
-import SearchForm from 'Components/Search/SearchForm.vue'
+import SearchForm from '@/components/Search/SearchForm.vue'
 
 // draggable
 import draggable from 'vuedraggable'
 
 // editor
-import VEditor from 'Components/Editor/VEditor.vue'
+import VEditor from '@/components/Editor/VEditor.vue'
 
 // dialog base
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 // date(Range)Picker
-import DatePicker from 'Components/Date/DatePicker.vue'
-import DateRangePicker from 'Components/Date/DateRangePicker.vue'
+import DatePicker from '@/components/Date/DatePicker.vue'
+import DateRangePicker from '@/components/Date/DateRangePicker.vue'
 
-import MaskPhoneNumber from 'Components/Mask/MaskPhoneNumber.vue'
+import MaskPhoneNumber from '@/components/Mask/MaskPhoneNumber.vue'
 
 // attach
-import Attach from 'Components/Attach/Attach.vue'
+import Attach from '@/components/Attach/Attach.vue'
 
 const GlobalComponents = {
   install (Vue) {

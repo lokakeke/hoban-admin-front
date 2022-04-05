@@ -52,7 +52,7 @@
               disable-pagination
               disable-sort
               :loading="isLoading"
-              group-by="lcalNm"
+              group-by="lcalName"
               loading-text="조회 중입니다. 잠시만 기다려주세요..."
               class="bordered">
             <template v-slot:group.header="{ group, headers, toggle, isOpen }">
@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import excelMixin from 'Mixins/excelMixin'
-import calculateMonthService from 'Api/modules/naver/calculateMonth.service'
+import excelMixin from '@/mixins/excelMixin'
+import calculateMonthService from '@/api/modules/naver/calculateMonth.service'
 
 export default {
   name: 'Month',
@@ -109,7 +109,7 @@ export default {
       },
       list: [],
       headers: [
-        { text: '사업장', value: 'lcalNm', align: 'center', sortable: false },
+        { text: '사업장', value: 'lcalName', align: 'center', sortable: false },
         { text: '상품유형', value: 'pkgYn', align: 'center', sortable: false },
         { text: '패키지번호', value: 'mid', align: 'center', sortable: false },
         { text: '상품명', value: 'dgnsItemName', align: 'center', sortable: false },
@@ -180,7 +180,7 @@ export default {
     },
     lcalTotalAmt (group) {
       return _.sumBy(_.filter(this.list, (item) => {
-        return item.lcalNm === group
+        return item.lcalName === group
       }), 'aftpayAmt')
     },
     /**

@@ -12,7 +12,7 @@
         <v-row>
           <v-col cols="3">
             <v-text-field
-              v-model="newItem.storeNm"
+              v-model="newItem.storeName"
               label="영업장명"
               disabled
               outlined
@@ -22,7 +22,7 @@
           </v-col>
           <v-col cols="3">
             <v-text-field
-              v-model="newItem.rmTypeNm"
+              v-model="newItem.rmTypeName"
               label="객실유형명"
               disabled
               outlined
@@ -91,7 +91,7 @@
           </v-col>
           <v-col cols="3" v-if="type === room">
             <v-text-field
-              v-model="newItem.memNm"
+              v-model="newItem.memName"
               label="회원명"
               disabled
               outlined
@@ -118,7 +118,7 @@
           </v-col>
           <v-col cols="3" v-if="type === pkg">
             <v-text-field
-              v-model="newItem.pkgNm"
+              v-model="newItem.pkgName"
               label="패키지명"
               disabled
               outlined
@@ -168,7 +168,7 @@
           </v-col>
           <v-col cols="3">
             <v-text-field
-              v-model="newItem.guestNm"
+              v-model="newItem.guestName"
               label="이용자명"
               required
               outlined
@@ -211,7 +211,7 @@
           </v-col>
           <v-col cols="3" v-if="type === pkg">
             <v-text-field
-              v-model="partnerNm"
+              v-model="partnerName"
               label="파트너명"
               outlined
               hide-details
@@ -227,7 +227,7 @@
           </v-col>
           <v-col cols="3" v-if="type === pkg">
             <v-text-field
-              v-model="newItem.agentCd"
+              v-model="newItem.agentCode"
               label="Agent코드"
               readonly
               outlined
@@ -238,7 +238,7 @@
           </v-col>
           <v-col cols="3" v-if="type === pkg">
             <v-text-field
-              v-model="newItem.agentNm"
+              v-model="newItem.agentName"
               label="Agent명"
               readonly
               outlined
@@ -259,9 +259,9 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import NumberUtils from '@/utils/number.util'
-import roomService from 'Api/modules/ota/roomReservation.service'
+import roomService from '@/api/modules/ota/roomReservation.service'
 
 export default {
   extends: DialogBase,
@@ -274,7 +274,7 @@ export default {
       pkg: 'PKG',
       room: 'ROOM',
       saleAmt: 0, // 판매가
-      partnerNm: ''
+      partnerName: ''
     }
   },
   computed: {
@@ -319,15 +319,15 @@ export default {
      * 기존의 예약 정보 세팅
      */
     setOriginInfo () {
-      this.newItem.storeNm = this.rsvInfo.storeNm
-      this.newItem.rmTypeNm = this.rsvInfo.rmTypeNm
+      this.newItem.storeName = this.rsvInfo.storeName
+      this.newItem.rmTypeName = this.rsvInfo.rmTypeName
       this.newItem.nights = this.rsvInfo.nights
       this.newItem.rmCnt = this.rsvInfo.rmCnt
-      this.newItem.guestNm = this.rsvInfo.guestNm
+      this.newItem.guestName = this.rsvInfo.guestName
       this.newItem.smsPhone = this.rsvInfo.smsPhone
       this.newItem.chainRsvNo = this.rsvInfo.chainRsvNo
-      this.newItem.agentCd = this.rsvInfo.agentCd
-      this.newItem.agentNm = this.rsvInfo.agentNm
+      this.newItem.agentCode = this.rsvInfo.agentCode
+      this.newItem.agentName = this.rsvInfo.agentName
     },
     /**
      * 회원번호/명 검색창 오픈
@@ -349,17 +349,17 @@ export default {
               if (this.type === this.room) { // 객실로 예약이관
                 this.newItem.pkgNo = '' // 패키지번호 초기화
                 this.$set(this.newItem, 'memNo', params.data.memNo)
-                this.$set(this.newItem, 'memNm', params.data.memNm)
+                this.$set(this.newItem, 'memName', params.data.memName)
                 this.$set(this.newItem, 'cntrctYmd', params.data.cntrctYmd)
                 this.$set(this.newItem, 'cancelYmd', params.data.cancelYmd)
-                this.newItem.ptnrNm = params.data.ptnrNm // 예약자 이름
+                this.newItem.ptnrName = params.data.ptnrName // 예약자 이름
                 this.newItem.rsvGuestTelNo = params.data.capTelNo // 예약자 번호
-                this.newItem.agentCd = params.data.agentCd
+                this.newItem.agentCode = params.data.agentCode
                 this.selectRoomAmount()
               } else { // 패키지로 예약이관
-                this.$set(this, 'partnerNm', params.data.ptnrNm)
-                this.newItem.agentCd = params.data.agentCd
-                this.newItem.agentNm = params.data.agentCdNm
+                this.$set(this, 'partnerName', params.data.ptnrName)
+                this.newItem.agentCode = params.data.agentCode
+                this.newItem.agentName = params.data.agentCodeName
               }
             }
           }
@@ -373,12 +373,12 @@ export default {
       // 요금 조회 파라미터 세팅
       const priceParam = {}
       priceParam.memNo = this.newItem.memNo
-      priceParam.storeCd = this.rsvInfo.storeCd
+      priceParam.storeCode = this.rsvInfo.storeCode
       priceParam.ciYmd = this.rsvInfo.ciYmd.replace(/-/gi, '')
-      priceParam.rmTypeCd = this.rsvInfo.rmTypeCd
+      priceParam.rmTypeCode = this.rsvInfo.rmTypeCode
       priceParam.nights = this.rsvInfo.nights
       priceParam.rmCnt = this.rsvInfo.rmCnt
-      priceParam.rsvBlckCd = this.rsvInfo.rsvBlckCd
+      priceParam.rsvBlckCode = this.rsvInfo.rsvBlckCode
       try {
         // 요금 조회
         const res = await roomService.selectRoomAmount(priceParam)
@@ -405,7 +405,7 @@ export default {
             if (params && params.data) {
               this.newItem.memNo = '' // 회원번호 초기화
               this.$set(this.newItem, 'pkgNo', params.data.pkgNo)
-              this.$set(this.newItem, 'pkgNm', params.data.pkgNm)
+              this.$set(this.newItem, 'pkgName', params.data.pkgName)
               this.$set(this.newItem, 'saleBgnYmd', params.data.saleBgnYmd)
               this.$set(this.newItem, 'saleEndYmd', params.data.saleEndYmd)
               this.$set(this.newItem, 'todayRsvYn', params.data.todayRsvYn)
@@ -421,8 +421,8 @@ export default {
     async selectPackageAmount () {
       const priceParam = {}
       priceParam.pkgNo = this.newItem.pkgNo
-      priceParam.storeCd = this.rsvInfo.storeCd
-      priceParam.rmTypeCd = Array(this.rsvInfo.rmTypeCd)
+      priceParam.storeCode = this.rsvInfo.storeCode
+      priceParam.rmTypeCode = Array(this.rsvInfo.rmTypeCode)
       priceParam.ciYmd = this.rsvInfo.ciYmd
       priceParam.nights = this.rsvInfo.nights
       priceParam.rmCnt = this.rsvInfo.rmCnt

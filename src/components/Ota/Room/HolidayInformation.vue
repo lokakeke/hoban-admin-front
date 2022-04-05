@@ -164,7 +164,7 @@
             {{ item.type === 'store' ? '영업장' : '객실' }}
           </template>
           <template v-slot:item.store="{item}">
-            {{ item.storeNm }} ({{ item.storeCd }})
+            {{ item.storeName }} ({{ item.storeCode }})
           </template>
         </v-data-table>
         <v-pagination :length="pageCount"
@@ -176,13 +176,13 @@
 </template>
 
 <script>
-import roomTypeService from 'Api/modules/ota/roomType.service'
+import roomTypeService from '@/api/modules/ota/roomType.service'
 
 export default {
   name: 'HolidayInformation',
   props: {
     isEdit: Boolean,
-    storeCdProp: String
+    storeCodeProp: String
   },
   data: function () {
     return {
@@ -266,23 +266,23 @@ export default {
   },
   methods: {
     async getEvents () {
-      const response = await roomTypeService.selectHolidayList(this.storeCdProp)
+      const response = await roomTypeService.selectHolidayList(this.storeCodeProp)
       const data = response.data
       this.events = []
       data.forEach(event => {
         this.events.push({
-          name: event.hldyCd === 'S' ? '영업장 휴일' : `${event.rmTypeNm} 휴일`,
+          name: event.hldyCd === 'S' ? '영업장 휴일' : `${event.rmTypeName} 휴일`,
           start: moment(event.stndYmd).format('YYYY-MM-DD'),
           color: event.hldyCd === 'S' ? 'green' : 'blue',
           type: event.hldyCd === 'S' ? 'store' : 'room',
           memo: event.memo,
           hldyCd: event.hldyCd,
           rmTypeCd: event.rmTypeCd,
-          rmTypeNm: event.rmTypeNm,
+          rmTypeName: event.rmTypeName,
           storeCd: event.storeCd,
-          storeNm: event.storeNm,
-          store: `${event.storeNm} (${event.storeCd})`,
-          rmType: event.rmTypeCd === null ? '-' : `${event.rmTypeNm} (${event.rmTypeCd})`
+          storeName: event.storeName,
+          store: `${event.storeName} (${event.storeCd})`,
+          rmType: event.rmTypeCd === null ? '-' : `${event.rmTypeName} (${event.rmTypeCd})`
         })
       })
 

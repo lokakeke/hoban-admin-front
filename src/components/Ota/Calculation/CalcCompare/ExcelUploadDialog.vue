@@ -90,8 +90,8 @@
 <script>
 import XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/ota/calculateCompare.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/ota/calculateCompare.service'
 
 const COMMON_SHEET_HEADER = [
   '지역',

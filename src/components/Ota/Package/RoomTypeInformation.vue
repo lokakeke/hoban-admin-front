@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import packageService from 'Api/modules/ota/package.service'
+import packageService from '@/api/modules/ota/package.service'
 
 export default {
   name: 'RoomTypeInformation',
@@ -136,10 +136,10 @@ export default {
         this.origin = []
         data.forEach(obj => {
           this.origin.push({
-            store: `${obj.storeNm} (${obj.storeCd})`,
-            dong: `${obj.dongNm} (${obj.dongCd})`,
-            pyeong: `${obj.pyeongNm} (${obj.pyeongCd})`,
-            roomKind: `${obj.rmKindNm} (${obj.rmKindCd})`,
+            store: `${obj.storeName} (${obj.storeCode})`,
+            dong: `${obj.dongName} (${obj.dongCode})`,
+            pyeong: `${obj.pyeongName} (${obj.pyeongCd})`,
+            roomKind: `${obj.rmKindName} (${obj.rmKindCd})`,
             roomType: `${obj.rmTypeCd}`,
             rmTypeCd: obj.rmTypeCd,
             storeCd: obj.storeCd,

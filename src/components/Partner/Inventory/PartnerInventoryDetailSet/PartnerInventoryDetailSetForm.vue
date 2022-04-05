@@ -4,10 +4,10 @@
       <v-col cols="6" class="pt-0">
         <p class="pb-0 mb-0">국내 O.T.A 객실유형 관리중 영업장</p>
         <v-autocomplete
-          v-model="form.storeCd"
+          v-model="form.storeCode"
           :items="storeList"
-          item-value="storeCd"
-          item-text="storeNm"
+          item-value="storeCode"
+          item-text="storeName"
           placeholder="영업장을 선택해 주세요." />
       </v-col>
       <v-col cols="6" class="pt-0">
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import storeService from 'Api/modules/system/store.service'
+import storeService from '@/api/modules/system/store.service'
 
 export default {
   props: {
@@ -53,7 +53,7 @@ export default {
   data () {
     return {
       form: {
-        storeCd: '',
+        storeCode: '',
         selectDate: [moment().format('YYYY-MM-DD'), moment().add(2, 'weeks').format('YYYY-MM-DD')]
       },
       storeList: [],
@@ -80,7 +80,7 @@ export default {
     })
     // 영업장 조회
     storeService.selectPartnerInventoryStoreList().then(res => {
-      const storeAll = [{ storeCd: '', storeNm: '전체' }]
+      const storeAll = [{ storeCode: '', storeName: '전체' }]
       this.storeList = storeAll.concat(res.data)
     })
   },

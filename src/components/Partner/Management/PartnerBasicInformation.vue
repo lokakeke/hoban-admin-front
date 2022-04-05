@@ -9,7 +9,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>업체 명</v-label>
-            <v-text-field type="text" v-model="form.ptnrNm" :rules="emptyRules"></v-text-field>
+            <v-text-field type="text" v-model="form.ptnrName" :rules="emptyRules"></v-text-field>
           </v-col>
           <v-col v-if="isModify && (!isPartner || isSupervisor)" cols="3" align-self="center">
             <partner-password-reset :item="form"></partner-password-reset>
@@ -60,7 +60,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>관리자 성명</v-label>
-            <v-text-field type="text" v-model="form.ceoNm" :rules="emptyRules"></v-text-field>
+            <v-text-field type="text" v-model="form.ceoName" :rules="emptyRules"></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>관리자 연락처</v-label>
@@ -71,7 +71,7 @@
             <v-autocomplete v-model="form.menuAuthGrupId"
                             :items="menuAuthList"
                             item-value="grupId"
-                            item-text="grupNm"
+                            item-text="grupName"
                             :rules="emptyRules"
                             :disabled="isPartner"
             ></v-autocomplete>
@@ -115,12 +115,12 @@
               </thead>
               <tbody>
               <tr v-for="(term, index) in form.terms" :key="index" @click="modifyRow(term, index)">
-                <td class="text-center">{{term.taskType | label(businessList, 'commCd', 'commCdNm')}}</td>
-                <td class="text-center">{{term.taskTypeNm}}</td>
+                <td class="text-center">{{term.taskType | label(businessList, 'commCode', 'commCodeName')}}</td>
+                <td class="text-center">{{term.taskTypeName}}</td>
                 <td class="text-center">{{term.memNo}}</td>
-                <td class="text-center">{{term.saleChnnl | label(saleChannelList, 'commCd', 'commCdNm')}}
-                <td class="text-center">{{term.agentCdNm}}
-                <td class="text-center">{{term.agentCd}}
+                <td class="text-center">{{term.saleChnnl | label(saleChannelList, 'commCode', 'commCodeName')}}
+                <td class="text-center">{{term.agentCodeName}}
+                <td class="text-center">{{term.agentCode}}
                 <td class="text-center">{{term.useBgnYmd | date}} ~ {{term.useEndYmd | date}}</td>
                 <td class="text-center">{{term.depoKey}}</td>
                 <td class="text-center">{{term.amt | price}}원</td>
@@ -148,7 +148,7 @@
           <v-row>
             <v-col cols="4">
               <v-label>닉네임</v-label>
-              <v-text-field v-model="chargeForm.chrgNm" label="" :rules="emptyRules" clearable></v-text-field>
+              <v-text-field v-model="chargeForm.chrgName" label="" :rules="emptyRules" clearable></v-text-field>
             </v-col>
             <v-col cols="4">
               <v-label>휴대폰 번호</v-label>
@@ -186,10 +186,10 @@
 </template>
 
 <script>
-import service from 'Api/modules/partner/partner.service'
-import authService from 'Api/modules/partner/partnerMenuAuth.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import PartnerPasswordReset from 'Components/Partner/Management/PartnerPasswordReset.vue'
+import service from '@/api/modules/partner/partner.service'
+import authService from '@/api/modules/partner/partnerMenuAuth.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import PartnerPasswordReset from '@/components/Partner//PartnerPasswordReset.vue'
 
 export default {
   components: { PartnerPasswordReset },
@@ -215,13 +215,13 @@ export default {
         loginId: '',
         newPw: '',
         tempPwYn: 'Y',
-        ptnrNm: '',
+        ptnrName: '',
         newPwConfirm: '',
         bizrNo: '',
-        ceoNm: '',
+        ceoName: '',
         capTelNo: '',
-        agentCd: '',
-        agentCdNm: '',
+        agentCode: '',
+        agentCodeName: '',
         menuAuthGrupId: '',
         addCrtfNo: '',
         blacklistYn: 'N',
@@ -229,7 +229,7 @@ export default {
         sendYn: 'Y'
       },
       chargeForm: {
-        chrgNm: '',
+        chrgName: '',
         telNo: '',
         email: '',
         mainAuthYn: 'Y',
@@ -299,15 +299,15 @@ export default {
         ptnrNo: this.partnerNo,
         termSeq: '',
         taskType: '',
-        taskTypeNm: '',
+        taskTypeName: '',
         memNo: '',
         saleChnnl: '',
         useBgnYmd: null,
         useEndYmd: null,
         depoYn: '',
         depoDesc: '',
-        agentCd: '',
-        agentCdNm: '',
+        agentCode: '',
+        agentCodeName: '',
         mgtNo: '',
         calcApplyYn: 'Y'
       }
@@ -316,7 +316,7 @@ export default {
         useForm = Object.assign({}, row)
         useForm.useBgnYmd = moment(useForm.useBgnYmd).format('YYYYMMDD')
         useForm.useEndYmd = moment(useForm.useEndYmd).format('YYYYMMDD')
-        useForm.ptnrNm = this.form.ptnrNm
+        useForm.ptnrName = this.form.ptnrName
         this.dataIndex = index
       }
       // 추가된 로우인지 아닌지 판단한다.
@@ -324,7 +324,7 @@ export default {
 
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner/Management/PartnerBasicAddDialog',
+        componentPath: '/Partner//PartnerBasicAddDialog',
         params: {
           isNewData,
           useForm,
@@ -370,7 +370,7 @@ export default {
         await this.validForm(this.$refs.form)
         await this.checkTerms()
         await this.$dialog.confirm('업체 정보를 수정 하시겠습니까?')
-        await service.updatePartnerManagement(this.form)
+        await service.updatePartner(this.form)
         this.search()
         await this.$dialog.alert('업체 정보가 수정되었습니다.')
         this.getPartnerDetails()
@@ -394,8 +394,8 @@ export default {
           // 전송 폼
           const form = _.cloneDeep(this.form)
           form.partnerCharge = _.cloneDeep(this.chargeForm)
-          const res = await service.insertPartnerManagement(form)
-          this.setInfo(true, res.data.ptnrNo, res.data.ptnrNm)
+          const res = await service.insertPartner(form)
+          this.setInfo(true, res.data.ptnrNo, res.data.ptnrName)
           this.search()
           // 재조회
           this.$nextTick(() => {

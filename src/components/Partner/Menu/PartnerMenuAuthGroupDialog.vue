@@ -20,7 +20,7 @@
                     </v-col>
                     <v-col cols="6">
                         <v-label>메뉴권한 그룹 이름</v-label>
-                        <v-text-field v-model="form.grupNm" :rules="emptyRules" label="" class="pt-0"></v-text-field>
+                        <v-text-field v-model="form.grupName" :rules="emptyRules" label="" class="pt-0"></v-text-field>
                     </v-col>
                     <v-col>
                         <v-checkbox class="mt-0" v-model="form.useYn" label="사용여부" hide-details true-value="Y" false-value="N"></v-checkbox>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import service from 'Api/modules/partner/partnerMenuAuth.service'
+import service from '@/api/modules/partner/partnerMenuAuth.service'
 
 export default {
   props: { load: Function },

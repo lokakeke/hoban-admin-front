@@ -5,7 +5,7 @@
         <v-row>
           <v-col sm="6" md="3" cols="6">
             <v-label>닉네임</v-label>
-            <v-text-field v-model="form.chrgNm" label="" :rules="emptyRules"></v-text-field>
+            <v-text-field v-model="form.chrgName" label="" :rules="emptyRules"></v-text-field>
           </v-col>
           <v-col sm="6" md="3" cols="6">
             <v-label>휴대폰 번호</v-label>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import partnerChargeService from 'Api/modules/partner/partnerCharge.service'
+import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
 
 export default {
   props: {

@@ -125,8 +125,8 @@
 </template>
 
 <script>
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import commonCodeForm from 'Views/system/commonCode/CommonCodeForm.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import commonCodeForm from '@/views/system/commonCode/CommonCodeForm.vue'
 
 export default {
   components: { commonCodeForm },

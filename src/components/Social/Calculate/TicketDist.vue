@@ -7,14 +7,14 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-tabs v-model="tabList.itemNm">
-      <v-tab v-for="(t, index) in tabList" :key="index" :href="`#tab-${t.itemNm}`" class="ml-12">
-        <h5 class="font-weight-bold basil--text">{{index+1}}. {{ t.itemNm }}</h5>
+    <v-tabs v-model="tabList.itemName">
+      <v-tab v-for="(t, index) in tabList" :key="index" :href="`#tab-${t.itemName}`" class="ml-12">
+        <h5 class="font-weight-bold basil--text">{{index+1}}. {{ t.itemName }}</h5>
       </v-tab>
       <v-tab-item
         v-for="(t, index) in tabList"
         :key="index"
-        :value="'tab-' + t.itemNm"
+        :value="'tab-' + t.itemName"
       >
         <v-card flat tile>
           <v-card-text>
@@ -46,11 +46,11 @@
                         </thead>
                         <tbody v-if="list && list.length > 0">
                         <tr v-for="(item, index) of list" :key="index">
-                          <template v-if="item.dstbYn === 'Y' ? t.itemNm === item.itemNm : t.itemNm === item.lcalCdNm">
-                          <td>{{item.lcalCdNm}}</td>
-                          <td>{{item.saleChnnlNm}}</td>
+                          <template v-if="item.dstbYn === 'Y' ? t.itemName === item.itemName : t.itemName === item.lcalCodeName">
+                          <td>{{item.lcalCodeName}}</td>
+                          <td>{{item.saleChnnlName}}</td>
                           <td>{{item.ticketNo}}</td>
-                          <td>{{item.itemNm}}</td>
+                          <td>{{item.itemName}}</td>
                           <td>{{item.sellAmt1 | price}}</td>
                           <td>{{item.sellQty1 | price}}</td>
                           <td>{{item.saleAmt1 | price}}</td>
@@ -62,12 +62,12 @@
                         </tr>
                         <tr class="sum-row">
                           <td colspan="4">합 계</td>
-                          <td>{{total[t.itemNm].sellAmt1 | price}}</td>
-                          <td>{{total[t.itemNm].sellQty1 | price}}</td>
-                          <td>{{total[t.itemNm].saleAmt1 | price}}</td>
-                          <td>{{total[t.itemNm].calculate1 | price}}</td>
-                          <td>{{total[t.itemNm].cmsnExclAmt1 | price}}</td>
-                          <td>{{total[t.itemNm].totCmsnAmt1 | price}}</td>
+                          <td>{{total[t.itemName].sellAmt1 | price}}</td>
+                          <td>{{total[t.itemName].sellQty1 | price}}</td>
+                          <td>{{total[t.itemName].saleAmt1 | price}}</td>
+                          <td>{{total[t.itemName].calculate1 | price}}</td>
+                          <td>{{total[t.itemName].cmsnExclAmt1 | price}}</td>
+                          <td>{{total[t.itemName].totCmsnAmt1 | price}}</td>
                           <td></td>
                         </tr>
                         </tbody>
@@ -104,11 +104,11 @@
                         </thead>
                         <tbody v-if="list && list.length > 0">
                         <tr v-for="(item, index) of list" :key="index">
-                          <template v-if="item.dstbYn === 'Y' ? t.itemNm === item.itemNm : t.itemNm === item.lcalCdNm">
-                          <td>{{item.lcalCdNm}}</td>
-                          <td>{{item.saleChnnlNm}}</td>
+                          <template v-if="item.dstbYn === 'Y' ? t.itemName === item.itemName : t.itemName === item.lcalCodeName">
+                          <td>{{item.lcalCodeName}}</td>
+                          <td>{{item.saleChnnlName}}</td>
                           <td>{{item.ticketNo}}</td>
-                          <td>{{item.itemNm}}</td>
+                          <td>{{item.itemName}}</td>
                           <td>{{item.sellAmt2 | price}}</td>
                           <td>{{item.useQty2 | price}}</td>
                           <td>{{item.useAmt2 | price}}</td>
@@ -120,12 +120,12 @@
                         </tr>
                         <tr class="sum-row">
                           <td colspan="4">합 계</td>
-                          <td>{{total[t.itemNm].sellAmt2 | price}}</td>
-                          <td>{{total[t.itemNm].useQty2 | price}}</td>
-                          <td class="red--text">{{total[t.itemNm].useAmt2 | price}}</td>
-                          <td>{{total[t.itemNm].calculate2 | price}}</td>
-                          <td>{{total[t.itemNm].cmsnExclAmt2 | price}}</td>
-                          <td class="red--text">{{total[t.itemNm].totCmsnAmt2 | price}}</td>
+                          <td>{{total[t.itemName].sellAmt2 | price}}</td>
+                          <td>{{total[t.itemName].useQty2 | price}}</td>
+                          <td class="red--text">{{total[t.itemName].useAmt2 | price}}</td>
+                          <td>{{total[t.itemName].calculate2 | price}}</td>
+                          <td>{{total[t.itemName].cmsnExclAmt2 | price}}</td>
+                          <td class="red--text">{{total[t.itemName].totCmsnAmt2 | price}}</td>
                           <td></td>
                         </tr>
                         </tbody>
@@ -162,11 +162,11 @@
                         </thead>
                         <tbody v-if="list && list.length > 0">
                         <tr v-for="(item, index) of list" :key="index">
-                          <template v-if="item.dstbYn === 'Y' ? t.itemNm === item.itemNm : t.itemNm === item.lcalCdNm">
-                          <td>{{item.lcalCdNm}}</td>
-                          <td>{{item.saleChnnlNm}}</td>
+                          <template v-if="item.dstbYn === 'Y' ? t.itemName === item.itemName : t.itemName === item.lcalCodeName">
+                          <td>{{item.lcalCodeName}}</td>
+                          <td>{{item.saleChnnlName}}</td>
                           <td>{{item.ticketNo}}</td>
-                          <td>{{item.itemNm}}</td>
+                          <td>{{item.itemName}}</td>
                           <td>{{item.sellAmt3 | price}}</td>
                           <td>{{item.sellQty3 | price}}</td>
                           <td>{{item.saleAmt3 | price}}</td>
@@ -178,13 +178,13 @@
                         </tr>
                         <tr class="sum-row">
                           <td colspan="4">합 계</td>
-                          <td>{{total[t.itemNm].sellAmt3 | price}}</td>
-                          <td>{{total[t.itemNm].sellQty3 | price}}</td>
-                          <td>{{total[t.itemNm].saleAmt3 | price}}</td>
-                          <td>{{total[t.itemNm].cmsnExclAmt3 | price}}</td>
-                          <td>{{total[t.itemNm].refundAmt3 | price}}</td>
-                          <td class="red--text">{{total[t.itemNm].depositAmt3 | price}}</td>
-                          <td class="red--text">{{total[t.itemNm].totCmsnAmt3 | price}}</td>
+                          <td>{{total[t.itemName].sellAmt3 | price}}</td>
+                          <td>{{total[t.itemName].sellQty3 | price}}</td>
+                          <td>{{total[t.itemName].saleAmt3 | price}}</td>
+                          <td>{{total[t.itemName].cmsnExclAmt3 | price}}</td>
+                          <td>{{total[t.itemName].refundAmt3 | price}}</td>
+                          <td class="red--text">{{total[t.itemName].depositAmt3 | price}}</td>
+                          <td class="red--text">{{total[t.itemName].totCmsnAmt3 | price}}</td>
                         </tr>
                         </tbody>
                         <tbody v-else>
@@ -207,7 +207,7 @@
     <v-card flat tile id="printMe" v-show="false">
       <v-card-text>
       <v-container fluid v-for="(t, index) in tabList" :key="index">
-        <h5 class="font-weight-bold basil--text">{{index+1}}. {{ t.itemNm }}</h5>
+        <h5 class="font-weight-bold basil--text">{{index+1}}. {{ t.itemName }}</h5>
         <v-row wrap>
           <v-col sm="12">
             <v-row>
@@ -234,11 +234,11 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <template v-if="item.dstbYn === 'Y' ? t.itemNm === item.itemNm : t.itemNm === item.lcalCdNm">
-                    <td>{{item.lcalCdNm}}</td>
-                    <td>{{item.saleChnnlNm}}</td>
+                  <template v-if="item.dstbYn === 'Y' ? t.itemName === item.itemName : t.itemName === item.lcalCodeName">
+                    <td>{{item.lcalCodeName}}</td>
+                    <td>{{item.saleChnnlName}}</td>
                     <td>{{item.ticketNo}}</td>
-                    <td>{{item.itemNm}}</td>
+                    <td>{{item.itemName}}</td>
                     <td>{{item.sellAmt1 | price}}</td>
                     <td>{{item.sellQty1 | price}}</td>
                     <td>{{item.saleAmt1 | price}}</td>
@@ -250,12 +250,12 @@
                 </tr>
                 <tr class="sum-row">
                   <td colspan="4">합 계</td>
-                  <td>{{total[t.itemNm].sellAmt1 | price}}</td>
-                  <td>{{total[t.itemNm].sellQty1 | price}}</td>
-                  <td>{{total[t.itemNm].saleAmt1 | price}}</td>
-                  <td>{{total[t.itemNm].calculate1 | price}}</td>
-                  <td>{{total[t.itemNm].cmsnExclAmt1 | price}}</td>
-                  <td>{{total[t.itemNm].totCmsnAmt1 | price}}</td>
+                  <td>{{total[t.itemName].sellAmt1 | price}}</td>
+                  <td>{{total[t.itemName].sellQty1 | price}}</td>
+                  <td>{{total[t.itemName].saleAmt1 | price}}</td>
+                  <td>{{total[t.itemName].calculate1 | price}}</td>
+                  <td>{{total[t.itemName].cmsnExclAmt1 | price}}</td>
+                  <td>{{total[t.itemName].totCmsnAmt1 | price}}</td>
                   <td></td>
                 </tr>
                 </tbody>
@@ -292,11 +292,11 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <template v-if="item.dstbYn === 'Y' ? t.itemNm === item.itemNm : t.itemNm === item.lcalCdNm">
-                    <td>{{item.lcalCdNm}}</td>
-                    <td>{{item.saleChnnlNm}}</td>
+                  <template v-if="item.dstbYn === 'Y' ? t.itemName === item.itemName : t.itemName === item.lcalCodeName">
+                    <td>{{item.lcalCodeName}}</td>
+                    <td>{{item.saleChnnlName}}</td>
                     <td>{{item.ticketNo}}</td>
-                    <td>{{item.itemNm}}</td>
+                    <td>{{item.itemName}}</td>
                     <td>{{item.sellAmt2 | price}}</td>
                     <td>{{item.useQty2 | price}}</td>
                     <td>{{item.useAmt2 | price}}</td>
@@ -308,12 +308,12 @@
                 </tr>
                 <tr class="sum-row">
                   <td colspan="4">합 계</td>
-                  <td>{{total[t.itemNm].sellAmt2 | price}}</td>
-                  <td>{{total[t.itemNm].useQty2 | price}}</td>
-                  <td class="red--text">{{total[t.itemNm].useAmt2 | price}}</td>
-                  <td>{{total[t.itemNm].calculate2 | price}}</td>
-                  <td>{{total[t.itemNm].cmsnExclAmt2 | price}}</td>
-                  <td class="red--text">{{total[t.itemNm].totCmsnAmt2 | price}}</td>
+                  <td>{{total[t.itemName].sellAmt2 | price}}</td>
+                  <td>{{total[t.itemName].useQty2 | price}}</td>
+                  <td class="red--text">{{total[t.itemName].useAmt2 | price}}</td>
+                  <td>{{total[t.itemName].calculate2 | price}}</td>
+                  <td>{{total[t.itemName].cmsnExclAmt2 | price}}</td>
+                  <td class="red--text">{{total[t.itemName].totCmsnAmt2 | price}}</td>
                   <td></td>
                 </tr>
                 </tbody>
@@ -350,11 +350,11 @@
                 </thead>
                 <tbody v-if="list && list.length > 0">
                 <tr v-for="(item, index) of list" :key="index">
-                  <template v-if="item.dstbYn === 'Y' ? t.itemNm === item.itemNm : t.itemNm === item.lcalCdNm">
-                    <td>{{item.lcalCdNm}}</td>
-                    <td>{{item.saleChnnlNm}}</td>
+                  <template v-if="item.dstbYn === 'Y' ? t.itemName === item.itemName : t.itemName === item.lcalCodeName">
+                    <td>{{item.lcalCodeName}}</td>
+                    <td>{{item.saleChnnlName}}</td>
                     <td>{{item.ticketNo}}</td>
-                    <td>{{item.itemNm}}</td>
+                    <td>{{item.itemName}}</td>
                     <td>{{item.sellAmt3 | price}}</td>
                     <td>{{item.sellQty3 | price}}</td>
                     <td>{{item.saleAmt3 | price}}</td>
@@ -366,13 +366,13 @@
                 </tr>
                 <tr class="sum-row">
                   <td colspan="4">합 계</td>
-                  <td>{{total[t.itemNm].sellAmt3 | price}}</td>
-                  <td>{{total[t.itemNm].sellQty3 | price}}</td>
-                  <td>{{total[t.itemNm].saleAmt3 | price}}</td>
-                  <td>{{total[t.itemNm].cmsnExclAmt3 | price}}</td>
-                  <td>{{total[t.itemNm].refundAmt3 | price}}</td>
-                  <td class="red--text">{{total[t.itemNm].depositAmt3 | price}}</td>
-                  <td class="red--text">{{total[t.itemNm].totCmsnAmt3 | price}}</td>
+                  <td>{{total[t.itemName].sellAmt3 | price}}</td>
+                  <td>{{total[t.itemName].sellQty3 | price}}</td>
+                  <td>{{total[t.itemName].saleAmt3 | price}}</td>
+                  <td>{{total[t.itemName].cmsnExclAmt3 | price}}</td>
+                  <td>{{total[t.itemName].refundAmt3 | price}}</td>
+                  <td class="red--text">{{total[t.itemName].depositAmt3 | price}}</td>
+                  <td class="red--text">{{total[t.itemName].totCmsnAmt3 | price}}</td>
                 </tr>
                 </tbody>
                 <tbody v-else>
@@ -392,7 +392,7 @@
 
 <script>
 
-import calculateService from 'Api/modules/social/calculate.service'
+import calculateService from '@/api/modules/social/calculate.service'
 
 export default {
   name: 'TicketDist',
@@ -444,8 +444,8 @@ export default {
       calculateService.selectDstbTabList(this.param).then(res => {
         if (res.data) {
           res.data.forEach(res => {
-            this.tabList.push({ itemNm: res.itemNm })
-            this.$set(this.total, res.itemNm, _.cloneDeep(this.totalRow))
+            this.tabList.push({ itemName: res.itemName })
+            this.$set(this.total, res.itemName, _.cloneDeep(this.totalRow))
           })
         }
         this.search()
@@ -464,7 +464,7 @@ export default {
     setTotalCal () {
       // 배분여부가 Y 인경우 상품명으로 총 합계 계산
       for (const key in this.total) {
-        const filteredList = _.filter(this.list, { itemNm: key, dstbYn: 'Y' })
+        const filteredList = _.filter(this.list, { itemName: key, dstbYn: 'Y' })
         Object.keys(this.total[key]).forEach(item => {
           filteredList.forEach(filteredItem => {
             this.total[key][item] += Number(filteredItem[item])
@@ -473,7 +473,7 @@ export default {
       }
       // 배분여부가 N 인경우 지역명으로 총 합계 계산
       for (const key in this.total) {
-        const filteredList = _.filter(this.list, { lcalCdNm: key, dstbYn: 'N' })
+        const filteredList = _.filter(this.list, { lcalCodeName: key, dstbYn: 'N' })
         Object.keys(this.total[key]).forEach(item => {
           filteredList.forEach(filteredItem => {
             this.total[key][item] += Number(filteredItem[item])

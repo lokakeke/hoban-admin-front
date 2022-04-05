@@ -10,12 +10,12 @@
         <v-row no-gutters>
           <v-col cols="6">
             <span class="subtitle-1 info--text">영업장</span>
-            <p class="mt-0 mb-1 pl-3 subtitle-1 font-weight-bold" v-html="select.storeNm"></p>
+            <p class="mt-0 mb-1 pl-3 subtitle-1 font-weight-bold" v-html="select.storeName"></p>
           </v-col>
           <v-col cols="6">
             <span class="subtitle-1 info--text">객실유형</span>
             <v-btn icon absolute right small @click="initSelect" v-if="!isDialog"><v-icon>close</v-icon></v-btn>
-            <p class="mt-0 mb-1 pl-3 subtitle-1 font-weight-bold">{{select.rmTypeNm}}</p>
+            <p class="mt-0 mb-1 pl-3 subtitle-1 font-weight-bold">{{select.rmTypeName}}</p>
           </v-col>
           <v-col cols="6">
             <span class="subtitle-1 info--text">일자</span>
@@ -42,7 +42,7 @@
           <v-row no-gutters align="center">
             <v-col cols="3" class="pointer" @click="check(item)">
               <v-icon left>{{item.check? 'check_box': 'check_box_outline_blank'}}</v-icon>
-              {{item.ptnrNm}} <!--<small>( {{item.ptnrId}} )</small>-->
+              {{item.ptnrName}} <!--<small>( {{item.ptnrId}} )</small>-->
             </v-col>
             <v-menu
               offset-y
@@ -69,7 +69,7 @@
                         autocomplete="off"
                         v-on="on"
                         class="py-1"
-                        :value="item.agentCd | label(item.rsvInfoList, 'agentCd', 'agentCdNm')"
+                        :value="item.agentCode | label(item.rsvInfoList, 'agentCode', 'agentCodeName')"
                         :rules="item.check? emptyRules: undefined"
                         readonly
                         :hide-details="'auto'"
@@ -84,7 +84,7 @@
               <v-list dense>
                 <v-list-item v-for="(info, index) of item.rsvInfoList" :key="index" class="border-bottom px-2" @click="selectInfo(item, info)">
                   <v-list-item-action class="mr-2">
-                    <v-icon>{{info.memNo === item.memNo && info.agentCd === item.agentCd ? 'check_box': 'check_box_outline_blank'}}</v-icon>
+                    <v-icon>{{info.memNo === item.memNo && info.agentCode === item.agentCode ? 'check_box': 'check_box_outline_blank'}}</v-icon>
                   </v-list-item-action>
                   <v-list-item-content>
                     <v-row dense no-gutters align="center">
@@ -92,15 +92,15 @@
                         회원번호
                       </v-col>
                       <v-col cols="4" class="border-left pl-1">
-                        <p class="mb-1">{{info.memNm}}</p>
+                        <p class="mb-1">{{info.memName}}</p>
                         ( {{info.memNo}} )
                       </v-col>
                       <v-col cols="2" class="border-left pl-1">
                         대매사
                       </v-col>
                       <v-col cols="4" class="border-left pl-1">
-                        <p class="mb-1">{{info.agentCdNm}}</p>
-                        ( {{info.agentCd}} )
+                        <p class="mb-1">{{info.agentCodeName}}</p>
+                        ( {{info.agentCode}} )
                       </v-col>
                     </v-row>
                   </v-list-item-content>
@@ -138,7 +138,7 @@
 </template>
 
 <script>
-import partnerInventoryDetailSetService from 'Api/modules/partner/partnerInventoryDetailSet.service'
+import partnerInventoryDetailSetService from '@/api/modules/partner/partnerInventoryDetailSet.service'
 
 export default {
   model: {
@@ -220,11 +220,11 @@ export default {
     async changeSelect () {
       this.partnerList = this.partnerOrigin.map(data => {
         return Object.assign({}, data, {
-          storeCd: this.select.storeCd,
-          rmTypeCd: this.select.rmTypeCd,
+          storeCode: this.select.storeCode,
+          rmTypeCode: this.select.rmTypeCode,
           ciYmd: this.replaceAll(this.select.date, '-', ''),
           qty: undefined,
-          agentCd: '',
+          agentCode: '',
           memNo: '',
           check: false
         })
@@ -248,12 +248,12 @@ export default {
       // false 일 경우 값을 날려준다.
       if (!item.check) {
         item.qty = undefined
-        item.agentCd = ''
+        item.agentCode = ''
         item.memNo = ''
       } else {
-        // true 일 경우 자동으로 agentCd 및 memNo 를 셋팅해준다.
+        // true 일 경우 자동으로 agentCode 및 memNo 를 셋팅해준다.
         if (item.rsvInfoList && _.isArray(item.rsvInfoList) && item.rsvInfoList.length > 0) {
-          item.agentCd = item.rsvInfoList[0].agentCd
+          item.agentCode = item.rsvInfoList[0].agentCode
           item.memNo = item.rsvInfoList[0].memNo
         }
       }
@@ -274,20 +274,20 @@ export default {
           const insertList = this.partnerList.filter(data => data.check).map(data => {
             return {
               ptnrNo: data.ptnrNo,
-              storeCd: data.storeCd,
-              rmTypeCd: data.rmTypeCd,
+              storeCode: data.storeCode,
+              rmTypeCode: data.rmTypeCode,
               ciYmd: data.ciYmd,
               memNo: data.memNo,
-              agentCd: data.agentCd,
+              agentCode: data.agentCode,
               rmCnt: data.qty
             }
           })
           // 선택 정보
           const param = {
-            storeCd: this.select.storeCd,
-            rmTypeCd: this.select.rmTypeCd,
+            storeCode: this.select.storeCode,
+            rmTypeCode: this.select.rmTypeCode,
             ciYmd: this.select.date,
-            rsvBlckCd: this.select.rsvBlckCd,
+            rsvBlckCode: this.select.rsvBlckCode,
             insertList
           }
           const res = await partnerInventoryDetailSetService.insertPartnerInventoryDetailSetList(param)
@@ -315,7 +315,7 @@ export default {
      */
     selectInfo (item, info) {
       item.memNo = info.memNo
-      item.agentCd = info.agentCd
+      item.agentCode = info.agentCode
     }
   }
 }

@@ -14,7 +14,7 @@
         <v-row align="center">
           <v-col cols="12" class="headline font-weight-bold text-center px-7">
             <v-icon class="float-left" @click="clickIcon(menu.menuId)">{{checkIcon(menu.menuId)}}</v-icon>
-            <span :class="{ 'strike': menu.useYn === 'N' }">{{menu.menuNm}}</span>
+            <span :class="{ 'strike': menu.useYn === 'N' }">{{menu.menuName}}</span>
           </v-col>
         </v-row>
         <v-divider></v-divider>
@@ -23,7 +23,7 @@
             <template v-if="subItem.children && subItem.children.length > 0">
               <v-list-item :key="subItem.menuId" @click="check(subItem.menuId)">
                 <v-list-item-content>
-                  <div class="title font-weight-bold" :class="{ 'strike': subItem.useYn === 'N' }">{{subItem.menuNm}}</div>
+                  <div class="title font-weight-bold" :class="{ 'strike': subItem.useYn === 'N' }">{{subItem.menuName}}</div>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item v-for="sub of subItem.children" class="pl-6" :key="sub.menuId" @click="check(sub.menuId)">
@@ -32,7 +32,7 @@
                   <v-checkbox v-model="myMenu" :value="sub.menuId" @click.prevent.stop="" class="mt-0 pt-0"></v-checkbox>
                 </v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title :class="{ 'strike': sub.useYn === 'N' }">{{sub.menuNm}}</v-list-item-title>
+                  <v-list-item-title :class="{ 'strike': sub.useYn === 'N' }">{{sub.menuName}}</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-action @click.stop="">
                   <v-switch v-model="menuWrite" inset dense :value="sub.menuId" label="쓰기 권한" color="info" @change="checkWrite(sub.menuId)"></v-switch>
@@ -45,7 +45,7 @@
                   <v-checkbox v-model="myMenu" :value="subItem.menuId" @click.prevent.stop=""></v-checkbox>
                 </v-list-item-action>
                 <v-list-item-content :class="{ 'strike': subItem.useYn === 'N' }">
-                  {{subItem.menuNm}}
+                  {{subItem.menuName}}
                 </v-list-item-content>
                 <v-list-item-action @click.stop="">
                   <v-switch v-model="menuWrite" inset dense :value="subItem.menuId" label="쓰기 권한" color="info" @change="checkWrite(subItem.menuId)"></v-switch>
@@ -66,8 +66,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/partner/partnerMenuAuth.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/partner/partnerMenuAuth.service'
 
 export default {
   extends: DialogBase,

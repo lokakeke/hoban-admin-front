@@ -83,8 +83,8 @@
 <script>
 import XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import service from 'Api/modules/naver/calculateDay.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import service from '@/api/modules/naver/calculateDay.service'
 
 const COMMON_SHEET_HEADER = [
   '주문번호',

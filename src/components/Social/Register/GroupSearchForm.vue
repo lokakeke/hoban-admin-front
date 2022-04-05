@@ -13,7 +13,7 @@
             <v-text-field v-model="searchParam.q.calcNo" append-icon="search" clearable label="정산 그룹번호" hide-details></v-text-field>
           </v-col>
           <v-col cols="3">
-            <v-text-field v-model="searchParam.q.calcNm" append-icon="search" clearable label="정산 그룹번호 명" hide-details></v-text-field>
+            <v-text-field v-model="searchParam.q.calcName" append-icon="search" clearable label="정산 그룹번호 명" hide-details></v-text-field>
           </v-col>
           <v-col cols="3" class="text-right" align-self="end">
             <v-btn outlined rounded color="info" @click="openAddDialog">
@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import ticketCalcService from 'Api/modules/social/ticketCalc.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import ticketCalcService from '@/api/modules/social/ticketCalc.service'
 
 export default {
   extends: DialogBase,
@@ -66,7 +66,7 @@ export default {
     return {
       headers: [
         { text: '정산 그룹번호', value: 'calcNo', align: 'center', sortable: false },
-        { text: '정산 그룹 명', value: 'calcNm', align: 'center', sortable: false },
+        { text: '정산 그룹 명', value: 'calcName', align: 'center', sortable: false },
         { text: '등록된 우대번호', value: 'ticketCnt', align: 'center', sortable: false },
         { text: '상세보기', value: 'detail', align: 'center', sortable: false }
       ],
@@ -117,8 +117,8 @@ export default {
           width: 1000,
           closeCallback: params => {
             if (params && params.data) {
-              this.groupList.splice(0, 0, { calcNo: params.data.calcNo, calcNm: params.data.calcNm, ticketCnt: 0 })
-              // this.groupList.push({ calcNo: params.data.calcNo, calcNm: params.data.calcNm, ticketCnt: 0 })
+              this.groupList.splice(0, 0, { calcNo: params.data.calcNo, calcName: params.data.calcName, ticketCnt: 0 })
+              // this.groupList.push({ calcNo: params.data.calcNo, calcName: params.data.calcName, ticketCnt: 0 })
             }
           }
         }

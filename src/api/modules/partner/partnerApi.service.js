@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const partnerApiService = {
 
@@ -8,7 +8,7 @@ const partnerApiService = {
    * @returns API 리스트
    */
   selectPartnerApiList (ptnrNo) {
-    return api.get(`/api/system/partnerApi/list/${ptnrNo}`)
+    return api.get(`/api/cms/system/partnerApi/list/${ptnrNo}`)
   },
 
   /**
@@ -18,7 +18,7 @@ const partnerApiService = {
    * @return 파트너 API 정보
    */
   selectPartnerApi (ptnrNo, apiInd) {
-    return api.get(`/api/system/partnerApi/info/${ptnrNo}/${apiInd}`)
+    return api.get(`/api/cms/system/partnerApi/info/${ptnrNo}/${apiInd}`)
   },
 
   /**
@@ -27,7 +27,7 @@ const partnerApiService = {
    * @returns AxiosPromise<any>
    */
   insertPartnerApi (form) {
-    return api.post('/api/system/partnerApi/insert', form)
+    return api.post('/api/cms/system/partnerApi/insert', form)
   },
 
   /**
@@ -36,7 +36,7 @@ const partnerApiService = {
    * @returns AxiosPromise<any>
    */
   updatePartnerApi (form) {
-    return api.post('/api/system/partnerApi/update', form)
+    return api.post('/api/cms/system/partnerApi/update', form)
   },
 
   /**
@@ -45,7 +45,7 @@ const partnerApiService = {
    * @param apiInd
    */
   deletePartnerApi (ptnrNo, apiInd) {
-    return api.get(`/api/system/partnerApi/delete/${ptnrNo}/${apiInd}`)
+    return api.get(`/api/cms/system/partnerApi/delete/${ptnrNo}/${apiInd}`)
   },
 
   /**
@@ -54,7 +54,7 @@ const partnerApiService = {
    * @returns AxiosPromise<any>
    */
   testSendRoomAmount (form) {
-    return api.post('/api/system/partnerApi/testSendRoomAmount', form)
+    return api.post('/api/cms/system/partnerApi/testSendRoomAmount', form)
   }
 }
 

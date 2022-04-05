@@ -7,20 +7,20 @@
                 </v-col>
                 <v-col cols="3">
                     <v-label>업체 명</v-label>
-                    <v-text-field v-if="isNew" v-model="form.ptnrNm" label="" :rules="emptyRules" readonly @click="openPartner">
+                    <v-text-field v-if="isNew" v-model="form.ptnrName" label="" :rules="emptyRules" readonly @click="openPartner">
                         <template v-slot:append-outer>
                             <v-btn outlined color="info" @click="openPartner" tabindex="-1"><v-icon left>search</v-icon> 조회</v-btn>
                         </template>
                     </v-text-field>
-                    <v-text-field v-else :value="form.ptnrNm" label="" readonly hide-details></v-text-field>
+                    <v-text-field v-else :value="form.ptnrName" label="" readonly hide-details></v-text-field>
                 </v-col>
                 <v-col cols="3">
                     <v-label>업무 구분</v-label>
-                    <v-text-field :value="form.taskTypeCdNm" label="" readonly hide-details></v-text-field>
+                    <v-text-field :value="form.taskTypeCodeName" label="" readonly hide-details></v-text-field>
                 </v-col>
                 <v-col cols="3">
                     <v-label>업무 구분 이름</v-label>
-                    <v-text-field :value="form.taskTypeNm" label="" readonly hide-details></v-text-field>
+                    <v-text-field :value="form.taskTypeName" label="" readonly hide-details></v-text-field>
                 </v-col>
                 <v-col cols="3">
                     <v-label>회원번호</v-label>
@@ -28,11 +28,11 @@
                 </v-col>
                 <v-col cols="3">
                     <v-label>판매 채널</v-label>
-                    <v-text-field :value="form.saleChnnlNm" label="" readonly hide-details></v-text-field>
+                    <v-text-field :value="form.saleChnnlName" label="" readonly hide-details></v-text-field>
                 </v-col>
                 <v-col cols="3">
                     <v-label>대매사(대매사 코드)</v-label>
-                    <v-text-field :value="form.agentCd ? form.agentCdNm + '  (' +form.agentCd+')' : '' " label="" readonly hide-details></v-text-field>
+                    <v-text-field :value="form.agentCode ? form.agentCodeName + '  (' +form.agentCode+')' : '' " label="" readonly hide-details></v-text-field>
                 </v-col>
                 <v-col cols="3">
                     <v-label>이용 시작기간</v-label>
@@ -129,7 +129,7 @@
 </template>
 
 <script>
-import service from 'Api/modules/api/serviceManagement.service'
+import service from '@/api/modules/api/service.service'
 
 export default {
   props: { item: Object, isNew: Boolean, insertData: Object, search: Function },
@@ -139,15 +139,15 @@ export default {
       this.form = {
         businessId: '',
         ptnrNo: '',
-        ptnrNm: '',
+        ptnrName: '',
         termSeq: '',
-        agentCdNm: '',
+        agentCodeName: '',
         taskType: '',
-        taskTypeCdNm: '',
-        taskTypeNm: '',
+        taskTypeCodeName: '',
+        taskTypeName: '',
         memNo: '',
         saleChnnl: '',
-        saleChnnlNm: '',
+        saleChnnlName: '',
         useBgnYmd: null,
         useEndYmd: null,
         depoYn: '',
@@ -241,10 +241,10 @@ export default {
         }
         if (this.isNew) {
           this.$emit('setPartner', this.form)
-          this.$emit('update:insertData', Object.assign({}, this.insertData, { serviceManagement: Object.assign({}, this.insertData.serviceManagement, this.form) }))
+          this.$emit('update:insertData', Object.assign({}, this.insertData, { service: Object.assign({}, this.insertData.service, this.form) }))
         } else {
           this.$dialog.confirm('기본 정보를 수정 하시겠습니까?').then(() => {
-            service.updateServiceManagement(this.form).then(res => {
+            service.updateService(this.form).then(res => {
               this.$dialog.alert('정보를 수정하였습니다.')
               this.search()
             })

@@ -16,13 +16,13 @@
                         회원번호 : {{ itemInfo.mid }}
                     </v-card-text>
                     <v-card-text class="black--text pt-0">
-                        영업장명 : {{ itemInfo.storeNm }}
+                        영업장명 : {{ itemInfo.storeName }}
                     </v-card-text>
                     <v-card-text class="black--text pt-0">
-                        객실타입명 : {{ itemInfo.rmTypeNm }} ({{ itemInfo.rmTypeCd }})
+                        객실타입명 : {{ itemInfo.rmTypeName }} ({{ itemInfo.rmTypeCode }})
                     </v-card-text>
                     <v-card-text class="black--text pt-0">
-                        블럭코드 : {{ itemInfo.rsvBlckCd }}
+                        블럭코드 : {{ itemInfo.rsvBlckCode }}
                     </v-card-text>
                 </v-card>
                 <item-info-component :originItemInfo="itemInfo" ref="itemInfo"></item-info-component>
@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import ItemInfoComponent from 'Components/Naver/Item/ItemInfoComponent.vue'
-import CommonSnackbars from 'Components/Common/CommonSnackbars.vue'
-import itemService from 'Api/modules/naver/item.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import ItemInfoComponent from '@/components/Naver/Item/ItemInfoComponent.vue'
+import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'
+import itemService from '@/api/modules/naver/item.service'
 
 export default {
   extends: DialogBase,
@@ -52,11 +52,11 @@ export default {
         bizItemId: '',
         dmStoreId: '',
         businessId: '',
-        storeCd: '',
-        rmTypeCd: '',
+        storeCode: '',
+        rmTypeCode: '',
         pkgYn: '',
         mid: '',
-        rsvBlckCd: '',
+        rsvBlckCode: '',
         name: '',
         desc: '',
         order: 0,

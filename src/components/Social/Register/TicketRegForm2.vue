@@ -22,8 +22,8 @@
             <v-select
               v-model="form.calcInd"
               :items="calcIndList"
-              item-text="commCdNm"
-              item-value="commCd"
+              item-text="commCodeName"
+              item-value="commCode"
             ></v-select>
           </v-col>
         </v-row>
@@ -49,7 +49,7 @@
               class="bordered"
             >
               <template v-slot:item.corpInd="{ item }">
-                <span>{{item.corpInd | label(corpIndList, 'commCd', 'commCdNm')}} <span v-if="item.corpInd == 'D'">({{data.ptnrNm}})</span> </span>
+                <span>{{item.corpInd | label(corpIndList, 'commCode', 'commCodeName')}} <span v-if="item.corpInd == 'D'">({{data.ptnrName}})</span> </span>
               </template>
               <template v-slot:item.cmsnRate="{ item }">
                 <span>{{item.cmsnRate}} %</span>
@@ -91,7 +91,7 @@
               class="bordered"
             >
               <template v-slot:item.chrgType="{item}">
-                <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCdNm" item-value="commCd" :disabled="item.isNew === 'Y' ? false : true"></v-select>
+                <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCodeName" item-value="commCode" :disabled="item.isNew === 'Y' ? false : true"></v-select>
               </template>
               <template v-slot:item.action="{ item }">
                 <v-btn small color="accent" rounded outlined @click="accountEmpRemove(item)">
@@ -125,8 +125,8 @@
             <v-select
               v-model="form.uuseCalcWayInd"
               :items="calcWayList"
-              item-text="commCdNm"
-              item-value="commCd"
+              item-text="commCodeName"
+              item-value="commCode"
               :disabled="isDisabled"
             ></v-select>
           </v-col>
@@ -145,10 +145,10 @@
           <v-col sm="6" md="4" class="pl-2">
             <v-label>영업장</v-label>
             <v-select
-              v-model="form.lcalCd"
+              v-model="form.lcalCode"
               :items="lcalList"
-              item-text="lcalNm"
-              item-value="lcalCd"
+              item-text="lcalName"
+              item-value="lcalCode"
               :disabled="form.dstbYn == 'N' ? false : true"
             ></v-select>
           </v-col>
@@ -165,10 +165,10 @@
 </template>
 
 <script>
-import ticketCalcService from 'Api/modules/social/ticketCalc.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import storeService from 'Api/modules/system/store.service'
-import ticketSearchService from 'Api/modules/social/ticketSearch.service'
+import ticketCalcService from '@/api/modules/social/ticketCalc.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import storeService from '@/api/modules/system/store.service'
+import ticketSearchService from '@/api/modules/social/ticketSearch.service'
 
 export default {
   props: { data: Object, close: Function, step: Function },
@@ -270,7 +270,7 @@ export default {
         }
       })
       // 영업장 조회
-      storeService.selectLcalCdList().then(res => {
+      storeService.selectLcalCodeList().then(res => {
         this.lcalList = res.data
       })
     },
@@ -319,7 +319,7 @@ export default {
     // 수수료율 추가/수정 Modal Open
     addCommission (row) {
       let isNew = true
-      const ptnrNm = this.data.ptnrNm
+      const ptnrName = this.data.ptnrName
       let commForm = {}
       if (row) {
         isNew = false
@@ -330,7 +330,7 @@ export default {
         params: {
           isNew,
           commForm,
-          ptnrNm
+          ptnrName
         },
         options: {
           fullscreen: false,

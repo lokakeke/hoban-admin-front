@@ -15,7 +15,7 @@
                 <v-form ref="form" lazy-validation autocomplete="off">
                     <v-text-field v-model="form.loginId" :rules="emptyRules" label="* 아이디" required></v-text-field>
                     <template v-if="isPartner">
-                        <v-text-field v-model="form.ptnrNm" :rules="emptyRules" label="* 파트너명" required></v-text-field>
+                        <v-text-field v-model="form.ptnrName" :rules="emptyRules" label="* 파트너명" required></v-text-field>
                         <v-text-field v-model="form.addCrtfNo" :rules="emptyRules"
                                       label="* 추가 인증번호 (파트너 등록 시 생성된 추가 인증번호)" required></v-text-field>
                         <v-text-field v-model="form.ptnrChrgId" :rules="emptyRules" label="* 닉네임"
@@ -47,9 +47,9 @@
 </template>
 
 <script>
-import adminAuth from 'Api/modules/system/adminAuth.service'
-import partnerAuthService from 'Api/modules/partner/partnerAuth.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import adminAuth from '@/api/modules/system/adminAuth.service'
+import partnerAuthService from '@/api/modules/partner/partnerAuth.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -63,7 +63,7 @@ export default {
         addCrtfNo: '',
         ptnrChrgId: '',
         adminName: '',
-        ptnrNm: '',
+        ptnrName: '',
         type: 'E'
       }
     }

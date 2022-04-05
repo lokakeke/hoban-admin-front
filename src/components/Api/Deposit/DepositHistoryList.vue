@@ -48,10 +48,10 @@
 </template>
 
 <script>
-import service from 'Api/modules/api/depositHistory.service'
+import service from '@/api/modules/api/depositHistory.service'
 
 export default {
-  name: 'DepositHistoryManagement',
+  name: 'DepositHistory',
   data () {
     return {
       searchParam: {
@@ -68,8 +68,8 @@ export default {
       const headers = [
         { text: '이력순번', value: 'hisSeq', align: 'center', sortable: false },
         { text: '예치금KEY', value: 'depoKey', align: 'center', sortable: false },
-        { text: '파트너명', value: 'ptnrNm', align: 'center', sortable: false },
-        { text: '금액구분', value: 'amtIndNm', align: 'center', sortable: false },
+        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
+        { text: '금액구분', value: 'amtIndName', align: 'center', sortable: false },
         { text: '금액', value: 'amt', align: 'center', sortable: false },
         { text: '변경 후 금액', value: 'prcpAmt', align: 'center', sortable: false }
       ]
@@ -91,8 +91,8 @@ export default {
     searchList () {
       const searchList = []
       searchList.push({ key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 })
-      searchList.push({ key: 'ptnrNm', label: '파트너명', type: 'text', cols: 2 })
-      searchList.push({ key: 'amtInd', label: '금액구분', type: 'code', commCd: 'COMM0005', cols: 2 })
+      searchList.push({ key: 'ptnrName', label: '파트너명', type: 'text', cols: 2 })
+      searchList.push({ key: 'amtInd', label: '금액구분', type: 'code', commCode: 'COMM0005', cols: 2 })
 
       if (this.$route.path.indexOf('/social') === 0) {
         searchList.push({ key: 'ticketNo', label: '우대번호', type: 'text', cols: 2 })
@@ -141,7 +141,7 @@ export default {
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Deposit/DepositHistoryManagementDialog',
+        componentPath: '@/api/Deposit/DepositHistoryDialog',
         params: {
           isNew,
           item,

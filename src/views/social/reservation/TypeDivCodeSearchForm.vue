@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import dgnsTickerService from 'Api/modules/social/dgnsTicket.service'
+import dgnsTickerService from '@/api/modules/social/dgnsTicket.service'
 
 export default {
   props: ['data', 'icon'],
@@ -59,7 +59,7 @@ export default {
       dialog: false,
       headers: [
         { text: '종류구분 코드', value: 'typeDivCode', align: 'center', sortable: false },
-        { text: '종류구분 코드명', value: 'typeDivCodeNm', align: 'center', sortable: false }
+        { text: '종류구분 코드명', value: 'typeDivCodeName', align: 'center', sortable: false }
       ],
       typeDivCode: '',
       searchParam: {},

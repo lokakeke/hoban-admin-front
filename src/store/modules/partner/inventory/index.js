@@ -11,7 +11,7 @@ const state = {
   /**
    * 전송 미관리중인 파트너 리스트
    */
-  noneManagementList: []
+  noneList: []
 }
 
 // getters
@@ -27,8 +27,8 @@ const getters = {
    * 전송 미관리중인 파트너 리스트
    * @param state
    */
-  noneManagementList (state) {
-    return state.noneManagementList
+  noneList (state) {
+    return state.noneList
   }
 }
 
@@ -39,8 +39,8 @@ const actions = {
    * @param {Object} context
    */
   initList ({ commit }) {
-    commit('setManagementList', [])
-    commit('setNoneManagementList', [])
+    commit('setList', [])
+    commit('setNoneList', [])
     return Promise.resolve()
   },
   /**
@@ -48,28 +48,28 @@ const actions = {
    * @param {Object} context
    * @param managementList 전송 관리중인 파트너 리스트
    */
-  setManagementList ({ commit }, managementList = []) {
-    commit('setManagementList', managementList)
+  setList ({ commit }, managementList = []) {
+    commit('setList', managementList)
     return Promise.resolve()
   },
   /**
    * 전송 미관리중인 파트너 리스트 셋팅
    * @param {Object} context
-   * @param noneManagementList 전송 미관리중인 파트너 리스트
+   * @param noneList 전송 미관리중인 파트너 리스트
    */
-  setNoneManagementList ({ commit }, noneManagementList = []) {
-    commit('setNoneManagementList', noneManagementList)
+  setNoneList ({ commit }, noneList = []) {
+    commit('setNoneList', noneList)
     return Promise.resolve()
   }
 }
 
 // mutations
 const mutations = {
-  setManagementList (state, managementList) {
+  setList (state, managementList) {
     state.managementList = managementList
   },
-  setNoneManagementList (state, noneManagementList) {
-    state.noneManagementList = noneManagementList
+  setNoneList (state, noneList) {
+    state.noneList = noneList
   }
 }
 

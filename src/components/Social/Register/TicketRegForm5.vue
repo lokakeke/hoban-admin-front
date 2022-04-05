@@ -9,7 +9,7 @@
           </v-col>
           <v-col sm="4" md="2">
             <v-label>운영담당자 이름</v-label>
-            <v-text-field v-model="form.empNm" label :rules="emptyRules" required></v-text-field>
+            <v-text-field v-model="form.empName" label :rules="emptyRules" required></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -33,8 +33,8 @@
             <v-autocomplete
               v-model="form.startHour"
               :items="hourList"
-              item-text="hourCd"
-              item-value="hourCd"
+              item-text="hourCode"
+              item-value="hourCode"
               :disabled="form.noticeYn == 'Y' ? false : true"
             ></v-autocomplete>
           </v-col>
@@ -45,8 +45,8 @@
             <v-autocomplete
               v-model="form.startMin"
               :items="minList"
-              item-text="minCd"
-              item-value="minCd"
+              item-text="minCode"
+              item-value="minCode"
               :disabled="form.noticeYn == 'Y' ? false : true"
             ></v-autocomplete>
           </v-col>
@@ -59,8 +59,8 @@
             <v-autocomplete
               v-model="form.endHour"
               :items="hourList"
-              item-text="hourCd"
-              item-value="hourCd"
+              item-text="hourCode"
+              item-value="hourCode"
               :disabled="form.noticeYn == 'Y' ? false : true"
             ></v-autocomplete>
           </v-col>
@@ -71,8 +71,8 @@
             <v-autocomplete
               v-model="form.endMin"
               :items="minList"
-              item-text="minCd"
-              item-value="minCd"
+              item-text="minCode"
+              item-value="minCode"
               :disabled="form.noticeYn == 'Y' ? false : true"
             ></v-autocomplete>
           </v-col>
@@ -139,7 +139,7 @@
 </template>
 
 <script>
-import ticketSearchService from 'Api/modules/social/ticketSearch.service'
+import ticketSearchService from '@/api/modules/social/ticketSearch.service'
 import 'moment/locale/ko'
 // moment.locale('ko');
 

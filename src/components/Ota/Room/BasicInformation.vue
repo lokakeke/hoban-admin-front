@@ -119,7 +119,7 @@
                       :readonly="!writeAuth"
                       :rules="emptyRules"
                       label="블럭코드"
-                      v-model="form.rsvBlckCd"
+                      v-model="form.rsvBlckCode"
                   />
                 </v-col>
               </v-row>
@@ -147,15 +147,15 @@
 </template>
 
 <script>
-import roomTypeService from 'Api/modules/ota/roomType.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import roomTypeService from '@/api/modules/ota/roomType.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'BasicInformation',
   props: {
     isEdit: Boolean,
-    storeCdProp: String
+    storeCodeProp: String
   },
   data: function () {
     return {
@@ -165,10 +165,10 @@ export default {
       todayRsvMinute: '',
 
       form: {
-        lcalCd: '',
-        lcalNm: '',
-        storeCd: '',
-        storeNm: '',
+        lcalCode: '',
+        lcalName: '',
+        storeCode: '',
+        storeName: '',
         saleBgnYmd: '',
         saleEndYmd: '',
         dailRsvLmt: 10,
@@ -176,7 +176,7 @@ export default {
         stayNights: 1,
         rmCnt: 1,
         todayRsvYn: 'N',
-        rsvBlckCd: '',
+        rsvBlckCode: '',
         useYn: 'Y'
       },
       blckItems: []
@@ -188,11 +188,11 @@ export default {
     }),
 
     lcal () {
-      return this.form.lcalCd ? `${this.form.lcalNm} (${this.form.lcalCd})` : ''
+      return this.form.lcalCd ? `${this.form.lcalName} (${this.form.lcalCd})` : ''
     },
 
     store () {
-      return this.form.storeCd ? `${this.form.storeNm} (${this.form.storeCd})` : ''
+      return this.form.storeCd ? `${this.form.storeName} (${this.form.storeCd})` : ''
     }
   },
   mounted () {
@@ -221,9 +221,9 @@ export default {
             closeCallback: (params) => {
               if (params && params.storeCd) {
                 this.form.lcalCd = params.lcalCd
-                this.form.lcalNm = params.lcalNm
+                this.form.lcalName = params.lcalName
                 this.form.storeCd = params.storeCd
-                this.form.storeNm = params.storeNm
+                this.form.storeName = params.storeName
               }
             }
           }

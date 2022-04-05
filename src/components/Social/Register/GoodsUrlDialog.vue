@@ -7,7 +7,7 @@
       <v-row>
         <v-col md="12" sm="4">
           <v-label>상품명</v-label>
-          <v-text-field :rules="emptyRules" label="" required v-model="form.itemNm"></v-text-field>
+          <v-text-field :rules="emptyRules" label="" required v-model="form.itemName"></v-text-field>
         </v-col>
         <v-col md="12" sm="12">
           <v-label>주소
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

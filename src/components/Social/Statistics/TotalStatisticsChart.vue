@@ -54,7 +54,7 @@
 
 <script>
 import { Chart } from 'highcharts-vue'
-import excelMixin from 'Mixins/excelMixin'
+import excelMixin from '@/mixins/excelMixin'
 
 export default {
   name: 'TotalStatisticsChart',

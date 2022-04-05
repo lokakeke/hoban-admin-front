@@ -58,7 +58,7 @@
                 <v-col v-if="roomType.value === 'OTA_ROOM_API' || rsvDetailCopy.rsvType === 'ROOM'" lg="3" md="4"
                        cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.memNm"
+                        v-model="rsvDetailCopy.memName"
                         label="회원명"
                         readonly
                         outlined
@@ -80,7 +80,7 @@
                 <v-col v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'" lg="3" md="4"
                        cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.pkgNm"
+                        v-model="rsvDetailCopy.pkgName"
                         label="패키지명"
                         readonly
                         outlined
@@ -90,7 +90,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.storeCd"
+                        v-model="rsvDetailCopy.storeCode"
                         label="영업장코드"
                         readonly
                         outlined
@@ -100,7 +100,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.storeNm"
+                        v-model="rsvDetailCopy.storeName"
                         label="영업장명"
                         readonly
                         outlined
@@ -130,7 +130,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvBlckCd"
+                        v-model="rsvDetailCopy.rsvBlckCode"
                         label="예약블럭"
                         outlined
                         hide-details
@@ -189,7 +189,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmTypeCd"
+                        v-model="rsvDetailCopy.rmTypeCode"
                         label="객실유형코드"
                         readonly
                         outlined
@@ -199,7 +199,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmTypeNm"
+                        v-model="rsvDetailCopy.rmTypeName"
                         label="객실유형명"
                         readonly
                         outlined
@@ -209,7 +209,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.dongCd"
+                        v-model="rsvDetailCopy.dongCode"
                         label="동코드"
                         readonly
                         outlined
@@ -219,7 +219,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.dongCdNm"
+                        v-model="rsvDetailCopy.dongCodeName"
                         label="동명"
                         readonly
                         outlined
@@ -229,7 +229,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.guestNm"
+                        v-model="rsvDetailCopy.guestName"
                         label="이용자명"
                         readonly
                         outlined
@@ -250,7 +250,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.agentCd"
+                        v-model="rsvDetailCopy.agentCode"
                         label="Agent코드"
                         readonly
                         outlined
@@ -260,7 +260,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.agentNm"
+                        v-model="rsvDetailCopy.agentName"
                         label="Agent명"
                         readonly
                         outlined
@@ -291,7 +291,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvIndCdAndNm"
+                        v-model="rsvDetailCopy.rsvIndCodeAndName"
                         label="예약구분"
                         readonly
                         outlined
@@ -385,7 +385,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.crtNm"
+                        v-model="rsvDetailCopy.crtName"
                         label="등록자"
                         readonly
                         outlined
@@ -405,7 +405,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.updNm"
+                        v-model="rsvDetailCopy.updName"
                         label="수정자"
                         readonly
                         outlined
@@ -425,7 +425,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.cancelResnCd"
+                        v-model="rsvDetailCopy.cancelResnCode"
                         label="취소사유코드"
                         readonly
                         outlined
@@ -440,7 +440,7 @@
 
 <script>
 import NumberUtils from '@/utils/number.util'
-import roomService from 'Api/modules/ota/roomReservation.service'
+import roomService from '@/api/modules/ota/roomReservation.service'
 
 export default {
   name: 'PartnerRoomAndMemberInfo',

@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import roomService from 'Api/modules/ota/roomReservation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import roomService from '@/api/modules/ota/roomReservation.service'
 
 export default {
   extends: DialogBase,

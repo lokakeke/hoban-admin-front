@@ -5,10 +5,10 @@
         <v-icon left>check</v-icon>저장
       </v-btn>
     </template>
-    <only-room-info-component v-if="originRoomInfo && originRoomInfo.storeCd"
+    <only-room-info-component v-if="originRoomInfo && originRoomInfo.storeCode"
                               type = "view"
                               :dmStoreId="originRoomInfo.dmStoreId"
-                              :viewStoreCd="originRoomInfo.storeCd"
+                              :viewStoreCode="originRoomInfo.storeCode"
                               :originRoomInfo="originRoomInfo"
     ></only-room-info-component>
     <only-room-info-component v-else
@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import itemService from 'Api/modules/naver/item.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import itemService from '@/api/modules/naver/item.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import { mapGetters } from 'vuex'
 import OnlyRoomInfoComponent from './OnlyRoomInfoComponent'
 
@@ -36,9 +36,9 @@ export default {
         dmStoreId: '',
         dmItemId: '',
         mid: '',
-        storeCd: '',
-        rmTypeCd: '',
-        rsvBlckCd: ''
+        storeCode: '',
+        rmTypeCode: '',
+        rsvBlckCode: ''
       }
     }
   },
@@ -52,9 +52,9 @@ export default {
       dmStoreId: this.instance.params.dgnsItemInfo.dmStoreId,
       dmItemId: this.instance.params.dgnsItemInfo.dmItemId,
       mid: this.instance.params.dgnsItemInfo.mid,
-      storeCd: this.instance.params.dgnsItemInfo.storeCd,
-      rmTypeCd: this.instance.params.dgnsItemInfo.rmTypeCd,
-      rsvBlckCd: this.instance.params.dgnsItemInfo.rsvBlckCd
+      storeCode: this.instance.params.dgnsItemInfo.storeCode,
+      rmTypeCode: this.instance.params.dgnsItemInfo.rmTypeCode,
+      rsvBlckCode: this.instance.params.dgnsItemInfo.rsvBlckCode
     })
     this.$nextTick(() => {
       this.originRoomInfo = _.cloneDeep(this.roomInfo)
@@ -71,13 +71,13 @@ export default {
   },
   methods: {
     save () {
-      if (!this.roomInfo.rmTypeCd || !this.roomInfo.storeCd) {
+      if (!this.roomInfo.rmTypeCode || !this.roomInfo.storeCode) {
         this.$dialog.alert('객실을 선택해주세요.')
         return
       } else if (!this.roomInfo.mid) {
         this.$dialog.alert('회원코드를 입력해주세요.')
         return
-      } else if (!this.roomInfo.rsvBlckCd) {
+      } else if (!this.roomInfo.rsvBlckCode) {
         this.$dialog.alert('블럭코드를 선택해주세요.')
         return
       }
@@ -86,9 +86,9 @@ export default {
           dmStoreId: this.roomInfo.dmStoreId,
           dmItemId: this.roomInfo.dmItemId,
           mid: this.roomInfo.mid,
-          storeCd: this.roomInfo.storeCd,
-          rmTypeCd: this.roomInfo.rmTypeCd,
-          rsvBlckCd: this.roomInfo.rsvBlckCd,
+          storeCode: this.roomInfo.storeCode,
+          rmTypeCode: this.roomInfo.rmTypeCode,
+          rsvBlckCode: this.roomInfo.rsvBlckCode,
           pkgYn: 'N'
         }
         itemService.updateDgnsItemInfo(this.roomInfo.dmItemId, dgnsItemInfo).then(() => {

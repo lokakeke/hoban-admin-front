@@ -18,7 +18,7 @@
       <v-row>
         <v-col cols="4">
           <v-label>* 닉네임</v-label>
-          <v-text-field v-model="form.chrgNm" label="" :rules="emptyRules"></v-text-field>
+          <v-text-field v-model="form.chrgName" label="" :rules="emptyRules"></v-text-field>
         </v-col>
         <v-col cols="4">
           <v-label>* 파트너 추가 인증번호</v-label>
@@ -81,8 +81,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import partnerChargeService from 'Api/modules/partner/partnerCharge.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
 
 export default {
   extends: DialogBase,
@@ -90,7 +90,7 @@ export default {
   data () {
     return {
       form: {
-        chrgNm: '',
+        chrgName: '',
         telNo: '',
         email: '',
         useYn: 'Y'

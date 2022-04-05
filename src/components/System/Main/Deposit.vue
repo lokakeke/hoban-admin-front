@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import depositAccountService from 'Api/modules/api/depositAccount.service'
+import depositAccountService from '@/api/modules/api/depositAccount.service'
 
 export default {
   name: 'Deposit',
@@ -62,7 +62,7 @@ export default {
           align: 'center',
           sortable: false
         },
-        { text: '파트너명', value: 'ptnrNm', align: 'center', sortable: false },
+        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
         { text: '예치금', value: 'amt', align: 'center', sortable: false },
         { text: '사용여부', value: 'useYn', align: 'center', sortable: false }
       ]
@@ -97,7 +97,7 @@ export default {
     openDialog (item = {}) {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Deposit/DepositAccountManagementDialog',
+        componentPath: '@/api/Deposit/DepositAccountDialog',
         params: {
           item
         },

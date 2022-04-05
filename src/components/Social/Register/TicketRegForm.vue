@@ -15,14 +15,14 @@
       <v-row>
           <v-col cols="12" class="pt-0">
               <v-card tile>
-                  <div v-if="data.ticketNo && data.ticketNm">
+                  <div v-if="data.ticketNo && data.ticketName">
                       <v-card-title>
                           업체 정보
                       </v-card-title>
                       <v-card-text class="subtitle-1">
                           <span class="mr-10">우대번호 : <span class="font-weight-bold">{{data.ticketNo}}</span></span>
-                          <span class="mr-10">우대번호 명 : <span class="font-weight-bold">{{data.ticketNm}}</span></span>
-                          <span class="mr-10">판매 업체 명 : <span class="font-weight-bold">{{data.ptnrNm}}</span></span>
+                          <span class="mr-10">우대번호 명 : <span class="font-weight-bold">{{data.ticketName}}</span></span>
+                          <span class="mr-10">판매 업체 명 : <span class="font-weight-bold">{{data.ptnrName}}</span></span>
                       </v-card-text>
                   </div>
                   <div v-else>
@@ -59,7 +59,7 @@ import TicketRegForm2 from './TicketRegForm2'
 import TicketRegForm3 from './TicketRegForm3'
 import TicketRegForm4 from './TicketRegForm4'
 import TicketRegForm5 from './TicketRegForm5'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -98,8 +98,8 @@ export default {
       this.data = {
         status: 'modify',
         ticketNo: this.instance.params.info.ticketNo,
-        ticketNm: this.instance.params.info.ticketNm,
-        ptnrNm: this.instance.params.info.ptnrNm,
+        ticketName: this.instance.params.info.ticketName,
+        ptnrName: this.instance.params.info.ptnrName,
         ptnrNo: this.instance.params.info.ptnrNo
       }
     } else {

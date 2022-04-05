@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const partnerInventoryDetailSetService = {
 
@@ -6,7 +6,7 @@ const partnerInventoryDetailSetService = {
    * 파트너 인벤토리 상세설정 조회
    */
   selectPartnerInventoryDetailSetList (param) {
-    return api.get('/api/system/partnerInventoryDetailSet/list', {
+    return api.get('/api/cms/system/partnerInventoryDetailSet/list', {
       params: param
     })
   },
@@ -15,7 +15,7 @@ const partnerInventoryDetailSetService = {
    * 파트너 인벤토리 상세설정 입력
    */
   insertPartnerInventoryDetailSetList (param) {
-    return api.post('/api/system/partnerInventoryDetailSet/insert', param)
+    return api.post('/api/cms/system/partnerInventoryDetailSet/insert', param)
   }
 
 }

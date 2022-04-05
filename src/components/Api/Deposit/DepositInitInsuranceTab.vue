@@ -24,8 +24,8 @@
               <v-autocomplete
                 v-model="form.taskType"
                 :items="taskTypeList"
-                item-value="commCd"
-                item-text="commCdNm"
+                item-value="commCode"
+                item-text="commCodeName"
                 :rules="emptyRules"
                 autocomplete="off"
                 clearable
@@ -199,9 +199,9 @@
 </template>
 
 <script>
-import AppCard from 'Components/App/AppCard.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
-import depositAccountService from 'Api/modules/api/depositAccount.service'
+import AppCard from '@/components/App/AppCard.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
+import depositAccountService from '@/api/modules/api/depositAccount.service'
 
 export default {
   components: { AppCard },
@@ -212,7 +212,7 @@ export default {
       searchPartner: '',
       searchTargetPartner: '',
       headerPartner: [
-        { text: '파트너명', value: 'ptnrNm', align: 'center' },
+        { text: '파트너명', value: 'ptnrName', align: 'center' },
         { text: '증권-입금현황', value: 'insuranceAmt', align: 'center' },
         { text: '기타-입금현황', value: 'uninsuranceAmt', align: 'center' },
         { text: '출금현황', value: 'accmltWithdrawAmt', align: 'center' },
@@ -275,7 +275,7 @@ export default {
         }
 
         this.$store.dispatch('dialog/open', {
-          componentPath: '/Api/Deposit/DepositInitApprovalDialog',
+          componentPath: '@/api/Deposit/DepositInitApprovalDialog',
           params: {
             propForm: this.form,
             propList: list,

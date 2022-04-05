@@ -41,9 +41,9 @@ export default {
     filterMenu (menus = []) {
       const filterMenus = []
       for (const menu of menus) {
-        const menuNm = (menu.menuNm || '').toLowerCase()
+        const menuName = (menu.menuName || '').toLowerCase()
         const search = (this.search || '').toLowerCase()
-        if (menuNm.indexOf(search) > -1) {
+        if (menuName.indexOf(search) > -1) {
           filterMenus.push(menu)
         } else if (menu.children && Array.isArray(menu.children) && menu.children.length > 0) {
           const filterChild = this.filterMenu(menu.children)

@@ -5,7 +5,7 @@
         <v-row>
           <v-col v-if="!isPartner" lg="2" md="3" cols="4">
             <v-text-field
-              v-model="adminPartnerInfo.partnerNm"
+              v-model="adminPartnerInfo.partnerName"
               label="파트너명"
               outlined
               hide-details
@@ -21,8 +21,8 @@
           </v-col>
           <v-col v-if="isPartner" lg="2" md="3" cols="6">
             <v-autocomplete
-              v-model="taskTypeNm"
-              :items="taskTypeNmList"
+              v-model="taskTypeName"
+              :items="taskTypeNameList"
               label="업무구분명"
               :rules="emptyRules"
               outlined
@@ -51,7 +51,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.pkgNm"
+              v-model="form.pkgName"
               label="패키지명"
               outlined
               disabled
@@ -82,7 +82,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.storeCd"
+              v-model="form.storeCode"
               label="영업장"
               :rules="emptyRules"
               outlined
@@ -100,7 +100,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.storeNm"
+              v-model="form.storeName"
               label="영업장명"
               disabled
               outlined
@@ -110,7 +110,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.rmTypeCd"
+              v-model="form.rmTypeCode"
               label="객실유형"
               outlined
               hide-details
@@ -126,7 +126,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.rmTypeNm"
+              v-model="form.rmTypeName"
               label="객실유형명"
               disabled
               outlined
@@ -239,7 +239,7 @@
             </v-col>
             <v-col lg="2" md="3" cols="6">
               <v-text-field
-                v-model="saveForm.rmTypeNm"
+                v-model="saveForm.rmTypeName"
                 label="객실유형명"
                 :rules="emptyRules"
                 outlined
@@ -340,15 +340,15 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 import { mapGetters } from 'vuex'
 
 import NumberUtils from '@/utils/number.util'
 
-import roomService from 'Api/modules/ota/roomReservation.service'
-import packageService from 'Api/modules/ota/package.service'
-import productService from 'Api/modules/ota/product.service'
+import roomService from '@/api/modules/ota/roomReservation.service'
+import packageService from '@/api/modules/ota/package.service'
+import productService from '@/api/modules/ota/product.service'
 
 export default {
   extends: DialogBase,
@@ -375,12 +375,12 @@ export default {
       ],
       pkgSearchParam: {
         pkgNo: '', // 패키지번호
-        storeCd: '',
+        storeCode: '',
         baseDate: moment().format('YYYYMMDD'),
         ptnrNo: 0,
         rmDayLimitNum: 0, // 잔여객실 수 최대치 제한
-        rmTypeCd: '',
-        rsvBlckCd: '',
+        rmTypeCode: '',
+        rsvBlckCode: '',
         nights: 1,
         rmCnt: 1,
         rsvStdDay: '',
@@ -392,8 +392,8 @@ export default {
       saleEndYmd: '', // 판매종료일
       holidayList: [], // 휴일 정보 목록
       isSearch: true, // 패키지 변경 시 이벤트 변경을 막는 변수
-      taskTypeNm: '', // 업무구분명(파트너)
-      taskTypeNmList: [], // 업무구분 목록(파트너)
+      taskTypeName: '', // 업무구분명(파트너)
+      taskTypeNameList: [], // 업무구분 목록(파트너)
       ptnrBasicInfo: [], // 파트너 기본 정보(파트너)
       leaveCnt: 0,
       adminPartnerInfo: {} // 파트너 정보
@@ -447,10 +447,10 @@ export default {
     initInfo () {
       if (this.ptnrBasicInfo && this.ptnrBasicInfo.length > 0) {
         for (const info of this.ptnrBasicInfo) {
-          this.taskTypeNmList.push(info.taskTypeNm)
+          this.taskTypeNameList.push(info.taskTypeName)
         }
-        if (this.taskTypeNmList.length === 1) {
-          this.taskTypeNm = this.taskTypeNmList[0]
+        if (this.taskTypeNameList.length === 1) {
+          this.taskTypeName = this.taskTypeNameList[0]
         }
       }
     },
@@ -471,9 +471,9 @@ export default {
      * 검색 버튼 클릭 시
      */
     async search () {
-      this.pkgSearchParam.storeCd = this.form.storeCd
-      if (this.form.rmTypeCd) {
-        this.pkgSearchParam.rmTypeCd = this.form.rmTypeCd
+      this.pkgSearchParam.storeCode = this.form.storeCode
+      if (this.form.rmTypeCode) {
+        this.pkgSearchParam.rmTypeCode = this.form.rmTypeCode
       }
       this.isSearch = true
       await this.searchOnePkgInfo(this.form) // 선택된 패키지 정보 조회
@@ -486,7 +486,7 @@ export default {
       if (this.isSearch) {
         this.validForm(this.$refs.form).then(() => {
           this.pkgSearchParam.isRealLeaveCnt = 'Y'
-          if (this.pkgSearchParam.rmTypeCd === '') {
+          if (this.pkgSearchParam.rmTypeCode === '') {
             roomService.selectPkgInventory('store', this.pkgSearchParam).then(res => { // 영업장으로만 조회
               this.realSetEvents(res.data)
             })
@@ -512,8 +512,8 @@ export default {
           // 휴일 확인 확인
           const one = this.holidayList.filter(data => data.stndYmd === event.ciYmd)
           if (one && one.length > 0) { // 휴일 처리가 필요한 경우
-            const holidayCd = one[0].hldyCd
-            if (holidayCd === 'P') { // 패키지 휴일
+            const holidayCode = one[0].hldyCode
+            if (holidayCode === 'P') { // 패키지 휴일
               events.push({
                 start: moment(event.ciYmd).format('YYYY-MM-DD'),
                 name: this.names[3].name + ' (' + one[0].memo + ')',
@@ -522,7 +522,7 @@ export default {
                 memo: one[0].memo,
                 procMsg: event.procMsg
               })
-            } else if (holidayCd === 'S') { // 영업장 휴일
+            } else if (holidayCode === 'S') { // 영업장 휴일
               events.push({
                 start: moment(event.ciYmd).format('YYYY-MM-DD'),
                 name: this.names[3].name + ' (' + one[0].memo + ')',
@@ -546,31 +546,31 @@ export default {
               if (event.realLeaveCnt > 0) { // 회원 우선 예약(파트너는 불가능)
                 events.push({
                   start: moment(event.ciYmd).format('YYYY-MM-DD'),
-                  name: event.rmTypeNm + ' / ' + event.leaveCnt,
+                  name: event.rmTypeName + ' / ' + event.leaveCnt,
                   nameCheck: this.names[4].name,
                   color: this.colors[3],
-                  rmTypeCd: event.rmTypeCd,
-                  tooltip: event.rmTypeNm + ' / ' + event.leaveCnt + ' / ' + event.procMsg,
+                  rmTypeCode: event.rmTypeCode,
+                  tooltip: event.rmTypeName + ' / ' + event.leaveCnt + ' / ' + event.procMsg,
                   procMsg: event.procMsg
                 })
               } else {
                 events.push({ // 예약 마감
                   start: moment(event.ciYmd).format('YYYY-MM-DD'),
-                  name: event.rmTypeNm + ' / ' + event.leaveCnt,
+                  name: event.rmTypeName + ' / ' + event.leaveCnt,
                   nameCheck: this.names[1].name,
                   color: this.colors[1],
-                  tooltip: event.rmTypeNm + ' / ' + event.leaveCnt + ' / ' + event.procMsg,
+                  tooltip: event.rmTypeName + ' / ' + event.leaveCnt + ' / ' + event.procMsg,
                   procMsg: event.procMsg
                 })
               }
             } else if (event.leaveCnt && event.procMsg === '0000') {
               events.push({ // 예약 가능
                 start: moment(event.ciYmd).format('YYYY-MM-DD'),
-                name: event.rmTypeNm + ' / ' + event.leaveCnt,
+                name: event.rmTypeName + ' / ' + event.leaveCnt,
                 color: this.colors[0],
                 nameCheck: this.names[0].name,
-                rmTypeCd: event.rmTypeCd,
-                tooltip: event.rmTypeNm + ' / ' + event.leaveCnt
+                rmTypeCode: event.rmTypeCode,
+                tooltip: event.rmTypeName + ' / ' + event.leaveCnt
               })
             }
           }
@@ -596,11 +596,11 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(this.adminPartnerInfo, 'partnerNm', params.data.ptnrNm)
-              this.adminPartnerInfo.partnerNm = params.data.ptnrNm
+              this.$set(this.adminPartnerInfo, 'partnerName', params.data.ptnrName)
+              this.adminPartnerInfo.partnerName = params.data.ptnrName
               this.adminPartnerInfo.ptnrNo = params.data.ptnrNo
               this.pkgSearchParam.ptnrNo = params.data.ptnrNo // 검색조건에 파트너 번호 추가
-              this.adminPartnerInfo.agentCd = params.data.agentCd
+              this.adminPartnerInfo.agentCode = params.data.agentCode
               this.adminPartnerInfo.rsvGuestTelNo = params.data.capTelNo
               this.adminPartnerInfo.termSeq = params.data.termSeq
             }
@@ -627,15 +627,15 @@ export default {
      * 영업장 정보 조회 결과값 화면에 매핑
      */
     mapStoreInfoResult (result) {
-      this.$set(this.form, 'storeCd', result.storeCd)
-      this.$set(this.form, 'storeNm', result.storeNm)
+      this.$set(this.form, 'storeCode', result.storeCode)
+      this.$set(this.form, 'storeName', result.storeName)
     },
     /**
      * 영업장 조회
      */
     async searchStoreInfo (item) {
       const param = {}
-      item.storeCd ? param.storeCd = item.storeCd : param.storeCd = ''
+      item.storeCode ? param.storeCode = item.storeCode : param.storeCode = ''
       param.pkgNo = item.pkgNo
       param.useYn = 'Y'
       const res = await roomService.selectStoreInfoByPkgNo(param)
@@ -696,8 +696,8 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.$set(this.form, 'pkgNo', params.data.pkgNo)
-              this.$set(this.form, 'pkgNm', params.data.pkgNm)
-              this.selectPkgNm(params.data)
+              this.$set(this.form, 'pkgName', params.data.pkgName)
+              this.selectPkgName(params.data)
             }
           }
         }
@@ -714,7 +714,7 @@ export default {
       this.todayRsvYn = res.data.todayRsvYn // 당일 예약 여부
       this.pkgSearchParam.rsvStdDay = this.todayRsvYn // 당일 예약 여부
       this.pkgSearchParam.rsvStdTm = res.data.todayRsvTime // 당일 예약 가능 시간
-      this.pkgSearchParam.rsvBlckCd = res.data.rsvBlckCd // 예약 블럭 코드
+      this.pkgSearchParam.rsvBlckCode = res.data.rsvBlckCode // 예약 블럭 코드
       this.pkgSearchParam.rmDayLimitNum = res.data.rmDayLimitNum
       this.pkgSearchParam.nights = res.data.stayNights
       this.pkgSearchParam.rmCnt = res.data.rmCnt
@@ -724,7 +724,7 @@ export default {
     /**
      * 패키지 선택시
      */
-    async selectPkgNm (item) {
+    async selectPkgName (item) {
       this.searchOnePkgInfo(item)
       // 휴일 정보 조회
       const res = await roomService.selectTodayPkgRsvInfo(item.pkgNo, this.pkgSearchParam.baseDate)
@@ -732,14 +732,14 @@ export default {
       this.isSearch = false
       this.resetEventsAndSaveForm()
       // 영업장 정보가 있는 경우 초기화
-      if (this.form.storeCd) {
-        this.form.storeCd = ''
-        this.form.storeNm = ''
+      if (this.form.storeCode) {
+        this.form.storeCode = ''
+        this.form.storeName = ''
       }
       // 객실 유형 정보가 있는 경우 초기화
-      if (this.form.rmTypeCd) {
-        this.form.rmTypeCd = ''
-        this.form.rmTypeNm = ''
+      if (this.form.rmTypeCode) {
+        this.form.rmTypeCode = ''
+        this.form.rmTypeName = ''
       }
       this.searchStoreInfo(this.form)
     },
@@ -747,20 +747,20 @@ export default {
      * 객실 유형 정보 조회 결과값 매핑
      */
     mapRmTypeInfoResult (result) {
-      this.$set(this.form, 'rmTypeCd', result.rmTypeCd)
-      this.$set(this.form, 'rmTypeNm', result.rmTypeNm)
+      this.$set(this.form, 'rmTypeCode', result.rmTypeCode)
+      this.$set(this.form, 'rmTypeName', result.rmTypeName)
     },
     /**
      * 객실유형코드 조회
      */
     async searchRmTypePopup (item) {
-      if (!item.storeCd) {
+      if (!item.storeCode) {
         this.$dialog.alert('영업장을 먼저 선택해 주세요.')
         return
       }
       const param = {}
-      param.storeCd = item.storeCd
-      param.rmTypeCd = item.rmTypeCd
+      param.storeCode = item.storeCode
+      param.rmTypeCode = item.rmTypeCode
       param.pkgNo = item.pkgNo
       param.useYn = '1'
       const res = await roomService.selectRmTypeAndDongInfo(param)
@@ -775,7 +775,7 @@ export default {
      * 객실유형 조회 팝업 오픈
      */
     openRmTypePopup (item) {
-      if (!item.storeCd) {
+      if (!item.storeCode) {
         this.$dialog.alert('영업장을 먼저 선택해 주세요.')
         return
       }
@@ -783,7 +783,7 @@ export default {
         componentPath: '/Ota/RoomReservation/popup/RmTypePopup',
         params: {
           item: {
-            storeCd: item.storeCd
+            storeCode: item.storeCode
           }
         },
         options: {
@@ -823,28 +823,28 @@ export default {
       } else {
         const param = {}
         param.pkgNo = this.form.pkgNo
-        param.storeCd = this.form.storeCd
+        param.storeCode = this.form.storeCode
         param.nights = this.form.nights
         param.rmCnt = this.form.rmCnt
         param.ciYmd = event.start.replace(/-/gi, '')
         param.rsvStdDay = this.todayRsvYn
         param.rsvStdTm = this.pkgSearchParam.rsvStdTm
-        param.rsvBlckCd = this.pkgSearchParam.rsvBlckCd
+        param.rsvBlckCode = this.pkgSearchParam.rsvBlckCode
         param.leaveCnt = event.leaveCnt
         // 예약 가능여부 확인
-        const res = await productService.selectPossiblePkgInventory(event.rmTypeCd, param)
+        const res = await productService.selectPossiblePkgInventory(event.rmTypeCode, param)
         if (res.data.procMsg === '0000') {
           // 예약을 위한 정보 세팅
           this.$set(this.saveForm, 'ciYmd', event.start)
-          this.$set(this.saveForm, 'rmTypeNm', nativeEvent.target.textContent.substring(0, nativeEvent.target.textContent.lastIndexOf(' ')))
-          this.saveForm.rmTypeCd = event.rmTypeCd
+          this.$set(this.saveForm, 'rmTypeName', nativeEvent.target.textContent.substring(0, nativeEvent.target.textContent.lastIndexOf(' ')))
+          this.saveForm.rmTypeCode = event.rmTypeCode
           this.$set(this.saveForm, 'adultCnt', 1)
           this.$set(this.saveForm, 'childCnt', 0)
           // 요금 조회를 위한 파라미터 세팅
           const priceParam = {}
           priceParam.pkgNo = param.pkgNo
-          priceParam.storeCd = param.storeCd
-          priceParam.rmTypeCd = Array(event.rmTypeCd)
+          priceParam.storeCode = param.storeCode
+          priceParam.rmTypeCode = Array(event.rmTypeCode)
           priceParam.ciYmd = param.ciYmd
           priceParam.nights = param.nights
           priceParam.rmCnt = param.rmCnt
@@ -865,14 +865,14 @@ export default {
      * 예약
      */
     async save () {
-      const basicCheck = Boolean(this.form.pkgNo && this.form.storeCd && this.pkgSearchParam.nights && this.pkgSearchParam.rmCnt && this.todayRsvYn && this.pkgSearchParam.rsvBlckCd)
-      const saveFormCheck = Boolean(this.saveForm.ciYmd && this.saveForm.userName && this.saveForm.totalPrice && this.saveForm.rmTypeCd && this.saveForm.adultCnt)
+      const basicCheck = Boolean(this.form.pkgNo && this.form.storeCode && this.pkgSearchParam.nights && this.pkgSearchParam.rmCnt && this.todayRsvYn && this.pkgSearchParam.rsvBlckCode)
+      const saveFormCheck = Boolean(this.saveForm.ciYmd && this.saveForm.userName && this.saveForm.totalPrice && this.saveForm.rmTypeCode && this.saveForm.adultCnt)
       // 예약에 필요한 파라미터들이 있는 경우에만 실행
       if (basicCheck && saveFormCheck) {
         const param = {}
         this.validForm(this.$refs.form).then(() => {
           param.pkgNo = this.form.pkgNo
-          param.storeCd = this.form.storeCd
+          param.storeCode = this.form.storeCode
           param.nights = this.form.nights
           param.rmCnt = this.form.rmCnt
         })
@@ -881,9 +881,9 @@ export default {
         })
         param.rsvStdDay = this.todayRsvYn
         param.rsvStdTm = this.pkgSearchParam.rsvStdTm
-        param.rsvBlckCd = this.pkgSearchParam.rsvBlckCd
+        param.rsvBlckCode = this.pkgSearchParam.rsvBlckCode
         // 예약 가능여부 확인
-        const res = await productService.selectPossiblePkgInventory(this.saveForm.rmTypeCd, param)
+        const res = await productService.selectPossiblePkgInventory(this.saveForm.rmTypeCode, param)
         if (res.data.procMsg === '0000') {
           delete param.rsvStdDay
           delete param.rsvStdTm
@@ -895,26 +895,26 @@ export default {
           this.validForm(this.$refs.rsvForm).then(() => {
             param.userName = this.saveForm.userName
             param.payAmt = this.saveForm.totalPrice
-            param.rmTypeCd = this.saveForm.rmTypeCd
+            param.rmTypeCode = this.saveForm.rmTypeCode
             param.adultCnt = this.saveForm.adultCnt
             param.childCnt = this.saveForm.childCnt
           })
           if (this.isPartner) { //  파트너
             for (const one of this.ptnrBasicInfo) {
-              if (one.taskTypeNm === this.taskTypeNm) {
-                param.ptnrNm = one.ptnrNm
-                param.agentCd = one.agentCd
+              if (one.taskTypeName === this.taskTypeName) {
+                param.ptnrName = one.ptnrName
+                param.agentCode = one.agentCode
                 param.rsvGuestTelNo = one.capTelNo
                 param.ptnrNo = this.user.number // 예치금에 필요
                 param.termSeq = one.termSeq // 예치금에 필요
               }
             }
           } else { // 관리자
-            param.agentCd = this.adminPartnerInfo.agentCd
+            param.agentCode = this.adminPartnerInfo.agentCode
             param.rsvGuestTelNo = this.adminPartnerInfo.rsvGuestTelNo
             param.ptnrNo = this.adminPartnerInfo.ptnrNo
             param.termSeq = this.adminPartnerInfo.termSeq
-            param.ptnrNm = this.adminPartnerInfo.partnerNm
+            param.ptnrName = this.adminPartnerInfo.partnerName
           }
           // 실제 예약 처리
           const confirm = await this.$dialog.confirm('개인 정보 수집에 동의하시겠습니까?')

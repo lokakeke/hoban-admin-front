@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 export default {
 
@@ -36,14 +36,14 @@ export default {
    * businessId OR 파트너명으로 리스트 조회
    */
   selectPartnerList (param) {
-    return api.get('/api/system/apiLog/partnerInfoList', { params: param })
+    return api.get('/api/cms/system/apiLog/partnerInfoList', { params: param })
   },
 
   /**
    * 파트너 구분값 리스트 조회
    */
-  selectCommCdForPartner () {
-    return api.get('/api/system/apiLog/commCdForPartner')
+  selectCommCodeForPartner () {
+    return api.get('/api/cms/system/apiLog/commCodeForPartner')
   },
   /**
    *  Api 예약 이력 목록 조회

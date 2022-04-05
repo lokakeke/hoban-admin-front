@@ -9,16 +9,16 @@
                 active-class="tab-active">
                 <v-tab v-for="(store, index) in list" :key="index" tabindex="-1"
                        @click="scrollTo(index)">
-                    <span v-html="controlStoreNm(store.storeNm)"></span>
+                    <span v-html="controlStoreName(store.storeName)"></span>
                 </v-tab>
             </v-tabs>
         </v-col>
         <v-col cols="10">
             <v-tabs-items v-model="tabIndex" class="border-top">
-                <v-tab-item v-for="store in list" :key="store.storeCd">
+                <v-tab-item v-for="store in list" :key="store.storeCode">
                     <v-col cols="12" class="text-left title font-weight-bold info--text">
                         <v-icon left>mdi-hospital-building</v-icon>
-                        {{ store.storeNm }}
+                        {{ store.storeName }}
                     </v-col>
                     <v-col cols="12" class="pa-0 pt-1 rm-btn">
                         <v-btn outlined small class="mr-2 mb-1" color="orange" @click="checkAll(store.rmTypeList)"
@@ -26,22 +26,22 @@
                             <v-icon left>{{ checkAllIcon(store.rmTypeList) }}</v-icon>
                             전체
                         </v-btn>
-                        <v-btn v-for="room in store.rmTypeList" :key="room.rmTypeCd" small outlined color="primary"
+                        <v-btn v-for="room in store.rmTypeList" :key="room.rmTypeCode" small outlined color="primary"
                                @click="room.show = !room.show" class="mb-1">
                             <v-icon left>
                                 {{ room.show ? "mdi-24px mdi-checkbox-marked" : "mdi-24px mdi-checkbox-blank-outline" }}
                             </v-icon>
-                            {{ room.rmTypeNm }}
+                            {{ room.rmTypeName }}
                         </v-btn>
                     </v-col>
                     <v-divider></v-divider>
-                    <v-col cols="12" v-for="room in store.rmTypeList" :key="room.rmTypeCd" class="pa-0">
+                    <v-col cols="12" v-for="room in store.rmTypeList" :key="room.rmTypeCode" class="pa-0">
                         <v-col cols="12" class="subtitle-1 font-weight-bold pointer pl-0 pt-1 pb-0"
                                @click="room.show = !room.show">
                             <v-icon left class="pb-1">
                                 {{ room.show ? "mdi-24px mdi-checkbox-marked" : "mdi-24px mdi-checkbox-blank-outline" }}
                             </v-icon>
-                            <span>{{ room.rmTypeNm }} : {{ room.rmTypeCd }}</span>
+                            <span>{{ room.rmTypeName }} : {{ room.rmTypeCode }}</span>
                         </v-col>
                         <v-expand-transition>
                             <v-simple-table class="bordered sticky-table" v-show="room.show" dense>
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import partnerInventoryExpectService from 'Api/modules/partner/partnerInventoryExpect.service'
+import partnerInventoryExpectService from '@/api/modules/partner/partnerInventoryExpect.service'
 
 export default {
   props: {
@@ -141,12 +141,12 @@ export default {
         }
       }
     },
-    controlStoreNm (storeNm) {
-      if (storeNm.indexOf('(') > -1) {
-        const storeArray = storeNm.split('(')
+    controlStoreName (storeName) {
+      if (storeName.indexOf('(') > -1) {
+        const storeArray = storeName.split('(')
         return storeArray[0] + '<br/>(' + storeArray[1]
       } else {
-        return storeNm
+        return storeName
       }
     },
     scrollTo (index) {

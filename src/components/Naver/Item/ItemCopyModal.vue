@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import service from 'Api/modules/naver/item.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import service from '@/api/modules/naver/item.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -54,7 +54,7 @@ export default {
         action: this.close
       }]
     })
-    if (!this.instance.params.copyItem.mid || !this.instance.params.copyItem.storeCd || !this.instance.params.copyItem.rmTypeCd) {
+    if (!this.instance.params.copyItem.mid || !this.instance.params.copyItem.storeCode || !this.instance.params.copyItem.rmTypeCode) {
       this.$dialog.alert('DGNS 상품 연결을 먼저 해주세요.')
       this.close()
     }

@@ -49,7 +49,7 @@
                                       placeholder="회원/패키지번호를 입력해 주세요."
                                       :rules="numberRules.concat(emptyRules)" v-mask="'##########'">
                             <v-icon v-if="form.mid && form.pkgYn === 'Y'" slot="append" dark
-                                    @click="selectPkgNmSaleAdjust">search
+                                    @click="selectPkgNameSaleAdjust">search
                             </v-icon>
                         </v-text-field>
                     </v-col>
@@ -67,10 +67,10 @@
                             사업장명
                         </div>
                         <v-autocomplete
-                            v-model="form.storeCd"
+                            v-model="form.storeCode"
                             :items="storeList"
-                            item-value="storeCd"
-                            item-text="storeNm"
+                            item-value="storeCode"
+                            item-text="storeName"
                             :rules="emptyRules"
                             autocomplete="off"
                             placeholder="사업장을 선택해 주세요."
@@ -143,10 +143,10 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import CommonTooltip from 'Components/Common/CommonTooltip.vue'
-import itemService from 'Api/modules/naver/item.service'
-import service from 'Api/modules/naver/calculateSaleAdjust.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import CommonTooltip from '@/components/Common/CommonTooltip.vue'
+import itemService from '@/api/modules/naver/item.service'
+import service from '@/api/modules/naver/calculateSaleAdjust.service'
 
 export default {
   extends: DialogBase,
@@ -159,7 +159,7 @@ export default {
       form: {
         calcStndMonth: '',
         saleAdjustNo: '',
-        storeCd: '',
+        storeCode: '',
         pkgYn: 'N',
         mid: '',
         rsvNo: '',
@@ -186,12 +186,12 @@ export default {
     },
     async getOnlyRoomList () {
       await itemService.selectOnlyRoomList().then((response) => {
-        const data = _.orderBy(response.data, 'storeCd')
+        const data = _.orderBy(response.data, 'storeCode')
         this.storeList = []
         data.map(obj => {
           this.storeList.push({
-            storeNm: `${obj.storeNm} (${obj.storeCd})`,
-            storeCd: obj.storeCd,
+            storeName: `${obj.storeName} (${obj.storeCode})`,
+            storeCode: obj.storeCode,
             rmTypeList: obj.rmTypeList
           })
         })
@@ -203,21 +203,21 @@ export default {
         return
       }
       service.selectBookingSaleAdjust(this.form).then(res => {
-        this.form.storeCd = res.data.storeCd
+        this.form.storeCode = res.data.storeCode
         this.form.pkgYn = res.data.pkgYn
         this.form.mid = res.data.mid
         this.form.rsvNo = res.data.rsvNo
         this.form.keyRsvNo = res.data.keyRsvNo
-        this.form.dgnsItemName = res.data.pkgNm ? res.data.pkgNm : '네이버'
+        this.form.dgnsItemName = res.data.pkgName ? res.data.pkgName : '네이버'
         this.form.name = res.data.name
       })
     },
-    selectPkgNmSaleAdjust () {
+    selectPkgNameSaleAdjust () {
       if (this.form.pkgYn !== 'Y' || !this.form.mid) {
         this.$dialog.alert('패키지번호를 입력해주세요.')
         return
       }
-      service.selectPkgNmSaleAdjust(this.form).then(res => {
+      service.selectPkgNameSaleAdjust(this.form).then(res => {
         this.form.dgnsItemName = res.data ? res.data : '네이버'
       })
     },
@@ -225,8 +225,8 @@ export default {
       this.validForm(this.$refs.form).then(() => {
         this.$dialog.confirm(`매출조정을 ${this.form.saleAdjustNo ? '수정' : '추가'} 하시겠습니까?`).then(() => {
           let param = null
-          if (this.form.storeCd.storeCd) {
-            this.form.storeCd = this.form.storeCd.storeCd
+          if (this.form.storeCode.storeCode) {
+            this.form.storeCode = this.form.storeCode.storeCode
           }
           if (this.form.saleAdjustNo) { // 수정
             service.updateSaleAdjust(this.form).then(res => {

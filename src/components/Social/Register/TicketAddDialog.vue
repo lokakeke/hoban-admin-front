@@ -14,7 +14,7 @@
         </v-col>
         <v-col sm="12" md="6" class="pl-10">
           <v-label>우대번호 명</v-label>
-          <v-text-field v-model="form.ticketNm" label="" disabled></v-text-field>
+          <v-text-field v-model="form.ticketName" label="" disabled></v-text-field>
         </v-col>
       </v-row>
       <v-row>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -59,7 +59,7 @@ export default {
   methods: {
     // 추가 버튼
     addTicket () {
-      if (this.form.ticketNm === undefined) {
+      if (this.form.ticketName === undefined) {
         this.$dialog.alert('우대번호를 조회해 주세요.')
         return
       }
@@ -85,7 +85,7 @@ export default {
           width: 1000,
           closeCallback: (params) => {
             if (params && params.data) {
-              const rowArr = ['ticketNo', 'ticketNm', 'issuQty', 'autoIssuYn', 'autoIssuLmt']
+              const rowArr = ['ticketNo', 'ticketName', 'issuQty', 'autoIssuYn', 'autoIssuLmt']
               for (const arr of rowArr) {
                 this.$set(this.form, arr, params.data[arr])
               }

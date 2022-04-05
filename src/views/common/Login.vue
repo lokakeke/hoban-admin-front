@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import AppConfig from 'Constants/AppConfig'
-import PasswordInput from 'Components/Common/PasswordInput.vue'
+import AppConfig from '@/constants/AppConfig'
+import PasswordInput from '@/components/Common/PasswordInput.vue'
 
 export default {
   components: { PasswordInput },

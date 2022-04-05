@@ -206,7 +206,7 @@
 </template>
 
 <script>
-import packageService from 'Api/modules/ota/package.service'
+import packageService from '@/api/modules/ota/package.service'
 
 export default {
   name: 'HolidayInformation',
@@ -313,7 +313,7 @@ export default {
         response.data.forEach(data => {
           this.storeRoomList.push({
             ...data,
-            rmTypeNm: `${data.rmTypeNm}`
+            rmTypeName: `${data.rmTypeName}`
           })
         })
       }).catch((error) => {
@@ -327,18 +327,18 @@ export default {
         this.events = []
         data.forEach(event => {
           this.events.push({
-            name: event.hldyCd === 'P' ? '패키지 휴일' : event.hldyCd === 'S' ? `${event.storeNm} 휴일` : `${event.storeNm} - ${event.rmTypeNm} 휴일`,
+            name: event.hldyCode === 'P' ? '패키지 휴일' : event.hldyCd === 'S' ? `${event.storeName} 휴일` : `${event.storeName} - ${event.rmTypeName} 휴일`,
             start: moment(event.stndYmd).format('YYYY-MM-DD'),
             color: event.hldyCd === 'P' ? 'red' : event.hldyCd === 'S' ? 'green' : 'blue',
             type: event.hldyCd === 'P' ? 'package' : event.hldyCd === 'S' ? 'store' : 'room',
             memo: event.memo,
             hldyCd: event.hldyCd,
             rmTypeCd: event.rmTypeCd,
-            rmTypeNm: event.rmTypeNm,
+            rmTypeName: event.rmTypeName,
             storeCd: event.storeCd,
-            storeNm: event.storeNm,
-            store: event.storeCd ? `${event.storeNm} (${event.storeCd})` : '-',
-            rmType: event.rmTypeCd ? `${event.rmTypeNm} (${event.rmTypeCd})` : '-'
+            storeName: event.storeName,
+            store: event.storeCd ? `${event.storeName} (${event.storeCd})` : '-',
+            rmType: event.rmTypeCd ? `${event.rmTypeName} (${event.rmTypeCd})` : '-'
           })
         })
 
@@ -396,10 +396,10 @@ export default {
           hldyCd: event.hldyCd,
           memo: event.memo,
           rmTypeCd: event.rmTypeCd,
-          rmTypeNm: event.rmTypeNm,
+          rmTypeName: event.rmTypeName,
           stndYmd: moment(event.start).format('YYYYMMDD'),
           storeCd: event.storeCd,
-          storeNm: event.storeNm,
+          storeName: event.storeName,
           useYn: 'Y'
         })
       })
@@ -410,10 +410,10 @@ export default {
           hldyCd: '',
           memo: '',
           rmTypeCd: '',
-          rmTypeNm: '',
+          rmTypeName: '',
           stndYmd: '',
           storeCd: '',
-          storeNm: '',
+          storeName: '',
           useYn: 'Y'
         })
       }

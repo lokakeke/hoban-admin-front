@@ -10,7 +10,7 @@
         </v-col>
         <v-col>
           <v-text-field
-            v-model="form.memNm"
+            v-model="form.memName"
             label="회원명"
           />
         </v-col>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   name: 'SearchDialog',
@@ -76,7 +76,7 @@ export default {
     return {
       form: {
         memNo: '',
-        memNm: '',
+        memName: '',
         ciYmd: '',
         roomNo: '',
         accruedAmt: '',
@@ -85,7 +85,7 @@ export default {
       },
       orgForm: {
         memNo: '',
-        memNm: '',
+        memName: '',
         ciYmd: '',
         roomNo: '',
         accruedAmt: '',
@@ -121,7 +121,7 @@ export default {
      */
     initInfo () {
       this.form.memNo = this.instance.params.memNo
-      this.form.memNm = this.instance.params.memNm
+      this.form.memName = this.instance.params.memName
       this.form.ciYmd = this.instance.params.ciYmd
       this.form.roomNo = this.instance.params.roomNo
       this.form.accruedAmt = this.instance.params.accruedAmt

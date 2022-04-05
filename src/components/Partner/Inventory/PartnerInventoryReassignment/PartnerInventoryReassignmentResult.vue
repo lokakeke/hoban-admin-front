@@ -26,12 +26,12 @@
       </thead>
       <tbody>
       <tr v-for="(item, index) of list" :key="index">
-        <td class="text-center">{{item.storeNm}} - {{item.storeCd}}</td>
-        <td class="text-center">{{item.rmTypeNm}} - {{item.rmTypeCd}}</td>
+        <td class="text-center">{{item.storeName}} - {{item.storeCode}}</td>
+        <td class="text-center">{{item.rmTypeName}} - {{item.rmTypeCode}}</td>
         <td class="text-center">{{item.ciYmd | date}}</td>
-        <td class="text-center">{{item.ptnrNm}}</td>
+        <td class="text-center">{{item.ptnrName}}</td>
         <td class="text-center">{{item.rmCnt}}</td>
-        <td class="text-center">{{item.rsvBlckCd}}</td>
+        <td class="text-center">{{item.rsvBlckCode}}</td>
         <td class="text-center">{{item.rsvBlckCnt}}</td>
         <td class="text-center">{{item.companyCnt}}</td>
       </tr>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

@@ -9,12 +9,12 @@
       <v-row>
         <v-col cols="11" draggable="true" max-height="400" class="pa-5 pt-3 mb-5 mx-auto">
           <v-expansion-panels accordion>
-            <v-expansion-panel v-for="info in form" :key="info.commCdNo">
+            <v-expansion-panel v-for="info in form" :key="info.commCodeNo">
               <v-expansion-panel-header class="ma-0 pa-0 pl-5 pr-5">
                 <v-row>
                   <v-col cols="5" class="mt-2 text-center">
                     <v-icon>place</v-icon>
-                    {{ info.commCdNm }}
+                    {{ info.commCodeName }}
                   </v-col>
                   <v-col cols="7" class="text-center">
                     <v-btn outlined rounded color="info" class="ma-1" small @click="chooseAddr(info)">
@@ -41,7 +41,7 @@
                   </li>
                   <li class="ma-2">
                     <v-icon small>check_box</v-icon>
-                    <span class="font-weight-bold">상세주소: </span>{{ info.commCdDesc ? info.commCdDesc : '(없음)' }}
+                    <span class="font-weight-bold">상세주소: </span>{{ info.commCodeDesc ? info.commCodeDesc : '(없음)' }}
                   </li>
                   <li class="ma-2 pb-5">
                     <v-chip class="ml-1 mr-2 float-left" small>위도 : {{ info.item03 }}</v-chip>
@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   extends: DialogBase,
@@ -98,16 +98,16 @@ export default {
     addrModalOpen (info) {
       if (!info) {
         info = {
-          parentCommCd: 'STORE_ADDR',
+          parentCommCode: 'STORE_ADDR',
           useYn: 'Y',
-          commCd: '',
-          commCdNm: '',
+          commCode: '',
+          commCodeName: '',
           item01: '',
           item02: '',
           item03: '',
           item04: '',
           item05: '',
-          commCdDesc: ''
+          commCodeDesc: ''
         }
       }
       this.$nextTick(() => {
@@ -149,7 +149,7 @@ export default {
      */
     deleteAddr (info) {
       this.$dialog.confirm('주소를 삭제하시겠습니까?').then(() => {
-        commonCodeService.deleteCommonCode(info.commCdNo).then(res => {
+        commonCodeService.deleteCommonCode(info.commCodeNo).then(res => {
           this.$dialog.alert('삭제되었습니다.')
           this.inits()
         })

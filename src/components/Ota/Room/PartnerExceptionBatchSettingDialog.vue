@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import roomTypeService from 'Api/modules/ota/roomType.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import roomTypeService from '@/api/modules/ota/roomType.service'
 
 export default {
   extends: DialogBase,
@@ -62,7 +62,7 @@ export default {
     return {
       partnerListHeader: [
         { text: '파트너 번호', value: 'ptnrNo', align: 'center', sortable: false },
-        { text: '파트너 명', value: 'ptnrNm', align: 'center', sortable: false },
+        { text: '파트너 명', value: 'ptnrName', align: 'center', sortable: false },
         { text: '최대 예약가능 객실 수', value: 'rmCnt', align: 'center', sortable: false },
         { text: '최대 예약가능 박 수', value: 'stayNights', align: 'center', sortable: false },
         { text: '저장', value: 'regBtn', align: 'center', sortable: false }

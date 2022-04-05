@@ -46,7 +46,7 @@
                 </v-col>
                 <v-col v-if="roomType.value === 'OTA_PKG_API' && workStatus === 'new'" lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="partnerNm"
+                        v-model="partnerName"
                         label="파트너명"
                         :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
                         outlined
@@ -89,7 +89,7 @@
                 <v-col v-if="roomType.value === 'OTA_ROOM_API' || rsvDetailCopy.rsvType === 'ROOM'" lg="3" md="4"
                        cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.memNm"
+                        v-model="rsvDetailCopy.memName"
                         label="회원명"
                         readonly
                         outlined
@@ -122,7 +122,7 @@
                 <v-col v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'" lg="3" md="4"
                        cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.pkgNm"
+                        v-model="rsvDetailCopy.pkgName"
                         label="패키지명"
                         readonly
                         outlined
@@ -132,7 +132,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.storeCd"
+                        v-model="rsvDetailCopy.storeCode"
                         label="영업장코드"
                         :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
                         :readonly="workStatus === '' || workStatus === 'detail'"
@@ -152,7 +152,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.storeNm"
+                        v-model="rsvDetailCopy.storeName"
                         label="영업장명"
                         readonly
                         outlined
@@ -218,7 +218,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvBlckCd"
+                        v-model="rsvDetailCopy.rsvBlckCode"
                         label="예약블럭"
                         :background-color="groupFlag === 'naver' && workStatus === 'new' ? 'deep-orange lighten-5' : ''"
                         :readonly="(workStatus === '' || workStatus === 'detail' || workStatus === 'new' || workStatus === 'update') && groupFlag === 'ota'"
@@ -291,7 +291,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmTypeCd"
+                        v-model="rsvDetailCopy.rmTypeCode"
                         label="객실유형코드"
                         :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
                         :readonly="workStatus === '' || workStatus === 'detail'"
@@ -311,7 +311,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmTypeNm"
+                        v-model="rsvDetailCopy.rmTypeName"
                         label="객실유형명"
                         readonly
                         outlined
@@ -321,7 +321,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.dongCd"
+                        v-model="rsvDetailCopy.dongCode"
                         label="동코드"
                         readonly
                         outlined
@@ -331,7 +331,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.dongCdNm"
+                        v-model="rsvDetailCopy.dongCodeName"
                         label="동명"
                         readonly
                         outlined
@@ -341,7 +341,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.guestNm"
+                        v-model="rsvDetailCopy.guestName"
                         label="이용자명"
                         :background-color="workStatus === 'new' ? 'deep-orange lighten-5' : ''"
                         :readonly="workStatus === '' || workStatus === 'detail' || workStatus === 'update'"
@@ -366,7 +366,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.agentCd"
+                        v-model="rsvDetailCopy.agentCode"
                         label="Agent코드"
                         readonly
                         outlined
@@ -376,7 +376,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.agentNm"
+                        v-model="rsvDetailCopy.agentName"
                         label="Agent명"
                         readonly
                         outlined
@@ -408,7 +408,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvIndCdAndNm"
+                        v-model="rsvDetailCopy.rsvIndCodeAndName"
                         label="예약구분"
                         readonly
                         outlined
@@ -503,7 +503,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.crtNm"
+                        v-model="rsvDetailCopy.crtName"
                         label="등록자"
                         readonly
                         outlined
@@ -523,7 +523,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.updNm"
+                        v-model="rsvDetailCopy.updName"
                         label="수정자"
                         readonly
                         outlined
@@ -543,7 +543,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.cancelResnCd"
+                        v-model="rsvDetailCopy.cancelResnCode"
                         label="취소사유코드"
                         readonly
                         outlined
@@ -557,8 +557,8 @@
 </template>
 
 <script>
-import roomService from 'Api/modules/ota/roomReservation.service'
-import partnerTermService from 'Api/modules/partner/partnerTerm.service'
+import roomService from '@/api/modules/ota/roomReservation.service'
+import partnerTermService from '@/api/modules/partner/partnerTerm.service'
 import NumberUtils from '@/utils/number.util'
 
 export default {
@@ -592,7 +592,7 @@ export default {
   data () {
     return {
       rsvDetailCopy: {}, // rsvDetail 정보 복사본
-      partnerNm: '', // 파트너명
+      partnerName: '', // 파트너명
       dayAmtList: [], // 일별요금 목록
       minDate: '', // date picker min date
       maxDate: '', // 입실일자 date picker max date
@@ -615,13 +615,13 @@ export default {
   },
   watch: {
     roomType () { // 객실/패키지 변경시 파트너명 리셋
-      this.partnerNm = ''
+      this.partnerName = ''
     },
     rsvDetail: {
       handler (newVal) {
         this.rsvDetailCopy = newVal
-        if (!newVal.storeCd) {
-          this.partnerNm = ''
+        if (!newVal.storeCode) {
+          this.partnerName = ''
         }
         if (this.workStatus === '' || this.workStatus === 'detail') {
           this.key += 1 // 이용자 연락처가 바뀐걸 인식하지 못하는 버그를 위한 변수
@@ -657,16 +657,16 @@ export default {
          * 회원번호 조회 결과값 세팅
          */
     setPartnerInfoReseult (result) {
-      this.$set(this, 'partnerNm', result.ptnrNm) // 파트너명
+      this.$set(this, 'partnerName', result.ptnrName) // 파트너명
       this.$set(this.rsvDetailCopy, 'ptnrNo', result.ptnrNo) // 파트너 번호(예치금에 필요)
       this.$set(this.rsvDetailCopy, 'termSeq', result.termSeq) // 예치금에 필요
-      this.$set(this.rsvDetailCopy, 'rsvGuestlnm', result.ptnrNm)
+      this.$set(this.rsvDetailCopy, 'rsvGuestlnm', result.ptnrName)
       this.$set(this.rsvDetailCopy, 'rsvGuestTelNo', result.capTelNo)
-      this.$set(this.rsvDetailCopy, 'agentCd', result.agentCd)
-      this.$set(this.rsvDetailCopy, 'agentNm', result.agentCdNm)
+      this.$set(this.rsvDetailCopy, 'agentCode', result.agentCode)
+      this.$set(this.rsvDetailCopy, 'agentName', result.agentCodeName)
       if (this.roomType.value === 'OTA_ROOM_API') { // 객실인 경우
         this.$set(this.rsvDetailCopy, 'memNo', result.memNo)
-        this.$set(this.rsvDetailCopy, 'memNm', result.memNm)
+        this.$set(this.rsvDetailCopy, 'memName', result.memName)
       }
     },
     /**
@@ -718,17 +718,17 @@ export default {
          * 영업장 정보 조회 결과값 화면에 매핑
          */
     mapStoreInfoResult (result) {
-      this.$set(this.rsvDetailCopy, 'storeCd', result.storeCd)
-      this.$set(this.rsvDetailCopy, 'storeNm', result.storeNm)
-      this.$set(this.rsvDetailCopy, 'rsvBlckCd', result.rsvBlckCd)
-      this.$set(this.rsvDetailCopy, 'rsvBlck', result.rsvBlckCdNm)
+      this.$set(this.rsvDetailCopy, 'storeCode', result.storeCode)
+      this.$set(this.rsvDetailCopy, 'storeName', result.storeName)
+      this.$set(this.rsvDetailCopy, 'rsvBlckCode', result.rsvBlckCode)
+      this.$set(this.rsvDetailCopy, 'rsvBlck', result.rsvBlckCodeName)
     },
     /**
          * 영업장번호/명 검색
          */
     async searchStoreInfo (item) {
       const param = {}
-      param.storeCd = item.storeCd
+      param.storeCode = item.storeCode
       if (this.roomType.value === 'OTA_ROOM_API' || item.rsvType === 'ROOM') {
         param.useYn = '1'
         const res = await roomService.selectStoreInfo(param)
@@ -800,29 +800,29 @@ export default {
          */
     async selectRsvBlockInfo (item) {
       const param = {}
-      param.rsvBlckCd = item.rsvBlckCd
+      param.rsvBlckCode = item.rsvBlckCode
       // 블럭정보 조회
       const res = await roomService.selectRsvBlockInfo(param)
-      this.$set(this.rsvDetailCopy, 'rsvBlckCd', res.data.rsvBlckCd)
-      this.$set(this.rsvDetailCopy, 'rsvBlck', res.data.rsvBlckCdNm)
+      this.$set(this.rsvDetailCopy, 'rsvBlckCode', res.data.rsvBlckCode)
+      this.$set(this.rsvDetailCopy, 'rsvBlck', res.data.rsvBlckCodeName)
     },
     /**
          * 객실 유형 정보 조회 결과값 매핑
          */
     mapRmTypeInfoResult (result) {
-      this.$set(this.rsvDetailCopy, 'rmTypeCd', result.rmTypeCd)
-      this.$set(this.rsvDetailCopy, 'rmTypeNm', result.rmTypeNm)
-      this.$set(this.rsvDetailCopy, 'dongCd', result.dongCd)
-      this.$set(this.rsvDetailCopy, 'dongCdNm', result.dongNm)
+      this.$set(this.rsvDetailCopy, 'rmTypeCode', result.rmTypeCode)
+      this.$set(this.rsvDetailCopy, 'rmTypeName', result.rmTypeName)
+      this.$set(this.rsvDetailCopy, 'dongCode', result.dongCode)
+      this.$set(this.rsvDetailCopy, 'dongCodeName', result.dongName)
     },
     /**
          * 객실유형코드 검색
          */
     async searchRmTypePopup (item) {
-      if (item.storeCd) {
+      if (item.storeCode) {
         const param = {}
-        param.storeCd = item.storeCd
-        param.rmTypeCd = item.rmTypeCd
+        param.storeCode = item.storeCode
+        param.rmTypeCode = item.rmTypeCode
         param.useYn = '1'
         if (item.pkgNo) {
           param.pkgNo = item.pkgNo
@@ -848,12 +848,12 @@ export default {
          * 객실유형코드 검색창 오픈
          */
     openRmTypePopup (item) {
-      if (item.storeCd) {
+      if (item.storeCode) {
         this.$store.dispatch('dialog/open', {
           componentPath: '/Ota/RoomReservation/popup/RmTypePopup',
           params: {
             item: {
-              storeCd: item.storeCd,
+              storeCode: item.storeCode,
               pkgNo: item.pkgNo
             }
           },
@@ -903,7 +903,7 @@ export default {
               }
               this.childGroupFlag = params.group
               this.$set(this.rsvDetailCopy, 'pkgNo', params.data.pkgNo)
-              this.$set(this.rsvDetailCopy, 'pkgNm', params.data.pkgNm)
+              this.$set(this.rsvDetailCopy, 'pkgName', params.data.pkgName)
               // 입실일자 및 퇴실일자 최소, 최대값 설정
               if (moment().isBefore(params.data.saleBgnYmd)) {
                 this.minDate = moment(params.data.saleBgnYmd).format('YYYY-MM-DD')
@@ -914,24 +914,24 @@ export default {
               this.coMaxDate = moment(this.maxDate).add(1, 'day').format('YYYY-MM-DD')
               if (params.group === 'ota') {
                 // 영업장 정보가 있는 경우 초기화
-                if (this.rsvDetailCopy.storeCd) {
-                  this.rsvDetailCopy.storeCd = ''
-                  this.rsvDetailCopy.storeNm = ''
-                  this.rsvDetailCopy.rsvBlckCd = ''
+                if (this.rsvDetailCopy.storeCode) {
+                  this.rsvDetailCopy.storeCode = ''
+                  this.rsvDetailCopy.storeName = ''
+                  this.rsvDetailCopy.rsvBlckCode = ''
                   this.rsvDetailCopy.rsvBlck = ''
                 }
                 this.resetRmInfoAndTotalAmt() // 객실 유형 정보 및 요금 총 합계 초기화
                 this.$set(this.rsvDetailCopy, 'nights', params.data.stayNights)
                 this.$set(this.rsvDetailCopy, 'rmCnt', params.data.rmCnt)
               } else { // 네이버
-                this.$set(this.rsvDetailCopy, 'storeCd', params.data.storeCd)
-                this.$set(this.rsvDetailCopy, 'storeNm', params.data.storeNm)
-                this.$set(this.rsvDetailCopy, 'rsvBlckCd', params.data.rsvBlckCd)
-                this.$set(this.rsvDetailCopy, 'rsvBlck', params.data.rsvBlckNm)
-                this.$set(this.rsvDetailCopy, 'rmTypeCd', params.data.rmTypeCd)
-                this.$set(this.rsvDetailCopy, 'rmTypeNm', params.data.rmTypeNm)
-                this.$set(this.rsvDetailCopy, 'dongCd', params.data.dongCd)
-                this.$set(this.rsvDetailCopy, 'dongCdNm', params.data.dongNm)
+                this.$set(this.rsvDetailCopy, 'storeCode', params.data.storeCode)
+                this.$set(this.rsvDetailCopy, 'storeName', params.data.storeName)
+                this.$set(this.rsvDetailCopy, 'rsvBlckCode', params.data.rsvBlckCode)
+                this.$set(this.rsvDetailCopy, 'rsvBlck', params.data.rsvBlckName)
+                this.$set(this.rsvDetailCopy, 'rmTypeCode', params.data.rmTypeCode)
+                this.$set(this.rsvDetailCopy, 'rmTypeName', params.data.rmTypeName)
+                this.$set(this.rsvDetailCopy, 'dongCode', params.data.dongCode)
+                this.$set(this.rsvDetailCopy, 'dongCodeName', params.data.dongName)
               }
               this.changeCiYmdOrNights() // 퇴실일자 및 요금변경
             }
@@ -945,11 +945,11 @@ export default {
          */
     resetRmInfoAndTotalAmt () {
       // 객실 유형 정보가 있는 경우 초기화
-      if (this.rsvDetailCopy.rmTypeCd) {
-        this.rsvDetailCopy.rmTypeCd = ''
-        this.rsvDetailCopy.rmTypeNm = ''
-        this.rsvDetailCopy.dongCd = ''
-        this.rsvDetailCopy.dongCdNm = ''
+      if (this.rsvDetailCopy.rmTypeCode) {
+        this.rsvDetailCopy.rmTypeCode = ''
+        this.rsvDetailCopy.rmTypeName = ''
+        this.rsvDetailCopy.dongCode = ''
+        this.rsvDetailCopy.dongCodeName = ''
       }
       // 요금 총 합계 초기화
       if (this.rsvDetailCopy.payAmt) {
@@ -1036,16 +1036,16 @@ export default {
          */
     getInventoryList () {
       if (
-        this.rsvDetailCopy.storeCd &&
-                this.rsvDetailCopy.rsvBlckCd &&
+        this.rsvDetailCopy.storeCode &&
+                this.rsvDetailCopy.rsvBlckCode &&
                 this.rsvDetailCopy.ciYmd &&
                 this.rsvDetailCopy.coYmd
       ) {
         const param = {}
-        param.storeCd = this.rsvDetailCopy.storeCd
+        param.storeCode = this.rsvDetailCopy.storeCode
         param.startDate = this.rsvDetailCopy.ciYmd
         param.endDate = moment(this.rsvDetailCopy.ciYmd).add(30, 'days').format('YYYYMMDD')
-        param.rsvBlckCd = this.rsvDetailCopy.rsvBlckCd
+        param.rsvBlckCode = this.rsvDetailCopy.rsvBlckCode
         this.$emit('change-rm-list', param)
       }
     },
@@ -1055,20 +1055,20 @@ export default {
     async selectChargeInfo (item) {
       if (
         (this.workStatus === 'new' || this.workStatus === 'update') &&
-                item.storeCd &&
+                item.storeCode &&
                 item.nights &&
                 item.rmCnt &&
-                item.rmTypeCd &&
-                item.rmTypeCd.length > 4
+                item.rmTypeCode &&
+                item.rmTypeCode.length > 4
       ) {
         const param = {}
         param.ciYmd = item.ciYmd
-        param.storeCd = item.storeCd
+        param.storeCode = item.storeCode
         param.nights = item.nights
         param.rmCnt = item.rmCnt
         if (item.pkgNo) { // 패키지
           param.pkgNo = item.pkgNo
-          param.rmTypeCd = Array(item.rmTypeCd)
+          param.rmTypeCode = Array(item.rmTypeCode)
           // 패키지 요금 조회
           try {
             const res = await roomService.selectPkgAmount(this.childGroupFlag, param)
@@ -1080,8 +1080,8 @@ export default {
           }
         } else if (item.memNo) { // 객실
           param.memNo = item.memNo
-          param.rsvBlckCd = item.rsvBlckCd
-          param.rmTypeCd = item.rmTypeCd
+          param.rsvBlckCode = item.rsvBlckCode
+          param.rmTypeCode = item.rmTypeCode
           // 객실 요금 조회
           try {
             const res = await roomService.selectRoomAmount(param)

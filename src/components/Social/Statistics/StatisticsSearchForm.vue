@@ -192,7 +192,7 @@
             close
             class="mr-2"
             @click:close="removeTicket(item)">
-            {{item.ticketNm}} - {{item.ticketNo}}
+            {{item.ticketName}} - {{item.ticketNo}}
           </v-chip>
         </div>
       </v-col>
@@ -201,8 +201,8 @@
 </template>
 
 <script>
-import SelectAllList from 'Components/Select/SelectAllList.vue'
-import statisticsService from 'Api/modules/social/statistics.service'
+import SelectAllList from '@/components/Select/SelectAllList.vue'
+import statisticsService from '@/api/modules/social/statistics.service'
 
 export default {
   // extends: DialogBase,

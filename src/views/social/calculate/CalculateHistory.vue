@@ -22,7 +22,7 @@
                           <v-btn text block rounded v-bind="attrs" v-on="on" v-if="item.calcInd === 'B'" color="blue">{{item.nowCnt}} / {{item.totalCnt}}</v-btn>
                         </template>
                         <span v-for="detail of item.ticketList" :key="item.calcSeq+detail.ticketNo">
-                          [ {{detail.ticketNo}} ] / {{detail.calcInd}} / {{detail.ticketNm}} /
+                          [ {{detail.ticketNo}} ] / {{detail.calcInd}} / {{detail.ticketName}} /
                           <span>{{detail.vaildThruBgnYmd | date('YYYY.MM.DD') }} ~ {{detail.vaildThruEndYmd | date('YYYY.MM.DD')}} / </span>
                           <span v-if="item.calcInd === 'A'">
                             [정산월 : {{detail.calcYmd}}]
@@ -57,7 +57,7 @@
 
 <script>
 
-import calculateService from 'Api/modules/social/calculate.service'
+import calculateService from '@/api/modules/social/calculate.service'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -77,7 +77,7 @@ export default {
     searchList () {
       return [
         { key: 'ticketNo', label: '우대번호', type: 'text' },
-        { key: 'ptnrNm', label: '파트너명', type: 'text' },
+        { key: 'ptnrName', label: '파트너명', type: 'text' },
         { key: 'calcInd', label: '정산구분', type: 'text' },
         { key: 'progress', label: '진행단계', type: 'text' },
         { key: 'crtDt', label: '생성일자', type: 'text' }
@@ -87,9 +87,9 @@ export default {
       return [
         { text: '정산 순번', value: 'calcSeq', align: 'center', sortable: false },
         { text: '정산 번호', value: 'calcNo', align: 'center', sortable: false },
-        { text: '정산 명', value: 'calcNm', align: 'center', sortable: false },
+        { text: '정산 명', value: 'calcName', align: 'center', sortable: false },
         { text: '정산기간', value: 'calcYmd', align: 'center', sortable: false },
-        { text: '파트너명', value: 'ptnrNm', align: 'center', sortable: false },
+        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
         { text: '정산 구분', value: 'calcInd', align: 'center', sortable: false },
         { text: '생성 일자', value: 'crtDt', align: 'center', sortable: false }
       ]

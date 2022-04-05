@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12" class="pb-0">
       <v-autocomplete :style="{'max-width':'250px'}"
-        :items="rsvBlckCdList" label="블럭코드" v-model="rsvBlckCd" @change="selectRsvBlckCd()" :rules="emptyRules"></v-autocomplete>
+        :items="rsvBlckCodeList" label="블럭코드" v-model="rsvBlckCode" @change="selectRsvBlckCode()" :rules="emptyRules"></v-autocomplete>
     </v-col>
     <v-col cols="10" class="pt-1 pb-0">
       <v-alert dense outlined type="error" class="font-sm">
@@ -24,7 +24,7 @@
             :no-data-text="'검색 결과가 없습니다.'"
             :headers="headers"
             :items="list"
-            item-key="rmTypeCd"
+            item-key="rmTypeCode"
             hide-default-footer
             disable-pagination
             dense
@@ -47,7 +47,7 @@
               <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.store }}</span>
             </template>
             <template v-slot:item.rmType="{ item }">
-              <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.rmTypeNm }} ({{ item.rmTypeCd }})</span>
+              <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.rmTypeName }} ({{ item.rmTypeCode }})</span>
             </template>
           </v-data-table>
         </app-card>
@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import itemService from 'Api/modules/naver/item.service'
-import commonCodeService from 'Api/modules/system/commonCode.service'
+import itemService from '@/api/modules/naver/item.service'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -70,7 +70,7 @@ export default {
     },
     originRoomInfo: Object,
     pkgNo: String,
-    pkgNm: String,
+    pkgName: String,
     isPackageSearch: Boolean,
     type: {
       type: String,
@@ -93,8 +93,8 @@ export default {
       /**
        *  prop받은 블럭코드를 받을 data, 블럭코드목록
        */
-      rsvBlckCd: '',
-      rsvBlckCdList: []
+      rsvBlckCode: '',
+      rsvBlckCodeList: []
     }
   },
   computed: {
@@ -128,20 +128,20 @@ export default {
           let isOriginSelected = false
           if (this.originRoomInfo &&
             this.originRoomInfo.mid === this.pkgNo &&
-            this.originRoomInfo.storeCd === obj.storeCd &&
-            this.originRoomInfo.rmTypeCd === obj.rmTypeCd) {
+            this.originRoomInfo.storeCode === obj.storeCode &&
+            this.originRoomInfo.rmTypeCode === obj.rmTypeCode) {
             isSelected = true
             isOriginSelected = true
           }
           this.list.push({
-            store: `${obj.storeNm} (${obj.storeCd})`,
-            dong: `${obj.dongNm} (${obj.dongCd})`,
-            pyeong: `${obj.pyeongNm} (${obj.pyeongCd})`,
-            roomType: `${obj.rmKindNm} (${obj.rmKindCd})`,
-            rmTypeCd: obj.rmTypeCd,
-            rmTypeNm: obj.rmTypeNm,
-            storeNm: obj.storeNm,
-            storeCd: obj.storeCd,
+            store: `${obj.storeName} (${obj.storeCode})`,
+            dong: `${obj.dongName} (${obj.dongCode})`,
+            pyeong: `${obj.pyeongName} (${obj.pyeongCode})`,
+            roomType: `${obj.rmKindName} (${obj.rmKindCode})`,
+            rmTypeCode: obj.rmTypeCode,
+            rmTypeName: obj.rmTypeName,
+            storeName: obj.storeName,
+            storeCode: obj.storeCode,
             useYn: obj.otaExistYn,
             initPersCnt: obj.initPersCnt,
             isSelected: isSelected,
@@ -157,7 +157,7 @@ export default {
       if (selectItemList.length === 0) {
         this.$dialog.alert('객실을 선택해주세요.')
         return
-      } else if (this.rsvBlckCd === '') {
+      } else if (this.rsvBlckCode === '') {
         this.$dialog.alert('블럭코드를 선택해주세요.')
         return
       }
@@ -165,12 +165,12 @@ export default {
         return {
           dmStoreId: this.dmStoreId,
           mid: this.pkgNo,
-          pkgNm: this.pkgNm,
-          rsvBlckCd: this.rsvBlckCd,
-          storeCd: item.storeCd,
-          storeNm: item.storeNm,
-          rmTypeCd: item.rmTypeCd,
-          rmTypeNm: item.rmTypeNm,
+          pkgName: this.pkgName,
+          rsvBlckCode: this.rsvBlckCode,
+          storeCode: item.storeCode,
+          storeName: item.storeName,
+          rmTypeCode: item.rmTypeCode,
+          rmTypeName: item.rmTypeName,
           maxPersonCount: item.initPersCnt,
           pkgYn: 'Y'
         }
@@ -199,29 +199,29 @@ export default {
       }
       if (item.isSelected) {
         this.list.forEach(i => {
-          if (item.rmTypeCd !== i.rmTypeCd) {
+          if (item.rmTypeCode !== i.rmTypeCode) {
             i.isSelected = false
           }
         })
         this.$store.dispatch('naver/setRoomInfo', {
           mid: this.pkgNo,
-          storeCd: item.storeCd,
-          rmTypeCd: item.rmTypeCd
+          storeCode: item.storeCode,
+          rmTypeCode: item.rmTypeCode
         })
       }
     },
-    selectRsvBlckCd () {
+    selectRsvBlckCode () {
       this.$store.dispatch('naver/setRoomInfo', {
-        rsvBlckCd: this.rsvBlckCd
+        rsvBlckCode: this.rsvBlckCode
       })
     },
-    async selectBlckCd () {
+    async selectBlckCode () {
       await commonCodeService.selectCommonCode('PKG_BLCK_CD').then(res => {
-        this.rsvBlckCdList = res.data ? _.map(res.data, 'commCd') : []
+        this.rsvBlckCodeList = res.data ? _.map(res.data, 'commCode') : []
         /**
          *  블럭코드 주입
          */
-        this.rsvBlckCd = this.roomInfo.rsvBlckCd
+        this.rsvBlckCode = this.roomInfo.rsvBlckCode
       })
     }
   },
@@ -235,7 +235,7 @@ export default {
     /**
      *  블럭리스트 주입
      */
-    this.selectBlckCd()
+    this.selectBlckCode()
   }
 }
 </script>

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import ticketService from 'Api/modules/social/ticket.service'
+import ticketService from '@/api/modules/social/ticket.service'
 
 export default {
   props: { data: Object, close: Function, step: Function },
@@ -43,7 +43,7 @@ export default {
   data () {
     return {
       headers: [
-        { text: '상품명', value: 'itemNm', align: 'center', sortable: false },
+        { text: '상품명', value: 'itemName', align: 'center', sortable: false },
         { text: '주소', value: 'itemUrl', align: 'center', sortable: false },
         { text: '비고', value: 'memo', align: 'center', sortable: false },
         { text: '상품이동', value: 'move', align: 'center', sortable: false },

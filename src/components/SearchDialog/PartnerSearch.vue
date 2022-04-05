@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import service from 'Api/modules/partner/partner.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import service from '@/api/modules/partner/partner.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -30,18 +30,18 @@ export default {
       },
       list: [],
       headers: [
-        { text: '파트너명', value: 'ptnrNm', align: 'center', sortable: false },
-        { text: '대표자 성명', value: 'ceoNm', align: 'center', sortable: false },
-        { text: '메뉴 권한 명', value: 'menuAuthGrupNm', align: 'center', sortable: false }
+        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
+        { text: '대표자 성명', value: 'ceoName', align: 'center', sortable: false },
+        { text: '메뉴 권한 명', value: 'menuAuthGrupName', align: 'center', sortable: false }
       ]
     }
   },
   computed: {
     searchList () {
       return [
-        { key: 'ptnrNm', label: '파트너명', type: 'text' },
-        { key: 'ceoNm', label: '대표자 명', type: 'text' },
-        { key: 'menuAuthGrupNm', label: '메뉴 권한 명', type: 'text' }
+        { key: 'ptnrName', label: '파트너명', type: 'text' },
+        { key: 'ceoName', label: '대표자 명', type: 'text' },
+        { key: 'menuAuthGrupName', label: '메뉴 권한 명', type: 'text' }
       ]
     }
   },

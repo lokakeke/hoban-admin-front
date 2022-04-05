@@ -6,11 +6,11 @@
       </v-avatar>
       <h3>
         <template v-if="commissionType === 'MemberInd'">
-          {{ instance.params.memIndNm }}
+          {{ instance.params.memIndName }}
           <v-chip small class="ml-1">{{ instance.params.memInd }}</v-chip>
         </template>
         <template v-else>
-          {{ instance.params.memNm }}
+          {{ instance.params.memName }}
           <v-chip small class="ml-1">{{ instance.params.memNo }}</v-chip>
         </template>
         <template
@@ -49,12 +49,12 @@
       </template>
       <!-- 회원번호 -->
       <template v-slot:item.memNo="{ item }">
-        {{ item.memNm }}
+        {{ item.memName }}
         <v-chip x-small class="ml-1">{{ item.memNo }}</v-chip>
       </template>
       <!-- 회원번호 -->
       <template v-slot:item.memInd="{ item }">
-        {{ item.memIndNm }}
+        {{ item.memIndName }}
         <v-chip x-small class="ml-1">{{ item.memInd }}</v-chip>
       </template>
       <!-- 등록여부 -->
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -119,7 +119,7 @@ export default {
         },
         {
           text: '정산유형',
-          value: 'calcTypeCd',
+          value: 'calcTypeCode',
           align: 'center',
           sortable: false
         },
@@ -178,7 +178,7 @@ export default {
       ]
       if (this.commissionType !== 'MemberInd') {
         searchList.push({
-          key: 'calcTypeCd',
+          key: 'calcTypeCode',
           label: '정산유형',
           type: 'dgnsCode',
           commCd: 'RSL0114'
@@ -249,7 +249,7 @@ export default {
     /**
      * 수수료 복사 대상 선택
      */
-    async chooseCopyTarget ({ memNo, memNm, memInd, memIndNm }) {
+    async chooseCopyTarget ({ memNo, memName, memInd, memIndName }) {
       // 이미 해당 항목에 등록된 적용일자(혹은 기간) 목록을 전달해야함
       const existApplyYmdList = []
       const selectListFunction = this.commissionService[
@@ -276,17 +276,17 @@ export default {
         params: {
           commissionType: this.instance.params.commissionType,
           memNo: this.instance.params.memNo,
-          memNm: this.instance.params.memNm,
+          memName: this.instance.params.memName,
           memInd: this.instance.params.memInd,
-          memIndNm: this.instance.params.memIndNm,
+          memIndName: this.instance.params.memIndName,
           applyYmd: this.instance.params.applyYmd,
           applyBgnYmd: this.instance.params.applyBgnYmd,
           applyEndYmd: this.instance.params.applyEndYmd,
           copyTarget: {
             memNo,
-            memNm,
+            memName,
             memInd,
-            memIndNm
+            memIndName
           },
           existApplyYmdList
         },

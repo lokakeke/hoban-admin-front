@@ -7,12 +7,12 @@ export default {
     return new Promise((resolve) => {
       resolve({
         data: [
-          { typeDivCode: '01', typeDivCodeNm: '코드 01' },
-          { typeDivCode: '02', typeDivCodeNm: '코드 02' },
-          { typeDivCode: '03', typeDivCodeNm: '코드 03' },
-          { typeDivCode: '04', typeDivCodeNm: '코드 04' },
-          { typeDivCode: '05', typeDivCodeNm: '코드 05' },
-          { typeDivCode: '06', typeDivCodeNm: '코드 06' }
+          { typeDivCode: '01', typeDivCodeName: '코드 01' },
+          { typeDivCode: '02', typeDivCodeName: '코드 02' },
+          { typeDivCode: '03', typeDivCodeName: '코드 03' },
+          { typeDivCode: '04', typeDivCodeName: '코드 04' },
+          { typeDivCode: '05', typeDivCodeName: '코드 05' },
+          { typeDivCode: '06', typeDivCodeName: '코드 06' }
         ]
       })
     })

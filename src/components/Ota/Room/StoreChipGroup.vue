@@ -31,10 +31,10 @@
               hide-default-footer
           >
             <template v-slot:item.store="{item}">
-              {{ item.storeNm }} ({{ item.storeCd }})
+              {{ item.storeName }} ({{ item.storeCode }})
             </template>
             <template v-slot:item.lcal="{item}">
-              {{ item.lcalNm }} ({{ item.lcalCd }})
+              {{ item.lcalName }} ({{ item.lcalCode }})
             </template>
           </v-data-table>
         </v-col>
@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import roomTypeService from 'Api/modules/ota/roomType.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import roomTypeService from '@/api/modules/ota/roomType.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
@@ -76,11 +76,11 @@ export default {
       if (this.searchStore) {
         const keyword = this.searchStore.toLowerCase().replace(/\s/gi, '')
         return this.items.filter((data) => {
-          const storeCd = (data.storeCd || '').toLowerCase().replace(/\s/gi, '')
-          const storeNm = (data.storeNm || '').toLowerCase().replace(/\s/gi, '')
-          const lcalCd = (data.lcalCd || '').toLowerCase().replace(/\s/gi, '')
-          const lcalNm = (data.lcalNm || '').toLowerCase().replace(/\s/gi, '')
-          return storeCd.indexOf(keyword) > -1 || storeNm.indexOf(keyword) > -1 || lcalCd.indexOf(keyword) > -1 || lcalNm.indexOf(keyword) > -1
+          const storeCode = (data.storeCode || '').toLowerCase().replace(/\s/gi, '')
+          const storeName = (data.storeName || '').toLowerCase().replace(/\s/gi, '')
+          const lcalCode = (data.lcalCode || '').toLowerCase().replace(/\s/gi, '')
+          const lcalName = (data.lcalName || '').toLowerCase().replace(/\s/gi, '')
+          return storeCode.indexOf(keyword) > -1 || storeName.indexOf(keyword) > -1 || lcalCode.indexOf(keyword) > -1 || lcalName.indexOf(keyword) > -1
         })
       } else {
         return this.items

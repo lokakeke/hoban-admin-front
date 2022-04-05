@@ -1,38 +1,38 @@
 import Full from 'Container/Full.vue'
 
 // register
-const Ticket = () => import('Views/social/register/TicketManagement.vue')
+const Ticket = () => import('@/views/social/register/Ticket.vue')
 
 // reservation
 const history = () =>
-  import('Views/social/reservation/TicketHistoryManagement.vue')
+  import('@/views/social/reservation/TicketHistory.vue')
 const ticketing = () =>
-  import('Views/social/reservation/TicketingUpdateManagement.vue')
+  import('@/views/social/reservation/TicketingUpdate.vue')
 const status = () =>
-  import('Views/social/reservation/StatusTicketManagement.vue')
+  import('@/views/social/reservation/StatusTicket.vue')
 const dgnsTicket = () =>
-  import('Views/social/reservation/DgnsTicketManagement.vue')
+  import('@/views/social/reservation/DgnsTicket.vue')
 
 // deposit
 const depositAccount = () =>
-  import('Views/api/deposit/DepositAccountManagement.vue')
+  import('@/views/api/deposit/DepositAccount.vue')
 const depositTransaction = () =>
-  import('Views/api/deposit/DepositTransactionManagement.vue')
+  import('@/views/api/deposit/DepositTransaction.vue')
 const depositFailure = () =>
-  import('Views/api/deposit/DepositFailureManagement.vue')
+  import('@/views/api/deposit/DepositFailure.vue')
 const calculate = () =>
-  import('Views/social/calculate/CalculateManagement.vue')
+  import('@/views/social/calculate/Calculate.vue')
 const calculateHistory = () =>
-  import('Views/social/calculate/CalculateHistory.vue')
+  import('@/views/social/calculate/CalculateHistory.vue')
 
 // statistics
-const kpiManagement = () => import('Views/social/statistics/KpiManagement.vue')
-const statistics = () => import('Views/social/statistics/SocialStatistics.vue')
+const kpi = () => import('@/views/social/statistics/Kpi.vue')
+const statistics = () => import('@/views/social/statistics/SocialStatistics.vue')
 const totalStatistics = () =>
-  import('Views/social/statistics/TotalStatistics.vue')
+  import('@/views/social/statistics/TotalStatistics.vue')
 
 // errorGuidance
-const errorGuidance = () => import('Views/api/error/ErrorGuidance.vue')
+const errorGuidance = () => import('@/views/api/error/ErrorGuidance.vue')
 
 export default {
   path: '/social',
@@ -44,20 +44,20 @@ export default {
   },
   children: [
     {
-      path: 'ticketManagement',
+      path: 'ticket',
       component: Ticket,
-      name: 'social.ticketManagement',
+      name: 'social.ticket',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '우대번호 등록관리',
-        breadcrumb: 'Pvl Ticket Management'
+        breadcrumb: 'Pvl Ticket '
       }
     },
     {
-      path: 'ticketHistoryManagement',
+      path: 'ticketHistory',
       component: history,
-      name: 'social.ticketHistoryManagement',
+      name: 'social.ticketHistory',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -66,9 +66,9 @@ export default {
       }
     },
     {
-      path: 'ticketingUpdateManagement',
+      path: 'ticketingUpdate',
       component: ticketing,
-      name: 'social.ticketingUpdateManagement',
+      name: 'social.ticketingUpdate',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -77,69 +77,69 @@ export default {
       }
     },
     {
-      path: 'statusTicketManagement',
+      path: 'statusTicket',
       component: status,
-      name: 'social.statusTicketManagement',
+      name: 'social.statusTicket',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '판매중/종료예정/종료 별 우대번호 조회',
-        breadcrumb: 'Status Ticket Management'
+        breadcrumb: 'Status Ticket '
       }
     },
     {
-      path: 'dgnsTicketManagement',
+      path: 'dgnsTicket',
       component: dgnsTicket,
-      name: 'social.dgnsTicketManagement',
+      name: 'social.dgnsTicket',
       meta: {
         auth: true,
         requiresAuth: true,
         title: 'DGNS 우대번호 조회',
-        breadcrumb: 'Dgns Ticket Management'
+        breadcrumb: 'Dgns Ticket '
       }
     },
     {
-      path: 'depositAccountManagement',
+      path: 'depositAccount',
       component: depositAccount,
-      name: 'social.depositAccountManagement',
+      name: 'social.depositAccount',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '예치금 계좌 관리',
-        breadcrumb: 'Deposit Account Management'
+        breadcrumb: 'Deposit Account '
       }
     },
     {
-      path: 'depositTransactionManagement',
+      path: 'depositTransaction',
       component: depositTransaction,
-      name: 'social.depositTransactionManagement',
+      name: 'social.depositTransaction',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '예치금 입출금 관리',
-        breadcrumb: 'Deposit Transaction Management'
+        breadcrumb: 'Deposit Transaction '
       }
     },
     {
-      path: 'depositFailureManagement',
+      path: 'depositFailure',
       component: depositFailure,
-      name: 'social.depositFailureManagement',
+      name: 'social.depositFailure',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '예치금 입출금 실패이력 조회',
-        breadcrumb: 'Deposit Failure Management'
+        breadcrumb: 'Deposit Failure '
       }
     },
     {
-      path: 'calculateManagement',
+      path: 'calculate',
       component: calculate,
-      name: 'social.calculateManagement',
+      name: 'social.calculate',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '정산 관리',
-        breadcrumb: 'Calculate Management'
+        breadcrumb: 'Calculate '
       }
     },
     {
@@ -154,14 +154,14 @@ export default {
       }
     },
     {
-      path: 'kpiManagement',
-      component: kpiManagement,
-      name: 'social.kpiManagement',
+      path: 'kpi',
+      component: kpi,
+      name: 'social.kpi',
       meta: {
         auth: true,
         requiresAuth: true,
         title: 'KPI 관리',
-        breadcrumb: 'Kpi Management'
+        breadcrumb: 'Kpi '
       }
     },
     {

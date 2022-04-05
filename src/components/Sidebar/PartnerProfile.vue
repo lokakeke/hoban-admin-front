@@ -1,7 +1,7 @@
 <template>
     <dialog-base :instance="instance">
         <template v-slot:title>
-            파트너({{ partner.ptnrNm }}) - 담당자({{ profile.chrgNm }}) 프로필
+            파트너({{ partner.ptnrName }}) - 담당자({{ profile.chrgName }}) 프로필
         </template>
         <v-tabs v-model="tab" color="info">
             <v-tab
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import adminAuthService from 'Api/modules/system/adminAuth.service'
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import adminAuthService from '@/api/modules/system/adminAuth.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 import PartnerProfilePartnerInformation from './PartnerProfilePartnerInformation'
 import PartnerProfileBasicInformation from './PartnerProfileBasicInformation'
 import PartnerProfilePassword from './PartnerProfilePassword'
-import PartnerAddChargeManagement from 'Components/Partner/Management/PartnerAddChargeManagement.vue'
+import PartnerAddCharge from '@/components/Partner//PartnerAddCharge.vue'
 
 export default {
   extends: DialogBase,
@@ -58,7 +58,7 @@ export default {
             { tab: '유저 프로필', component: PartnerProfileBasicInformation },
             { tab: '파트너사 기본정보', component: PartnerProfilePartnerInformation },
             { tab: '파트너 비밀번호 변경', component: PartnerProfilePassword },
-            { tab: '담당자 관리', component: PartnerAddChargeManagement }
+            { tab: '담당자 관리', component: PartnerAddCharge }
           ]
         } else {
           this.tabItems = [

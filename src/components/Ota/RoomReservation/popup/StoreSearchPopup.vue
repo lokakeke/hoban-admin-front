@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import roomService from 'Api/modules/ota/roomReservation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import roomService from '@/api/modules/ota/roomReservation.service'
 
 export default {
   extends: DialogBase,
@@ -44,13 +44,13 @@ export default {
         },
         {
           text: '코드',
-          value: 'storeCd',
+          value: 'storeCode',
           align: 'center',
           width: '15%'
         },
         {
           text: '코드명',
-          value: 'storeNm',
+          value: 'storeName',
           align: 'center',
           width: '60%'
         },
@@ -70,13 +70,13 @@ export default {
         },
         {
           text: '코드',
-          value: 'storeCd',
+          value: 'storeCode',
           align: 'center',
           width: '15%'
         },
         {
           text: '코드명',
-          value: 'storeNm',
+          value: 'storeName',
           align: 'center',
           width: '70%'
         }
@@ -97,7 +97,7 @@ export default {
   computed: {
     searchList () {
       let list = [
-        { key: 'storeCd', label: '코드명/No', type: 'text', cols: 4 }
+        { key: 'storeCode', label: '코드명/No', type: 'text', cols: 4 }
       ]
       if (!this.isPartner) {
         list = list.concat([{ key: 'useYn', label: '사용여부', type: 'select', list: this.useList, listText: 'code', listValue: 'value', defaultValue: this.useList[0].value, cols: 4 }])
@@ -107,7 +107,7 @@ export default {
     filterList () {
       if (this.storeList && this.storeList.length > 0) {
         if (this.filterText) {
-          return this.storeList.filter(data => data.storeCd.indexOf(this.filterText) !== -1 || data.storeNm.indexOf(this.filterText) !== -1)
+          return this.storeList.filter(data => data.storeCode.indexOf(this.filterText) !== -1 || data.storeName.indexOf(this.filterText) !== -1)
         } else {
           return this.storeList
         }
@@ -128,8 +128,8 @@ export default {
      */
     async search () {
       const param = {}
-      if (this.searchParam.q.storeCd) {
-        param.storeCd = this.searchParam.q.storeCd
+      if (this.searchParam.q.storeCode) {
+        param.storeCode = this.searchParam.q.storeCode
       }
       if (this.isSearch) { // 검색창에서 영업장 조회
         if (this.isPartner) { // 파트너
@@ -208,7 +208,7 @@ export default {
         this.$dialog.alert('조건에 해당하는 자료가 없습니다.')
       } else {
         if (this.isPartner) {
-          this.storeList = this.storeList.filter(data => this.storeList.some(item => data.storeCd === item.storeCd))
+          this.storeList = this.storeList.filter(data => this.storeList.some(item => data.storeCode === item.storeCode))
         }
         this.addCheckBox(this.storeList)
         for (let i = 1; i < this.storeList.length + 1; i++) {

@@ -1,14 +1,14 @@
 import Full from 'Container/Full.vue'
 
 // API 서비스 등록관리
-const service = () => import('Views/api/service/ServiceManagement.vue')
-const naver = () => import('Views/api/history/NaverHistoryManagement.vue')
-const history = () => import('Views/api/history/HistoryManagement.vue')
+const service = () => import('@/views/api/service/Service.vue')
+const naver = () => import('@/views/api/history/NaverHistory.vue')
+const history = () => import('@/views/api/history/History.vue')
 const reservationHistory = () =>
-  import('Views/api/history/ReservationHistoryManagement.vue')
+  import('@/views/api/history/ReservationHistory.vue')
 const resultCode = () =>
-  import('Views/api/resultCode/resultCodeManagement.vue')
-const api = () => import('Views/api/service/ApiManagement.vue')
+  import('@/views/api/resultCode/resultCode.vue')
+const api = () => import('@/views/api/service/Api.vue')
 
 export default {
   path: '/apiService',
@@ -20,69 +20,69 @@ export default {
   },
   children: [
     {
-      path: 'serviceManagement',
+      path: 'service',
       component: service,
-      name: 'serviceManagement',
+      name: 'service',
       meta: {
         auth: true,
         requiresAuth: true,
         title: 'API 서비스 등록관리',
-        breadcrumb: 'API Service Management'
+        breadcrumb: 'API Service '
       }
     },
     {
-      path: 'naverHistoryManagement',
+      path: 'naverHistory',
       component: naver,
-      name: 'naverHistoryManagement',
+      name: 'naverHistory',
       meta: {
         auth: true,
         requiresAuth: true,
         title: 'NAVER API 이력관리',
-        breadcrumb: 'NAVER API History Management'
+        breadcrumb: 'NAVER API History '
       }
     },
     {
-      path: 'historyManagement',
+      path: 'history',
       component: history,
-      name: 'historyManagement',
+      name: 'history',
       meta: {
         auth: true,
         requiresAuth: true,
         title: 'API 이력관리',
-        breadcrumb: 'API History Management'
+        breadcrumb: 'API History '
       }
     },
     {
-      path: 'reservationHistoryManagement',
+      path: 'reservationHistory',
       component: reservationHistory,
-      name: 'reservationHistoryManagement',
+      name: 'reservationHistory',
       meta: {
         auth: true,
         requiresAuth: true,
         title: 'API 예약 이력관리',
-        breadcrumb: 'API Reservation History Management'
+        breadcrumb: 'API Reservation History '
       }
     },
     {
-      path: 'resultCodeManagement',
+      path: 'resultCode',
       component: resultCode,
-      name: 'resultCodeManagement',
+      name: 'resultCode',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '결과 코드 조회',
-        breadcrumb: 'API Result Code Management'
+        breadcrumb: 'API Result Code '
       }
     },
     {
-      path: 'apiManagement',
+      path: 'api',
       component: api,
-      name: 'apiManagement',
+      name: 'api',
       meta: {
         auth: true,
         requiresAuth: true,
         title: 'API 오픈관리',
-        breadcrumb: 'API Management'
+        breadcrumb: 'API '
       }
     }
   ]

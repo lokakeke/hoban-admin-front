@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const packageService = {
   /**
@@ -157,23 +157,23 @@ const packageService = {
   /**
      * 객실패키지 분류 등록
      */
-  insertRoomPackageType (pkgNo, form, packTypeCdList) {
+  insertRoomPackageType (pkgNo, form, packTypeCodeList) {
     return api.post(`/api/ota/pack/classify/insert/${pkgNo}`, {
       title: form.title,
-      typeCd: form.typeCd,
-      packTypeCdList: packTypeCdList
+      typeCode: form.typeCode,
+      packTypeCodeList: packTypeCodeList
     })
   },
 
   /**
      * 객실패키지 분류 수정
      */
-  updateRoomPackageType (pkgNo, form, packTypeCdList) {
+  updateRoomPackageType (pkgNo, form, packTypeCodeList) {
     // return api.post('/api/ota/pack/classify/update', packageType)
     return api.post(`/api/ota/pack/classify/update/${pkgNo}`, {
       title: form.title,
-      typeCd: form.typeCd,
-      packTypeCdList: packTypeCdList
+      typeCode: form.typeCode,
+      packTypeCodeList: packTypeCodeList
     })
   },
 

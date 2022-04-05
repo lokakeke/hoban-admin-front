@@ -112,8 +112,8 @@
 </template>
 
 <script>
-import itemService from 'Api/modules/naver/item.service'
-import service from 'Api/modules/naver/booking.service'
+import itemService from '@/api/modules/naver/item.service'
+import service from '@/api/modules/naver/booking.service'
 
 export default {
   name: 'BookingCalendarView',

@@ -14,7 +14,7 @@
         </v-col>
         <v-col cols="4">
           <v-text-field
-            v-model="origin.guestNm"
+            v-model="origin.guestName"
             label="이용자명"
             outlined
             hide-details
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,

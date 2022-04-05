@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import DialogBase from 'Components/Dialog/DialogBase.vue'
-import roomService from 'Api/modules/ota/roomReservation.service'
+import DialogBase from '@/components/Dialog/DialogBase.vue'
+import roomService from '@/api/modules/ota/roomReservation.service'
 
 export default {
   extends: DialogBase,
@@ -78,7 +78,7 @@ export default {
         },
         {
           text: '코드명',
-          value: 'rmTypeNm',
+          value: 'rmTypeName',
           align: 'center'
         },
         {

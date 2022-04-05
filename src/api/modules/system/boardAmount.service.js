@@ -1,4 +1,4 @@
-import api from 'Api'
+import api from '@/api'
 
 const boardAmountService = {
 
@@ -6,7 +6,7 @@ const boardAmountService = {
    * 게시판 > 객실 요금 조회
    */
   selectBoardRoomAmount (params) {
-    return api.get('/api/system/board/amount/room', {
+    return api.get('/api/cms/system/board/amount/room', {
       params
     })
   },
@@ -15,7 +15,7 @@ const boardAmountService = {
    * 게시판 > 패키지 객실 요금 조회
    */
   selectBoardPackageRoomAmount (params) {
-    return api.get('/api/system/board/amount/package/room', {
+    return api.get('/api/cms/system/board/amount/package/room', {
       params
     })
   }

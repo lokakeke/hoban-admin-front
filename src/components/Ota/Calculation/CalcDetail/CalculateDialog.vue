@@ -56,14 +56,14 @@
         </template>
 
         <template v-slot:lcal="{ item }">
-          <span :title="mergeTextNmCd(item.lcalNm, item.lcalCd)">
-            {{ mergeTextNmCd(item.lcalNm, item.lcalCd) | textTruncate(12) }}
+          <span :title="mergeTextNameCode(item.lcalName, item.lcalCd)">
+            {{ mergeTextNameCd(item.lcalName, item.lcalCd) | textTruncate(12) }}
           </span>
         </template>
 
         <template v-slot:store="{ item }">
-          <span :title="mergeTextNmCd(item.storeNm, item.storeCd)">
-            {{ mergeTextNmCd(item.storeNm, item.storeCd) | textTruncate(12) }}
+          <span :title="mergeTextNameCd(item.storeName, item.storeCd)">
+            {{ mergeTextNameCd(item.storeName, item.storeCd) | textTruncate(12) }}
           </span>
         </template>
 
@@ -276,9 +276,9 @@
 </template>
 
 <script>
-import calculationService from 'Api/modules/ota/calculation.service'
-import VirtualScrollTable from 'Components/Common/VirtualScrollTable.vue'
-import excelMixin from 'Mixins/excelMixin'
+import calculationService from '@/api/modules/ota/calculation.service'
+import VirtualScrollTable from '@/components/Common/VirtualScrollTable.vue'
+import excelMixin from '@/mixins/excelMixin'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -344,14 +344,14 @@ export default {
     searchList () {
       const searchList = [
         { key: 'memNo', label: '회원번호', type: 'text' },
-        { key: 'memNm', label: '회원명', type: 'text' },
+        { key: 'memName', label: '회원명', type: 'text' },
         { key: 'userName', label: '투숙객 명', type: 'text' },
         { key: 'lcalCd', label: '지역코드', type: 'text' },
-        { key: 'lcalNm', label: '지역명', type: 'text' },
+        { key: 'lcalName', label: '지역명', type: 'text' },
         { key: 'storeCd', label: '영업장코드', type: 'text' },
-        { key: 'storeNm', label: '영업장명', type: 'text' },
+        { key: 'storeName', label: '영업장명', type: 'text' },
         { key: 'comRsvNo', label: '업체주문번호', type: 'text' },
-        { key: 'rmTypeNm', label: '객실타입', type: 'text' },
+        { key: 'rmTypeName', label: '객실타입', type: 'text' },
         { key: 'keyRsvNo', label: 'KEY 예약번호', type: 'text' },
         { key: 'rsvNo', label: '예약번호', type: 'text' },
         { key: 'agentCd', label: 'Agent 코드', type: 'text' },
@@ -368,7 +368,7 @@ export default {
       // 패키지일 경우 label 변경
       if (this.calcHisItem.calcInd === '1') {
         searchList.find(data => data.key === 'memNo').label = '패키지 번호'
-        searchList.find(data => data.key === 'memNm').label = '패키지 명'
+        searchList.find(data => data.key === 'memName').label = '패키지 명'
       }
 
       // 관리자 계정이고, 전체(관리자) 탭일 경우
@@ -386,13 +386,13 @@ export default {
       const calcHeaders = [
         { name: 'No', value: 'index', size: 2 },
         { name: '회원번호', value: 'memNo', size: 3 },
-        { name: '회원명', value: 'memNm', size: 6, type: 'truncate', textSize: 15 },
+        { name: '회원명', value: 'memName', size: 6, type: 'truncate', textSize: 15 },
         { name: '투숙객 명', value: 'userName', size: 4, type: 'truncate', textSize: 8 },
         { name: '입실일자', value: 'ciYmd', size: 3, type: 'date' },
         { name: '퇴실일자', value: 'coYmd', size: 3, type: 'date' },
         { name: '지역명', value: 'lcal', size: 4 },
         { name: '영업장', value: 'store', size: 5 },
-        { name: '객실타입', value: 'rmTypeNm', size: 5, type: 'truncate', textSize: 10 },
+        { name: '객실타입', value: 'rmTypeName', size: 5, type: 'truncate', textSize: 10 },
         { name: '예약금액', value: 'totAmt', size: 3, type: 'price' },
         { name: '후불금액', value: 'aftpayAmt', size: 3, type: 'price' },
         { name: '예약번호', value: 'rsvNo', size: 3 },
@@ -418,17 +418,17 @@ export default {
       // 객실 - 객실번호(추가)
       if (this.calcHisItem.calcInd === '0') {
         const rmNo = { name: '객실번호', value: 'rmNo', size: 3 }
-        const rmTypeNmIndex = calcHeaders.findIndex(data => data.value === 'rmTypeNm')
-        calcHeaders.splice(rmTypeNmIndex + 1, 0, rmNo)
+        const rmTypeNameIndex = calcHeaders.findIndex(data => data.value === 'rmTypeName')
+        calcHeaders.splice(rmTypeNameIndex + 1, 0, rmNo)
       }
       // 패키지 - 파트너명(추가), 이름변경
       if (this.calcHisItem.calcInd === '1') {
         calcHeaders.find(data => data.value === 'memNo').name = '패키지 번호'
-        calcHeaders.find(data => data.value === 'memNm').name = '패키지 명'
+        calcHeaders.find(data => data.value === 'memName').name = '패키지 명'
 
-        const ptnrNm = { name: '파트너명', value: 'ptnrNm', size: 4, type: 'truncate', textSize: 8 }
+        const ptnrName = { name: '파트너명', value: 'ptnrName', size: 4, type: 'truncate', textSize: 8 }
         const rsvNoIndex = calcHeaders.findIndex(data => data.value === 'rsvNo')
-        calcHeaders.splice(rsvNoIndex + 1, 0, ptnrNm)
+        calcHeaders.splice(rsvNoIndex + 1, 0, ptnrName)
       }
       // 위약금 - 후불금액(제거), 예약일자(추가), 취소일자(추가), 예약상태(추가), 위약금(추가), 입금현황메모(제거)
       if (this.calcHisItem.calcInd === '2') {
@@ -503,9 +503,9 @@ export default {
 
       if (this.searchKeyword) {
         return items.filter(data =>
-          data.memNm.indexOf(this.searchKeyword) > -1 ||
+          data.memName.indexOf(this.searchKeyword) > -1 ||
           data.userName.indexOf(this.searchKeyword) > -1 ||
-          data.storeNm.indexOf(this.searchKeyword) > -1 ||
+          data.storeName.indexOf(this.searchKeyword) > -1 ||
           data.rsvNo.indexOf(this.searchKeyword) > -1
         )
       } else {
@@ -603,7 +603,7 @@ export default {
         console.log(e, '취소')
       }
     },
-    mergeTextNmCd (name, code) {
+    mergeTextNameCd (name, code) {
       return `${name} (${code})`
     },
     async setMemo (item) {

@@ -50,9 +50,9 @@
 
 <script>
 import { ResizeObserver as Polyfill } from '@juggle/resize-observer'
-import statisticsService from 'Api/modules/social/statistics.service'
-import StatisticsChart from 'Components/Social/Statistics/StatisticsChart.vue'
-import excelMixin from 'Mixins/excelMixin'
+import statisticsService from '@/api/modules/social/statistics.service'
+import StatisticsChart from '@/components/Social/Statistics/StatisticsChart.vue'
+import excelMixin from '@/mixins/excelMixin'
 import { mapGetters } from 'vuex'
 
 export default {
