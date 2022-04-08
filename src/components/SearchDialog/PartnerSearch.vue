@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import service from '@/api/modules/partner/partner.service'
+import service from '@/api/modules/system/authentication/partner/partnerAccount.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {

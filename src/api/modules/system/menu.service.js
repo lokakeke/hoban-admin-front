@@ -99,7 +99,7 @@ const menuService = {
       const isBoardNoticeDetail = menu.menuPath === '/board/boardNotice' && target.indexOf(menu.menuPath) === 0
       if (menu.menuPath === target || isBoardNoticeDetail) {
         // 쓰기 권한 맵핑
-        store.dispatch('sidebar/setWriteAuth', menu.writeAuthYn)
+        store.dispatch('sidebar/setWriteAuth', menu.writeYn)
         return true
       } else if (menu.children && menu.children.length > 0) {
         const check = this.checkRoute(menu.children, target)

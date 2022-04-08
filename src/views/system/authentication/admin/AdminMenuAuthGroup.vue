@@ -181,13 +181,13 @@
 </template>
 
 <script>
-import MenuAuthForm from '@/components/System/Menu/MenuAuthGroupForm.vue'
-import menuAuthService from '@/api/modules/system/menuAuth.service'
+import MenuAuthForm from '@/components/System/Authentication/Admin/MenuAuthGroupForm.vue'
+import adminMenuAuthGroupService from '@/api/modules/system/authentication/admin/adminMenuAuthGroup.service'
 import menuService from '@/api/modules/system/menu.service'
 
 export default {
   components: { MenuAuthForm },
-  name: 'menuAuthGroup',
+  name: 'adminMenuAuthGroup',
   mounted () {
     // key press event match
     this.$store.dispatch('keypress/addKeyEventList', {
@@ -290,7 +290,7 @@ export default {
     },
     load () {
       this.dialog = false
-      menuAuthService.selectMenuAuthGroupDetailList().then(res => {
+      adminMenuAuthGroupService.selectMenuAuthGroupList().then(res => {
         this.groupList = res.data
         if (this.selectGroup) {
           for (const group of this.groupList) {
@@ -312,8 +312,8 @@ export default {
         row.active = row.grupId === group.grupId
       }
       this.selectGroup = group.grupId
-      this.menuList = group.menuAuthList
-      this.userList = group.userAuthList
+      this.menuList = group.adminMenuAuthList
+      this.userList = group.adminAccountList
       this.form = _.cloneDeep(group)
       this.formClone = _.cloneDeep(group)
       if (keywordChange) {
@@ -331,12 +331,12 @@ export default {
       this.validForm(formElement).then(() => {
         this.$dialog.confirm('메뉴 권한 그룹을' + (isUpdate ? '수정' : '입력') + ' 하시겠습니까?').then(() => {
           if (isUpdate) {
-            menuAuthService.updateMenuAuthGroup(this.form).then(res => {
+            adminMenuAuthGroupService.updateMenuAuthGroup(this.form).then(res => {
               this.$dialog.alert('저장되었습니다.')
               this.load()
             })
           } else {
-            menuAuthService.insertMenuAuthGroup(this.addForm).then(res => {
+            adminMenuAuthGroupService.insertMenuAuthGroup(this.addForm).then(res => {
               this.$dialog.alert('저장되었습니다.')
               this.load()
             })
@@ -357,7 +357,7 @@ export default {
           })
         } else {
           await this.$dialog.confirm('메뉴권한 그룹을 삭제 하시겠습니까?')
-          await menuAuthService.deleteMenuAuthGroup(this.selectGroup)
+          await adminMenuAuthGroupService.deleteMenuAuthGroup(this.selectGroup)
           this.$dialog.alert('메뉴권한 그룹을 삭제 하였습니다.')
           this.selectGroup = ''
           this.load()

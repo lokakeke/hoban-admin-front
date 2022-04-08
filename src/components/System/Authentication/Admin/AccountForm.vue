@@ -90,7 +90,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import accountService from '@/api/modules/system/account.service'
+import adminAccountService from '@/api/modules/system/authentication/admin/adminAccount.service'
 
 export default {
   extends: DialogBase,
@@ -130,12 +130,12 @@ export default {
       this.validForm(this.$refs.form).then(() => {
         this.$dialog.confirm('사용자 정보를 ' + (this.isNew ? '추가' : '수정') + ' 하시겠습니까?').then(() => {
           if (this.isNew) {
-            accountService.insertAccount(this.form).then(res => {
+            adminAccountService.insertAccount(this.form).then(res => {
               this.$dialog.alert('저장되었습니다.')
               this.close({ change: true })
             })
           } else {
-            accountService.updateAccount(this.form).then(res => {
+            adminAccountService.updateAccount(this.form).then(res => {
               this.$dialog.alert('저장되었습니다.')
               this.close({ change: true })
             })
@@ -149,7 +149,7 @@ export default {
     async createId () {
       try {
         if (!this.createLoginId) {
-          const res = await accountService.createLoginId()
+          const res = await adminAccountService.createLoginId()
           this.$dialog.alert(`로그인 ID(${res.data})를 자동 생성 하였습니다.<br/>아이디는 계정 추가 전까지 수정가능합니다.`)
           this.form.loginId = res.data
           this.createLoginId = true

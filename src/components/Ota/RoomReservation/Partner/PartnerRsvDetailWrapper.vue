@@ -35,7 +35,7 @@
 import PartnerRsvDetailInfo from '@/components/Ota/RoomReservation/Partner/PartnerRsvDetailInfo.vue'
 import VueTour from '@/components/Common/VueTour.vue'
 
-import partnerService from '@/api/modules/partner/partner.service'
+import partnerAccountService from '@/api/modules/system/authentication/partner/partnerAccount.service'
 import roomService from '@/api/modules/ota/roomReservation.service'
 
 import roomTypeService from '@/api/modules/ota/roomType.service'
@@ -559,7 +559,7 @@ export default {
       const param = {}
       param.taskType = this.roomType.value
       param.ptnrNo = this.user.number
-      const res = await partnerService.selectPtnrInfoForRsv(param)
+      const res = await partnerAccountService.selectPtnrInfoForRsv(param)
       this.ptnrBasicInfo = res.data
       if (this.isTodayRsvPkg) {
         this.openPkgTodayRsv() // 당일예약 패키지 오픈

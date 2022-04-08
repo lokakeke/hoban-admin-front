@@ -67,11 +67,11 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import service from '@/api/modules/partner/partnerMenuAuth.service'
+import adminMenuAuthGroupService from '@/api/modules/system/authentication/admin/adminMenuAuthGroup.service'
 
 export default {
   extends: DialogBase,
-  name: 'PartnerMenuAuthMenuDialog',
+  name: 'menuAuthGroupMenu',
   data () {
     return {
       menuList: [],
@@ -171,7 +171,7 @@ export default {
         } else if (this.selectMenu.findIndex(data => data.menuId === menu.menuId) > -1) {
           if (isMenuAuth) {
             selectMenuList.push(menu.menuId)
-          } else if (this.selectMenu.find(data => data.menuId === menu.menuId).writeAuthYn === 'Y') {
+          } else if (this.selectMenu.find(data => data.menuId === menu.menuId).writeYn === 'Y') {
             selectMenuList.push(menu.menuId)
           }
         }
@@ -180,14 +180,17 @@ export default {
     },
     open () {
       if (this.selectMenu && this.selectMenu.length > 0) {
-        this.myMenu = this.getSelectMenuList(this.menuList, true)
-        this.menuWrite = this.getSelectMenuList(this.menuList, false)
+        this.myMenu = this.getSelectMenuList(this.menuList, true) // _.map(this.selectMenu.slice(), 'menuId')
+        this.menuWrite = this.getSelectMenuList(this.menuList, false) // _.map(_.filter(this.selectMenu.slice(), { writeYn: 'Y' }), 'menuId')
       } else {
         this.myMenu = []
         this.menuWrite = []
       }
     },
     check (menuId) {
+      console.log(menuId)
+      console.log(this.myMenu)
+      console.log(_.includes(this.myMenu, menuId))
       if (_.includes(this.myMenu, menuId)) {
         this.myMenu.splice(this.myMenu.indexOf(menuId), 1).sort((a, b) => a - b)
         if (this.menuWrite.indexOf(menuId) > -1) {
@@ -209,12 +212,12 @@ export default {
         // 메뉴 권한 리스트를 작성
         const array = []
         for (const menuId of this.myMenu) {
-          const writeAuthYn = _.find(this.menuWrite, function (n) {
+          const writeYn = _.find(this.menuWrite, function (n) {
             return n === menuId
           })
-          array.push({ menuId: menuId, writeAuthYn: writeAuthYn ? 'Y' : 'N' })
+          array.push({ menuId: menuId, writeYn: writeYn ? 'Y' : 'N' })
         }
-        service.updatePartnerMenuAuthMenu(this.grupId, array).then(res => {
+        adminMenuAuthGroupService.updateMenuAuth({ menuAuthGroupId: this.menuAuthGroupId, menuAuthList: array }).then(res => {
           this.$dialog.alert('저장되었습니다.')
           this.change()
         })

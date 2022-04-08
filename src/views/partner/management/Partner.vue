@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import service from '@/api/modules/partner/partner.service'
-import authService from '@/api/modules/partner/partnerMenuAuth.service'
+import service from '@/api/modules/system/authentication/partner/partnerAccount.service'
+import authService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
 import maskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 import PartnerPasswordReset from '@/components/Partner/management/PartnerPasswordReset.vue'
 import PartnerLoginForAdmin from '@/components/Partner/management/PartnerLoginForAdmin.vue'
@@ -54,7 +54,7 @@ export default {
     }
   },
   mounted () {
-    authService.selectPartnerAuthGroup().then(res => {
+    authService.selectPartnerMenuAuthGroupListInUse().then(res => {
       this.menuAuthList = res.data
     })
     if (this.isPartner === true) {

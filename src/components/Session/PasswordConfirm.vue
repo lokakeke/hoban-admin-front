@@ -23,7 +23,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import adminAuthService from '@/api/modules/system/adminAuth.service'
+import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 
 export default {
   extends: DialogBase,

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import adminAuthService from '@/api/modules/system/adminAuth.service'
+import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import PartnerProfilePartnerInformation from './PartnerProfilePartnerInformation'
 import PartnerProfileBasicInformation from './PartnerProfileBasicInformation'

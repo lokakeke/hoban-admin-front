@@ -146,7 +146,7 @@
 <script>
 import boardNoticeService from '@/api/modules/system/boardNotice.service'
 import storeService from '@/api/modules/system/store.service'
-import partnerService from '@/api/modules/partner/partner.service'
+import partnerAccountService from '@/api/modules/system/authentication/partner/partnerAccount.service'
 
 export default {
   name: 'BoardNoticeViewForm',
@@ -245,7 +245,7 @@ export default {
      * 파트너 조회
      */
     async selectPartnerList () {
-      const res = await partnerService.selectPartnerFullList()
+      const res = await partnerAccountService.selectPartnerFullList()
       return Promise.resolve(res.data)
     },
     /**

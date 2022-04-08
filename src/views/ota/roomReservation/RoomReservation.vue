@@ -114,7 +114,6 @@
 <script>
 import roomService from '@/api/modules/ota/roomReservation.service'
 import productService from '@/api/modules/ota/product.service'
-import partnerService from '@/api/modules/partner/partnerTerm.service'
 
 import RsvSearchForm from '@/components/Ota/RoomReservation/RsvSearchForm.vue'
 import RsvDetailWrapper from '@/components/Ota/RoomReservation/RsvDetailWrapper.vue'

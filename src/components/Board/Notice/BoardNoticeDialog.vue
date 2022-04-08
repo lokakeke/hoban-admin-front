@@ -222,7 +222,7 @@ import DialogBase from '@/components/Dialog/DialogBase.vue'
 import SelectAllList from '@/components/Select/SelectAllList.vue'
 import boardNoticeService from '@/api/modules/system/boardNotice.service'
 import storeService from '@/api/modules/system/store.service'
-import partnerService from '@/api/modules/partner/partner.service'
+import partnerAccountService from '@/api/modules/system/authentication/partner/partnerAccount.service'
 
 const DEFAULT_FORM = {
   title: '',
@@ -355,7 +355,7 @@ export default {
          * 파트너 조회
          */
     async selectPartnerList () {
-      const res = await partnerService.selectPartnerFullList()
+      const res = await partnerAccountService.selectPartnerFullList()
       this.ptnrList = res.data
       return Promise.resolve()
     },

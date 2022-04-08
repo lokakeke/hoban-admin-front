@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import adminAuthService from '@/api/modules/system/adminAuth.service'
+import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 
 export default {
   props: {

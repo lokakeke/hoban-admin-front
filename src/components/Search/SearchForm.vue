@@ -369,7 +369,7 @@
    **/
 
 import commonCodeService from '@/api/modules/system/commonCode.service'
-import partnerService from '@/api/modules/partner/partner.service'
+import partnerAccountService from '@/api/modules/system/authentication/partner/partnerAccount.service'
 // (woojung)
 
 export default {
@@ -639,7 +639,7 @@ export default {
             }
             // 파트너 리스트를 조회한다.
             if (!this.partnerList) {
-              partnerService.selectPartnerFullList().then(res => {
+              partnerAccountService.selectPartnerFullList().then(res => {
                 this.partnerList = res.data
               })
             }

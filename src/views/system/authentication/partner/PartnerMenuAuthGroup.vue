@@ -162,9 +162,9 @@
 </template>
 
 <script>
-import service from '@/api/modules/partner/partnerMenuAuth.service'
+import service from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
 import menuService from '@/api/modules/system/menu.service'
-import partnerMenuAuthGroupDialog from '@/components/Partner/Menu/PartnerMenuAuthGroupDialog.vue'
+import partnerMenuAuthGroupDialog from '@/components/System/Authentication/Partner/PartnerMenuAuthGroupDialog.vue'
 
 export default {
   components: { partnerMenuAuthGroupDialog },
@@ -266,7 +266,7 @@ export default {
       })
     },
     load () {
-      service.selectPartnerAuthDetailedGroup().then(res => {
+      service.selectPartnerAuthDetailedGroupList().then(res => {
         for (const group of res.data) {
           group.active = false
         }
@@ -289,8 +289,8 @@ export default {
         row.active = row.grupId === group.grupId
       }
       this.selectGroup = group.grupId
-      this.menuList = group.menuAuthList
-      this.userList = group.userAuthList
+      this.menuList = group.partnerMenuAuthList
+      this.userList = group.partnerAccountList
       this.form = this.cloneDeep(group)
       this.formClone = this.cloneDeep(group)
       if (keywordChange) {

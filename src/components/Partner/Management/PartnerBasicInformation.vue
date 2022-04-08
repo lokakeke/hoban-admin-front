@@ -186,8 +186,8 @@
 </template>
 
 <script>
-import service from '@/api/modules/partner/partner.service'
-import authService from '@/api/modules/partner/partnerMenuAuth.service'
+import service from '@/api/modules/system/authentication/partner/partnerAccount.service'
+import authService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 import PartnerPasswordReset from '@/components/Partner/management/PartnerPasswordReset.vue'
 
@@ -247,7 +247,7 @@ export default {
       this.businessList = res.data
     })
     // 파트너사 메뉴권한 불러오기
-    authService.selectPartnerAuthGroup().then(res => {
+    authService.selectPartnerMenuAuthGroupListInUse().then(res => {
       this.menuAuthList = res.data
     })
     // 판매채널 코드 불러오기

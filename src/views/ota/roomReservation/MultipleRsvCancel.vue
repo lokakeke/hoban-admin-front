@@ -87,7 +87,6 @@
 import RsvSearchForm from '@/components/Ota/RoomReservation/RsvSearchForm.vue'
 import PartnerRsvSearchForm from '@/components/Ota/RoomReservation/Partner/PartnerRsvSearchForm.vue'
 import roomService from '@/api/modules/ota/roomReservation.service'
-import partnerService from '@/api/modules/partner/partnerTerm.service'
 
 import { mapGetters } from 'vuex'
 import excelMixin from '@/mixins/excelMixin'

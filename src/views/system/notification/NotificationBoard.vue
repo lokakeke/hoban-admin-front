@@ -16,7 +16,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import systemService from '@/api/modules/notification/notification.service'
-import partnerService from '@/api/modules/notification/partnerNotification.service'
 import notiManageService from '@/api/modules/system/notification.service'
 
 export default {

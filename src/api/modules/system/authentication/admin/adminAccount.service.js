@@ -1,6 +1,6 @@
 import api from '@/api'
 
-const accountService = {
+const adminAccountService = {
 
   /**
      * 관리자 목록조회
@@ -40,4 +40,4 @@ const accountService = {
   }
 
 }
-export default accountService
+export default adminAccountService

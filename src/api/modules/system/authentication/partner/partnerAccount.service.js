@@ -1,6 +1,6 @@
 import api from '@/api'
 
-const partnerService = {
+const partnerAccountService = {
 
   /**
      * 가맹점 목록 조회
@@ -70,4 +70,4 @@ const partnerService = {
   }
 }
 
-export default partnerService
+export default partnerAccountService

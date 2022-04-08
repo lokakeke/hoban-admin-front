@@ -83,8 +83,8 @@
 
 <script>
 import commonCodeService from '@/api/modules/system/commonCode.service'
-import service from '@/api/modules/partner/partner.service'
-import adminAuthService from '@/api/modules/system/adminAuth.service'
+import service from '@/api/modules/system/authentication/partner/partnerAccount.service'
+import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 
 export default {
   name: 'PartnerProfilePartnerInformation',

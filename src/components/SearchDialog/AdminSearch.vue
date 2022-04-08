@@ -24,7 +24,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import accountService from '@/api/modules/system/account.service'
+import adminAccountService from '@/api/modules/system/authentication/admin/adminAccount.service'
 import maskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 
 export default {
@@ -62,13 +62,13 @@ export default {
   },
   methods: {
     search () {
-      accountService.selectAccountList(this.searchParam).then(res => {
+      adminAccountService.selectAccountList(this.searchParam).then(res => {
         this.list = res.data
         this.searchParam.total = res.pagination.total
       })
     },
     async viewTelNo (item) {
-      const res = await accountService.selectAccount(item.loginId)
+      const res = await adminAccountService.selectAccount(item.loginId)
       item.telNo = res.data.telNo
     },
     select (row) {

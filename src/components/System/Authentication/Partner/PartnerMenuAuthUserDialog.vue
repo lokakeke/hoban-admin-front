@@ -33,7 +33,7 @@
                   <v-list-item-subtitle>
                     메뉴권한 :
                     <template v-if="sub.group">
-                      <span class="blue--text">Y</span> / 쓰기권한 : <span :class="sub.group.writeAuthYn === 'Y'?'blue--text':'red--text'">{{sub.group.writeAuthYn}}</span>
+                      <span class="blue--text">Y</span> / 쓰기권한 : <span :class="sub.group.writeYn === 'Y'?'blue--text':'red--text'">{{sub.group.writeYn}}</span>
                     </template>
                     <template v-else>
                       <span class="red--text">N</span>
@@ -42,7 +42,7 @@
                 </v-list-item-content>
                 <v-list-item-action>
                   <v-switch v-model="sub.useYn" inset dense class="mb-2" true-value="Y" false-value="N" label="사용여부" color="info" :disabled="!sub.include" @change="checkUse(sub)"></v-switch>
-                  <v-switch v-model="sub.writeAuthYn" inset dense true-value="Y" false-value="N" label="쓰기권한" color="info" :disabled="!sub.include || sub.useYn === 'N'"></v-switch>
+                  <v-switch v-model="sub.writeYn" inset dense true-value="Y" false-value="N" label="쓰기권한" color="info" :disabled="!sub.include || sub.useYn === 'N'"></v-switch>
                 </v-list-item-action>
               </v-list-item>
             </template>
@@ -56,7 +56,7 @@
                   <v-list-item-subtitle>
                     메뉴권한 :
                     <template v-if="subItem.group">
-                      <span class="blue--text">Y</span> / 쓰기권한 : <span :class="subItem.group.writeAuthYn === 'Y'?'blue--text':'red--text'">{{subItem.group.writeAuthYn}}</span>
+                      <span class="blue--text">Y</span> / 쓰기권한 : <span :class="subItem.group.writeYn === 'Y'?'blue--text':'red--text'">{{subItem.group.writeYn}}</span>
                     </template>
                     <template v-else>
                       <span class="red--text">N</span>
@@ -65,7 +65,7 @@
                 </v-list-item-content>
                 <v-list-item-action>
                   <v-switch v-model="subItem.useYn" class="mb-2" inset dense true-value="Y" false-value="N" label="사용여부" color="info" :disabled="!subItem.include" @change="checkUse(subItem)"></v-switch>
-                  <v-switch v-model="subItem.writeAuthYn" inset dense true-value="Y" false-value="N" label="쓰기권한" color="info" :disabled="!subItem.include || subItem.useYn === 'N'"></v-switch>
+                  <v-switch v-model="subItem.writeYn" inset dense true-value="Y" false-value="N" label="쓰기권한" color="info" :disabled="!subItem.include || subItem.useYn === 'N'"></v-switch>
                 </v-list-item-action>
               </v-list-item>
             </template>
@@ -84,7 +84,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import service from '@/api/modules/partner/partnerMenuAuth.service'
+import service from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
 
 export default {
   extends: DialogBase,
@@ -124,18 +124,18 @@ export default {
         // 메뉴그룹 권한 체크
         const group = _.find(this.selectMenu, { menuId: menu.menuId })
         if (group) {
-          row.group = { writeAuthYn: group.writeAuthYn }
+          row.group = { writeYn: group.writeYn }
         }
         // 개인메뉴 권한 체크
         const personal = _.find(this.userAuthList, { menuId: menu.menuId })
         if (personal) {
           row.include = true
           row.useYn = personal.useYn
-          row.writeAuthYn = personal.writeAuthYn
+          row.writeYn = personal.writeYn
         } else {
           row.include = false
           row.useYn = 'N'
-          row.writeAuthYn = 'N'
+          row.writeYn = 'N'
         }
         if (menu.children && menu.children.length > 0) {
           row.children = this.setUpMenu(menu.children)
@@ -147,22 +147,22 @@ export default {
     check (item) {
       if (item.include) {
         item.useYn = 'Y'
-        item.writeAuthYn = 'Y'
+        item.writeYn = 'Y'
       } else {
         item.useYn = 'N'
-        item.writeAuthYn = 'N'
+        item.writeYn = 'N'
       }
     },
     checkUse (item) {
       if (item.useYn === 'N') {
-        item.writeAuthYn = 'N'
+        item.writeYn = 'N'
       }
     },
     selectInclude (menus) {
       let array = []
       for (const menu of menus) {
         if (menu.include) {
-          array.push({ menuId: menu.menuId, useYn: menu.useYn, writeAuthYn: menu.writeAuthYn })
+          array.push({ menuId: menu.menuId, useYn: menu.useYn, writeYn: menu.writeYn })
         } else if (menu.children && menu.children.length > 0) {
           array = array.concat(this.selectInclude(menu.children))
         }

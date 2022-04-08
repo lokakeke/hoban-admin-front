@@ -73,10 +73,10 @@ const actions = {
   /**
      * 메뉴 쓰기권한 셋팅
      * @param {Object} context
-     * @param {Object} writeAuthYn 메뉴 쓰기권한 여부
+     * @param {Object} writeYn 메뉴 쓰기권한 여부
      */
-  setWriteAuth ({ commit }, writeAuthYn) {
-    commit('setWriteAuthHandler', writeAuthYn)
+  setWriteAuth ({ commit }, writeYn) {
+    commit('setWriteAuthHandler', writeYn)
   },
   /**
      * 파트너 로그인 화면접근 여부
@@ -106,8 +106,8 @@ const mutations = {
   setSideMenusHandler (state, sideMenus) {
     state.sideMenus = sideMenus || null
   },
-  setWriteAuthHandler (state, writeAuthYn) {
-    state.writeAuth = writeAuthYn !== 'N'
+  setWriteAuthHandler (state, writeYn) {
+    state.writeAuth = writeYn !== 'N'
   },
   setRedirectPathHandler (state, path) {
     state.redirectPath = path

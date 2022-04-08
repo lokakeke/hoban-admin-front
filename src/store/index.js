@@ -11,7 +11,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules,
   plugins: [createPersistedState({
-    key: 'sono-api-front',
+    key: 'hoban-api-front',
     paths: [
       // vuex에서 localStorage와 동기화할 module, state
       'auth.jwtToken',

@@ -4,15 +4,15 @@ import Full from 'Container/Full.vue'
 const Menu = () => import('@/views/system/menu/Menu.vue')
 
 // menu auth group
-const menuAuthGroup = () => import('@/views/system/menu/MenuAuthGroup.vue')
+const menuAuthGroup = () => import('@/views/system/authentication/admin/AdminMenuAuthGroup.vue')
 
 // 파트너 menu auth
 const PartnerAuth = () =>
-  import('@/views/partner/menu/PartnerMenuAuth.vue')
+  import('@/views/system/authentication/partner/PartnerMenuAuthGroup.vue')
 
 // account
 const Account = () =>
-  import('@/views/system/account/Account.vue')
+  import('@/views/system/authentication/admin/AdminAccount.vue')
 
 // 공통 코드
 const CommonCode = () => import('@/views/system/commonCode/CommonCode.vue')
@@ -62,7 +62,7 @@ export default {
       name: 'menuAuthGroup',
       meta: {
         auth: true,
-        requiresAuth: true,
+        // requiresAuth: true,
         title: '메뉴 권한 관리',
         breadcrumb: 'Menu Auth'
       }

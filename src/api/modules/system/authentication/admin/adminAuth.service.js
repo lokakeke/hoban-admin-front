@@ -56,7 +56,6 @@ const adminAuthService = {
    * 1차 로그인 인증 (id/password)
    */
   preLogin (param) {
-    // return api.post('/api/cms/system/admin/preLogin', param)
     return api.post('/api/cms/system/accountAuth/preLogin', param)
   },
   /**

@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import accountService from '@/api/modules/system/account.service'
-import menuAuthService from '@/api/modules/system/menuAuth.service'
+import adminAccountService from '@/api/modules/system/authentication/admin/adminAccount.service'
+import adminMenuAuthGroupService from '@/api/modules/system/authentication/admin/adminMenuAuthGroup.service'
 import maskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 import MaskEmail from '@/components/Mask/MaskEmail.vue'
-import AccountPasswordReset from '@/components/System/Account/AccountPasswordReset.vue'
+import AccountPasswordReset from '@/components/System/Authentication/Admin/AccountPasswordReset.vue'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
@@ -42,7 +42,7 @@ export default {
         { key: 'emplNo', label: '관리자 사번', type: 'text' },
         { key: 'loginId', label: '로그인 ID', type: 'text' },
         { key: 'adminName', label: '성명', type: 'text' },
-        { key: 'menuAuthGrupId', label: '메뉴 권한 그룹', type: 'select', list: this.groupList, listValue: 'grupId', listText: 'grupName' },
+        { key: 'menuAuthGroupId', label: '메뉴 권한 그룹', type: 'select', list: this.groupList, listValue: 'menuAuthGroupId', listText: 'menuAuthGroupName' },
         { key: 'useYn', label: '미사용 계정', type: 'boolean', trueValue: 'N' },
         { key: 'lockYn', label: '잠김 계정', type: 'boolean', trueValue: 'Y' }
       ]
@@ -74,7 +74,7 @@ export default {
     }
   },
   mounted () {
-    menuAuthService.selectMenuAuthGroupList().then(res => {
+    adminMenuAuthGroupService.selectMenuAuthGroupListInUse().then(res => {
       this.groupList = res.data
     })
     // 부서코드 조회
@@ -84,13 +84,13 @@ export default {
   },
   methods: {
     search () {
-      accountService.selectAccountList(this.searchParam).then(res => {
+      adminAccountService.selectAccountList(this.searchParam).then(res => {
         this.list = res.data
         this.searchParam.total = res.pagination.total
       })
     },
     async viewTelNo (item) {
-      const res = await accountService.selectAccount(item.loginId)
+      const res = await adminAccountService.selectAccount(item.loginId)
       item.telNo = res.data.telNo
     },
     async showDetail (info) {
@@ -98,7 +98,7 @@ export default {
       let formData = { loginId: '', useYn: 'Y', tempPwYn: 'Y', deptCode: '' }
       if (info) {
         isNew = false
-        const res = await accountService.selectAccount(info.loginId)
+        const res = await adminAccountService.selectAccount(info.loginId)
         formData = res.data
       }
       await this.$store.dispatch('dialog/open', {
