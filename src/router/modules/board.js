@@ -1,4 +1,4 @@
-import Full from 'Container/Full.vue'
+import Full from '@/container/Full.vue'
 
 // 공지사항
 const BoardNotice = () => import('@/views/system/board/notice/BoardNotice.vue')

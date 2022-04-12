@@ -30,7 +30,6 @@ import DialogContainer from '@/components/Dialog/DialogContainer.vue'
 import VueLoadingOverlay from '@/components/LoadingOverlay/VueLoadingOverlay.vue'
 import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'
 import depositAccountService from '@/api/modules/api/depositAccount.service'
-// (woojung)d
 
 export default {
   components: {
@@ -64,8 +63,9 @@ export default {
         }
       },
       build: {
-        // eslint-disable-next-line no-undef (woojung)
-        date: new Date().toString(),
+        // eslint-disable-next-line no-undef
+        // FIXME 확인. 기존이랑 가져오는 스타일 다름.
+        date: JSON.stringify(moment().toISOString()),
         interval: null
       },
       partnerDepositInterval: null
@@ -89,6 +89,8 @@ export default {
     // 캐시 새로고침을 위한 빌드시간 주기적 확인
     this.build.interval = setInterval(async () => {
       try {
+        console.log('타니')
+        // FIXME vite require 지원 불가..
         const res = await require('Api').default.get(`/build-date.html?t=${moment().unix()}`, {
           headers: {
             Progress: false
@@ -106,8 +108,9 @@ export default {
       }
     }, 10 * 60 * 1000) // 10분 간격
     // 파트너 예치금 부족 주기적 확인
+    // FIXME 개발 후 주석 풀기
     // this.checkPartnerDeposit()
-    this.partnerDepositInterval = setInterval(this.checkPartnerDeposit, 30 * 60 * 1000) // 30분 간격
+    // this.partnerDepositInterval = setInterval(this.checkPartnerDeposit, 30 * 60 * 1000) // 30분 간격
   },
   beforeDestroy () {
     document.removeEventListener('keydown', this.keydownEventHandler)

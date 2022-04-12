@@ -1,4 +1,4 @@
-import Full from 'Container/Full.vue'
+import Full from '@/container/Full.vue'
 
 // Booking
 const Booking = () => import('@/views/naver/booking/Booking.vue')

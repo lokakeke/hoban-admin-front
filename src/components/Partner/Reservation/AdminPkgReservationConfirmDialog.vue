@@ -327,7 +327,7 @@ export default {
                 this.replyForm.selectedList[0].rsvBlckCode
             ? this.replyForm.selectedList[0].defaultBlck
             : this.replyForm.selectedList[0].specialBlck) > 0) {
-            confirmMsg += '<br/><br/>신청 재고가 D.G.N.S 선택재고보다 많습니다.<br/>오버부킹이 가능한 관리자 이면 오버부킹 처리가 됩니다. 그래도 진행 하시겠습니까?'
+            confirmMsg += '<br/><br/>신청 재고가 PMS 선택재고보다 많습니다.<br/>오버부킹이 가능한 관리자 이면 오버부킹 처리가 됩니다. 그래도 진행 하시겠습니까?'
           }
         }
         await this.$dialog.confirm(confirmMsg)

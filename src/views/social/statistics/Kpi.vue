@@ -95,7 +95,6 @@
 
 <script>
 import kpiService from '@/api/modules/social/kpi.service'
-// (woojung)
 
 export default {
   name: 'Kpi',

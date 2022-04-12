@@ -1,6 +1,3 @@
-// (woojung)
-
-
 /**
  * Social - 통계
  */

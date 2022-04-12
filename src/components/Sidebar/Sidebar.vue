@@ -79,9 +79,6 @@
       </div>
     </vue-perfect-scrollbar>
     <v-divider class="ma-0"></v-divider>
-    <!--
-    <progressbar></progressbar>
-    -->
   </div>
 </template>
 
@@ -111,10 +108,6 @@ export default {
       return this.currentSidebar ? [this.currentSidebar] : [this.sideMenus[0]]
     }
   },
-  mounted () {
-    console.log(this.menus)
-  },
-
   methods: {
     textTruncate (text) {
       return textTruncate(text, 18)

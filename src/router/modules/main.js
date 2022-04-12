@@ -1,4 +1,4 @@
-import Full from 'Container/Full.vue'
+import Full from '@/container/Full.vue'
 
 const Main = () => import('@/views/common/Main.vue')
 const OtaMain = () => import('@/views/system/main/OtaMain.vue')

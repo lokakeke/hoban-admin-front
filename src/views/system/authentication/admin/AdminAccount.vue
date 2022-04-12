@@ -39,7 +39,7 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'emplNo', label: '관리자 사번', type: 'text' },
+        { key: 'adminSeq', label: '관리자 사번', type: 'text' },
         { key: 'loginId', label: '로그인 ID', type: 'text' },
         { key: 'adminName', label: '성명', type: 'text' },
         { key: 'menuAuthGroupId', label: '메뉴 권한 그룹', type: 'select', list: this.groupList, listValue: 'menuAuthGroupId', listText: 'menuAuthGroupName' },
@@ -60,7 +60,7 @@ export default {
       groupList: [],
       deptList: [],
       headers: [
-        { text: '관리자 사번', value: 'emplNo', align: 'center' },
+        { text: '관리자 사번', value: 'adminSeq', align: 'center' },
         { text: '로그인 ID', value: 'loginId', align: 'center' },
         { text: '성명', value: 'adminName', align: 'center' },
         { text: '휴대폰 번호', value: 'telNo', align: 'center' },

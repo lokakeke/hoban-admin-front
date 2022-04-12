@@ -22,7 +22,7 @@
                 <v-icon>edit</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title :class="ip.useYn === 'N'? 'strike' : ''">{{ ip.ipName }} ({{ ip.useIp }} / {{ ip.emplNo }})</v-list-item-title>
+                <v-list-item-title :class="ip.useYn === 'N'? 'strike' : ''">{{ ip.ipName }} ({{ ip.useIp }} / {{ ip.adminSeq }})</v-list-item-title>
               </v-list-item-content>
               <v-list-item-action>
                 <v-icon>keyboard_arrow_right</v-icon>
@@ -54,7 +54,7 @@
             <v-label>IP 이름</v-label>
             <v-text-field v-model="ipInfo.ipName" :rules="emptyRules" label required class="pt-0"></v-text-field>
             <v-label>사번</v-label>
-            <v-text-field v-model="ipInfo.emplNo" label required class="pt-0"></v-text-field>
+            <v-text-field v-model="ipInfo.adminSeq" label required class="pt-0"></v-text-field>
             <v-label>서버 구분</v-label>
             <v-autocomplete v-model="ipInfo.serverCode" :rules="emptyRules" :items="serverCodeList" :item-text="'commCodeName'" :item-value="'commCode'" required class="pt-0"></v-autocomplete>
             <v-checkbox
@@ -95,7 +95,7 @@
           <v-label>IP 이름</v-label>
           <v-text-field v-model="form.ipName" :rules="emptyRules" label required class="pt-0"></v-text-field>
           <v-label>사번</v-label>
-          <v-text-field v-model="form.emplNo" label required class="pt-0"></v-text-field>
+          <v-text-field v-model="form.adminSeq" label required class="pt-0"></v-text-field>
           <v-label>서버 구분</v-label>
           <v-autocomplete v-model="form.serverCode" :rules="emptyRules" :items="serverCodeList" :item-text="'commCodeName'" :item-value="'commCode'" required class="pt-0"></v-autocomplete>
           <v-checkbox
@@ -149,7 +149,7 @@ export default {
     ipFilterList () {
       if (this.ipList && this.ipList.length > 0) {
         if (this.filterText) {
-          return this.ipList.filter(data => data.ipName.indexOf(this.filterText) !== -1 || data.useIp.indexOf(this.filterText) !== -1 || (data.emplNo || '').indexOf(this.filterText) !== -1)
+          return this.ipList.filter(data => data.ipName.indexOf(this.filterText) !== -1 || data.useIp.indexOf(this.filterText) !== -1 || (data.adminSeq || '').indexOf(this.filterText) !== -1)
         } else {
           return this.ipList
         }
@@ -201,7 +201,7 @@ export default {
             newInfo.useIp = this.ipInfo.useIp
             newInfo.ipName = this.ipInfo.ipName
             newInfo.useYn = this.ipInfo.useYn
-            newInfo.emplNo = this.ipInfo.emplNo
+            newInfo.adminSeq = this.ipInfo.adminSeq
             newInfo.serverCode = this.ipInfo.serverCode
             ipManageService.update(newInfo).then(res => {
               this.$dialog.alert('정보를 입력하였습니다.')

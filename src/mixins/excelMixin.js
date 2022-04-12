@@ -1,5 +1,4 @@
 import api from '@/api'
-// (woojung)
 
 const excelMixin = {
   methods: {

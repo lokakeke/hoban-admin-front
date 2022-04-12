@@ -4,7 +4,7 @@
       <v-icon left>search</v-icon>사원 조회
     </template>
     <search-form :search-param.sync="searchParam" :search-list="searchList" @search="search" :cols="4" init-search></search-form>
-    <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="emplNo"
+    <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="adminSeq"
                   hide-default-footer class="click-row" @click:row="select($event)"></v-data-table>
     <search-pagination v-model="searchParam" :total-visible="10" circle @change="search"></search-pagination>
     <template v-slot:actions>
@@ -31,7 +31,7 @@ export default {
       list: [],
       headers: [
         { text: '사원 명', value: 'adminName', align: 'center', sortable: false },
-        { text: '사원 번호', value: 'emplNo', align: 'center', sortable: false },
+        { text: '사원 번호', value: 'adminSeq', align: 'center', sortable: false },
         { text: '사용 여부', value: 'useYn', align: 'center', sortable: false }
       ]
     }
@@ -40,7 +40,7 @@ export default {
     searchList () {
       return [
         { key: 'adminName', label: '사원명', type: 'text' },
-        { key: 'emplNo', label: '사원 번호', type: 'text' }
+        { key: 'adminSeq', label: '사원 번호', type: 'text' }
       ]
     }
   },
@@ -53,7 +53,7 @@ export default {
       })
     },
     select (row) {
-      if (row.emplNo) {
+      if (row.adminSeq) {
         this.$dialog.confirm(`${row.adminName} 을 선택 하시겠습니까?`).then(() => {
           this.close({ data: row })
         })

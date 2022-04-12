@@ -370,7 +370,6 @@
 
 import commonCodeService from '@/api/modules/system/commonCode.service'
 import partnerAccountService from '@/api/modules/system/authentication/partner/partnerAccount.service'
-// (woojung)
 
 export default {
   props: {
@@ -729,7 +728,7 @@ export default {
           width: 800,
           closeCallback: param => {
             if (param && param.data) {
-              item.value = param.data.emplNo
+              item.value = param.data.adminSeq
               item.text = param.data.adminName
             }
           }

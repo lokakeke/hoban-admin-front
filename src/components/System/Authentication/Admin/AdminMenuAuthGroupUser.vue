@@ -88,7 +88,7 @@ import adminMenuAuthGroupService from '@/api/modules/system/authentication/admin
 
 export default {
   extends: DialogBase,
-  name: 'menuAuthGroupUser',
+  name: 'adminMenuAuthGroupUser',
   data () {
     return {
       user: {},
@@ -111,7 +111,7 @@ export default {
   methods: {
     selectUser () {
       // 서버에서 해당 유저의 개인 메뉴 리스트를 조회한다.
-      adminMenuAuthGroupService.selectMenuAuthUserList(this.user.emplNo).then(res => {
+      adminMenuAuthGroupService.selectMenuAuthUserList(this.user.adminSeq).then(res => {
         this.userAuthList = res.data
         // 메뉴 리스트를 정제한다.
         this.menus = this.setUpMenu(this.menuList)
@@ -173,7 +173,7 @@ export default {
       this.$dialog.confirm('개인(' + this.user.adminName + ') 메뉴권한을<br/>적용 하시겠습니까?').then(() => {
         // 메뉴 권한 리스트를 작성
         const array = this.selectInclude(this.menus)
-        adminMenuAuthGroupService.updateUserMenuAuth({ adminSeq: this.user.adminSeq, userAuthList: array }).then(res => {
+        adminMenuAuthGroupService.updateUserMenuAuth(this.user.adminSeq, { adminMenuAuthUserList: array }).then(res => {
           this.$dialog.alert('저장되었습니다.')
         })
       }).catch(() => {})

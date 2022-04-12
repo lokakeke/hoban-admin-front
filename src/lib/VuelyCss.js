@@ -6,7 +6,7 @@ import 'vuetify/dist/vuetify.css'
 import 'nprogress/nprogress.css'
 
 // Icon Files
-import '../assets/themify-icons/themify-icons.css'
+import '@/assets/themify-icons/themify-icons.css'
 
 // animate css
 import '@/assets/animate.css'

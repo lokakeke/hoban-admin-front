@@ -3,34 +3,72 @@
  */
 import 'babel-polyfill'
 import Vue from 'vue'
-import vuetify from './plugins/vuetify'
+import vuetify from '@/plugins/vuetify'
 import VueBreadcrumbs from 'vue2-breadcrumbs'
 import Nprogress from 'nprogress'
 import VueI18n from 'vue-i18n'
+
+// high charts
 import highCharts from 'highcharts'
 import drillDown from 'highcharts/modules/drilldown'
 import exporting from 'highcharts/modules/exporting'
 import highChartsMore from 'highcharts/highcharts-more'
 import highChartsVue from 'highcharts-vue'
+
+// vue polling service
 import VuePolling from 'vue-polling'
+
+// vue dialog alert
 import VuejsDialog from 'vuejs-dialog'
 import 'vuejs-dialog/dist/vuejs-dialog.min.css'
+
+// vue-the-mask
 import VueTheMask from 'vue-the-mask'
+
+// app.vue
 import App from './App'
+
+// router
 import router from './router'
+
+// store
 import store from './store'
+
+// include all css files
 import './lib/VuelyCss'
-import '@mdi/font/css/materialdesignicons.min.css'
+// import '@mdi/font/css/materialdesignicons.min.css'
+// messages
 import messages from './lang'
+
+// v-calendar
 import VCalendar from 'v-calendar'
+
+// global components
 import GlobalComponents from './globalComponents'
+
+// global mixin
 import GlobalMixin from './globalMixin'
+
+// global filter
 import * as filters from './globalFilter'
+
+// v-currency
 import VCurrencyField from 'v-currency-field'
+
+// vue-upload-component
+import VueUploadComponent from 'vue-upload-component'
+
+// drag scroll
 import VueDragscroll from 'vue-dragscroll'
+
+// VueHtmlToPaper
 import VueHtmlToPaper from 'vue-html-to-paper'
+
+// vue-tour
 import VueTour from 'vue-tour'
 import 'vue-tour/dist/vue-tour.css'
+
+// vue-clipboard2
 import VueClipboard from 'vue-clipboard2'
 
 Vue.use(VCurrencyField, {
@@ -53,7 +91,6 @@ router.beforeEach(async (to, from, next) => {
     // 메뉴 접근 권한 체크 후 진행
     const res = await store.dispatch('sidebar/checkMenus', to)
     await store.dispatch('sidebar/setCurrentMenu', to)
-    // await store.dispatch('sidebar/setCurrentMenu', to)
 
     if (res.success) {
       // 비밀번호 확인필요한 메뉴인지 체크
@@ -173,8 +210,10 @@ const options = {
 }
 Vue.use(VueHtmlToPaper, options)
 
-// Vue Upload Components (woojung)
+// FIXME vite 적용시 require 사용이 안되서 아래와 같이 수정.
+// Vue Upload Components
 // Vue.component('file-upload', require('vue-upload-component'))
+Vue.component('file-upload', VueUploadComponent)
 
 /* eslint-disable no-new */
 new Vue({

@@ -40,15 +40,15 @@ const adminMenuAuthGroupService = {
   /**
      * 메뉴 권한 수정
      */
-  updateMenuAuth (menuAuthGroupId, adminMenuAuthGroup) {
-    return api.post(`/api/cms/system/adminMenuAuthGroup/auth/${menuAuthGroupId}`, adminMenuAuthGroup)
+  updateMenuAuth (menuAuthGroupId, adminMenuAuthList) {
+    return api.post(`/api/cms/system/adminMenuAuthGroup/auth/${menuAuthGroupId}`, adminMenuAuthList)
   },
 
   /**
      * 개인별 메뉴 권한 수정
      */
-  updateUserMenuAuth (adminSeq, authUserList) {
-    return api.post(`/api/cms/system/adminMenuAuthGroup/user/${adminSeq}`, authUserList)
+  updateUserMenuAuth (adminSeq, adminMenuAuthUserList) {
+    return api.post(`/api/cms/system/adminMenuAuthGroup/user/${adminSeq}`, adminMenuAuthUserList)
   },
 
   /**

@@ -16,13 +16,13 @@
           </v-row>
         </template>
         <v-list dense v-if="groupFilterList && groupFilterList.length > 0">
-          <v-list-item v-for="item of groupFilterList" :key="item.grupId" @click="viewDetail(item, true)" class="menu-list" :class="item.active? 'active' : ''">
+          <v-list-item v-for="item of groupFilterList" :key="item.menuAuthGroupId" @click="viewDetail(item, true)" class="menu-list" :class="item.active? 'active' : ''">
             <v-list-item-action>
               <v-icon>account_tree</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title :class="{ 'strike': item.useYn === 'N' }">
-                {{ item.grupName }}
+                {{ item.menuAuthGroupName }}
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
@@ -51,11 +51,11 @@
               <v-row @keypress.enter="commit">
                 <v-col cols="6">
                   <v-label>메뉴권한 그룹 ID</v-label>
-                  <v-text-field v-model="form.grupId" label="" disabled class="pt-0"></v-text-field>
+                  <v-text-field v-model="form.menuAuthGroupId" label="" disabled class="pt-0"></v-text-field>
                 </v-col>
                 <v-col cols="6">
                   <v-label>메뉴권한 그룹 이름</v-label>
-                  <v-text-field v-model="form.grupName" :rules="emptyRules" label="" class="pt-0"></v-text-field>
+                  <v-text-field v-model="form.menuAuthGroupName" :rules="emptyRules" label="" class="pt-0"></v-text-field>
                 </v-col>
                 <v-col>
                   <v-checkbox class="mt-0" v-model="form.useYn" label="사용여부" hide-details true-value="Y" false-value="N"></v-checkbox>
@@ -216,13 +216,13 @@ export default {
     groupName () {
       let text = ''
       if (this.selectGroup) {
-        const select = this.groupList.find(data => data.grupId === this.selectGroup)
-        text = select ? select.grupName : ''
+        const select = this.groupList.find(data => data.menuAuthGroupId === this.selectGroup)
+        text = select ? select.menuAuthGroupName : ''
       }
       return text
     },
     groupFilterList () {
-      return this.groupList.filter(data => this.searchMenu ? data.grupName.indexOf(this.searchMenu) > -1 : true)
+      return this.groupList.filter(data => this.searchMenu ? data.menuAuthGroupName.indexOf(this.searchMenu) > -1 : true)
     },
     groupMenuFilterList () {
       return this.menuList.filter(data => this.searchAuth ? data.menuName.indexOf(this.searchAuth) > -1 : true)
@@ -236,7 +236,7 @@ export default {
           title: `메뉴권한 그룹(${this.groupName}) 메뉴 설정`,
           menuList: this.menuFullList,
           selectMenu: this.menuList,
-          grupId: this.selectGroup,
+          menuAuthGroupId: this.selectGroup,
           groupName: this.groupName,
           change: this.load
         },
@@ -273,7 +273,7 @@ export default {
         this.groupList = res.data
         if (this.selectGroup) {
           for (const group of this.groupList) {
-            if (group.grupId === this.selectGroup) {
+            if (group.menuAuthGroupId === this.selectGroup) {
               this.viewDetail(group, false)
               return
             }
@@ -282,13 +282,13 @@ export default {
       })
     },
     add () {
-      this.$refs.groupDialog.open({ grupId: '', grupName: '', useYn: 'Y' })
+      this.$refs.groupDialog.open({ menuAuthGroupId: '', menuAuthGroupName: '', useYn: 'Y' })
     },
     viewDetail (group, keywordChange) {
       for (const row of this.groupList) {
-        row.active = row.grupId === group.grupId
+        row.active = row.menuAuthGroupId === group.menuAuthGroupId
       }
-      this.selectGroup = group.grupId
+      this.selectGroup = group.menuAuthGroupId
       this.menuList = group.partnerMenuAuthList
       this.userList = group.partnerAccountList
       this.form = this.cloneDeep(group)

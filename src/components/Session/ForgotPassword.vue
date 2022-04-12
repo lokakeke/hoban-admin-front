@@ -22,7 +22,7 @@
                                       required></v-text-field>
                     </template>
                     <template v-else>
-                        <v-text-field v-model="form.emplNo" :rules="emptyRules" label="* 사원번호" required></v-text-field>
+                        <v-text-field v-model="form.adminSeq" :rules="emptyRules" label="* 사원번호" required></v-text-field>
                         <v-text-field v-model="form.adminName" :rules="emptyRules" label="* 이름"
                                       required></v-text-field>
                     </template>
@@ -59,7 +59,7 @@ export default {
     return {
       form: {
         loginId: '',
-        emplNo: '',
+        adminSeq: '',
         addCrtfNo: '',
         ptnrChrgId: '',
         adminName: '',
