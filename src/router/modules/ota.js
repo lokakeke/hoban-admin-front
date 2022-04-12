@@ -1,4 +1,4 @@
-import Full from 'Container/Full.vue'
+import Full from '@/container/Full.vue'
 
 // room
 const Room = () => import('@/views/ota/room/RoomType.vue')

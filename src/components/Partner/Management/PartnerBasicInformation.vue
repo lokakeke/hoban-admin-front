@@ -70,8 +70,8 @@
             <v-label>메뉴 권한</v-label>
             <v-autocomplete v-model="form.menuAuthGrupId"
                             :items="menuAuthList"
-                            item-value="grupId"
-                            item-text="grupName"
+                            item-value="menuAuthGroupId"
+                            item-text="menuAuthGroupName"
                             :rules="emptyRules"
                             :disabled="isPartner"
             ></v-autocomplete>

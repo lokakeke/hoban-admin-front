@@ -1,4 +1,4 @@
-import Full from 'Container/Full.vue'
+import Full from '@/container/Full.vue'
 
 // API 서비스 등록관리
 const service = () => import('@/views/api/service/Service.vue')
@@ -22,7 +22,7 @@ export default {
     {
       path: 'service',
       component: service,
-      name: 'service',
+      name: 'api.service',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -33,7 +33,7 @@ export default {
     {
       path: 'naverHistory',
       component: naver,
-      name: 'naverHistory',
+      name: 'api.naverHistory',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -44,7 +44,7 @@ export default {
     {
       path: 'history',
       component: history,
-      name: 'history',
+      name: 'api.history',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -55,7 +55,7 @@ export default {
     {
       path: 'reservationHistory',
       component: reservationHistory,
-      name: 'reservationHistory',
+      name: 'api.reservationHistory',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -66,7 +66,7 @@ export default {
     {
       path: 'resultCode',
       component: resultCode,
-      name: 'resultCode',
+      name: 'api.resultCode',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -77,7 +77,7 @@ export default {
     {
       path: 'api',
       component: api,
-      name: 'api',
+      name: 'api.api',
       meta: {
         auth: true,
         requiresAuth: true,

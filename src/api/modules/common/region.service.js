@@ -1,7 +1,7 @@
 export default {
 
   /**
-     * D.G.N.S 지역코드 목록 조회 - 임시
+     * PMS 지역코드 목록 조회 - 임시
      */
   selectRegionList (param) {
     return new Promise((resolve) => {

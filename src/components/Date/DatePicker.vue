@@ -50,10 +50,6 @@
 </template>
 
 <script>
-
-// (woojung)
-
-
 export default {
   name: 'DatePicker',
   model: {

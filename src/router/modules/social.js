@@ -1,4 +1,4 @@
-import Full from 'Container/Full.vue'
+import Full from '@/container/Full.vue'
 
 // register
 const Ticket = () => import('@/views/social/register/Ticket.vue')

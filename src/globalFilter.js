@@ -1,6 +1,3 @@
-// AutoImport 못해서 일단 직접 임포트 (woojung)
-// $moment
-
 /**
  * 바이트 값을 읽기 편하게 변환
  * @param value

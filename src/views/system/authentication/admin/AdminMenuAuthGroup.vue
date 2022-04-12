@@ -16,13 +16,13 @@
           </v-row>
         </template>
         <v-list dense v-if="groupFilterList && groupFilterList.length > 0">
-          <v-list-item v-for="item of groupFilterList" :key="item.grupId" @click="viewDetail(item, true)" class="menu-list" :class="item.active? 'active' : ''">
+          <v-list-item v-for="item of groupFilterList" :key="item.menuAuthGroupId" @click="viewDetail(item, true)" class="menu-list" :class="item.active? 'active' : ''">
             <v-list-item-action>
               <v-icon>account_tree</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title :class="{ 'strike': item.useYn === 'N' }">
-                {{ item.grupName }}
+                {{ item.menuAuthGroupName }}
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
@@ -48,7 +48,7 @@
         <transition name="slide-fade" mode="out-in">
           <template v-if="selectGroup">
             <v-form ref="form" lazy-validation :key="selectGroup" autocomplete="off">
-              <menu-auth-form :formData.sync="form"></menu-auth-form>
+              <admin-menu-auth-group-form :formData.sync="form"></admin-menu-auth-group-form>
             </v-form>
           </template>
           <v-row v-else align="center" justify="center">
@@ -79,7 +79,7 @@
               <v-text-field v-model="search" hide-details single-line outlined small dense append-icon="mdi-magnify" label="Search"/>
             </v-col>
           </v-row>
-          <v-data-table :no-data-text="groupName +' 그룹에 관리자 정보가 없습니다.'"
+          <v-data-table :no-data-text="menuAuthGroupName +' 그룹에 관리자 정보가 없습니다.'"
                         :no-results-text="'검색 결과가 없습니다.'" :headers="headers" :items="userList" :search="search">
             <template v-slot:item.action="{ item }">
               <v-btn outlined rounded small color="info" @click="openUser(item)">
@@ -127,7 +127,7 @@
                 </v-list>
               </template>
               <v-row v-else justify="center">
-                {{groupName}} 그룹에 메뉴리스트가 없습니다.
+                {{menuAuthGroupName}} 그룹에 메뉴리스트가 없습니다.
               </v-row>
             </div>
           </template>
@@ -160,7 +160,7 @@
       <v-container fluid>
         <v-form ref="addForm" lazy-validation autocomplete="off" onsubmit="return false;">
           <div @keypress.enter="commit(false)">
-            <menu-auth-form :formData.sync="addForm"></menu-auth-form>
+            <admin-menu-auth-group-form :formData.sync="addForm"></admin-menu-auth-group-form>
           </div>
           <v-layout justify-center>
             <div class="pa-2">
@@ -181,12 +181,12 @@
 </template>
 
 <script>
-import MenuAuthForm from '@/components/System/Authentication/Admin/MenuAuthGroupForm.vue'
+import AdminMenuAuthGroupForm from '@/components/System/Authentication/Admin/AdminMenuAuthGroupForm.vue'
 import adminMenuAuthGroupService from '@/api/modules/system/authentication/admin/adminMenuAuthGroup.service'
 import menuService from '@/api/modules/system/menu.service'
 
 export default {
-  components: { MenuAuthForm },
+  components: { AdminMenuAuthGroupForm },
   name: 'adminMenuAuthGroup',
   mounted () {
     // key press event match
@@ -199,16 +199,16 @@ export default {
     this.load()
   },
   computed: {
-    groupName () {
+    menuAuthGroupName () {
       let text = ''
       if (this.selectGroup) {
-        const select = _.find(this.groupList, { grupId: this.selectGroup })
-        text = select ? select.grupName : ''
+        const select = _.find(this.groupList, { menuAuthGroupId: this.selectGroup })
+        text = select ? select.menuAuthGroupName : ''
       }
       return text
     },
     groupFilterList () {
-      return this.groupList.filter(data => this.searchMenu ? data.grupName.indexOf(this.searchMenu) > -1 : true)
+      return this.groupList.filter(data => this.searchMenu ? data.menuAuthGroupName.indexOf(this.searchMenu) > -1 : true)
     },
     groupMenuFilterList () {
       return this.menuList.filter(data => this.searchAuth ? data.menuName.indexOf(this.searchAuth) > -1 : true)
@@ -226,7 +226,7 @@ export default {
       userList: [],
       // 사용자 필터링 키워드
       headers: [
-        { text: '사번', value: 'emplNo', align: 'center' },
+        { text: '사번', value: 'adminBusinessNo', align: 'center' },
         { text: '아이디', value: 'loginId', align: 'center' },
         { text: '이름', value: 'adminName', align: 'center' },
         { text: '상세보기', value: 'action', align: 'center' }
@@ -254,13 +254,13 @@ export default {
   methods: {
     openMenu () {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/System/Menu/MenuAuthGroupMenu',
+        componentPath: '/System/Authentication/Admin/AdminMenuAuthGroupMenu',
         params: {
-          title: `메뉴권한 그룹(${this.groupName}) 메뉴 설정`,
+          title: `메뉴권한 그룹(${this.menuAuthGroupName}) 메뉴 설정`,
           menuList: this.menuFullList,
           selectMenu: this.menuList,
-          grupId: this.selectGroup,
-          groupName: this.groupName,
+          menuAuthGroupId: this.selectGroup,
+          menuAuthGroupName: this.menuAuthGroupName,
           change: this.load
         },
         options: {
@@ -273,9 +273,9 @@ export default {
     },
     openUser (item) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/System/Menu/MenuAuthGroupUser',
+        componentPath: '/System/Authentication/Admin/AdminMenuAuthGroupUser',
         params: {
-          title: `개인 메뉴 설정(${item.adminName}) - ${this.groupName} 권한`,
+          title: `개인 메뉴 설정(${item.adminName}) - ${this.menuAuthGroupName} 권한`,
           user: item,
           menuList: this.menuFullList,
           selectMenu: this.menuList
@@ -294,7 +294,7 @@ export default {
         this.groupList = res.data
         if (this.selectGroup) {
           for (const group of this.groupList) {
-            if (group.grupId === this.selectGroup) {
+            if (group.menuAuthGroupId === this.selectGroup) {
               this.viewDetail(group, false)
               return
             }
@@ -309,9 +309,9 @@ export default {
     },
     viewDetail (group, keywordChange) {
       for (const row of this.groupList) {
-        row.active = row.grupId === group.grupId
+        row.active = row.menuAuthGroupId === group.menuAuthGroupId
       }
-      this.selectGroup = group.grupId
+      this.selectGroup = group.menuAuthGroupId
       this.menuList = group.adminMenuAuthList
       this.userList = group.adminAccountList
       this.form = _.cloneDeep(group)

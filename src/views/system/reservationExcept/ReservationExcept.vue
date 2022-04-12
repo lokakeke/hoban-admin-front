@@ -230,8 +230,6 @@
 import reservationExceptService from '@/api/modules/system/reservationExcept.service'
 import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
-// (woojung)
-
 export default {
   name: 'reservationExcept',
   components: {

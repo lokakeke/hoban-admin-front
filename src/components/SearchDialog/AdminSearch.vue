@@ -6,7 +6,7 @@
         </template>
         <search-form :search-param.sync="searchParam" :search-list="searchList" @search="search" :cols="4"
                      init-search></search-form>
-        <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="emplNo"
+        <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="adminSeq"
                       hide-default-footer class="click-row" @click:row="select($event)">
             <template v-slot:item.telNo="{item}">
                 <mask-tel-number :text="item.telNo" @search="viewTelNo(item)" />
@@ -41,7 +41,7 @@ export default {
       },
       list: [],
       headers: [
-        { text: '관리자 사번', value: 'emplNo', align: 'center' },
+        { text: '관리자 사번', value: 'adminSeq', align: 'center' },
         { text: '로그인 ID', value: 'loginId', align: 'center' },
         { text: '성명', value: 'adminName', align: 'center' },
         { text: '휴대폰 번호', value: 'telNo', align: 'center' },
@@ -54,7 +54,7 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'emplNo', label: '관리자 사번', type: 'text' },
+        { key: 'adminSeq', label: '관리자 사번', type: 'text' },
         { key: 'loginId', label: '로그인 ID', type: 'text' },
         { key: 'adminName', label: '성명', type: 'text' }
       ]
@@ -72,7 +72,7 @@ export default {
       item.telNo = res.data.telNo
     },
     select (row) {
-      if (row.emplNo) {
+      if (row.adminSeq) {
         this.$dialog.confirm(`${row.adminName} 을 선택 하시겠습니까?`).then(() => {
           this.close({ data: row })
         })

@@ -71,13 +71,13 @@ import adminMenuAuthGroupService from '@/api/modules/system/authentication/admin
 
 export default {
   extends: DialogBase,
-  name: 'menuAuthGroupMenu',
+  name: 'adminMenuAuthGroupMenu',
   data () {
     return {
       menuList: [],
       selectMenu: [],
-      groupName: '',
-      grupId: Number,
+      menuAuthGroupName: '',
+      menuAuthGroupId: Number,
       myMenu: [],
       menuWrite: [],
       change: Function
@@ -90,8 +90,8 @@ export default {
     })
     this.menuList = this.instance.params.menuList
     this.selectMenu = this.instance.params.selectMenu
-    this.groupName = this.instance.params.groupName
-    this.grupId = this.instance.params.grupId
+    this.menuAuthGroupName = this.instance.params.menuAuthGroupName
+    this.menuAuthGroupId = this.instance.params.menuAuthGroupId
     this.change = this.instance.params.change
     this.open()
   },
@@ -208,7 +208,7 @@ export default {
       }
     },
     setMenu () {
-      this.$dialog.confirm('메뉴권한그룹(' + this.groupName + ')의<br/>메뉴를 적용 하시겠습니까?').then(() => {
+      this.$dialog.confirm('메뉴권한그룹(' + this.menuAuthGroupName + ')의<br/>메뉴를 적용 하시겠습니까?').then(() => {
         // 메뉴 권한 리스트를 작성
         const array = []
         for (const menuId of this.myMenu) {
@@ -217,7 +217,7 @@ export default {
           })
           array.push({ menuId: menuId, writeYn: writeYn ? 'Y' : 'N' })
         }
-        adminMenuAuthGroupService.updateMenuAuth({ menuAuthGroupId: this.menuAuthGroupId, menuAuthList: array }).then(res => {
+        adminMenuAuthGroupService.updateMenuAuth(this.menuAuthGroupId, { adminMenuAuthList: array }).then(res => {
           this.$dialog.alert('저장되었습니다.')
           this.change()
         })

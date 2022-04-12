@@ -1,5 +1,4 @@
 import api from '@/api'
-// (woojung)
 
 // 상품카테고리 - 상품구분 - 지역 리스트 만들기
 const getStoreList = (param) => {

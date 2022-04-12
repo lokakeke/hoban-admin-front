@@ -1,5 +1,4 @@
 import { mapGetters } from 'vuex'
-// (woojung)
 
 const globalMixin = {
   data () {

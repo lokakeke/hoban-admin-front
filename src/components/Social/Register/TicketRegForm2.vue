@@ -220,13 +220,13 @@ export default {
     empHeaders () {
       if (this.isPartner) {
         return [
-          { text: '사번', value: 'emplNo', align: 'center', sortable: false, width: '30%' },
+          { text: '사번', value: 'adminSeq', align: 'center', sortable: false, width: '30%' },
           { text: '이름', value: 'adminName', align: 'center', sortable: false, width: '25%' },
           { text: '담당 유형', value: 'chrgType', align: 'center', sortable: false, width: '25%' }
         ]
       } else {
         return [
-          { text: '사번', value: 'emplNo', align: 'center', sortable: false, width: '30%' },
+          { text: '사번', value: 'adminSeq', align: 'center', sortable: false, width: '30%' },
           { text: '이름', value: 'adminName', align: 'center', sortable: false, width: '25%' },
           { text: '담당 유형', value: 'chrgType', align: 'center', sortable: false, width: '25%' },
           { text: '삭제', value: 'action', align: 'center', sortable: false, width: '20%' }
@@ -386,7 +386,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               // 사번, 이름, 담당유형
-              this.form.chrgList.push({ ticketNo: this.form.ticketNo, emplNo: params.data.emplNo, adminName: params.data.adminName, chrgType: 'A', isNew: 'Y' })
+              this.form.chrgList.push({ ticketNo: this.form.ticketNo, adminSeq: params.data.adminSeq, adminName: params.data.adminName, chrgType: 'A', isNew: 'Y' })
             }
           }
         }

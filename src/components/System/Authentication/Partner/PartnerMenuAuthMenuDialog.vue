@@ -77,7 +77,7 @@ export default {
       menuList: [],
       selectMenu: [],
       groupName: '',
-      grupId: Number,
+      menuAuthGroupId: Number,
       myMenu: [],
       menuWrite: [],
       change: Function
@@ -91,7 +91,7 @@ export default {
     this.menuList = this.instance.params.menuList
     this.selectMenu = this.instance.params.selectMenu
     this.groupName = this.instance.params.groupName
-    this.grupId = this.instance.params.grupId
+    this.menuAuthGroupId = this.instance.params.menuAuthGroupId
     this.change = this.instance.params.change
     this.open()
   },
@@ -214,7 +214,7 @@ export default {
           })
           array.push({ menuId: menuId, writeYn: writeYn ? 'Y' : 'N' })
         }
-        service.updatePartnerMenuAuth(this.grupId, array).then(res => {
+        service.updatePartnerMenuAuth(this.menuAuthGroupId, array).then(res => {
           this.$dialog.alert('저장되었습니다.')
           this.change()
         })

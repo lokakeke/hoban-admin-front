@@ -1,4 +1,4 @@
-import Full from 'Container/Full.vue'
+import Full from '@/container/Full.vue'
 
 // partner
 const partner = () => import('@/views/partner/management/Partner.vue')
@@ -43,7 +43,7 @@ export default {
     {
       path: 'partner',
       component: partner,
-      name: 'partner',
+      name: 'partner.partner',
       meta: {
         title: '파트너 등록관리',
         breadcrumb: 'Partner '
@@ -52,7 +52,7 @@ export default {
     {
       path: 'partnerInventoryRate',
       component: partnerInventoryRate,
-      name: 'partnerInventoryRate',
+      name: 'partner.partnerInventoryRate',
       meta: {
         title: '파트너 재고예약 비율관리',
         breadcrumb: 'Partner Inventory Rate'
@@ -61,7 +61,7 @@ export default {
     {
       path: 'partnerInventoryExpect',
       component: partnerInventoryExpect,
-      name: 'partnerInventoryExpect',
+      name: 'partner.partnerInventoryExpect',
       meta: {
         title: '파트너 재고예약 예상내역',
         breadcrumb: 'Partner Inventory Expect'
@@ -70,7 +70,7 @@ export default {
     {
       path: 'partnerInventoryDetailSetCol',
       component: partnerInventoryDetailSetCol,
-      name: 'partnerInventoryDetailSetCol',
+      name: 'partner.partnerInventoryDetailSetCol',
       meta: {
         title: '파트너 재고예약 상세할당 (세로)',
         breadcrumb: 'Partner Inventory Detail Set Column'
@@ -79,7 +79,7 @@ export default {
     {
       path: 'partnerInventoryDetailSetRow',
       component: partnerInventoryDetailSetRow,
-      name: 'partnerInventoryDetailSetRow',
+      name: 'partner.partnerInventoryDetailSetRow',
       meta: {
         title: '파트너 재고예약 상세할당 (가로)',
         breadcrumb: 'Partner Inventory Detail Set Row'
@@ -88,7 +88,7 @@ export default {
     {
       path: 'partnerInventoryRsv',
       component: partnerInventoryRsv,
-      name: 'partnerInventoryRsv',
+      name: 'partner.partnerInventoryRsv',
       meta: {
         title: '파트너 재고예약 리스트',
         breadcrumb: 'Partner Inventory Reservation List'
@@ -97,7 +97,7 @@ export default {
     {
       path: 'partnerReservationApp',
       component: partnerReservationApp,
-      name: 'partnerReservationApp',
+      name: 'partner.partnerReservationApp',
       meta: {
         title: '파트너 객실예약 신청 리스트',
         breadcrumb: 'Partner Reservation Apply List'
@@ -106,7 +106,7 @@ export default {
     {
       path: 'partnerPkgReservationApp',
       component: partnerPkgReservationApp,
-      name: 'partnerPkgReservationApp',
+      name: 'partner.partnerPkgReservationApp',
       meta: {
         title: '파트너 패키지예약 신청 리스트',
         breadcrumb: 'Partner Package Reservation Apply List'

@@ -4,7 +4,7 @@
       <v-row>
         <v-col sm="6" md="4">
           <v-label>사용자 사번</v-label>
-          <v-text-field v-model="form.emplNo" label="" :disabled="!isNew" :rules="emptyRules"></v-text-field>
+          <v-text-field v-model="form.adminSeq" label="" :disabled="!isNew" :rules="emptyRules"></v-text-field>
         </v-col>
         <v-col sm="6" md="4">
           <v-label>로그인 ID</v-label>
@@ -57,8 +57,8 @@
           <v-label>메뉴 그룹 권한</v-label>
           <v-autocomplete v-model="form.menuAuthGrupId"
                           :items="groupList"
-                          :item-value="'grupId'"
-                          :item-text="'grupName'"
+                          :item-value="'menuAuthGroupId'"
+                          :item-text="'menuAuthGroupName'"
                           placeholder="메뉴그룹 권한을 선택해 주세요."
                           :rules="emptyRules"></v-autocomplete>
         </v-col>

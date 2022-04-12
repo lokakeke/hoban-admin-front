@@ -84,7 +84,7 @@
       <v-row v-if="form.aprlCode === 'A'">
         <v-col cols="4">
           <v-toolbar color="white" flat dense>
-            <v-toolbar-title>D.G.N.S 재고량</v-toolbar-title>
+            <v-toolbar-title>PMS 재고량</v-toolbar-title>
           </v-toolbar>
           <v-simple-table class="bordered">
             <thead>
@@ -342,7 +342,7 @@ export default {
             for (const date of this.dateList) {
               const stockQty = blockInfo[date.value] || 0
               if (rmCnt > stockQty) {
-                confirmMsg += '<br/><br/>신청 재고가 D.G.N.S 선택재고보다 많습니다.<br/>오버부킹이 가능한 관리자 이면 오버부킹 처리가 됩니다. 그래도 진행 하시겠습니까?'
+                confirmMsg += '<br/><br/>신청 재고가 PMS 선택재고보다 많습니다.<br/>오버부킹이 가능한 관리자 이면 오버부킹 처리가 됩니다. 그래도 진행 하시겠습니까?'
                 break
               }
             }

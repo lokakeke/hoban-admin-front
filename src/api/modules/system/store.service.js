@@ -2,21 +2,21 @@ import api from '@/api'
 
 const storeService = {
   /**
-   * d.g.n.s 영업장 목록조회
+   * PMS 영업장 목록조회
    */
   selectStoreList () {
     return api.get('/api/cms/system/store/list')
   },
 
   /**
-   * d.g.n.s 영업장 간단 목록조회
+   * PMS 영업장 간단 목록조회
    */
   selectStoreSimpleList () {
     return api.get('/api/cms/system/store/simpleList')
   },
 
   /**
-   * d.g.n.s 객실타입 간단 목록조회
+   * PMS 객실타입 간단 목록조회
    */
   selectRmTypeSimpleList () {
     return api.get('/api/cms/system/store/rmTypeSimpleList')

@@ -41,7 +41,9 @@ const actions = {
       store.dispatch('keypress/increaseSequence')
       // 다이얼로그 인스턴스를 생성한다.
       const instance = {
-        component: dialogs[`../../../components${componentPath}.vue`], // 다이얼로그 컴포넌트 (Fix)
+        // FIXME 확인. 기존이랑 가져오는 스타일 다름.
+        // component: () => import(`@/components${componentPath}`), // 다이얼로그 컴포넌트
+        component: dialogs[`../../../components${componentPath}.vue`], // 다이얼로그 컴포넌트
         options: { // 다이얼로그 옵션
           ...options,
           uuid: StringUtil.guid(), // 다이얼로그 인스턴스 고유 ID

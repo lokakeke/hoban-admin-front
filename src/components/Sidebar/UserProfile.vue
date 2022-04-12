@@ -13,7 +13,7 @@
       <v-row>
         <v-col sm="6" md="3">
           <v-label>관리자 사원번호</v-label>
-          <v-text-field v-model="form.emplNo" label="" disabled></v-text-field>
+          <v-text-field v-model="form.adminSeq" label="" disabled></v-text-field>
         </v-col>
         <v-col sm="6" md="3">
           <v-label>관리자 이름</v-label>
@@ -142,7 +142,7 @@ export default {
             this.$store.dispatch('auth/user', {
               loginId: this.form.loginId,
               name: this.form.adminName,
-              number: this.form.emplNo
+              number: this.form.adminSeq
             })
           })
         }).catch(() => {})
@@ -152,7 +152,7 @@ export default {
       this.validForm(this.$refs.passwordForm).then(() => {
         this.$dialog.confirm('비밀번호를 수정하시겠습니까?<br/> 비밀번호 수정 시 다시 로그인 하셔야 합니다.').then(() => {
           this.passwordForm.loginId = this.form.loginId
-          this.passwordForm.emplNo = this.form.emplNo
+          this.passwordForm.adminSeq = this.form.adminSeq
           adminAuthService.updateAccountPassword(this.passwordForm).then(res => {
             this.$dialog.alert('저장되었습니다.<br/>다시 로그인 해주세요.').then(() => {
               this.$store.dispatch('auth/logout').then(() => {

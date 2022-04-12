@@ -26,14 +26,21 @@ const modules = {
   social
 }
 
-// const requireModule = require.context('.', true, /\/[\w\W]+\/index.js$/)
-// requireModule.keys().forEach(fileName => {
-//   const moduleName = fileName.replace(/(\.\/|\/index.js)/g, '')
-//   modules[moduleName] = requireModule(fileName).default
-//   console.log('moduleName: ' + moduleName)
-//   console.log('value: ' + modules.moduleName)
-// })
-//
-// console.log(modules)
+/* const modulesFiles = import.meta.globEager('./!**!/index.js')
+const modules = {}
+for (const path in modulesFiles) {
+  const moduleName = path.replace(/(\.\/|\/index.js|\/[\w\W]+\/index.js)/g, '')
+  modules[moduleName] = modulesFiles[path].default
+} */
+
+// FIXME vite require 지원 불가..
+/* 기존 API 소스
+const requireModule = require.context('.', true, /\/[\w\W]+\/index.js$/)
+const modules = {}
+requireModule.keys().forEach(fileName => {
+  const moduleName = fileName.replace(/(\.\/|\/index.js)/g, '')
+  modules[moduleName] = requireModule(fileName).default
+})
+*/
 
 export default modules

@@ -1,4 +1,4 @@
-import Full from 'Container/Full.vue'
+import Full from '@/container/Full.vue'
 
 // menu
 const Menu = () => import('@/views/system/menu/Menu.vue')
@@ -62,7 +62,7 @@ export default {
       name: 'menuAuthGroup',
       meta: {
         auth: true,
-        // requiresAuth: true,
+        requiresAuth: true,
         title: '메뉴 권한 관리',
         breadcrumb: 'Menu Auth'
       }
