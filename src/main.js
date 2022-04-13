@@ -86,6 +86,7 @@ router.beforeEach(async (to, from, next) => {
   // 모든 dialog 닫기
   await store.dispatch('dialog/closeAll')
   try {
+    // 인증여부 확인
     await store.dispatch('auth/check')
     /** 로그인이 되어있는 경우 **/
     // 메뉴 접근 권한 체크 후 진행

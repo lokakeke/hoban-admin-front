@@ -13,12 +13,13 @@
                        :key="menu.menuId" @click="addList(value[index].menus, menu.menuId, index)">
             <v-list-item-action @click.stop @click="viewItem(menu)">
               <v-btn text>
-                <v-icon left>edit</v-icon> 상세
+                <v-icon left>edit</v-icon>
+                상세
               </v-btn>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>
-                <v-icon v-if="menu.iconFont" left small>{{menu.iconFont}}</v-icon>
+                <v-icon v-if="menu.iconFont" left small>{{ menu.iconFont }}</v-icon>
                 <span :class="menu.useYn === 'N'? 'strike': ''">{{ menu.menuName }}</span>
               </v-list-item-title>
             </v-list-item-content>
@@ -33,7 +34,7 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>
-                <v-icon v-if="menu.iconFont" left small>{{menu.iconFont}}</v-icon>
+                <v-icon v-if="menu.iconFont" left small>{{ menu.iconFont }}</v-icon>
                 <span :class="menu.useYn === 'N'? 'strike': ''">{{ menu.menuName }}</span>
               </v-list-item-title>
             </v-list-item-content>
@@ -42,7 +43,7 @@
       </draggable>
     </v-list>
     <v-row v-else align="center" justify="center">
-      메뉴 가 없습니다.
+      메뉴가 없습니다.
     </v-row>
     <v-divider></v-divider>
     <v-row align="end" justify="center" v-if="writeAuth">
@@ -93,19 +94,26 @@ export default {
       const changeList = []
       for (let index = 0; index < menus.length; index++) {
         const order = index + 1
-        if (order !== menus[index].sortSeq) {
-          changeList.push({ menuId: menus[index].menuId, sortSeq: order })
+        if (order !== menus[index].sortOrder) {
+          changeList.push({
+            menuId: menus[index].menuId,
+            sortOrder: order
+          })
         }
       }
       if (changeList.length === 0) {
         this.$dialog.alert('변경된 사항이 없습니다.')
       } else {
-        this.$dialog.confirm({ body: '순서를 변경하시겠습니까?', title: '확인' }).then(() => {
+        this.$dialog.confirm({
+          body: '순서를 변경하시겠습니까?',
+          title: '확인'
+        }).then(() => {
           menuService.updateMenuOrder(changeList).then(res => {
             this.$dialog.alert('저장되었습니다.')
             this.roadMenu()
           })
-        }).catch(() => {})
+        }).catch(() => {
+        })
       }
     }
   }

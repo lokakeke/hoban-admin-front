@@ -173,7 +173,7 @@ export default {
       this.$dialog.confirm('개인(' + this.user.adminName + ') 메뉴권한을<br/>적용 하시겠습니까?').then(() => {
         // 메뉴 권한 리스트를 작성
         const array = this.selectInclude(this.menus)
-        adminMenuAuthGroupService.updateUserMenuAuth(this.user.adminSeq, { adminMenuAuthUserList: array }).then(res => {
+        adminMenuAuthGroupService.updateUserMenuAuth(this.user.adminSeq, array).then(res => {
           this.$dialog.alert('저장되었습니다.')
         })
       }).catch(() => {})
