@@ -46,7 +46,7 @@
         <v-form ref="form" lazy-validation autocomplete="off">
             <draggable v-model="list">
                 <template v-for="item of filterList">
-                    <v-hover v-slot:default="{ hover }" :key="item.ptnrNo">
+                    <v-hover v-slot:default="{ hover }" :key="item.partnerSeq">
                         <v-card raised
                                 :elevation="hover ? 5 : 1"
                                 style="cursor: move"
@@ -54,7 +54,7 @@
                             <v-card-text class="py-0">
                                 <v-row dense align="center">
                                     <v-col cols="3" class="font-weight-black subtitle-1">
-                                        {{ item.ptnrName }} <small>({{ item.ptnrId }})</small>
+                                        {{ item.companyName }} <small>({{ item.ptnrId }})</small>
                                     </v-col>
                                     <v-menu
                                         offset-y
@@ -227,7 +227,7 @@ export default {
     },
     filterList () {
       if (this.searchKeyword) {
-        return this.list.filter(data => data.ptnrName.includes(this.searchKeyword))
+        return this.list.filter(data => data.companyName.includes(this.searchKeyword))
       } else {
         return this.list
       }
@@ -271,7 +271,7 @@ export default {
         let sortSeq = 1
         for (const partner of this.list) {
           list.push({
-            ptnrNo: partner.ptnrNo,
+            partnerSeq: partner.partnerSeq,
             ptnrYn: 'Y',
             rate: partner.rate,
             sortSeq: sortSeq,
@@ -292,10 +292,10 @@ export default {
          */
     async removePartner (item) {
       try {
-        await this.$dialog.confirm(`${item.ptnrName}를 재고관리목록에서 제거 하시겠습니까?`)
+        await this.$dialog.confirm(`${item.companyName}를 재고관리목록에서 제거 하시겠습니까?`)
         // 관리 리스트에서 제거
         const list = this.list
-        list.splice(list.findIndex(data => data.ptnrNo === item.ptnrNo), 1)
+        list.splice(list.findIndex(data => data.partnerSeq === item.partnerSeq), 1)
         await this.$store.dispatch('partner/inventory/setList', list)
         // 미관리 리스트에 추가
         const noneList = this.noneList

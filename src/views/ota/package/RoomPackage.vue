@@ -150,7 +150,7 @@ export default {
     // 등록된 패키지 리스트 조회
     getRoomPackageRegisterList () {
       if (this.isPartner) {
-        this.searchParam.q.ptnrNo = this.user.number
+        this.searchParam.q.partnerSeq = this.user.number
       }
       packageService.selectRoomPackageRegisterList(this.searchParam).then(res => {
         this.list = res.data

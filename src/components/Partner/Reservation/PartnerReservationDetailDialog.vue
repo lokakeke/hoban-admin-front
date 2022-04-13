@@ -132,7 +132,7 @@
         <template v-if="isModify">
           <v-col cols="3">
             <div class="font-weight-bold info--text body-1">파트너</div>
-            <v-text-field v-model="form.ptnrName" dense
+            <v-text-field v-model="form.companyName" dense
                           :rules="emptyRules"
                           placeholder="이용자 명을 입력 해주세요."
                           :hide-details="!writable"

@@ -7,12 +7,12 @@
                 </v-col>
                 <v-col cols="3">
                     <v-label>업체 명</v-label>
-                    <v-text-field v-if="isNew" v-model="form.ptnrName" label="" :rules="emptyRules" readonly @click="openPartner">
+                    <v-text-field v-if="isNew" v-model="form.companyName" label="" :rules="emptyRules" readonly @click="openPartner">
                         <template v-slot:append-outer>
                             <v-btn outlined color="info" @click="openPartner" tabindex="-1"><v-icon left>search</v-icon> 조회</v-btn>
                         </template>
                     </v-text-field>
-                    <v-text-field v-else :value="form.ptnrName" label="" readonly hide-details></v-text-field>
+                    <v-text-field v-else :value="form.companyName" label="" readonly hide-details></v-text-field>
                 </v-col>
                 <v-col cols="3">
                     <v-label>업무 구분</v-label>
@@ -138,8 +138,8 @@ export default {
     if (this.isNew) {
       this.form = {
         businessId: '',
-        ptnrNo: '',
-        ptnrName: '',
+        partnerSeq: '',
+        companyName: '',
         termSeq: '',
         agentCodeName: '',
         taskType: '',
@@ -202,8 +202,8 @@ export default {
       })
     },
     createBusinessID () {
-      if (this.form.ptnrNo) {
-        service.createBusinessID(this.form.ptnrNo).then(res => {
+      if (this.form.partnerSeq) {
+        service.createBusinessID(this.form.partnerSeq).then(res => {
           this.form.businessId = res.data
         })
       } else {

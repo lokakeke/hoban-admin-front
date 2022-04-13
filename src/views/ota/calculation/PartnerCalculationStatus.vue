@@ -116,7 +116,7 @@ export default {
       headers: [
         {
           text: '파트너사',
-          value: 'ptnrName',
+          value: 'companyName',
           align: 'center',
           sortable: true
         },
@@ -228,11 +228,11 @@ export default {
      * 월별 파트너 정산 현황 목록 조회
      */
     async selectMonthCalculationStatus (selectedDate) {
-      let ptnrNo = 0
+      let partnerSeq = 0
       if (this.isPartner) {
-        ptnrNo = this.user.number
+        partnerSeq = this.user.number
       }
-      const res = await ptnrCalcStatusService.selectMonthCalculationStatus(ptnrNo, selectedDate)
+      const res = await ptnrCalcStatusService.selectMonthCalculationStatus(partnerSeq, selectedDate)
       this.calculationList = res.data
     },
     /**
@@ -254,7 +254,7 @@ export default {
     exportExcel () {
       if (this.calculationList.length > 0) {
         const excelParam = {}
-        excelParam.ptnrNo = this.isPartner ? this.user.number : 0
+        excelParam.partnerSeq = this.isPartner ? this.user.number : 0
         excelParam.selectedDate = this.selectedDate
         this.downLoadExcel('/api/ota/partnerCalcStatus/excel', '파트너 정산 현황', excelParam)
       } else {

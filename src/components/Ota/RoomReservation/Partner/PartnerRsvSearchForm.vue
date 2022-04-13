@@ -409,7 +409,7 @@ export default {
       if (res.data && res.data.length === 1) {
         this.$set(this.form, 'memNo', res.data[0].memNo)
         this.$set(this.form, 'memName', res.data[0].memName)
-        this.$set(this.form, 'ptnrNo', res.data[0].ptnrNo)
+        this.$set(this.form, 'partnerSeq', res.data[0].partnerSeq)
       } else {
         this.openPartnerInfo()
       }
@@ -434,7 +434,7 @@ export default {
             if (params && params.data) {
               this.$set(this.form, 'memNo', params.data.memNo)
               this.$set(this.form, 'memName', params.data.memName)
-              this.$set(this.form, 'ptnrNo', params.data.ptnrNo)
+              this.$set(this.form, 'partnerSeq', params.data.partnerSeq)
               this.form.storeCode = ''
               this.form.storeName = ''
             }
@@ -501,7 +501,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.$set(this.form, 'agentCode', params.data.agentCode)
-              this.$set(this.form, 'ptnrNo', params.data.ptnrNo)
+              this.$set(this.form, 'partnerSeq', params.data.partnerSeq)
             }
           }
         }

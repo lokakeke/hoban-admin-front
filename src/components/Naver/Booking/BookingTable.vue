@@ -24,7 +24,7 @@
       <tr v-if="item.pkgYn === 'Y'">
         <th>패키지명</th>
         <td>{{ item.pkgName }}({{ item.mid }})</td>
-        <td>{{ form.ptnrName ? form.ptnrName : '-' }}({{ dgnsInfo.memNo ? dgnsInfo.memNo : '-' }})</td>
+        <td>{{ form.companyName ? form.companyName : '-' }}({{ dgnsInfo.memNo ? dgnsInfo.memNo : '-' }})</td>
       </tr>
       <tr v-else>
         <th>회원번호</th>

@@ -377,7 +377,7 @@ export default {
         pkgNo: '', // 패키지번호
         storeCode: '',
         baseDate: moment().format('YYYYMMDD'),
-        ptnrNo: 0,
+        partnerSeq: 0,
         rmDayLimitNum: 0, // 잔여객실 수 최대치 제한
         rmTypeCode: '',
         rsvBlckCode: '',
@@ -596,10 +596,10 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(this.adminPartnerInfo, 'partnerName', params.data.ptnrName)
-              this.adminPartnerInfo.partnerName = params.data.ptnrName
-              this.adminPartnerInfo.ptnrNo = params.data.ptnrNo
-              this.pkgSearchParam.ptnrNo = params.data.ptnrNo // 검색조건에 파트너 번호 추가
+              this.$set(this.adminPartnerInfo, 'partnerName', params.data.companyName)
+              this.adminPartnerInfo.partnerName = params.data.companyName
+              this.adminPartnerInfo.partnerSeq = params.data.partnerSeq
+              this.pkgSearchParam.partnerSeq = params.data.partnerSeq // 검색조건에 파트너 번호 추가
               this.adminPartnerInfo.agentCode = params.data.agentCode
               this.adminPartnerInfo.rsvGuestTelNo = params.data.capTelNo
               this.adminPartnerInfo.termSeq = params.data.termSeq
@@ -902,19 +902,19 @@ export default {
           if (this.isPartner) { //  파트너
             for (const one of this.ptnrBasicInfo) {
               if (one.taskTypeName === this.taskTypeName) {
-                param.ptnrName = one.ptnrName
+                param.companyName = one.companyName
                 param.agentCode = one.agentCode
                 param.rsvGuestTelNo = one.capTelNo
-                param.ptnrNo = this.user.number // 예치금에 필요
+                param.partnerSeq = this.user.number // 예치금에 필요
                 param.termSeq = one.termSeq // 예치금에 필요
               }
             }
           } else { // 관리자
             param.agentCode = this.adminPartnerInfo.agentCode
             param.rsvGuestTelNo = this.adminPartnerInfo.rsvGuestTelNo
-            param.ptnrNo = this.adminPartnerInfo.ptnrNo
+            param.partnerSeq = this.adminPartnerInfo.partnerSeq
             param.termSeq = this.adminPartnerInfo.termSeq
-            param.ptnrName = this.adminPartnerInfo.partnerName
+            param.companyName = this.adminPartnerInfo.partnerName
           }
           // 실제 예약 처리
           const confirm = await this.$dialog.confirm('개인 정보 수집에 동의하시겠습니까?')

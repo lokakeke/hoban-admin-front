@@ -4,7 +4,7 @@
       <v-icon left>search</v-icon> 업체 조회
     </template>
     <search-form :search-param.sync="searchParam" :search-list="searchList" @search="search" :cols="4" init-search></search-form>
-    <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="ptnrNo" disable-sort
+    <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="partnerSeq" disable-sort
                   hide-default-footer class="click-row" @click:row="select($event)"></v-data-table>
     <search-pagination v-model="searchParam" :total-visible="10" circle @change="search"></search-pagination>
     <template v-slot:actions>
@@ -30,7 +30,7 @@ export default {
       },
       list: [],
       headers: [
-        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
         { text: '대표자 성명', value: 'ceoName', align: 'center', sortable: false },
         { text: '메뉴 권한 명', value: 'menuAuthGrupName', align: 'center', sortable: false }
       ]
@@ -39,7 +39,7 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'ptnrName', label: '파트너명', type: 'text' },
+        { key: 'companyName', label: '파트너명', type: 'text' },
         { key: 'ceoName', label: '대표자 명', type: 'text' },
         { key: 'menuAuthGrupName', label: '메뉴 권한 명', type: 'text' }
       ]
@@ -54,7 +54,7 @@ export default {
       })
     },
     select (row) {
-      if (row.ptnrNo) {
+      if (row.partnerSeq) {
         this.close({ data: row })
       }
     }

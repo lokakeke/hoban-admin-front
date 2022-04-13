@@ -75,8 +75,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item of serviceOpenList" :key="item.ptnrNo + '_' + item.businessId">
-                <td class="text-center">{{item.ptnrName}}</td>
+              <tr v-for="item of serviceOpenList" :key="item.partnerSeq + '_' + item.businessId">
+                <td class="text-center">{{item.companyName}}</td>
                 <td class="text-center">{{item.businessId}}</td>
                 <td class="text-center">
                   <v-row justify="center" no-gutters>

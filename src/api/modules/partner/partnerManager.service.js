@@ -4,11 +4,11 @@ const partnerManagerService = {
 
   /**
    * 파트너 담당자 리스트 조회
-   * @param ptnrNo
+   * @param partnerSeq
    * @returns 담당자 리스트
    */
-  selectPartnerManagerList (ptnrNo) {
-    return api.get(`/api/cms/system/partnerCharge/list/${ptnrNo}`)
+  selectPartnerManagerList (partnerSeq) {
+    return api.get(`/api/cms/system/partnerCharge/list/${partnerSeq}`)
   },
 
   /**
@@ -87,11 +87,11 @@ const partnerManagerService = {
 
   /**
    * 파트너 담당자 삭제
-   * @param ptnrNo
+   * @param partnerSeq
    * @param ptnrChrgId
    */
-  deletePartnerManager (ptnrNo, ptnrChrgId) {
-    return api.get(`/api/cms/system/partnerCharge/delete/${ptnrNo}/${ptnrChrgId}`)
+  deletePartnerManager (partnerSeq, ptnrChrgId) {
+    return api.get(`/api/cms/system/partnerCharge/delete/${partnerSeq}/${ptnrChrgId}`)
   }
 
 }

@@ -251,7 +251,7 @@ export default {
       try {
         await this.$dialog.confirm('API를 삭제 하시겠습니까?')
         await partnerApiService.deletePartnerApi(
-          this.form.ptnrNo,
+          this.form.partnerSeq,
           this.form.apiInd
         )
         await this.$dialog.alert('API를 삭제 하였습니다.')

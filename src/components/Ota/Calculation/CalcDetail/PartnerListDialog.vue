@@ -36,8 +36,8 @@ export default {
       calcItem: '',
 
       tableHeaders: [
-        { text: '파트너번호', value: 'ptnrNo', align: 'center', width: '20%' },
-        { text: '파트너명', value: 'ptnrName', align: 'center', width: '60%' },
+        { text: '파트너번호', value: 'partnerSeq', align: 'center', width: '20%' },
+        { text: '파트너명', value: 'companyName', align: 'center', width: '60%' },
         { text: '승인시간', value: 'ptnrAprlDt', align: 'center', width: '20%' },
         { text: '정산유무', value: 'calcYn', align: 'center', width: '20%' }
       ],

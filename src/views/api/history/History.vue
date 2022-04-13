@@ -85,7 +85,7 @@ export default {
         },
         {
           text: '파트너명',
-          value: 'ptnrName',
+          value: 'companyName',
           align: 'center'
         },
         {

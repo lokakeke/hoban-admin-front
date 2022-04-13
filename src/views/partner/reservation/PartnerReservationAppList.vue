@@ -7,8 +7,8 @@
         <template v-slot:item.totAmt="{item}">
           {{item.totAmt | price}}원
         </template>
-        <template v-slot:item.ptnrName="{item}">
-          {{item.ptnrName}}/{{item.chrgName}}
+        <template v-slot:item.companyName="{item}">
+          {{item.companyName}}/{{item.chrgName}}
         </template>
         <template v-slot:item.ciYmd="{item}">
           {{item.ciYmd | date}}
@@ -72,7 +72,7 @@ export default {
         { text: '예약번호', value: 'rsvNo', align: 'center' },
         { text: '객실료', value: 'totAmt', align: 'center' },
         { text: '메모', value: 'memo', align: 'center' },
-        { text: '요청업체/직원명', value: 'ptnrName', align: 'center' },
+        { text: '요청업체/직원명', value: 'companyName', align: 'center' },
         { text: '신청일', value: 'crtDt', align: 'center' },
         { text: '회원번호', value: 'memName', align: 'center' },
         { text: '영업장', value: 'storeName', align: 'center' },
@@ -108,7 +108,7 @@ export default {
           { key: 'lcalCode', label: '지역', type: 'select', list: this.localList, listValue: 'lcalCode', listText: 'lcalName', cols: 2, event: this.changeLcal },
           { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 2, event: this.changeStore },
           { key: 'rmTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCode', listText: 'rmTypeName', cols: 4 },
-          { key: 'ptnrNo', label: '파트너', type: 'partner', cols: 4 },
+          { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 4 },
           { key: 'ciYmd', label: '입실 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 2 },
           { key: 'aprlCode', label: '승인 상태', type: 'code', commCode: 'OTA0003', cols: 2 },
           { key: 'userName', label: '이용자', type: 'text', cols: 2 },

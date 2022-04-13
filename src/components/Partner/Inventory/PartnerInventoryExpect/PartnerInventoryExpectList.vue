@@ -53,7 +53,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="partner in room.partnerList" :key="partner.ptnrNo" :class="partner.color">
+                                <tr v-for="partner in room.partnerList" :key="partner.partnerSeq" :class="partner.color">
                                     <td class="text-center font-weight-bold py-1 sticky"
                                         :style="{ 'background-color': partner.labelColor || '#B2DFDB', 'left': 0 }"
                                         v-html="partner.label"></td>

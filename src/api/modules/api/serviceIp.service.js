@@ -19,7 +19,7 @@ export default {
   /**
    * 업체 등록된 IP 리스트 불러오기
    */
-  selectPtnrIpList (ptnrNo) {
-    return api.get(`/api/cms/system/serviceIp/ipList/${ptnrNo}`)
+  selectPtnrIpList (partnerSeq) {
+    return api.get(`/api/cms/system/serviceIp/ipList/${partnerSeq}`)
   }
 }

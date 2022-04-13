@@ -3,11 +3,11 @@ import Full from '@/container/Full.vue'
 // menu
 const Menu = () => import('@/views/system/menu/Menu.vue')
 
-// menu auth group
-const menuAuthGroup = () => import('@/views/system/authentication/admin/AdminMenuAuthGroup.vue')
+// 관리자 menu auth group
+const AdminMenuAuthGroup = () => import('@/views/system/authentication/admin/AdminMenuAuthGroup.vue')
 
-// 파트너 menu auth
-const PartnerAuth = () =>
+// 파트너 menu auth group
+const PartnerMenuAuthGroup = () =>
   import('@/views/system/authentication/partner/PartnerMenuAuthGroup.vue')
 
 // account
@@ -57,14 +57,14 @@ export default {
       }
     },
     {
-      path: 'menuAuthGroup',
-      component: menuAuthGroup,
-      name: 'menuAuthGroup',
+      path: 'adminMenuAuthGroup',
+      component: AdminMenuAuthGroup,
+      name: 'adminMenuAuthGroup',
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '메뉴 권한 관리',
-        breadcrumb: 'Menu Auth'
+        title: '어드민 메뉴 권한 관리',
+        breadcrumb: 'Admin Menu Auth'
       }
     },
     {
@@ -109,9 +109,9 @@ export default {
       }
     },
     {
-      path: 'partnerMenuAuth',
-      component: PartnerAuth,
-      name: 'partnerMenuAuth',
+      path: 'partnerMenuAuthGroup',
+      component: PartnerMenuAuthGroup,
+      name: 'partnerMenuAuthGroup',
       meta: {
         auth: true,
         title: '파트너 메뉴권한 관리',

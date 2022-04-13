@@ -22,7 +22,7 @@
                       <v-card-text class="subtitle-1">
                           <span class="mr-10">우대번호 : <span class="font-weight-bold">{{data.ticketNo}}</span></span>
                           <span class="mr-10">우대번호 명 : <span class="font-weight-bold">{{data.ticketName}}</span></span>
-                          <span class="mr-10">판매 업체 명 : <span class="font-weight-bold">{{data.ptnrName}}</span></span>
+                          <span class="mr-10">판매 업체 명 : <span class="font-weight-bold">{{data.companyName}}</span></span>
                       </v-card-text>
                   </div>
                   <div v-else>
@@ -99,8 +99,8 @@ export default {
         status: 'modify',
         ticketNo: this.instance.params.info.ticketNo,
         ticketName: this.instance.params.info.ticketName,
-        ptnrName: this.instance.params.info.ptnrName,
-        ptnrNo: this.instance.params.info.ptnrNo
+        companyName: this.instance.params.info.companyName,
+        partnerSeq: this.instance.params.info.partnerSeq
       }
     } else {
       // 초기값

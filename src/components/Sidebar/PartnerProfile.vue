@@ -1,7 +1,7 @@
 <template>
     <dialog-base :instance="instance">
         <template v-slot:title>
-            파트너({{ partner.ptnrName }}) - 담당자({{ profile.chrgName }}) 프로필
+            파트너({{ partner.companyName }}) - 담당자({{ profile.chrgName }}) 프로필
         </template>
         <v-tabs v-model="tab" color="info">
             <v-tab
@@ -18,7 +18,7 @@
                 v-for="tabItem in tabItems"
                 :key="tabItem.tab">
                 <component :is="tabItem.component" :partner="partner" :profile="profile" :main-auth="mainAuth"
-                           :partner-no="partner.ptnrNo" :is-modify="true" @change="getUserProfile"></component>
+                           :partner-no="partner.partnerSeq" :is-modify="true" @change="getUserProfile"></component>
             </v-tab-item>
         </v-tabs-items>
     </dialog-base>

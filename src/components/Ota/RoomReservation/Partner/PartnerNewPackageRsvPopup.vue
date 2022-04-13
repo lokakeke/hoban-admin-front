@@ -535,7 +535,7 @@ export default {
         pkgNo: '', // 패키지번호
         storeCode: '',
         baseDate: '',
-        ptnrNo: 0,
+        partnerSeq: 0,
         rmDayLimitNum: 0, // 잔여객실 수 최대치 제한
         rmTypeCode: '',
         rsvBlckCode: '',
@@ -584,7 +584,7 @@ export default {
   mounted () {
     this.initInfo()
     if (this.isPartner) { // 파트너인 경우에만 파트너번호 세팅
-      this.pkgSearchParam.ptnrNo = this.user.number
+      this.pkgSearchParam.partnerSeq = this.user.number
     }
     if (!this.isPartner) { // 관리자인 경우
       this.$dialog.alert('이 화면에서는 예약이 불가능 합니다. <br/>실제로 예약하기를 원하시면 창을 닫고 신규 버튼을 <br/>클릭해 진행해주시기 바랍니다.')
@@ -1176,9 +1176,9 @@ export default {
         if (res.data.procMsg === '0000') {
           delete param.rsvStdDay
           delete param.rsvStdTm
-          param.ptnrName = this.user.name
+          param.companyName = this.user.name
           param.updId = this.user.number
-          param.ptnrNo = this.user.number // 예치금에 필요
+          param.partnerSeq = this.user.number // 예치금에 필요
           if (this.saveForm.comRsvNo) { // 업체예약번호는 필수값 아님
             param.comRsvNo = this.saveForm.comRsvNo
           }

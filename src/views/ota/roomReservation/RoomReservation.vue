@@ -255,7 +255,7 @@ export default {
       originList: [], // 원래 객실 리스트
       roomList: {}, // 가공된 객실 정보
       workStatus: '', // 작업상태 ''(기본), new(신규), detail(상세정보조회), update(예약정보수정)
-      ptnrNo: '', // 파트너번호(예치금시 필요)
+      partnerSeq: '', // 파트너번호(예치금시 필요)
       partnerInfo: { // 파트너 정보
         memNo: '',
         memName: '',
@@ -388,7 +388,7 @@ export default {
          */
     async search () {
       this.rsvList = [] // 예약 현황 목록 초기화
-      this.ptnrNo = this.searchParam.q.ptnrNo
+      this.partnerSeq = this.searchParam.q.partnerSeq
 
       // keyRsvNo로 검색하지 않는 경우 OR 파트너인 경우 필수 조건 적용
       if (!this.searchParam.q.keyRsvNo || this.isPartner) {
@@ -426,7 +426,7 @@ export default {
 
       // 파트너 일 경우 파트너번호 추가
       if (this.searchParam.q.isPartner === 'Y') {
-        this.searchParam.q.ptnrNo = this.user.number
+        this.searchParam.q.partnerSeq = this.user.number
       }
 
       // 예약 현황 조회

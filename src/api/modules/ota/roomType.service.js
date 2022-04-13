@@ -41,10 +41,10 @@ const roomTypeService = {
   selectRoomTypeInformation (storeCode) {
     return api.get(`/api/ota/room/store/${storeCode}`)
   },
-  selectRoomTypeInformationPartner (storeCode, ptnrNo) {
+  selectRoomTypeInformationPartner (storeCode, partnerSeq) {
     return api.get(`/api/ota/room/store/${storeCode}`, {
       params: {
-        ptnrNo: ptnrNo
+        partnerSeq: partnerSeq
       }
     })
   },

@@ -22,9 +22,9 @@
               <v-chip
                 class="ma-1"
                 v-for="ptnr in list"
-                :key="ptnr.ptnrNo"
+                :key="ptnr.partnerSeq"
               >
-                {{ptnr.ptnrName}}
+                {{ptnr.companyName}}
               </v-chip>
             </div>
           </v-col>

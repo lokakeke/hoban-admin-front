@@ -68,7 +68,7 @@ export default {
       const headers = [
         { text: '이력순번', value: 'hisSeq', align: 'center', sortable: false },
         { text: '예치금KEY', value: 'depoKey', align: 'center', sortable: false },
-        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
         { text: '금액구분', value: 'amtIndName', align: 'center', sortable: false },
         { text: '금액', value: 'amt', align: 'center', sortable: false },
         { text: '변경 후 금액', value: 'prcpAmt', align: 'center', sortable: false }
@@ -91,7 +91,7 @@ export default {
     searchList () {
       const searchList = []
       searchList.push({ key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 })
-      searchList.push({ key: 'ptnrName', label: '파트너명', type: 'text', cols: 2 })
+      searchList.push({ key: 'companyName', label: '파트너명', type: 'text', cols: 2 })
       searchList.push({ key: 'amtInd', label: '금액구분', type: 'code', commCode: 'COMM0005', cols: 2 })
 
       if (this.$route.path.indexOf('/social') === 0) {

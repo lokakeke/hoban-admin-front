@@ -35,8 +35,8 @@
                 <v-chip
                   class="ma-1"
                   v-for="partner in notice.ptnrList"
-                  :key="partner.ptnrNo"
-                >{{ partner.ptnrName }}</v-chip>
+                  :key="partner.partnerSeq"
+                >{{ partner.companyName }}</v-chip>
               </div>
               <div class="mt-2" v-else>
                 <!-- 전체 파트너 -->

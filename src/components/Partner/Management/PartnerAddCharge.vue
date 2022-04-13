@@ -67,7 +67,7 @@ export default {
       })
     },
     async viewTelNo (item) {
-      const res = await partnerManagerService.selectPartnerManagerDetail({ ptnrNo: item.ptnrNo, ptnrChrgId: item.ptnrChrgId })
+      const res = await partnerManagerService.selectPartnerManagerDetail({ partnerSeq: item.partnerSeq, ptnrChrgId: item.ptnrChrgId })
       item.telNo = res.data.telNo
     },
     openDialog (row) {
@@ -76,7 +76,7 @@ export default {
         componentPath: '/Partner//PartnerAddChargeDialog',
         params: {
           isNew,
-          form: row || { ptnrNo: this.partnerNo, ptnrChrgId: '', chrgName: '', telNo: '', email: '', useYn: 'Y', mainAuthYn: 'N' },
+          form: row || { partnerSeq: this.partnerNo, ptnrChrgId: '', chrgName: '', telNo: '', email: '', useYn: 'Y', mainAuthYn: 'N' },
           list: this.list
         },
         options: {

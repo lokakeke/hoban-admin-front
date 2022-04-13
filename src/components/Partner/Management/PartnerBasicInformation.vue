@@ -9,7 +9,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>업체 명</v-label>
-            <v-text-field type="text" v-model="form.ptnrName" :rules="emptyRules"></v-text-field>
+            <v-text-field type="text" v-model="form.companyName" :rules="emptyRules"></v-text-field>
           </v-col>
           <v-col v-if="isModify && (!isPartner || isSupervisor)" cols="3" align-self="center">
             <partner-password-reset :item="form"></partner-password-reset>
@@ -215,7 +215,7 @@ export default {
         loginId: '',
         newPw: '',
         tempPwYn: 'Y',
-        ptnrName: '',
+        companyName: '',
         newPwConfirm: '',
         bizrNo: '',
         ceoName: '',
@@ -296,7 +296,7 @@ export default {
     },
     modifyRow (row, index) {
       let useForm = {
-        ptnrNo: this.partnerNo,
+        partnerSeq: this.partnerNo,
         termSeq: '',
         taskType: '',
         taskTypeName: '',
@@ -316,11 +316,11 @@ export default {
         useForm = Object.assign({}, row)
         useForm.useBgnYmd = moment(useForm.useBgnYmd).format('YYYYMMDD')
         useForm.useEndYmd = moment(useForm.useEndYmd).format('YYYYMMDD')
-        useForm.ptnrName = this.form.ptnrName
+        useForm.companyName = this.form.companyName
         this.dataIndex = index
       }
       // 추가된 로우인지 아닌지 판단한다.
-      const isNewData = !(useForm.ptnrNo && useForm.termSeq)
+      const isNewData = !(useForm.partnerSeq && useForm.termSeq)
 
       // dialog open
       this.$store.dispatch('dialog/open', {
@@ -395,7 +395,7 @@ export default {
           const form = _.cloneDeep(this.form)
           form.partnerCharge = _.cloneDeep(this.chargeForm)
           const res = await service.insertPartner(form)
-          this.setInfo(true, res.data.ptnrNo, res.data.ptnrName)
+          this.setInfo(true, res.data.partnerSeq, res.data.companyName)
           this.search()
           // 재조회
           this.$nextTick(() => {

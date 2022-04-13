@@ -46,7 +46,7 @@
                 v-model="form.depoKey"
                 :items="origin"
                 item-value="depoKey"
-                item-text="ptnrName"
+                item-text="companyName"
                 :rules="emptyRules"
                 autocomplete="off"
                 clearable

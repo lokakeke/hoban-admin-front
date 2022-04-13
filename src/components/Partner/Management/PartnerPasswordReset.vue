@@ -46,7 +46,7 @@
 
 <script>
 import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
-import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
+import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 import MaskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 
 export default {
@@ -82,7 +82,7 @@ export default {
       })
     },
     async viewTelNo (item) {
-      const res = await partnerManagerService.selectPartnerManagerDetail({ ptnrNo: this.item.ptnrNo, ptnrChrgId: item.id })
+      const res = await partnerManagerService.selectPartnerManagerDetail({ partnerSeq: this.item.partnerSeq, ptnrChrgId: item.id })
       item.value = res.data.telNo
     },
     changeType (type) {

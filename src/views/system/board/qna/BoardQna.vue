@@ -22,7 +22,7 @@
         </template>
         <template v-slot:item.ptnrChrgName="{item}">
           {{ item.ptnrChrgName || '?' }}
-          <small class="grey--text mr-1">({{ item.ptnrName }})</small>
+          <small class="grey--text mr-1">({{ item.companyName }})</small>
         </template>
         <template v-slot:item.crtDt="{item}">{{ item.crtDt | dateSet }}</template>
       </v-data-table>
@@ -117,7 +117,7 @@ export default {
         searchList.push(
           ...[
             {
-              key: 'ptnrNo',
+              key: 'partnerSeq',
               label: '파트너',
               type: 'partner'
             }

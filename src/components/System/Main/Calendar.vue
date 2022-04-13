@@ -60,7 +60,7 @@
                 <span>{{item.label}}</span>
               </v-row>
             </v-col>
-            <v-col cols="12" v-for="data of item.list" :key="data.ptnrNo"
+            <v-col cols="12" v-for="data of item.list" :key="data.partnerSeq"
                    class="body-text"
                    :style="{'background': item.color}">
               <v-row no-gutters justify="space-between">
@@ -194,9 +194,9 @@ export default {
         const list = []
         let color = ''
         if (this.form.ptnrList) {
-          list.push({ ptnrNo: 0, label: '본사재고', count: Math.floor(Math.random() * 25) })
+          list.push({ partnerSeq: 0, label: '본사재고', count: Math.floor(Math.random() * 25) })
           for (const ptnr of this.form.ptnrList.ptnrList) {
-            list.push({ ptnrNo: ptnr.ptnrNo, label: ptnr.ptnrName, count: Math.floor(Math.random() * 25) })
+            list.push({ partnerSeq: ptnr.partnerSeq, label: ptnr.companyName, count: Math.floor(Math.random() * 25) })
           }
           // 등록 / 예상 판단 후 bg 다르게 먹임
           color = Math.random() >= 0.5 ? this.registerColor : this.expectColor

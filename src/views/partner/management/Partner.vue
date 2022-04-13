@@ -68,8 +68,8 @@ export default {
   computed: {
     headers () {
       const headers = [
-        { text: '업체 번호', value: 'ptnrNo', align: 'center', sortable: false },
-        { text: '업체 명', value: 'ptnrName', align: 'center', sortable: false },
+        { text: '업체 번호', value: 'partnerSeq', align: 'center', sortable: false },
+        { text: '업체 명', value: 'companyName', align: 'center', sortable: false },
         { text: '로그인 아이디', value: 'loginId', align: 'center', sortable: false },
         /* { text: '사업자 번호', value: 'bizrNo', align: 'center', sortable: false }, */
         { text: '관리자 성명', value: 'ceoName', align: 'center', sortable: false },
@@ -92,7 +92,7 @@ export default {
     },
     searchList () {
       const searchList = [
-        { key: 'ptnrName', label: '파트너명', type: 'text' },
+        { key: 'companyName', label: '파트너명', type: 'text' },
         { key: 'loginId', label: '로그인 아이디', type: 'text' },
         { key: 'ceoName', label: '대표자 성명', type: 'text' },
         { key: 'menuAuthGrupId', label: '메뉴 권한', type: 'select', list: this.menuAuthList, listValue: 'menuAuthGroupId', listText: 'menuAuthGroupName' },
@@ -131,7 +131,7 @@ export default {
       })
     },
     async viewTelNo (item) {
-      const res = await service.selectPartnerDetails(item.ptnrNo)
+      const res = await service.selectPartnerDetails(item.partnerSeq)
       item.capTelNo = res.data.capTelNo
     },
     open (rowData) {
@@ -140,8 +140,8 @@ export default {
       let partnerName = ''
       if (rowData) {
         isModify = true
-        partnerNo = rowData.ptnrNo
-        partnerName = rowData.ptnrName
+        partnerNo = rowData.partnerSeq
+        partnerName = rowData.companyName
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
@@ -161,7 +161,7 @@ export default {
       })
     },
     passwordReset (row) {
-      this.$dialog.confirm(`${row.ptnrName} 의 임시 비밀번호 발급을 진행하시겠습니까?`).then(() => {
+      this.$dialog.confirm(`${row.companyName} 의 임시 비밀번호 발급을 진행하시겠습니까?`).then(() => {
         service.createTemporaryPassword(row.loginId).then(res => {
           console.log('임시 비밀번호 확인용 : ', res.data)
           this.$dialog.alert('임시 비밀번호가 발급되었습니다.')

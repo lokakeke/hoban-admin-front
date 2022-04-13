@@ -8,7 +8,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>대상 파트너사</v-label>
-            <v-text-field :value="targetPartner.ptnrName" readonly disabled></v-text-field>
+            <v-text-field :value="targetPartner.companyName" readonly disabled></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>객실 기준일자</v-label>
@@ -183,8 +183,8 @@ export default {
         form: this.form,
         list: this.list,
         gubun: this.gubun,
-        ptnrNo: this.targetPartner.ptnrNo,
-        ptnrName: this.targetPartner.ptnrName,
+        partnerSeq: this.targetPartner.partnerSeq,
+        companyName: this.targetPartner.companyName,
         loginId: this.user.number
       }
       depositAccountService.updateScheduleDepositInitCustomList(paramList).then(res => {
@@ -206,7 +206,7 @@ export default {
         form: this.form,
         list: this.list,
         gubun: this.gubun,
-        ptnrNo: this.targetPartner.ptnrNo,
+        partnerSeq: this.targetPartner.partnerSeq,
         loginId: this.user.number
       }
 

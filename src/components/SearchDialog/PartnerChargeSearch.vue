@@ -31,7 +31,7 @@ export default {
       searchParam: {
         q: {}
       },
-      ptnrNo: '',
+      partnerSeq: '',
       disabled: false,
       initSearch: false,
       list: [],
@@ -44,8 +44,8 @@ export default {
     }
   },
   mounted () {
-    if (this.instance.params.ptnrNo) {
-      this.ptnrNo = parseInt(this.instance.params.ptnrNo)
+    if (this.instance.params.partnerSeq) {
+      this.partnerSeq = parseInt(this.instance.params.partnerSeq)
       this.disabled = true
       this.initSearch = true
     }
@@ -54,11 +54,11 @@ export default {
     searchList () {
       return [
         {
-          key: 'ptnrNo',
+          key: 'partnerSeq',
           label: '파트너 선택',
           type: 'partner',
           required: true,
-          defaultValue: this.ptnrNo,
+          defaultValue: this.partnerSeq,
           disabled: this.disabled
         }
       ]
@@ -67,19 +67,19 @@ export default {
   methods: {
     search () {
       // 조회
-      partnerManagerService.selectPartnerManagerList(this.searchParam.q.ptnrNo).then(res => {
+      partnerManagerService.selectPartnerManagerList(this.searchParam.q.partnerSeq).then(res => {
         this.list = res.data
       })
     },
     async viewTelNo (item) {
       const res = await partnerManagerService.selectPartnerManagerDetail({
-        ptnrNo: item.ptnrNo,
+        partnerSeq: item.partnerSeq,
         ptnrChrgId: item.ptnrChrgId
       })
       item.telNo = res.data.telNo
     },
     select (row) {
-      if (row.ptnrNo && row.ptnrChrgId) {
+      if (row.partnerSeq && row.ptnrChrgId) {
         this.$dialog.confirm(`${row.chrgName} 을 선택 하시겠습니까?`).then(() => {
           this.close({ data: row })
         })

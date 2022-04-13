@@ -186,8 +186,8 @@
                     <select-all-list
                         v-model="form.ptnrList"
                         :items="ptnrList"
-                        item-value="ptnrNo"
-                        item-text="ptnrName"
+                        item-value="partnerSeq"
+                        item-text="companyName"
                         label="파트너를 선택해 주세요."
                         multiple
                         clearable
