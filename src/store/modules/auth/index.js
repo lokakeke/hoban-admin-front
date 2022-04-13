@@ -3,6 +3,7 @@ import adminAuthService from '@/api/modules/system/authentication/admin/adminAut
 import router from '@/router'
 import Nprogress from 'nprogress'
 import util from '@/utils/cookie.util'
+import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
 
 /**
  * Auth Module
@@ -87,8 +88,13 @@ const actions = {
    */
   async preLogin ({ commit }, { loginId, loginPw, partnerYn }) {
     // 1차 로그인 인증(id/password)
-    const res = await adminAuthService.preLogin({ loginId, loginPw, partnerYn })
-    return Promise.resolve(res)
+    if (partnerYn && partnerYn === 'Y') { // Partner
+      const res = await partnerAuthService.preLogin({ loginId, loginPw, partnerYn })
+      return Promise.resolve(res)
+    } else { // Admin
+      const res = await adminAuthService.preLogin({ loginId, loginPw, partnerYn })
+      return Promise.resolve(res)
+    }
   },
   /**
    * 2차 로그인 : ID / Password / 인증번호 검증
@@ -103,9 +109,13 @@ const actions = {
   async login ({ commit }, { loginId, loginPw, partnerYn, requestCode, requestId }) {
     // 사용자 메뉴 초기화
     await store.dispatch('sidebar/setMenus', null)
-    // login
-    const res = await adminAuthService.login({ loginId, loginPw, partnerYn, requestCode, requestId })
-    // 사용자 정보 저장
+    let res = null
+    if (partnerYn && partnerYn === 'Y') {
+      res = await partnerAuthService.login({ loginId, loginPw, partnerYn, requestCode, requestId })
+    } else {
+      res = await adminAuthService.login({ loginId, loginPw, partnerYn, requestCode, requestId })
+      partnerYn = 'N'
+    }
     commit('setPartnerYn', partnerYn)
     commit('setJWTToken', res.headers['jwt-header'])
     commit('setUser', res.data)

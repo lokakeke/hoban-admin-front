@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import systemService from '@/api/modules/notification/notification.service'
+import systemService from '@/api/modules/message/messageAdmin.service'
 
 import { mapGetters } from 'vuex'
 

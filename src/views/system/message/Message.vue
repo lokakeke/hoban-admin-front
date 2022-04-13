@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <app-card :heading="'알림 관리'" col-classes="col-sm-12 col-md-6">
+      <app-card :heading="'메시지 관리'" col-classes="col-sm-12 col-md-6">
         <template>
           <v-row align="center" justify="center">
             <v-col class="pt-0"></v-col>
@@ -12,20 +12,20 @@
         </template>
         <template v-if="filteredList && filteredList.length > 0">
           <v-list dense>
-            <draggable v-model="notiList">
+            <draggable v-model="messageList">
               <transition-group type="transition" name="flip-list">
                 <v-list-item
-                  v-for="notify of filteredList"
-                  :key="notify.sortSeq"
-                  @click="viewChildren(notify)"
+                  v-for="message of filteredList"
+                  :key="message.sortOrder"
+                  @click="viewChildren(message)"
                   class="menu-list"
-                  :class="notify.active? 'active' : ''"
+                  :class="message.active? 'active' : ''"
                 >
                   <v-list-item-action>
                     <v-icon>edit</v-icon>
                   </v-list-item-action>
                   <v-list-item-content>
-                    <v-list-item-title :class="notify.useYn === 'N'? 'strike' : ''">{{ notify.notifyName }} ({{ notify.notifyId }})</v-list-item-title>
+                    <v-list-item-title :class="message.useYn === 'N'? 'strike' : ''">{{ message.messageName }} ({{ message.messageId }})</v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-icon>keyboard_arrow_right</v-icon>
@@ -35,64 +35,64 @@
             </draggable>
           </v-list>
         </template>
-        <v-row v-else align="center" justify="center">알림 정보가 없습니다.</v-row>
+        <v-row v-else align="center" justify="center">메시지 정보가 없습니다.</v-row>
         <v-divider class="my-4"></v-divider>
         <v-row align="end" justify="center">
-          <v-btn outlined rounded small color="orange" @click="sort(notiList)" v-if="!filter">
+          <v-btn outlined rounded small color="orange" @click="sort(messageList)" v-if="!filter">
             <v-icon small class="mr-1">refresh</v-icon>원래대로
           </v-btn>
-          <v-btn outlined rounded small color="info" @click="sortChange(notiList)" v-if="!filter">
+          <v-btn outlined rounded small color="info" @click="sortChange(messageList)" v-if="!filter">
             <v-icon small class="mr-1">swap_vert</v-icon>순서 저장
           </v-btn>
           <v-btn outlined rounded small color="primary" @click="addNotify()">
-            <v-icon small>add</v-icon>알림 메뉴 추가
+            <v-icon small>add</v-icon>메시지 메뉴 추가
           </v-btn>
         </v-row>
       </app-card>
       <app-card :heading="'상세 정보'" col-classes="col-sm-12 col-md-6">
-        <v-row v-if="!detail.notifyId" align="center" justify="center">관리할 알림을 선택해 주세요.</v-row>
+        <v-row v-if="!detail.messageId" align="center" justify="center">관리할 메시지를 선택해 주세요.</v-row>
         <template v-else>
           <v-form ref="detail" lazy-validation>
-            <v-label>알림 ID</v-label>
+            <v-label>메시지 ID</v-label>
             <v-text-field
-              v-model="detail.notifyId"
+              v-model="detail.messageId"
               :rules="emptyRules"
               label
               required
               class="pt-0"
               disabled
             ></v-text-field>
-            <v-label>알림 구분</v-label>
-            <v-autocomplete v-model="detail.notifyType" :rules="emptyRules" :items="serverCodeList" :item-text="'commCodeName'" :item-value="'commCode'" required class="pb-3 pt-0"/>
-            <v-label>알림 이름</v-label>
-            <v-text-field v-model="detail.notifyName" :rules="emptyRules" label required class="pb-0"/>
+            <v-label>메시지 구분</v-label>
+            <v-autocomplete v-model="detail.messageType" :rules="emptyRules" :items="serverCodeList" :item-text="'commonCodeName'" :item-value="'commonCode'" required class="pb-3 pt-0"/>
+            <v-label>메시지 이름</v-label>
+            <v-text-field v-model="detail.messageName" :rules="emptyRules" label required class="pb-0"/>
             <v-label>
-              알림 제목
-              <common-tooltip :type="'info'" :position="'right'" :text="'{숫자}의 내용은 알림 전송 시, 알림 수신 테이블에 저장된 파라미터 1~5번까지의 내용으로 변경됩니다.'" />
+              메시지 내용
+              <common-tooltip :type="'info'" :position="'right'" :text="'{숫자}의 내용은 메시지 전송 시, 메시지 수신 테이블에 저장된 파라미터 1~5번까지의 내용으로 변경됩니다.'" />
             </v-label>
-            <v-text-field v-model="detail.title" :rules="emptyRules" label required class="pt-0"/>
+            <v-text-field v-model="detail.message" :rules="emptyRules" label required class="pt-0"/>
             <v-label>설명</v-label>
             <v-textarea
               auto-grow
               filled
               color="deep-purple"
               rows="1"
-              v-model="detail.notifyDesc"
+              v-model="detail.messageDesc"
               label
               class="pt-0"
             ></v-textarea>
             <v-checkbox
               class="mt-0"
               v-model="detail.useYn"
-              label="사용여부(미사용 시 알림은 발송되지 않습니다.)"
+              label="사용여부(미사용 시 메시지는 발송되지 않습니다.)"
               required
               true-value="Y"
               false-value="N"
             ></v-checkbox>
           </v-form>
         </template>
-        <v-divider v-if="detail.notifyId" class="my-4"></v-divider>
-        <v-row align="end" justify="center" v-if="detail.notifyId">
+        <v-divider v-if="detail.messageId" class="my-4"></v-divider>
+        <v-row align="end" justify="center" v-if="detail.messageId">
           <v-btn outlined rounded small color="orange" @click="reload()">
             <v-icon small>refresh</v-icon>원래대로
           </v-btn>
@@ -109,7 +109,7 @@
           <v-icon>close</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-toolbar-title>알림 메뉴 입력</v-toolbar-title>
+        <v-toolbar-title>메시지 메뉴 입력</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn dark text @click="dialog = false">Close</v-btn>
@@ -117,31 +117,31 @@
       </v-toolbar>
       <v-container fluid>
         <v-form ref="form" lazy-validation>
-          <v-label>알림 ID</v-label>
-          <v-text-field v-model="form.notifyId" :rules="emptyRules" label disabled class="pt-0"></v-text-field>
-          <v-label>알림 구분</v-label>
-          <v-autocomplete v-model="form.notifyType" :rules="emptyRules" :items="serverCodeList" :item-text="'commCodeName'" :item-value="'commCode'" required class="pb-3 pt-0"/>
-          <v-label>알림 이름</v-label>
-          <v-text-field v-model="form.notifyName" :rules="emptyRules" label required class="pt-0"></v-text-field>
+          <v-label>메시지 ID</v-label>
+          <v-text-field v-model="form.messageId" :rules="emptyRules" label disabled class="pt-0"></v-text-field>
+          <v-label>메시지 구분</v-label>
+          <v-autocomplete v-model="form.messageType" :rules="emptyRules" :items="serverCodeList" :item-text="'commonCodeName'" :item-value="'commonCode'" required class="pb-3 pt-0"/>
+          <v-label>메시지 이름</v-label>
+          <v-text-field v-model="form.messageName" :rules="emptyRules" label required class="pt-0"></v-text-field>
           <v-label>
-            알림 제목
-            <common-tooltip :type="'info'" :position="'right'" :text="'{숫자}의 내용은 알림 전송 시, 알림 수신 테이블에 저장된 파라미터 1~5번까지의 내용으로 변경됩니다.'" />
+            메시지 내용
+            <common-tooltip :type="'info'" :position="'right'" :text="'{숫자}의 내용은 메시지 전송 시, 메시지 수신 테이블에 저장된 파라미터 1~5번까지의 내용으로 변경됩니다.'" />
           </v-label>
-          <v-text-field v-model="form.title" :rules="emptyRules" label required class="pt-0"/>
+          <v-text-field v-model="form.message" :rules="emptyRules" label required class="pt-0"/>
           <v-label>설명</v-label>
           <v-textarea
             auto-grow
             filled
             color="deep-purple"
             rows="1"
-            v-model="form.notifyDesc"
+            v-model="form.messageDesc"
             label
             class="pt-0"
           ></v-textarea>
           <v-checkbox
             class="mt-0"
             v-model="form.useYn"
-            label="사용여부(미사용 시 알림은 발송되지 않습니다.)"
+            label="사용여부(미사용 시 메시지는 발송되지 않습니다.)"
             required
             true-value="Y"
             false-value="N"
@@ -165,18 +165,18 @@
 </template>
 
 <script>
-import notiManageService from '@/api/modules/system/notification.service'
+import messageService from '@/api/modules/system/message.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
 export default {
-  name: 'notification',
+  name: 'message',
   components: {
     CommonTooltip
   },
   data () {
     return {
-      notiList: [],
+      messageList: [],
       serverCodeList: [],
       detail: {},
       detailClone: {},
@@ -187,7 +187,8 @@ export default {
   },
   computed: {
     filteredList () {
-      return this.notiList.filter(data => data.notifyName.indexOf(this.filter) !== -1 || data.notifyId.indexOf(this.filter) !== -1)
+      const filter = this.messageList.filter(data => data.messageName.indexOf(this.filter) !== -1 || data.messageId.indexOf(this.filter) !== -1)
+      return filter
     }
   },
   mounted () {
@@ -200,21 +201,21 @@ export default {
   },
   methods: {
     getServerCode () {
-      commonCodeService.selectCommonCode('NOTIFY_TYPE').then(res => {
+      commonCodeService.selectCommonCode('MESSAGE_TYPE').then(res => {
         this.serverCodeList = res.data
       })
     },
     getNewNotifyId () {
-      notiManageService.newNotifyId().then(res => {
-        this.$set(this.form, 'notifyId', res.data)
+      messageService.newNotifyId().then(res => {
+        this.$set(this.form, 'messageId', res.data)
       })
     },
-    search (notifyId) {
-      notiManageService.selectList({}).then(res => {
-        this.notiList = res.data
-        if (notifyId) {
-          for (const row of this.notiList) {
-            if (row.notifyId === notifyId) {
+    search (messageId) {
+      messageService.selectList({}).then(res => {
+        this.messageList = res.data
+        if (messageId) {
+          for (const row of this.messageList) {
+            if (row.messageId === messageId) {
               this.viewChildren(row)
             }
           }
@@ -222,8 +223,8 @@ export default {
       })
     },
     viewChildren (notify) {
-      for (const row of this.notiList) {
-        row.active = row.notifyId === notify.notifyId
+      for (const row of this.messageList) {
+        row.active = row.messageId === notify.messageId
       }
       this.detail = _.cloneDeep(notify)
       this.detailClone = _.cloneDeep(notify)
@@ -237,12 +238,11 @@ export default {
       this.dialog = !this.dialog
     },
     sortChange (list) {
-      // 순서가 변환된 목록을 추려낸다.
       const changeList = []
       for (let index = 0; index < list.length; index++) {
         const seq = index + 1
-        if (seq !== list[index].sortSeq) {
-          changeList.push({ notifyId: list[index].notifyId, sortSeq: seq })
+        if (seq !== list[index].sortOrder) {
+          changeList.push({ messageId: list[index].messageId, sortOrder: seq })
         }
       }
       if (changeList.length === 0) {
@@ -251,9 +251,9 @@ export default {
         this.$dialog
           .confirm('순서를 변경하시겠습니까?')
           .then(() => {
-            notiManageService.updateSort(changeList).then(res => {
+            messageService.updateSort(changeList).then(res => {
               this.$dialog.alert('저장되었습니다.')
-              this.search(this.detail.notifyId)
+              this.search(this.detail.messageId)
             })
           })
           .catch(() => {})
@@ -262,11 +262,11 @@ export default {
     modify () {
       this.validForm(this.$refs.detail).then(() => {
         this.$dialog
-          .confirm('알림 메뉴를 수정하시겠습니까?')
+          .confirm('메시지 메뉴를 수정하시겠습니까?')
           .then(() => {
-            notiManageService.update(this.detail).then(res => {
+            messageService.update(this.detail).then(res => {
               this.$dialog.alert('정보를 입력하였습니다.')
-              this.search(this.detail.notifyId)
+              this.search(this.detail.messageId)
             })
           })
           .catch(() => {})
@@ -275,11 +275,11 @@ export default {
     insert () {
       this.validForm(this.$refs.form).then(() => {
         this.$dialog
-          .confirm('알림 메뉴를 입력하시겠습니까?')
+          .confirm('메시지 메뉴를 입력하시겠습니까?')
           .then(() => {
-            notiManageService.insert(this.form).then(res => {
+            messageService.insert(this.form).then(res => {
               this.$dialog.alert('정보를 입력하였습니다.')
-              this.search(this.detail.notifyId)
+              this.search(this.detail.messageId)
               this.dialog = false
             })
           })

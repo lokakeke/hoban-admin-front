@@ -82,7 +82,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
+import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 
 export default {
   extends: DialogBase,
@@ -128,7 +128,7 @@ export default {
         }
         const form = _.cloneDeep(this.data)
         form.partnerCharge = this.form
-        partnerChargeService.addPartnerCharge(form).then(res => {
+        partnerManagerService.addPartnerManager(form).then(res => {
           this.$dialog.alert('추가 담당자 정보가 등록되었습니다.')
           this.close({ change: true })
         })
@@ -144,7 +144,7 @@ export default {
       this.telTimeCounter = 180
       this.telResTimeData = ''
       clearInterval(this.telPolling)
-      partnerChargeService.requestCode({
+      partnerManagerService.requestCode({
         loginId: this.data.loginId,
         loginPw: this.data.loginPw,
         requestTelNo: this.form.telNo,
@@ -179,7 +179,7 @@ export default {
       this.emailTimeCounter = 180
       this.emailResTimeData = ''
       clearInterval(this.emailPolling)
-      partnerChargeService.requestCode({
+      partnerManagerService.requestCode({
         loginId: this.data.loginId,
         loginPw: this.data.loginPw,
         requestEmail: this.form.email,

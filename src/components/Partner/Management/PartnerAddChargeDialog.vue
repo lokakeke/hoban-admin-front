@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
+import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
@@ -64,9 +64,9 @@ export default {
         }
         await this.$dialog.confirm(`담당자 정보를 ${this.isNew ? '입력' : '수정'} 하시겠습니까?`)
         if (this.isNew) {
-          await partnerChargeService.insertPartnerCharge(this.form)
+          await partnerManagerService.insertPartnerManager(this.form)
         } else {
-          await partnerChargeService.updatePartnerCharge(this.form)
+          await partnerManagerService.updatePartnerManager(this.form)
         }
         this.close({ search: true })
       } catch (e) {}
@@ -74,7 +74,7 @@ export default {
     async deleteCharge () {
       try {
         await this.$dialog.confirm(`담당자(${this.form.chrgName})를 삭제 하시겠습니까?`)
-        await partnerChargeService.deletePartnerCharge(this.form.ptnrNo, this.form.ptnrChrgId)
+        await partnerManagerService.deletePartnerManager(this.form.ptnrNo, this.form.ptnrChrgId)
         await this.$dialog.alert(`담당자(${this.form.chrgName})를 삭제 하였습니다.`)
         this.close({ search: true })
       } catch (e) {}

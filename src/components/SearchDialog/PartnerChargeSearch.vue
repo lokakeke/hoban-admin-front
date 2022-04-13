@@ -19,7 +19,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
+import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 import MaskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 
 export default {
@@ -67,12 +67,12 @@ export default {
   methods: {
     search () {
       // 조회
-      partnerChargeService.selectPartnerChargeList(this.searchParam.q.ptnrNo).then(res => {
+      partnerManagerService.selectPartnerManagerList(this.searchParam.q.ptnrNo).then(res => {
         this.list = res.data
       })
     },
     async viewTelNo (item) {
-      const res = await partnerChargeService.selectPartnerChargeDetail({
+      const res = await partnerManagerService.selectPartnerManagerDetail({
         ptnrNo: item.ptnrNo,
         ptnrChrgId: item.ptnrChrgId
       })

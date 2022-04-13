@@ -41,7 +41,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import systemService from '@/api/modules/notification/notification.service'
+import systemService from '@/api/modules/message/messageAdmin.service'
 import StickyTable from '@/components/Common/StickyTable.vue'
 
 export default {

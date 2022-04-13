@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
+import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 
 export default {
   props: {
@@ -49,7 +49,7 @@ export default {
           this.$dialog.alert('휴대전화, 이메일 중 하나는 필수로 입력하여 주세요.')
           return
         }
-        partnerChargeService.updatePartnerChargeProfile(this.form).then(() => {
+        partnerManagerService.updatePartnerManagerProfile(this.form).then(() => {
           this.$emit('change')
           this.$dialog.alert('기본정보가 변경 되었습니다.')
         })

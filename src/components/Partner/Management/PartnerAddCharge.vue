@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import partnerChargeService from '@/api/modules/partner/partnerCharge.service'
+import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 import maskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 import MaskEmail from '@/components/Mask/MaskEmail.vue'
 
@@ -62,12 +62,12 @@ export default {
   methods: {
     searchList () {
       this.list = []
-      partnerChargeService.selectPartnerChargeList(this.partnerNo).then(res => {
+      partnerManagerService.selectPartnerManagerList(this.partnerNo).then(res => {
         this.list = res.data
       })
     },
     async viewTelNo (item) {
-      const res = await partnerChargeService.selectPartnerChargeDetail({ ptnrNo: item.ptnrNo, ptnrChrgId: item.ptnrChrgId })
+      const res = await partnerManagerService.selectPartnerManagerDetail({ ptnrNo: item.ptnrNo, ptnrChrgId: item.ptnrChrgId })
       item.telNo = res.data.telNo
     },
     openDialog (row) {
