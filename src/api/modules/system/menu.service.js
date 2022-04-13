@@ -106,13 +106,6 @@ const menuService = {
       }
     }
     return false
-  },
-
-  /**
-   * 나의 API 권한 리스트 재조회 요청
-   */
-  memoryMyMenu () {
-    return api.get('/api/cms/system/menu/memoryMyApiList')
   }
 }
 export default menuService
