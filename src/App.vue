@@ -1,27 +1,27 @@
 <template>
-    <v-app
-        id="body"
-        :class="[{'box-layout': boxLayout, 'collapse-sidebar': collapseSidebar, 'rtl-layout': rtlLayout}]"
-    >
-        <!-- 화면 노출 router-view -->
-        <router-view></router-view>
+  <v-app
+    id="body"
+    :class="[{'box-layout': boxLayout, 'collapse-sidebar': collapseSidebar, 'rtl-layout': rtlLayout}]"
+  >
+    <!-- 화면 노출 router-view -->
+    <router-view></router-view>
 
-        <!-- 팝업 컨테이너 -->
-        <dialog-container></dialog-container>
+    <!-- 팝업 컨테이너 -->
+    <dialog-container></dialog-container>
 
-        <!-- Vue Loading Overlay -->
-        <vue-loading-overlay></vue-loading-overlay>
+    <!-- Vue Loading Overlay -->
+    <vue-loading-overlay></vue-loading-overlay>
 
-        <!-- 상단 알림 -->
-        <common-snackbars
-            v-for="(snackbar, snackbarKey) in snackbars"
-            :key="snackbarKey"
-            :text="snackbar.text"
-            v-model="snackbar.isShow"
-            :type="snackbar.type"
-            :timeout="-1"
-        ></common-snackbars>
-    </v-app>
+    <!-- 상단 알림 -->
+    <common-snackbars
+      v-for="(snackbar, snackbarKey) in snackbars"
+      :key="snackbarKey"
+      :text="snackbar.text"
+      v-model="snackbar.isShow"
+      :type="snackbar.type"
+      :timeout="-1"
+    ></common-snackbars>
+  </v-app>
 </template>
 
 <script>
@@ -141,15 +141,11 @@ export default {
         for (const eventTarget of this.keyEventList) {
           // 이벤트 화면 sequence 와 현재 최종화면 sequence 가 같은지 검사한다.
           if (
-            eventTarget.sequence === this.sequence &&
-                        eventTarget.eventList &&
-                        eventTarget.eventList.length > 0
+            eventTarget.sequence === this.sequence && eventTarget.eventList && eventTarget.eventList.length > 0
           ) {
             for (const event of eventTarget.eventList) {
               if (
-                event.target &&
-                                event.action &&
-                                e.key.toLowerCase() === event.target.toLowerCase()
+                event.target && event.action && e.key.toLowerCase() === event.target.toLowerCase()
               ) {
                 // 키 조합 이벤트일 경우 control 키가 눌리지 않았다면 continue
                 if (event.multi && !this.keyMulti) {

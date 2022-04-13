@@ -35,10 +35,6 @@
                             <i :class="userLinks[0].icon"></i>
                             <span>{{ $t(userLinks[0].title) }}</span>
                         </v-list-item>
-                        <v-list-item @click="setMyMenuMemory">
-                            <i :class="userLinks[1].icon"></i>
-                            <span>{{ userLinks[1].title }}</span>
-                        </v-list-item>
                         <v-list-item @click="logout">
                             <i :class="userLinks[2].icon"></i>
                             <span>{{ $t(userLinks[2].title) }}</span>
@@ -52,8 +48,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import menuService from '@/api/modules/system/menu.service'
-import cookieUtil from '@/utils/cookie.util'
 
 export default {
   data () {
@@ -108,15 +102,6 @@ export default {
           })
         }
       })
-    },
-    async setMyMenuMemory () {
-      try {
-        await this.$dialog.confirm('API 권한을 재조회 하시겠습니까?')
-        await menuService.memoryMyMenu()
-        // jwt-token 강제로 cookie 에 삽입
-        cookieUtil.setCookie('jwt-header', this.jwtToken)
-      } catch (e) {
-      }
     }
   }
 }

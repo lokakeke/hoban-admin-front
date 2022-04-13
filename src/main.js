@@ -36,7 +36,7 @@ import store from './store'
 
 // include all css files
 import './lib/VuelyCss'
-// import '@mdi/font/css/materialdesignicons.min.css'
+import '@mdi/font/css/materialdesignicons.min.css'
 // messages
 import messages from './lang'
 
