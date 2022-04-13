@@ -217,7 +217,7 @@ export default {
           })
           array.push({ menuId: menuId, writeYn: writeYn ? 'Y' : 'N' })
         }
-        adminMenuAuthGroupService.updateMenuAuth(this.menuAuthGroupId, { adminMenuAuthList: array }).then(res => {
+        adminMenuAuthGroupService.updateMenuAuth(this.menuAuthGroupId, array).then(res => {
           this.$dialog.alert('저장되었습니다.')
           this.change()
         })

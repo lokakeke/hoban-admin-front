@@ -3,13 +3,13 @@
     <v-row>
       <v-col v-for="(treeMenu, index) of tree" sm="6" md="4" cols="12" :key="index">
         <menu-form v-model="tree"
-                              :index="index"
-                              :limit-index="limitIndex"
-                              :add-list="addList"
-                              :road-menu="roadMenu"
-                              :view-item="viewItem"
-                              :view-active-item="viewActiveItem"
-                              :add-item="addItem"
+                   :index="index"
+                   :limit-index="limitIndex"
+                   :add-list="addList"
+                   :road-menu="roadMenu"
+                   :view-item="viewItem"
+                   :view-active-item="viewActiveItem"
+                   :add-item="addItem"
         >
         </menu-form>
       </v-col>
@@ -29,7 +29,7 @@
               <v-icon>close</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
-            <v-toolbar-title>메뉴 {{form.menuId ? '상세/수정' : '입력'}}</v-toolbar-title>
+            <v-toolbar-title>메뉴 {{ form.menuId ? '상세/수정' : '입력' }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
               <v-btn dark text @click="dialog = false">Close</v-btn>
@@ -46,19 +46,23 @@
                 </v-col>
                 <v-col cols="12">
                   <v-label>메뉴 이름</v-label>
-                  <v-text-field v-model="form.menuName" :rules="emptyRules" label="" required class="pt-0"></v-text-field>
+                  <v-text-field v-model="form.menuName" :rules="emptyRules" label="" required
+                                class="pt-0"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-label>메뉴 주소 (하위메뉴가 등록되어야 할 경우 비워주세요)</v-label>
                   <v-text-field v-model="form.menuPath" label="" class="pt-0"></v-text-field>
                   <template v-if="!form.parentMenuId">
-                    <v-label>메뉴 아이콘 폰트</v-label><br/>
-                    <v-label>참고 : <a href="https://material.io/resources/icons" target="_blank">https://material.io/resources/icons</a></v-label>
+                    <v-label>메뉴 아이콘 폰트</v-label>
+                    <br/>
+                    <v-label>참고 : <a href="https://material.io/resources/icons" target="_blank">https://material.io/resources/icons</a>
+                    </v-label>
                     <v-text-field v-model="form.iconFont" label="" class="pt-0" hide-details></v-text-field>
                   </template>
                 </v-col>
                 <v-col cols="12">
-                  <v-checkbox class="mt-0 pt-0" v-model="form.useYn" label="사용여부" required true-value="Y" false-value="N" hide-details></v-checkbox>
+                  <v-checkbox class="mt-0 pt-0" v-model="form.useYn" label="사용여부" required true-value="Y"
+                              false-value="N" hide-details></v-checkbox>
                 </v-col>
               </v-row>
             </v-container>
@@ -114,7 +118,10 @@ export default {
   mounted () {
     // key press event match
     this.$store.dispatch('keypress/addKeyEventList', {
-      eventList: [{ target: 'escape', action: this.close }]
+      eventList: [{
+        target: 'escape',
+        action: this.close
+      }]
     })
     // depth 허용 인덱스 셋팅
     this.limitIndex = this.limit > 0 ? this.limit - 1 : 0
@@ -127,7 +134,10 @@ export default {
       this.tree = []
       menuService.selectMenuList().then(res => {
         const result = res.data
-        this.tree.push({ menus: result, title: '메뉴 카테고리' })
+        this.tree.push({
+          menus: result,
+          title: '메뉴 카테고리'
+        })
         if (this.treeClone.length > 0) {
           let index = 0
           for (const tree of this.treeClone) {
@@ -235,7 +245,8 @@ export default {
         }
         this.roadMenu()
         this.dialog = false
-      } catch (e) {}
+      } catch (e) {
+      }
     },
     async deleteMenu () {
       try {
@@ -246,7 +257,8 @@ export default {
           this.$dialog.alert('삭제 되었습니다.')
           this.roadMenu()
         }
-      } catch (e) {}
+      } catch (e) {
+      }
     },
     close () {
       this.dialog = false
