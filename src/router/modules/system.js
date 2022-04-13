@@ -18,19 +18,19 @@ const Account = () =>
 const CommonCode = () => import('@/views/system/commonCode/CommonCode.vue')
 
 // 알림 설정
-const Notification = () =>
-  import('@/views/system/notification/Notification.vue')
+const Message = () =>
+  import('@/views/system/message/Message.vue')
 
 // 문자 알림 설정
 const SMSNotification = () =>
-  import('@/views/system/notification/SMSNotification.vue')
+  import('@/views/system/message/SMSNotification.vue')
 
 // 내부 IP 관리
 const Ip = () => import('@/views/system/ip/Ip.vue')
 
 // 전체 알림 게시판
-const NotificationBoard = () =>
-  import('@/views/system/notification/NotificationBoard.vue')
+const MessageBoard = () =>
+  import('@/views/system/message/MessageBoard.vue')
 
 // 예약 제한
 const ReservationExcept = () =>
@@ -89,13 +89,13 @@ export default {
       }
     },
     {
-      path: 'notification',
-      component: Notification,
-      name: 'notification',
+      path: 'message',
+      component: Message,
+      name: 'message',
       meta: {
         auth: true,
-        title: '알림 관리',
-        breadcrumb: 'Notification'
+        title: '메시지 관리',
+        breadcrumb: 'Message'
       }
     },
     {
@@ -129,14 +129,14 @@ export default {
       }
     },
     {
-      path: 'notificationBoard',
-      component: NotificationBoard,
-      name: 'notificationBoard',
+      path: 'messageBoard',
+      component: MessageBoard,
+      name: 'messageBoard',
       meta: {
         auth: true,
         requiresAuth: false,
-        title: '전체 알림 게시판',
-        breadcrumb: 'All Notification Board'
+        title: '전체 메시지 게시판',
+        breadcrumb: 'All Message Board'
       }
     },
     {

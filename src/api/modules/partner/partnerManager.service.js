@@ -1,13 +1,13 @@
 import api from '@/api'
 
-const partnerChargeService = {
+const partnerManagerService = {
 
   /**
    * 파트너 담당자 리스트 조회
    * @param ptnrNo
    * @returns 담당자 리스트
    */
-  selectPartnerChargeList (ptnrNo) {
+  selectPartnerManagerList (ptnrNo) {
     return api.get(`/api/cms/system/partnerCharge/list/${ptnrNo}`)
   },
 
@@ -15,7 +15,7 @@ const partnerChargeService = {
    * 로그인 파트너 담당자 정보 조회
    * @return 로그인 파트너 담당자 정보
    */
-  selectPartnerCharge () {
+  selectPartnerManager () {
     return api.get('/api/cms/system/partnerCharge/info')
   },
 
@@ -23,7 +23,7 @@ const partnerChargeService = {
    * 파트너 담당자 정보 조회
    * @param param 파트너 담당자 정보
    */
-  selectPartnerChargeDetail (param) {
+  selectPartnerManagerDetail (param) {
     return api.get('/api/cms/system/partnerCharge/detail', {
       params: param
     })
@@ -43,7 +43,7 @@ const partnerChargeService = {
    * @param form
    * @returns AxiosPromise<any>
    */
-  insertPartnerCharge (form) {
+  insertPartnerManager (form) {
     return api.post('/api/cms/system/partnerCharge/insert', form)
   },
 
@@ -52,7 +52,7 @@ const partnerChargeService = {
    * @param form
    * @returns AxiosPromise<any>
    */
-  addPartnerCharge (form) {
+  addPartnerManager (form) {
     return api.post('/api/cms/system/partnerCharge/add', form)
   },
 
@@ -62,7 +62,7 @@ const partnerChargeService = {
    * @returns Promise<any>
    */
   requestCode (param) {
-    return api.get('api/system/partnerCharge/requestCode', {
+    return api.get('api/cms/system/partner/manager/requestCode', {
       params: param
     })
   },
@@ -72,7 +72,7 @@ const partnerChargeService = {
    * @param form
    * @returns AxiosPromise<any>
    */
-  updatePartnerCharge (form) {
+  updatePartnerManager (form) {
     return api.post('/api/cms/system/partnerCharge/update', form)
   },
 
@@ -81,7 +81,7 @@ const partnerChargeService = {
    * @param form
    * @returns AxiosPromise<any>
    */
-  updatePartnerChargeProfile (form) {
+  updatePartnerManagerProfile (form) {
     return api.post('/api/cms/system/partnerCharge/updateProfile', form)
   },
 
@@ -90,10 +90,10 @@ const partnerChargeService = {
    * @param ptnrNo
    * @param ptnrChrgId
    */
-  deletePartnerCharge (ptnrNo, ptnrChrgId) {
+  deletePartnerManager (ptnrNo, ptnrChrgId) {
     return api.get(`/api/cms/system/partnerCharge/delete/${ptnrNo}/${ptnrChrgId}`)
   }
 
 }
 
-export default partnerChargeService
+export default partnerManagerService

@@ -4,8 +4,8 @@
 import Vue from 'vue'
 import router from '@/router'
 import store from '@/store'
-import systemService from '@/api/modules/notification/notification.service'
-import partnerService from '@/api/modules/notification/partnerNotification.service'
+import adminService from '@/api/modules/message/messageAdmin.service'
+import partnerService from '@/api/modules/message/messagePartner.service'
 
 // state
 const state = {
@@ -67,11 +67,11 @@ const getters = {
 // actions
 const actions = {
   /**
-   * 전체 알림 게시판으로 이동
+   * 전체 메시지 게시판으로 이동
    */
-  showAllNotification ({ commit }) {
+  showAllMessage ({ commit }) {
     commit('setOpenMenu', true)
-    router.push({ name: 'notificationBoard' })
+    router.push({ name: 'messageBoard' })
   },
   /**
    * depth 2 에서 1 로 이동
@@ -116,7 +116,7 @@ const actions = {
       const res = await partnerService.selectNotificationType()
       commit('setTypeNotiList', res.data)
     } else {
-      const res = await systemService.selectNotificationType()
+      const res = await adminService.selectNotificationType()
       commit('setTypeNotiList', res.data)
     }
   },
@@ -136,7 +136,7 @@ const actions = {
         }
       })
     } else {
-      systemService.selectNotificationGroup(type).then(res => {
+      adminService.selectNotificationGroup(type).then(res => {
         if (res.data && res.data.length > 0) {
           commit('setNotifications', res.data)
         } else {
@@ -165,7 +165,7 @@ const actions = {
           dispatch('goBackToMessageNotifications', true)
         }
       } else {
-        const res = await systemService.readAllNotification(state.selectedItem)
+        const res = await adminService.readAllNotification(state.selectedItem)
         if (res.data) {
           Vue.dialog.alert('처리가 완료 되었습니다.', {
             confirmButtonText: '확인',
@@ -184,7 +184,7 @@ const actions = {
     try {
       await Vue.dialog.confirm('알림을 전부 읽음 처리 하시겟습니까?', { confirmButtonText: '확인', cancelButtonText: '취소', type: 'info', dangerouslyUseHTMLString: true })
       if (getters.isPartner) {
-        const res = await partnerService.readAllNotification({ ptnrChrgId: '' })
+        const res = await partnerService.readAllNotification()
         if (res.data) {
           Vue.dialog.alert('처리가 완료 되었습니다.', {
             confirmButtonText: '확인',
@@ -193,7 +193,7 @@ const actions = {
           dispatch('getNotificationType')
         }
       } else {
-        const res = await systemService.readAllNotification({ loginId: '' })
+        const res = await adminService.readAllNotification()
         if (res.data) {
           Vue.dialog.alert('처리가 완료 되었습니다.', {
             confirmButtonText: '확인',

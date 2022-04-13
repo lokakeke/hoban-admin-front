@@ -111,7 +111,7 @@ export const menus = [
       { menuId: 12, menuName: '메뉴 권한 관리', menuPath: '/system/adminMenuAuthGroup' },
       { menuId: 13, menuName: '관리자 관리', menuPath: '/system/account' },
       { menuId: 14, menuName: '공통코드 관리', menuPath: '/system/commonCode' },
-      { menuId: 15, menuName: '알림 관리', menuPath: '/system/notification' },
+      { menuId: 15, menuName: '알림 관리', menuPath: '/system/message' },
       { menuId: 16, menuName: '문자 알림 관리', menuPath: '/system/smsNotification' },
       { menuId: 17, menuName: '내부 IP 관리', menuPath: '/system/ip' }
     ]

@@ -32,7 +32,7 @@
             <v-chip class="white--text mx-3" color="yellow darken-2" small>{{ typeNotiList | sum('count') }} NEW</v-chip>
           </v-col>
           <v-col style="text-align: right">
-            <v-btn @click="showAllNotification" color="white--text blue lighten-2" small>전체 알림 게시판</v-btn>
+            <v-btn @click="showAllNotification" color="white--text blue lighten-2" small>전체 메시지 게시판</v-btn>
           </v-col>
         </v-row>
       </div>
@@ -40,19 +40,19 @@
       <!-- 첫번째 알림 화면(알림 구분) -->
       <v-list class="dropdown-list" v-if="depth === 1">
         <v-list-item
-          v-for="typeNoti in typeNotiList"
-          :key="typeNoti.notifyCodeName"
-          @click="showMessageNotifications(typeNoti)"
+          v-for="message in typeNotiList"
+          :key="message.messageCodeName"
+          @click="showMessageNotifications(message)"
         >
           <v-list-item-icon class="pl-3">
             <v-icon medium color="teal darken-2">mdi-email</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="typeNoti.notifyCodeName"></v-list-item-title>
-            <v-list-item-subtitle v-text="typeNoti.fromNow"></v-list-item-subtitle>
+            <v-list-item-title v-text="message.messageCodeName"></v-list-item-title>
+            <v-list-item-subtitle v-text="message.fromNow"></v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn small color="red lighten-1" dark>{{ typeNoti.count }}</v-btn>
+            <v-btn small color="red lighten-1" dark>{{ message.count }}</v-btn>
           </v-list-item-action>
         </v-list-item>
       </v-list>
@@ -66,14 +66,14 @@
           <v-list class="dropdown-list">
             <v-list-item
               v-for="notification in notifications"
-              :key="notification.notifyName"
+              :key="notification.messageName"
               @click="showDetailNotifications(notification)"
             >
               <v-list-item-icon class="pl-3">
                 <v-icon medium color="teal darken-2">mdi-email</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title v-text="notification.notifyName"></v-list-item-title>
+                <v-list-item-title v-text="notification.messageName"></v-list-item-title>
                 <v-list-item-subtitle v-text="notification.fromNow"></v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
@@ -106,32 +106,32 @@ export default {
   components: { NotificationDetails },
   computed: {
     ...mapGetters({
-      depth: 'notification/depth',
-      typeNotiList: 'notification/typeNotiList',
-      selectedType: 'notification/selectedType',
-      selectedItem: 'notification/selectedItem',
-      notifications: 'notification/notifications',
-      openMenu: 'notification/openMenu'
+      depth: 'message/depth',
+      typeNotiList: 'message/typeNotiList',
+      selectedType: 'message/selectedType',
+      selectedItem: 'message/selectedItem',
+      notifications: 'message/notifications',
+      openMenu: 'message/openMenu'
     })
   },
   methods: {
     ...mapActions({
-      showAllNotification: 'notification/showAllNotification',
-      showTypeNotification: 'notification/showTypeNotification',
-      showDetailNotifications: 'notification/showDetailNotifications',
-      showMessageNotifications: 'notification/showMessageNotifications',
-      goBackToMessageNotifications: 'notification/goBackToMessageNotifications',
-      getNotificationType: 'notification/getNotificationType',
-      getNotificationGroup: 'notification/getNotificationGroup',
-      readAllByName: 'notification/readAllByName',
-      addNotificationObserver: 'notification/addNotificationObserver',
-      clearInterval: 'notification/clearInterval'
+      showAllNotification: 'message/showAllMessage',
+      showTypeNotification: 'message/showTypeNotification',
+      showDetailNotifications: 'message/showDetailNotifications',
+      showMessageNotifications: 'message/showMessageNotifications',
+      goBackToMessageNotifications: 'message/goBackToMessageNotifications',
+      getNotificationType: 'message/getNotificationType',
+      getNotificationGroup: 'message/getNotificationGroup',
+      readAllByName: 'message/readAllByName',
+      addNotificationObserver: 'message/addNotificationObserver',
+      clearInterval: 'message/clearInterval'
     })
   },
   async mounted () {
-    // await this.getNotificationType()
-    // await this.$store.dispatch('notification/getNotificationType')
-    // this.addNotificationObserver()
+    await this.getNotificationType()
+    await this.$store.dispatch('message/getNotificationType')
+    this.addNotificationObserver()
   },
   destroyed () {
     this.clearInterval()

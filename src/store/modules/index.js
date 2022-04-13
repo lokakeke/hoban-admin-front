@@ -7,7 +7,7 @@ import commonCode from '@/store/modules/commonCode/'
 import dialog from '@/store/modules/dialog/'
 import keypress from '@/store/modules/keypress/'
 import naver from '@/store/modules/naver/'
-import notification from '@/store/modules/notification/'
+import message from '@/store/modules/message/'
 import partner from '@/store/modules/partner/inventory'
 import settings from '@/store/modules/settings/'
 import sidebar from '@/store/modules/sidebar/'
@@ -19,7 +19,7 @@ const modules = {
   dialog,
   keypress,
   naver,
-  notification,
+  message,
   partner,
   settings,
   sidebar,
