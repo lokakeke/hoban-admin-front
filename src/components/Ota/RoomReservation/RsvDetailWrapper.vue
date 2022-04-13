@@ -794,7 +794,7 @@ export default {
       rsvInfo.childCnt = item.childCnt
       rsvInfo.rsvBlckCode = item.rsvBlckCode
       rsvInfo.agentCode = item.agentCode
-      rsvInfo.ptnrName = item.rsvGuestlnm// 예약자명(예약파트너명)
+      rsvInfo.companyName = item.rsvGuestlnm// 예약자명(예약파트너명)
       rsvInfo.payAmt = item.payAmt // 총합계
       return rsvInfo
     },
@@ -804,7 +804,7 @@ export default {
     async save (item) {
       if (!item.rsvNo) { // 신규
         const rsvInfo = this.setRsvParams(item)
-        rsvInfo.ptnrNo = item.ptnrNo // 예치금에 필요
+        rsvInfo.partnerSeq = item.partnerSeq // 예치금에 필요
         rsvInfo.termSeq = item.termSeq // 예치금에 필요
         rsvInfo.rsvGuestTelNo = item.rsvGuestTelNo // 예약자 연락처
         rsvInfo.nights = item.nights
@@ -1074,7 +1074,7 @@ export default {
     getPartnerInfo (roomType) {
       const param = {}
       param.taskType = this.roomType.value
-      param.ptnrNo = this.user.number
+      param.partnerSeq = this.user.number
       if (roomType === 'ROOM') {
         this.openNewRoomRsvPopup() // 객실 신규 팝업 오픈
       } else if (roomType === 'PKG') {

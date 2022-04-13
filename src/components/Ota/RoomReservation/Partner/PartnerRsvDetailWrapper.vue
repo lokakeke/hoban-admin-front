@@ -558,7 +558,7 @@ export default {
     async getPartnerInfo (roomType) {
       const param = {}
       param.taskType = this.roomType.value
-      param.ptnrNo = this.user.number
+      param.partnerSeq = this.user.number
       const res = await partnerAccountService.selectPtnrInfoForRsv(param)
       this.ptnrBasicInfo = res.data
       if (this.isTodayRsvPkg) {
@@ -707,7 +707,7 @@ export default {
       rsvInfo.childCnt = item.childCnt
       rsvInfo.rsvBlckCode = item.rsvBlckCode
       rsvInfo.agentCode = item.agentCode
-      rsvInfo.ptnrName = item.rsvGuestlnm// 예약자명(예약파트너명)
+      rsvInfo.companyName = item.rsvGuestlnm// 예약자명(예약파트너명)
       rsvInfo.rsvGuestTelNo = item.rsvGuestTelNo // 예약자 연락처
       rsvInfo.payAmt = item.payAmt // 총합계
       // 객실

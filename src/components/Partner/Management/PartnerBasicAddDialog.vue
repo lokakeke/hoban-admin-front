@@ -49,7 +49,7 @@
         <v-col sm="6" md="6">
           <v-label>예치금 키</v-label>
           <v-text-field
-            :value="useForm.ptnrName"
+            :value="useForm.companyName"
             readonly
             @click="isNewData === false ? openDepositAccount() : null"
           >
@@ -188,7 +188,7 @@ export default {
     openDepositAccount () {
       this.$store.dispatch('dialog/open', {
         componentPath: '/SearchDialog/DepositAccountSearch',
-        params: { ptnrNo: this.useForm.ptnrNo, taskType: this.useForm.taskType },
+        params: { partnerSeq: this.useForm.partnerSeq, taskType: this.useForm.taskType },
         options: {
           fullscreen: false,
           retainFocus: false,

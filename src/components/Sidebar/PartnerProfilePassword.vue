@@ -62,7 +62,7 @@ export default {
       this.validForm(this.$refs.passwordForm).then(() => {
         this.$dialog.confirm('비밀번호를 수정하시겠습니까?<br/> 비밀번호 수정 시 다시 로그인 하셔야 합니다.').then(() => {
           this.passwordForm.loginId = this.partner.loginId
-          this.passwordForm.ptnrNo = this.partner.ptnrNo
+          this.passwordForm.partnerSeq = this.partner.partnerSeq
           adminAuthService.updateAccountPassword(this.passwordForm).then(res => {
             this.$dialog.alert('저장되었습니다.<br/>다시 로그인 해주세요.').then(() => {
               this.$store.dispatch('auth/logout').then(() => {

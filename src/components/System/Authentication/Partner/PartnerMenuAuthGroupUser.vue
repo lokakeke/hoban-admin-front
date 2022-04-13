@@ -84,11 +84,11 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import service from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
+import partnerMenuAuthGroupService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
 
 export default {
   extends: DialogBase,
-  name: 'PartnerMenuAuthUserDialog',
+  name: 'PartnerMenuAuthGroupUser',
   data () {
     return {
       user: {},
@@ -111,7 +111,7 @@ export default {
   methods: {
     selectUser () {
       // 서버에서 해당 유저의 개인 메뉴 리스트를 조회한다.
-      service.selectPartnerMenuAuthUser(this.user.ptnrNo).then(res => {
+      partnerMenuAuthGroupService.selectPartnerMenuAuthUser(this.user.partnerSeq).then(res => {
         this.userAuthList = res.data
         // 메뉴 리스트를 정제한다.
         this.menus = this.setUpMenu(this.menuList)
@@ -170,10 +170,10 @@ export default {
       return array
     },
     setMenu () {
-      this.$dialog.confirm('파트너사(' + this.user.ptnrName + ') 의 개인 메뉴권한을<br/>적용 하시겠습니까?').then(() => {
+      this.$dialog.confirm('파트너사(' + this.user.companyName + ') 의 개인 메뉴권한을<br/>적용 하시겠습니까?').then(() => {
         // 메뉴 권한 리스트를 작성
         const array = this.selectInclude(this.menus)
-        service.updatePartnerMenuAuthUser(this.user.ptnrNo, array).then(res => {
+        partnerMenuAuthGroupService.updatePartnerMenuAuthUser(this.user.partnerSeq, array).then(res => {
           this.$dialog.alert('저장되었습니다.')
           this.close()
         })

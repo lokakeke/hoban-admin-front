@@ -27,7 +27,7 @@ const partnerAccountService = {
      * 가맹점 기본정보 수정
      */
   updatePartner (param) {
-    return api.post(`/api/cms/system/partner/update/${param.ptnrNo}`, param)
+    return api.post(`/api/cms/system/partner/update/${param.partnerSeq}`, param)
   },
 
   /**
@@ -43,7 +43,7 @@ const partnerAccountService = {
    * @param param
    */
   updatePartnerBasicInfo (param) {
-    return api.post(`/api/cms/system/partner/updateBasic/${param.ptnrNo}`, param)
+    return api.post(`/api/cms/system/partner/updateBasic/${param.partnerSeq}`, param)
   },
 
   /**

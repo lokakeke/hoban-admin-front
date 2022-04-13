@@ -270,7 +270,7 @@
                 <template v-if="isModify">
                     <v-col cols="3">
                         <div class="font-weight-bold info--text body-1">파트너</div>
-                        <v-text-field v-model="form.ptnrName" dense
+                        <v-text-field v-model="form.companyName" dense
                                       :rules="emptyRules"
                                       placeholder="이용자 명을 입력 해주세요."
                                       :hide-details="!writable"
@@ -655,7 +655,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/SearchDialog/PartnerPkgPutInDialog',
         params: {
-          ptnrNo: this.form.ptnrNo,
+          partnerSeq: this.form.partnerSeq,
           aprlCode: this.form.aprlCode,
           pkgPutInList: this.form.pkgPutInList
         },

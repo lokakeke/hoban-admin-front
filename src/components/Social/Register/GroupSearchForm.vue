@@ -97,7 +97,7 @@ export default {
     // 우대번호, 우대번호 명, 파트너번호 set
     if (this.instance.params.data) {
       this.data = this.instance.params.data
-      this.searchParam.q.ptnrNo = this.data.ptnrNo
+      this.searchParam.q.partnerSeq = this.data.partnerSeq
     }
     this.search()
   },

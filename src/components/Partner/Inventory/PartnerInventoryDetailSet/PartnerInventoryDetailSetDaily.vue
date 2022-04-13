@@ -38,11 +38,11 @@
       </div>
       <v-form ref="form" lazy-validation autocomplete="off">
       <v-list>
-        <v-list-item v-for="(item, index) of partnerList" :key="item.ptnrNo" class="px-1" :class="{'border-top': index !== 0}">
+        <v-list-item v-for="(item, index) of partnerList" :key="item.partnerSeq" class="px-1" :class="{'border-top': index !== 0}">
           <v-row no-gutters align="center">
             <v-col cols="3" class="pointer" @click="check(item)">
               <v-icon left>{{item.check? 'check_box': 'check_box_outline_blank'}}</v-icon>
-              {{item.ptnrName}} <!--<small>( {{item.ptnrId}} )</small>-->
+              {{item.companyName}} <!--<small>( {{item.ptnrId}} )</small>-->
             </v-col>
             <v-menu
               offset-y
@@ -273,7 +273,7 @@ export default {
           // 전송 리스트
           const insertList = this.partnerList.filter(data => data.check).map(data => {
             return {
-              ptnrNo: data.ptnrNo,
+              partnerSeq: data.partnerSeq,
               storeCode: data.storeCode,
               rmTypeCode: data.rmTypeCode,
               ciYmd: data.ciYmd,

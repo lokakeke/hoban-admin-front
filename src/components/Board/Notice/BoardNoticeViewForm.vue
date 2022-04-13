@@ -67,10 +67,10 @@
           <v-chip
             class="ma-1"
             v-for="confirm in form.cnfirmList"
-            :key="confirm.ptnrNo + confirm.ptnrChrgId"
+            :key="confirm.partnerSeq + confirm.ptnrChrgId"
           >
             {{ confirm.ptnrChrgName || '?' }}
-            <small class="grey--text ml-1">({{ confirm.ptnrName }})</small>
+            <small class="grey--text ml-1">({{ confirm.companyName }})</small>
             <small class="grey--text ml-1">{{ confirm.crtDt | dateSet }}</small>
           </v-chip>
         </div>
@@ -112,8 +112,8 @@
           <v-chip
             class="ma-1"
             v-for="partner in form.ptnrList"
-            :key="partner.ptnrNo"
-          >{{ partner.ptnrName }}</v-chip>
+            :key="partner.partnerSeq"
+          >{{ partner.companyName }}</v-chip>
         </div>
         <div class="mt-2" v-else>
           <!-- 전체 파트너 -->

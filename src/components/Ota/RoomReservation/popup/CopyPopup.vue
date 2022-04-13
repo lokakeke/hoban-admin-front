@@ -180,7 +180,7 @@ export default {
             if (params && params.data) {
               this.newItem.memNo = params.data.memNo
               this.newItem.memName = params.data.memName
-              this.newItem.rsvGuestlnm = params.data.ptnrName
+              this.newItem.rsvGuestlnm = params.data.companyName
               this.newItem.rsvGuestTelNo = params.data.capTelNo
               this.newItem.agentCd = params.data.agentCd
               this.newItem.agentName = params.data.agentCdName

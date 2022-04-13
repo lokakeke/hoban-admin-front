@@ -4,7 +4,7 @@
       <v-icon left>search</v-icon> 업체 이용정보 조회
     </template>
     <search-form :search-param.sync="searchParam" :search-list="searchList" @search="search" :cols="3" init-search></search-form>
-    <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="ptnrNo+termSeq" disable-sort
+    <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="partnerSeq+termSeq" disable-sort
                   hide-default-footer class="click-row" @click:row="select($event)">
         <template v-slot:item.amt="{item}">
           {{item.amt | price}}원
@@ -40,7 +40,7 @@ export default {
       disabled: false,
       list: [],
       headers: [
-        { text: '파트너명', value: 'ptnrName', align: 'center' },
+        { text: '파트너명', value: 'companyName', align: 'center' },
         { text: '업무구분', value: 'taskTypeCodeName', align: 'center' },
         { text: '회원번호', value: 'memNo', align: 'center' },
         { text: '업무구분명', value: 'taskTypeName', align: 'center' },
@@ -59,7 +59,7 @@ export default {
       return [
         { key: 'taskType', label: '업무 구분', type: 'code', commCode: 'TASK_TYPE', defaultValue: this.taskType, disabled: this.disabled },
         { key: 'memNo', label: '회원번호', type: 'text', defaultValue: this.memNo },
-        { key: 'ptnrName', label: '파트너명', type: 'text' },
+        { key: 'companyName', label: '파트너명', type: 'text' },
         { key: 'saleChnnl', label: '판매 채널', type: 'code', commCode: 'CHANNEL' },
         { key: 'useYmd', label: '계약 기간', type: 'dateRange', startField: 'useBgnYmd', endField: 'useEndYmd', format: 'YYYYMMDD' },
         { key: 'agentCodeName', label: '대매사', type: 'text' },
@@ -88,7 +88,7 @@ export default {
       })
     },
     select (row) {
-      if (row.ptnrNo && row.termSeq) {
+      if (row.partnerSeq && row.termSeq) {
         this.close({ data: row })
       }
     }

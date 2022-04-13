@@ -286,7 +286,7 @@ export default {
      */
     async search () {
       this.rsvList = [] // 예약 현황 목록 초기화
-      this.ptnrNo = this.searchParam.q.ptnrNo
+      this.partnerSeq = this.searchParam.q.partnerSeq
 
       // keyRsvNo로 검색하지 않는 경우 OR 파트너인 경우 필수 조건 적용
       if (!this.searchParam.q.keyRsvNo || this.isPartner) {
@@ -324,7 +324,7 @@ export default {
 
       // 파트너 일 경우 파트너번호 추가
       if (this.searchParam.q.isPartner === 'Y') {
-        this.searchParam.q.ptnrNo = this.user.number
+        this.searchParam.q.partnerSeq = this.user.number
       }
 
       // 예약 현황 조회

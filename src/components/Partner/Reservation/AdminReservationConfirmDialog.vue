@@ -37,7 +37,7 @@
       <v-row align="end">
         <v-col cols="4" md="2">
           <div class="font-weight-bold info--text body-1">파트너</div>
-          <v-text-field :value="form.ptnrName" dense readonly hide-details />
+          <v-text-field :value="form.companyName" dense readonly hide-details />
         </v-col>
         <v-col cols="4" md="2">
           <div class="font-weight-bold info--text body-1">파트너 블랙리스트 Y/N</div>

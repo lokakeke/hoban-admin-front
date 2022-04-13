@@ -140,7 +140,7 @@
           <tbody v-if="ptnrAllList">
           <tr v-for="(item, index) in ptnrAllList" :key="index">
             <td class="text-center py-1" v-if="index % 5 === 0" rowspan="5" :class="index % 5 === 0 && index+5 != ptnrAllList.length ? 'bottom-border' : ''">
-              {{ item.ptnrName }}
+              {{ item.companyName }}
             </td>
             <td class="text-center py-1" :class="index % 5 === 4 ? 'bottom-border' : ''">
               <span :class="index % 5 === 3 ? 'font-weight-bold': ''">{{ item.amtTypeName }}</span>
@@ -269,7 +269,7 @@
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.ptnrName }}</td>
+            <td class="text-center py-1">{{ item.companyName }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt02 | price }}</td>
@@ -365,7 +365,7 @@
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.ptnrName }}</td>
+            <td class="text-center py-1">{{ item.companyName }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt02 | price }}</td>
@@ -485,7 +485,7 @@
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.ptnrName }}</td>
+            <td class="text-center py-1">{{ item.companyName }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt0001 | price }}</td>
@@ -535,7 +535,7 @@ export default {
       totAmt: '', // 총금액
       tabName: 'all',
       pkgTabName: 'chit', // 패키지 내부 탭
-      ptnrNo: '', // 파트너 번호
+      partnerSeq: '', // 파트너 번호
       isShowTotalCalc: true // 전체 총 월별 이용내역 접기/펼치기
     }
   },
@@ -547,7 +547,7 @@ export default {
     }
   },
   mounted () {
-    this.isPartner ? this.ptnrNo = this.user.number : this.ptnrNo = ''
+    this.isPartner ? this.partnerSeq = this.user.number : this.partnerSeq = ''
     this.selectStoreList()
     this.selectAllBasicInfo()
     // key press event match
@@ -566,9 +566,9 @@ export default {
      */
     changeUser (user) {
       if (user === 'partner') { // 파트너
-        this.isPartner ? this.ptnrNo = this.user.number : this.ptnrNo = '0'
+        this.isPartner ? this.partnerSeq = this.user.number : this.partnerSeq = '0'
       } else { // 관리자
-        this.ptnrNo = ''
+        this.partnerSeq = ''
       }
       this.selectAllBasicInfo()
     },
@@ -603,7 +603,7 @@ export default {
      */
     async selectMonthlyUsedList (selectedDate) {
       const param = {}
-      param.ptnrNo = this.ptnrNo
+      param.partnerSeq = this.partnerSeq
       param.selectedDate = selectedDate
       const res = await monthlyUsedCalcService.selectMonthlyUsedCaculation(param)
       this.processedList = res.data.monthlyUsedCalcList
@@ -615,7 +615,7 @@ export default {
      */
     async selectAllMonthlyUsedList (selectedDate) {
       const param = {}
-      param.ptnrNo = this.ptnrNo
+      param.partnerSeq = this.partnerSeq
       param.selectedDate = selectedDate
       const res = await monthlyUsedCalcService.selectAllMonthlyUsedCaculation(param)
       this.ptnrAllList = res.data.ptnrAllList // 파트너별
@@ -626,7 +626,7 @@ export default {
      */
     async selectPkgBackDataList (selectedDate) {
       const param = {}
-      param.ptnrNo = this.ptnrNo
+      param.partnerSeq = this.partnerSeq
       param.selectedDate = selectedDate
       const res = await monthlyUsedCalcService.selectPkgBackDataList(param)
       this.pkgBackDataList = res.data
@@ -650,11 +650,11 @@ export default {
     exportExcel () {
       if (this.processedList.length > 0) {
         const param = {}
-        param.ptnrNo = this.ptnrNo
+        param.partnerSeq = this.partnerSeq
         param.selectedDate = this.selectedDate
         let userName = ''
         if (!this.isPartner) {
-          param.ptnrNo === '' ? userName = '관리자용' : userName = '파트너용'
+          param.partnerSeq === '' ? userName = '관리자용' : userName = '파트너용'
         } else {
           userName = '파트너'
         }

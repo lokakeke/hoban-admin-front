@@ -33,8 +33,8 @@ export default {
   /**
      * Business ID 자동생성
      */
-  createBusinessID (ptnrNo) {
-    return api.get(`/api/cms/system/service/createBusinessID/${ptnrNo}`)
+  createBusinessID (partnerSeq) {
+    return api.get(`/api/cms/system/service/createBusinessID/${partnerSeq}`)
   },
 
   /**

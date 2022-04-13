@@ -426,9 +426,9 @@ export default {
         calcHeaders.find(data => data.value === 'memNo').name = '패키지 번호'
         calcHeaders.find(data => data.value === 'memName').name = '패키지 명'
 
-        const ptnrName = { name: '파트너명', value: 'ptnrName', size: 4, type: 'truncate', textSize: 8 }
+        const companyName = { name: '파트너명', value: 'companyName', size: 4, type: 'truncate', textSize: 8 }
         const rsvNoIndex = calcHeaders.findIndex(data => data.value === 'rsvNo')
-        calcHeaders.splice(rsvNoIndex + 1, 0, ptnrName)
+        calcHeaders.splice(rsvNoIndex + 1, 0, companyName)
       }
       // 위약금 - 후불금액(제거), 예약일자(추가), 취소일자(추가), 예약상태(추가), 위약금(추가), 입금현황메모(제거)
       if (this.calcHisItem.calcInd === '2') {
@@ -522,7 +522,7 @@ export default {
 
       // 파트너 계정으로 접근 시, 파트너 번호 전달
       if (this.isPartner) {
-        this.searchParam.q.ptnrNo = this.user.number
+        this.searchParam.q.partnerSeq = this.user.number
       } else {
         // 관리자 계정으로 접근 시, 관리자 탭과 파트너 탭 구분
         this.searchParam.q.showInd = this.menu === this.constant.ptnr ? 'P' : 'M'

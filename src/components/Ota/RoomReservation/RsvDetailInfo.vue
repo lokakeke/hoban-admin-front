@@ -657,10 +657,10 @@ export default {
          * 회원번호 조회 결과값 세팅
          */
     setPartnerInfoReseult (result) {
-      this.$set(this, 'partnerName', result.ptnrName) // 파트너명
-      this.$set(this.rsvDetailCopy, 'ptnrNo', result.ptnrNo) // 파트너 번호(예치금에 필요)
+      this.$set(this, 'partnerName', result.companyName) // 파트너명
+      this.$set(this.rsvDetailCopy, 'partnerSeq', result.partnerSeq) // 파트너 번호(예치금에 필요)
       this.$set(this.rsvDetailCopy, 'termSeq', result.termSeq) // 예치금에 필요
-      this.$set(this.rsvDetailCopy, 'rsvGuestlnm', result.ptnrName)
+      this.$set(this.rsvDetailCopy, 'rsvGuestlnm', result.companyName)
       this.$set(this.rsvDetailCopy, 'rsvGuestTelNo', result.capTelNo)
       this.$set(this.rsvDetailCopy, 'agentCode', result.agentCode)
       this.$set(this.rsvDetailCopy, 'agentName', result.agentCodeName)

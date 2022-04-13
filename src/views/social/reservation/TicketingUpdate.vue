@@ -240,7 +240,7 @@ export default {
       } else {
         // 파트너일 경우 파트너 번호 set
         if (this.isPartner) {
-          this.searchParam.q.ptnrNo = this.user.number
+          this.searchParam.q.partnerSeq = this.user.number
         }
         ticketingUpdate.selectTicketingUpdateList(this.searchParam).then(res => {
           if (res.data.length > 0) {

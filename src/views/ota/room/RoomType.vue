@@ -88,7 +88,7 @@ export default {
   methods: {
     checkPartner () {
       if (this.isPartner) {
-        this.searchParam.q.ptnrNo = this.user.number
+        this.searchParam.q.partnerSeq = this.user.number
       }
     },
 

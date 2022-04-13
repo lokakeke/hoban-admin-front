@@ -161,7 +161,7 @@ export default {
         searchList.push(
           ...[
             {
-              key: 'ptnrNo',
+              key: 'partnerSeq',
               label: '파트너',
               type: 'partner'
             },

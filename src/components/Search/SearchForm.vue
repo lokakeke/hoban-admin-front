@@ -208,8 +208,8 @@
               clearable
               hide-details
               :items="partnerList"
-              :item-value="'ptnrNo'"
-              :item-text="'ptnrName'"
+              :item-value="'partnerSeq'"
+              :item-text="'companyName'"
               :label="param.label"
               @change="param.event !== undefined? param.event(param.value): undefined"
               :rules="param.required? emptyRules: undefined"
@@ -748,7 +748,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               item.value = params.data.businessId
-              item.text = params.data.ptnrName
+              item.text = params.data.companyName
             }
           }
         }

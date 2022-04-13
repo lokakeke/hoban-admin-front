@@ -7,10 +7,10 @@
         정산 메뉴 노출 설정
       </div>
     </v-list-item>
-    <v-list-item v-for="calcMenu in calcMenuList" :key="calcMenu.ptnrNo" class="calc-menu-item">
+    <v-list-item v-for="calcMenu in calcMenuList" :key="calcMenu.partnerSeq" class="calc-menu-item">
       <div>
-        <v-chip x-small>{{ calcMenu.ptnrNo }}</v-chip>
-        <span class="ml-2">{{ calcMenu.ptnrName }}</span>
+        <v-chip x-small>{{ calcMenu.partnerSeq }}</v-chip>
+        <span class="ml-2">{{ calcMenu.companyName }}</span>
       </div>
       <v-spacer></v-spacer>
       <v-tooltip bottom v-for="calcMenuCode in calcMenuCodeList" :key="calcMenuCode.commCode">
@@ -23,7 +23,7 @@
             v-on="on"
           >{{ calcMenuCode.commCodeName }}</v-btn>
         </template>
-        클릭하면 "{{ calcMenu.ptnrName }}" 파트너에게 " {{ calcMenuCode.commCodeName }}" 정산 메뉴를 {{ calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? '숨깁니다.' : '노출합니다.' }}
+        클릭하면 "{{ calcMenu.companyName }}" 파트너에게 " {{ calcMenuCode.commCodeName }}" 정산 메뉴를 {{ calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? '숨깁니다.' : '노출합니다.' }}
       </v-tooltip>
     </v-list-item>
   </v-list>
@@ -62,11 +62,11 @@ export default {
     /**
      * 정산 메뉴 조회
      */
-    async selectCalcMenu (ptnrNo) {
-      const res = await calculationMenuService.selectCalcMenu(ptnrNo)
+    async selectCalcMenu (partnerSeq) {
+      const res = await calculationMenuService.selectCalcMenu(partnerSeq)
       if (this.calcMenuList) {
         this.calcMenuList.some((calcMenu) => {
-          if (calcMenu.ptnrNo === res.data.ptnrNo) {
+          if (calcMenu.partnerSeq === res.data.partnerSeq) {
             calcMenu.openCalcMenu = res.data.openCalcMenu
             return true
           }
@@ -84,15 +84,15 @@ export default {
     /**
      * 정산 메뉴 열기/닫기
      */
-    async toggleCalcMenu ({ ptnrNo, ptnrName, openCalcMenu }, calcMenuCode) {
+    async toggleCalcMenu ({ partnerSeq, companyName, openCalcMenu }, calcMenuCode) {
       if (this.writeAuth === true) {
         const openYn = openCalcMenu[calcMenuCode.commCd] === true ? 'N' : 'Y'
         await calculationMenuService.toggleCalcMenu(
-          ptnrNo,
+          partnerSeq,
           calcMenuCode.commCd,
           openYn
         )
-        this.selectCalcMenu(ptnrNo)
+        this.selectCalcMenu(partnerSeq)
       }
     }
   }

@@ -4,21 +4,21 @@ const partnerApiService = {
 
   /**
    * 파트너 API 리스트 조회
-   * @param ptnrNo
+   * @param partnerSeq
    * @returns API 리스트
    */
-  selectPartnerApiList (ptnrNo) {
-    return api.get(`/api/cms/system/partnerApi/list/${ptnrNo}`)
+  selectPartnerApiList (partnerSeq) {
+    return api.get(`/api/cms/system/partnerApi/list/${partnerSeq}`)
   },
 
   /**
    * 파트너 API 정보 조회
-   * @param ptnrNo
+   * @param partnerSeq
    * @param apiInd
    * @return 파트너 API 정보
    */
-  selectPartnerApi (ptnrNo, apiInd) {
-    return api.get(`/api/cms/system/partnerApi/info/${ptnrNo}/${apiInd}`)
+  selectPartnerApi (partnerSeq, apiInd) {
+    return api.get(`/api/cms/system/partnerApi/info/${partnerSeq}/${apiInd}`)
   },
 
   /**
@@ -41,11 +41,11 @@ const partnerApiService = {
 
   /**
    * 파트너 API 삭제
-   * @param ptnrNo
+   * @param partnerSeq
    * @param apiInd
    */
-  deletePartnerApi (ptnrNo, apiInd) {
-    return api.get(`/api/cms/system/partnerApi/delete/${ptnrNo}/${apiInd}`)
+  deletePartnerApi (partnerSeq, apiInd) {
+    return api.get(`/api/cms/system/partnerApi/delete/${partnerSeq}/${apiInd}`)
   },
 
   /**

@@ -11,7 +11,7 @@
                         업체 정보
                     </v-card-title>-->
                     <v-card-text class="subtitle-1">
-                        <span class="mr-10">파트너명 : <span class="font-weight-bold">{{partnerInfo.ptnrName}}</span></span>
+                        <span class="mr-10">파트너명 : <span class="font-weight-bold">{{partnerInfo.companyName}}</span></span>
                         <span class="mr-10">BUSINESS ID : <span class="font-weight-bold">{{partnerInfo.businessId}}</span></span>
                         <span class="mr-10">업무 구분 : <span class="font-weight-bold">{{partnerInfo.taskTypeCodeName}}</span></span>
                         <span class="mr-10">업무 구분 명 : <span class="font-weight-bold">{{partnerInfo.taskTypeName}}</span></span>

@@ -34,7 +34,7 @@ export default {
     searchList () {
       return [
         { key: 'businessId', label: 'Business Id', type: 'text', defaultValue: this.businessId, cols: 4 },
-        { key: 'ptnrName', label: '파트너 명', type: 'text', cols: 4 },
+        { key: 'companyName', label: '파트너 명', type: 'text', cols: 4 },
         {
           key: 'taskType',
           label: '구분값',
@@ -58,7 +58,7 @@ export default {
       headers: [
         { text: 'No', value: 'number', align: 'center' },
         { text: 'Business Id', value: 'businessId', align: 'center' },
-        { text: '파트너 명', value: 'ptnrName', align: 'center' },
+        { text: '파트너 명', value: 'companyName', align: 'center' },
         { text: '구분값', value: 'apiName', align: 'center' }
       ],
       businessId: '',

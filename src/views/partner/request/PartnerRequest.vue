@@ -84,7 +84,7 @@ export default {
         },
         {
           text: '등록자명',
-          value: 'ptnrName',
+          value: 'companyName',
           align: 'center'
         },
         {
@@ -116,7 +116,7 @@ export default {
           { key: 'contents', label: '요청사유', type: 'text', cols: 2 },
           { key: 'keyRsvNo', label: 'KEY예약번호', type: 'text', cols: 2 },
           { key: 'crtDate', label: '등록일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 2 },
-          { key: 'ptnrNo', label: '파트너', type: 'partner', cols: 2 }
+          { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 2 }
         ]
       }
     }

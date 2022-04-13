@@ -265,7 +265,7 @@ export default {
         }
         param.isPartner = this.isPartner
         param.rsvYn = this.rsvYn
-        param.ptnrNo = this.user.number
+        param.partnerSeq = this.user.number
 
         const res = await roomService.selectPkgInfo(param)
         this.noPkgList(res.data)
@@ -296,7 +296,7 @@ export default {
             param.useYn = 'Y'
           }
           if (this.isPartner) {
-            param.ptnrNo = this.user.number
+            param.partnerSeq = this.user.number
           }
           // 당일예약가능 패키지
           if (this.todayYn) {

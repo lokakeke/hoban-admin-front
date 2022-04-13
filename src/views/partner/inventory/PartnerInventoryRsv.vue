@@ -99,7 +99,7 @@ export default {
       return [
         { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 4 },
         { key: 'rmTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCode', listText: 'rmTypeName', cols: 4 },
-        { key: 'ptnrNo', label: '파트너', type: 'partner', cols: 4 },
+        { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 4 },
         { key: 'memNo', label: '회원 번호', type: 'text', cols: 3 },
         { key: 'sendType', label: '전송 타입', type: 'code', commCode: 'OTA0002', cols: 3 },
         { key: 'sendStatus', label: '전송 상태', type: 'code', commCode: 'OTA0001', cols: 3 },
@@ -128,7 +128,7 @@ export default {
         { text: '전송상태', value: 'sendStatusName', align: 'center' },
         { text: '예약상태', value: 'rsvStatus', align: 'center' },
         { text: '객실 수', value: 'rmCnt', align: 'center' },
-        { text: '파트너', value: 'ptnrName', align: 'center' },
+        { text: '파트너', value: 'companyName', align: 'center' },
         { text: '영업장', value: 'storeName', align: 'center' },
         { text: '객실타입', value: 'rmTypeName', align: 'center' },
         { text: '기준일자', value: 'ciYmdDate', align: 'center' },

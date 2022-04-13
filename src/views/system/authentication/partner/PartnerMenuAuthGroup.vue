@@ -91,7 +91,7 @@
               <v-text-field v-model="search" hide-details single-line outlined small dense append-icon="mdi-magnify" label="Search" clearable />
             </v-col>
           </v-row>
-          <v-data-table :no-data-text="groupName +' 그룹에 파트너사 리스트가 없습니다.'"
+          <v-data-table :no-data-text="menuAuthGroupName +' 그룹에 파트너사 리스트가 없습니다.'"
                         :no-results-text="'검색 결과가 없습니다.'" :headers="headers" :items="userList" :search="search">
             <template v-slot:item.action="{ item }">
               <v-btn outlined rounded small color="info" @click="openUser(item)">
@@ -139,7 +139,7 @@
                 </v-list>
               </template>
               <v-row v-else justify="center">
-                {{groupName}} 그룹에 메뉴리스트가 없습니다.
+                {{menuAuthGroupName}} 그룹에 메뉴리스트가 없습니다.
               </v-row>
             </div>
           </template>
@@ -157,18 +157,18 @@
         </template>
       </app-card>
     </v-col>
-    <partner-menu-auth-group-dialog ref="groupDialog" :load="load"></partner-menu-auth-group-dialog>
+    <partner-menu-auth-group-form ref="groupDialog" :load="load"></partner-menu-auth-group-form>
   </v-row>
 </template>
 
 <script>
-import service from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
+import partnerMenuAuthGroupService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
 import menuService from '@/api/modules/system/menu.service'
-import partnerMenuAuthGroupDialog from '@/components/System/Authentication/Partner/PartnerMenuAuthGroupDialog.vue'
+import partnerMenuAuthGroupForm from '@/components/System/Authentication/Partner/PartnerMenuAuthGroupForm.vue'
 
 export default {
-  components: { partnerMenuAuthGroupDialog },
-  name: 'PartnerMenuAuth',
+  components: { partnerMenuAuthGroupForm },
+  name: 'PartnerMenuAuthGroup',
   data () {
     return {
       // 전체 메뉴 리스트
@@ -181,9 +181,9 @@ export default {
       userList: [],
       // 사용자 필터링 키워드
       headers: [
-        { text: '파트너번호', value: 'ptnrNo', align: 'center' },
+        { text: '파트너번호', value: 'partnerSeq', align: 'center' },
         { text: '아이디', value: 'loginId', align: 'center' },
-        { text: '파트너명', value: 'ptnrName', align: 'center' },
+        { text: '파트너명', value: 'companyName', align: 'center' },
         { text: '상세보기', value: 'action', align: 'center' }
       ],
       search: '',
@@ -213,7 +213,7 @@ export default {
     this.load()
   },
   computed: {
-    groupName () {
+    menuAuthGroupName () {
       let text = ''
       if (this.selectGroup) {
         const select = this.groupList.find(data => data.menuAuthGroupId === this.selectGroup)
@@ -231,13 +231,13 @@ export default {
   methods: {
     openMenu () {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner/Menu/PartnerMenuAuthMenuDialog',
+        componentPath: '/System/Authentication/Partner/PartnerMenuAuthGroupMenu',
         params: {
-          title: `메뉴권한 그룹(${this.groupName}) 메뉴 설정`,
+          title: `메뉴권한 그룹(${this.menuAuthGroupName}) 메뉴 설정`,
           menuList: this.menuFullList,
           selectMenu: this.menuList,
           menuAuthGroupId: this.selectGroup,
-          groupName: this.groupName,
+          menuAuthGroupName: this.menuAuthGroupName,
           change: this.load
         },
         options: {
@@ -250,9 +250,9 @@ export default {
     },
     openUser (item) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner/Menu/PartnerMenuAuthUserDialog',
+        componentPath: '/System/Authentication/Partner/PartnerMenuAuthGroupUser',
         params: {
-          title: `파트너사 (${item.ptnrName}) 개인 메뉴 설정 - ${this.groupName} 권한`,
+          title: `파트너사 (${item.companyName}) 개인 메뉴 설정 - ${this.menuAuthGroupName} 권한`,
           user: item,
           menuList: this.menuFullList,
           selectMenu: this.menuList
@@ -266,7 +266,7 @@ export default {
       })
     },
     load () {
-      service.selectPartnerAuthDetailedGroupList().then(res => {
+      partnerMenuAuthGroupService.selectPartnerAuthDetailedGroupList().then(res => {
         for (const group of res.data) {
           group.active = false
         }
@@ -303,7 +303,7 @@ export default {
     commit () {
       this.validForm(this.$refs.form).then(() => {
         this.$dialog.confirm('메뉴 권한 그룹을 수정 하시겠습니까?').then(() => {
-          service.updatePartnerMenuAuthGroup(this.form).then(res => {
+          partnerMenuAuthGroupService.updatePartnerMenuAuthGroup(this.form).then(res => {
             this.$dialog.alert('저장되었습니다.')
             this.load()
           })
@@ -320,7 +320,7 @@ export default {
           })
         } else {
           await this.$dialog.confirm('메뉴권한 그룹을 삭제 하시겠습니까?')
-          await service.deleteMenuAuthGroup(this.selectGroup)
+          await partnerMenuAuthGroupService.deleteMenuAuthGroup(this.selectGroup)
           this.$dialog.alert('메뉴권한 그룹을 삭제 하였습니다.')
           this.selectGroup = ''
           this.load()

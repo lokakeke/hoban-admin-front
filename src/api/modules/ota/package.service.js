@@ -90,9 +90,9 @@ const packageService = {
   /**
      * 판매대상 업체목록 조회
      */
-  selectPartnerList (packageNumber, ptnrNo = null) {
-    if (ptnrNo !== null) {
-      return api.get(`/api/ota/partner/list/${packageNumber}?ptnrNo=${ptnrNo}`)
+  selectPartnerList (packageNumber, partnerSeq = null) {
+    if (partnerSeq !== null) {
+      return api.get(`/api/ota/partner/list/${packageNumber}?partnerSeq=${partnerSeq}`)
     } else {
       return api.get(`/api/ota/partner/list/${packageNumber}`)
     }

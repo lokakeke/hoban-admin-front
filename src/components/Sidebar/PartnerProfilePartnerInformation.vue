@@ -9,7 +9,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>업체 명</v-label>
-            <v-text-field type="text" v-model="form.ptnrName" :rules="emptyRules" disabled></v-text-field>
+            <v-text-field type="text" v-model="form.companyName" :rules="emptyRules" disabled></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>추가 인증번호 (* 파트너 담당자 추가시 필요)</v-label>

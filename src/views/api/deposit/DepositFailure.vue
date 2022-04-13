@@ -101,7 +101,7 @@ export default {
         searchList.push({ key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 })
         searchList.push({ key: 'ticketNo', label: '우대번호', type: 'text', cols: 2 })
         searchList.push({ key: 'ticketSeq', label: '우대순번', type: 'text', cols: 2 })
-        searchList.push({ key: 'ptnrNo', label: '파트너', type: 'partner', cols: 2 })
+        searchList.push({ key: 'partnerSeq', label: '파트너', type: 'partner', cols: 2 })
       } else {
         searchList.push({ key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 })
         searchList.push({ key: 'keyRsvNo', label: '예약키번호', type: 'text', cols: 2 })

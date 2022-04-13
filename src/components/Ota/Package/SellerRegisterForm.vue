@@ -96,7 +96,7 @@ export default {
       searchSalePartner: '',
       saleHeaders: [
         { text: '판매여부', value: 'existYn', align: 'center', width: '20%' },
-        { text: '업체 명', value: 'ptnrName', align: 'start', width: '80%' }
+        { text: '업체 명', value: 'companyName', align: 'start', width: '80%' }
       ],
       salePartnerList: []
     }
@@ -158,7 +158,7 @@ export default {
           this.salePartnerList.filter(partner => partner.existYn === 'Y').forEach((partner) => {
             submitList.push({
               pkgNo: this.pkgNo,
-              ptnrNo: partner.ptnrNo,
+              partnerSeq: partner.partnerSeq,
               useYn: 'Y'
             })
           })
@@ -201,7 +201,7 @@ export default {
           this.salePartnerList.filter(partner => partner.existYn === 'Y').forEach((partner) => {
             submitList.push({
               pkgNo: this.pkgNo,
-              ptnrNo: partner.ptnrNo,
+              partnerSeq: partner.partnerSeq,
               useYn: 'Y'
             })
           })

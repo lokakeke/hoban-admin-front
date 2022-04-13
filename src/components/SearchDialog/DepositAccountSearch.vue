@@ -67,7 +67,7 @@ export default {
           align: 'center',
           sortable: false
         },
-        { text: '파트너명', value: 'ptnrName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
         { text: '업무유형명', value: 'taskTypeName', align: 'center', sortable: false },
         {
           text: '누적 입금액',
@@ -91,7 +91,7 @@ export default {
     searchList () {
       const searchList = [
         { key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 },
-        { key: 'ptnrName', label: '파트너명', type: 'text', cols: 2 },
+        { key: 'companyName', label: '파트너명', type: 'text', cols: 2 },
         {
           key: 'taskType',
           label: '예치금 구분',
@@ -115,7 +115,7 @@ export default {
     search () {
       const searchParam = _.cloneDeep(this.searchParam)
       searchParam.q.useYn = 'Y'
-      searchParam.q.ptnrNo = this.instance.params.ptnrNo
+      searchParam.q.partnerSeq = this.instance.params.partnerSeq
       depositAccountService.selectDepositAccountList(searchParam).then(res => {
         this.list = res.data
         this.searchParam.total = res.pagination.total
@@ -125,7 +125,7 @@ export default {
       if (row.depoKey) {
         this.$dialog
           .confirm(
-            `${row.ptnrName} - ${row.depoKey} 예치금 계좌를 선택 하시겠습니까?`
+            `${row.companyName} - ${row.depoKey} 예치금 계좌를 선택 하시겠습니까?`
           )
           .then(() => {
             this.close({ data: row })

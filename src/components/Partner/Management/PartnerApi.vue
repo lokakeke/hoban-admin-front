@@ -74,7 +74,7 @@ export default {
         componentPath: '/Partner//PartnerApiDialog',
         params: {
           isNew,
-          form: row || { ptnrNo: this.partnerNo, apiInd: null, apiUrl: '', apiMethod: '', apiHeader: '', useYn: 'Y' },
+          form: row || { partnerSeq: this.partnerNo, apiInd: null, apiUrl: '', apiMethod: '', apiHeader: '', useYn: 'Y' },
           list: this.list
         },
         options: {

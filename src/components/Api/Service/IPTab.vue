@@ -154,8 +154,8 @@ export default {
     async searchIpList () {
       try {
         await this.$dialog.confirm('파트너 번호로 등록된 서비스의 IP 정보들을 불러오시겠습니까?')
-        if (this.item.ptnrNo) {
-          const res = await service.selectPtnrIpList(this.item.ptnrNo)
+        if (this.item.partnerSeq) {
+          const res = await service.selectPtnrIpList(this.item.partnerSeq)
           // IP 가 중복되지 않으면 추가한다.
           for (const row of res.data) {
             if (this.list.filter(data => data.useIp === row.useIp).length === 0) {

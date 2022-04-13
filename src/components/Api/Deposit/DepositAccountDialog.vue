@@ -15,7 +15,7 @@
         <v-col sm="3" md="2">
           <v-label>파트너명</v-label>
           <v-text-field
-            :value="form.ptnrName"
+            :value="form.companyName"
             label
             :rules="emptyRules"
             readonly
@@ -28,12 +28,12 @@
               </v-btn>
             </template>
           </v-text-field>
-          <v-text-field :value="form.ptnrName" label readonly hide-details v-else></v-text-field>
+          <v-text-field :value="form.companyName" label readonly hide-details v-else></v-text-field>
         </v-col>
 
         <v-col sm="3" md="2">
           <v-label>파트너 번호</v-label>
-          <v-text-field :value="form.ptnrNo" label readonly hide-details></v-text-field>
+          <v-text-field :value="form.partnerSeq" label readonly hide-details></v-text-field>
         </v-col>
 
         <v-col sm="6" md="4">
@@ -124,8 +124,8 @@ import depositAccountService from '@/api/modules/api/depositAccount.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 
 const DEFAULT_FORM = {
-  ptnrName: null,
-  ptnrNo: null,
+  companyName: null,
+  partnerSeq: null,
   amt: 0,
   useYn: 'N'
 }
@@ -181,8 +181,8 @@ export default {
         }
         if (this.isPartner === true) {
           // 파트너인 경우 파트너정보 주입
-          this.form.ptnrNo = this.user.number
-          this.form.ptnrName = this.user.name
+          this.form.partnerSeq = this.user.number
+          this.form.companyName = this.user.name
         }
         this.orgForm = _.cloneDeep(this.form)
       } catch (e) {
@@ -226,8 +226,8 @@ export default {
           width: 1400,
           closeCallback: params => {
             if (params && params.data) {
-              this.$set(this.form, 'ptnrName', params.data.ptnrName)
-              this.$set(this.form, 'ptnrNo', params.data.ptnrNo)
+              this.$set(this.form, 'companyName', params.data.companyName)
+              this.$set(this.form, 'partnerSeq', params.data.partnerSeq)
             }
           }
         }

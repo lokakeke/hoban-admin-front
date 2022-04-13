@@ -7,8 +7,8 @@ export default {
    * @param selectedDate
    * @returns {파트너 정산 현황 데이터 목록}
    */
-  selectMonthCalculationStatus (ptnrNo, selectedDate) {
-    return api.get(`/api/ota/partnerCalcStatus/list/${selectedDate}/${ptnrNo}`)
+  selectMonthCalculationStatus (partnerSeq, selectedDate) {
+    return api.get(`/api/ota/partnerCalcStatus/list/${selectedDate}/${partnerSeq}`)
   },
 
   /**

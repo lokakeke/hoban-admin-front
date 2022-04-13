@@ -43,11 +43,11 @@
 </template>
 
 <script>
-import service from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
+import partnerMenuAuthGroupService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
 
 export default {
   props: { load: Function },
-  name: 'PartnerMenuAuthGroupDialog',
+  name: 'PartnerMenuAuthGroupForm',
   data () {
     return {
       dialog: false,
@@ -72,7 +72,7 @@ export default {
     commit () {
       this.validForm(this.$refs.form).then(() => {
         this.$dialog.confirm('파트너 메뉴 권한 그룹을 추가 하시겠습니까?').then(() => {
-          service.insertPartnerMenuAuthGroup(this.form).then(res => {
+          partnerMenuAuthGroupService.insertPartnerMenuAuthGroup(this.form).then(res => {
             this.$dialog.alert('저장되었습니다.')
             this.load()
             this.close()

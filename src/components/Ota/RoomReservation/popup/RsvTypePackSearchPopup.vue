@@ -181,7 +181,7 @@ export default {
         param.pkgNo = this.searchParam.q.pkgNo
       }
       if (this.isPartner) { // 파트너인 경우
-        param.ptnrNo = this.user.number
+        param.partnerSeq = this.user.number
       }
       param.storeCode = this.rsvInfo.storeCode
       param.rmTypeCode = this.rsvInfo.rmTypeCode

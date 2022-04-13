@@ -13,7 +13,7 @@
         </v-col>
         <v-col md="4" cols="12">
           <v-label>신청자</v-label>
-          <v-text-field :value="form.ptnrName" readonly disabled></v-text-field>
+          <v-text-field :value="form.companyName" readonly disabled></v-text-field>
         </v-col>
         <v-col md="4" cols="12">
           <v-label>신청일</v-label>
@@ -107,7 +107,7 @@ const DEFAULT_FORM = {
   requestTypeName: '',
   requestType: '',
   keyRsvNo: '',
-  ptnrNo: '',
+  partnerSeq: '',
   attachBag: {
     file: []
   }

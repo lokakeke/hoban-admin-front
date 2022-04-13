@@ -26,10 +26,10 @@ export default {
   /**
    * 영업장 1개 정보 조회
    */
-  selectOneStoreInfo (store, ptnrNo) {
+  selectOneStoreInfo (store, partnerSeq) {
     return api.get(`/api/ota/roomReservation/store/${store}`, {
       params: {
-        ptnrNo: ptnrNo
+        partnerSeq: partnerSeq
       }
     })
   },

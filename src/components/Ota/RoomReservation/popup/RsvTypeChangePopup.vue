@@ -352,12 +352,12 @@ export default {
                 this.$set(this.newItem, 'memName', params.data.memName)
                 this.$set(this.newItem, 'cntrctYmd', params.data.cntrctYmd)
                 this.$set(this.newItem, 'cancelYmd', params.data.cancelYmd)
-                this.newItem.ptnrName = params.data.ptnrName // 예약자 이름
+                this.newItem.companyName = params.data.companyName // 예약자 이름
                 this.newItem.rsvGuestTelNo = params.data.capTelNo // 예약자 번호
                 this.newItem.agentCode = params.data.agentCode
                 this.selectRoomAmount()
               } else { // 패키지로 예약이관
-                this.$set(this, 'partnerName', params.data.ptnrName)
+                this.$set(this, 'partnerName', params.data.companyName)
                 this.newItem.agentCode = params.data.agentCode
                 this.newItem.agentName = params.data.agentCodeName
               }

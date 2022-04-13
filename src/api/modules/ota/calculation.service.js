@@ -19,14 +19,14 @@ const calculationService = {
    * @Method retrievePartnerMonthCalcHistory
    * @description 특정 달의 파트너 별 정산 데이터 조회 List (객실, 패키지, 위약금)
    * @param targetDate -> YYYYMMDD
-   * @param ptnrNo -> 파트너 번호
+   * @param partnerSeq -> 파트너 번호
    * @returns [{정산 데이터}]
    */
-  retrievePartnerMonthCalcHistory (targetDate, ptnrNo) {
+  retrievePartnerMonthCalcHistory (targetDate, partnerSeq) {
     return api.get('/api/ota/calculation/partner', {
       params: {
         targetDate: targetDate,
-        ptnrNo: ptnrNo
+        partnerSeq: partnerSeq
       }
     })
   },
@@ -266,11 +266,11 @@ const calculationService = {
   /**
    * @Method retrievePartnerMenuAuth
    * @description 파트너 메뉴 접근 권한 확인
-   * @param ptnrNo -> 파트너 번호
+   * @param partnerSeq -> 파트너 번호
    * @return 접근 메뉴 리스트
    */
-  retrievePartnerMenuAuth (ptnrNo) {
-    return api.get(`/api/ota/calculation/${ptnrNo}/auth/menu`)
+  retrievePartnerMenuAuth (partnerSeq) {
+    return api.get(`/api/ota/calculation/${partnerSeq}/auth/menu`)
   },
 
   /**
@@ -375,12 +375,12 @@ const calculationService = {
    * @Method addPartnerCalcStatus
    * @description 파트너사 정산 확인여부 추가
    * @param calcSeq -> history Seq
-   * @param ptnrNo -> 파트너 번호
+   * @param partnerSeq -> 파트너 번호
    * @param ptnrChrgId -> 파트너 담당자 ID
    * @return
    */
-  addPartnerCalcStatus (calcSeq, ptnrNo, ptnrChrgId) {
-    return api.post(`/api/ota/calculation/${calcSeq}/partners/${ptnrNo}/status`, ptnrChrgId)
+  addPartnerCalcStatus (calcSeq, partnerSeq, ptnrChrgId) {
+    return api.post(`/api/ota/calculation/${calcSeq}/partners/${partnerSeq}/status`, ptnrChrgId)
   },
 
   /**
