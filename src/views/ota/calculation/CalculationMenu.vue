@@ -12,7 +12,7 @@
 import CalcMenuList from '@/components/Ota/Calculation/Menu/CalcMenuList.vue'
 
 export default {
-  name: 'Menu',
+  name: 'CalculationMenu',
   components: {
     CalcMenuList
   }

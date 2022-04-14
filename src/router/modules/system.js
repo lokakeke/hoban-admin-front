@@ -48,7 +48,7 @@ export default {
     {
       path: 'menu',
       component: Menu,
-      name: 'menu',
+      name: 'system.menu',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -59,7 +59,7 @@ export default {
     {
       path: 'adminMenuAuthGroup',
       component: AdminMenuAuthGroup,
-      name: 'adminMenuAuthGroup',
+      name: 'system.adminMenuAuthGroup',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -70,7 +70,7 @@ export default {
     {
       path: 'account',
       component: Account,
-      name: 'account',
+      name: 'system.account',
       meta: {
         auth: true,
         title: '관리자 관리',
@@ -81,7 +81,7 @@ export default {
     {
       path: 'commonCode',
       component: CommonCode,
-      name: 'commonCode',
+      name: 'system.commonCode',
       meta: {
         auth: true,
         title: '공통코드 관리',
@@ -91,7 +91,7 @@ export default {
     {
       path: 'message',
       component: Message,
-      name: 'message',
+      name: 'system.message',
       meta: {
         auth: true,
         title: '메시지 관리',
@@ -101,7 +101,7 @@ export default {
     {
       path: 'smsNotification',
       component: SMSNotification,
-      name: 'smsNotification',
+      name: 'system.smsNotification',
       meta: {
         auth: true,
         title: '카카오 알림톡 관리',
@@ -111,7 +111,7 @@ export default {
     {
       path: 'partnerMenuAuthGroup',
       component: PartnerMenuAuthGroup,
-      name: 'partnerMenuAuthGroup',
+      name: 'system.partnerMenuAuthGroup',
       meta: {
         auth: true,
         title: '파트너 메뉴권한 관리',
@@ -121,7 +121,7 @@ export default {
     {
       path: 'ip',
       component: Ip,
-      name: 'ip',
+      name: 'system.ip',
       meta: {
         auth: true,
         title: '내부 IP 관리',
@@ -131,7 +131,7 @@ export default {
     {
       path: 'messageBoard',
       component: MessageBoard,
-      name: 'messageBoard',
+      name: 'system.messageBoard',
       meta: {
         auth: true,
         requiresAuth: false,
@@ -142,7 +142,7 @@ export default {
     {
       path: 'reservationExcept',
       component: ReservationExcept,
-      name: 'reservationExcept',
+      name: 'system.reservationExcept',
       meta: {
         auth: true,
         title: '예약 제한',

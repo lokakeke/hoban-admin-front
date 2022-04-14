@@ -7,51 +7,36 @@ const Room = () => import('@/views/ota/room/RoomType.vue')
 const Package = () => import('@/views/ota/package/RoomPackage.vue')
 
 // room reservation
-const RoomReservation = () =>
-  import('@/views/ota/roomReservation/RoomReservation.vue')
+const RoomReservation = () => import('@/views/ota/roomReservation/RoomReservation.vue')
 
 // room reservation cancel
-const MultipleRsvCancel = () =>
-  import('@/views/ota/roomReservation/MultipleRsvCancel.vue')
+const MultipleRsvCancel = () => import('@/views/ota/roomReservation/MultipleRsvCancel.vue')
 
 // deposit
-const depositAccount = () =>
-  import('@/views/api/deposit/DepositAccount.vue')
-const depositTransaction = () =>
-  import('@/views/api/deposit/DepositTransaction.vue')
-const depositFailure = () =>
-  import('@/views/api/deposit/DepositFailure.vue')
+const DepositAccount = () => import('@/views/api/deposit/DepositAccount.vue')
+const DepositTransaction = () => import('@/views/api/deposit/DepositTransaction.vue')
+const DepositFailure = () => import('@/views/api/deposit/DepositFailure.vue')
 
 // commission
-const commissionBasic = () =>
-  import('@/views/ota/commission/CommissionBasic.vue')
-const commissionPromotion = () =>
-  import('@/views/ota/commission/CommissionPromotion.vue')
+const CommissionBasic = () => import('@/views/ota/commission/CommissionBasic.vue')
+const CommissionPromotion = () => import('@/views/ota/commission/CommissionPromotion.vue')
 
 // calculation
-const calculation = () =>
-  import('@/views/ota/calculation/Calculate.vue')
-const calculationPackage = () =>
-  import('@/views/ota/calculation/PackageCalculate.vue')
-const calculationRoomType = () =>
-  import('@/views/ota/calculation/RoomTypeCalculate.vue')
-const calculationPenaltyRule = () =>
-  import('@/views/ota/calculation/PenaltyRule.vue')
-const calculationDay = () => import('@/views/ota/calculation/Day.vue')
-const calculationMenu = () =>
-  import('@/views/ota/calculation/Menu.vue')
-const partnerCalculationStatus = () =>
-  import('@/views/ota/calculation/PartnerCalculationStatus.vue')
-const monthlyUsedCalculation = () =>
-  import('@/views/ota/calculation/MonthlyUsedCalculation.vue')
-const calculateComparativeContrast = () =>
-  import('@/views/ota/calculation/CalculateComparativeContrast.vue')
+const Calculation = () => import('@/views/ota/calculation/Calculate.vue')
+const CalculationPackage = () => import('@/views/ota/calculation/PackageCalculate.vue')
+const CalculationRoomType = () => import('@/views/ota/calculation/RoomTypeCalculate.vue')
+const CalculationPenaltyRule = () => import('@/views/ota/calculation/PenaltyRule.vue')
+const CalculationDay = () => import('@/views/ota/calculation/CalculationDay.vue')
+const CalculationMenu = () => import('@/views/ota/calculation/CalculationMenu.vue')
+const PartnerCalculationStatus = () => import('@/views/ota/calculation/PartnerCalculationStatus.vue')
+const MonthlyUsedCalculation = () => import('@/views/ota/calculation/MonthlyUsedCalculation.vue')
+const CalculateComparativeContrast = () => import('@/views/ota/calculation/CalculateComparativeContrast.vue')
 
 // errorGuidance
-const errorGuidance = () => import('@/views/api/error/ErrorGuidance.vue')
+const ErrorGuidance = () => import('@/views/api/error/ErrorGuidance.vue')
 
 // request
-const partnerRequest = () => import('@/views/partner/request/PartnerRequest.vue')
+const PartnerRequest = () => import('@/views/partner/request/PartnerRequest.vue')
 
 export default {
   path: '/ota',
@@ -108,7 +93,7 @@ export default {
     },
     {
       path: 'depositAccount',
-      component: depositAccount,
+      component: DepositAccount,
       name: 'ota.depositAccount',
       meta: {
         auth: true,
@@ -119,7 +104,7 @@ export default {
     },
     {
       path: 'depositTransaction',
-      component: depositTransaction,
+      component: DepositTransaction,
       name: 'ota.depositTransaction',
       meta: {
         auth: true,
@@ -130,7 +115,7 @@ export default {
     },
     {
       path: 'depositFailure',
-      component: depositFailure,
+      component: DepositFailure,
       name: 'ota.depositFailure',
       meta: {
         auth: true,
@@ -141,7 +126,7 @@ export default {
     },
     {
       path: 'calculate',
-      component: calculation,
+      component: Calculation,
       name: 'ota.calculate',
       meta: {
         auth: true,
@@ -152,7 +137,7 @@ export default {
     },
     {
       path: 'packageCalculate',
-      component: calculationPackage,
+      component: CalculationPackage,
       name: 'ota.packageCalculate',
       meta: {
         auth: true,
@@ -163,7 +148,7 @@ export default {
     },
     {
       path: 'roomTypeCalculate',
-      component: calculationRoomType,
+      component: CalculationRoomType,
       name: 'ota.roomTypeCalculate',
       meta: {
         auth: true,
@@ -174,7 +159,7 @@ export default {
     },
     {
       path: 'commissionBasic',
-      component: commissionBasic,
+      component: CommissionBasic,
       name: 'ota.commissionBasic',
       meta: {
         auth: true,
@@ -185,7 +170,7 @@ export default {
     },
     {
       path: 'commissionPromotion',
-      component: commissionPromotion,
+      component: CommissionPromotion,
       name: 'ota.commissionPromotion',
       meta: {
         auth: true,
@@ -195,9 +180,9 @@ export default {
       }
     },
     {
-      path: 'penaltyRule',
-      component: calculationPenaltyRule,
-      name: 'ota.penaltyRule',
+      path: 'calculationPenaltyRule',
+      component: CalculationPenaltyRule,
+      name: 'ota.calculationPenaltyRule',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -206,9 +191,9 @@ export default {
       }
     },
     {
-      path: 'day',
-      component: calculationDay,
-      name: 'ota.day',
+      path: 'calculationDay',
+      component: CalculationDay,
+      name: 'ota.calculationDay',
       meta: {
         auth: true,
         requiresAuth: true,
@@ -217,19 +202,19 @@ export default {
       }
     },
     {
-      path: 'menu',
-      component: calculationMenu,
-      name: 'ota.menu',
+      path: 'calculationMenu',
+      component: CalculationMenu,
+      name: 'ota.calculationMenu',
       meta: {
         auth: true,
         requiresAuth: true,
         title: '정산 메뉴 관리',
-        breadcrumb: 'Caculation Menu '
+        breadcrumb: 'Calculation Menu '
       }
     },
     {
       path: 'partnerCalculationStatus',
-      component: partnerCalculationStatus,
+      component: PartnerCalculationStatus,
       name: 'ota.partnerCalculationStatus',
       meta: {
         auth: true,
@@ -240,7 +225,7 @@ export default {
     },
     {
       path: 'monthlyUsedCalculation',
-      component: monthlyUsedCalculation,
+      component: MonthlyUsedCalculation,
       name: 'ota.monthlyUsedCalculation',
       meta: {
         auth: true,
@@ -251,7 +236,7 @@ export default {
     },
     {
       path: 'errorGuidance',
-      component: errorGuidance,
+      component: ErrorGuidance,
       name: 'ota.errorGuidance',
       meta: {
         auth: true,
@@ -262,7 +247,7 @@ export default {
     },
     {
       path: 'partnerRequest',
-      component: partnerRequest,
+      component: PartnerRequest,
       name: 'ota.partnerRequest',
       meta: {
         auth: true,
@@ -273,7 +258,7 @@ export default {
     },
     {
       path: 'calculateComparativeContrast',
-      component: calculateComparativeContrast,
+      component: CalculateComparativeContrast,
       name: 'ota.calculateComparativeContrast',
       meta: {
         auth: true,

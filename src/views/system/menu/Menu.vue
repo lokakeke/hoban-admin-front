@@ -98,7 +98,7 @@ import menuService from '@/api/modules/system/menu.service'
 import MenuForm from '@/components/System/Menu/MenuForm.vue'
 
 export default {
-  name: 'menu',
+  name: 'menuManagement',
   components: { MenuForm },
   data () {
     return {
