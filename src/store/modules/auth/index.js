@@ -51,13 +51,23 @@ const actions = {
     // 메뉴 쓰기권한 초기화
     await store.dispatch('sidebar/setWriteAuth', 'N')
     // 로그인 체크
+    console.log('isLoginedIn')
+    console.log(getters.isLoggedIn)
     if (getters.isLoggedIn === true) {
       // Case 1. 사용자 로그인 된 경우 :
       return Promise.resolve()
     } else if (getters.jwtToken && (!getters.user || !getters.partnerYn)) {
       // Case 2. 토큰만 존재하는 경우 : 서버에서 사용자 정보 가져오기
       try {
-        const res = await adminAuthService.get()
+        let res = null
+        const isPartner = getters.partnerYn
+        console.log('isPartner')
+        console.log(isPartner)
+        if (isPartner === 'Y') {
+          res = await partnerAuthService.get()
+        } else {
+          res = await adminAuthService.get()
+        }
         // 사용자 정보 저장
         commit('setPartnerYn', res.data.partnerYn)
         commit('setUser', res.data)
@@ -184,7 +194,7 @@ const mutations = {
       loginId: null,
       name: null,
       number: null,
-      ptnrChrgId: null
+      partnerManagerId: null
     }
   },
   setPartnerYn (state, partnerYn) {

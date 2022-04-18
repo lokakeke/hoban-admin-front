@@ -267,7 +267,7 @@ export default {
     },
     // 파트너 정산 승인
     updatePtnrAprl (item) {
-      item.ptnrChrgId = this.user.ptnrChrgId
+      item.partnerManagerId = this.user.partnerManagerId
       this.$dialog.confirm('승인하시겠습니까?').then(() => {
         calculateService.updatePtnrAprlCalc(item).then(() => {
           this.$dialog.alert('승인이 완료되었습니다.')

@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
+import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 import maskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import Vue from 'vue'
@@ -130,7 +130,7 @@ export default {
       if (this.selected.length === 0) {
         this.$dialog.alert('발송 정보를 선택해 주세요.')
       } else {
-        adminAuthService.requestCode({
+        partnerManagerService.requestCode({
           loginId: this.data.loginId,
           loginPw: this.data.loginPw,
           partnerYn: 'Y',

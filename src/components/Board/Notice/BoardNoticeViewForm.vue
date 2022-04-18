@@ -67,7 +67,7 @@
           <v-chip
             class="ma-1"
             v-for="confirm in form.cnfirmList"
-            :key="confirm.partnerSeq + confirm.ptnrChrgId"
+            :key="confirm.partnerSeq + confirm.partnerManagerId"
           >
             {{ confirm.ptnrChrgName || '?' }}
             <small class="grey--text ml-1">({{ confirm.companyName }})</small>

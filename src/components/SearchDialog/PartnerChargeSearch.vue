@@ -36,7 +36,7 @@ export default {
       initSearch: false,
       list: [],
       headers: [
-        { text: '담당자 ID', value: 'ptnrChrgId', align: 'center' },
+        { text: '담당자 ID', value: 'partnerManagerId', align: 'center' },
         { text: '담당자 명', value: 'chrgName', align: 'center' },
         { text: '전화 번호', value: 'telNo', align: 'center' },
         { text: '이메일', value: 'email', align: 'center' }
@@ -74,12 +74,12 @@ export default {
     async viewTelNo (item) {
       const res = await partnerManagerService.selectPartnerManagerDetail({
         partnerSeq: item.partnerSeq,
-        ptnrChrgId: item.ptnrChrgId
+        partnerManagerId: item.partnerManagerId
       })
       item.telNo = res.data.telNo
     },
     select (row) {
-      if (row.partnerSeq && row.ptnrChrgId) {
+      if (row.partnerSeq && row.partnerManagerId) {
         this.$dialog.confirm(`${row.chrgName} 을 선택 하시겠습니까?`).then(() => {
           this.close({ data: row })
         })
