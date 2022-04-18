@@ -20,7 +20,7 @@ const reservationExceptService = {
    * 수정
    */
   update (detail) {
-    return api.post(`/api/cms/system/reservationExcept/update/${detail.exclSeq}`, detail)
+    return api.post(`/api/cms/system/reservationExcept/update/${detail.exceptSeq}`, detail)
   }
 }
 

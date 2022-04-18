@@ -56,7 +56,7 @@
             <v-label>사번</v-label>
             <v-text-field v-model="ipInfo.adminSeq" label required class="pt-0"></v-text-field>
             <v-label>서버 구분</v-label>
-            <v-autocomplete v-model="ipInfo.serverCode" :rules="emptyRules" :items="serverCodeList" :item-text="'commCodeName'" :item-value="'commCode'" required class="pt-0"></v-autocomplete>
+            <v-autocomplete v-model="ipInfo.serverCode" :rules="emptyRules" :items="serverCodeList" :item-text="'commonCodeName'" :item-value="'commonCode'" required class="pt-0"></v-autocomplete>
             <v-checkbox
               class="mt-0"
               v-model="ipInfo.useYn"
@@ -97,7 +97,7 @@
           <v-label>사번</v-label>
           <v-text-field v-model="form.adminSeq" label required class="pt-0"></v-text-field>
           <v-label>서버 구분</v-label>
-          <v-autocomplete v-model="form.serverCode" :rules="emptyRules" :items="serverCodeList" :item-text="'commCodeName'" :item-value="'commCode'" required class="pt-0"></v-autocomplete>
+          <v-autocomplete v-model="form.serverCode" :rules="emptyRules" :items="serverCodeList" :item-text="'commonCodeName'" :item-value="'commonCode'" required class="pt-0"></v-autocomplete>
           <v-checkbox
             class="mt-0"
             v-model="form.useYn"
@@ -184,13 +184,15 @@ export default {
       this.dialog = !this.dialog
     },
     duplicateCheck (newIp) {
+      console.log('newIP')
+      console.log(newIp)
       for (const row of this.ipList) {
         if (row.useIp === newIp) {
           this.$dialog.alert('이미 등록된 IP입니다. 다른 IP로 시도해주세요.')
           return false
         }
-        return true
       }
+      return true
     },
     modify () {
       this.validForm(this.$refs.ipInfo).then(() => {
@@ -217,6 +219,8 @@ export default {
           .confirm('IP를 입력하시겠습니까?')
           .then(() => {
             const flag = this.duplicateCheck(this.form.useIp)
+            console.log('flag')
+            console.log(flag)
             if (flag) {
               ipManageService.insert(this.form).then(res => {
                 this.$dialog.alert('정보를 입력하였습니다.')

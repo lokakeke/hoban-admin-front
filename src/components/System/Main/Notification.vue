@@ -89,7 +89,7 @@ export default {
           }
         })
       } else {
-        systemService.selectAllNotification(this.searchParam).then(res => {
+        systemService.selectAllMessage(this.searchParam).then(res => {
           if (res.data) {
             this.list = res.data
             this.searchParam.total = res.pagination.total

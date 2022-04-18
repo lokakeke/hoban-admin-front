@@ -74,7 +74,7 @@ export default {
     async deleteCharge () {
       try {
         await this.$dialog.confirm(`담당자(${this.form.chrgName})를 삭제 하시겠습니까?`)
-        await partnerManagerService.deletePartnerManager(this.form.partnerSeq, this.form.ptnrChrgId)
+        await partnerManagerService.deletePartnerManager(this.form.partnerSeq, this.form.partnerManagerId)
         await this.$dialog.alert(`담당자(${this.form.chrgName})를 삭제 하였습니다.`)
         this.close({ search: true })
       } catch (e) {}

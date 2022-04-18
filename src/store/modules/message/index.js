@@ -113,10 +113,10 @@ const actions = {
    */
   async getNotificationType ({ commit, getters }) {
     if (getters.isPartner) {
-      const res = await partnerService.selectNotificationType()
+      const res = await partnerService.selectMessageType()
       commit('setTypeNotiList', res.data)
     } else {
-      const res = await adminService.selectNotificationType()
+      const res = await adminService.selectMessageType()
       commit('setTypeNotiList', res.data)
     }
   },
@@ -128,7 +128,7 @@ const actions = {
    */
   getNotificationGroup ({ commit, getters, dispatch }, type) {
     if (getters.isPartner) {
-      partnerService.selectNotificationGroup(type).then(res => {
+      partnerService.selectMessageGroup(type).then(res => {
         if (res.data && res.data.length > 0) {
           commit('setNotifications', res.data)
         } else {
@@ -136,7 +136,7 @@ const actions = {
         }
       })
     } else {
-      adminService.selectNotificationGroup(type).then(res => {
+      adminService.selectMessageGroup(type).then(res => {
         if (res.data && res.data.length > 0) {
           commit('setNotifications', res.data)
         } else {
@@ -154,9 +154,9 @@ const actions = {
    */
   async readAllByName ({ state, getters, dispatch }) {
     try {
-      await Vue.dialog.confirm('[' + state.selectedItem.notifyName + ']를(을) 전부 읽음 처리 하시겟습니까?', { confirmButtonText: '확인', cancelButtonText: '취소', type: 'info', dangerouslyUseHTMLString: true })
+      await Vue.dialog.confirm('[' + state.selectedItem.messageName + ']를(을) 전부 읽음 처리 하시겟습니까?', { confirmButtonText: '확인', cancelButtonText: '취소', type: 'info', dangerouslyUseHTMLString: true })
       if (getters.isPartner) {
-        const res = await partnerService.readAllNotification(state.selectedItem)
+        const res = await partnerService.readAllMessage(state.selectedItem)
         if (res.data) {
           Vue.dialog.alert('처리가 완료 되었습니다.', {
             confirmButtonText: '확인',
@@ -165,7 +165,7 @@ const actions = {
           dispatch('goBackToMessageNotifications', true)
         }
       } else {
-        const res = await adminService.readAllNotification(state.selectedItem)
+        const res = await adminService.readAllMessage(state.selectedItem)
         if (res.data) {
           Vue.dialog.alert('처리가 완료 되었습니다.', {
             confirmButtonText: '확인',
@@ -184,7 +184,7 @@ const actions = {
     try {
       await Vue.dialog.confirm('알림을 전부 읽음 처리 하시겟습니까?', { confirmButtonText: '확인', cancelButtonText: '취소', type: 'info', dangerouslyUseHTMLString: true })
       if (getters.isPartner) {
-        const res = await partnerService.readAllNotification()
+        const res = await partnerService.readAllMessage()
         if (res.data) {
           Vue.dialog.alert('처리가 완료 되었습니다.', {
             confirmButtonText: '확인',
@@ -193,7 +193,7 @@ const actions = {
           dispatch('getNotificationType')
         }
       } else {
-        const res = await adminService.readAllNotification()
+        const res = await adminService.readAllMessage()
         if (res.data) {
           Vue.dialog.alert('처리가 완료 되었습니다.', {
             confirmButtonText: '확인',

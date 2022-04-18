@@ -3,58 +3,55 @@ import api from '@/api'
 /**
  * Admin Message 관련
  */
+const URL_PREFIX = '/api/cms/system/messageAdmin'
+
 const service = {
 
   /**
      * 모든 알림 조회(전체 메시지 게시판쪽)
      */
-  selectAllNotification (param) {
-    return api.get('/api/cms/system/messageAdmin/allMessage', { params: param })
+  selectAllMessage (param) {
+    return api.get(URL_PREFIX + '/allMessage', { params: param })
   },
 
   /**
      * 타입별 메시지 조회
      */
-  selectNotificationType () {
+  selectMessageType () {
     api.disableProgress()
-
-    return api.get('/api/cms/system/messageAdmin/messageType')
+    return api.get(URL_PREFIX + '/messageType')
   },
 
   /**
      * 메세지별 메시지 조회
      */
-  selectNotificationGroup (param) {
+  selectMessageGroup (param) {
     api.disableProgress()
-
-    return api.get('/api/cms/system/messageAdmin/messageGroup', { params: param })
+    return api.get(URL_PREFIX + '/messageGroup', { params: param })
   },
 
   /**
      * 메시지 목록
      */
-  selectNotificationList (param) {
+  selectMessageList (param) {
     api.disableProgress()
-
-    return api.get('/api/cms/system/messageAdmin/messageList', { params: param })
+    return api.get(URL_PREFIX + '/messageList', { params: param })
   },
 
   /**
      * 1개의 메시지 읽음 처리
      */
-  readNotification (param) {
+  readMessage (param) {
     api.disableProgress()
-
-    return api.post('/api/cms/system/messageAdmin/readMessage', param)
+    return api.post(URL_PREFIX + '/readMessage', param)
   },
 
   /**
      * 전체 메시지 읽음 처리
      */
-  readAllNotification (param) {
+  readAllMessage (param) {
     api.disableProgress()
-
-    return api.post('/api/cms/system/messageAdmin/readAllMessage', param)
+    return api.post(URL_PREFIX + '/readAllMessage', param)
   }
 }
 export default service

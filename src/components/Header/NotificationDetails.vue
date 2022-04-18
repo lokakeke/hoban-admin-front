@@ -1,13 +1,13 @@
 <template>
     <div>
         <v-list class="dropdown-list" style="max-height: 1000px" v-scroll:#scroll-target="onScroll" >
-            <v-list-item v-for="item in list" :key="item.notifySeq">
+            <v-list-item v-for="(item, index) in list" :key="index">
                 <v-list-item-content @click="viewDetail(item)" class="pointer">
-                    <v-list-item-title v-text="item.title"/>
+                    <v-list-item-title v-text="item.message"/>
                     <v-list-item-subtitle v-text="item.fromNow"/>
                 </v-list-item-content>
                 <v-list-item-action>
-                    <v-btn @click="readNotification(item)" class="white--text" color="blue darken-3" small v-if="item.readingYn === 'N'">읽음 처리</v-btn>
+                    <v-btn @click="readNotification(item)" class="white--text" color="blue darken-3" small v-if="item.readYn === 'N'">읽음 처리</v-btn>
                 </v-list-item-action>
             </v-list-item>
         </v-list>
@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import systemService from '@/api/modules/message/messageAdmin.service'
-
+import messageAdminService from '@/api/modules/message/messageAdmin.service'
+import messagePartnerService from '@/api/modules/message/messagePartner.service'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -52,13 +52,13 @@ export default {
     /** 실제 알림 목록 조회 */
     getNotificationList () {
       if (this.isPartner) {
-        partnerService.selectNotificationList({ notifyId: this.selected.notifyId, notifyType: this.selected.notifyType }).then(res => {
+        messagePartnerService.selectMessageList({ messageId: this.selected.messageId, messageType: this.selected.messageType }).then(res => {
           if (res.data) {
             this.list = res.data.list
           }
         })
       } else {
-        systemService.selectNotificationList({ notifyId: this.selected.notifyId, notifyType: this.selected.notifyType }).then(res => {
+        messageAdminService.selectMessageList({ messageId: this.selected.messageId, messageType: this.selected.messageType }).then(res => {
           if (res.data.list) {
             this.list = res.data.list
           }
@@ -68,13 +68,13 @@ export default {
     /** 알림 1개 읽음 처리 */
     async readNotification (item) {
       if (this.isPartner) {
-        const res = await partnerService.readNotification({ notifySeq: item.notifySeq })
+        const res = await messagePartnerService.readMessage({ messagePartnerSeq: item.messagePartnerSeq })
         if (res.data) {
           this.getNotificationList()
           this.$emit('reset', true)
         }
       } else {
-        const res = await systemService.readNotification({ notifySeq: item.notifySeq })
+        const res = await messageAdminService.readMessage({ messageAdminSeq: item.messageAdminSeq })
         if (res.data) {
           this.getNotificationList()
           this.$emit('reset', true)

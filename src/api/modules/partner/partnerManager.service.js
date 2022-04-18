@@ -31,11 +31,11 @@ const partnerManagerService = {
 
   /**
    * 파트너 담당자 ID 사용가능 여부 체크
-   * @param ptnrChrgId
+   * @param partnerManagerId
    * @returns 파트너 담당자 ID 사용가능 여부
    */
-  checkPartnerChargeId (ptnrChrgId) {
-    return api.get(`/api/cms/system/partnerCharge/check/${ptnrChrgId}`)
+  checkPartnerChargeId (partnerManagerId) {
+    return api.get(`/api/cms/system/partnerCharge/check/${partnerManagerId}`)
   },
 
   /**
@@ -88,10 +88,10 @@ const partnerManagerService = {
   /**
    * 파트너 담당자 삭제
    * @param partnerSeq
-   * @param ptnrChrgId
+   * @param partnerManagerId
    */
-  deletePartnerManager (partnerSeq, ptnrChrgId) {
-    return api.get(`/api/cms/system/partnerCharge/delete/${partnerSeq}/${ptnrChrgId}`)
+  deletePartnerManager (partnerSeq, partnerManagerId) {
+    return api.get(`/api/cms/system/partnerCharge/delete/${partnerSeq}/${partnerManagerId}`)
   }
 
 }
