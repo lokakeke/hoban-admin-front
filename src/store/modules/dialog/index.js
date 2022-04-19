@@ -29,7 +29,7 @@ const actions = {
   /**
      * 다이얼로그 띄우기
      * @param {Object} context
-     * @param {String} componentPath 다이얼로그 컴포넌트 경로 (ex: @/components/example/ExampleDialog)
+     * @param {String} componentPath 다이얼로그 컴포넌트 경로 (ex: @/components/Example/ExampleDialog)
      * @param {Object} params 인자값
      * @param {Object} options 다이얼로그 옵션
      */
