@@ -1,15 +1,15 @@
 <template>
   <v-row align="center">
-    <v-col lg="6" md="5" cols="12" :class="$vuetify.breakpoint.smAndDown? '' : 'border-right'">
-      <span class="headline">{{pageTitle}}</span>
-    </v-col>
-    <v-col lg="6" md="7" class="hidden-sm-and-down">
-      <span class="title ml-4" v-for="(breadcrumbs, index) of pageBreadcrumb" :key="index">
-        <a href="javascript:void(0)">
-          {{breadcrumbs}}
-          <span class="ml-4" v-if="pageBreadcrumb.length !== (index+1)">/</span>
-        </a>
-      </span>
+    <v-col>
+      <span class="fw-bold ml-3"><v-icon left>home</v-icon> {{pageTitle}}</span>
+        <span class="hidden-sm-and-down ml-10 border-left">
+          <span class="ml-4" v-for="(breadcrumbs, index) of pageBreadcrumb" :key="index">
+            <a href="javascript:void(0)">
+              {{breadcrumbs}}
+              <span class="ml-4" v-if="pageBreadcrumb.length !== (index+1)">/</span>
+            </a>
+          </span>
+        </span>
     </v-col>
   </v-row>
   <!-- <v-breadcrumbs class="pa-6 pr-4" :items="breadcrumbItems" v-if="breadcrumbItems != null">

@@ -186,6 +186,21 @@
    .site-logo {
 		padding: 0 1rem;
    }
+    &.sidebar-overlay-light {
+        .side-content {
+            border-right: 2px solid $hoban;
+            height: 100%;
+            background: $hoban-dark-gray;
+            div.menu-sidebar * , div.v-input__control *, div.sidebar-profile *{
+                color: #FFFFFF !important;
+                div.v-list-item--active * {
+                    color: $hoban !important;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
    &::before,
    &::after {
       display: block;
@@ -227,6 +242,16 @@
          font-size: $font-size-sm;
       }
    }
+    border-bottom: 1px solid $hoban;
+    background: $hoban-light-gray;
+}
+
+.menu-search {
+    border-bottom: 1px solid $hoban;
+    background: $hoban-light-gray;
+    input::placeholder {
+        color: #FFFFFF!important;
+    }
 }
 
 .userblock-dropdown {

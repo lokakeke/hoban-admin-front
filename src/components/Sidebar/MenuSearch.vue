@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="menu-search">
     <v-text-field
       v-model="search"
       prepend-inner-icon="search"

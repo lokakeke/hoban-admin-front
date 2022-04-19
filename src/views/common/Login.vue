@@ -20,7 +20,10 @@
             <span class="subtitle-2 font-weight-bold">비밀번호 정책</span>
           </v-btn>
 
-          <v-btn block large @click="goPartner()" class="my-2" color="success">파트너센터 로그인 이동</v-btn>
+          <v-btn block text large @click="goPartner()" class="my-2" color="info">
+              <v-icon left>mdi-arrow-right-bold</v-icon>
+              파트너센터 로그인 이동
+          </v-btn>
         </v-form>
       </div>
     </div>

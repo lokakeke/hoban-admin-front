@@ -21,15 +21,15 @@
         <v-list dense>
           <template v-for="subItem of menu.children">
             <template v-if="subItem.children && subItem.children.length > 0">
-              <v-list-item :key="subItem.menuId" @click="check(subItem.menuId)">
+              <v-list-item :key="subItem.menuId">
                 <v-list-item-content>
                   <div class="title font-weight-bold" :class="{ 'strike': subItem.useYn === 'N' }">{{subItem.menuName}}</div>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item v-for="sub of subItem.children" class="pl-6" :key="sub.menuId" @click="check(sub.menuId)">
+              <v-list-item v-for="sub of subItem.children" class="pl-6" :key="sub.menuId" @click="checkChild(subItem, sub.menuId)">
                 <v-list-item-icon>
                   <v-icon>subdirectory_arrow_right</v-icon>
-                  <v-checkbox v-model="myMenu" :value="sub.menuId" @click.prevent.stop="" class="mt-0 pt-0"></v-checkbox>
+                    <v-icon :color="myMenu.includes(sub.menuId) ? '#ee7500' : 'gray'">{{ myMenu.includes(sub.menuId) ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline' }}</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title :class="{ 'strike': sub.useYn === 'N' }">{{sub.menuName}}</v-list-item-title>
@@ -166,14 +166,15 @@ export default {
     getSelectMenuList (menus, isMenuAuth) {
       let selectMenuList = []
       for (const menu of menus) {
-        if (menu.children && menu.children.length > 0) {
-          selectMenuList = selectMenuList.concat(this.getSelectMenuList(menu.children, isMenuAuth))
-        } else if (this.selectMenu.findIndex(data => data.menuId === menu.menuId) > -1) {
+        if (this.selectMenu.findIndex(data => data.menuId === menu.menuId) > -1) {
           if (isMenuAuth) {
             selectMenuList.push(menu.menuId)
           } else if (this.selectMenu.find(data => data.menuId === menu.menuId).writeYn === 'Y') {
             selectMenuList.push(menu.menuId)
           }
+        }
+        if (menu.children && menu.children.length > 0) {
+          selectMenuList = selectMenuList.concat(this.getSelectMenuList(menu.children, isMenuAuth))
         }
       }
       return _.sortBy(selectMenuList)
@@ -182,15 +183,33 @@ export default {
       if (this.selectMenu && this.selectMenu.length > 0) {
         this.myMenu = this.getSelectMenuList(this.menuList, true) // _.map(this.selectMenu.slice(), 'menuId')
         this.menuWrite = this.getSelectMenuList(this.menuList, false) // _.map(_.filter(this.selectMenu.slice(), { writeYn: 'Y' }), 'menuId')
+        console.log(this.myMenu)
       } else {
         this.myMenu = []
         this.menuWrite = []
       }
     },
+    checkChild (parentMenu, menuId) {
+      // 클릭한 child menu id check 태움
+      this.check(menuId)
+      if (parentMenu.menuId && parentMenu.children && parentMenu.children.length > 0) {
+        // child menu 중 myMenu 에 포함되어 있으면 this.myMenu 에 부모 메뉴 추가 아니면 삭제
+        const childrenMenuIdArray = parentMenu.children.map(row => row.menuId)
+        const existChild = this.myMenu.filter(id => childrenMenuIdArray.includes(id)).length > 0
+        const parentMenuId = parentMenu.menuId
+        if (existChild) {
+          if (!_.includes(this.myMenu, parentMenuId)) {
+            this.myMenu.push(parentMenuId)
+            this.myMenu.sort((a, b) => a - b)
+          }
+        } else {
+          if (_.includes(this.myMenu, parentMenuId)) {
+            this.myMenu.splice(this.myMenu.indexOf(parentMenuId), 1).sort((a, b) => a - b)
+          }
+        }
+      }
+    },
     check (menuId) {
-      console.log(menuId)
-      console.log(this.myMenu)
-      console.log(_.includes(this.myMenu, menuId))
       if (_.includes(this.myMenu, menuId)) {
         this.myMenu.splice(this.myMenu.indexOf(menuId), 1).sort((a, b) => a - b)
         if (this.menuWrite.indexOf(menuId) > -1) {

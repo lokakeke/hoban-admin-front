@@ -317,6 +317,10 @@ input {
   }
 }
 
+.no-box-shadow {
+    box-shadow: none!important;
+}
+
 .v-application--is-ltr .menu-sidebar {
   .v-list-group__header__prepend-icon:last-of-type:not(:only-child), .v-list-item__icon:last-of-type:not(:only-child) {
     margin-left: 0;

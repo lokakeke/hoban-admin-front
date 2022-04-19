@@ -6,6 +6,8 @@
     <!-- App Main Content -->
     <v-main>
       <v-container fluid class="py-3">
+          <!-- page title +  bread crumb -->
+          <page-title-bar></page-title-bar>
         <router-view :key="$router.currentRoute.path"></router-view>
       </v-container>
     </v-main>
@@ -15,10 +17,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import Header from '@/components/Header/Header.vue'
+import PageTitleBar from '@/components/Header/PageTitleBar'
 
 export default {
   components: {
-    appHeader: Header
+    appHeader: Header,
+    PageTitleBar
   },
   computed: {
     ...mapGetters({

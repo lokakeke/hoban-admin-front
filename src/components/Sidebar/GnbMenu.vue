@@ -1,5 +1,5 @@
 <template>
-    <div>
+<!--    <div>
         <v-chip
             class="mr-2"
             default
@@ -8,6 +8,19 @@
             :color="checkSelectedChip(parentMenu)"
         >{{ parentMenu.menuName }}
         </v-chip>
+    </div>-->
+    <div style="display: flex">
+        <div
+            class="gnb-menu-item"
+            v-for="parentMenu in this.menus.filter(menu => !menu.parentMenuId)" :key="parentMenu.menuId"
+            @click="(e) => handleClickChip(e,parentMenu)"
+            :class="checkSelectedChip(parentMenu)"
+        >
+            <v-icon>{{parentMenu.iconFont}}</v-icon>
+            <span class="text-lg mx-1 whitespace-nowrap hidden-xs-only">{{
+                    parentMenu.menuName
+                }}</span>
+        </div>
     </div>
 </template>
 
@@ -30,12 +43,12 @@ export default {
     },
     checkSelectedChip (menu) {
       if (!this.currentSidebar) {
-        return 'gray'
+        return 'text-gray'
       }
       if (this.currentSidebar.menuId === menu.menuId) {
-        return 'primary'
+        return 'text-primary'
       }
-      return 'gray'
+      return 'text-gray'
     }
   },
   data () {
