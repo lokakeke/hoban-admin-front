@@ -130,12 +130,12 @@ export default {
       this.validForm(this.$refs.form).then(() => {
         this.$dialog.confirm('사용자 정보를 ' + (this.isNew ? '추가' : '수정') + ' 하시겠습니까?').then(() => {
           if (this.isNew) {
-            adminAccountService.insertAccount(this.form).then(res => {
+            adminAccountService.insertAdminAccount(this.form).then(res => {
               this.$dialog.alert('저장되었습니다.')
               this.close({ change: true })
             })
           } else {
-            adminAccountService.updateAccount(this.form).then(res => {
+            adminAccountService.updateAdminAccount(this.form).then(res => {
               this.$dialog.alert('저장되었습니다.')
               this.close({ change: true })
             })

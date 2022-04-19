@@ -84,13 +84,13 @@ export default {
   },
   methods: {
     search () {
-      adminAccountService.selectAccountList(this.searchParam).then(res => {
+      adminAccountService.selectAdminAccountList(this.searchParam).then(res => {
         this.list = res.data
         this.searchParam.total = res.pagination.total
       })
     },
     async viewTelNo (item) {
-      const res = await adminAccountService.selectAccount(item.loginId)
+      const res = await adminAccountService.selectAdminAccount(item.loginId)
       item.telNo = res.data.telNo
     },
     async showDetail (info) {
@@ -98,7 +98,7 @@ export default {
       let formData = { loginId: '', useYn: 'Y', tempPwYn: 'Y', deptCode: '' }
       if (info) {
         isNew = false
-        const res = await adminAccountService.selectAccount(info.loginId)
+        const res = await adminAccountService.selectAdminAccount(info.loginId)
         formData = res.data
       }
       await this.$store.dispatch('dialog/open', {
