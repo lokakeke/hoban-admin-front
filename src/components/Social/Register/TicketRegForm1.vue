@@ -633,7 +633,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               // 담당자명, 담당 유형 추가
-              this.form.chrgList.push({ chrgName: params.data.chrgName, chrgType: 'A', ptnrChrgId: params.data.ptnrChrgId, ticketNo: this.form.ticketNo })
+              this.form.chrgList.push({ chrgName: params.data.chrgName, chrgType: 'A', partnerManagerId: params.data.partnerManagerId, ticketNo: this.form.ticketNo })
             }
           }
         }

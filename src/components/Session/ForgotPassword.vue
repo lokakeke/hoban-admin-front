@@ -18,7 +18,7 @@
                         <v-text-field v-model="form.companyName" :rules="emptyRules" label="* 파트너명" required></v-text-field>
                         <v-text-field v-model="form.addCrtfNo" :rules="emptyRules"
                                       label="* 추가 인증번호 (파트너 등록 시 생성된 추가 인증번호)" required></v-text-field>
-                        <v-text-field v-model="form.ptnrChrgId" :rules="emptyRules" label="* 닉네임"
+                        <v-text-field v-model="form.partnerManagerId" :rules="emptyRules" label="* 닉네임"
                                       required></v-text-field>
                     </template>
                     <template v-else>
@@ -61,7 +61,7 @@ export default {
         loginId: '',
         adminSeq: '',
         addCrtfNo: '',
-        ptnrChrgId: '',
+        partnerManagerId: '',
         adminName: '',
         companyName: '',
         type: 'E'

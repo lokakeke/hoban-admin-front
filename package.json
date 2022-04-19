@@ -1,7 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "husky install && husky add .husky/pre-commit 'npx lint-staged'",
     "serve": "vite",
     "build": "vite build",
     "lint": "eslint './src/**/*.{js,ts,tsx,vue,md}'",
@@ -9,6 +8,7 @@
     "preview:build": "yarn run build && vite preview "
   },
   "dependencies": {
+    "node-sass":"7.0.1",
     "@juggle/resize-observer": "^3.2.0",
     "@mdi/font": "^5.8.55",
     "axios": "^0.18.1",

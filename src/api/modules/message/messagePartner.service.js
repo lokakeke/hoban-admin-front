@@ -8,14 +8,14 @@ const service = {
   /**
      * 모든 메시지 조회
      */
-  selectAllNotification (param) {
+  selectAllMessage (param) {
     return api.get('/api/cms/system/partnerMessage/allMessage', { params: param })
   },
 
   /**
      * 타입별 메시지 조회
      */
-  selectNotificationType () {
+  selectMessageType () {
     api.disableProgress()
 
     return api.get('/api/cms/system/partnerMessage/messageType')
@@ -24,7 +24,7 @@ const service = {
   /**
      * 메시지 그룹 목록
      */
-  selectNotificationGroup (param) {
+  selectMessageGroup (param) {
     api.disableProgress()
 
     return api.get('/api/cms/system/partnerMessage/messageGroup', { params: param })
@@ -33,7 +33,7 @@ const service = {
   /**
      * 메시지 목록
      */
-  selectNotificationList (param) {
+  selectMessageList (param) {
     api.disableProgress()
 
     return api.get('/api/cms/system/partnerMessage/messageList', { params: param })
@@ -42,7 +42,7 @@ const service = {
   /**
      * 1개의 메시지 읽음 처리
      */
-  readNotification (param) {
+  readMessage (param) {
     api.disableProgress()
 
     return api.post('/api/cms/system/partnerMessage/readMessage', param)
@@ -51,9 +51,8 @@ const service = {
   /**
      * 전체 메시지 읽음 처리
      */
-  readAllNotification (param) {
+  readAllMessage (param) {
     api.disableProgress()
-
     return api.post('/api/cms/system/partnerMessage/readAllMessage', param)
   }
 }

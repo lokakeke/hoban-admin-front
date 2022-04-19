@@ -16,6 +16,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import adminMessageService from '@/api/modules/message/messageAdmin.service'
+import partnerMessageService from '@/api/modules/message/messagePartner.service'
 import messageService from '@/api/modules/system/message.service'
 
 export default {
@@ -64,14 +65,14 @@ export default {
     /** 검색 */
     search () {
       if (this.isPartner) {
-        adminMessageService.selectAllNotification(this.searchParam).then(res => {
+        partnerMessageService.selectAllMessage(this.searchParam).then(res => {
           if (res.data) {
             this.list = res.data
             this.searchParam.total = res.pagination.total
           }
         })
       } else {
-        adminMessageService.selectAllNotification(this.searchParam).then(res => {
+        adminMessageService.selectAllMessage(this.searchParam).then(res => {
           if (res.data) {
             this.list = res.data
             this.searchParam.total = res.pagination.total
@@ -82,12 +83,11 @@ export default {
     /** 알림 구분 목록 조회 */
     selectTypeList () {
       if (this.isPartner) {
-        // FIXME partnerMessageService 완성후 변경(woojung)
-        adminMessageService.selectNotificationType().then(res => {
+        partnerMessageService.selectMessageType().then(res => {
           this.groupList = res.data
         })
       } else {
-        adminMessageService.selectNotificationType().then(res => {
+        adminMessageService.selectMessageType().then(res => {
           this.groupList = res.data
         })
       }

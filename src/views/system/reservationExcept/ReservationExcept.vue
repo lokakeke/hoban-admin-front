@@ -16,7 +16,7 @@
               <transition-group type="transition" name="flip-list">
                 <v-list-item
                   v-for="except of filteredList"
-                  :key="except.exclSeq"
+                  :key="except.exceptSeq"
                   @click="viewChildren(except)"
                   class="menu-list"
                   :class="except.active? 'active' : ''"
@@ -25,7 +25,7 @@
                     <v-icon>edit</v-icon>
                   </v-list-item-action>
                   <v-list-item-content>
-                    <v-list-item-title :class="except.useYn === 'N'? 'strike' : ''">{{ except.exclName }} ({{ except.bgnDt | dateSet }} ~ {{ except.endDt | dateSet }})</v-list-item-title>
+                    <v-list-item-title :class="except.useYn === 'N'? 'strike' : ''">{{ except.exceptName }} ({{ except.startDatetime | dateSet }} ~ {{ except.endDatetime | dateSet }})</v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-icon>keyboard_arrow_right</v-icon>
@@ -48,30 +48,31 @@
       </app-card>
 
       <app-card :heading="'상세 정보'" col-classes="col-sm-12 col-md-6">
-        <v-row v-if="!detail.exclSeq" align="center" justify="center">관리할 예약 제한을 선택해 주세요.</v-row>
+        <v-row v-if="!detail.exceptSeq" align="center" justify="center">관리할 예약 제한을 선택해 주세요.</v-row>
         <template v-else>
           <v-form ref="detail" lazy-validation>
             <v-label>예약 제한 이름</v-label>
-            <v-text-field v-model="detail.exclName" :rules="emptyRules" label required class="pt-0"/>
-
+            <v-text-field v-model="detail.exceptName" :rules="emptyRules" label required class="pt-0"/>
+              <v-label>예약 제한 서비스</v-label>
+              <v-text-field v-model="detail.exceptService" :rules="emptyRules" label required class="pt-0"/>
             <v-row>
               <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
                 <v-label>시작일</v-label>
-                <date-picker v-model="detail.tempBgnYmd" :min="toDay" clearable required></date-picker>
+                <date-picker v-model="detail.tempStartYmd" :min="toDay" clearable required></date-picker>
               </v-col>
 
               <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
                 <v-label>시간</v-label>
                 <v-select
                   :items="reservationHour"
-                  v-model="detail.bgnHour"
+                  v-model="detail.startHour"
                 />
               </v-col>
               <v-col class="pl-md-3 pl-lg-3" cols="12" lg="4" md="4" sm="12">
                 <v-label>분</v-label>
                 <v-select
                   :items="reservationMinute"
-                  v-model="detail.bgnMin"
+                  v-model="detail.startMin"
                 />
               </v-col>
             </v-row>
@@ -118,8 +119,8 @@
             ></v-checkbox>
           </v-form>
         </template>
-        <v-divider v-if="detail.exclSeq" class="my-4"></v-divider>
-        <v-row align="end" justify="center" v-if="detail.exclSeq">
+        <v-divider v-if="detail.exceptSeq" class="my-4"></v-divider>
+        <v-row align="end" justify="center" v-if="detail.exceptSeq">
           <v-btn outlined rounded small color="orange" @click="reload()">
             <v-icon small>refresh</v-icon>원래대로
           </v-btn>
@@ -145,26 +146,29 @@
       <v-container fluid>
         <v-form ref="form" lazy-validation>
           <v-label>예약 제한 이름</v-label>
-          <v-text-field v-model="form.exclName" :rules="emptyRules" label required class="pt-0"></v-text-field>
-
+          <v-text-field v-model="form.exceptName" :rules="emptyRules" label required class="pt-0"></v-text-field>
+            <v-label>예약 제한 서비스</v-label>
+            <v-select v-model="form.exceptService" :items="this.serviceList" :item-value="'commonCode'"
+                            :item-text="'commonCodeName'" :rules="emptyRules" label required class="pt-0">
+            </v-select>
           <v-row>
             <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
               <v-label>시작일</v-label>
-              <date-picker v-model="form.tempBgnYmd" :min="toDay" clearable required></date-picker>
+              <date-picker v-model="form.tempStartYmd" :min="toDay" clearable required></date-picker>
             </v-col>
 
             <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
               <v-label>시간</v-label>
               <v-select
                 :items="reservationHour"
-                v-model="form.bgnHour"
+                v-model="form.startHour"
               />
             </v-col>
             <v-col class="pl-md-3 pl-lg-3" cols="12" lg="4" md="4" sm="12">
               <v-label>분</v-label>
               <v-select
                 :items="reservationMinute"
-                v-model="form.bgnMin"
+                v-model="form.startMin"
               />
             </v-col>
           </v-row>
@@ -229,6 +233,7 @@
 <script>
 import reservationExceptService from '@/api/modules/system/reservationExcept.service'
 import CommonTooltip from '@/components/Common/CommonTooltip.vue'
+import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   name: 'reservationExcept',
@@ -245,14 +250,15 @@ export default {
       filterText: '',
       serviceList: [],
       reservationHour: [],
-      reservationMinute: []
+      reservationMinute: [],
+      serviceTypeList: []
     }
   },
   computed: {
     filteredList () {
       if (this.exceptList && this.exceptList.length > 0) {
         if (this.filterText) {
-          return this.exceptList.filter(data => data.exclName.indexOf(this.filterText) !== -1)
+          return this.exceptList.filter(data => data.exceptName.indexOf(this.filterText) !== -1)
         } else {
           return this.exceptList
         }
@@ -264,7 +270,7 @@ export default {
       return moment().format('YYYY-MM-DD')
     },
     minBgnYmd () {
-      return moment(this.form.tempBgnYmd).format('YYYY-MM-DD')
+      return moment(this.form.tempStartYmd).format('YYYY-MM-DD')
     }
   },
   mounted () {
@@ -274,14 +280,20 @@ export default {
     })
     this.search()
     this.getReservationTime()
+    this.getServiceTypeList()
   },
   methods: {
-    search (exclSeq) {
+    getServiceTypeList () {
+      commonCodeService.selectCommonCode('EXCEPT_SERVICE').then(res => {
+        this.serviceList = res.data
+      })
+    },
+    search (exceptSeq) {
       reservationExceptService.selectList({}).then(res => {
         this.exceptList = res.data
-        if (exclSeq) {
+        if (exceptSeq) {
           for (const row of this.exceptList) {
-            if (row.exclSeq === exclSeq) {
+            if (row.exceptSeq === exceptSeq) {
               this.viewChildren(row)
             }
           }
@@ -294,7 +306,7 @@ export default {
     },
     viewChildren (except) {
       for (const row of this.exceptList) {
-        row.active = row.exclSeq === except.exclSeq
+        row.active = row.exceptSeq === except.exceptSeq
       }
       this.detail = _.cloneDeep(except)
       this.detailClone = _.cloneDeep(except)
@@ -307,12 +319,12 @@ export default {
         this.$dialog
           .confirm('예약 제외 내용을 수정하시겠습니까?')
           .then(() => {
-            this.detail.bgnDt = moment(moment(this.detail.tempBgnYmd).format('YYYY-MM-DD') + ` ${this.detail.bgnHour}:${this.detail.bgnMin}`).format('YYYY-MM-DD HH:mm')
-            this.detail.endDt = moment(moment(this.detail.tempEndYmd).format('YYYY-MM-DD') + ` ${this.detail.endHour}:${this.detail.endMin}`).format('YYYY-MM-DD HH:mm')
+            this.detail.startDatetime = moment(moment(this.detail.tempStartYmd).format('YYYY-MM-DD') + ` ${this.detail.startHour}:${this.detail.startMin}`).format('YYYY-MM-DD HH:mm')
+            this.detail.endDatetime = moment(moment(this.detail.tempEndYmd).format('YYYY-MM-DD') + ` ${this.detail.endHour}:${this.detail.endMin}`).format('YYYY-MM-DD HH:mm')
 
             reservationExceptService.update(this.detail).then(res => {
               this.$dialog.alert('정보를 입력하였습니다.')
-              this.search(this.detail.exclSeq)
+              this.search(this.detail.exceptSeq)
             })
           })
           .catch(() => {})
@@ -323,11 +335,11 @@ export default {
         this.$dialog
           .confirm('예약 제외 내용을 입력하시겠습니까?')
           .then(() => {
-            this.form.bgnDt = moment(moment(this.form.tempBgnYmd).format('YYYY-MM-DD') + ` ${this.form.bgnHour}:${this.form.bgnMin}`).format('YYYY-MM-DD HH:mm')
-            this.form.endDt = moment(moment(this.form.tempEndYmd).format('YYYY-MM-DD') + ` ${this.form.endHour}:${this.form.endMin}`).format('YYYY-MM-DD HH:mm')
+            this.form.startDatetime = moment(moment(this.form.tempStartYmd).format('YYYY-MM-DD') + ` ${this.form.startHour}:${this.form.startMin}`).format('YYYY-MM-DD HH:mm')
+            this.form.endDatetime = moment(moment(this.form.tempEndYmd).format('YYYY-MM-DD') + ` ${this.form.endHour}:${this.form.endMin}`).format('YYYY-MM-DD HH:mm')
             reservationExceptService.insert(this.form).then(res => {
               this.$dialog.alert('정보를 입력하였습니다.')
-              this.search(this.detail.exclSeq)
+              this.search(this.detail.exceptSeq)
               this.dialog = false
             })
           })

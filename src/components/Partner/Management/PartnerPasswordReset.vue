@@ -82,7 +82,7 @@ export default {
       })
     },
     async viewTelNo (item) {
-      const res = await partnerManagerService.selectPartnerManagerDetail({ partnerSeq: this.item.partnerSeq, ptnrChrgId: item.id })
+      const res = await partnerManagerService.selectPartnerManagerDetail({ partnerSeq: this.item.partnerSeq, partnerManagerId: item.id })
       item.value = res.data.telNo
     },
     changeType (type) {

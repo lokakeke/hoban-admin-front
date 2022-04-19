@@ -77,7 +77,7 @@
                 <v-list-item-subtitle v-text="notification.fromNow"></v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
-                <v-btn small color="red lighten-1" dark>{{ notification.count }}</v-btn>
+                <v-btn small color="red lighten-1" dark>{{ notification.count }} + asdlkjfj</v-btn>
               </v-list-item-action>
             </v-list-item>
           </v-list>
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import NotificationDetails from './NotificationDetails'
+import NotificationDetails from '@/components/Header/NotificationDetails.vue'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -130,7 +130,6 @@ export default {
   },
   async mounted () {
     await this.getNotificationType()
-    await this.$store.dispatch('message/getNotificationType')
     this.addNotificationObserver()
   },
   destroyed () {

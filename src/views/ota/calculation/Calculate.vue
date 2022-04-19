@@ -511,7 +511,7 @@ export default {
       try {
         await this.$dialog.confirm('정산을 완료하시겠습니까?')
 
-        const response = await calculationService.addPartnerCalcStatus(item.calcSeq, this.user.number, this.user.ptnrChrgId)
+        const response = await calculationService.addPartnerCalcStatus(item.calcSeq, this.user.number, this.user.partnerManagerId)
         const data = response.data
 
         if (data.resultCode !== '0000') {

@@ -376,11 +376,11 @@ const calculationService = {
    * @description 파트너사 정산 확인여부 추가
    * @param calcSeq -> history Seq
    * @param partnerSeq -> 파트너 번호
-   * @param ptnrChrgId -> 파트너 담당자 ID
+   * @param partnerManagerId -> 파트너 담당자 ID
    * @return
    */
-  addPartnerCalcStatus (calcSeq, partnerSeq, ptnrChrgId) {
-    return api.post(`/api/ota/calculation/${calcSeq}/partners/${partnerSeq}/status`, ptnrChrgId)
+  addPartnerCalcStatus (calcSeq, partnerSeq, partnerManagerId) {
+    return api.post(`/api/ota/calculation/${calcSeq}/partners/${partnerSeq}/status`, partnerManagerId)
   },
 
   /**
