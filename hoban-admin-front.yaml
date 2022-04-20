@@ -28,7 +28,7 @@ spec:
       - name: regcred
       containers:
       - name: hoban-nginx
-        image: 042069317525.dkr.ecr.ap-northeast-2.amazonaws.com/hoban-admin-front:dev-82
+        image: 042069317525.dkr.ecr.ap-northeast-2.amazonaws.com/hoban-admin-front:dev-83
         ports:
         - containerPort: 80
         imagePullPolicy: Always
