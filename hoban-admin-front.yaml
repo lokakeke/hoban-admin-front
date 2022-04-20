@@ -7,7 +7,7 @@ metadata:
     role: web-server
     env: dev
   annotations:
-    kubernetes.io/change-cause: Merge branch yaKim into develop
+    kubernetes.io/change-cause: Update Image Version
 spec:
   selector:
     matchLabels:
@@ -28,7 +28,7 @@ spec:
       - name: regcred
       containers:
       - name: hoban-nginx
-        image: 15.165.251.109:8082/hoban-admin-front:dev-89
+        image: 15.165.251.109:8082/hoban-admin-front:dev-90
         ports:
         - containerPort: 80
         imagePullPolicy: Always
