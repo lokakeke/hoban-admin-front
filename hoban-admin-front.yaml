@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hoban-nginx
+  namespace: hoban-dev
+  labels:
+    role: web-server
+    env: dev
+  annotations:
+    kubernetes.io/change-cause: "Hoban DevEnv"
+spec:
+  selector:
+    matchLabels:
+      role: web-server
+      env: dev
+  replicas: 1
+  template:
+    metadata:
+      name: hoban-nginx
+      namespace: hoban-dev
+      labels:
+        role: web-server
+        env: dev
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 10
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: hoban-nginx
+        image: 042069317525.dkr.ecr.ap-northeast-2.amazonaws.com/hoban-admin-front:dev-24
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: nginx-conf
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          #- name: default
+          #mountPath: /etc/nginx/conf.d/default.conf
+          #subPath: default.conf
+        - name: tz
+          mountPath: /etc/localtime
+        - name: hoban-front
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx-config
+          items:
+          - key: nginx-conf
+            path: nginx.conf
+            #- name: default
+            #configMap:
+            #name: nginx-config
+            #items:
+            #- key: default
+            #path: default.conf
+      - name: tz
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Seoul
+      - name: hoban-front
+        configMap:
+          name: nginx-config
+          items:
+          - key: hoban-front
+            path: default.conf
