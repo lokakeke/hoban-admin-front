@@ -7,7 +7,7 @@ metadata:
     role: web-server
     env: dev
   annotations:
-    kubernetes.io/change-cause: "Hoban DevEnv"
+    kubernetes.io/change-cause: Add new file
 spec:
   selector:
     matchLabels:
@@ -28,7 +28,7 @@ spec:
       - name: regcred
       containers:
       - name: hoban-nginx
-        image: 042069317525.dkr.ecr.ap-northeast-2.amazonaws.com/hoban-admin-front:dev-24
+        image: 042069317525.dkr.ecr.ap-northeast-2.amazonaws.com/hoban-admin-front:dev-38
         ports:
         - containerPort: 80
         imagePullPolicy: Always
