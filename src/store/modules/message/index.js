@@ -69,9 +69,9 @@ const actions = {
   /**
    * 전체 메시지 게시판으로 이동
    */
-  showAllMessage ({ commit }) {
+  showAllNotification ({ commit }) {
     commit('setOpenMenu', true)
-    router.push({ name: 'messageBoard' })
+    router.push('/system/messageBoard')
   },
   /**
    * depth 2 에서 1 로 이동

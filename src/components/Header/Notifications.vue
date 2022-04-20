@@ -77,7 +77,7 @@
                 <v-list-item-subtitle v-text="notification.fromNow"></v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
-                <v-btn small color="red lighten-1" dark>{{ notification.count }} + asdlkjfj</v-btn>
+                <v-btn small color="red lighten-1" dark>{{ notification.count }}</v-btn>
               </v-list-item-action>
             </v-list-item>
           </v-list>
@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      showAllNotification: 'message/showAllMessage',
+      showAllNotification: 'message/showAllNotification',
       showTypeNotification: 'message/showTypeNotification',
       showDetailNotifications: 'message/showDetailNotifications',
       showMessageNotifications: 'message/showMessageNotifications',

@@ -7,34 +7,28 @@ const Menu = () => import('@/views/system/menu/Menu.vue')
 const AdminMenuAuthGroup = () => import('@/views/system/authentication/admin/AdminMenuAuthGroup.vue')
 
 // 파트너 menu auth group
-const PartnerMenuAuthGroup = () =>
-  import('@/views/system/authentication/partner/PartnerMenuAuthGroup.vue')
+const PartnerMenuAuthGroup = () => import('@/views/system/authentication/partner/PartnerMenuAuthGroup.vue')
 
 // account
-const Account = () =>
-  import('@/views/system/authentication/admin/AdminAccount.vue')
+const Account = () => import('@/views/system/authentication/admin/AdminAccount.vue')
 
 // 공통 코드
 const CommonCode = () => import('@/views/system/commonCode/CommonCode.vue')
 
 // 알림 설정
-const Message = () =>
-  import('@/views/system/message/Message.vue')
+const Message = () => import('@/views/system/message/Message.vue')
 
 // 문자 알림 설정
-const SMSNotification = () =>
-  import('@/views/system/message/SMSNotification.vue')
+const SMSNotification = () => import('@/views/system/message/SMSNotification.vue')
 
 // 내부 IP 관리
 const Ip = () => import('@/views/system/ip/Ip.vue')
 
 // 전체 알림 게시판
-const MessageBoard = () =>
-  import('@/views/system/message/MessageBoard.vue')
+const MessageBoard = () => import('@/views/system/message/MessageBoard.vue')
 
 // 예약 제한
-const ReservationExcept = () =>
-  import('@/views/system/reservationExcept/ReservationExcept.vue')
+const ReservationExcept = () => import('@/views/system/reservationExcept/ReservationExcept.vue')
 
 export default {
   path: '/system',
