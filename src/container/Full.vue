@@ -17,7 +17,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Header from '@/components/Header/Header.vue'
-import PageTitleBar from '@/components/Header/PageTitleBar'
+import PageTitleBar from '@/components/Header/PageTitleBar.vue'
 
 export default {
   components: {

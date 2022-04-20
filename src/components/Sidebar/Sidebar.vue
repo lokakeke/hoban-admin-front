@@ -4,7 +4,7 @@
     <app-logo></app-logo>
       <div class="side-content">
         <user-block></user-block>
-        <menu-search></menu-search>
+<!--        <menu-search></menu-search>-->
         <vue-perfect-scrollbar
           class="scroll-area"
           :settings="settings"
@@ -12,12 +12,11 @@
         >
           <div class="transparent navigation">
             <v-list dense class="menu-sidebar">
-              <div v-for="(category, key) in this.menus" :key="key">
+              <div v-for="(category, key) in menus" :key="key">
                 <div
                   class="subtitle-2 font-weight-black px-4 py-2 mb-1"
                   :class="key !== 0? 'border-top': ''">
                   <v-icon v-if="category.iconFont" left color="#5c4037">{{ category.iconFont }}</v-icon>
-                  <v-icon v-if="category.iconFont" left color="#5c4037">dd</v-icon>
                   {{category.menuName}}
                 </div>
                 <template v-for="item in category.children">
