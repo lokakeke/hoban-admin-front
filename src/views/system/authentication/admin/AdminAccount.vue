@@ -39,7 +39,7 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'adminSeq', label: '관리자 사번', type: 'text' },
+        { key: 'adminBusinessNo', label: '관리자 사번', type: 'text' },
         { key: 'loginId', label: '로그인 ID', type: 'text' },
         { key: 'adminName', label: '성명', type: 'text' },
         { key: 'menuAuthGroupId', label: '메뉴 권한 그룹', type: 'select', list: this.groupList, listValue: 'menuAuthGroupId', listText: 'menuAuthGroupName' },
@@ -60,7 +60,7 @@ export default {
       groupList: [],
       deptList: [],
       headers: [
-        { text: '관리자 사번', value: 'adminSeq', align: 'center' },
+        { text: '관리자 사번', value: 'adminBusinessNo', align: 'center' },
         { text: '로그인 ID', value: 'loginId', align: 'center' },
         { text: '성명', value: 'adminName', align: 'center' },
         { text: '휴대폰 번호', value: 'telNo', align: 'center' },
@@ -68,7 +68,7 @@ export default {
         { text: '사용 여부', value: 'useYn', align: 'center' },
         { text: '잠김 여부', value: 'lockYn', align: 'center' },
         { text: '비밀번호 초기화', value: 'passwordReset', align: 'center' },
-        { text: '마지막 로그인 날짜', value: 'lastLoginDt', align: 'center' },
+        { text: '마지막 로그인 날짜', value: 'lastLoginDatetime', align: 'center' },
         { text: '메뉴권한', value: 'menuAuthGrupName', align: 'center' }
       ]
     }
@@ -102,7 +102,7 @@ export default {
         formData = res.data
       }
       await this.$store.dispatch('dialog/open', {
-        componentPath: '/System/Account/AccountForm',
+        componentPath: '/System/Authentication/Admin/AdminAccountForm',
         params: {
           title: `관리자 ${isNew ? '추가' : '상세/수정'}`,
           isNew,
