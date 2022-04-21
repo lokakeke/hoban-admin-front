@@ -95,7 +95,7 @@ export default {
         { key: 'companyName', label: '파트너명', type: 'text' },
         { key: 'loginId', label: '로그인 아이디', type: 'text' },
         { key: 'ceoName', label: '대표자 성명', type: 'text' },
-        { key: 'menuAuthGrupId', label: '메뉴 권한', type: 'select', list: this.menuAuthList, listValue: 'menuAuthGroupId', listText: 'menuAuthGroupName' },
+        { key: 'menuAuthGroupId', label: '메뉴 권한', type: 'select', list: this.menuAuthList, listValue: 'menuAuthGroupId', listText: 'menuAuthGroupName' },
         {
           key: 'lockYn',
           label: '잠김 여부',

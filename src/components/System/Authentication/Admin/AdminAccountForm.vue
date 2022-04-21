@@ -4,7 +4,7 @@
       <v-row>
         <v-col sm="6" md="4">
           <v-label>사용자 사번</v-label>
-          <v-text-field v-model="form.adminSeq" label="" :disabled="!isNew" :rules="emptyRules"></v-text-field>
+          <v-text-field v-model="form.adminBusinessNo" label="" :disabled="!isNew" :rules="emptyRules"></v-text-field>
         </v-col>
         <v-col sm="6" md="4">
           <v-label>로그인 ID</v-label>
@@ -55,13 +55,14 @@
         </v-col>
         <v-col sm="6" md="4">
           <v-label>메뉴 그룹 권한</v-label>
-          <v-autocomplete v-model="form.menuAuthGrupId"
+          <v-autocomplete v-model="form.menuAuthGroupId"
                           :items="groupList"
                           :item-value="'menuAuthGroupId'"
                           :item-text="'menuAuthGroupName'"
                           placeholder="메뉴그룹 권한을 선택해 주세요."
                           :rules="emptyRules"></v-autocomplete>
         </v-col>
+<!--        TODO 부서 연동
         <v-col sm="6" md="4">
           <v-label>부서</v-label>
           <v-autocomplete v-model="form.deptCode"
@@ -70,7 +71,7 @@
                           item-text="commCodeName"
                           placeholder="부서를 선택해 주세요."
                           clearable></v-autocomplete>
-        </v-col>
+        </v-col>-->
         <v-col sm="6" md="4">
           <v-label>사용 여부</v-label>
           <v-radio-group v-model="form.useYn" row :rules="emptyRules">
@@ -94,7 +95,7 @@ import adminAccountService from '@/api/modules/system/authentication/admin/admin
 
 export default {
   extends: DialogBase,
-  name: 'AccountForm',
+  name: 'AdminAccountForm',
   data () {
     return {
       groupList: [],

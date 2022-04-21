@@ -68,7 +68,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>메뉴 권한</v-label>
-            <v-autocomplete v-model="form.menuAuthGrupId"
+            <v-autocomplete v-model="form.menuAuthGroupId"
                             :items="menuAuthList"
                             item-value="menuAuthGroupId"
                             item-text="menuAuthGroupName"
@@ -222,7 +222,7 @@ export default {
         capTelNo: '',
         agentCode: '',
         agentCodeName: '',
-        menuAuthGrupId: '',
+        menuAuthGroupId: '',
         addCrtfNo: '',
         blacklistYn: 'N',
         terms: [],
