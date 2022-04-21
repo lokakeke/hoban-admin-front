@@ -28,7 +28,7 @@ spec:
       - name: regcred
       containers:
       - name: hoban-nginx
-        image: 15.165.251.109:8082/hoban-admin-front:dev-92
+        image: harbor.soomin.kr/hoban/hoban-admin-front:dev-92
         ports:
         - containerPort: 80
         imagePullPolicy: Always
