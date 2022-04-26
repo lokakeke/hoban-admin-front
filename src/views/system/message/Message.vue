@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <app-card :heading="'메시지 관리'" col-classes="col-sm-12 col-md-6">
+      <app-card :heading="'메시지 관리KK'" col-classes="col-sm-12 col-md-6" auto-height>
         <template>
           <v-row align="center" justify="center">
             <v-col class="pt-0"></v-col>
@@ -37,17 +37,19 @@
         </template>
         <v-row v-else align="center" justify="center">메시지 정보가 없습니다.</v-row>
         <v-divider class="my-4"></v-divider>
-        <v-row align="end" justify="center">
-          <v-btn outlined rounded small color="orange" @click="sort(messageList)" v-if="!filter">
-            <v-icon small class="mr-1">refresh</v-icon>원래대로
-          </v-btn>
-          <v-btn outlined rounded small color="info" @click="sortChange(messageList)" v-if="!filter">
-            <v-icon small class="mr-1">swap_vert</v-icon>순서 저장
-          </v-btn>
-          <v-btn outlined rounded small color="primary" @click="addNotify()">
-            <v-icon small>add</v-icon>메시지 메뉴 추가
-          </v-btn>
-        </v-row>
+          <template v-slot:action>
+              <v-row align="end" justify="center">
+                  <v-btn outlined rounded small color="orange" @click="sort(messageList)" v-if="!filter">
+                      <v-icon small class="mr-1">refresh</v-icon>원래대로
+                  </v-btn>
+                  <v-btn outlined rounded small color="info" @click="sortChange(messageList)" v-if="!filter">
+                      <v-icon small class="mr-1">swap_vert</v-icon>순서 저장
+                  </v-btn>
+                  <v-btn outlined rounded small color="primary" @click="addNotify()">
+                      <v-icon small>add</v-icon>메시지 메뉴 추가
+                  </v-btn>
+              </v-row>
+          </template>
       </app-card>
       <app-card :heading="'상세 정보'" col-classes="col-sm-12 col-md-6">
         <v-row v-if="!detail.messageId" align="center" justify="center">관리할 메시지를 선택해 주세요.</v-row>

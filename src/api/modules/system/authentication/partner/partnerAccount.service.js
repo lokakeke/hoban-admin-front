@@ -13,7 +13,7 @@ const partnerAccountService = {
    * 가맹점 전체 목록 조회
    */
   selectPartnerFullList () {
-    return api.get('/api/cms/system/partner/fullList')
+    return api.get('/api/cms/system/partnerAccount/fullList')
   },
 
   /**

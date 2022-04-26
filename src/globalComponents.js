@@ -1,7 +1,9 @@
 /**
  * Vuely Global Components
  */
-import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+// import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import VuePerfectScrollbar from 'vue2-perfect-scrollbar'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import AppSectionLoader from '@/components/App/AppSectionLoader.vue'
 
 // app card

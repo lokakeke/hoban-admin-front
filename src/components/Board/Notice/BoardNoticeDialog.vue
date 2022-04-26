@@ -14,19 +14,19 @@
                 </v-col>
                 <v-col md="6" cols="12">
                     <v-label>작성자</v-label>
-                    <v-text-field :value="form.crtName" readonly disabled></v-text-field>
+                    <v-text-field :value="form.createName" readonly disabled></v-text-field>
                 </v-col>
                 <v-col md="6" cols="12">
                     <v-label>작성일</v-label>
-                    <v-text-field :value="form.crtDt | dateSet" readonly disabled></v-text-field>
+                    <v-text-field :value="form.createDatetime | dateSet" readonly disabled></v-text-field>
                 </v-col>
-                <v-col md="6" cols="12" v-if="form.updName">
+                <v-col md="6" cols="12" v-if="form.modifyName">
                     <v-label>수정자</v-label>
-                    <v-text-field :value="form.updName" readonly disabled></v-text-field>
+                    <v-text-field :value="form.modifyName" readonly disabled></v-text-field>
                 </v-col>
-                <v-col md="6" cols="12" v-if="form.updDt">
+                <v-col md="6" cols="12" v-if="form.modifyDatetime">
                     <v-label>수정일</v-label>
-                    <v-text-field :value="form.updDt | dateSet" readonly disabled></v-text-field>
+                    <v-text-field :value="form.modifyDatetime | dateSet" readonly disabled></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -58,16 +58,17 @@
             </v-row>
             <v-row class="mb-6">
                 <v-col cols="12">
-                    <attach
-                        v-model="form.attachBag"
-                        ref-fld-cd="boardNotice"
-                        atfl-fld-val="file"
-                        extensions="gif,jpg,jpeg,png,pdf,xls,xlsx,zip"
-                        accept="image/png, image/gif, image/jpeg, application/pdf, application/vnd.ms-excel, application/msexcel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/zip"
-                        :limit="3"
-                        label="첨부파일"
-                        required
-                    ></attach>
+<!--                    FIXME 파일첨부 기능 구현후 주석 제거-->
+<!--                    <attach-->
+<!--                        v-model="form.attachBag"-->
+<!--                        ref-fld-cd="boardNotice"-->
+<!--                        atfl-fld-val="file"-->
+<!--                        extensions="gif,jpg,jpeg,png,pdf,xls,xlsx,zip"-->
+<!--                        accept="image/png, image/gif, image/jpeg, application/pdf, application/vnd.ms-excel, application/msexcel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/zip"-->
+<!--                        :limit="3"-->
+<!--                        label="첨부파일"-->
+<!--                        required-->
+<!--                    ></attach>-->
                     <span class="grey--text">※ gif, jpg, jpeg, png, pdf, xls, xlsx, zip 확장자를 가진 파일만 첨부 가능합니다.</span>
                 </v-col>
             </v-row>
@@ -83,7 +84,7 @@
                         </v-tooltip>
                     </v-label>
                     <v-checkbox
-                        v-model="form.emrgncYn"
+                        v-model="form.emergencyYn"
                         label="긴급"
                         hide-details
                         true-value="Y"
@@ -141,7 +142,7 @@
                             <div>게시기간을 설정하게되면 해당 기간에만 노출이 됩니다.</div>
                         </v-tooltip>
                     </v-label>
-                    <date-range-picker v-model="pstngRangeYmd"></date-range-picker>
+                    <date-range-picker v-model="postingRangeDate"></date-range-picker>
                 </v-col>
             </v-row>
             <v-row>
@@ -184,8 +185,8 @@
                         </v-tooltip>
                     </v-label>
                     <select-all-list
-                        v-model="form.ptnrList"
-                        :items="ptnrList"
+                        v-model="form.partnerList"
+                        :items="partnerList"
                         item-value="partnerSeq"
                         item-text="companyName"
                         label="파트너를 선택해 주세요."
@@ -228,17 +229,18 @@ const DEFAULT_FORM = {
   title: '',
   contents: '',
   noticeTypeName: '',
-  emrgncYn: 'N',
+  emergencyYn: 'N',
   fixYn: 'N',
   useYn: 'Y',
   popupYn: 'N',
   allStoreYn: 'N',
   storeList: [],
-  allPtnrYn: 'N',
-  ptnrList: [],
-  attachBag: {
-    file: []
-  }
+  allPartnerYn: 'N',
+  partnerList: []
+  // FIXME 파일 업로드 구현 필요
+  //   ,attachBag: {
+  //   file: []
+  // }
 }
 
 export default {
@@ -252,13 +254,13 @@ export default {
       // 폼
       form: null,
       // 원본 폼
-      orgForm: {},
+      originForm: {},
       // 공지사항 유형 목록
       noticeTypeList: [],
       // 영업장 목록
       storeList: [],
       // 파트너 목록
-      ptnrList: []
+      partnerList: []
     }
   },
   computed: {
@@ -282,13 +284,13 @@ export default {
     /**
          * 게시기간 배열
          */
-    pstngRangeYmd: {
+    postingRangeDate: {
       get () {
-        return [this.form.pstngBgnYmd, this.form.pstngEndYmd]
+        return [this.form.postingStartDate, this.form.postingEndDate]
       },
-      set (pstngRangeYmd) {
-        this.form.pstngBgnYmd = pstngRangeYmd[0]
-        this.form.pstngEndYmd = pstngRangeYmd[1]
+      set (postingRangeDate) {
+        this.form.postingStartDate = postingRangeDate[0]
+        this.form.postingEndDate = postingRangeDate[1]
       }
     }
   },
@@ -310,12 +312,12 @@ export default {
           if (boardNotice.allStoreYn === 'Y') {
             boardNotice.storeList = _.cloneDeep(this.storeList)
           }
-          if (boardNotice.allPtnrYn === 'Y') {
-            boardNotice.ptnrList = _.cloneDeep(this.ptnrList)
+          if (boardNotice.allPartnerYn === 'Y') {
+            boardNotice.partnerList = _.cloneDeep(this.partnerList)
           }
           this.form = _.cloneDeep(boardNotice)
         }
-        this.orgForm = _.cloneDeep(this.form)
+        this.originForm = _.cloneDeep(this.form)
       } catch (e) {
         console.error(e)
         this.$dialog.alert('오류가 발생하였습니다.')
@@ -356,7 +358,7 @@ export default {
          */
     async selectPartnerList () {
       const res = await partnerAccountService.selectPartnerFullList()
-      this.ptnrList = res.data
+      this.partnerList = res.data
       return Promise.resolve()
     },
     /**
@@ -375,13 +377,13 @@ export default {
           form.storeList = []
         }
         // 파트너 편집
-        form.allPtnrYn = 'N'
-        if (form.ptnrList.length === 0) {
+        form.allPartnerYn = 'N'
+        if (form.partnerList.length === 0) {
           // 영업장 없음
-        } else if (this.ptnrList.length === form.ptnrList.length) {
+        } else if (this.partnerList.length === form.partnerList.length) {
           // 전체 영업장
-          form.allPtnrYn = 'Y'
-          form.ptnrList = []
+          form.allPartnerYn = 'Y'
+          form.partnerList = []
         }
         boardNoticeService[
                     `${this.isNew === true ? 'insert' : 'update'}BoardNotice`
@@ -395,7 +397,7 @@ export default {
          * 입력폼 초기화
          */
     resetForm () {
-      this.form = _.cloneDeep(this.orgForm)
+      this.form = _.cloneDeep(this.originForm)
     }
   }
 }

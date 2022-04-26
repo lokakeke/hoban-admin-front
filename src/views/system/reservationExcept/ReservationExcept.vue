@@ -10,12 +10,11 @@
             </v-col>
           </v-row>
         </template>
-        <template v-if="filteredList && filteredList.length > 0">
+        <template v-if="this.exceptList && this.exceptList.length > 0">
           <v-list dense>
-            <draggable v-model="filteredList">
               <transition-group type="transition" name="flip-list">
                 <v-list-item
-                  v-for="except of filteredList"
+                  v-for="except of this.exceptList"
                   :key="except.exceptSeq"
                   @click="viewChildren(except)"
                   class="menu-list"
@@ -32,19 +31,20 @@
                   </v-list-item-action>
                 </v-list-item>
               </transition-group>
-            </draggable>
           </v-list>
         </template>
         <v-row v-else align="center" justify="center">예약 제한 정보가 없습니다.</v-row>
         <v-divider class="my-4"></v-divider>
-        <v-row align="end" justify="center">
-          <v-btn outlined rounded small color="orange" @click="sort(exceptList)" v-if="!filterText">
-            <v-icon small class="mr-1">refresh</v-icon>원래대로
-          </v-btn>
-          <v-btn outlined rounded small color="primary" @click="addExcept()">
-            <v-icon small>add</v-icon>예약 제한 메뉴 추가
-          </v-btn>
-        </v-row>
+        <template v-slot:action>
+            <v-row align="end" justify="center">
+                <v-btn outlined rounded small color="orange" @click="sort(exceptList)" v-if="!filterText">
+                    <v-icon small class="mr-1">refresh</v-icon>원래대로
+                </v-btn>
+                <v-btn outlined rounded small color="primary" @click="addExcept()">
+                    <v-icon small>add</v-icon>예약 제한 메뉴 추가
+                </v-btn>
+            </v-row>
+        </template>
       </app-card>
 
       <app-card :heading="'상세 정보'" col-classes="col-sm-12 col-md-6">

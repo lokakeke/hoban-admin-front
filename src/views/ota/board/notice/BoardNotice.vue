@@ -1,6 +1,6 @@
 <template>
   <v-row wrap>
-    <app-card heading="공지사항 목록" col-classes="col-12">
+    <app-card heading="공지사항 목록KKK" col-classes="col-12">
       <search-form
         init-search
         :search-param.sync="searchParam"
@@ -19,22 +19,22 @@
         class="click-row bordered"
       >
         <template v-slot:[`item.noticeSeq`]="{item}">
-          <span v-if="item.emrgncYn === 'Y' || item.isFixed">
+          <span v-if="item.emergencyYn === 'Y' || item.isFixed">
             <v-chip color="primary" v-if="item.isFixed">고정</v-chip>
-            <v-chip class="white--text" color="red" v-if="item.emrgncYn === 'Y'">긴급</v-chip>
+            <v-chip class="white--text" color="red" v-if="item.emergencyYn === 'Y'">긴급</v-chip>
           </span>
           <span v-else>{{ item.noticeSeq }}</span>
         </template>
         <template v-slot:[`item.title`]="{item}">
-          <span v-if="$options.filters.isDayDifferentCount(item.crtDt, 4)"><strong class="blue--text">{{ item.title }} </strong></span>
+          <span v-if="$options.filters.isDayDifferentCount(item.createDatetime, 4)"><strong class="blue--text">{{ item.title }} </strong></span>
           <span v-else>{{ item.title }} </span>
-          <v-chip color="red" v-if="$options.filters.isDayDifferentCount(item.crtDt, 4)" outlined small>New</v-chip>
+          <v-chip color="red" v-if="$options.filters.isDayDifferentCount(item.createDatetime, 4)" outlined small>New</v-chip>
         </template>
-        <template v-slot:[`item.crtName`]="{item}">
-          <mask-name :text="item.crtName" />
+        <template v-slot:[`item.createName`]="{item}">
+          <mask-name :text="item.createName" />
         </template>
-        <template v-slot:[`item.crtDt`]="{item}">
-          {{ item.crtDt | dateSet }}
+        <template v-slot:[`item.createDatetime`]="{item}">
+          {{ item.createDatetime | dateSet }}
         </template>
       </v-data-table>
       <div class="mt-3 text-right" v-if="writeAuth">
@@ -93,19 +93,19 @@ export default {
         },
         {
           text: '조회수',
-          value: 'inqCnt',
+          value: 'viewCount',
           align: 'center',
           sortable: false
         },
         {
           text: '등록자',
-          value: 'crtName',
+          value: 'createName',
           align: 'center',
           sortable: false
         },
         {
           text: '등록일자',
-          value: 'crtDt',
+          value: 'createDatetime',
           align: 'center',
           sortable: false
         }
@@ -120,7 +120,7 @@ export default {
         { key: 'title', label: '제목', type: 'text' },
         { key: 'contents', label: '컨텐츠', type: 'text' },
         {
-          key: 'emrgncYn',
+          key: 'emergencyYn',
           label: '긴급여부',
           type: 'select',
           list: [
@@ -151,7 +151,7 @@ export default {
           listText: 'storeName'
         },
         {
-          key: 'crtDt',
+          key: 'createDatetime',
           label: '등록일자',
           type: 'dateRange',
           format: 'YYYYMMDD'
@@ -166,13 +166,13 @@ export default {
               type: 'partner'
             },
             {
-              key: 'pstngBgnYmd',
+              key: 'postingStartDate',
               label: '게시시작일',
               type: 'dateRange',
               format: 'YYYYMMDD'
             },
             {
-              key: 'pstngEndYmd',
+              key: 'postingEndDate',
               label: '게시종료일',
               type: 'dateRange',
               format: 'YYYYMMDD'

@@ -32,11 +32,13 @@
         </template>
         <v-row v-else align="center" justify="center">IP 정보가 없습니다.</v-row>
         <v-divider class="my-4"></v-divider>
-        <v-row align="end" justify="center">
-          <v-btn outlined rounded small color="info" @click="addIp()">
-            <v-icon small>add</v-icon>IP 추가
-          </v-btn>
-        </v-row>
+          <template v-slot:action>
+              <v-row align="end" justify="center">
+                  <v-btn outlined rounded small color="info" @click="addIp()">
+                      <v-icon small>add</v-icon>IP 추가
+                  </v-btn>
+              </v-row>
+          </template>
       </app-card>
       <app-card :heading="'상세 정보'" col-classes="col-sm-12 col-md-6">
         <v-row v-if="!ipInfo.useIp" align="center" justify="center">관리 할 IP를 선택해 주세요.</v-row>
