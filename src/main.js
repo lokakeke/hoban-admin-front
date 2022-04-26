@@ -61,6 +61,9 @@ import VueUploadComponent from 'vue-upload-component'
 // drag scroll
 import VueDragscroll from 'vue-dragscroll'
 
+import VuePerfectScrollbar from 'vue2-perfect-scrollbar'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+
 // VueHtmlToPaper
 import VueHtmlToPaper from 'vue-html-to-paper'
 
@@ -179,6 +182,7 @@ Vue.use(VueTheMask)
 Vue.use(VueDragscroll)
 Vue.use(VueTour)
 Vue.use(VueClipboard)
+Vue.use(VuePerfectScrollbar)
 
 // Create VueI18n instance with options
 Vue.use(VueI18n)

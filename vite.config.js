@@ -47,13 +47,13 @@ const config = defineConfig({
   ],
 
   server: {
-    port: 9090,
+    port: 8888,
     host: '0.0.0.0',
     hot: true,
     disableHostCheck: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:9010',
+        target: 'http://localhost:9090',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'

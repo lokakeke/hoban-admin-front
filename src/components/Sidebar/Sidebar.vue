@@ -5,10 +5,10 @@
       <div class="side-content">
         <user-block></user-block>
 <!--        <menu-search></menu-search>-->
-        <vue-perfect-scrollbar
-          class="scroll-area"
-          :settings="settings"
-          style="height: calc(100% - 64px - 56px - 56px);"
+        <perfect-scrollbar
+            class="scroll-area"
+            :settings="settings"
+            style="height: calc(100% - 64px - 56px - 56px);"
         >
           <div class="transparent navigation">
             <v-list dense class="menu-sidebar">
@@ -74,7 +74,7 @@
               </div>
             </v-list>
           </div>
-        </vue-perfect-scrollbar>
+        </perfect-scrollbar>
       </div>
   </div>
 </template>
@@ -82,7 +82,7 @@
 <script>
 import UserBlock from '@/components/Sidebar/UserBlock.vue'
 import AppLogo from '@/components/App/AppLogo.vue'
-import MenuSearch from '@/components/Sidebar/MenuSearch.vue'
+// import MenuSearch from '@/components/Sidebar/MenuSearch.vue'
 import { textTruncate } from '@/helpers/helpers'
 import { mapGetters } from 'vuex'
 
@@ -96,8 +96,8 @@ export default {
   },
   components: {
     UserBlock,
-    AppLogo,
-    MenuSearch
+    AppLogo
+    // MenuSearch
   },
   computed: {
     ...mapGetters({ sidebarSelectedFilter: 'settings/sidebarSelectedFilter', sideMenus: 'sidebar/sideMenus', currentSidebar: 'sidebar/currentSidebar' }),

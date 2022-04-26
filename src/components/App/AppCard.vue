@@ -16,11 +16,11 @@
           <slot name="items"></slot>
         </div>
       </div>
-      <vue-perfect-scrollbar :style="style">
+        <perfect-scrollbar :style="style">
         <div class="app-card-content" :class="[contentClasses]">
           <slot></slot>
         </div>
-      </vue-perfect-scrollbar>
+      </perfect-scrollbar>
       <div :id="uuid + '_app-card-actions'" v-show="!!$slots['action']">
         <div class="app-card-action py-3">
           <slot name="action"></slot>
@@ -34,7 +34,6 @@
 import { mapGetters } from 'vuex'
 import { ResizeObserver as Polyfill } from '@juggle/resize-observer'
 import StringUtil from '@/utils/string.util'
-
 export default {
   props: {
     heading: String,
@@ -141,3 +140,6 @@ export default {
   }
 }
 </script>
+
+<style>
+</style>

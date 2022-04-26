@@ -65,9 +65,9 @@ service.interceptors.request.use(
       }
       if (user.number) {
         if (store.getters['auth/partnerYn'] === 'Y') {
-          config.headers['ptnr-no'] = user.number
+          config.headers['partner-seq'] = user.number
         } else {
-          config.headers['empl-no'] = user.number
+          config.headers['admin-seq'] = user.number
         }
       }
     }

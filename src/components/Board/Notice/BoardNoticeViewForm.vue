@@ -19,19 +19,19 @@
       </v-col>
       <v-col md="6" cols="12">
         <v-label>작성자</v-label>
-        <v-text-field :value="form.crtName" readonly disabled></v-text-field>
+        <v-text-field :value="form.createName" readonly disabled></v-text-field>
       </v-col>
       <v-col md="6" cols="12">
         <v-label>작성일</v-label>
-        <v-text-field :value="form.crtDt | dateSet" readonly disabled></v-text-field>
+        <v-text-field :value="form.createDatetime | dateSet" readonly disabled></v-text-field>
       </v-col>
-      <v-col md="6" cols="12" v-if="form.updName">
+      <v-col md="6" cols="12" v-if="form.modifyName">
         <v-label>수정자</v-label>
-        <v-text-field :value="form.updName" readonly disabled></v-text-field>
+        <v-text-field :value="form.modifyName" readonly disabled></v-text-field>
       </v-col>
-      <v-col md="6" cols="12" v-if="form.updDt">
+      <v-col md="6" cols="12" v-if="form.modifyDatetime">
         <v-label>수정일</v-label>
-        <v-text-field :value="form.updDt | dateSet" readonly disabled></v-text-field>
+        <v-text-field :value="form.modifyDatetime | dateSet" readonly disabled></v-text-field>
       </v-col>
     </v-row>
     <v-card>
@@ -39,11 +39,11 @@
         <v-chip color="info">{{ form.noticeTypeName }}</v-chip>
         <br />
         <h1 class="mt-2">
-          <span class="red--text" v-if="form.emrgncYn === 'Y'">[긴급]</span>
+          <span class="red--text" v-if="form.emergencyYn === 'Y'">[긴급]</span>
           {{ form.title }}
         </h1>
-        <div class="mt-2" v-if="form.pstngBgnYmd || form.pstngEndYmd">
-          <span>게시기간: {{ form.pstngBgnYmd | date}} ~ {{ form.pstngEndYmd | date }}</span>
+        <div class="mt-2" v-if="form.postingStartDate || form.postingEndDate">
+          <span>게시기간: {{ form.postingStartDate | date}} ~ {{ form.postingEndDate | date }}</span>
         </div>
       </v-card-subtitle>
       <v-editor :content="form.contents" readonly></v-editor>
@@ -61,17 +61,17 @@
       ></attach>
     </div>
     <v-row>
-      <v-col cols="12" v-if="form.cnfirmList && form.cnfirmList.length > 0">
+      <v-col cols="12" v-if="form.confirmList && form.confirmList.length > 0">
         <v-label>공지를 확인한 파트너 담당자</v-label>
         <div class="mt-2">
           <v-chip
             class="ma-1"
-            v-for="confirm in form.cnfirmList"
+            v-for="confirm in form.confirmList"
             :key="confirm.partnerSeq + confirm.partnerManagerId"
           >
-            {{ confirm.ptnrChrgName || '?' }}
+            {{ confirm.partnerManagerName || '?' }}
             <small class="grey--text ml-1">({{ confirm.companyName }})</small>
-            <small class="grey--text ml-1">{{ confirm.crtDt | dateSet }}</small>
+            <small class="grey--text ml-1">{{ confirm.createDatetime | dateSet }}</small>
           </v-chip>
         </div>
         <hr class="mt-1 mb-3" />
@@ -93,7 +93,7 @@
         </div>
         <hr class="mt-1 mb-3" />
       </v-col>
-      <v-col cols="12" v-if="form.ptnrList && form.ptnrList.length > 0">
+      <v-col cols="12" v-if="form.partnerList && form.partnerList.length > 0">
         <v-label>
           대상 파트너
           <v-btn
@@ -108,10 +108,10 @@
             <v-icon x-small class="mr-1">mdi-android-messages</v-icon>TALK
           </v-btn>
         </v-label>
-        <div class="mt-2" v-if="form.allPtnrYn !== 'Y'">
+        <div class="mt-2" v-if="form.allPartnerYn !== 'Y'">
           <v-chip
             class="ma-1"
-            v-for="partner in form.ptnrList"
+            v-for="partner in form.partnerList"
             :key="partner.partnerSeq"
           >{{ partner.companyName }}</v-chip>
         </div>
@@ -181,13 +181,13 @@ export default {
      * 마스킹된 작성자명
      */
     maskedCrtName () {
-      if (!this.form || !this.form.crtName) {
+      if (!this.form || !this.form.createName) {
         return ''
       }
       // 가나다 형태의 이름의 가운데를 변환한다.
-      const crtName = this.form.crtName
-      const length = crtName.length
-      const textArr = crtName.split('')
+      const createName = this.form.createName
+      const length = createName.length
+      const textArr = createName.split('')
       let hiddenName = textArr[0]
       for (let i = 0; i < length - 2; i++) {
         hiddenName += '*'
@@ -229,8 +229,8 @@ export default {
       if (boardNotice.allStoreYn === 'Y') {
         boardNotice.storeList = await this.selectStoreList()
       }
-      if (boardNotice.allPtnrYn === 'Y') {
-        boardNotice.ptnrList = await this.selectPartnerList()
+      if (boardNotice.allPartnerYn === 'Y') {
+        boardNotice.partnerList = await this.selectPartnerList()
       }
       return boardNotice
     },

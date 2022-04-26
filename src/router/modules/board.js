@@ -1,9 +1,9 @@
 import Full from '@/container/Full.vue'
 
 // 공지사항
-const BoardNotice = () => import('@/views/system/board/notice/BoardNotice.vue')
+const BoardNotice = () => import('@/views/ota/board/notice/BoardNotice.vue')
 const BoardNoticeView = () =>
-  import('@/views/system/board/notice/BoardNoticeView.vue')
+  import('@/views/ota/board/notice/BoardNoticeView.vue')
 
 // 요금 조회
 const BoardAmount = () => import('@/views/system/board/amount/BoardAmount.vue')
