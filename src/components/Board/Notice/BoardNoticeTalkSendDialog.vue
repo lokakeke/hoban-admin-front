@@ -29,12 +29,12 @@
                 :rules="maxLengthRules(700).concat(emptyRules)"
               ></v-textarea>
             </v-col>
-            <v-col cols="12" v-if="notice.ptnrList && notice.ptnrList.length > 0">
+            <v-col cols="12" v-if="notice.partnerList && notice.partnerList.length > 0">
               <v-label>발송대상 파트너</v-label>
               <div class="mt-2" v-if="notice.allPtnrYn !== 'Y'">
                 <v-chip
                   class="ma-1"
-                  v-for="partner in notice.ptnrList"
+                  v-for="partner in notice.partnerList"
                   :key="partner.partnerSeq"
                 >{{ partner.companyName }}</v-chip>
               </div>
