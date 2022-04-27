@@ -66,6 +66,7 @@ service.interceptors.request.use(
       if (user.number) {
         if (store.getters['auth/partnerYn'] === 'Y') {
           config.headers['partner-seq'] = user.number
+          config.headers['manager-id'] = user.partnerManagerId
         } else {
           config.headers['admin-seq'] = user.number
         }

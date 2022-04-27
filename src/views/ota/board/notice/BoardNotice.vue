@@ -1,6 +1,6 @@
 <template>
   <v-row wrap>
-    <app-card heading="공지사항 목록KKK" col-classes="col-12">
+    <app-card heading="공지사항 목록" col-classes="col-12">
       <search-form
         init-search
         :search-param.sync="searchParam"
@@ -155,7 +155,8 @@ export default {
           label: '등록일자',
           type: 'dateRange',
           format: 'YYYYMMDD'
-        }
+        },
+        { key: 'createName', label: '작성자', type: 'text' }
       ]
       if (this.isPartner === false) {
         searchList.push(
