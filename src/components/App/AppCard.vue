@@ -16,7 +16,7 @@
           <slot name="items"></slot>
         </div>
       </div>
-        <perfect-scrollbar :style="style">
+      <perfect-scrollbar :style="style">
         <div class="app-card-content" :class="[contentClasses]">
           <slot></slot>
         </div>
@@ -34,6 +34,7 @@
 import { mapGetters } from 'vuex'
 import { ResizeObserver as Polyfill } from '@juggle/resize-observer'
 import StringUtil from '@/utils/string.util'
+
 export default {
   props: {
     heading: String,
@@ -45,19 +46,19 @@ export default {
     maxHeight: Number,
     minHeight: {
       type: Number,
-      default () {
+      default() {
         return 250
       }
     },
     autoHeight: {
       type: Boolean,
-      default () {
+      default() {
         return false
       }
     }
   },
   name: 'AppCard',
-  data () {
+  data() {
     return {
       itemsHeight: 0,
       actionsHeight: 0,
@@ -66,17 +67,17 @@ export default {
       uuid: ''
     }
   },
-  created () {
+  created() {
     this.uuid = StringUtil.guid()
   },
-  mounted () {
+  mounted() {
     this.observeSize()
   },
   computed: {
     ...mapGetters({
       window: 'settings/window'
     }),
-    style () {
+    style() {
       /**
        * 1. max height 가 선언 되었을 경우 -> 지정된 height 로 스크롤
        * 2. auto height 가 true 일 경우 -> window height 를 기반으로 스크롤
@@ -108,7 +109,7 @@ export default {
     }
   },
   methods: {
-    observeSize () {
+    observeSize() {
       const ResizeObserver = Polyfill
       // 아이템 영역 체크
       const observerItems = new ResizeObserver(entries => {
@@ -130,7 +131,7 @@ export default {
       this.observerActions = observerActions
     }
   },
-  beforeDestroy () {
+  beforeDestroy() {
     if (this.observerActions) {
       this.observerActions.disconnect()
     }

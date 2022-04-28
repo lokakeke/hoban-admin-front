@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <app-card :heading="'메시지 관리KK'" col-classes="col-sm-12 col-md-6" auto-height>
+      <app-card :heading="'메시지 관리'" col-classes="col-sm-12 col-md-6" auto-height>
         <template>
           <v-row align="center" justify="center">
             <v-col class="pt-0"></v-col>
@@ -37,19 +37,22 @@
         </template>
         <v-row v-else align="center" justify="center">메시지 정보가 없습니다.</v-row>
         <v-divider class="my-4"></v-divider>
-          <template v-slot:action>
-              <v-row align="end" justify="center">
-                  <v-btn outlined rounded small color="orange" @click="sort(messageList)" v-if="!filter">
-                      <v-icon small class="mr-1">refresh</v-icon>원래대로
-                  </v-btn>
-                  <v-btn outlined rounded small color="info" @click="sortChange(messageList)" v-if="!filter">
-                      <v-icon small class="mr-1">swap_vert</v-icon>순서 저장
-                  </v-btn>
-                  <v-btn outlined rounded small color="primary" @click="addNotify()">
-                      <v-icon small>add</v-icon>메시지 메뉴 추가
-                  </v-btn>
-              </v-row>
-          </template>
+        <template v-slot:action>
+          <v-row align="end" justify="center">
+            <v-btn outlined rounded small color="orange" @click="sort(messageList)" v-if="!filter">
+              <v-icon small class="mr-1">refresh</v-icon>
+              원래대로
+            </v-btn>
+            <v-btn outlined rounded small color="info" @click="sortChange(messageList)" v-if="!filter">
+              <v-icon small class="mr-1">swap_vert</v-icon>
+              순서 저장
+            </v-btn>
+            <v-btn outlined rounded small color="primary" @click="addNotify()">
+              <v-icon small>add</v-icon>
+              메시지 메뉴 추가
+            </v-btn>
+          </v-row>
+        </template>
       </app-card>
       <app-card :heading="'상세 정보'" col-classes="col-sm-12 col-md-6">
         <v-row v-if="!detail.messageId" align="center" justify="center">관리할 메시지를 선택해 주세요.</v-row>
@@ -70,7 +73,7 @@
             <v-text-field v-model="detail.messageName" :rules="emptyRules" label required class="pb-0"/>
             <v-label>
               메시지 내용
-              <common-tooltip :type="'info'" :position="'right'" :text="'{숫자}의 내용은 메시지 전송 시, 메시지 수신 테이블에 저장된 파라미터 1~5번까지의 내용으로 변경됩니다.'" />
+              <common-tooltip :type="'info'" :position="'right'" :text="'{숫자}의 내용은 메시지 전송 시, 메시지 수신 테이블에 저장된 파라미터 1~5번까지의 내용으로 변경됩니다.'"/>
             </v-label>
             <v-text-field v-model="detail.message" :rules="emptyRules" label required class="pt-0"/>
             <v-label>설명</v-label>
@@ -96,10 +99,12 @@
         <v-divider v-if="detail.messageId" class="my-4"></v-divider>
         <v-row align="end" justify="center" v-if="detail.messageId">
           <v-btn outlined rounded small color="orange" @click="reload()">
-            <v-icon small>refresh</v-icon>원래대로
+            <v-icon small>refresh</v-icon>
+            원래대로
           </v-btn>
           <v-btn outlined rounded small color="info" @click="modify()">
-            <v-icon small>edit</v-icon>수정
+            <v-icon small>edit</v-icon>
+            수정
           </v-btn>
         </v-row>
       </app-card>
@@ -127,7 +132,7 @@
           <v-text-field v-model="form.messageName" :rules="emptyRules" label required class="pt-0"></v-text-field>
           <v-label>
             메시지 내용
-            <common-tooltip :type="'info'" :position="'right'" :text="'{숫자}의 내용은 메시지 전송 시, 메시지 수신 테이블에 저장된 파라미터 1~5번까지의 내용으로 변경됩니다.'" />
+            <common-tooltip :type="'info'" :position="'right'" :text="'{숫자}의 내용은 메시지 전송 시, 메시지 수신 테이블에 저장된 파라미터 1~5번까지의 내용으로 변경됩니다.'"/>
           </v-label>
           <v-text-field v-model="form.message" :rules="emptyRules" label required class="pt-0"/>
           <v-label>설명</v-label>
@@ -151,13 +156,16 @@
 
           <v-row justify="center">
             <v-btn outlined rounded small color="orange" @click="reset()">
-              <v-icon small>refresh</v-icon>원래대로
+              <v-icon small>refresh</v-icon>
+              원래대로
             </v-btn>
             <v-btn outlined rounded small color="info" @click="insert()">
-              <v-icon small>check</v-icon>입력
+              <v-icon small>check</v-icon>
+              입력
             </v-btn>
             <v-btn outlined rounded small color="primary" @click="dialog = false">
-              <v-icon small>close</v-icon>닫기
+              <v-icon small>close</v-icon>
+              닫기
             </v-btn>
           </v-row>
         </v-form>
@@ -176,7 +184,7 @@ export default {
   components: {
     CommonTooltip
   },
-  data () {
+  data() {
     return {
       messageList: [],
       serverCodeList: [],
@@ -188,31 +196,31 @@ export default {
     }
   },
   computed: {
-    filteredList () {
+    filteredList() {
       const filter = this.messageList.filter(data => data.messageName.indexOf(this.filter) !== -1 || data.messageId.indexOf(this.filter) !== -1)
       return filter
     }
   },
-  mounted () {
+  mounted() {
     // key press event match
     this.$store.dispatch('keypress/addKeyEventList', {
-      eventList: [{ target: 'escape', action: this.close }]
+      eventList: [ { target: 'escape', action: this.close } ]
     })
     this.search()
     this.getServerCode()
   },
   methods: {
-    getServerCode () {
+    getServerCode() {
       commonCodeService.selectCommonCode('MESSAGE_TYPE').then(res => {
         this.serverCodeList = res.data
       })
     },
-    getNewNotifyId () {
+    getNewNotifyId() {
       messageService.newNotifyId().then(res => {
         this.$set(this.form, 'messageId', res.data)
       })
     },
-    search (messageId) {
+    search(messageId) {
       messageService.selectList({}).then(res => {
         this.messageList = res.data
         if (messageId) {
@@ -224,22 +232,22 @@ export default {
         }
       })
     },
-    viewChildren (notify) {
+    viewChildren(notify) {
       for (const row of this.messageList) {
         row.active = row.messageId === notify.messageId
       }
       this.detail = _.cloneDeep(notify)
       this.detailClone = _.cloneDeep(notify)
     },
-    reload () {
+    reload() {
       this.detail = _.cloneDeep(this.detailClone)
     },
-    addNotify () {
+    addNotify() {
       this.form = { useYn: 'Y' }
       this.getNewNotifyId()
       this.dialog = !this.dialog
     },
-    sortChange (list) {
+    sortChange(list) {
       const changeList = []
       for (let index = 0; index < list.length; index++) {
         const seq = index + 1
@@ -258,10 +266,11 @@ export default {
               this.search(this.detail.messageId)
             })
           })
-          .catch(() => {})
+          .catch(() => {
+          })
       }
     },
-    modify () {
+    modify() {
       this.validForm(this.$refs.detail).then(() => {
         this.$dialog
           .confirm('메시지 메뉴를 수정하시겠습니까?')
@@ -271,10 +280,11 @@ export default {
               this.search(this.detail.messageId)
             })
           })
-          .catch(() => {})
+          .catch(() => {
+          })
       })
     },
-    insert () {
+    insert() {
       this.validForm(this.$refs.form).then(() => {
         this.$dialog
           .confirm('메시지 메뉴를 입력하시겠습니까?')
@@ -285,14 +295,15 @@ export default {
               this.dialog = false
             })
           })
-          .catch(() => {})
+          .catch(() => {
+          })
       })
     },
-    reset () {
+    reset() {
       this.form = {}
       this.$refs.form.resetValidation()
     },
-    close () {
+    close() {
       this.dialog = false
     }
   }

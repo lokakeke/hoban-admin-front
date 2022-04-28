@@ -31,17 +31,13 @@
                         >{{ partnerYn === "Y" ? "업체번호: " : "사원번호: " }} {{ user.number }}</span>
                     </div>
                     <v-list class="dropdown-list">
-<!--                        <v-list-item @click="getProfile">
+                        <v-list-item @click="getProfile">
                             <i :class="userLinks[0].icon"></i>
                             <span>{{ $t(userLinks[0].title) }}</span>
                         </v-list-item>
                         <v-list-item @click="logout">
                             <i :class="userLinks[1].icon"></i>
                             <span>{{ $t(userLinks[1].title) }}</span>
-                        </v-list-item>-->
-                        <v-list-item @click="logout">
-                            <i :class="userLinks[0].icon"></i>
-                            <span>{{ $t(userLinks[0].title) }}</span>
                         </v-list-item>
                     </v-list>
                 </div>
@@ -57,12 +53,12 @@ export default {
   data () {
     return {
       userLinks: [
-        /* FIXME 구현 후 주석 풀기 {
+        {
           id: 1,
           title: 'message.userProfile',
           icon: 'ti-user mr-3 info--text',
           font: 'ti-user'
-        }, */
+        },
         {
           id: 2,
           title: 'message.logOut',
