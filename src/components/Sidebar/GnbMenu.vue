@@ -1,27 +1,17 @@
 <template>
-<!--    <div>
-        <v-chip
-            class="mr-2"
-            default
-            v-for="parentMenu in this.menus.filter(menu => !menu.parentMenuId)" :key="parentMenu.menuId"
-            @click="(e) => handleClickChip(e,parentMenu)"
-            :color="checkSelectedChip(parentMenu)"
-        >{{ parentMenu.menuName }}
-        </v-chip>
-    </div>-->
-    <div style="display: flex">
-        <div
-            class="gnb-menu-item"
-            v-for="parentMenu in this.menus.filter(menu => !menu.parentMenuId)" :key="parentMenu.menuId"
-            @click="(e) => handleClickChip(e,parentMenu)"
-            :class="checkSelectedChip(parentMenu)"
-        >
-            <v-icon>{{parentMenu.iconFont}}</v-icon>
-            <span class="text-lg mx-1 whitespace-nowrap hidden-xs-only">{{
-                    parentMenu.menuName
-                }}</span>
-        </div>
+  <div style="display: flex">
+    <div
+      class="gnb-menu-item"
+      v-for="parentMenu in this.menus.filter(menu => !menu.parentMenuId)" :key="parentMenu.menuId"
+      @click="(e) => handleClickChip(e,parentMenu)"
+      :class="checkSelectedChip(parentMenu)"
+    >
+      <v-icon>{{ parentMenu.iconFont }}</v-icon>
+      <span class="text-lg mx-1 whitespace-nowrap hidden-xs-only">{{
+          parentMenu.menuName
+        }}</span>
     </div>
+  </div>
 </template>
 
 <script>
@@ -38,10 +28,10 @@ export default {
   },
   methods: {
     ...mapMutations({ setCurrentSidebar: 'sidebar/setCurrentSidebar' }),
-    handleClickChip (event, menu) {
+    handleClickChip(event, menu) {
       this.setCurrentSidebar(menu)
     },
-    checkSelectedChip (menu) {
+    checkSelectedChip(menu) {
       if (!this.currentSidebar) {
         return 'text-gray'
       }
@@ -51,7 +41,7 @@ export default {
       return 'text-gray'
     }
   },
-  data () {
+  data() {
     return {}
   }
 }
