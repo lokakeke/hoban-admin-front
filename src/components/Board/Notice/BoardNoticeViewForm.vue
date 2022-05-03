@@ -49,16 +49,17 @@
       <v-editor :content="form.contents" readonly></v-editor>
     </v-card>
     <div class="mb-6">
-      <attach
-        v-model="form.attachBag"
-        ref-fld-cd="boardNotice"
-        atfl-fld-val="file"
-        extensions="gif,jpg,jpeg,png,pdf,zip"
-        accept="image/png, image/gif, image/jpeg, application/pdf, application/zip"
-        :limit="3"
-        required
-        readonly
-      ></attach>
+<!--        TODO 파일 업로드 구현 후 연결-->
+<!--      <attach-->
+<!--        v-model="form.attachBag"-->
+<!--        ref-fld-cd="boardNotice"-->
+<!--        atfl-fld-val="file"-->
+<!--        extensions="gif,jpg,jpeg,png,pdf,zip"-->
+<!--        accept="image/png, image/gif, image/jpeg, application/pdf, application/zip"-->
+<!--        :limit="3"-->
+<!--        required-->
+<!--        readonly-->
+<!--      ></attach>-->
     </div>
     <v-row>
       <v-col cols="12" v-if="form.confirmList && form.confirmList.length > 0">
@@ -69,9 +70,9 @@
             v-for="confirm in form.confirmList"
             :key="confirm.partnerSeq + confirm.partnerManagerId"
           >
-            {{ confirm.partnerManagerName || '?' }}
+            {{ confirm.managerName || '?' }}
             <small class="grey--text ml-1">({{ confirm.companyName }})</small>
-            <small class="grey--text ml-1">{{ confirm.createDatetime | dateSet }}</small>
+            <small class="grey--text ml-1">{{ confirm.createDatetime }}</small>
           </v-chip>
         </div>
         <hr class="mt-1 mb-3" />

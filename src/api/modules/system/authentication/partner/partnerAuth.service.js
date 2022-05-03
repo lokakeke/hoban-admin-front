@@ -56,12 +56,14 @@ const partnerAuthService = {
      * 1차 로그인 인증 (id/password)
      */
   preLogin (param) {
-    return api.post('/api/cms/system/partnerAuth/preLogin', param)
+    // return api.post('/api/cms/system/partnerAuth/preLogin', param)
+    return api.post('/api/cms/system/accountAuth/preLogin', param)
   },
   /**
      * 인증번호 요청
      */
   requestCode (param) {
+    // TODO 사용 하는지 안하는지 확인 필요 partnerManagerAuth 에서 확인하는 것으로 보인다.
     return api.post('/api/cms/system/partnerAuth/requestCode', param)
   },
   /**

@@ -6,7 +6,7 @@
           <v-col class="pt-0"></v-col>
           <v-col class="pt-0"></v-col>
           <v-col class="pt-0">
-            <v-text-field v-model="filterText" class="mb-1" hide-details outlined small dense append-icon="mdi-magnify" label="Search"/>
+              <v-text-field v-model="filterText" class="mb-1" hide-details outlined small dense append-icon="mdi-magnify" label="Search"/>
           </v-col>
         </v-row>
         <template v-if="ipFilterList && ipFilterList.length > 0">
@@ -151,7 +151,10 @@ export default {
     ipFilterList () {
       if (this.ipList && this.ipList.length > 0) {
         if (this.filterText) {
-          return this.ipList.filter(data => data.ipName.indexOf(this.filterText) !== -1 || data.useIp.indexOf(this.filterText) !== -1 || (data.adminSeq || '').indexOf(this.filterText) !== -1)
+          return this.ipList
+            .filter(data => data.ipName.indexOf(this.filterText) !== -1 ||
+                data.useIp.indexOf(this.filterText) !== -1 ||
+                (String(data.adminSeq) || '').indexOf(this.filterText) !== -1)
         } else {
           return this.ipList
         }

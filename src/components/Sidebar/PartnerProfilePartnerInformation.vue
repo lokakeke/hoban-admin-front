@@ -13,12 +13,12 @@
           </v-col>
           <v-col cols="3">
             <v-label>추가 인증번호 (* 파트너 담당자 추가시 필요)</v-label>
-            <v-text-field v-if="mainAuth" v-model="form.addCrtfNo" label="" readonly :rules="emptyRules">
+            <v-text-field v-if="mainAuth" v-model="form.addAuthNo" label="" readonly :rules="emptyRules">
               <template v-slot:append-outer>
-                <v-btn outlined color="accent" @click="createAddCrtfNo">번호 생성</v-btn>
+                <v-btn outlined color="accent" @click="createAddAuthNo">번호 생성</v-btn>
               </template>
             </v-text-field>
-            <v-text-field v-else :value="addCrtfNo" readonly></v-text-field>
+            <v-text-field v-else :value="addAuthNo" readonly></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -100,13 +100,13 @@ export default {
     }
   },
   computed: {
-    addCrtfNo () {
-      if (this.form.addCrtfNo) {
-        const length = this.form.addCrtfNo.length
+    addAuthNo () {
+      if (this.form.addAuthNo) {
+        const length = this.form.addAuthNo.length
         if (length > 3) {
-          return this.form.addCrtfNo.substring(0, length - 3) + '***'
+          return this.form.addAuthNo.substring(0, length - 3) + '***'
         } else {
-          return this.form.addCrtfNo.substring(0, 1) + '**'
+          return this.form.addAuthNo.substring(0, 1) + '**'
         }
       } else {
         return ''
@@ -126,10 +126,10 @@ export default {
   },
   methods: {
     // 추가 인증번호 발급
-    createAddCrtfNo () {
+    createAddAuthNo () {
       this.$dialog.confirm('추가 인증번호를 생성 하시겠습니까?').then(() => {
-        service.createAddCrtfNo().then(res => {
-          this.form.addCrtfNo = res.data
+        service.createaddAuthNo().then(res => {
+          this.form.addAuthNo = res.data
         })
       })
     },
