@@ -649,7 +649,7 @@ export default {
     },
     downloadExcel () {
       this.initSearch()
-      this.downLoadExcel(`/api/ota/calculation/detail/${this.calcHisItem.calcSeq}/excel`,
+      this.downLoadExcel(`/api/system/ota/calculation/detail/${this.calcHisItem.calcSeq}/excel`,
         'OTA 정산',
         this.searchParam,
         '.csv')

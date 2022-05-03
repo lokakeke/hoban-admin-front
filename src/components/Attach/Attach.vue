@@ -96,7 +96,7 @@ export default {
   },
   props: {
     // 참조항목코드 (ex: exBoard)
-    refFldCode: {
+    refFldCd: {
       type: String,
       required: true
     },
@@ -169,6 +169,8 @@ export default {
   },
   mixins: [AttachMixin],
   mounted () {
+    console.log('this.value', this.value)
+    console.log('this.atflFldVal', this.atflFldVal)
     const existFiles = Object.assign([], this.value[this.atflFldVal])
     existFiles.forEach(fileItem => {
       this.$refs.upload.add(fileItem)

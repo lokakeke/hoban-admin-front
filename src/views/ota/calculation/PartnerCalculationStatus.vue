@@ -256,7 +256,7 @@ export default {
         const excelParam = {}
         excelParam.partnerSeq = this.isPartner ? this.user.number : 0
         excelParam.selectedDate = this.selectedDate
-        this.downLoadExcel('/api/ota/partnerCalcStatus/excel', '파트너 정산 현황', excelParam)
+        this.downLoadExcel('/api/system/ota/partnerCalcStatus/excel', '파트너 정산 현황', excelParam)
       } else {
         this.$dialog.alert('다운로드할 현황이 없습니다.')
       }

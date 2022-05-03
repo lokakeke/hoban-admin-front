@@ -8,7 +8,7 @@ const calculationService = {
    * @returns [{정산 데이터}]
    */
   retrieveMonthCalcHistory (targetDate) {
-    return api.get('/api/ota/calculation', {
+    return api.get('/api/system/ota/calculation', {
       params: {
         targetDate: targetDate
       }
@@ -23,7 +23,7 @@ const calculationService = {
    * @returns [{정산 데이터}]
    */
   retrievePartnerMonthCalcHistory (targetDate, partnerSeq) {
-    return api.get('/api/ota/calculation/partner', {
+    return api.get('/api/system/ota/calculation/partner', {
       params: {
         targetDate: targetDate,
         partnerSeq: partnerSeq
@@ -39,7 +39,7 @@ const calculationService = {
    * @returns [{정산 데이터}]
    */
   modifyMonthCalcHistoryStatus (calcSeq, aprlCode) {
-    return api.post(`/api/ota/calculation/${calcSeq}/status/update/${aprlCode}`, {
+    return api.post(`/api/system/ota/calculation/${calcSeq}/status/update/${aprlCode}`, {
       aprlCode: aprlCode
     })
   },
@@ -51,7 +51,7 @@ const calculationService = {
    * @returns [{정산 상세 데이터}]
    */
   retrieveMonthCalcDetail (calcSeq, searchParam) {
-    return api.get(`/api/ota/calculation/detail/${calcSeq}`, {
+    return api.get(`/api/system/ota/calculation/detail/${calcSeq}`, {
       params: searchParam
     })
   },
@@ -65,7 +65,7 @@ const calculationService = {
    * @returns {수정된 정산 상세 데이터}
    */
   modifyDetailMemo (calcItem, isAddCalc = 'N') {
-    return api.post(`/api/ota/calculation/detail/${calcItem.calcSeq}/${calcItem.keyRsvNo}/memo/update`, {
+    return api.post(`/api/system/ota/calculation/detail/${calcItem.calcSeq}/${calcItem.keyRsvNo}/memo/update`, {
       add: isAddCalc,
       memo: calcItem.memo
     })
@@ -80,7 +80,7 @@ const calculationService = {
    * @returns {수정된 정산 상세 데이터}
    */
   modifyDetailCalcClass (calcSeq, keyRsvNoList, calcClass) {
-    return api.post(`/api/ota/calculation/detail/${calcSeq}/calc-class/update`, {
+    return api.post(`/api/system/ota/calculation/detail/${calcSeq}/calc-class/update`, {
       keyRsvNoList,
       calcClass
     })
@@ -94,7 +94,7 @@ const calculationService = {
    * @returns {수정된 정산 상세 데이터}
    */
   removeMonthCalcDetails (calcSeq, keyRsvNoList) {
-    return api.post(`/api/ota/calculation/detail/${calcSeq}/delete`, {
+    return api.post(`/api/system/ota/calculation/detail/${calcSeq}/delete`, {
       keyRsvNoList
     })
   },
@@ -106,7 +106,7 @@ const calculationService = {
    * @returns excel
    */
   downloadExcel (calcSeq, searchParam) {
-    return api.get(`/api/ota/calculation/detail/${calcSeq}/excel`, {
+    return api.get(`/api/system/ota/calculation/detail/${calcSeq}/excel`, {
       params: searchParam
     })
   },
@@ -118,7 +118,7 @@ const calculationService = {
    * @returns {예약정보}
    */
   retrieveReserveInformation (calcSeq, keyRsvNo) {
-    return api.get(`/api/ota/calculation/detail/${calcSeq}/${keyRsvNo}/information`)
+    return api.get(`/api/system/ota/calculation/detail/${calcSeq}/${keyRsvNo}/information`)
   },
 
   /**
@@ -129,7 +129,7 @@ const calculationService = {
    * @return
    */
   addMonthAddCalcDetail (calcSeq, rsvInfo) {
-    return api.post(`/api/ota/calculation/detail/${calcSeq}/addCalc/${rsvInfo.keyRsvNo}/insert`, rsvInfo)
+    return api.post(`/api/system/ota/calculation/detail/${calcSeq}/addCalc/${rsvInfo.keyRsvNo}/insert`, rsvInfo)
   },
 
   /**
@@ -140,7 +140,7 @@ const calculationService = {
    * @return
    */
   addMonthAddCalcDetails (calcSeq, keyRsvNoList) {
-    return api.post(`/api/ota/calculation/detail/${calcSeq}/addCalc/insert`, keyRsvNoList)
+    return api.post(`/api/system/ota/calculation/detail/${calcSeq}/addCalc/insert`, keyRsvNoList)
   },
 
   /**
@@ -152,7 +152,7 @@ const calculationService = {
    * @return
    */
   includeSelectedAddCalcDetailAsCalcDetail (calcSeq, showInd, rsvInfoList) {
-    return api.post(`/api/ota/calculation/detail/${calcSeq}/inclusion/${showInd}`, rsvInfoList)
+    return api.post(`/api/system/ota/calculation/detail/${calcSeq}/inclusion/${showInd}`, rsvInfoList)
   },
 
   /**
@@ -165,7 +165,7 @@ const calculationService = {
    * @return
    */
   modifyDetailSaleAdjustAmt (rsvInfo) {
-    return api.post(`/api/ota/calculation/detail/${rsvInfo.calcSeq}/${rsvInfo.keyRsvNo}/sale-adjust-amt/update`, rsvInfo.saleAdjustAmt)
+    return api.post(`/api/system/ota/calculation/detail/${rsvInfo.calcSeq}/${rsvInfo.keyRsvNo}/sale-adjust-amt/update`, rsvInfo.saleAdjustAmt)
   },
 
   /**
@@ -175,7 +175,7 @@ const calculationService = {
    * @return
    */
   retrieveMonthCalcHistoryMemo (calcSeq) {
-    return api.get(`/api/ota/calculation/${calcSeq}/memo`)
+    return api.get(`/api/system/ota/calculation/${calcSeq}/memo`)
   },
 
   /**
@@ -186,7 +186,7 @@ const calculationService = {
    * @return 성공여부
    */
   modifyMonthCalcHistoryMemo (calcSeq, memo) {
-    return api.post(`/api/ota/calculation/${calcSeq}/memo`, memo)
+    return api.post(`/api/system/ota/calculation/${calcSeq}/memo`, memo)
   },
 
   /**
@@ -197,7 +197,7 @@ const calculationService = {
    * @return 성공여부
    */
   executeCalculate (executeParam) {
-    return api.post('/api/ota/calculation/schedule', executeParam)
+    return api.post('/api/system/ota/calculation/schedule', executeParam)
   },
 
   /**
@@ -208,7 +208,7 @@ const calculationService = {
    * @return 성공여부
    */
   retrieveMonthCalcAddPackage (pkgNo, targetMonth) {
-    return api.get(`/api/ota/calculation/add-package/${pkgNo}`, {
+    return api.get(`/api/system/ota/calculation/add-package/${pkgNo}`, {
       params: {
         targetMonth
       }
@@ -222,7 +222,7 @@ const calculationService = {
    * @return 성공여부
    */
   retrieveMonthCalcAddPackageList (targetMonth) {
-    return api.get('/api/ota/calculation/add-package', {
+    return api.get('/api/system/ota/calculation/add-package', {
       params: {
         targetMonth
       }
@@ -236,7 +236,7 @@ const calculationService = {
    * @return 성공여부
    */
   addMonthCalcAddPackage (param) {
-    return api.post('/api/ota/calculation/add-package/insert', param)
+    return api.post('/api/system/ota/calculation/add-package/insert', param)
   },
 
   /**
@@ -246,7 +246,7 @@ const calculationService = {
    * @return 추가 정산으로 등록된 패키지 총 개수
    */
   countMonthCalcAddPackage (targetMonth) {
-    return api.get('/api/ota/calculation/add-package/count', {
+    return api.get('/api/system/ota/calculation/add-package/count', {
       params: {
         targetMonth
       }
@@ -260,7 +260,7 @@ const calculationService = {
    * @return 성공여부
    */
   deleteMonthCalcAddPackage (param) {
-    return api.post('/api/ota/calculation/add-package/delete', param)
+    return api.post('/api/system/ota/calculation/add-package/delete', param)
   },
 
   /**
@@ -270,7 +270,7 @@ const calculationService = {
    * @return 접근 메뉴 리스트
    */
   retrievePartnerMenuAuth (partnerSeq) {
-    return api.get(`/api/ota/calculation/${partnerSeq}/auth/menu`)
+    return api.get(`/api/system/ota/calculation/${partnerSeq}/auth/menu`)
   },
 
   /**
@@ -280,7 +280,7 @@ const calculationService = {
    * @return 후불 금액 합계
    */
   retrieveMonthCalcTotAmt (calcSeq, searchParam) {
-    return api.get(`/api/ota/calculation/detail/${calcSeq}/total-amount`, {
+    return api.get(`/api/system/ota/calculation/detail/${calcSeq}/total-amount`, {
       params: searchParam
     })
   },
@@ -292,7 +292,7 @@ const calculationService = {
    * @return 사전 정산분류 리스트
    */
   retrieveMonthCalcAddClassList (targetMonth) {
-    return api.get('/api/ota/calculation/add-class', {
+    return api.get('/api/system/ota/calculation/add-class', {
       params: {
         targetMonth
       }
@@ -306,7 +306,7 @@ const calculationService = {
    * @return 사전 정산분류 리스트
    */
   addMonthCalcAddClass (param) {
-    return api.post('/api/ota/calculation/add-class/insert', param)
+    return api.post('/api/system/ota/calculation/add-class/insert', param)
   },
 
   /**
@@ -316,7 +316,7 @@ const calculationService = {
    * @return 가능여부
    */
   retrieveReservationInformation (keyRsvNo) {
-    return api.get(`/api/ota/calculation/dgns/${keyRsvNo}`)
+    return api.get(`/api/system/ota/calculation/dgns/${keyRsvNo}`)
   },
 
   /**
@@ -327,7 +327,7 @@ const calculationService = {
    * @return
    */
   retrieveMonthCalcAddClass (targetMonth, keyRsvNo) {
-    return api.get(`/api/ota/calculation/add-class/${keyRsvNo}`, {
+    return api.get(`/api/system/ota/calculation/add-class/${keyRsvNo}`, {
       params: {
         targetMonth
       }
@@ -343,7 +343,7 @@ const calculationService = {
    * @return 삭제 성공여부
    */
   removeMonthCalcAddClass (param) {
-    return api.post('/api/ota/calculation/add-class/delete', param)
+    return api.post('/api/system/ota/calculation/add-class/delete', param)
   },
 
   /**
@@ -354,7 +354,7 @@ const calculationService = {
    * @return
    */
   retrieveDgnsPackageStatusByDepositDate (calcSeq, pkgNo) {
-    return api.get(`/api/ota/calculation/dgns/package/deposit/${pkgNo}`, {
+    return api.get(`/api/system/ota/calculation/dgns/package/deposit/${pkgNo}`, {
       params: {
         calcSeq
       }
@@ -368,7 +368,7 @@ const calculationService = {
    * @return 파트너 List
    */
   retrievePartnersCalcStatus (calcSeq) {
-    return api.get(`/api/ota/calculation/${calcSeq}/partners/status`)
+    return api.get(`/api/system/ota/calculation/${calcSeq}/partners/status`)
   },
 
   /**
@@ -380,7 +380,7 @@ const calculationService = {
    * @return
    */
   addPartnerCalcStatus (calcSeq, partnerSeq, partnerManagerId) {
-    return api.post(`/api/ota/calculation/${calcSeq}/partners/${partnerSeq}/status`, partnerManagerId)
+    return api.post(`/api/system/ota/calculation/${calcSeq}/partners/${partnerSeq}/status`, partnerManagerId)
   },
 
   /**
@@ -390,7 +390,7 @@ const calculationService = {
    * @return
    */
   retrieveCouponUseStatus (keyRsvNo) {
-    return api.get(`/api/ota/calculation/dgns/${keyRsvNo}/coupon`)
+    return api.get(`/api/system/ota/calculation/dgns/${keyRsvNo}/coupon`)
   },
 
   /**
@@ -400,7 +400,7 @@ const calculationService = {
    * @return
    */
   addMonthCalcHistory (targetDate) {
-    return api.post('/api/ota/calculation/history/create', targetDate)
+    return api.post('/api/system/ota/calculation/history/create', targetDate)
   },
 
   /**
@@ -410,7 +410,7 @@ const calculationService = {
    * @return 파트너 List
    */
   retrievePartnersAllCalcStatus (startDate) {
-    return api.get('/api/ota/calculation/partners/status', {
+    return api.get('/api/system/ota/calculation/partners/status', {
       params: {
         startDate
       }

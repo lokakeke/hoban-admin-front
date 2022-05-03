@@ -350,7 +350,7 @@ export default {
          */
     selectNaverFile () {
       const params = {
-        refFldCode: 'naverBooking',
+        refFldCd: 'naverBooking',
         refNo: this.instance.params.form.bookingId
       }
       service.selectNaverFile(params).then(res => {

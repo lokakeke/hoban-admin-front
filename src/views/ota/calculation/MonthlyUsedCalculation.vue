@@ -658,7 +658,7 @@ export default {
         } else {
           userName = '파트너'
         }
-        this.downLoadExcel('/api/ota/monthlyUsedCalculation/excel', `월별 이용 내역 (${userName})`, param)
+        this.downLoadExcel('/api/system/ota/monthlyUsedCalculation/excel', `월별 이용 내역 (${userName})`, param)
       } else {
         this.$dialog.alert('다운로드할 현황이 없습니다.')
       }

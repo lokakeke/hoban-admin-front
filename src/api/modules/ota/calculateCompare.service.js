@@ -8,7 +8,7 @@ const calculateComparetiveContrastService = {
    * @returns [{정산 데이터}]
    */
   convertSheetsToTables (sheets) {
-    return api.post('/api/ota/calcCompare/convertSheetsToTables', sheets)
+    return api.post('/api/system/ota/calcCompare/convertSheetsToTables', sheets)
   },
 
   /**
@@ -18,7 +18,7 @@ const calculateComparetiveContrastService = {
    * @returns [{정산 데이터}]
    */
   convertPkgSheetsToTables (sheets) {
-    return api.post('/api/ota/calcCompare/convertPkgSheetsToTables', sheets)
+    return api.post('/api/system/ota/calcCompare/convertPkgSheetsToTables', sheets)
   },
 
   /**
@@ -29,7 +29,7 @@ const calculateComparetiveContrastService = {
    * @returns [{비교결과}]
    */
   compareRsvList (sysData, excelData) {
-    return api.post('/api/ota/calcCompare/compareRsvList', {
+    return api.post('/api/system/ota/calcCompare/compareRsvList', {
       sysData: sysData,
       excelData: excelData
     })
@@ -43,7 +43,7 @@ const calculateComparetiveContrastService = {
    * @returns [{비교결과}]
    */
   compareAmtList (sysData, excelData) {
-    return api.post('/api/ota/calcCompare/compareAmtList', {
+    return api.post('/api/system/ota/calcCompare/compareAmtList', {
       sysData: sysData,
       excelData: excelData
     })

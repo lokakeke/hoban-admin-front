@@ -63,7 +63,7 @@ export default {
    * 네이버 첨부파일 조회
    */
   selectNaverFile (params) {
-    return api.get(`/api/cms/system/attach/${params.refFldCode}/${params.refNo}`)
+    return api.get(`/api/cms/system/attach/${params.refFldCd}/${params.refNo}`)
   },
 
   /**
