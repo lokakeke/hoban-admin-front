@@ -52,9 +52,9 @@
         <v-row>
           <v-col cols="3">
             <v-label>추가 인증번호 (* 파트너 관리자 추가시 필요)</v-label>
-            <v-text-field :value="!isPartner || isSupervisor ? form.addCrtfNo : '**********'" readonly :rules="emptyRules">
+            <v-text-field :value="!isPartner || isSupervisor ? form.addAuthNo : '**********'" readonly :rules="emptyRules">
               <template v-slot:append-outer v-if="!isPartner">
-                <v-btn outlined color="accent" @click="createAddCrtfNo">번호 생성</v-btn>
+                <v-btn outlined color="accent" @click="createAddAuthNo">번호 생성</v-btn>
               </template>
             </v-text-field>
           </v-col>
@@ -64,7 +64,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>관리자 연락처</v-label>
-            <v-text-field type="text" v-model="form.capTelNo" v-mask="['###-####-####', '##-###-####', '##-####-####']" :rules="emptyRules.concat(phoneRegex)"></v-text-field>
+            <v-text-field type="text" v-model="form.companyTelNo" v-mask="['###-####-####', '##-###-####', '##-####-####']" :rules="emptyRules.concat(phoneRegex)"></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>메뉴 권한</v-label>
@@ -219,11 +219,11 @@ export default {
         newPwConfirm: '',
         bizrNo: '',
         ceoName: '',
-        capTelNo: '',
+        companyTelNo: '',
         agentCode: '',
         agentCodeName: '',
         menuAuthGroupId: '',
-        addCrtfNo: '',
+        addAuthNo: '',
         blacklistYn: 'N',
         terms: [],
         sendYn: 'Y'
@@ -270,10 +270,10 @@ export default {
       })
     },
     // 추가 인증번호 발급
-    createAddCrtfNo () {
+    createAddAuthNo () {
       this.$dialog.confirm('추가 인증번호를 생성 하시겠습니까?').then(() => {
         service.createAddCrtfNo().then(res => {
-          this.form.addCrtfNo = res.data
+          this.form.addAuthNo = res.data
         })
       })
     },

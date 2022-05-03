@@ -8,15 +8,15 @@
           <partner-password-reset v-if="!isPartner || isSupervisor" :item="item" block />
           <span v-else> - </span>
         </template>
-        <template v-slot:item.addCrtfNo="{item}">
-          <span v-if="!isPartner || isSupervisor">{{item.addCrtfNo}}</span>
+        <template v-slot:item.addAuthNo="{item}">
+          <span v-if="!isPartner || isSupervisor">{{item.addAuthNo}}</span>
           <span v-else>**********</span>
         </template>
         <template v-slot:item.login="{item}">
           <partner-login-for-admin :item="item"></partner-login-for-admin>
         </template>
-        <template v-slot:item.capTelNo="{item}">
-          <mask-tel-number :text="item.capTelNo" @search="viewTelNo(item)" />
+        <template v-slot:item.companyTelNo="{item}">
+          <mask-tel-number :text="item.companyTelNo" @search="viewTelNo(item)" />
         </template>
       </v-data-table>
       <v-row>
@@ -73,9 +73,9 @@ export default {
         { text: '로그인 아이디', value: 'loginId', align: 'center', sortable: false },
         /* { text: '사업자 번호', value: 'bizrNo', align: 'center', sortable: false }, */
         { text: '관리자 성명', value: 'ceoName', align: 'center', sortable: false },
-        { text: '관리자 연락처', value: 'capTelNo', align: 'center', sortable: false },
-        { text: '메뉴 권한', value: 'menuAuthGrupName', align: 'center', sortable: false },
-        { text: '추가 인증번호', value: 'addCrtfNo', align: 'center', sortable: false },
+        { text: '관리자 연락처', value: 'companyTelNo', align: 'center', sortable: false },
+        { text: '메뉴 권한', value: 'menuAuthGroupName', align: 'center', sortable: false },
+        { text: '추가 인증번호', value: 'addAuthNo', align: 'center', sortable: false },
         { text: '잠김 여부', value: 'lockYn', align: 'center', sortable: false }
       ]
       if (!this.isPartner) {
@@ -132,7 +132,7 @@ export default {
     },
     async viewTelNo (item) {
       const res = await service.selectPartnerDetails(item.partnerSeq)
-      item.capTelNo = res.data.capTelNo
+      item.companyTelNo = res.data.companyTelNo
     },
     open (rowData) {
       let isModify = false

@@ -17,7 +17,7 @@
         v-for="tabItem in tabItems"
         :key="tabItem.tab">
         <component :is="tabItem.component"
-                   :partner-no="partnerNo"
+                   :partner-no="partnerSeq"
                    :is-modify="isModify"
                    :set-info="setInfo"
                    :search="search"></component>
@@ -45,18 +45,18 @@ export default {
         { tab: 'API 관리', component: PartnerApi, disable: true }
       ],
       isModify: false,
-      partnerNo: '',
+      partnerSeq: '',
       partnerName: ''
     }
   },
   mounted () {
-    this.setInfo(this.instance.params.isModify, this.instance.params.partnerNo, this.instance.params.partnerName)
+    this.setInfo(this.instance.params.isModify, this.instance.params.partnerSeq, this.instance.params.partnerName)
     this.search = this.instance.params.search
   },
   methods: {
-    setInfo (isModify, partnerNo, partnerName) {
+    setInfo (isModify, partnerSeq, partnerName) {
       this.isModify = isModify
-      this.partnerNo = partnerNo
+      this.partnerSeq = partnerSeq
       this.partnerName = partnerName
       // 수정일 경우 담당자 탭 활성화
       if (this.isModify) {
