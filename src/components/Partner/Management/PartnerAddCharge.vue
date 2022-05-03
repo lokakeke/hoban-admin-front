@@ -21,12 +21,12 @@
             </thead>
             <tbody>
             <tr v-for="(item, index) in list" :key="index" @click="openDialog(item)">
-              <td class="text-center">{{item.chrgName}}</td>
+              <td class="text-center">{{item.managerName}}</td>
               <td class="text-center"><mask-tel-number :text="item.telNo" @search="viewTelNo(item)" /></td>
               <td class="text-center"><mask-email :text="item.email"></mask-email></td>
               <td class="text-center">{{item.useYn}}</td>
               <td class="text-center">{{item.mainAuthYn}}</td>
-              <td class="text-center">{{item.lastLoginDt | date('YYYY-MM-DD HH:mm:ss')}}</td>
+              <td class="text-center">{{item.lastLoginDatetime}}</td>
             </tr>
             <tr v-if="!list || list.length === 0">
               <td colspan="6" class="text-center">담당자 정보가 없습니다.</td>
@@ -47,7 +47,7 @@ import MaskEmail from '@/components/Mask/MaskEmail.vue'
 export default {
   components: { maskTelNumber, MaskEmail },
   props: {
-    partnerNo: String,
+    partnerSeq: Number,
     isModify: Boolean
   },
   data () {
@@ -62,7 +62,8 @@ export default {
   methods: {
     searchList () {
       this.list = []
-      partnerManagerService.selectPartnerManagerList(this.partnerNo).then(res => {
+      // FIXME partnerSeq props 로 받아와서 넘기도록 수정
+      partnerManagerService.selectPartnerManagerList(1).then(res => {
         this.list = res.data
       })
     },
@@ -76,7 +77,7 @@ export default {
         componentPath: '/Partner//PartnerAddChargeDialog',
         params: {
           isNew,
-          form: row || { partnerSeq: this.partnerNo, partnerManagerId: '', chrgName: '', telNo: '', email: '', useYn: 'Y', mainAuthYn: 'N' },
+          form: row || { partnerSeq: this.partnerSeq, partnerManagerId: '', managerName: '', telNo: '', email: '', useYn: 'Y', mainAuthYn: 'N' },
           list: this.list
         },
         options: {

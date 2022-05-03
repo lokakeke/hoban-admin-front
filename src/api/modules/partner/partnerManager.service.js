@@ -8,7 +8,7 @@ const partnerManagerService = {
    * @returns 담당자 리스트
    */
   selectPartnerManagerList (partnerSeq) {
-    return api.get(`/api/cms/system/partnerCharge/list/${partnerSeq}`)
+    return api.get(`/api/cms/system/partner/manager/list/${partnerSeq}`)
   },
 
   /**
@@ -62,9 +62,7 @@ const partnerManagerService = {
    * @returns Promise<any>
    */
   requestCode (param) {
-    return api.get('api/cms/system/partner/manager/requestCode', {
-      params: param
-    })
+    return api.post('api/cms/system/accountAuth/requestCode', param)
   },
 
   /**

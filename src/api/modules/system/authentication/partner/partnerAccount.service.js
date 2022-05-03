@@ -58,7 +58,7 @@ const partnerAccountService = {
    * @returns {promise<any>}
    */
   createAddCrtfNo () {
-    return api.get('/api/cms/system/partner/createAddCrtfNo')
+    return api.get('/api/cms/system/partner/createAddAuthNo')
   },
 
   /**
