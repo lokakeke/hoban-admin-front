@@ -8,7 +8,7 @@ export default {
    * @returns {파트너 정산 현황 데이터 목록}
    */
   selectMonthCalculationStatus (partnerSeq, selectedDate) {
-    return api.get(`/api/ota/partnerCalcStatus/list/${selectedDate}/${partnerSeq}`)
+    return api.get(`/api/system/ota/partnerCalcStatus/list/${selectedDate}/${partnerSeq}`)
   },
 
   /**
@@ -18,6 +18,6 @@ export default {
    * @returns {Void}
    */
   updatePrepayAmt (selectedDate, calculationList) {
-    return api.post(`/api/ota/partnerCalcStatus/updatePrepayAmt/${selectedDate}`, calculationList)
+    return api.post(`/api/system/ota/partnerCalcStatus/updatePrepayAmt/${selectedDate}`, calculationList)
   }
 }

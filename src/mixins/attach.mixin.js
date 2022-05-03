@@ -9,7 +9,7 @@ const mixin = {
     return {
       attachHeaders: { 'jwt-header': this.$store.getters['auth/jwtToken'] },
       attachData: {
-        refFldCode: this.refFldCode,
+        refFldCd: this.refFldCd,
         atflFldVal: this.atflFldVal
       },
       uploadFiles: []

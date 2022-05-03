@@ -237,6 +237,9 @@ export default {
         await this.validForm(this.$refs.form)
         await this.$dialog.confirm(this.form.menuId ? '메뉴정보를 수정하시겠습니까?' : '메뉴정보를 입력하시겠습니까?')
         if (this.form.menuId) {
+          const editFrom = _.cloneDeep(this.form)
+          delete editFrom.active
+
           await menuService.updateMenu(this.form)
           this.$dialog.alert('수정되었습니다.')
         } else {

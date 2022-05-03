@@ -7,7 +7,7 @@ export default {
    * @param param
    */
   selectMonthlyUsedCaculation (param) {
-    return api.get('/api/ota/monthlyUsedCalculation/list', { params: param })
+    return api.get('/api/system/ota/monthlyUsedCalculation/list', { params: param })
   },
 
   /**
@@ -15,7 +15,7 @@ export default {
    * @param param
    */
   selectAllMonthlyUsedCaculation (param) {
-    return api.get('/api/ota/monthlyUsedCalculation/allList', { params: param })
+    return api.get('/api/system/ota/monthlyUsedCalculation/allList', { params: param })
   },
 
   /**
@@ -23,6 +23,6 @@ export default {
    * @param param
    */
   selectPkgBackDataList (param) {
-    return api.get('/api/ota/monthlyUsedCalculation/pkgBackDataList', { params: param })
+    return api.get('/api/system/ota/monthlyUsedCalculation/pkgBackDataList', { params: param })
   }
 }

@@ -455,7 +455,7 @@ export default {
         const searchParam = _.cloneDeep(this.searchParam)
         searchParam.q.ciDate = _.join(searchParam.q.ciDate, ',')
         searchParam.q.statusCode = _.join(searchParam.q.statusCode, ',')
-        this.downLoadExcel('/api/ota/roomReservation/excel', '객실 예약 관리', searchParam, '.csv')
+        this.downLoadExcel('/api/system/ota/roomReservation/excel', '객실 예약 관리', searchParam, '.csv')
       } else {
         this.$dialog.alert('다운로드할 예약이 없습니다.')
       }
