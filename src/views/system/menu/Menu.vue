@@ -240,7 +240,7 @@ export default {
           const editFrom = _.cloneDeep(this.form)
           delete editFrom.active
 
-          await menuService.updateMenu(this.form)
+          await menuService.updateMenu(editFrom)
           this.$dialog.alert('수정되었습니다.')
         } else {
           await menuService.insertMenu(this.form)
