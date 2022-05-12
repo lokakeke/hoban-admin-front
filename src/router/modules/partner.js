@@ -3,6 +3,9 @@ import Full from '@/container/Full.vue'
 // partner
 const partner = () => import('@/views/partner/management/Partner.vue')
 
+// 파트너 menu auth group
+const PartnerMenuAuthGroup = () => import('@/views/partner/authentication/PartnerMenuAuthGroup.vue')
+
 // partner inventory rate
 const partnerInventoryRate = () =>
   import('@/views/partner/inventory/PartnerInventoryRate.vue')
@@ -32,7 +35,7 @@ const partnerPkgReservationApp = () =>
   import('@/views/partner/reservation/PartnerPkgReservationAppList.vue')
 
 export default {
-  path: '/partner',
+  path: '/ota/partner',
   name: 'partner',
   component: Full,
   redirect: '/main',
@@ -41,12 +44,22 @@ export default {
   },
   children: [
     {
-      path: 'partner',
+      path: '',
       component: partner,
       name: 'partner.partner',
       meta: {
         title: '파트너 등록관리',
         breadcrumb: 'Partner '
+      }
+    },
+    {
+      path: 'partnerMenuAuthGroup',
+      component: PartnerMenuAuthGroup,
+      name: 'partner.partnerMenuAuthGroup',
+      meta: {
+        auth: true,
+        title: '파트너 메뉴권한 관리',
+        breadcrumb: 'Partner Menu Auth '
       }
     },
     {

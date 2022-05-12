@@ -14,26 +14,26 @@
       :no-data-text="emptyText"
       :headers="headers"
       :items="list"
-      item-key="depoKey"
+      item-key="depositKey"
       disable-sort
       hide-default-footer
       class="click-row"
       @click:row="select"
     >
       <!-- 누적 입금액 -->
-      <template v-slot:item.accmltRcpmnyAmt="{item}">
-        <span class="red--text">{{item.accmltRcpmnyAmt | price}}원</span>
+      <template v-slot:item.accmltRcpmnyPrice="{item}">
+        <span class="red--text">{{item.accmltRcpmnyPrice | price}}원</span>
       </template>
       <!-- 누적 출금액 -->
-      <template v-slot:item.accmltWithdrawAmt="{item}">
-        <span class="blue--text">{{item.accmltWithdrawAmt | price}}원</span>
+      <template v-slot:item.accmltWithdrawPrice="{item}">
+        <span class="blue--text">{{item.accmltWithdrawPrice | price}}원</span>
       </template>
       <!-- 금액 -->
-      <template v-slot:item.amt="{item}">
-        <strong>{{item.amt | price}}원</strong>
+      <template v-slot:item.price="{item}">
+        <strong>{{item.price | price}}원</strong>
       </template>
       <!-- 등록일시 -->
-      <template v-slot:item.crtDt="{item}">{{item.crtDt | dateSet}}</template>
+      <template v-slot:item.createDatetime="{item}">{{item.createDatetime | dateSet}}</template>
     </v-data-table>
     <search-pagination v-model="searchParam" :total-visible="10" circle @change="search"></search-pagination>
     <template v-slot:actions>
@@ -63,7 +63,7 @@ export default {
       headers: [
         {
           text: '예치금 KEY',
-          value: 'depoKey',
+          value: 'depositKey',
           align: 'center',
           sortable: false
         },
@@ -71,26 +71,26 @@ export default {
         { text: '업무유형명', value: 'taskTypeName', align: 'center', sortable: false },
         {
           text: '누적 입금액',
-          value: 'accmltRcpmnyAmt',
+          value: 'accmltRcpmnyPrice',
           align: 'center',
           sortable: false
         },
         {
           text: '누적 출금액',
-          value: 'accmltWithdrawAmt',
+          value: 'accmltWithdrawPrice',
           align: 'center',
           sortable: false
         },
-        { text: '예치금', value: 'amt', align: 'center', sortable: false },
+        { text: '예치금', value: 'price', align: 'center', sortable: false },
         { text: '메모', value: 'memo', align: 'center', sortable: false },
-        { text: '등록일시', value: 'crtDt', align: 'center', sortable: false }
+        { text: '등록일시', value: 'createDatetime', align: 'center', sortable: false }
       ]
     }
   },
   computed: {
     searchList () {
       const searchList = [
-        { key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 },
+        { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
         { key: 'companyName', label: '파트너명', type: 'text', cols: 2 },
         {
           key: 'taskType',
@@ -122,10 +122,10 @@ export default {
       })
     },
     select (row) {
-      if (row.depoKey) {
+      if (row.depositKey) {
         this.$dialog
           .confirm(
-            `${row.companyName} - ${row.depoKey} 예치금 계좌를 선택 하시겠습니까?`
+            `${row.companyName} - ${row.depositKey} 예치금 계좌를 선택 하시겠습니까?`
           )
           .then(() => {
             this.close({ data: row })

@@ -74,7 +74,7 @@ export default {
     openDialog (row) {
       const isNew = row === undefined
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner//PartnerAddChargeDialog',
+        componentPath: '/Partner/Management/PartnerAddManagerDialog',
         params: {
           isNew,
           form: row || { partnerSeq: this.partnerSeq, partnerManagerId: '', managerName: '', telNo: '', email: '', useYn: 'Y', mainAuthYn: 'N' },

@@ -51,7 +51,7 @@ import partnerApiService from '@/api/modules/partner/partnerApi.service'
 export default {
   name: 'PartnerApi',
   props: {
-    partnerNo: String
+    partnerSeq: Number
   },
   data () {
     return {
@@ -74,7 +74,7 @@ export default {
         componentPath: '/Partner//PartnerApiDialog',
         params: {
           isNew,
-          form: row || { partnerSeq: this.partnerNo, apiInd: null, apiUrl: '', apiMethod: '', apiHeader: '', useYn: 'Y' },
+          form: row || { partnerSeq: this.partnerSeq, apiInd: null, apiUrl: '', apiMethod: '', apiHeader: '', useYn: 'Y' },
           list: this.list
         },
         options: {

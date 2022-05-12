@@ -50,7 +50,6 @@
                 <th class="text-center">판매 채널</th>
                 <th class="text-center">대매사</th>
                 <th class="text-center">기간</th>
-                <th class="text-center">관리자 번호</th>
                 <th class="text-center">예치금 적용여부</th>
                 <th class="text-center">예치금 미적용사유</th>
                 <th class="text-center">효력여부</th>
@@ -60,13 +59,12 @@
               <tr v-for="(term, index) in form.terms" :key="index" @click="openDialog(term)">
                 <td class="text-center">{{term.taskType | label(businessList, 'commCode', 'commCodeName')}}</td>
                 <td class="text-center">{{term.taskTypeName}}</td>
-                <td class="text-center">{{term.memNo}}</td>
-                <td class="text-center">{{term.saleChnnl | label(saleChannelList, 'commCode', 'commCodeName')}}
+                <td class="text-center">{{term.memberNo}}</td>
+                <td class="text-center">{{term.saleChannel | label(saleChannelList, 'commCode', 'commCodeName')}}
                 <td class="text-center">{{term.agentCodeName}}
-                <td class="text-center">{{term.useBgnYmd | date}} ~ {{term.useEndYmd | date}}</td>
-                <td class="text-center">{{term.mgtNo}}</td>
-                <td class="text-center">{{term.depoYn === 'Y'? '적용': '미적용'}}</td>
-                <td class="text-center">{{term.depoDesc | textTruncate}}</td>
+                <td class="text-center">{{term.useStartDate | date}} ~ {{term.useEndDate | date}}</td>
+                <td class="text-center">{{term.depositYn === 'Y'? '적용': '미적용'}}</td>
+                <td class="text-center">{{term.depositDesc | textTruncate}}</td>
                 <td class="text-center">{{term.state}}</td>
               </tr>
               <tr v-if="!form.terms || form.terms.length === 0">
@@ -128,15 +126,15 @@ export default {
     // 추가 인증번호 발급
     createAddAuthNo () {
       this.$dialog.confirm('추가 인증번호를 생성 하시겠습니까?').then(() => {
-        service.createaddAuthNo().then(res => {
+        service.createAddAuthNo().then(res => {
           this.form.addAuthNo = res.data
         })
       })
     },
     openDialog (row) {
       const useForm = Object.assign({}, row)
-      useForm.useBgnYmd = moment(useForm.useBgnYmd).format('YYYYMMDD')
-      useForm.useEndYmd = moment(useForm.useEndYmd).format('YYYYMMDD')
+      useForm.useStartDate = moment(useForm.useStartDate).format('YYYYMMDD')
+      useForm.useEndDate = moment(useForm.useEndDate).format('YYYYMMDD')
       // dialog open
       this.$store.dispatch('dialog/open', {
         componentPath: '/Partner//PartnerBasicAddDialog',
