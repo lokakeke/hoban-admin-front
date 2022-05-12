@@ -83,6 +83,7 @@
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import partnerManagerService from '@/api/modules/partner/partnerManager.service'
+import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 
 export default {
   extends: DialogBase,
@@ -144,11 +145,12 @@ export default {
       this.telTimeCounter = 180
       this.telResTimeData = ''
       clearInterval(this.telPolling)
-      partnerManagerService.requestCode({
+      adminAuthService.requestCode({
         loginId: this.data.loginId,
         loginPw: this.data.loginPw,
         requestTelNo: this.form.telNo,
-        type: 'S'
+        type: 'S',
+        partnerYn: 'Y'
       }).then(res => {
         console.log(res.data)
         this.requestTel = true
@@ -179,11 +181,12 @@ export default {
       this.emailTimeCounter = 180
       this.emailResTimeData = ''
       clearInterval(this.emailPolling)
-      partnerManagerService.requestCode({
+      adminAuthService.requestCode({
         loginId: this.data.loginId,
         loginPw: this.data.loginPw,
         requestEmail: this.form.email,
-        type: 'E'
+        type: 'E',
+        partnerYn: 'Y'
       }).then(res => {
         this.requestEmail = true
         // 셋팅 해준다.

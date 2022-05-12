@@ -57,15 +57,6 @@ const partnerManagerService = {
   },
 
   /**
-   * 로그인 파트너 담당자 연락처 추가 인증번호 요청
-   * @param param
-   * @returns Promise<any>
-   */
-  requestCode (param) {
-    return api.post('api/cms/system/accountAuth/requestCode', param)
-  },
-
-  /**
    * 파트너 담당자 수정
    * @param form
    * @returns AxiosPromise<any>

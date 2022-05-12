@@ -56,6 +56,7 @@ const adminAuthService = {
    * 1차 로그인 인증 (id/password)
    */
   preLogin (param) {
+    console.log('prepre')
     return api.post('/api/cms/system/accountAuth/preLogin', param)
   },
   /**
@@ -63,6 +64,13 @@ const adminAuthService = {
    */
   requestCode (param) {
     return api.post('/api/cms/system/accountAuth/requestCode', param)
+  },
+  /**
+     * 관리자가 파트너로 로그인 (관리자만 사용할 것)
+     * @param loginId 로그인 아이디
+     */
+  loginForAdmin (loginId) {
+    return api.get(`/api/cms/system/adminAuth/loginForAdmin/${loginId}`)
   },
   /**
    * 현재 비밀번호 확인

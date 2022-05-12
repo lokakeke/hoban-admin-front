@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
+import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 
 export default {
   name: 'PartnerLoginForAdmin',
@@ -31,7 +31,7 @@ export default {
         .then(() => {
           // 사용자 메뉴 초기화
           this.$store.dispatch('sidebar/setMenus', null)
-          partnerAuthService.loginForAdmin(this.item.loginId).then(response => {
+          adminAuthService.loginForAdmin(this.item.loginId).then(response => {
             // 사용자 정보 저장
             this.$store.commit('auth/setPartnerYn', 'Y')
             this.$store.commit('auth/setJWTToken', response.headers['jwt-header'])

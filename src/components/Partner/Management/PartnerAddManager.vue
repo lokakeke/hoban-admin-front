@@ -62,8 +62,7 @@ export default {
   methods: {
     searchList () {
       this.list = []
-      // FIXME partnerSeq props 로 받아와서 넘기도록 수정
-      partnerManagerService.selectPartnerManagerList(1).then(res => {
+      partnerManagerService.selectPartnerManagerList(this.partnerSeq).then(res => {
         this.list = res.data
       })
     },

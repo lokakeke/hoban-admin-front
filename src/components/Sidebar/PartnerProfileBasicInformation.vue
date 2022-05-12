@@ -4,8 +4,8 @@
       <v-form ref="form" lazy-validation>
         <v-row>
           <v-col sm="6" md="3" cols="6">
-            <v-label>닉네임</v-label>
-            <v-text-field v-model="form.partnerManagerId" label="" :rules="emptyRules"></v-text-field>
+            <v-label>담당자 이름</v-label>
+            <v-text-field v-model="form.managerName" label="" :rules="emptyRules"></v-text-field>
           </v-col>
           <v-col sm="6" md="3" cols="6">
             <v-label>휴대폰 번호</v-label>
@@ -26,7 +26,6 @@
 
 <script>
 import partnerManagerService from '@/api/modules/partner/partnerManager.service'
-
 export default {
   props: {
     mainAuth: Boolean,
