@@ -15,18 +15,18 @@
                 <v-form ref="form" lazy-validation autocomplete="off">
                     <v-text-field v-model="form.loginId" :rules="emptyRules" label="* 아이디" required></v-text-field>
                     <template v-if="isPartner">
-                        <v-text-field v-model="form.companyName" :rules="emptyRules" label="* 파트너명" required></v-text-field>
-                        <v-text-field v-model="form.addCrtfNo" :rules="emptyRules"
+                        <v-text-field v-model="form.companyName" :rules="emptyRules" label="* 업체명" required></v-text-field>
+                        <v-text-field v-model="form.addAuthNo" :rules="emptyRules"
                                       label="* 추가 인증번호 (파트너 등록 시 생성된 추가 인증번호)" required></v-text-field>
-                        <v-text-field v-model="form.partnerManagerId" :rules="emptyRules" label="* 닉네임"
+                        <v-text-field v-model="form.partnerManagerId" :rules="emptyRules" label="* 매니저 아이디"
                                       required></v-text-field>
                     </template>
                     <template v-else>
-                        <v-text-field v-model="form.adminSeq" :rules="emptyRules" label="* 사원번호" required></v-text-field>
+                        <v-text-field v-model="form.adminBusinessNo" :rules="emptyRules" label="* 사원번호" required></v-text-field>
                         <v-text-field v-model="form.adminName" :rules="emptyRules" label="* 이름"
                                       required></v-text-field>
                     </template>
-                    <v-radio-group v-model="form.type" row hide-details :rules="emptyRules">
+                    <v-radio-group v-model="form.codeType" row hide-details :rules="emptyRules">
                         <v-radio label="S.M.S" value="S"></v-radio>
                         <v-radio label="E-MAIL" value="E"></v-radio>
                     </v-radio-group>
@@ -59,12 +59,12 @@ export default {
     return {
       form: {
         loginId: '',
-        adminSeq: '',
-        addCrtfNo: '',
+        adminBusinessNo: '',
+        addAuthNo: '',
         partnerManagerId: '',
         adminName: '',
         companyName: '',
-        type: 'E'
+        codeType: 'E'
       }
     }
   },
@@ -74,19 +74,11 @@ export default {
   methods: {
     reset () {
       this.validForm(this.$refs.form).then(res => {
-        if (this.isPartner) {
-          partnerAuthService.createTemporaryPasswordForLogin(this.form).then(res => {
-            console.log('임시 비밀번호 확인용 : ', res.data)
-            this.$dialog.alert('임시 비밀번호가 발급되었습니다.')
-            this.close()
-          })
-        } else {
-          adminAuth.createTemporaryPasswordForLogin(this.form).then(res => {
-            console.log('임시 비밀번호 확인용 : ', res.data)
-            this.$dialog.alert('임시 비밀번호가 발급되었습니다.')
-            this.close()
-          })
-        }
+        adminAuth.createTemporaryPasswordForLogin({ ...this.form, partnerYn: this.isPartner ? 'Y' : 'N' }).then(res => {
+          console.log('임시 비밀번호 확인용 partner : ', res.data)
+          this.$dialog.alert('임시 비밀번호가 발급되었습니다.')
+          this.close()
+        })
       })
     }
   }

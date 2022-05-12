@@ -33,13 +33,11 @@
                     <v-row>
                         <!-- 최상의 코드 등록시 -->
                         <v-col v-if="!form.commonCodeSeq">
-                            ㅏㅏㅏㅏ
                             <v-autocomplete v-model="commCodeText" :items="codeReset" :item-value="'commonCode'"
                                             :item-text="'commonCodeName'" :rules="emptyRules" label required class="pt-0"
                                             @change="newCommCode(commCodeText)"></v-autocomplete>
                         </v-col>
                         <v-col>
-                            ㅇㅇㅇㅇ
                             <v-text-field v-model="form.commonCode" :rules="emptyRules" label required class="pt-0" readonly
                                           :disabled="form.commonCodeSeq !== undefined && form.commonCodeSeq !== null"></v-text-field>
                         </v-col>

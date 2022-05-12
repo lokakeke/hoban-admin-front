@@ -10,11 +10,11 @@
             </v-col>
           </v-row>
         </template>
-        <template v-if="this.exceptList && this.exceptList.length > 0">
+        <template v-if="exceptList && exceptList.length > 0">
           <v-list dense>
               <transition-group type="transition" name="flip-list">
                 <v-list-item
-                  v-for="except of this.exceptList"
+                  v-for="except of exceptList"
                   :key="except.exceptSeq"
                   @click="viewChildren(except)"
                   class="menu-list"
@@ -319,8 +319,8 @@ export default {
         this.$dialog
           .confirm('예약 제외 내용을 수정하시겠습니까?')
           .then(() => {
-            this.detail.startDatetime = moment(moment(this.detail.tempStartYmd).format('YYYY-MM-DD') + ` ${this.detail.startHour}:${this.detail.startMin}`).format('YYYY-MM-DD HH:mm:SS')
-            this.detail.endDatetime = moment(moment(this.detail.tempEndYmd).format('YYYY-MM-DD') + ` ${this.detail.endHour}:${this.detail.endMin}`).format('YYYY-MM-DD HH:mm:SS')
+            this.detail.startDatetime = moment(moment(this.detail.tempStartYmd).format('YYYY-MM-DD') + ` ${this.detail.startHour}:${this.detail.startMin}`).format('YYYY-MM-DD HH:mm')
+            this.detail.endDatetime = moment(moment(this.detail.tempEndYmd).format('YYYY-MM-DD') + ` ${this.detail.endHour}:${this.detail.endMin}`).format('YYYY-MM-DD HH:mm')
 
             reservationExceptService.update(this.detail).then(res => {
               this.$dialog.alert('수정되었습니다.')

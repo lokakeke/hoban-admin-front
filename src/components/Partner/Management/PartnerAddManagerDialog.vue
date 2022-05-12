@@ -42,7 +42,7 @@ import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
-  name: 'PartnerAddChargeDialog',
+  name: 'PartnerAddManagerDialog',
   data () {
     return {
       isNew: false,

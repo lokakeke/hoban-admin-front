@@ -33,11 +33,11 @@
         </v-col>
         <v-col sm="6" md="3">
           <v-label>메뉴 그룹 권한</v-label>
-          <v-text-field :value="form.menuAuthGrupName" label="" disabled></v-text-field>
+          <v-text-field :value="form.menuAuthGroupName" label="" disabled></v-text-field>
         </v-col>
         <v-col sm="6" md="3">
           <v-label>부서</v-label>
-          <v-text-field :value="form.deptCodeName" label="" disabled></v-text-field>
+          <v-text-field :value="form.deptName" label="" disabled></v-text-field>
         </v-col>
       </v-row>
       <v-row justify="end">

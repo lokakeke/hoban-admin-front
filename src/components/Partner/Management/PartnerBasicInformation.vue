@@ -180,10 +180,11 @@
 </template>
 
 <script>
-import service from '@/api/modules/system/authentication/partner/partnerAccount.service'
-import authService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
+import partnerAccountService from '@/api/modules/system/authentication/partner/partnerAccount.service'
+import partnerMenuAuthGroupService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 import PartnerPasswordReset from '@/components/Partner/Management/PartnerPasswordReset.vue'
+import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
 
 export default {
   components: { PartnerPasswordReset },
@@ -229,6 +230,7 @@ export default {
         useYn: 'Y'
       },
       businessList: [],
+      saleChannelList: [],
       menuAuthList: [],
       dataIndex: -1
     }
@@ -239,7 +241,7 @@ export default {
       this.businessList = res.data
     })
     // 파트너사 메뉴권한 불러오기
-    authService.selectPartnerMenuAuthGroupListInUse().then(res => {
+    partnerMenuAuthGroupService.selectPartnerMenuAuthGroupListInUse().then(res => {
       this.menuAuthList = res.data
     })
     if (this.isModify) {
@@ -248,7 +250,7 @@ export default {
   },
   methods: {
     getPartnerDetails () {
-      service.selectPartnerDetails(this.partnerSeq).then(res => {
+      partnerAccountService.selectPartnerDetails(this.partnerSeq).then(res => {
         if (res.data.terms && res.data.terms.length > 0) {
           for (const row of res.data.terms) {
             this.checkStatus(row)
@@ -260,7 +262,7 @@ export default {
     // 추가 인증번호 발급
     createAddAuthNo () {
       this.$dialog.confirm('추가 인증번호를 생성 하시겠습니까?').then(() => {
-        service.createAddAuthNo().then(res => {
+        partnerAuthService.createAddAuthNo().then(res => {
           this.form.addAuthNo = res.data
         })
       })
@@ -350,7 +352,7 @@ export default {
         await this.validForm(this.$refs.form)
         await this.checkTerms()
         await this.$dialog.confirm('업체 정보를 수정 하시겠습니까?')
-        await service.updatePartner(this.form)
+        await partnerAccountService.updatePartner(this.form)
         this.search()
         await this.$dialog.alert('업체 정보가 수정되었습니다.')
         this.getPartnerDetails()
@@ -374,7 +376,7 @@ export default {
           // 전송 폼
           const form = _.cloneDeep(this.form)
           form.partnerManager = _.cloneDeep(this.managerForm)
-          const res = await service.insertPartner(form)
+          const res = await partnerAccountService.insertPartner(form)
           this.setInfo(true, res.data.partnerSeq, res.data.companyName)
           this.search()
           // 재조회

@@ -51,8 +51,6 @@ const actions = {
     // 메뉴 쓰기권한 초기화
     await store.dispatch('sidebar/setWriteAuth', 'N')
     // 로그인 체크
-    console.log('isLoginedIn')
-    console.log(getters.isLoggedIn)
     if (getters.isLoggedIn === true) {
       // Case 1. 사용자 로그인 된 경우 :
       return Promise.resolve()
@@ -60,14 +58,7 @@ const actions = {
       // Case 2. 토큰만 존재하는 경우 : 서버에서 사용자 정보 가져오기
       try {
         let res = null
-        const isPartner = getters.partnerYn
-        console.log('isPartner')
-        console.log(isPartner)
-        if (isPartner === 'Y') {
-          res = await partnerAuthService.get()
-        } else {
-          res = await adminAuthService.get()
-        }
+        res = await adminAuthService.get()
         // 사용자 정보 저장
         commit('setPartnerYn', res.data.partnerYn)
         commit('setUser', res.data)
@@ -98,13 +89,8 @@ const actions = {
    */
   async preLogin ({ commit }, { loginId, loginPw, partnerYn }) {
     // 1차 로그인 인증(id/password)
-    if (partnerYn && partnerYn === 'Y') { // Partner
-      const res = await partnerAuthService.preLogin({ loginId, loginPw, partnerYn })
-      return Promise.resolve(res)
-    } else { // Admin
-      const res = await adminAuthService.preLogin({ loginId, loginPw, partnerYn })
-      return Promise.resolve(res)
-    }
+    const res = await adminAuthService.preLogin({ loginId, loginPw, partnerYn })
+    return Promise.resolve(res)
   },
   /**
    * 2차 로그인 : ID / Password / 인증번호 검증
@@ -123,8 +109,7 @@ const actions = {
     if (partnerYn && partnerYn === 'Y') {
       res = await partnerAuthService.login({ loginId, loginPw, partnerYn, requestCode, requestId })
     } else {
-      res = await adminAuthService.login({ loginId, loginPw, partnerYn, requestCode, requestId })
-      partnerYn = 'N'
+      res = await adminAuthService.login({ loginId, loginPw, partnerYn: 'N', requestCode, requestId })
     }
     commit('setPartnerYn', partnerYn)
     commit('setJWTToken', res.headers['jwt-header'])

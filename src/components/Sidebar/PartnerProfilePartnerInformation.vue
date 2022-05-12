@@ -28,7 +28,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>관리자 연락처</v-label>
-            <v-text-field type="text" v-model="form.capTelNo" v-mask="['###-####-####', '##-###-####', '##-####-####']" :rules="emptyRules.concat(phoneRegex)"></v-text-field>
+            <v-text-field type="text" v-model="form.companyTelNo" v-mask="['###-####-####', '##-###-####', '##-####-####']" :rules="emptyRules.concat(phoneRegex)"></v-text-field>
           </v-col>
         </v-row>
         <v-row v-if="mainAuth">
@@ -50,6 +50,7 @@
                 <th class="text-center">판매 채널</th>
                 <th class="text-center">대매사</th>
                 <th class="text-center">기간</th>
+                <th class="text-center">관리자 번호</th>
                 <th class="text-center">예치금 적용여부</th>
                 <th class="text-center">예치금 미적용사유</th>
                 <th class="text-center">효력여부</th>
@@ -57,10 +58,10 @@
               </thead>
               <tbody>
               <tr v-for="(term, index) in form.terms" :key="index" @click="openDialog(term)">
-                <td class="text-center">{{term.taskType | label(businessList, 'commCode', 'commCodeName')}}</td>
+                <td class="text-center">{{term.taskType | label(businessList, 'commonCode', 'commonCodeName')}}</td>
                 <td class="text-center">{{term.taskTypeName}}</td>
                 <td class="text-center">{{term.memberNo}}</td>
-                <td class="text-center">{{term.saleChannel | label(saleChannelList, 'commCode', 'commCodeName')}}
+                <td class="text-center">{{term.saleChannel | label(saleChannelList, 'commonCode', 'commonCodeName')}}
                 <td class="text-center">{{term.agentCodeName}}
                 <td class="text-center">{{term.useStartDate | date}} ~ {{term.useEndDate | date}}</td>
                 <td class="text-center">{{term.depositYn === 'Y'? '적용': '미적용'}}</td>
@@ -83,6 +84,7 @@
 import commonCodeService from '@/api/modules/system/commonCode.service'
 import service from '@/api/modules/system/authentication/partner/partnerAccount.service'
 import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
+import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
 
 export default {
   name: 'PartnerProfilePartnerInformation',
@@ -126,7 +128,7 @@ export default {
     // 추가 인증번호 발급
     createAddAuthNo () {
       this.$dialog.confirm('추가 인증번호를 생성 하시겠습니까?').then(() => {
-        service.createAddAuthNo().then(res => {
+        partnerAuthService.createAddAuthNo().then(res => {
           this.form.addAuthNo = res.data
         })
       })

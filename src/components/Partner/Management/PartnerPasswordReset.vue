@@ -46,6 +46,7 @@
 
 <script>
 import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
+import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 import MaskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 
@@ -96,7 +97,8 @@ export default {
       if (this.selected.length === 0) {
         this.$dialog.alert('발송 정보를 선택해 주세요.')
       } else {
-        partnerAuthService.createTemporaryPassword(this.item.loginId, this.selected[0].id, this.type).then(res => {
+        // loginId, partnerManagerId(ptnrChrgId), type 를 보내줬다.
+        adminAuthService.createTemporaryPassword(this.item.loginId, this.selected[0].id, this.type).then(res => {
           console.log('임시 비밀번호 확인용 : ', res.data)
           this.$dialog.alert('임시 비밀번호가 발급 되었습니다.').then(() => {
             this.expand = false

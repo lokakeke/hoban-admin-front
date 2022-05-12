@@ -11,10 +11,10 @@
       dense
     >
       <template v-slot:crtDt="{item}">
-        {{ item.crtDt | dateSet }}
+        {{ item.createDatetime | dateSet }}
       </template>
       <template v-slot:readingDt="{item}">
-        {{ item.readingDt | dateSet }}
+        {{ item.readDatetime | dateSet }}
       </template>
     </sticky-table>
     <!--<v-data-table

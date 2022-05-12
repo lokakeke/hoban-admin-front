@@ -69,7 +69,7 @@ export default {
         { text: '잠김 여부', value: 'lockYn', align: 'center' },
         { text: '비밀번호 초기화', value: 'passwordReset', align: 'center' },
         { text: '마지막 로그인 날짜', value: 'lastLoginDatetime', align: 'center' },
-        { text: '메뉴권한', value: 'menuAuthGrupName', align: 'center' }
+        { text: '메뉴권한', value: 'menuAuthGroupName', align: 'center' }
       ]
     }
   },
