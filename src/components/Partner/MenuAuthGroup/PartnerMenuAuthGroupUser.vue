@@ -84,7 +84,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import partnerMenuAuthGroupService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
+import partnerMenuAuthGroupService from '@/api/modules/partner/partnerMenuAuthGroup.service'
 
 export default {
   extends: DialogBase,
