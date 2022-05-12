@@ -5,7 +5,7 @@ export default {
    * 예치금 계좌 목록 조회
    */
   selectDepositAccountList (params) {
-    return api.get('/api/cms/system/deposit/account/list', { params })
+    return api.get('/api/cms/ota/booking/deposit/account/list', { params })
   },
   /**
    * 예치금 계좌 상세 조회

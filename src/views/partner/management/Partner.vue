@@ -1,7 +1,7 @@
 <template>
   <v-row wrap>
     <app-card :heading="'파트너 리스트'" col-classes="col-12">
-      <search-form init-search :search-param.sync="searchParam" :search-list="searchList" @search="search"></search-form>
+      <search-form init-search :search-param.sync="searchParam" :search-list="searchList" @search="search"/>
       <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="partnerNo" hide-default-footer disable-pagination
                     class="click-row bordered" @click:row="open($event)">
         <template v-slot:item.passwordReset="{item}">
@@ -71,7 +71,7 @@ export default {
         { text: '업체 번호', value: 'partnerSeq', align: 'center', sortable: false },
         { text: '업체 명', value: 'companyName', align: 'center', sortable: false },
         { text: '로그인 아이디', value: 'loginId', align: 'center', sortable: false },
-        /* { text: '사업자 번호', value: 'bizrNo', align: 'center', sortable: false }, */
+        { text: '사업자 번호', value: 'companyNo', align: 'center', sortable: false },
         { text: '관리자 성명', value: 'ceoName', align: 'center', sortable: false },
         { text: '관리자 연락처', value: 'companyTelNo', align: 'center', sortable: false },
         { text: '메뉴 권한', value: 'menuAuthGroupName', align: 'center', sortable: false },
@@ -87,7 +87,7 @@ export default {
         // 로그인처리
         headers.push({ text: '로그인', value: 'login', align: 'center', sortable: false })
       }
-      headers.push({ text: '마지막 로그인 일자', value: 'lastLoginDt', align: 'center', sortable: false })
+      headers.push({ text: '마지막 로그인 일자', value: 'lastLoginDatetime', align: 'center', sortable: false })
       return headers
     },
     searchList () {
@@ -101,13 +101,13 @@ export default {
           label: '잠김 여부',
           type: 'select',
           list: [
-            { text: '잠김', value: 'Y' },
-            { text: '미잠김', value: 'N' }
+            { text: 'Y', value: 'Y' },
+            { text: 'N', value: 'N' }
           ]
         }
       ]
       if (!this.isPartner) {
-        searchList.push({ key: 'blacklistYn', label: '블랙리스트 여부', type: 'select', list: [{ text: '전체', value: '' }, { text: 'Y', value: 'Y' }, { text: 'N', value: 'N' }] })
+        searchList.push({ key: 'blacklistYn', label: '블랙리스트 여부', type: 'select', list: [{ text: 'Y', value: 'Y' }, { text: 'N', value: 'N' }] })
       }
       searchList.push({ key: 'available', label: '서비스 효력여부', type: 'select', defaultValue: 'Y', list: [{ text: '활성중', value: 'Y' }, { text: '비활성', value: 'N' }] })
       return searchList
@@ -119,10 +119,10 @@ export default {
       service.selectPartnerList(this.searchParam).then(res => {
         const list = []
         for (const data of res.data) {
-          if (data.lastLoginDt) {
-            data.lastLoginDt = moment(data.lastLoginDt).format('YYYY.MM.DD HH:mm:ss')
+          if (data.lastLoginDatetime) {
+            data.lastLoginDatetime = moment(data.lastLoginDatetime).format('YYYY.MM.DD HH:mm:ss')
           } else {
-            data.lastLoginDt = ' -- '
+            data.lastLoginDatetime = ' -- '
           }
           list.push(data)
         }
@@ -136,19 +136,19 @@ export default {
     },
     open (rowData) {
       let isModify = false
-      let partnerNo = ''
+      let partnerSeq = 0
       let partnerName = ''
       if (rowData) {
         isModify = true
-        partnerNo = rowData.partnerSeq
+        partnerSeq = rowData.partnerSeq
         partnerName = rowData.companyName
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner//PartnerDialog',
+        componentPath: '/Partner/Management/PartnerDialog',
         params: {
           isModify,
-          partnerNo,
+          partnerSeq,
           partnerName,
           search: this.search
         },

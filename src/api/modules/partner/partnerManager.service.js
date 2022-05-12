@@ -8,7 +8,7 @@ const partnerManagerService = {
    * @returns 담당자 리스트
    */
   selectPartnerManagerList (partnerSeq) {
-    return api.get(`/api/cms/system/partner/manager/list/${partnerSeq}`)
+    return api.get(`/api/cms/ota/booking/partnerManager/list/${partnerSeq}`)
   },
 
   /**
@@ -44,7 +44,7 @@ const partnerManagerService = {
    * @returns AxiosPromise<any>
    */
   insertPartnerManager (form) {
-    return api.post('/api/cms/system/partnerCharge/insert', form)
+    return api.post('/api/cms/ota/booking/partnerManager/insert', form)
   },
 
   /**

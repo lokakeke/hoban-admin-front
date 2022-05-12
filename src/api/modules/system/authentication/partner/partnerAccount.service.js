@@ -6,7 +6,7 @@ const partnerAccountService = {
      * 가맹점 목록 조회
      */
   selectPartnerList (param) {
-    return api.get('/api/cms/system/partner/list', { params: param })
+    return api.get('/api/cms/ota/booking/partner/list', { params: param })
   },
 
   /**
@@ -20,14 +20,14 @@ const partnerAccountService = {
      * 가맹점 기본정보 등록
      */
   insertPartner (param) {
-    return api.post('/api/cms/system/partner/insert', param)
+    return api.post('/api/cms/ota/booking/partner/insert', param)
   },
 
   /**
      * 가맹점 기본정보 수정
      */
   updatePartner (param) {
-    return api.post(`/api/cms/system/partner/update/${param.partnerSeq}`, param)
+    return api.post('/api/cms/ota/booking/partner/update', param)
   },
 
   /**
@@ -49,16 +49,16 @@ const partnerAccountService = {
   /**
      * 가맹점 상세(기본정보) 조회
      */
-  selectPartnerDetails (partnerNo) {
-    return api.get(`/api/cms/system/partner/detail/${partnerNo}`)
+  selectPartnerDetails (partnerSeq) {
+    return api.get(`/api/cms/ota/booking/partner/detail/${partnerSeq}`)
   },
 
   /**
    * 추가 인증번호 생성
    * @returns {promise<any>}
    */
-  createAddCrtfNo () {
-    return api.get('/api/cms/system/partner/createAddAuthNo')
+  createAddAuthNo () {
+    return api.get('/api/cms/ota/booking/partner/createAddAuthNo')
   },
 
   /**

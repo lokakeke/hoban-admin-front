@@ -6,9 +6,6 @@ const Menu = () => import('@/views/system/menu/Menu.vue')
 // 관리자 menu auth group
 const AdminMenuAuthGroup = () => import('@/views/system/authentication/admin/AdminMenuAuthGroup.vue')
 
-// 파트너 menu auth group
-const PartnerMenuAuthGroup = () => import('@/views/system/authentication/partner/PartnerMenuAuthGroup.vue')
-
 // account
 const Account = () => import('@/views/system/authentication/admin/AdminAccount.vue')
 
@@ -100,16 +97,6 @@ export default {
         auth: true,
         title: '카카오 알림톡 관리',
         breadcrumb: 'SMS Notification'
-      }
-    },
-    {
-      path: 'partnerMenuAuthGroup',
-      component: PartnerMenuAuthGroup,
-      name: 'system.partnerMenuAuthGroup',
-      meta: {
-        auth: true,
-        title: '파트너 메뉴권한 관리',
-        breadcrumb: 'Partner Menu Auth '
       }
     },
     {

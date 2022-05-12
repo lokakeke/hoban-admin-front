@@ -100,9 +100,6 @@
                 <th class="text-center">업무 구분</th>
                 <th class="text-center">업무 구분명</th>
                 <th class="text-center">회원 번호</th>
-                <th class="text-center">판매 채널</th>
-                <th class="text-center">대매사</th>
-                <th class="text-center">대매사 코드</th>
                 <th class="text-center">기간</th>
                 <th class="text-center">예치금 Key</th>
                 <th class="text-center">예치금</th>
@@ -115,17 +112,14 @@
               </thead>
               <tbody>
               <tr v-for="(term, index) in form.terms" :key="index" @click="modifyRow(term, index)">
-                <td class="text-center">{{term.taskType | label(businessList, 'commCode', 'commCodeName')}}</td>
+                <td class="text-center">{{term.taskType | label(businessList, 'commonCode', 'commonCodeName')}}</td>
                 <td class="text-center">{{term.taskTypeName}}</td>
-                <td class="text-center">{{term.memNo}}</td>
-                <td class="text-center">{{term.saleChnnl | label(saleChannelList, 'commCode', 'commCodeName')}}
-                <td class="text-center">{{term.agentCodeName}}
-                <td class="text-center">{{term.agentCode}}
-                <td class="text-center">{{term.useBgnYmd | date}} ~ {{term.useEndYmd | date}}</td>
-                <td class="text-center">{{term.depoKey}}</td>
-                <td class="text-center">{{term.amt | price}}원</td>
-                <td class="text-center">{{term.depoYn === 'Y'? '적용': '미적용'}}</td>
-                <td class="text-center">{{term.depoDesc | textTruncate}}</td>
+                <td class="text-center">{{term.memberNo}}</td>
+                <td class="text-center">{{term.useStartDate | date}} ~ {{term.useEndDate | date}}</td>
+                <td class="text-center">{{term.depositKey}}</td>
+                <td class="text-center">{{term.price | price}}원</td>
+                <td class="text-center">{{term.depositYn === 'Y'? '적용': '미적용'}}</td>
+                <td class="text-center">{{term.depositDesc | textTruncate}}</td>
                 <td class="text-center">{{term.state}}</td>
                 <td class="text-center" v-if="!isPartner">{{term.calcApplyYn}}</td>
                 <th class="text-center" v-if="!isModify">
@@ -148,25 +142,25 @@
           <v-row>
             <v-col cols="4">
               <v-label>닉네임</v-label>
-              <v-text-field v-model="chargeForm.chrgName" label="" :rules="emptyRules" clearable></v-text-field>
+              <v-text-field v-model="managerForm.managerName" label="" :rules="emptyRules" clearable></v-text-field>
             </v-col>
             <v-col cols="4">
               <v-label>휴대폰 번호</v-label>
-              <v-text-field v-model="chargeForm.telNo" v-mask="['###-####-####', '###-###-####']" label="" :rules="mobileRegex" clearable></v-text-field>
+              <v-text-field v-model="managerForm.telNo" v-mask="['###-####-####', '###-###-####']" label="" :rules="mobileRegex" clearable></v-text-field>
             </v-col>
             <v-col cols="4">
               <v-label>이메일 주소</v-label>
-              <v-text-field v-model="chargeForm.email" label="" :rules="emailRegex" clearable></v-text-field>
+              <v-text-field v-model="managerForm.email" label="" :rules="emailRegex" clearable></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="4">
               <v-label>슈퍼바이저 권한</v-label>
-              <v-checkbox v-model="chargeForm.mainAuthYn" label="슈퍼바이저 권한" hide-details true-value="Y" false-value="N"></v-checkbox>
+              <v-checkbox v-model="managerForm.mainAuthYn" label="슈퍼바이저 권한" hide-details true-value="Y" false-value="N"></v-checkbox>
             </v-col>
             <v-col cols="4">
               <v-label>사용여부</v-label>
-              <v-checkbox v-model="chargeForm.useYn" label="사용여부" hide-details true-value="Y" false-value="N"></v-checkbox>
+              <v-checkbox v-model="managerForm.useYn" label="사용여부" hide-details true-value="Y" false-value="N"></v-checkbox>
             </v-col>
             <v-col cols="4">
               <v-label>파트너 생성 시 알림톡 발송여부</v-label>
@@ -195,7 +189,7 @@ export default {
   components: { PartnerPasswordReset },
   name: 'PartnerBasicInformation',
   props: {
-    partnerNo: String,
+    partnerSeq: Number,
     isModify: Boolean,
     setInfo: Function,
     search: Function
@@ -217,26 +211,24 @@ export default {
         tempPwYn: 'Y',
         companyName: '',
         newPwConfirm: '',
-        bizrNo: '',
+        memberNo: '',
         ceoName: '',
         companyTelNo: '',
-        agentCode: '',
-        agentCodeName: '',
+        companyNo: '',
         menuAuthGroupId: '',
         addAuthNo: '',
         blacklistYn: 'N',
         terms: [],
         sendYn: 'Y'
       },
-      chargeForm: {
-        chrgName: '',
+      managerForm: {
+        managerName: '',
         telNo: '',
         email: '',
         mainAuthYn: 'Y',
         useYn: 'Y'
       },
       businessList: [],
-      saleChannelList: [],
       menuAuthList: [],
       dataIndex: -1
     }
@@ -250,17 +242,13 @@ export default {
     authService.selectPartnerMenuAuthGroupListInUse().then(res => {
       this.menuAuthList = res.data
     })
-    // 판매채널 코드 불러오기
-    commonCodeService.selectCommonCode('CHANNEL').then(res => {
-      this.saleChannelList = res.data
-    })
     if (this.isModify) {
       this.getPartnerDetails()
     }
   },
   methods: {
     getPartnerDetails () {
-      service.selectPartnerDetails(this.partnerNo).then(res => {
+      service.selectPartnerDetails(this.partnerSeq).then(res => {
         if (res.data.terms && res.data.terms.length > 0) {
           for (const row of res.data.terms) {
             this.checkStatus(row)
@@ -272,50 +260,43 @@ export default {
     // 추가 인증번호 발급
     createAddAuthNo () {
       this.$dialog.confirm('추가 인증번호를 생성 하시겠습니까?').then(() => {
-        service.createAddCrtfNo().then(res => {
+        service.createAddAuthNo().then(res => {
           this.form.addAuthNo = res.data
         })
       })
     },
     checkStatus (row) {
       // 계약 시작일
-      const useBgnYmd = moment(row.useBgnYmd)
+      const useStartDate = moment(row.useStartDate)
       // 계약 만료일
-      const useEndYmd = moment(row.useEndYmd)
+      const useEndDate = moment(row.useEndDate)
       // 오늘이 계약일 사이라면 활성 아니면 비활성
-      if (moment() >= useBgnYmd && moment() <= useEndYmd) {
+      if (moment() >= useStartDate && moment() <= useEndDate) {
         row.state = '활성'
         row.isAvailable = true
       } else {
         row.state = '비활성'
         row.isAvailable = false
       }
-      // date 타입으로 변환
-      row.useEndYmd = useEndYmd.toDate()
-      row.useBgnYmd = moment(row.useBgnYmd).toDate()
     },
     modifyRow (row, index) {
       let useForm = {
-        partnerSeq: this.partnerNo,
+        partnerSeq: this.partnerSeq,
         termSeq: '',
         taskType: '',
         taskTypeName: '',
-        memNo: '',
-        saleChnnl: '',
-        useBgnYmd: null,
-        useEndYmd: null,
-        depoYn: '',
-        depoDesc: '',
-        agentCode: '',
-        agentCodeName: '',
-        mgtNo: '',
+        memberNo: '',
+        useStartDate: null,
+        useEndDate: null,
+        depositYn: '',
+        depositDesc: '',
         calcApplyYn: 'Y'
       }
       this.dataIndex = -1
       if (row) {
         useForm = Object.assign({}, row)
-        useForm.useBgnYmd = moment(useForm.useBgnYmd).format('YYYYMMDD')
-        useForm.useEndYmd = moment(useForm.useEndYmd).format('YYYYMMDD')
+        useForm.useStartDate = moment(useForm.useStartDate).format('YYYYMMDD')
+        useForm.useEndDate = moment(useForm.useEndDate).format('YYYYMMDD')
         useForm.companyName = this.form.companyName
         this.dataIndex = index
       }
@@ -324,12 +305,11 @@ export default {
 
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner//PartnerBasicAddDialog',
+        componentPath: '/Partner/Management/PartnerBasicAddDialog',
         params: {
           isNewData,
           useForm,
-          businessList: this.businessList,
-          saleChannelList: this.saleChannelList
+          businessList: this.businessList
         },
         options: {
           fullscreen: false,
@@ -386,14 +366,14 @@ export default {
           this.$refs.pwConfirm.focus()
         } else if (!this.form.terms || this.form.terms.length === 0) {
           await this.$dialog.alert('업체 API 이용정보를 한개이상 입력해 주세요.')
-        } else if (!this.chargeForm.telNo && !this.chargeForm.email) {
+        } else if (!this.managerForm.telNo && !this.managerForm.email) {
           // 둘중에 하나는 필수
           await this.$dialog.alert('담당자 휴대전화, 이메일 중 하나는 필수로 입력하여 주세요.')
         } else {
           await this.$dialog.confirm('업체 정보를 등록 하시겠습니까?')
           // 전송 폼
           const form = _.cloneDeep(this.form)
-          form.partnerCharge = _.cloneDeep(this.chargeForm)
+          form.partnerManager = _.cloneDeep(this.managerForm)
           const res = await service.insertPartner(form)
           this.setInfo(true, res.data.partnerSeq, res.data.companyName)
           this.search()

@@ -17,7 +17,7 @@
         v-for="tabItem in tabItems"
         :key="tabItem.tab">
         <component :is="tabItem.component"
-                   :partner-no="partnerSeq"
+                   :partner-seq="partnerSeq"
                    :is-modify="isModify"
                    :set-info="setInfo"
                    :search="search"></component>
@@ -29,7 +29,7 @@
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import PartnerBasicInformation from './PartnerBasicInformation'
-import PartnerAddCharge from './PartnerAddCharge'
+import PartnerAddManager from './PartnerAddManager'
 import PartnerApi from './PartnerApi'
 
 export default {
@@ -41,7 +41,7 @@ export default {
       tab: null,
       tabItems: [
         { tab: '기본정보', component: PartnerBasicInformation, disable: false },
-        { tab: '담당자 관리', component: PartnerAddCharge, disable: true },
+        { tab: '담당자 관리', component: PartnerAddManager, disable: true },
         { tab: 'API 관리', component: PartnerApi, disable: true }
       ],
       isModify: false,
