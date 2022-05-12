@@ -1,5 +1,9 @@
 import Full from '@/container/Full.vue'
 
+// 공지사항
+const BoardNotice = () => import('@/views/ota/board/notice/BoardNotice.vue')
+const BoardNoticeView = () => import('@/views/ota/board/notice/BoardNoticeView.vue')
+
 // room
 const Room = () => import('@/views/ota/room/RoomType.vue')
 
@@ -47,6 +51,27 @@ export default {
     breadcrumb: 'OTA'
   },
   children: [
+    {
+      path: 'boardNotice',
+      component: BoardNotice,
+      name: 'ota.boardNotice',
+      meta: {
+        auth: true,
+        title: '공지사항',
+        breadcrumb: 'Notice'
+      }
+    },
+    {
+      path: 'boardNotice/:noticeSeq',
+      component: BoardNoticeView,
+      name: 'ota.boardNotice.view',
+      props: true,
+      meta: {
+        auth: true,
+        title: '공지사항 조회',
+        breadcrumb: 'Notice'
+      }
+    },
     {
       path: 'roomType',
       component: Room,
