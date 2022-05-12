@@ -7,6 +7,7 @@ import ApiRoutes from './modules/api'
 import PartnerRoutes from './modules/partner'
 import NaverRoutes from './modules/naver'
 import BoardRoutes from './modules/board'
+import TlRoutes from './modules/tl'
 
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -44,6 +45,7 @@ export default new Router({
     PartnerRoutes,
     NaverRoutes,
     BoardRoutes,
+    TlRoutes,
     {
       path: '/login',
       name: 'login',
