@@ -181,7 +181,7 @@
 
 <script>
 import partnerAccountService from '@/api/modules/system/authentication/partner/partnerAccount.service'
-import partnerMenuAuthGroupService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
+import partnerMenuAuthGroupService from '@/api/modules/partner/partnerMenuAuthGroup.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 import PartnerPasswordReset from '@/components/Partner/Management/PartnerPasswordReset.vue'
 import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
