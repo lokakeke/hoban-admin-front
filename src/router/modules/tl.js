@@ -5,7 +5,7 @@ import Full from '@/container/Full.vue'
 // const StockSet = () => import('@/views/tl/stock/stockSet.vue')
 
 // 객실 관리
-// const RoomType = () => import('@/views/tl/roomType/roomTypeManagement.vue')
+const RoomType = () => import('@/views/tl/roomType/RoomType.vue')
 
 // 사업장 관리
 const Branch = () => import('@/views/tl/branch/Branch.vue')
@@ -71,17 +71,17 @@ export default {
     //     breadcrumb: 'StockSet'
     //   }
     // },
-    // {
-    //   path: 'roomType',
-    //   component: RoomType,
-    //   name: 'tl.roomType',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '객실 관리',
-    //     breadcrumb: 'RoomType'
-    //   }
-    // },
+    {
+      path: 'roomType',
+      component: RoomType,
+      name: 'tl.roomType',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '객실 관리',
+        breadcrumb: 'RoomType'
+      }
+    },
     {
       path: 'branch',
       component: Branch,
@@ -92,7 +92,7 @@ export default {
         title: '사업장 관리',
         breadcrumb: 'branch'
       }
-    },
+    }
     // {
     //   path: 'reservation/reservationManual',
     //   component: ReservationManual,
