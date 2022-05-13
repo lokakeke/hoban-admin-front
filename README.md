@@ -11,10 +11,13 @@ Hoban Hotel&Resort API 관리 시스템 홈페이지
 
 ##설치 (최초 1회 실행)
 1. cmd(Mac은 Terminal) 실행.
-3. 프로젝트의 `package.json` 파일이 존재하는 최상단 디렉토리로 이동.
+2. 프로젝트의 `package.json` 파일이 존재하는 최상단 디렉토리로 이동.
 3. 아래 명령어를 입력하여 `package.json`에 정의된 node.js 의존성 라이브러리 설치.
    `yarn install`
    <br />
+4. husky 훅 추가.
+   `npx husky add .husky/pre-commit "yarn build"`
+   `git add .husky/pre-commit`
 
 ##스크립트 명령1: 로컬 개발서버 실행 (serve)
 cmd에서 `package.json`이 존재하는 디렉토리로 이동 후 아래 명령어를 입력.
