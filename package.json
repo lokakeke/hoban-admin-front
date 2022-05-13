@@ -5,7 +5,8 @@
     "build": "vite build",
     "lint": "eslint './src/**/*.{js,ts,tsx,vue,md}'",
     "lint:fix": "eslint './src/**/*.{js,ts,tsx,vue,md}' --fix",
-    "preview:build": "yarn run build && vite preview "
+    "preview:build": "yarn run build && vite preview",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.2.0",
@@ -53,6 +54,7 @@
     "vue-upload-component": "^2.8.20",
     "vue-virtual-table": "^0.2.16",
     "vue2-breadcrumbs": "^2.0.0",
+    "vue2-datepicker": "^2.11.2",
     "vue2-perfect-scrollbar": "^1.5.0",
     "vuedraggable": "^2.24.1",
     "vuejs-dialog": "^1.4.2",
@@ -61,8 +63,7 @@
     "vuex-persistedstate": "^3.1.0",
     "vuex-router-sync": "^5.0.0",
     "xlsx": "^0.16.7",
-    "yarn": "^1.22.18",
-    "vue2-datepicker": "^2.11.2"
+    "yarn": "^1.22.18"
   },
   "devDependencies": {
     "@iconify/json": "^1.1.322",
@@ -80,7 +81,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^7.8.0",
     "fibers": "^5.0.1",
-    "husky": "^5.2.0",
+    "husky": "^8.0.1",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "sass": "^1.32.8",
@@ -97,5 +98,10 @@
     "*.{js,ts,tsx,vue,md}": [
       "eslint --fix"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn build"
+    }
   }
 }
