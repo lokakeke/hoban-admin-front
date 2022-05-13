@@ -31,7 +31,7 @@
 
 <script>
 import service from '@/api/modules/system/authentication/partner/partnerAccount.service'
-import authService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
+import authService from '@/api/modules/partner/partnerMenuAuthGroup.service'
 import maskTelNumber from '@/components/Mask/MaskTelNumber.vue'
 import PartnerPasswordReset from '@/components/Partner/Management/PartnerPasswordReset.vue'
 import PartnerLoginForAdmin from '@/components/Partner/Management/PartnerLoginForAdmin.vue'

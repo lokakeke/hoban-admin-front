@@ -230,7 +230,6 @@ export default {
         useYn: 'Y'
       },
       businessList: [],
-      saleChannelList: [],
       menuAuthList: [],
       dataIndex: -1
     }

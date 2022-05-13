@@ -162,9 +162,9 @@
 </template>
 
 <script>
-import partnerMenuAuthGroupService from '@/api/modules/system/authentication/partner/partnerMenuAuthGroup.service'
+import partnerMenuAuthGroupService from '@/api/modules/partner/partnerMenuAuthGroup.service'
 import menuService from '@/api/modules/system/menu.service'
-import partnerMenuAuthGroupForm from '@/components/System/Authentication/Partner/PartnerMenuAuthGroupForm.vue'
+import partnerMenuAuthGroupForm from '@/components/Partner/MenuAuthGroup/PartnerMenuAuthGroupForm.vue'
 
 export default {
   components: { partnerMenuAuthGroupForm },
@@ -231,7 +231,7 @@ export default {
   methods: {
     openMenu () {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/System/Authentication/Partner/PartnerMenuAuthGroupMenu',
+        componentPath: '/Partner/MenuAuthGroup/PartnerMenuAuthGroupMenu',
         params: {
           title: `메뉴권한 그룹(${this.menuAuthGroupName}) 메뉴 설정`,
           menuList: this.menuFullList,
@@ -250,7 +250,7 @@ export default {
     },
     openUser (item) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/System/Authentication/Partner/PartnerMenuAuthGroupUser',
+        componentPath: '/Partner/MenuAuthGroup/PartnerMenuAuthGroupUser',
         params: {
           title: `파트너사 (${item.companyName}) 개인 메뉴 설정 - ${this.menuAuthGroupName} 권한`,
           user: item,
