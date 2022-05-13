@@ -98,10 +98,5 @@
     "*.{js,ts,tsx,vue,md}": [
       "eslint --fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn build"
-    }
   }
 }
