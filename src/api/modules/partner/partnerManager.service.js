@@ -64,16 +64,6 @@ const partnerManagerService = {
   updatePartnerManager (form) {
     return api.post('/api/cms/system/partnerCharge/update', form)
   },
-
-  /**
-   * 파트너 담당자 프로파일 수정
-   * @param form
-   * @returns AxiosPromise<any>
-   */
-  updatePartnerManagerProfile (form) {
-    return api.post('/api/cms/system/partnerCharge/updateProfile', form)
-  },
-
   /**
    * 파트너 담당자 삭제
    * @param partnerSeq

@@ -25,7 +25,8 @@
 </template>
 
 <script>
-import partnerManagerService from '@/api/modules/partner/partnerManager.service'
+import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
+
 export default {
   props: {
     mainAuth: Boolean,
@@ -48,7 +49,7 @@ export default {
           this.$dialog.alert('휴대전화, 이메일 중 하나는 필수로 입력하여 주세요.')
           return
         }
-        partnerManagerService.updatePartnerManagerProfile(this.form).then(() => {
+        partnerAuthService.updatePartnerManagerProfile(this.form).then(() => {
           this.$emit('change')
           this.$dialog.alert('기본정보가 변경 되었습니다.')
         })
