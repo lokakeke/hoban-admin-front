@@ -1,88 +1,97 @@
 <template>
-  <v-card flat>
-    <v-card-text>
-      <v-form ref="form" lazy-validation>
-        <v-row>
-          <v-col cols="3">
-            <v-label>파트너사 아이디</v-label>
-            <v-text-field type="text" v-model="form.loginId" :rules="emptyRules" disabled></v-text-field>
-          </v-col>
-          <v-col cols="3">
-            <v-label>업체 명</v-label>
-            <v-text-field type="text" v-model="form.companyName" :rules="emptyRules" disabled></v-text-field>
-          </v-col>
-          <v-col cols="3">
-            <v-label>추가 인증번호 (* 파트너 담당자 추가시 필요)</v-label>
-            <v-text-field v-if="mainAuth" v-model="form.addAuthNo" label="" readonly :rules="emptyRules">
-              <template v-slot:append-outer>
-                <v-btn outlined color="accent" @click="createAddAuthNo">번호 생성</v-btn>
-              </template>
-            </v-text-field>
-            <v-text-field v-else :value="addAuthNo" readonly></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="3">
-            <v-label>관리자 성명</v-label>
-            <v-text-field type="text" v-model="form.ceoName" :rules="emptyRules"></v-text-field>
-          </v-col>
-          <v-col cols="3">
-            <v-label>관리자 연락처</v-label>
-            <v-text-field type="text" v-model="form.companyTelNo" v-mask="['###-####-####', '##-###-####', '##-####-####']" :rules="emptyRules.concat(phoneRegex)"></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row v-if="mainAuth">
-          <v-col class="text-right">
-            <v-btn rounded color="info" @click="submit"><v-icon left>check</v-icon>수정</v-btn>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" class="pb-0">
-            <span class="title">서비스 등록관리</span>
-          </v-col>
-          <v-col cols="12">
-            <v-simple-table class="bordered click-row">
-              <thead>
-              <tr>
-                <th class="text-center">업무 구분</th>
-                <th class="text-center">업무 구분명</th>
-                <th class="text-center">회원 번호</th>
-                <th class="text-center">판매 채널</th>
-                <th class="text-center">대매사</th>
-                <th class="text-center">기간</th>
-                <th class="text-center">관리자 번호</th>
-                <th class="text-center">예치금 적용여부</th>
-                <th class="text-center">예치금 미적용사유</th>
-                <th class="text-center">효력여부</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="(term, index) in form.terms" :key="index" @click="openDialog(term)">
-                <td class="text-center">{{term.taskType | label(businessList, 'commonCode', 'commonCodeName')}}</td>
-                <td class="text-center">{{term.taskTypeName}}</td>
-                <td class="text-center">{{term.memberNo}}</td>
-                <td class="text-center">{{term.saleChannel | label(saleChannelList, 'commonCode', 'commonCodeName')}}
-                <td class="text-center">{{term.agentCodeName}}
-                <td class="text-center">{{term.useStartDate | date}} ~ {{term.useEndDate | date}}</td>
-                <td class="text-center">{{term.depositYn === 'Y'? '적용': '미적용'}}</td>
-                <td class="text-center">{{term.depositDesc | textTruncate}}</td>
-                <td class="text-center">{{term.state}}</td>
-              </tr>
-              <tr v-if="!form.terms || form.terms.length === 0">
-                <td colspan="10" class="text-center">API 이용 정보 데이터가 없습니다.</td>
-              </tr>
-              </tbody>
-            </v-simple-table>
-          </v-col>
-        </v-row>
-      </v-form>
-    </v-card-text>
-  </v-card>
+    <v-card flat>
+        <v-card-text>
+            <v-form ref="form" lazy-validation>
+                <v-row>
+                    <v-col cols="3">
+                        <v-label>파트너사 아이디</v-label>
+                        <v-text-field type="text" v-model="form.loginId" :rules="emptyRules" disabled></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
+                        <v-label>업체 명</v-label>
+                        <v-text-field type="text" v-model="form.companyName" :rules="emptyRules"
+                                      disabled></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
+                        <v-label>추가 인증번호 (* 파트너 담당자 추가시 필요)</v-label>
+                        <v-text-field v-if="mainAuth" v-model="form.addAuthNo" label="" readonly :rules="emptyRules">
+                            <template v-slot:append-outer>
+                                <v-btn outlined color="accent" @click="createAddAuthNo">번호 생성</v-btn>
+                            </template>
+                        </v-text-field>
+                        <v-text-field v-else :value="addAuthNo" readonly></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="3">
+                        <v-label>관리자 성명</v-label>
+                        <v-text-field type="text" v-model="form.ceoName" :rules="emptyRules"></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
+                        <v-label>관리자 연락처</v-label>
+                        <v-text-field type="text" v-model="form.companyTelNo"
+                                      v-mask="['###-####-####', '##-###-####', '##-####-####']"
+                                      :rules="emptyRules.concat(phoneRegex)"></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row v-if="mainAuth">
+                    <v-col class="text-right">
+                        <v-btn rounded color="info" @click="submit">
+                            <v-icon left>check</v-icon>
+                            수정
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12" class="pb-0">
+                        <span class="title">서비스 등록관리</span>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-simple-table class="bordered click-row">
+                            <thead>
+                            <tr>
+                                <th class="text-center">업무 구분</th>
+                                <th class="text-center">업무 구분명</th>
+                                <th class="text-center">회원 번호</th>
+                                <th class="text-center">판매 채널</th>
+                                <th class="text-center">대매사</th>
+                                <th class="text-center">기간</th>
+                                <th class="text-center">관리자 번호</th>
+                                <th class="text-center">예치금 적용여부</th>
+                                <th class="text-center">예치금 미적용사유</th>
+                                <th class="text-center">효력여부</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(term, index) in form.terms" :key="index" @click="openDialog(term)">
+                                <td class="text-center">
+                                    {{ term.taskType | label(businessList, 'commonCode', 'commonCodeName') }}
+                                </td>
+                                <td class="text-center">{{ term.taskTypeName }}</td>
+                                <td class="text-center">{{ term.memberNo }}</td>
+                                <td class="text-center">
+                                    {{ term.saleChannel | label(saleChannelList, 'commonCode', 'commonCodeName') }}
+                                <td class="text-center">{{ term.agentCodeName }}
+                                <td class="text-center">{{ term.useStartDate | date }} ~ {{ term.useEndDate | date }}
+                                </td>
+                                <td class="text-center">{{ term.depositYn === 'Y' ? '적용' : '미적용' }}</td>
+                                <td class="text-center">{{ term.depositDesc | textTruncate }}</td>
+                                <td class="text-center">{{ term.state }}</td>
+                            </tr>
+                            <tr v-if="!form.terms || form.terms.length === 0">
+                                <td colspan="10" class="text-center">API 이용 정보 데이터가 없습니다.</td>
+                            </tr>
+                            </tbody>
+                        </v-simple-table>
+                    </v-col>
+                </v-row>
+            </v-form>
+        </v-card-text>
+    </v-card>
 </template>
 
 <script>
 import commonCodeService from '@/api/modules/system/commonCode.service'
-import service from '@/api/modules/system/authentication/partner/partnerAccount.service'
 import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
 
@@ -158,7 +167,7 @@ export default {
       if (this.mainAuth) {
         this.validForm(this.$refs.form).then(() => {
           this.$dialog.confirm('업체 정보를 수정 하시겠습니까?').then(() => {
-            adminAuthService.updateAccountProfile(this.form).then(res => {
+            adminAuthService.updateAccountProfile({ ...this.form, partnerYn: 'Y' }).then(res => {
               this.$dialog.alert('업체 정보가 수정되었습니다.').then(() => {
                 this.$emit('change')
               })

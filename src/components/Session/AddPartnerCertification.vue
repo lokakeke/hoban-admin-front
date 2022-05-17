@@ -17,12 +17,16 @@
     <v-form ref="form" lazy-validation autocomplete="off">
       <v-row>
         <v-col cols="4">
-          <v-label>* 닉네임</v-label>
-          <v-text-field v-model="form.chrgName" label="" :rules="emptyRules"></v-text-field>
+          <v-label>* 아이디</v-label>
+          <v-text-field v-model="form.partnerManagerId" label="" :rules="emptyRules"></v-text-field>
         </v-col>
+          <v-col cols="4">
+              <v-label>* 이름</v-label>
+              <v-text-field v-model="form.managerName" label="" :rules="emptyRules"></v-text-field>
+          </v-col>
         <v-col cols="4">
           <v-label>* 파트너 추가 인증번호</v-label>
-          <v-text-field v-model="data.addCrtfNo" label="" :rules="emptyRules"></v-text-field>
+          <v-text-field v-model="data.addAuthNo" label="" :rules="emptyRules"></v-text-field>
         </v-col>
       </v-row>
       <v-row>
@@ -82,8 +86,8 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import partnerManagerService from '@/api/modules/partner/partnerManager.service'
 import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
+import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
 
 export default {
   extends: DialogBase,
@@ -91,13 +95,14 @@ export default {
   data () {
     return {
       form: {
-        chrgName: '',
+        partnerManagerId: '',
+        managerName: '',
         telNo: '',
         email: '',
         useYn: 'Y'
       },
       data: {
-        addCrtfNo: '',
+        addAuthNo: '',
         requestTelNo: '',
         requestEmail: ''
       },
@@ -128,8 +133,8 @@ export default {
           return
         }
         const form = _.cloneDeep(this.data)
-        form.partnerCharge = this.form
-        partnerManagerService.addPartnerManager(form).then(res => {
+        form.partnerManager = this.form
+        partnerAuthService.addPartnerManagerInPreLogin(form).then(res => {
           this.$dialog.alert('추가 담당자 정보가 등록되었습니다.')
           this.close({ change: true })
         })
@@ -145,11 +150,11 @@ export default {
       this.telTimeCounter = 180
       this.telResTimeData = ''
       clearInterval(this.telPolling)
-      adminAuthService.requestCode({
+      partnerAuthService.requestCodeAddManager({
         loginId: this.data.loginId,
         loginPw: this.data.loginPw,
         requestTelNo: this.form.telNo,
-        type: 'S',
+        requestType: 'S',
         partnerYn: 'Y'
       }).then(res => {
         console.log(res.data)
@@ -185,7 +190,7 @@ export default {
         loginId: this.data.loginId,
         loginPw: this.data.loginPw,
         requestEmail: this.form.email,
-        type: 'E',
+        requestType: 'E',
         partnerYn: 'Y'
       }).then(res => {
         this.requestEmail = true
