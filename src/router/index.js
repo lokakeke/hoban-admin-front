@@ -3,10 +3,10 @@ import MainRoutes from './modules/main'
 import SystemRoutes from './modules/system'
 import SocialRoutes from './modules/social'
 import OtaRoutes from './modules/ota'
-import ApiRoutes from './modules/api'
+import ApiRoutes from './modules/serviceApi'
 import PartnerRoutes from './modules/partner'
 import NaverRoutes from './modules/naver'
-import TlRoutes from './modules/tl'
+// import TlRoutes from './modules/tl'
 
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -43,7 +43,7 @@ export default new Router({
     ApiRoutes,
     PartnerRoutes,
     NaverRoutes,
-    TlRoutes,
+    // TlRoutes,
     {
       path: '/login',
       name: 'login',

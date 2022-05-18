@@ -92,6 +92,7 @@ import { mapGetters } from 'vuex'
 import excelMixin from '@/mixins/excelMixin'
 import maskName from '@/components/Mask/MaskName.vue'
 import VirtualScrollTable from '@/components/Common/VirtualScrollTable.vue'
+import partnerTermService from '@/api/modules/partner/partnerTerm.service'
 
 export default {
   components: { maskName, RsvSearchForm, PartnerRsvSearchForm, VirtualScrollTable },
@@ -231,7 +232,7 @@ export default {
     ...mapGetters({ user: 'auth/user' })
   },
   mounted () {
-    this.selectDefaultPtnrInfo()
+    this.selectDefaultPartnerInfo()
     this.$store.dispatch('keypress/addKeyEventList', {
       eventList: [
         {
@@ -249,9 +250,9 @@ export default {
     /**
      * 파트너인 경우 회원정보 조회
      */
-    async selectDefaultPtnrInfo () {
+    async selectDefaultPartnerInfo () {
       if (this.isPartner) {
-        const res = await partnerService.selectDefaultPtnrInfo()
+        const res = await partnerTermService.selectDefaultPartnerInfo()
         this.partnerInfo.memNo = res.data.memNo
         this.partnerInfo.memName = res.data.memName
         this.partnerInfo.termSeq = res.data.termSeq

@@ -13,7 +13,7 @@
               {{item.useYn === 'Y'? '사용': '미사용'}}
             </template>
             <template v-slot:item.serverCode="{item}">
-              {{item.serverCode | label(serverCodeList, 'commCode', 'commCodeName')}}
+              {{item.serverCode | label(serverCodeList, 'commonCode', 'commonCodeName')}}
             </template>
             <template v-slot:item.action="{item}">
               <v-btn v-if="writeAuth" text color="accent" @click.stop="removeRow(item)"><v-icon left>remove</v-icon> 삭제</v-btn>
@@ -97,7 +97,7 @@ export default {
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/Service/IPAddDialog',
+        componentPath: '/Api/Service/IPAddDialog',
         params: {
           isNewTab: this.isNewTab,
           form: this.form,
@@ -155,7 +155,7 @@ export default {
       try {
         await this.$dialog.confirm('파트너 번호로 등록된 서비스의 IP 정보들을 불러오시겠습니까?')
         if (this.item.partnerSeq) {
-          const res = await service.selectPtnrIpList(this.item.partnerSeq)
+          const res = await service.selectPartnerIpList(this.item.partnerSeq)
           // IP 가 중복되지 않으면 추가한다.
           for (const row of res.data) {
             if (this.list.filter(data => data.useIp === row.useIp).length === 0) {

@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import service from '@/api/modules/social/deposit.service'
-import DepositDialog from '@/views/social/caclulate/DepositDialog.vue'
+/* import service from '@/api/modules/social/deposit.service'
+import DepositDialog from '@/views/social/caclulate/DepositDialog.vue' */
 
 export default {
   name: 'Deposit',
@@ -81,27 +81,27 @@ export default {
     }
   },
   components: {
-    DepositDialog
+    // FIXME DepositDialog
   },
   methods: {
     search () {
       // 조회
-      service.selectPartnerList(this.searchParam).then(res => {
+      /* FIXME service.selectPartnerList(this.searchParam).then(res => {
         const list = []
         for (const data of res.data) {
           list.push(data)
         }
         this.partnerList = list
         this.searchParam.total = this.partnerList.length
-      })
+      }) */
     },
     getDepositList (event) {
       this.partnerNo = event.partnerNo
       this.partnerName = event.partnerName
 
-      service.selectPartnerDepositList(this.partnerNo).then((response) => {
+      /* FIXME service.selectPartnerDepositList(this.partnerNo).then((response) => {
         this.depositList = response.data
-      })
+      }) */
     },
     open (event) {
       this.depositType = event.depositType

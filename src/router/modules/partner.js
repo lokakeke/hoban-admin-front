@@ -6,6 +6,11 @@ const partner = () => import('@/views/partner/management/Partner.vue')
 // 파트너 menu auth group
 const PartnerMenuAuthGroup = () => import('@/views/partner/authentication/PartnerMenuAuthGroup.vue')
 
+// deposit
+const DepositAccount = () => import('@/views/partner/deposit/DepositAccount.vue')
+const DepositTransaction = () => import('@/views/partner/deposit/DepositTransaction.vue')
+const DepositFailure = () => import('@/views/partner/deposit/DepositFailure.vue')
+
 // partner inventory rate
 const partnerInventoryRate = () =>
   import('@/views/partner/inventory/PartnerInventoryRate.vue')
@@ -60,6 +65,39 @@ export default {
         auth: true,
         title: '파트너 메뉴권한 관리',
         breadcrumb: 'Partner Menu Auth '
+      }
+    },
+    {
+      path: 'depositAccount',
+      component: DepositAccount,
+      name: 'partner.depositAccount',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예치금 계좌 관리',
+        breadcrumb: 'Deposit Account '
+      }
+    },
+    {
+      path: 'depositTransaction',
+      component: DepositTransaction,
+      name: 'partner.depositTransaction',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예치금 입출금 관리',
+        breadcrumb: 'Deposit Transaction '
+      }
+    },
+    {
+      path: 'depositFailure',
+      component: DepositFailure,
+      name: 'partner.depositFailure',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예치금 입출금 실패이력 조회',
+        breadcrumb: 'Deposit Failure '
       }
     },
     {

@@ -148,7 +148,7 @@ export default {
       useForm.useEndDate = moment(useForm.useEndDate).format('YYYYMMDD')
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner//PartnerBasicAddDialog',
+        componentPath: '/Partner/Management/PartnerBasicAddDialog',
         params: {
           isNewData: false,
           useForm,

@@ -6,11 +6,11 @@
     <search-form :search-param.sync="searchParam" :search-list="searchList" @search="search" :cols="3" init-search></search-form>
     <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" item-key="partnerSeq+termSeq" disable-sort
                   hide-default-footer class="click-row" @click:row="select($event)">
-        <template v-slot:item.amt="{item}">
-          {{item.amt | price}}원
+        <template v-slot:item.price="{item}">
+          {{item.price | price}}원
         </template>
-        <template v-slot:item.useYmd="{item}">
-            {{item.useBgnYmd | date}}  ~ {{item.useEndYmd | date}}
+        <template v-slot:item.useDate="{item}">
+            {{item.useStartDate | date}}  ~ {{item.useEndDate | date}}
         </template>
     </v-data-table>
     <search-pagination v-model="searchParam" :total-visible="10" circle @change="search"/>
@@ -36,21 +36,20 @@ export default {
         total: 0
       },
       taskType: '',
-      memNo: '',
+      memberNo: '',
       disabled: false,
       list: [],
       headers: [
         { text: '파트너명', value: 'companyName', align: 'center' },
         { text: '업무구분', value: 'taskTypeCodeName', align: 'center' },
-        { text: '회원번호', value: 'memNo', align: 'center' },
+        { text: '회원번호', value: 'memberNo', align: 'center' },
         { text: '업무구분명', value: 'taskTypeName', align: 'center' },
-        { text: '판매채널', value: 'saleChnnlName', align: 'center' },
         { text: '대매사', value: 'agentCodeName', align: 'center' },
         { text: '대매사코드', value: 'agentCode', align: 'center' },
-        { text: '예치금 Key', value: 'depoKey', align: 'center' },
-        { text: '예치금', value: 'amt', align: 'center' },
-        { text: '계약기간', value: 'useYmd', align: 'center' },
-        { text: '예치금 계산여부', value: 'depoYn', align: 'center' }
+        { text: '예치금 Key', value: 'depositKey', align: 'center' },
+        { text: '예치금', value: 'price', align: 'center' },
+        { text: '계약기간', value: 'useDate', align: 'center' },
+        { text: '예치금 계산여부', value: 'depositYn', align: 'center' }
       ]
     }
   },
@@ -58,10 +57,9 @@ export default {
     searchList () {
       return [
         { key: 'taskType', label: '업무 구분', type: 'code', commCode: 'TASK_TYPE', defaultValue: this.taskType, disabled: this.disabled },
-        { key: 'memNo', label: '회원번호', type: 'text', defaultValue: this.memNo },
+        { key: 'memberNo', label: '회원번호', type: 'text', defaultValue: this.memberNo },
         { key: 'companyName', label: '파트너명', type: 'text' },
-        { key: 'saleChnnl', label: '판매 채널', type: 'code', commCode: 'CHANNEL' },
-        { key: 'useYmd', label: '계약 기간', type: 'dateRange', startField: 'useBgnYmd', endField: 'useEndYmd', format: 'YYYYMMDD' },
+        { key: 'useDate', label: '계약 기간', type: 'dateRange', startField: 'useStartDate', endField: 'useEndDate', format: 'YYYYMMDD' },
         { key: 'agentCodeName', label: '대매사', type: 'text' },
         { key: 'agentCode', label: '대매사코드', type: 'text' }
       ]
@@ -72,12 +70,12 @@ export default {
       this.taskType = this.instance.params.taskType
       this.disabled = true
     }
-    let memNo = this.instance.params.memNo
-    if (memNo && memNo.length === 6) {
-      memNo = memNo + '00'
-      this.searchParam.q.memNo = memNo
+    let memberNo = this.instance.params.memberNo
+    if (memberNo && memberNo.length === 6) {
+      memberNo = memberNo + '00'
+      this.searchParam.q.memberNo = memberNo
     }
-    this.memNo = memNo
+    this.memberNo = memberNo
   },
   methods: {
     search () {
