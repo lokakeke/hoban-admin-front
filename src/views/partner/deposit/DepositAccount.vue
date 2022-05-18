@@ -30,8 +30,8 @@
                     <span class="blue--text">{{ item.accmltWithdrawAmt | price }}원</span>
                 </template>
                 <!-- 금액 -->
-                <template v-slot:[`item.amt`]="{item}">
-                    <strong>{{ item.amt | price }}원</strong>
+                <template v-slot:[`item.price`]="{item}">
+                    <strong>{{ item.price | price }}원</strong>
                 </template>
                 <!-- 사용여부 -->
                 <template v-slot:[`item.useYn`]="{item}">
@@ -43,7 +43,7 @@
                         사용안함</strong>
                 </template>
                 <!-- 등록일시 -->
-                <template v-slot:[`item.crtDt`]="{item}">{{ item.crtDt | dateSet }}</template>
+                <template v-slot:[`item.createDatetime`]="{item}">{{ item.createDatetime | dateSet }}</template>
             </v-data-table>
             <v-row>
                 <v-col cols="12" class="text-right pb-0">
@@ -75,7 +75,7 @@ export default {
       headers: [
         {
           text: '예치금 KEY',
-          value: 'depoKey',
+          value: 'depositKey',
           align: 'center',
           sortable: false
         },
@@ -99,16 +99,16 @@ export default {
           align: 'center',
           sortable: false
         },
-        { text: '예치금', value: 'amt', align: 'center', sortable: false },
+        { text: '예치금', value: 'price', align: 'center', sortable: false },
         { text: '사용여부', value: 'useYn', align: 'center', sortable: false },
-        { text: '등록일시', value: 'crtDt', align: 'center', sortable: false }
+        { text: '등록일시', value: 'createDatetime', align: 'center', sortable: false }
       ]
     }
   },
   computed: {
     searchList () {
       const searchList = [
-        { key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 },
+        { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
         { key: 'companyName', label: '파트너명', type: 'text', cols: 2 },
         {
           key: 'taskType',

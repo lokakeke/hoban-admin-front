@@ -64,14 +64,14 @@ export default {
   methods: {
     searchList () {
       this.list = []
-      partnerApiService.selectPartnerApiList(this.partnerNo).then(res => {
+      partnerApiService.selectPartnerApiList(this.partnerSeq).then(res => {
         this.list = res.data
       })
     },
     openDialog (row) {
       const isNew = row === undefined
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner//PartnerApiDialog',
+        componentPath: '/Partner/Management/PartnerApiDialog',
         params: {
           isNew,
           form: row || { partnerSeq: this.partnerSeq, apiInd: null, apiUrl: '', apiMethod: '', apiHeader: '', useYn: 'Y' },
@@ -91,7 +91,7 @@ export default {
     },
     openTestDialog (row) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Partner//PartnerApiTestDialog',
+        componentPath: '/Partner/Management/PartnerApiTestDialog',
         params: {
           form: row,
           list: this.list

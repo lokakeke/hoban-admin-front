@@ -16,11 +16,6 @@ const RoomReservation = () => import('@/views/ota/roomReservation/RoomReservatio
 // room reservation cancel
 const MultipleRsvCancel = () => import('@/views/ota/roomReservation/MultipleRsvCancel.vue')
 
-// deposit
-const DepositAccount = () => import('@/views/api/deposit/DepositAccount.vue')
-const DepositTransaction = () => import('@/views/api/deposit/DepositTransaction.vue')
-const DepositFailure = () => import('@/views/api/deposit/DepositFailure.vue')
-
 // commission
 const CommissionBasic = () => import('@/views/ota/commission/CommissionBasic.vue')
 const CommissionPromotion = () => import('@/views/ota/commission/CommissionPromotion.vue')
@@ -37,7 +32,7 @@ const MonthlyUsedCalculation = () => import('@/views/ota/calculation/MonthlyUsed
 const CalculateComparativeContrast = () => import('@/views/ota/calculation/CalculateComparativeContrast.vue')
 
 // errorGuidance
-const ErrorGuidance = () => import('@/views/api/error/ErrorGuidance.vue')
+const ErrorGuidance = () => import('@/views/ota/api/error/ErrorGuidance.vue')
 
 // request
 const PartnerRequest = () => import('@/views/partner/request/PartnerRequest.vue')
@@ -114,39 +109,6 @@ export default {
         requiresAuth: true,
         title: '다중예약취소',
         breadcrumb: 'multipleRsvCancel'
-      }
-    },
-    {
-      path: 'depositAccount',
-      component: DepositAccount,
-      name: 'ota.depositAccount',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '예치금 계좌 관리',
-        breadcrumb: 'Deposit Account '
-      }
-    },
-    {
-      path: 'depositTransaction',
-      component: DepositTransaction,
-      name: 'ota.depositTransaction',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '예치금 입출금 관리',
-        breadcrumb: 'Deposit Transaction '
-      }
-    },
-    {
-      path: 'depositFailure',
-      component: DepositFailure,
-      name: 'ota.depositFailure',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '예치금 입출금 실패이력 조회',
-        breadcrumb: 'Deposit Failure '
       }
     },
     {

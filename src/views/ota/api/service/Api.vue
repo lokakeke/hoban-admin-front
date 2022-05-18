@@ -5,8 +5,8 @@
         <v-row class="pt-2">
           <v-col cols="6">
             <v-autocomplete v-model="taskType"
-                            item-text="commCodeName"
-                            item-value="commCode"
+                            item-text="commonCodeName"
+                            item-value="commonCode"
                             label="업무 구분"
                             id="taskType"
                             ref="taskType"
@@ -25,7 +25,7 @@
         <v-col v-else-if="apiList.length === 0" cols="12" class="text-center subtitle-1 font-weight-black">해당 업무구분에 등록된 API 가 없습니다.</v-col>
         <v-col v-else cols="12" class="py-0">
           <template v-for="item of apiList">
-            <v-hover v-slot:default="{ hover }" :key="item.commCode">
+            <v-hover v-slot:default="{ hover }" :key="item.commonCode">
               <v-card raised
                       :color="item.active? 'teal lighten-1': ''"
                       :elevation="hover ? 5 : 1"
@@ -35,7 +35,7 @@
                 <v-card-text class="py-2">
                   <v-row no-gutters class="font-weight-black subtitle-1 mb-2">
                     <v-icon left>http</v-icon>
-                    {{item.commCodeName}} - ({{item.commCode}})
+                    {{item.commonCodeName}} - ({{item.commonCode}})
                   </v-row>
                   <v-row no-gutters class="pl-2 mb-1">
                     <span class="font-weight-bold mr-3">운영 URL</span>{{item.item01}}
@@ -53,7 +53,7 @@
     <app-card :heading="'API 서비스 등록 업체목록'" col-classes="col-12 col-md-6" auto-height>
       <template v-slot:items v-if="selectService">
         <v-row justify="center" class="py-2 subtitle-1 font-weight-black border-bottom">
-          {{taskType | label(taskTypeList, 'commCode', 'commCodeName')}} - {{selectService.commCodeName}} ({{selectService.commCode}})
+          {{taskType | label(taskTypeList, 'commonCode', 'commonCodeName')}} - {{selectService.commonCodeName}} ({{selectService.commonCode}})
         </v-row>
       </template>
       <v-row>
@@ -122,7 +122,7 @@ export default {
     apiList () {
       if (this.searchKeyword) {
         return this.apiOriginList.filter(data =>
-          data.commCodeName.indexOf(this.searchKeyword) > -1 ||
+          data.commonCodeName.indexOf(this.searchKeyword) > -1 ||
           data.item01.indexOf(this.searchKeyword) > -1 ||
           data.item02.indexOf(this.searchKeyword) > -1
         )
@@ -182,8 +182,8 @@ export default {
     },
     async showItem (item) {
       try {
-        if (!this.apiOriginList.find(data => data.commCode === item.commCode).active) {
-          const res = await serviceOpenService.selectServiceOpenFullList(this.taskType, item.commCode)
+        if (!this.apiOriginList.find(data => data.commonCode === item.commonCode).active) {
+          const res = await serviceOpenService.selectServiceOpenFullList(this.taskType, item.commonCode)
           this.apiOriginList.forEach(data => {
             data.active = false
           })
@@ -204,7 +204,7 @@ export default {
       }
     },
     async refresh () {
-      const res = await serviceOpenService.selectServiceOpenFullList(this.taskType, this.selectService.commCode)
+      const res = await serviceOpenService.selectServiceOpenFullList(this.taskType, this.selectService.commonCode)
       this.serviceOpenList = res.data
     },
     async submit () {
@@ -216,7 +216,7 @@ export default {
         await this.$dialog.confirm('업체 API 오픈정보를 입력 하시겠습니까?')
         await serviceOpenService.updateServiceOpenFullList(this.serviceOpenList)
         this.$dialog.alert('API 오픈정보를 입력하였습니다.')
-        this.refresh()
+        await this.refresh()
       } catch (e) {}
     }
   }

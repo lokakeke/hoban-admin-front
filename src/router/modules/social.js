@@ -15,11 +15,11 @@ const dgnsTicket = () =>
 
 // deposit
 const depositAccount = () =>
-  import('@/views/api/deposit/DepositAccount.vue')
+  import('@/views/partner/deposit/DepositAccount.vue')
 const depositTransaction = () =>
-  import('@/views/api/deposit/DepositTransaction.vue')
+  import('@/views/partner/deposit/DepositTransaction.vue')
 const depositFailure = () =>
-  import('@/views/api/deposit/DepositFailure.vue')
+  import('@/views/partner/deposit/DepositFailure.vue')
 const calculate = () =>
   import('@/views/social/calculate/Calculate.vue')
 const calculateHistory = () =>
@@ -32,7 +32,7 @@ const totalStatistics = () =>
   import('@/views/social/statistics/TotalStatistics.vue')
 
 // errorGuidance
-const errorGuidance = () => import('@/views/api/error/ErrorGuidance.vue')
+const errorGuidance = () => import('@/views/ota/api/error/ErrorGuidance.vue')
 
 export default {
   path: '/social',

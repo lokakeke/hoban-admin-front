@@ -69,7 +69,7 @@ export default {
       partnerInfo: null,
       item: Object,
       isNew: Boolean,
-      insertData: { service: {}, serviceOpenList: [], serviceIpList: [] },
+      insertData: { serviceManagement: {}, serviceOpenList: [], serviceIpList: [] },
       search: Function
     }
   },

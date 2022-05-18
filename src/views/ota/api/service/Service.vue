@@ -6,8 +6,8 @@
             <v-data-table :no-data-text="emptyText" :headers="headers" :items="list" disable-sort hide-default-footer
                           disable-pagination
                           @click:row="open($event)" class="click-row bordered">
-                <template v-slot:item.useYmd="{item}">
-                    {{ item.useBgnYmd | date }} ~ {{ item.useEndYmd | date }}
+                <template v-slot:item.useDate="{item}">
+                    {{ item.useStartDate | date }} ~ {{ item.useEndDate | date }}
                 </template>
             </v-data-table>
             <v-row v-if="writeAuth">
@@ -44,14 +44,12 @@ export default {
         { text: '파트너명', value: 'companyName', align: 'center' },
         { text: '업무 구분', value: 'taskTypeCodeName', align: 'center' },
         { text: '업무 구분이름', value: 'taskTypeName', align: 'center' },
-        { text: '판매 채널', value: 'saleChnnlName', align: 'center' },
-        { text: '객실용 회원번호', value: 'memNo', align: 'center' },
-        { text: '계약 기간', value: 'useYmd', align: 'center' },
+        { text: '객실용 회원번호', value: 'memberNo', align: 'center' },
+        { text: '계약 기간', value: 'useDate', align: 'center' },
         { text: '사용여부', value: 'useYn', align: 'center' },
-        { text: '예치금 적용여부', value: 'depoYn', align: 'center' }
+        { text: '예치금 적용여부', value: 'depositYn', align: 'center' }
       ],
-      taskTypeList: [],
-      saleChnnlList: []
+      taskTypeList: []
     }
   },
   computed: {
@@ -64,31 +62,22 @@ export default {
             label: '업무 구분',
             type: 'select',
             list: this.taskTypeList,
-            listValue: 'commCode',
-            listText: 'commCodeName'
-          },
-          {
-            key: 'saleChnnl',
-            label: '판매 채널',
-            type: 'select',
-            list: this.saleChnnlList,
-            listValue: 'commCode',
-            listText: 'commCodeName'
+            listValue: 'commonCode',
+            listText: 'commonCodeName'
           }
         ]
       } else {
         return [
           { key: 'businessId', label: 'BUSINESS ID', type: 'text' },
           { key: 'companyName', label: '파트너명', type: 'text' },
-          { key: 'taskType', label: '업무 구분', type: 'code', commCode: 'TASK_TYPE' },
-          { key: 'saleChnnl', label: '판매 채널', type: 'code', commCode: 'CHANNEL' },
+          { key: 'taskType', label: '업무 구분', type: 'code', commonCode: 'TASK_TYPE' },
           { key: 'memNo', label: '회원번호', type: 'text' },
           {
-            key: 'useYmd',
+            key: 'useDate',
             label: '계약 기간',
             type: 'dateRange',
-            startField: 'useBgnYmd',
-            endField: 'useEndYmd',
+            startField: 'useStartDate',
+            endField: 'useEndDate',
             format: 'YYYYMMDD'
           },
           {
@@ -111,9 +100,6 @@ export default {
         if (res.data.taskTypeList) {
           this.taskTypeList = res.data.taskTypeList
         }
-        if (res.data.saleChnnlList) {
-          this.saleChnnlList = res.data.saleChnnlList
-        }
       })
     }
   },
@@ -134,7 +120,7 @@ export default {
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/Service/ServiceDialog',
+        componentPath: '/Api/Service/ServiceDialog',
         params: {
           isNew,
           item,
