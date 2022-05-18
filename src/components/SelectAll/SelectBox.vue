@@ -56,6 +56,9 @@ export default {
       this.$emit('update:selected', this.model)
       this.$emit('change')
     }
+  },
+  created() {
+    this.model = this.selected
   }
 }
 </script>

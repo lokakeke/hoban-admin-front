@@ -104,6 +104,7 @@ export default {
   watch: {
     dialog () {
       this.form = _.cloneDeep(this.data)
+      this.commCodeText = ''
       this.$refs.form.resetValidation()
     }
   },

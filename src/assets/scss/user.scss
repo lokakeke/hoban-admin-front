@@ -399,3 +399,25 @@ input {
  max-height: 32px;
  padding: 8px 0 8px;
 }
+
+/* 공통 테이블 CSS */
+table th, table td {
+  white-space: nowrap;
+}
+table thead th{
+  font-weight: bold!important;
+}
+/* bordered 테이블 */
+table.bordered {
+  border-collapse: collapse!important;
+}
+table.bordered th, table.bordered td, table.bordered tr {
+  border: 1px solid #ccc;
+}
+
+div.bordered table {
+  border-collapse: collapse!important;
+}
+div.bordered  table th, div.bordered  table td {
+  border: 1px solid #ccc;
+}
