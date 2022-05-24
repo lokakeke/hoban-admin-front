@@ -14,7 +14,7 @@
                 hide-details
                 label="판매 시작일자"
                 required
-                v-model="saleBgnYmd" />
+                v-model="saleStartDate" />
           </v-col>
           <v-col cols="6">
             <date-picker
@@ -23,7 +23,7 @@
                 hide-details
                 label="판매 종료일자"
                 required
-                v-model="saleEndYmd" />
+                v-model="saleEndDate" />
           </v-col>
         </v-row>
         <v-row>
@@ -45,15 +45,15 @@ export default {
   name: 'BatchRegisterForm',
   data: function () {
     return {
-      saleBgnYmd: '',
-      saleEndYmd: ''
+      saleStartDate: '',
+      saleEndDate: ''
     }
   },
   methods: {
     applyDate () {
       this.close({
-        saleBgnYmd: this.saleBgnYmd,
-        saleEndYmd: this.saleEndYmd
+        saleStartDate: this.saleStartDate,
+        saleEndDate: this.saleEndDate
       })
     }
   }

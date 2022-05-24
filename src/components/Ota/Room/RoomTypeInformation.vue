@@ -60,14 +60,14 @@
                         height="500"
                         hide-default-footer
           >
-            <template v-slot:item.saleBgnYmd="{item}">
+            <template v-slot:item.saleStartDate="{item}">
               <v-edit-dialog
-                  :return-value.sync="item.saleBgnYmd"
+                  :return-value.sync="item.saleStartDate"
                   cancel-text="취소"
                   large
                   save-text="저장"
                   v-if="writeAuth"
-              > {{ (item.saleBgnYmd === null || item.saleBgnYmd === '') ? '-' : item.saleBgnYmd }}
+              > {{ (item.saleStartDate === null || item.saleStartDate === '') ? '-' : item.saleStartDate }}
                 <template v-slot:input>
                   <date-picker
                       clearable
@@ -76,20 +76,20 @@
                       label="판매 시작일자"
                       required
                       :readonly="!writeAuth"
-                      v-model="item.saleBgnYmd"
+                      v-model="item.saleStartDate"
                   />
                 </template>
               </v-edit-dialog>
               <div v-else>-</div>
             </template>
-            <template v-slot:item.saleEndYmd="{item}">
+            <template v-slot:item.saleEndDate="{item}">
               <v-edit-dialog
-                  :return-value.sync="item.saleBgnYmd"
+                  :return-value.sync="item.saleStartDate"
                   cancel-text="취소"
                   large
                   save-text="저장"
                   v-if="writeAuth"
-              > {{ (item.saleEndYmd === null || item.saleEndYmd === '') ? '-' : item.saleEndYmd }}
+              > {{ (item.saleEndDate === null || item.saleEndDate === '') ? '-' : item.saleEndDate }}
                 <template v-slot:input>
                   <date-picker
                       clearable
@@ -98,7 +98,7 @@
                       label="판매 종료일자"
                       required
                       :readonly="!writeAuth"
-                      v-model="item.saleEndYmd"
+                      v-model="item.saleEndDate"
                   />
                 </template>
               </v-edit-dialog>
@@ -144,14 +144,14 @@ export default {
     return {
       originList: [],
       roomTypeTableHeaders: [
-        { text: '객실유형코드', value: 'rmTypeCode', align: 'center', sortable: false, width: '35%' },
-        { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false, width: '65%' }
+        { text: '객실유형코드', value: 'roomTypeCode', align: 'center', sortable: false, width: '35%' },
+        { text: '객실유형명', value: 'roomTypeName', align: 'center', sortable: false, width: '65%' }
       ],
       roomTypeApplyTableHeaders: [
-        { text: '객실유형코드', value: 'rmTypeCode', align: 'center', sortable: false, width: '15%' },
-        { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false, width: '35%' },
-        { text: '판매시작일자', value: 'saleBgnYmd', align: 'center', sortable: false, width: '15%' },
-        { text: '판매종료일자', value: 'saleEndYmd', align: 'center', sortable: false, width: '15%' },
+        { text: '객실유형코드', value: 'roomTypeCode', align: 'center', sortable: false, width: '15%' },
+        { text: '객실유형명', value: 'roomTypeName', align: 'center', sortable: false, width: '35%' },
+        { text: '판매시작일자', value: 'saleStartDate', align: 'center', sortable: false, width: '15%' },
+        { text: '판매종료일자', value: 'saleEndDate', align: 'center', sortable: false, width: '15%' },
         { text: '판매여부', value: 'useYn', align: 'center', sortable: false, width: '20%' }
       ]
     }
@@ -168,13 +168,14 @@ export default {
     }
   },
   methods: {
-    async getStoreRoomList () {
-      const response = await roomTypeService.selectStoreRoomList(this.storeCdProp)
-      for (const data of response.data) {
-        data.saleBgnYmd = data.saleBgnYmd === null ? null : moment(data.saleBgnYmd).format('YYYY-MM-DD')
-        data.saleEndYmd = data.saleEndYmd === null ? null : moment(data.saleEndYmd).format('YYYY-MM-DD')
-      }
-      this.originList = response.data
+    getStoreRoomList () {
+      roomTypeService.selectRoomTypeInfoListByStoreCode(this.storeCodeProp).then(res => {
+        for (const data of res.data) {
+          data.saleStartDate = data.saleStartDate === null ? null : moment(data.saleStartDate).format('YYYY-MM-DD')
+          data.saleEndDate = data.saleEndDate === null ? null : moment(data.saleEndDate).format('YYYY-MM-DD')
+        }
+        this.originList = res.data
+      })
     },
 
     isEmptySaleRoom () {
@@ -196,10 +197,10 @@ export default {
           dense: true,
           width: 600,
           closeCallback: (params) => {
-            if (params && params.saleBgnYmd && params.saleEndYmd) {
+            if (params && params.saleStartDate && params.saleEndDate) {
               this.listY.forEach(data => {
-                data.saleBgnYmd = params.saleBgnYmd
-                data.saleEndYmd = params.saleEndYmd
+                data.saleStartDate = params.saleStartDate
+                data.saleEndDate = params.saleEndDate
               })
             }
           }
@@ -218,75 +219,58 @@ export default {
       })
     },
 
-    async save () {
+    /**
+     * insert 및 update 시 유효성 검사
+     * @returns {boolean}
+     */
+    validate () {
       if (this.isEmptySaleRoom()) {
-        await this.$dialog.alert('판매 객실유형이 존재하지 않습니다.')
-        return true
+        this.$dialog.alert('판매 객실유형이 존재하지 않습니다.')
+        return false
       }
 
-      let isRegisteredSaleDate = true
+      let isRegisteredSaleDate = false
       this.listY.forEach(data => {
-        if ((data.saleBgnYmd === null || data.saleBgnYmd === '') || (data.saleEndYmd === null || data.saleEndYmd === '')) {
-          isRegisteredSaleDate = false
+        if (data.saleStartDate && data.saleEndDate) {
+          isRegisteredSaleDate = true
         }
       })
 
       if (!isRegisteredSaleDate) {
         this.$dialog.alert('판매 시작일 또는 종료일이 지정되지 않았습니다.')
-        return true
+        return false
       }
 
-      const submitList = _.cloneDeep(this.listY)
-      submitList.forEach((item) => {
-        item.saleBgnYmd = item.saleBgnYmd ? moment(item.saleBgnYmd).format('YYYYMMDD') : null
-        item.saleEndYmd = item.saleEndYmd ? moment(item.saleEndYmd).format('YYYYMMDD') : null
+      this.listY.forEach((item) => {
+        item.saleStartDate = item.saleStartDate ? moment(item.saleStartDate).format('YYYYMMDD') : null
+        item.saleEndDate = item.saleEndDate ? moment(item.saleEndDate).format('YYYYMMDD') : null
       })
+      return true
+    },
 
-      try {
-        const response = await roomTypeService.insertStoreRoomList(this.storeCdProp, submitList)
-
-        if (response.data > 0) {
-          this.$emit('nextStep', 'HolidayInformation')
-        } else {
-          this.$dialog.alert('등록 중 오류가 발생했습니다.')
-        }
-      } catch {}
+    async save () {
+      if (this.validate()) {
+        roomTypeService.insertSaleRoomTypeList(this.listY).then(res => {
+          if (res.data > 0) {
+            this.$emit('nextStep', 'HolidayInformation')
+          } else {
+            this.$dialog.alert('등록 중 오류가 발생했습니다.')
+          }
+        })
+      }
     },
 
     async update () {
-      if (this.isEmptySaleRoom()) {
-        await this.$dialog.alert('판매 객실유형이 존재하지 않습니다.')
-        return true
+      if (this.validate()) {
+        roomTypeService.updateSaleRoomTypeList(this.storeCodeProp, this.listY).then(res => {
+          if (res.data > 0) {
+            this.getStoreRoomList()
+            this.$dialog.alert('수정이 완료되었습니다.')
+          } else {
+            this.$dialog.alert('등록 중 오류가 발생했습니다.')
+          }
+        })
       }
-
-      let isRegisteredSaleDate = true
-      this.listY.forEach(data => {
-        if ((data.saleBgnYmd === null || data.saleBgnYmd === '') || (data.saleEndYmd === null || data.saleEndYmd === '')) {
-          isRegisteredSaleDate = false
-        }
-      })
-
-      if (!isRegisteredSaleDate) {
-        this.$dialog.alert('판매 시작일 또는 종료일이 지정되지 않았습니다.')
-        return true
-      }
-
-      const submitList = _.cloneDeep(this.listY)
-      submitList.forEach((item) => {
-        item.saleBgnYmd = item.saleBgnYmd ? moment(item.saleBgnYmd).format('YYYYMMDD') : null
-        item.saleEndYmd = item.saleEndYmd ? moment(item.saleEndYmd).format('YYYYMMDD') : null
-      })
-
-      try {
-        const response = await roomTypeService.updateStoreRoomList(this.storeCdProp, submitList)
-
-        if (response.data > 0) {
-          this.getStoreRoomList()
-          this.$dialog.alert('수정이 완료되었습니다.')
-        } else {
-          this.$dialog.alert('등록 중 오류가 발생했습니다.')
-        }
-      } catch {}
     }
   }
 }

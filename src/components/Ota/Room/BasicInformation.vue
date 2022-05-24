@@ -28,7 +28,7 @@
                       :rules="emptyRules"
                       label="지역 명(코드)"
                       readonly
-                      v-model="lcal"
+                      v-model="local"
                   />
                 </v-col>
                 <v-col cols="12" lg="2" md="6" sm="12">
@@ -38,7 +38,7 @@
                       label="판매 시작일자"
                       required
                       :readonly="!writeAuth"
-                      v-model="form.saleBgnYmd"
+                      v-model="form.saleStartDate"
                   />
                 </v-col>
                 <v-col cols="12" lg="2" md="6" sm="12">
@@ -48,14 +48,14 @@
                       :readonly="!writeAuth"
                       required
                       label="판매 종료일자"
-                      v-model="form.saleEndYmd"
+                      v-model="form.saleEndDate"
                   />
                 </v-col>
                 <v-col cols="12" lg="2" md="6" sm="12">
                   <v-text-field
                       :rules="emptyRules.concat(oneOrMoreRegex)"
                       label="객실수량 제한 (요청당)"
-                      v-model="form.dailRsvLmt"
+                      v-model="form.dailyRsvLimit"
                       :readonly="!writeAuth"
                   />
                 </v-col>
@@ -63,7 +63,7 @@
                   <v-text-field
                       :rules="emptyRules.concat(oneOrMoreRegex)"
                       label="조회 범위"
-                      v-model="form.rmInqDdCnt"
+                      v-model="form.roomSearchCount"
                       :readonly="!writeAuth"
                   />
                 </v-col>
@@ -109,7 +109,7 @@
                   <v-text-field
                       :rules="emptyRules.concat(oneOrMoreRegex)"
                       label="최대 예약가능 객실 수"
-                      v-model="form.rmCnt"
+                      v-model="form.roomCount"
                       :readonly="!writeAuth"
                   />
                 </v-col>
@@ -119,7 +119,7 @@
                       :readonly="!writeAuth"
                       :rules="emptyRules"
                       label="블럭코드"
-                      v-model="form.rsvBlckCode"
+                      v-model="form.blockCode"
                   />
                 </v-col>
               </v-row>
@@ -165,18 +165,18 @@ export default {
       todayRsvMinute: '',
 
       form: {
-        lcalCode: '',
-        lcalName: '',
+        localCode: '',
+        localName: '',
         storeCode: '',
         storeName: '',
-        saleBgnYmd: '',
-        saleEndYmd: '',
-        dailRsvLmt: 10,
-        rmInqDdCnt: 60,
+        saleStartDate: '',
+        saleEndDate: '',
+        dailyRsvLimit: 10,
+        roomSearchCount: 60,
         stayNights: 1,
-        rmCnt: 1,
+        roomCount: 1,
         todayRsvYn: 'N',
-        rsvBlckCode: '',
+        blockCode: '',
         useYn: 'Y'
       },
       blckItems: []
@@ -187,12 +187,12 @@ export default {
       user: 'auth/user'
     }),
 
-    lcal () {
-      return this.form.lcalCd ? `${this.form.lcalName} (${this.form.lcalCd})` : ''
+    local () {
+      return this.form.localCode ? `${this.form.localName} (${this.form.localCode})` : ''
     },
 
     store () {
-      return this.form.storeCd ? `${this.form.storeName} (${this.form.storeCd})` : ''
+      return this.form.storeCode ? `${this.form.storeName} (${this.form.storeCode})` : ''
     }
   },
   mounted () {
@@ -200,7 +200,7 @@ export default {
       this.getStoreInformation()
     }
     this.getReservationTime()
-    this.getrsvBlckCd()
+    this.getBlockCode()
   },
   methods: {
     changeSwitch () {
@@ -219,10 +219,10 @@ export default {
             dense: true,
             width: 700,
             closeCallback: (params) => {
-              if (params && params.storeCd) {
-                this.form.lcalCd = params.lcalCd
-                this.form.lcalName = params.lcalName
-                this.form.storeCd = params.storeCd
+              if (params && params.storeCode) {
+                this.form.localCode = params.localCode
+                this.form.localName = params.localName
+                this.form.storeCode = params.storeCode
                 this.form.storeName = params.storeName
               }
             }
@@ -232,56 +232,48 @@ export default {
     },
 
     async loadData () {
-      try {
-        await this.$store.dispatch('dialog/open', {
-          componentPath: '/Ota/Room/SelectionItemDialog',
-          params: {
-            getRoomTypeList: this.getRoomTypeList
-          },
-          options: {
-            fullscreen: false,
-            scrollable: true,
-            dense: true,
-            closeCallback: (params) => {
-              if (params && params.storeCd) {
-                this.form.saleBgnYmd = params.saleBgnYmd
-                this.form.saleEndYmd = params.saleEndYmd
-                this.form.dailRsvLmt = params.dailRsvLmt
-                this.form.rmInqDdCnt = params.rmInqDdCnt
-                this.form.todayRsvYn = params.todayRsvYn
-                // this.form.todayRsvTime = params.todayRsvTime
-                this.form.stayNights = params.stayNights
-                this.form.rmCnt = params.rmCnt
-                this.form.rsvBlckCd = params.rsvBlckCd
-                this.form.useYn = params.useYn
-                this.todayRsvHour = params.todayRsvTime !== null ? params.todayRsvTime.substr(0, 2) : ''
-                this.todayRsvMinute = params.todayRsvTime !== null ? params.todayRsvTime.substr(2, 2) : ''
-              }
+      await this.$store.dispatch('dialog/open', {
+        componentPath: '/Ota/Room/SelectionItemDialog',
+        params: {
+          getRoomTypeList: this.getRoomTypeList
+        },
+        options: {
+          fullscreen: false,
+          scrollable: true,
+          dense: true,
+          closeCallback: (params) => {
+            if (params && params.storeCode) {
+              this.form.saleStartDate = params.saleStartDate
+              this.form.saleEndDate = params.saleEndDate
+              this.form.dailyRsvLimit = params.dailyRsvLimit
+              this.form.roomSearchCount = params.roomSearchCount
+              this.form.todayRsvYn = params.todayRsvYn
+              // this.form.todayRsvTime = params.todayRsvTime
+              this.form.stayNights = params.stayNights
+              this.form.roomCount = params.roomCount
+              this.form.rsvBlckCd = params.rsvBlckCd
+              this.form.useYn = params.useYn
+              this.todayRsvHour = params.todayRsvTime !== null ? params.todayRsvTime.substr(0, 2) : ''
+              this.todayRsvMinute = params.todayRsvTime !== null ? params.todayRsvTime.substr(2, 2) : ''
             }
           }
-        })
-      } catch {
-        console.log('불러오기 오류')
-      }
+        }
+      })
     },
 
-    async getrsvBlckCd () {
-      try {
-        const response = await commonCodeService.selectCommonCode('PKG_BLCK_CD')
-        for (const item of response.data) {
-          this.blckItems.push(item.commCd)
-        }
-      } catch {
-        console.log('getrsvBlckCd 오류')
+    async getBlockCode () {
+      const response = await commonCodeService.selectCommonCode('PKG_BLCK_CD')
+      for (const item of response.data) {
+        this.blckItems.push(item.commonCode)
       }
     },
 
     async getStoreInformation () {
       let response
       if (this.isPartner) {
-        response = await roomTypeService.selectRoomTypeInformationPartner(this.storeCdProp, this.user.number)
+        response = await roomTypeService.selectRoomTypeInformationPartner(this.storeCodeProp, this.user.number)
       } else {
-        response = await roomTypeService.selectRoomTypeInformation(this.storeCdProp)
+        response = await roomTypeService.selectRoomTypeInformation(this.storeCodeProp)
       }
       const data = response.data
 
@@ -303,25 +295,25 @@ export default {
     async save () {
       await this.validForm(this.$refs.form)
 
-      if (this.form.rmInqDdCnt > 365) {
+      if (this.form.roomSearchCount > 365) {
         this.$dialog.alert('조회 범위는 365일 이하로 설정해주시기 바랍니다.')
         return
       }
 
       try {
         const submitForm = Object.assign({}, this.form)
-        submitForm.saleBgnYmd = moment(this.form.saleBgnYmd).format('YYYYMMDD')
-        submitForm.saleEndYmd = moment(this.form.saleEndYmd).format('YYYYMMDD')
+        submitForm.saleStartDate = moment(this.form.saleStartDate).format('YYYYMMDD')
+        submitForm.saleEndDate = moment(this.form.saleEndDate).format('YYYYMMDD')
         if ((this.todayRsvHour !== undefined && this.todayRsvHour !== null) && (this.todayRsvMinute !== undefined && this.todayRsvMinute !== null)) {
           submitForm.todayRsvTime = this.todayRsvHour + this.todayRsvMinute
         } else {
           submitForm.todayRsvTime = null
         }
 
-        const response = await roomTypeService.insertBasicInformation(submitForm)
+        const response = await roomTypeService.insertRoomTypeInfo(submitForm)
         if (response.data === 1) {
           this.$emit('nextStep', 'PartnerExceptionSetting')
-          this.$emit('setStoreCd', submitForm.storeCd)
+          this.$emit('setStoreCode', submitForm.storeCode)
         } else {
           this.$dialog.alert('등록 중 오류가 발생했습니다.')
         }
@@ -329,31 +321,27 @@ export default {
     },
 
     async update () {
-      if (this.form.rmInqDdCnt > 365) {
+      if (this.form.roomSearchCount > 365) {
         this.$dialog.alert('조회 범위는 365일 이하로 설정해주시기 바랍니다.')
         return
       }
 
-      try {
-        await this.validForm(this.$refs.form)
-        const submitForm = Object.assign({}, this.form)
-        submitForm.saleBgnYmd = moment(this.form.saleBgnYmd).format('YYYYMMDD')
-        submitForm.saleEndYmd = moment(this.form.saleEndYmd).format('YYYYMMDD')
-        if ((this.todayRsvHour !== undefined && this.todayRsvHour !== null) && (this.todayRsvMinute !== undefined && this.todayRsvMinute !== null)) {
-          submitForm.todayRsvTime = this.todayRsvHour + this.todayRsvMinute
-        } else {
-          submitForm.todayRsvTime = null
-        }
+      await this.validForm(this.$refs.form)
+      const submitForm = Object.assign({}, this.form)
+      submitForm.saleStartDate = moment(this.form.saleStartDate).format('YYYYMMDD')
+      submitForm.saleEndDate = moment(this.form.saleEndDate).format('YYYYMMDD')
+      if ((this.todayRsvHour !== undefined && this.todayRsvHour !== null) && (this.todayRsvMinute !== undefined && this.todayRsvMinute !== null)) {
+        submitForm.todayRsvTime = this.todayRsvHour + this.todayRsvMinute
+      } else {
+        submitForm.todayRsvTime = null
+      }
 
-        // 수정로직 추가
-        const response = await roomTypeService.updateBasicInformation(submitForm)
-        if (response.data === 1) {
-          this.$dialog.alert('수정이 완료되었습니다.')
-        } else {
-          this.$dialog.alert('등록 중 오류가 발생했습니다.')
-        }
-      } catch (error) {
-        this.$dialog.alert('입력되지 않은 정보가 존재합니다.')
+      // 수정로직 추가
+      const response = await roomTypeService.updateRoomTypeInfo(submitForm)
+      if (response.data === 1) {
+        this.$dialog.alert('수정이 완료되었습니다.')
+      } else {
+        this.$dialog.alert('등록 중 오류가 발생했습니다.')
       }
     }
   }

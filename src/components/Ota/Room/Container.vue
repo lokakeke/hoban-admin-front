@@ -25,7 +25,7 @@
                 :is="item.component"
                 :is-edit="isEdit"
                 :ref="item.name"
-                :store-cd-prop="storeCodeProp"
+                :store-code-prop="storeCodeProp"
                 @nextStep="nextStep($event)"
                 @setStoreCode="setStoreCode($event)"
                 v-if="step === item.step"
@@ -61,14 +61,10 @@ export default {
   name: 'StepperContainer',
   data () {
     return {
-      storeCodeProp: '',
-      isEdit: Boolean,
+      storeCodeProp: this.instance.params.storeCode,
+      isEdit: this.instance.params.isEdit,
       step: 1
     }
-  },
-  mounted () {
-    this.storeCodeProp = this.instance.params.storeCode === '' ? '' : this.instance.params.storeCd
-    this.isEdit = this.instance.params.isEdit
   },
   computed: {
     stepItems () {
@@ -116,23 +112,15 @@ export default {
   },
   methods: {
     async add (item) {
-      try {
-        await this.$refs[item][0].save()
-        await this.instance.params.getRoomTypeList()
-      } catch (error) {
-        console.log(error)
-      }
+      await this.$refs[item][0].save()
+      await this.instance.params.getRoomTypeList()
     },
     async update (item) {
-      try {
-        await this.$refs[item][0].update()
-        await this.instance.params.getRoomTypeList()
-      } catch (error) {
-        console.log(error)
-      }
+      await this.$refs[item][0].update()
+      await this.instance.params.getRoomTypeList()
     },
-    setStoreCd (storeCd) {
-      this.storeCdProp = storeCd
+    setStoreCode (storeCode) {
+      this.storeCodeProp = storeCode
     },
     nextStep (componentName) {
       const step = componentName === null ? this.stepItems.length + 1 : this.stepItems.find(item => item.name === componentName).step
