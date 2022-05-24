@@ -2,7 +2,7 @@ import Full from '@/container/Full.vue'
 
 // 재고 관리
 // const Stock = () => import('@/views/tl/stock/stock.vue')
-// const StockSet = () => import('@/views/tl/stock/stockSet.vue')
+const StockSet = () => import('@/views/tl/stock/stockSet.vue')
 
 // 객실 관리
 const RoomType = () => import('@/views/tl/roomType/RoomType.vue')
@@ -29,7 +29,7 @@ const Branch = () => import('@/views/tl/branch/Branch.vue')
 // const Rate = () => import('@/views/tl/rate/rate.vue')
 
 // 회원번호 관리
-// const Member = () => import('@/views/tl/memberManagement/memberManagement')
+// const Member = () => import('@/views/tl/memberNo/memberNo')
 
 // 가격 관리
 // const Price = () => import('@/views/tl/price/price.vue')
@@ -60,17 +60,17 @@ export default {
     //     breadcrumb: 'Stock'
     //   }
     // },
-    // {
-    //   path: 'stockSet',
-    //   component: StockSet,
-    //   name: 'tl.stockSet',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '재과 일괄 등록',
-    //     breadcrumb: 'StockSet'
-    //   }
-    // },
+    {
+      path: 'stockSet',
+      component: StockSet,
+      name: 'tl.stockSet',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '재고 & 금액 기초입력',
+        breadcrumb: 'StockSet'
+      }
+    },
     {
       path: 'roomType',
       component: RoomType,
