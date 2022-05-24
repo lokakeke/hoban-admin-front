@@ -33,8 +33,8 @@
             <template v-slot:item.store="{item}">
               {{ item.storeName }} ({{ item.storeCode }})
             </template>
-            <template v-slot:item.lcal="{item}">
-              {{ item.lcalName }} ({{ item.lcalCode }})
+            <template v-slot:item.local="{item}">
+              {{ item.localName }} ({{ item.localCode }})
             </template>
           </v-data-table>
         </v-col>
@@ -61,7 +61,7 @@ export default {
         },
         {
           text: '지역 명 (코드)',
-          value: 'lcal',
+          value: 'local',
           align: 'center',
           sortable: false
         }
@@ -78,9 +78,9 @@ export default {
         return this.items.filter((data) => {
           const storeCode = (data.storeCode || '').toLowerCase().replace(/\s/gi, '')
           const storeName = (data.storeName || '').toLowerCase().replace(/\s/gi, '')
-          const lcalCode = (data.lcalCode || '').toLowerCase().replace(/\s/gi, '')
-          const lcalName = (data.lcalName || '').toLowerCase().replace(/\s/gi, '')
-          return storeCode.indexOf(keyword) > -1 || storeName.indexOf(keyword) > -1 || lcalCode.indexOf(keyword) > -1 || lcalName.indexOf(keyword) > -1
+          const localCode = (data.localCode || '').toLowerCase().replace(/\s/gi, '')
+          const localName = (data.localName || '').toLowerCase().replace(/\s/gi, '')
+          return storeCode.indexOf(keyword) > -1 || storeName.indexOf(keyword) > -1 || localCode.indexOf(keyword) > -1 || localName.indexOf(keyword) > -1
         })
       } else {
         return this.items

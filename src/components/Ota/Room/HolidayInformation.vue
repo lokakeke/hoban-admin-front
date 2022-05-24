@@ -225,7 +225,7 @@ export default {
         },
         {
           text: '객실유형 코드',
-          value: 'rmType',
+          value: 'roomType',
           align: 'center',
           sortable: false,
           width: '15%'
@@ -266,27 +266,25 @@ export default {
   },
   methods: {
     async getEvents () {
-      const response = await roomTypeService.selectHolidayList(this.storeCodeProp)
-      const data = response.data
-      this.events = []
-      data.forEach(event => {
-        this.events.push({
-          name: event.hldyCd === 'S' ? '영업장 휴일' : `${event.rmTypeName} 휴일`,
-          start: moment(event.stndYmd).format('YYYY-MM-DD'),
-          color: event.hldyCd === 'S' ? 'green' : 'blue',
-          type: event.hldyCd === 'S' ? 'store' : 'room',
-          memo: event.memo,
-          hldyCd: event.hldyCd,
-          rmTypeCd: event.rmTypeCd,
-          rmTypeName: event.rmTypeName,
-          storeCd: event.storeCd,
-          storeName: event.storeName,
-          store: `${event.storeName} (${event.storeCd})`,
-          rmType: event.rmTypeCd === null ? '-' : `${event.rmTypeName} (${event.rmTypeCd})`
+      roomTypeService.selectHolidayList(this.storeCodeProp).then(res => {
+        res.data.forEach(event => {
+          this.events.push({
+            name: event.holidayCode === 'S' ? '영업장 휴일' : `${event.roomTypeName} 휴일`,
+            start: moment(event.standardDate).format('YYYY-MM-DD'),
+            color: event.holidayCode === 'S' ? 'green' : 'blue',
+            type: event.holidayCode === 'S' ? 'store' : 'room',
+            memo: event.memo,
+            holidayCode: event.holidayCode,
+            roomTypeCode: event.roomTypeCode ? event.roomTypeCode : '',
+            roomTypeName: event.roomTypeName ? event.roomTypeName : '',
+            storeCode: event.storeCode ? event.storeCode : '',
+            storeName: event.storeName ? event.storeName : '',
+            store: `${event.storeName} (${event.storeCode})`,
+            roomType: event.roomTypeCode ? `${event.roomTypeName} (${event.roomTypeCode})` : '-'
+          })
         })
+        this.originEvents = Object.assign([], this.events)
       })
-
-      this.originEvents = Object.assign([], this.events)
     },
 
     getEventColor (event) {
@@ -372,19 +370,15 @@ export default {
     },
 
     async getStoreInformation () {
-      try {
-        const response = await roomTypeService.selectRoomTypeInformation(this.storeCdProp)
-        this.storeInformation = response.data
-        this.storeInformation.saleBgnYmd = moment(this.storeInformation.saleBgnYmd).format('YYYY-MM-DD')
-        this.storeInformation.saleEndYmd = moment(this.storeInformation.saleEndYmd).format('YYYY-MM-DD')
-      } catch {}
+      const response = await roomTypeService.selectRoomTypeInformation(this.storeCodeProp)
+      this.storeInformation = response.data
+      this.storeInformation.saleStartDate = moment(this.storeInformation.saleStartDate).format('YYYY-MM-DD')
+      this.storeInformation.saleEndDate = moment(this.storeInformation.saleEndDate).format('YYYY-MM-DD')
     },
 
     async getRoomList () {
-      try {
-        const response = await roomTypeService.selectStoreRoomList(this.storeCdProp)
-        this.roomList = response.data.filter(item => item.existYn === 'Y')
-      } catch {}
+      const response = await roomTypeService.selectRoomTypeInfoListByStoreCode(this.storeCodeProp)
+      this.roomList = response.data.filter(item => item.existYn === 'Y')
     },
 
     async deleteHoliday (event) {
@@ -393,9 +387,9 @@ export default {
         let index = -1
 
         if (event.type === 'store') {
-          index = this.events.findIndex(e => e.start === event.start && e.type === event.type && e.storeCd === event.storeCd)
+          index = this.events.findIndex(e => e.start === event.start && e.type === event.type && e.storeCode === event.storeCode)
         } else {
-          index = this.events.findIndex(e => e.start === event.start && e.type === event.type && e.storeCd === event.storeCd && e.rmTypeCd === event.rmTypeCd)
+          index = this.events.findIndex(e => e.start === event.start && e.type === event.type && e.storeCode === event.storeCode && e.roomTypeCode === event.roomTypeCode)
         }
 
         if (index === -1) return
@@ -410,10 +404,8 @@ export default {
       if (allEqual(this.events)) {
         this.$dialog.alert('변경된 정보가 없습니다.')
       } else {
-        try {
-          await this.$dialog.confirm('수정 전 초기상태로 되돌립니다. 진행하시겠습니까?')
-          this.events = Object.assign([], this.originEvents)
-        } catch {}
+        await this.$dialog.confirm('수정 전 초기상태로 되돌립니다. 진행하시겠습니까?')
+        this.events = Object.assign([], this.originEvents)
       }
     },
 
@@ -421,10 +413,10 @@ export default {
       const submitList = []
       this.events.forEach(event => {
         submitList.push({
-          storeCd: this.storeCdProp,
-          stndYmd: moment(event.start).format('YYYYMMDD'),
-          hldyCd: event.type === 'store' ? 'S' : 'R',
-          rmTypeCd: event.rmTypeCd,
+          storeCode: this.storeCodeProp,
+          standardDate: moment(event.start).format('YYYYMMDD'),
+          holidayCode: event.type === 'store' ? 'S' : 'R',
+          roomTypeCode: event.roomTypeCode,
           memo: event.memo,
           useYn: 'Y'
         })
@@ -440,22 +432,14 @@ export default {
         return
       }
 
-      try {
-        await roomTypeService.insertHolidayList(this.storeCdProp, this.dataProcessing())
-        this.$emit('nextStep', null)
-      } catch (error) {
-        console.log(error)
-      }
+      await roomTypeService.insertHolidayList(this.storeCodeProp, this.dataProcessing())
+      this.$emit('nextStep', null)
     },
 
     async update () {
-      try {
-        await roomTypeService.updateHolidayList(this.storeCdProp, this.dataProcessing())
-        this.originEvents = Object.assign([], this.events)
-        this.$dialog.alert('수정이 완료되었습니다.')
-      } catch (error) {
-        console.log(error)
-      }
+      await roomTypeService.updateHolidayList(this.storeCodeProp, this.dataProcessing())
+      this.originEvents = Object.assign([], this.events)
+      this.$dialog.alert('수정이 완료되었습니다.')
     }
   }
 }

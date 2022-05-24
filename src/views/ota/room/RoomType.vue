@@ -1,7 +1,7 @@
 <template>
   <v-row wrap>
     <v-col sm="12">
-      <app-card :heading="'객실(Room Only) 등록관리'">
+      <app-card :heading="'객실 등록관리'">
         <search-form :search-list="searchList" :search-param.sync="searchParam" init-search @search="search" />
         <v-data-table :headers="headers"
                       :items="list"
@@ -11,20 +11,20 @@
                       disable-pagination
                       hide-default-footer
         >
-          <template v-slot:item.lcal="{item}">
-            {{item.lcalName}} ({{ item.lcalCode }})
+          <template v-slot:item.local="{item}">
+            {{item.localName}} ({{ item.localCode }})
           </template>
           <template v-slot:item.store="{item}">
             {{item.storeName}} ({{ item.storeCode }})
           </template>
-          <template v-slot:item.saleBgnYmd="{item}">
-            {{ item.saleBgnYmd | date }}
+          <template v-slot:item.saleStartDate="{item}">
+            {{ item.saleStartDate | date }}
           </template>
-          <template v-slot:item.saleEndYmd="{item}">
-            {{ item.saleEndYmd | date }}
+          <template v-slot:item.saleEndDate="{item}">
+            {{ item.saleEndDate | date }}
           </template>
-          <template v-slot:item.rsvBlckCode="{item}">
-            {{ isPartner ? '-' : item.rsvBlckCode }}
+          <template v-slot:item.blockCode="{item}">
+            {{ isPartner ? '-' : item.blockCode }}
           </template>
           <template v-slot:item.useYn="{item}">
             {{ item.useYn === 'Y' ? '판매' : '판매중지' }}
@@ -55,8 +55,8 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'lcalCode', label: '지역코드', type: 'text' },
-        { key: 'lcalName', label: '지역명', type: 'text' },
+        { key: 'localCode', label: '지역코드', type: 'text' },
+        { key: 'localName', label: '지역명', type: 'text' },
         { key: 'storeCode', label: '영업장코드', type: 'text' },
         { key: 'storeName', label: '영업장명', type: 'text' },
         { key: 'useYn', label: '판매중인 상품만 보기', type: 'boolean', trueValue: 'Y', defaultValue: 'Y' }
@@ -76,11 +76,11 @@ export default {
       },
       list: [],
       headers: [
-        { text: '지역 명(코드)', value: 'lcal', align: 'center', sortable: false },
+        { text: '지역 명(코드)', value: 'local', align: 'center', sortable: false },
         { text: '영업장 명(코드)', value: 'store', align: 'center', sortable: false },
-        { text: '판매 시작', value: 'saleBgnYmd', align: 'center', sortable: false },
-        { text: '판매 종료', value: 'saleEndYmd', align: 'center', sortable: false },
-        { text: '블럭코드', value: 'rsvBlckCode', align: 'center', sortable: false },
+        { text: '판매 시작', value: 'saleStartDate', align: 'center', sortable: false },
+        { text: '판매 종료', value: 'saleEndDate', align: 'center', sortable: false },
+        { text: '블럭코드', value: 'blockCode', align: 'center', sortable: false },
         { text: '판매유무', value: 'useYn', align: 'center', sortable: false }
       ]
     }
@@ -92,17 +92,11 @@ export default {
       }
     },
 
-    async getRoomTypeList () {
-      try {
-        this.checkPartner()
-        const response = await roomTypeService.selectRoomTypeInformationList(this.searchParam)
-        const items = response.data
-        this.list = items
-        this.searchParam.total = response.pagination.total
-      } catch {}
+    search () {
+      this.getRoomTypeList()
     },
 
-    async search () {
+    async getRoomTypeList () {
       this.checkPartner()
       const response = await roomTypeService.selectRoomTypeInformationList(this.searchParam)
       const items = response.data

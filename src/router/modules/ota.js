@@ -16,26 +16,11 @@ const RoomReservation = () => import('@/views/ota/roomReservation/RoomReservatio
 // room reservation cancel
 const MultipleRsvCancel = () => import('@/views/ota/roomReservation/MultipleRsvCancel.vue')
 
-// commission
-const CommissionBasic = () => import('@/views/ota/commission/CommissionBasic.vue')
-const CommissionPromotion = () => import('@/views/ota/commission/CommissionPromotion.vue')
+// 객실 예약 신청
+const RoomReservationApply = () => import('@/views/partner/reservation/PartnerReservationAppList')
 
-// calculation
-const Calculation = () => import('@/views/ota/calculation/Calculate.vue')
-const CalculationPackage = () => import('@/views/ota/calculation/PackageCalculate.vue')
-const CalculationRoomType = () => import('@/views/ota/calculation/RoomTypeCalculate.vue')
-const CalculationPenaltyRule = () => import('@/views/ota/calculation/PenaltyRule.vue')
-const CalculationDay = () => import('@/views/ota/calculation/CalculationDay.vue')
-const CalculationMenu = () => import('@/views/ota/calculation/CalculationMenu.vue')
-const PartnerCalculationStatus = () => import('@/views/ota/calculation/PartnerCalculationStatus.vue')
-const MonthlyUsedCalculation = () => import('@/views/ota/calculation/MonthlyUsedCalculation.vue')
-const CalculateComparativeContrast = () => import('@/views/ota/calculation/CalculateComparativeContrast.vue')
-
-// errorGuidance
-const ErrorGuidance = () => import('@/views/ota/api/error/ErrorGuidance.vue')
-
-// request
-const PartnerRequest = () => import('@/views/partner/request/PartnerRequest.vue')
+// 패키지 예약 신청
+const PackageReservationApply = () => import('@/views/partner/reservation/PartnerPkgReservationAppList')
 
 export default {
   path: '/ota',
@@ -74,7 +59,7 @@ export default {
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '객실(Room Only) 등록관리',
+        title: '객실 등록관리',
         breadcrumb: 'RoomType'
       }
     },
@@ -85,7 +70,7 @@ export default {
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '객실(PKG) 등록관리',
+        title: '패키지 등록관리',
         breadcrumb: 'RoomPackage'
       }
     },
@@ -112,146 +97,25 @@ export default {
       }
     },
     {
-      path: 'calculate',
-      component: Calculation,
-      name: 'ota.calculate',
+      path: 'roomReservationApply',
+      component: RoomReservationApply,
+      name: 'ota.roomReservationApply',
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '정산',
-        breadcrumb: 'Calculate '
+        title: '객실예약신청',
+        breadcrumb: 'roomReservationApply'
       }
     },
     {
-      path: 'packageCalculate',
-      component: CalculationPackage,
-      name: 'ota.packageCalculate',
+      path: 'packageReservationApply',
+      component: PackageReservationApply,
+      name: 'ota.packageReservationApply',
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '패키지 정산',
-        breadcrumb: 'Package Calculate '
-      }
-    },
-    {
-      path: 'roomTypeCalculate',
-      component: CalculationRoomType,
-      name: 'ota.roomTypeCalculate',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '객실 정산',
-        breadcrumb: 'RoomType Calculate '
-      }
-    },
-    {
-      path: 'commissionBasic',
-      component: CommissionBasic,
-      name: 'ota.commissionBasic',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '기본 수수료 관리',
-        breadcrumb: 'Commission Basic '
-      }
-    },
-    {
-      path: 'commissionPromotion',
-      component: CommissionPromotion,
-      name: 'ota.commissionPromotion',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '프로모션 수수료 관리',
-        breadcrumb: 'Commission Promotion '
-      }
-    },
-    {
-      path: 'calculationPenaltyRule',
-      component: CalculationPenaltyRule,
-      name: 'ota.calculationPenaltyRule',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '위약 규정 관리',
-        breadcrumb: 'Penalty Rule '
-      }
-    },
-    {
-      path: 'calculationDay',
-      component: CalculationDay,
-      name: 'ota.calculationDay',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '정산 일자 관리',
-        breadcrumb: 'Caculation Day '
-      }
-    },
-    {
-      path: 'calculationMenu',
-      component: CalculationMenu,
-      name: 'ota.calculationMenu',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '정산 메뉴 관리',
-        breadcrumb: 'Calculation Menu '
-      }
-    },
-    {
-      path: 'partnerCalculationStatus',
-      component: PartnerCalculationStatus,
-      name: 'ota.partnerCalculationStatus',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '파트너 정산 현황',
-        breadcrumb: 'Partner Calculation Status'
-      }
-    },
-    {
-      path: 'monthlyUsedCalculation',
-      component: MonthlyUsedCalculation,
-      name: 'ota.monthlyUsedCalculation',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '월별 이용 내역',
-        breadcrumb: 'Monthly Used Calculation'
-      }
-    },
-    {
-      path: 'errorGuidance',
-      component: ErrorGuidance,
-      name: 'ota.errorGuidance',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '오류 추천',
-        breadcrumb: 'Error Guidance'
-      }
-    },
-    {
-      path: 'partnerRequest',
-      component: PartnerRequest,
-      name: 'ota.partnerRequest',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '위약환불신청',
-        breadcrumb: 'Partner Request'
-      }
-    },
-    {
-      path: 'calculateComparativeContrast',
-      component: CalculateComparativeContrast,
-      name: 'ota.calculateComparativeContrast',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '정산 비교/대조',
-        breadcrumb: 'Calculate Comparative Contrast'
+        title: '패키지예약신청',
+        breadcrumb: 'packageReservationApply'
       }
     }
   ]
