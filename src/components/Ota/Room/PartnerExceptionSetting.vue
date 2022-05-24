@@ -28,10 +28,10 @@
                       hide-default-footer
                       disable-pagination
         >
-          <template v-slot:item.rmCnt="{item}">
+          <template v-slot:item.roomCount="{item}">
             <v-text-field
                 label="최대 예약가능 객실 수"
-                v-model="item.rmCnt"
+                v-model="item.roomCount"
             />
           </template>
           <template v-slot:item.stayNights="{item}">
@@ -60,7 +60,7 @@ export default {
       partnerListHeader: [
         { text: '파트너 번호', value: 'partnerSeq', align: 'center', sortable: false },
         { text: '파트너 명', value: 'companyName', align: 'center', sortable: false },
-        { text: '최대 예약가능 객실 수', value: 'rmCnt', align: 'center', sortable: false },
+        { text: '최대 예약가능 객실 수', value: 'roomCount', align: 'center', sortable: false },
         { text: '최대 예약가능 박 수', value: 'stayNights', align: 'center', sortable: false }
       ],
       partnerList: [],
@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     exceptPartnerList () {
-      return this.partnerList.filter(data => data.rmCnt || data.stayNights)
+      return this.partnerList.filter(data => data.roomCount || data.stayNights)
     }
   },
   mounted () {
@@ -103,12 +103,8 @@ export default {
     },
 
     async update () {
-      try {
-        await roomTypeService.insertStorePartnerExceptSetting(this.storeCodeProp, this.exceptPartnerList)
-        this.$dialog.alert('수정이 완료되었습니다.')
-      } catch (error) {
-        console.log(error)
-      }
+      await roomTypeService.insertStorePartnerExceptSetting(this.storeCodeProp, this.exceptPartnerList)
+      this.$dialog.alert('수정이 완료되었습니다.')
     }
   }
 }

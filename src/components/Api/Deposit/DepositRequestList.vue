@@ -18,20 +18,20 @@
         class="click-row bordered"
       >
         <!-- 입금예정일 -->
-        <template v-slot:item.rcpmnyPlanYmd="{item}">
-          {{item.rcpmnyPlanYmd | date}}
+        <template v-slot:item.depositPlanDate="{item}">
+          {{item.depositPlanDate | date}}
         </template>
         <!-- 금액 -->
-        <template v-slot:item.amt="{item}">
-          {{item.amt | price}}원
+        <template v-slot:item.price="{item}">
+          {{item.price | price}}원
         </template>
         <!-- 등록일시 -->
-        <template v-slot:item.crtDt="{item}">
-          {{item.crtDt | dateSet}}
+        <template v-slot:item.createDatetime="{item}">
+          {{item.createDatetime | dateSet}}
         </template>
         <!-- 승인상태 -->
         <template v-slot:item.aprlName="{item}">
-          <template v-if="item.aprlCode === 'A' && !isPartner">
+          <template v-if="item.approveCode === 'A' && !isPartner">
             <v-btn @click="approval(item)"
                    color="primary"
                    rounded
@@ -44,8 +44,8 @@
           </template>
         </template>
         <!-- 승인일시 -->
-        <template v-slot:item.procDt="{item}">
-          {{item.procDt | dateSet}}
+        <template v-slot:item.processDatetime="{item}">
+          {{item.processDatetime | dateSet}}
         </template>
       </v-data-table>
       <v-row>
@@ -79,28 +79,28 @@ export default {
       list: [],
       headers: [
         { text: '신청순번', value: 'appSeq', align: 'center', sortable: false },
-        { text: '예치금KEY', value: 'depoKey', align: 'center', sortable: false },
+        { text: '예치금KEY', value: 'depositKey', align: 'center', sortable: false },
         { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
         { text: '업무유형', value: 'taskTypeName', align: 'center', sortable: false },
         { text: '입금구분', value: 'rcpmnyAcctName', align: 'center', sortable: false },
-        { text: '입금예정일', value: 'rcpmnyPlanYmd', align: 'center', sortable: false },
-        { text: '금액', value: 'amt', align: 'center', sortable: false },
-        { text: '입금내용', value: 'rcpmnyName', align: 'center', sortable: false },
-        { text: '등록일시', value: 'crtDt', align: 'center', sortable: false },
+        { text: '입금예정일', value: 'depositPlanDate', align: 'center', sortable: false },
+        { text: '금액', value: 'price', align: 'center', sortable: false },
+        { text: '입금내용', value: 'depositSenderName', align: 'center', sortable: false },
+        { text: '등록일시', value: 'createDatetime', align: 'center', sortable: false },
         { text: '승인상태', value: 'aprlName', align: 'center', sortable: false },
-        { text: '처리일시', value: 'procDt', align: 'center', sortable: false }
+        { text: '처리일시', value: 'processDatetime', align: 'center', sortable: false }
       ]
     }
   },
   computed: {
     searchList () {
       const searchList = [
-        { key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 },
+        { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
         { key: 'companyName', label: '파트너명', type: 'text', cols: 2 },
         { key: 'rcpmnyAcct', label: '입금구분', type: 'code', commCode: 'COMM0004', cols: 2 },
-        { key: 'rcpmnyAcnoNo', label: '입금계좌번호', type: 'text', cols: 2 },
-        { key: 'rcpmnyName', label: '입금내용', type: 'text', cols: 2 },
-        { key: 'aprlCode', label: '승인상태', type: 'code', commCode: 'COMM0003', cols: 2 }
+        { key: 'accountNo', label: '입금계좌번호', type: 'text', cols: 2 },
+        { key: 'depositSenderName', label: '입금내용', type: 'text', cols: 2 },
+        { key: 'approveCode', label: '승인상태', type: 'code', commCode: 'COMM0003', cols: 2 }
       ]
       if (this.isPartner) {
         // 파트너의 경우 파트너명 검색을 제거

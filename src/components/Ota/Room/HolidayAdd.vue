@@ -29,7 +29,7 @@
           <v-row v-if="holidayType !== 'store'">
             <v-col>
               <v-select :item-text=setItemText
-                        :item-value="'rmTypeCode'"
+                        :item-value="'roomTypeCode'"
                         :items="roomList"
                         :rules="emptyRules"
                         chips
@@ -45,7 +45,7 @@
                       close
                       v-bind="attrs"
                   >
-                    <strong>{{ item.rmTypeName }}</strong>
+                    <strong>{{ item.roomTypeName }}</strong>
                   </v-chip>
                 </template>
               </v-select>
@@ -56,8 +56,8 @@
               <v-row>
                 <v-col cols="12">
                   <date-range-picker
-                      :max="storeInformation.saleEndYmd"
-                      :min="storeInformation.saleBgnYmd"
+                      :max="storeInformation.saleEndDate"
+                      :min="storeInformation.saleStartDate"
                       :required="true"
                       full-width
                       hide-details
@@ -100,8 +100,8 @@
                   <v-select :items="reasonItems"
                             @change="selectReason"
                             hide-details
-                            item-text="commCodeDesc"
-                            item-value="commCodeDesc"
+                            item-text="commonCodeDesc"
+                            item-value="commonCodeDesc"
                             label="선택"
                             v-model="reasonItem"
                   >
@@ -133,8 +133,8 @@ export default {
   name: 'HolidayAdd',
   data: function () {
     return {
-      events: Array,
-      storeInformation: Object,
+      events: this.instance.params.events,
+      storeInformation: this.instance.params.storeInformation,
 
       holidayType: 'store',
       holidayItems: [
@@ -144,7 +144,7 @@ export default {
 
       expand: false,
 
-      roomList: Array,
+      roomList: this.instance.params.roomList,
       selected: [],
 
       holiday: [],
@@ -167,14 +167,9 @@ export default {
     }
   },
   mounted () {
-    this.events = this.instance.params.events
-    this.storeInformation = this.instance.params.storeInformation
-    this.roomList = this.instance.params.roomList
-
     if (this.instance.params.selectType !== 'all') {
       this.holidayType = this.instance.params.selectType
     }
-
     this.getReasons()
   },
   methods: {
@@ -188,13 +183,9 @@ export default {
     },
 
     async getReasons () {
-      try {
-        const response = await commonCodeService.selectCommonCode('COMM0001')
-        for (const data of response.data) {
-          this.reasonItems.push(data)
-        }
-      } catch (error) {
-        console.log(error)
+      const response = await commonCodeService.selectCommonCode('COMM0001')
+      for (const data of response.data) {
+        this.reasonItems.push(data)
       }
     },
 
@@ -220,20 +211,22 @@ export default {
 
               if (this.holidayType !== 'store') {
                 this.selected.forEach(selectItem => {
-                  const item = this.roomList.find(item => item.rmTypeCode === selectItem)
-                  const finder = this.events.find(event => event.start === targetDay && event.storeCode === selectItem.storeCode && event.rmTypeCode === selectItem.rmTypeCd)
+                  const item = this.roomList.find(item => item.roomTypeCode === selectItem)
+                  const finder = this.events.find(event => event.start === targetDay && event.storeCode === selectItem.storeCode && event.roomTypeCode === selectItem.roomTypeCode)
 
                   if (finder === undefined) {
                     this.events.push({
-                      name: `${item.rmTypeName} 휴일`,
+                      name: `${item.roomTypeName} 휴일`,
                       start: targetDay,
                       color: this.holidayItems.find(data => data.name === this.holidayType).color,
                       type: this.holidayType,
                       memo: this.holidayMemo,
-                      rmTypeCd: item.rmTypeCd,
-                      rmTypeName: item.rmTypeName,
-                      storeCd: item.storeCd,
-                      storeName: item.storeName
+                      roomTypeCode: item.roomTypeCode ? item.roomTypeCode : '',
+                      roomTypeName: item.roomTypeName ? item.roomTypeName : '',
+                      storeCode: item.storeCode ? item.storeCode : '',
+                      storeName: item.storeName ? item.storeName : '',
+                      store: `${item.storeName} (${item.storeCode})`,
+                      roomType: item.roomTypeCode ? `${item.roomTypeName} (${item.roomTypeCode})` : '-'
                     })
                   }
                 })
@@ -250,9 +243,9 @@ export default {
                     color: this.holidayItems.find(data => data.name === this.holidayType).color,
                     type: this.holidayType,
                     memo: this.holidayMemo,
-                    rmTypeCd: '',
-                    rmTypeName: '',
-                    storeCd: this.storeInformation.storeCd,
+                    roomTypeCode: '',
+                    roomTypeName: '',
+                    storeCode: this.storeInformation.storeCode,
                     storeName: this.storeInformation.storeName
                   })
                 }
@@ -276,7 +269,7 @@ export default {
     },
 
     setItemText (item) {
-      return `${item.rmTypeName} - ${item.rmTypeCd}`
+      return `${item.roomTypeName} - ${item.roomTypeCode}`
     }
   }
 }
