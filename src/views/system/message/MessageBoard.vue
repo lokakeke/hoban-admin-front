@@ -1,6 +1,7 @@
 <template>
   <div>
     <app-card>
+        {{ this.groupList}}
       <template v-slot:heading>
         <div class="title font-weight-bold">전체 메시지 조회</div>
         <v-spacer/>
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import adminMessageService from '@/api/modules/message/messageAdmin.service'
 import partnerMessageService from '@/api/modules/message/messagePartner.service'
 import messageService from '@/api/modules/system/message.service'
