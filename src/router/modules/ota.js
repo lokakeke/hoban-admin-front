@@ -17,10 +17,10 @@ const RoomReservation = () => import('@/views/ota/roomReservation/RoomReservatio
 const MultipleRsvCancel = () => import('@/views/ota/roomReservation/MultipleRsvCancel.vue')
 
 // 객실 예약 신청
-const RoomReservationApply = () => import('@/views/partner/reservation/PartnerReservationAppList')
+const RoomReservationApply = () => import('@/views/partner/reservation/PartnerReservationAppList.vue')
 
 // 패키지 예약 신청
-const PackageReservationApply = () => import('@/views/partner/reservation/PartnerPkgReservationAppList')
+const PackageReservationApply = () => import('@/views/partner/reservation/PartnerPkgReservationAppList.vue')
 
 export default {
   path: '/ota',

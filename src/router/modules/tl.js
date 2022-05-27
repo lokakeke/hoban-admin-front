@@ -1,7 +1,9 @@
 import Full from '@/container/Full.vue'
 
 // 재고 관리
-// const Stock = () => import('@/views/tl/stock/stock.vue')
+const Stock = () => import('@/views/tl/stock/stock.vue')
+
+// 재고 & 금액 관리
 const StockSet = () => import('@/views/tl/stock/stockSet.vue')
 
 // 객실 관리
@@ -31,10 +33,10 @@ const Branch = () => import('@/views/tl/branch/Branch.vue')
 // 회원번호 관리
 // const Member = () => import('@/views/tl/memberNo/memberNo')
 
-// 가격 관리
+// 금액 관리
 // const Price = () => import('@/views/tl/price/price.vue')
 
-// 가격 전송이력
+// 금액 전송이력
 // const SendPrice = () => import('@/views/tl/sendPrice/sendPrice.vue')
 
 // PMS가격 전송이력
@@ -49,17 +51,17 @@ export default {
     breadcrumb: 'TL'
   },
   children: [
-    // {
-    //   path: 'stock',
-    //   component: Stock,
-    //   name: 'tl.stock',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '재고 관리',
-    //     breadcrumb: 'Stock'
-    //   }
-    // },
+    {
+      path: 'stock',
+      component: Stock,
+      name: 'tl.stock',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '재고 관리',
+        breadcrumb: 'Stock'
+      }
+    },
     {
       path: 'stockSet',
       component: StockSet,
