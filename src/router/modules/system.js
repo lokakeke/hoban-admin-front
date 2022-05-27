@@ -6,6 +6,10 @@ const Menu = () => import('@/views/system/menu/Menu.vue')
 // 관리자 menu auth group
 const AdminMenuAuthGroup = () => import('@/views/system/authentication/admin/AdminMenuAuthGroup.vue')
 
+// 관리자 message auth
+const AdminMessageAuth = () => import('@/views/system/authentication/admin/AdminMessageAuth.vue')
+const PartnerMessageAuth = () => import('@/views/system/authentication/partner/PartnerMessageAuth.vue')
+
 // account
 const Account = () => import('@/views/system/authentication/admin/AdminAccount.vue')
 
@@ -56,6 +60,28 @@ export default {
         requiresAuth: true,
         title: '어드민 메뉴 권한 관리',
         breadcrumb: 'Admin Menu Auth'
+      }
+    },
+    {
+      path: 'adminMessageAuth',
+      component: AdminMessageAuth,
+      name: 'system.adminMessageAuth',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '관리자 메시지 권한 관리 관리',
+        breadcrumb: 'Admin Message Auth'
+      }
+    },
+    {
+      path: 'partnerMessageAuth',
+      component: PartnerMessageAuth,
+      name: 'system.partnerMessageAuth',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '파트너 메시지 권한 관리 관리',
+        breadcrumb: 'Partner Message Auth'
       }
     },
     {
