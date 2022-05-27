@@ -189,13 +189,15 @@ export default {
   },
   methods: {
     openMenu () {
+      if (!this.selectedGroup || !this.selectedGroup.menuAuthGroupId) return
+
       this.$store.dispatch('dialog/open', {
         componentPath: '/System/Authentication/Admin/MessageAuthDialog',
         params: {
           title: `메시지 권한 그룹(${this.menuAuthGroupName}) 메뉴 설정`,
           menuAuthGroupId: this.selectedGroup.menuAuthGroupId,
           menuAuthGroupName: this.menuAuthGroupName,
-          isPartner: true,
+          isAdmin: false,
           change: this.load,
           myMessageAuthList: Object.assign({}, this.selectedGroup),
           messageList: Object.assign(this.fullMessages)
