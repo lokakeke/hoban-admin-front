@@ -5,7 +5,7 @@ const packageService = {
      * 패키지 등록관리 목록 조회
      */
   selectRoomPackageRegisterList (param) {
-    return api.get('/api/system/ota/pack/list', {
+    return api.get('/api/cms/ota/booking/pack/list', {
       params: param
     })
   },
@@ -16,8 +16,8 @@ const packageService = {
    * 1 : 공통 코드에 등록된 패키지 판매 유형에 대해서만 조회 가능
    * 2 : 모든 패키지 판매 유형에 대해 조회 가능
    */
-  selectPackageMasterInformation (packageNumber, flag) {
-    return api.get(`/api/system/ota/pack/${packageNumber}`, {
+  selectPackageMasterInformation (packageNo, flag) {
+    return api.get(`/api/cms/ota/booking/pack/${packageNo}`, {
       params: {
         flag: flag
       }
@@ -27,138 +27,142 @@ const packageService = {
   /**
      * 객실패키지 정보 조회
      */
-  selectRoomPackageInformation (packageNumber) {
-    return api.get(`/api/system/ota/pack/detail/${packageNumber}`)
+  selectRoomPackageInformation (packageNo) {
+    return api.get(`/api/cms/ota/booking/pack/detail/${packageNo}`)
   },
 
   /**
      * 통계용 패키지 분류 리스트 조회
      */
   selectPackageTypeList () {
-    return api.get('/api/system/ota/pack/types')
+    return api.get('/api/cms/ota/booking/pack/types')
   },
 
   /**
      * 객실패키지 기본정보 등록
      */
-  insertRoomPackageInformation (packageDataObject) {
-    return api.post('/api/system/ota/pack/insert', packageDataObject)
+  insertRoomPackageInformation (packageOta) {
+    return api.post('/api/cms/ota/booking/pack/insert', packageOta)
   },
 
   /**
      * 객실패키지 기본정보 수정
      */
-  updateRoomPackageInformation (packageDataObject) {
-    return api.post('/api/system/ota/pack/update', packageDataObject)
+  updateRoomPackageInformation (packageOta) {
+    return api.post('/api/cms/ota/booking/pack/update', packageOta)
   },
 
   /**
      * 객실패키지 판매여부 수정
      */
-  updateRoomPackageUseYn (packageDataObject) {
-    return api.post('/api/system/ota/pack/update/useYn', packageDataObject)
+  updateRoomPackageUseYn (packageOta) {
+    return api.post('/api/cms/ota/booking/pack/update/useYn', packageOta)
   },
 
   /**
      * 객실패키지 객실유형 정보 조회
      */
-  selectPackageRoomTypeList (packageNumber) {
-    return api.get(`/api/system/ota/pack/roomList/${packageNumber}`)
+  selectPackageRoomTypeList (packageNo) {
+    return api.get(`/api/cms/ota/booking/pack/roomList/${packageNo}`)
   },
 
   /**
      * 객실패키지 영업장 정보 조회(객실유형 포함)
      */
-  selectPackageStoreList (packageNumber) {
-    return api.get(`/api/system/ota/pack/storeList/${packageNumber}`)
+  selectPackageStoreList (packageNo) {
+    return api.get(`/api/cms/ota/booking/pack/storeList/${packageNo}`)
   },
 
   /**
      * 객실패키지 객실유형 정보 등록
      */
   insertPackageRoomTypeList (roomTypeList) {
-    return api.post('/api/system/ota/pack/insert/room', roomTypeList)
+    return api.post('/api/cms/ota/booking/pack/insert/room', roomTypeList)
   },
 
   /**
      * 객실패키지 객실유형 정보 수정
      */
   updatePackageRoomTypeList (roomTypeList) {
-    return api.post('/api/system/ota/pack/update/detail', roomTypeList)
+    return api.post('/api/cms/ota/booking/pack/update/detail', roomTypeList)
   },
 
   /**
      * 판매대상 업체목록 조회
      */
-  selectPartnerList (packageNumber, partnerSeq = null) {
+  selectPartnerList (packageNo, partnerSeq = null) {
     if (partnerSeq !== null) {
-      return api.get(`/api/system/ota/partner/list/${packageNumber}?partnerSeq=${partnerSeq}`)
+      return api.get(`/api/cms/ota/booking/packagePartner/list/${packageNo}`, {
+        params: {
+          partnerSeq: partnerSeq
+        }
+      })
     } else {
-      return api.get(`/api/system/ota/partner/list/${packageNumber}`)
+      return api.get(`/api/cms/ota/booking/packagePartner/list/${packageNo}`)
     }
   },
 
   /**
      * 객실패키지 전체판매 여부 수정 - 전체 업체가 모두 판매가 가능한 경우
      */
-  updateRoomPackageSaleType (packageNumber, flag) {
-    return api.post(`/api/system/ota/pack/update/allSale/${packageNumber}/${flag}`)
+  updateRoomPackageSaleType (packageNo, flag) {
+    return api.post(`/api/cms/ota/booking/pack/update/allSale/${packageNo}/${flag}`)
   },
 
   /**
      * 객실패키지 판매업체 등록 - 특정 업체만 판매가 가능한 경우
      */
   insertSalePartnerList (partnerList) {
-    return api.post('/api/system/ota/partner/insert', partnerList)
+    return api.post('/api/cms/ota/booking/packagePartner/insert', partnerList)
   },
 
   /**
      * 객실패키지 판매업체 수정
      */
   updateSalePartnerList (partnerList) {
-    return api.post('/api/system/ota/partner/update', partnerList)
+    return api.post('/api/cms/ota/booking/packagePartner/update', partnerList)
   },
 
   /**
      * 객실패키지 판매업체 삭제
      */
-  deleteSalePartnerList (packageNumber) {
-    return api.post(`/api/system/ota/partner/delete/${packageNumber}`)
+  deleteSalePartnerList (packageNo) {
+    return api.post(`/api/cms/ota/booking/packagePartner/delete/${packageNo}`)
   },
 
   /**
      * 객실패키지 사업장 & 객실 리스트
      */
-  selectStoreRoomList (packageNumber) {
-    return api.get(`/api/system/ota/holiday/room/list/${packageNumber}`)
+  selectStoreRoomList (packageNo) {
+    return api.get(`/api/cms/ota/booking/holiday/room/list/${packageNo}`)
   },
 
   /**
      * 객실패키지 휴일 리스트 조회
      */
-  selectHolidayList (packageNumber) {
-    return api.get(`/api/system/ota/holiday/list/${packageNumber}`)
+  selectHolidayList (packageNo) {
+    return api.get(`/api/cms/ota/booking/holiday/list/${packageNo}`)
   },
 
   /**
      * 객실패키지 휴일 리스트 등록
      */
   insertHolidayList (holidayList) {
-    return api.post('/api/system/ota/holiday/insert', holidayList)
+    return api.post('/api/cms/ota/booking/holiday/insert', holidayList)
   },
 
   /**
      * 객실패키지 휴일 리스트 수정
      */
   updateHolidayList (holidayList) {
-    return api.post('/api/system/ota/holiday/update', holidayList)
+    return api.post('/api/cms/ota/booking/holiday/update', holidayList)
   },
 
   /**
      * 객실패키지 분류 등록
      */
-  insertRoomPackageType (pkgNo, form, packTypeCodeList) {
-    return api.post(`/api/system/ota/pack/classify/insert/${pkgNo}`, {
+  insertRoomPackageType (packageNo, form, packTypeCodeList) {
+    return api.post(`/api/cms/ota/booking/pack/classify/insert/${packageNo}`, {
       title: form.title,
       typeCode: form.typeCode,
       packTypeCodeList: packTypeCodeList
@@ -168,20 +172,16 @@ const packageService = {
   /**
      * 객실패키지 분류 수정
      */
-  updateRoomPackageType (pkgNo, form, packTypeCodeList) {
-    // return api.post('/api/system/ota/pack/classify/update', packageType)
-    return api.post(`/api/system/ota/pack/classify/update/${pkgNo}`, {
-      title: form.title,
-      typeCode: form.typeCode,
-      packTypeCodeList: packTypeCodeList
-    })
+  updateRoomPackageType (packTypeCodeList) {
+    // return api.post('/api/cms/ota/booking/pack/classify/update', packageType)
+    return api.post('/api/cms/ota/booking/pack/classify/update', packTypeCodeList)
   },
 
   /**
    * 객실패키지 설정 복제
    */
-  insertCopyPackageInformation (pkgNo, targetPkgNo) {
-    return api.post(`/api/system/ota/pack/${pkgNo}/information/copy/${targetPkgNo}/insert`)
+  insertCopyPackageInformation (packageNo, targetPackageNo) {
+    return api.post(`/api/cms/ota/booking/pack/${packageNo}/information/copy/${targetPackageNo}/insert`)
   }
 }
 
