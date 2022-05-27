@@ -20,43 +20,43 @@
               </div>
             </template>
           </template>
-          <template v-slot:item.lcal="{item}">
-            {{item.lcalName}} ({{ item.lcalCode }})
+          <template v-slot:item.local="{item}">
+            {{item.localName}} ({{ item.localCode }})
           </template>
-          <template v-slot:item.pkgName="{item}">
+          <template v-slot:item.packageName="{item}">
             <v-tooltip bottom z-index="1000">
               <template v-slot:activator="{ on, attrs }">
                 <div v-bind="attrs" v-on="on">
-                  {{ item.pkgName }}
+                  {{ item.packageName }}
                 </div>
               </template>
-              <span>{{ item.pkgMenuName }}</span>
+              <span>{{ item.packageMenuName }}</span>
             </v-tooltip>
           </template>
-          <template v-slot:item.pkgDesc="{item}">
+          <template v-slot:item.packageDesc="{item}">
             <v-tooltip bottom z-index="1000">
               <template v-slot:activator="{ on, attrs }">
                 <div v-bind="attrs" v-on="on">
-                  <span>{{ item.pkgDesc | textTruncate(25) }}</span>
+                  <span>{{ item.packageDesc | textTruncate(25) }}</span>
                 </div>
               </template>
-              {{ item.pkgDesc }}
+              {{ item.packageDesc }}
             </v-tooltip>
           </template>
-          <template v-slot:item.saleBgnYmd="{item}">
-            {{ item.saleBgnYmd | date}}
+          <template v-slot:item.saleStartDate="{item}">
+            {{ item.saleStartDate | date}}
           </template>
-          <template v-slot:item.saleEndYmd="{item}">
-            {{ item.saleEndYmd | date}}
+          <template v-slot:item.saleEndDate="{item}">
+            {{ item.saleEndDate | date}}
           </template>
-          <template v-slot:item.rmNightCnt="{item}">
+          <template v-slot:item.roomNightCount="{item}">
             {{ item.stayNights }} / {{ item.rmCnt }}
           </template>
           <template v-slot:item.todayRsvYn="{item}">
             {{ item.todayRsvYn === 'Y' ? '가능' : '불가능'}}
           </template>
-          <template v-slot:item.rsvBlckCode="{item}">
-            {{ isPartner ? '-' : item.rsvBlckCode }}
+          <template v-slot:item.blockCode="{item}">
+            {{ isPartner ? '-' : item.blockCode }}
           </template>
           <template v-slot:item.copySet="{item}">
             <v-btn v-if="writeAuth" icon @click="openSettingRegDialog(item)">
@@ -91,10 +91,10 @@ export default {
     ...mapGetters({ user: 'auth/user' }),
     searchList () {
       return [
-        { key: 'lcalCode', label: '지역코드', type: 'text' },
-        { key: 'lcalName', label: '지역명', type: 'text' },
-        { key: 'pkgNo', label: '패키지번호', type: 'text' },
-        { key: 'pkgName', label: '패키지명', type: 'text' },
+        { key: 'localCode', label: '지역코드', type: 'text' },
+        { key: 'localName', label: '지역명', type: 'text' },
+        { key: 'packageNo', label: '패키지번호', type: 'text' },
+        { key: 'packageName', label: '패키지명', type: 'text' },
         { key: 'useYn', label: '판매중인 상품만 보기', type: 'boolean', trueValue: 'Y', defaultValue: 'Y' }
       ]
     }
@@ -109,16 +109,16 @@ export default {
       },
       headers: [
         { text: '판매 여부', value: 'useYn', align: 'center', sortable: false },
-        { text: '지역 명(코드)', value: 'lcal', align: 'center', sortable: false },
-        { text: '패키지번호', value: 'pkgNo', align: 'center', sortable: true },
-        { text: '패키지명', value: 'pkgName', align: 'center', sortable: true },
-        { text: '패키지 설명', value: 'pkgDesc', align: 'center', sortable: false, width: '15%' },
-        { text: '판매 시작', value: 'saleBgnYmd', align: 'center', sortable: false },
-        { text: '판매 종료', value: 'saleEndYmd', align: 'center', sortable: false },
-        { text: '박 / 객', value: 'rmNightCnt', align: 'center', sortable: false },
+        { text: '지역 명(코드)', value: 'local', align: 'center', sortable: false },
+        { text: '패키지번호', value: 'packageNo', align: 'center', sortable: true },
+        { text: '패키지명', value: 'packageName', align: 'center', sortable: true },
+        { text: '패키지 설명', value: 'packageDesc', align: 'center', sortable: false, width: '15%' },
+        { text: '판매 시작', value: 'saleStartDate', align: 'center', sortable: false },
+        { text: '판매 종료', value: 'saleEndDate', align: 'center', sortable: false },
+        { text: '박 / 객', value: 'roomNightCount', align: 'center', sortable: false },
         { text: '당일 예약', value: 'todayRsvYn', align: 'center', sortable: false },
         { text: '당일 상품', value: 'todaySaleYn', align: 'center', sortable: false },
-        { text: '블럭코드', value: 'rsvBlckCode', align: 'center', sortable: false },
+        { text: '블럭코드', value: 'blockCode', align: 'center', sortable: false },
         { text: '설정복사', value: 'copySet', align: 'center', sortable: false }
       ],
       list: []
@@ -126,12 +126,12 @@ export default {
   },
   methods: {
     openDialog (mode, event) {
-      const pkgNo = (mode === 'edit') ? event.pkgNo : ''
+      const packageNo = (mode === 'edit') ? event.packageNo : ''
       const isEdit = mode === 'edit'
       this.$store.dispatch('dialog/open', {
         componentPath: '/Ota/Package/Container',
         params: {
-          pkgNoProp: pkgNo,
+          packageNoProp: packageNo,
           isEdit,
           getRoomPackageRegisterList: this.getRoomPackageRegisterList
         },
@@ -159,9 +159,9 @@ export default {
     },
     // 패키지 판매상태 변경
     changeRoomPackageUseYn (event) {
-      this.$dialog.confirm(`${event.pkgNo} 패키지의 판매 상태를 변경하시겠습니까?`).then(() => {
+      this.$dialog.confirm(`${event.packageNo} 패키지의 판매 상태를 변경하시겠습니까?`).then(() => {
         const obj = {}
-        obj.pkgNo = event.pkgNo
+        obj.packageNo = event.packageNo
         obj.useYn = event.useYn === 'Y' ? 'N' : 'Y'
 
         packageService.updateRoomPackageUseYn(obj).then(res => {
@@ -174,7 +174,7 @@ export default {
     },
     // 패키지 메뉴 출력
     showMenu (items) {
-      return items.map((item) => item.pkgMenuName).join(', ')
+      return items.map((item) => item.packageMenuName).join(', ')
     },
     // 등록된 패키지 설정으로 일괄설정 팝업
     async openSettingRegDialog (pkgInfo) {
