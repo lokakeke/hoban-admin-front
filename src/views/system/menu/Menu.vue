@@ -46,8 +46,7 @@
                 </v-col>
                 <v-col cols="12">
                   <v-label>메뉴 이름</v-label>
-                  <v-text-field v-model="form.menuName" :rules="emptyRules" label="" required
-                                class="pt-0"></v-text-field>
+                  <v-text-field v-model="form.menuName" :rules="emptyRules" label="" required class="pt-0"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-label>메뉴 주소 (하위메뉴가 등록되어야 할 경우 비워주세요)</v-label>
