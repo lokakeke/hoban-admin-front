@@ -23,18 +23,14 @@
                 </vc-date-picker>
               </v-layout>
             </v-flex>
-            <v-flex md6 xs12>
+            <v-flex md12 xs12>
               <v-layout class="ml-2">
                 <template v-for="day of days">
                   <v-checkbox :key="day.key" v-model="day.value" :label="day.text"
                               hide-details :color="day.color" class="mt-2"
                   ></v-checkbox>
                 </template>
-              </v-layout>
-            </v-flex>
-            <v-flex md6 xs12>
-              <v-layout>
-                <v-btn rounded color="primary" @click="search()">
+                <v-btn class="ml-4" rounded color="primary" @click="search()">
                   <v-icon>add</v-icon>
                   기간 적용
                 </v-btn>
@@ -287,7 +283,7 @@ import priceService from '@/api/modules/tl/price.service'
 export default {
   name: 'stockSet',
   components: { BranchList },
-  data() {
+  data () {
     return {
       // 검색조건
       param: {
@@ -325,17 +321,17 @@ export default {
     }
   },
   computed: {
-    datesText() {
+    datesText () {
       let text = ''
       this.dates.sort((d1, d2) => new Date(d1).getTime() - new Date(d2).getTime())
       text += moment(_.first(this.dates)).format('YYYY 년 MM월 DD일') + ' ~ ' + moment(_.last(this.dates)).format('YYYY 년 MM월 DD일') + ' / <span class="red--text lighten-4">' + this.dates.length + '일이 선택 되었습니다.</span>'
       return text
     },
-    filterData() {
-      let filterData = []
-      for (let room of this.roomTypeList) {
+    filterData () {
+      const filterData = []
+      for (const room of this.roomTypeList) {
         if (room.stock || room.ratio || !room.sellYn) {
-          room.active = true;
+          room.active = true
           filterData.push({
             brcNo: this.param.brcNo,
             tlRmTypeName: room.tlRmTypeName,
@@ -358,7 +354,7 @@ export default {
     }
   },
   methods: {
-    init() {
+    init () {
       this.dates = []
       // TL-LINCOLN 객실 타입
       this.roomTypeList = []
@@ -374,7 +370,7 @@ export default {
         setStockYn: 'Y'
       }
     },
-    branchChange() {
+    branchChange () {
       // 초기화
       this.roomTypeList = []
       roomTypeService.selectRoomTypeSync(this.param.brcNo, this.param.pkgYn).then(res => {
@@ -389,9 +385,9 @@ export default {
             useYn: 'Y',
             pkgYn: this.param.pkgYn
           }).then(res => {
-            let roomTypeList = res.data
+            const roomTypeList = res.data
             if (roomTypeList && roomTypeList.length > 0) {
-              for (let roomType of roomTypeList) {
+              for (const roomType of roomTypeList) {
                 // 데이터를 셋팅해준다.
                 if (this.param.setStockYn === 'Y') {
                   roomType.rsvBlockCode = roomType.blockList && roomType.blockList.length > 0 ? roomType.blockList[0].blockCode : ''
@@ -413,20 +409,20 @@ export default {
         }
       })
     },
-    showDialog() {
+    showDialog () {
       if (this.filterData.length === 0) {
         this.$dialog.alert('입력할 데이터가 없습니다.')
       } else {
         this.dialog = true
       }
     },
-    async validateStock() {
+    async validateStock () {
       await this.validForm(this.$refs.form)
       // 입력건 체크
       if (this.filterData.length === 0) {
         this.$dialog.alert('입력할 데이터가 없습니다.')
       } else {
-        for (let type of this.filterData) {
+        for (const type of this.filterData) {
           if (!type.rsvBlockCode) {
             this.$dialog.alert(type.tlRmTypeName + ' 의 재고 블럭을 지정해 주세요.')
             return
@@ -434,12 +430,12 @@ export default {
         }
         this.$dialog.confirm('재고량을 입력하시겠습니까?').then(() => {
           // dates array 를 YYYYMMDD 형태로 만든다.
-          let dateArray = []
-          for (let date of this.dates) {
+          const dateArray = []
+          for (const date of this.dates) {
             dateArray.push(moment(date).format('YYYYMMDD'))
           }
           let tlRmTypeCodes = []
-          for (let row of this.filterData) {
+          for (const row of this.filterData) {
             tlRmTypeCodes.push(row.tlRmTypeCode)
           }
           tlRmTypeCodes = [...new Set(tlRmTypeCodes)]
@@ -457,19 +453,19 @@ export default {
         })
       }
     },
-    validatePrice() {
+    validatePrice () {
       const filterData = _.filter(this.roomTypeList, { priceYn: true })
       if (filterData.length === 0) {
         this.$dialog.alert('선택된 객실이 없습니다.')
       } else {
         this.$dialog.confirm('금액 데이터를 생성하시겠습니까?').then(() => {
           // dates array 를 YYYYMMDD 형태로 만든다.
-          let dateArray = []
-          for (let date of this.dates) {
+          const dateArray = []
+          for (const date of this.dates) {
             dateArray.push(moment(date).format('YYYYMMDD'))
           }
           let tlRmTypeCodes = []
-          for (let row of filterData) {
+          for (const row of filterData) {
             tlRmTypeCodes.push(row.tlRmTypeCode)
           }
           tlRmTypeCodes = [...new Set(tlRmTypeCodes)]
@@ -486,15 +482,15 @@ export default {
         })
       }
     },
-    getMaxDate(range) {
+    getMaxDate (range) {
       if (range && range.start) {
         this.maxDate = moment(range.start).add(4, 'months').toDate()
       }
     },
-    search() {
+    search () {
       // 데이터를 만든다.
       if (!this.param.brcNo) {
-        this.$dialog.alert('사업장을 선택해 주세요.');
+        this.$dialog.alert('사업장을 선택해 주세요.')
         return
       } else if (!this.param.selectDate || !this.param.selectDate.start || !this.param.selectDate.end) {
         this.$dialog.alert('기간을 선택해 주세요.')
@@ -502,16 +498,14 @@ export default {
       }
       // 기간 설정
       let startDate = moment(this.param.selectDate.start)
-      let endDate = moment(this.param.selectDate.end)
-      console.log('startDate', startDate)
-      console.log('endDate', endDate)
+      const endDate = moment(this.param.selectDate.end)
       // 날짜설정을 만든다.
-      let dates = []
+      const dates = []
       for (let i = 0; startDate <= endDate; startDate = moment(startDate).add(1, 'days')) {
         const date = startDate.toDate()
         const selectDay = startDate.days()
         // 요일 분석
-        for (let day of this.days) {
+        for (const day of this.days) {
           if (day.value && day.key === selectDay) {
             dates.push(date)
           }
@@ -519,10 +513,10 @@ export default {
       }
       this.dates = dates
     },
-    refresh() {
+    refresh () {
       this.dates = []
     },
-    setRoomType() {
+    setRoomType () {
       if (!this.param.setStockYn) {
         this.$dialog.alert('기초입력 타입을 선택해 주세요.')
         return
@@ -535,10 +529,10 @@ export default {
       }
       this.menuRoomType = true
     },
-    modifyPeriod() {
+    modifyPeriod () {
       this.menuRoomType = false
     },
-    manualChange(type, index) {
+    manualChange (type, index) {
       type.autoYn = !type.autoYn
       type.stock = ''
       type.ratio = ''
