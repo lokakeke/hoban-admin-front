@@ -1,7 +1,6 @@
 <template>
   <div>
     <app-card>
-        {{ this.groupList}}
       <template v-slot:heading>
         <div class="title font-weight-bold">전체 메시지 조회</div>
         <v-spacer/>

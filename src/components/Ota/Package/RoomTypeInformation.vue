@@ -98,18 +98,15 @@ export default {
   name: 'RoomTypeInformation',
   props: {
     isEdit: Boolean,
-    pkgNoProp: String
+    packageNoProp: String
   },
   data: function () {
     return {
-      pkgNo: '',
+      packageNo: '',
       origin: [],
       headers: [
         { text: '영업장명 / 코드', value: 'store', align: 'center' },
-        { text: '동명 / 코드', value: 'dong', align: 'center' },
-        { text: '평형명 / 코드', value: 'pyeong', align: 'center' },
-        { text: '객실종류명 / 코드', value: 'roomKind', align: 'center' },
-        { text: '객실유형 코드', value: 'roomType', align: 'center' }
+        { text: '객실유형명 / 코드', value: 'roomType', align: 'center' }
       ],
       searchN: '',
       searchY: '',
@@ -118,7 +115,7 @@ export default {
     }
   },
   mounted () {
-    this.pkgNo = this.pkgNoProp
+    this.packageNo = this.packageNoProp
     this.getPackageRoomTypeList()
   },
   computed: {
@@ -131,23 +128,18 @@ export default {
   },
   methods: {
     getPackageRoomTypeList () {
-      packageService.selectPackageRoomTypeList(this.pkgNo).then((response) => {
+      packageService.selectPackageRoomTypeList(this.packageNo).then((response) => {
         const data = response.data
         this.origin = []
         data.forEach(obj => {
           this.origin.push({
             store: `${obj.storeName} (${obj.storeCode})`,
-            dong: `${obj.dongName} (${obj.dongCode})`,
-            pyeong: `${obj.pyeongName} (${obj.pyeongCd})`,
-            roomKind: `${obj.rmKindName} (${obj.rmKindCd})`,
-            roomType: `${obj.rmTypeCd}`,
-            rmTypeCd: obj.rmTypeCd,
-            storeCd: obj.storeCd,
+            roomType: `${obj.roomTypeName} (${obj.roomTypeCode})`,
+            roomTypeCode: obj.roomTypeCode,
+            storeCode: obj.storeCode,
             useYn: obj.otaExistYn
           })
         })
-      }).catch((error) => {
-        console.log(error)
       })
     },
 
@@ -169,36 +161,26 @@ export default {
         this.saveData = []
         this.listY.forEach(room => {
           this.saveData.push({
-            pkgNo: this.pkgNo,
-            rmTypeCd: room.rmTypeCd,
-            storeCd: room.storeCd,
+            packageNo: this.packageNo,
+            roomTypeCode: room.roomTypeCode,
+            storeCode: room.storeCode,
             useYn: room.useYn
           })
         })
-
         return true
       }
     },
 
     async save () {
       if (!this.pushData()) return
-      try {
-        await packageService.insertPackageRoomTypeList(this.saveData)
-        this.$emit('nextStep', 'SellerRegisterForm')
-      } catch (error) {
-        console.log(error)
-      }
+      await packageService.insertPackageRoomTypeList(this.saveData)
+      this.$emit('nextStep', 'SellerRegisterForm')
     },
 
     async update () {
       if (!this.pushData()) return
-
-      try {
-        await packageService.updatePackageRoomTypeList(this.saveData)
-        this.$dialog.alert('수정이 완료되었습니다.')
-      } catch (error) {
-        console.log(error)
-      }
+      await packageService.updatePackageRoomTypeList(this.saveData)
+      this.$dialog.alert('수정이 완료되었습니다.')
     }
   }
 }

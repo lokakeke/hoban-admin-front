@@ -279,7 +279,7 @@ export default {
             roomTypeName: event.roomTypeName ? event.roomTypeName : '',
             storeCode: event.storeCode ? event.storeCode : '',
             storeName: event.storeName ? event.storeName : '',
-            store: `${event.storeName} (${event.storeCode})`,
+            store: event.storeCode ? `${event.storeName} (${event.storeCode})` : '-',
             roomType: event.roomTypeCode ? `${event.roomTypeName} (${event.roomTypeCode})` : '-'
           })
         })

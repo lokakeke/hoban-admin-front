@@ -56,7 +56,7 @@ export default {
       myMessageAuthList: [],
       messageList: [],
       form: [],
-      isPartner: false
+      isAdmin: ''
     }
   },
   mounted () {
@@ -68,7 +68,7 @@ export default {
     this.messageList = this.instance.params.messageList
     this.menuAuthGroupId = this.instance.params.menuAuthGroupId
     this.change = this.instance.params.change
-    this.isPartner = this.instance.params.isPartner
+    this.isAdmin = this.instance.params.isAdmin
     this.menuAuthGroupName = this.instance.params.menuAuthGroupName
     this.form = new Set()
     if (this.myMessageAuthList) {
@@ -118,7 +118,7 @@ export default {
     },
     update () {
       this.$dialog.confirm('메시지권한 그룹 (' + this.menuAuthGroupName + ')의<br/>메뉴를 적용 하시겠습니까?').then(() => {
-        if (this.isPartner && this.isPartner === true) {
+        if (!this.isAdmin) {
           partnerMessageAuthService.updateMessageAuth({ menuAuthGroupId: this.menuAuthGroupId, messageAuths: this.form })
             .then(_ => this.change())
         } else {

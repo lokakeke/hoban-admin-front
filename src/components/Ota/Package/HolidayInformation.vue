@@ -135,8 +135,8 @@
                     <vc-date-picker
                       v-model='holiday'
                       :popover="{visibility: 'focus', placement: 'auto', positionFixed: true}"
-                      :min-date="packageInformation.saleBgnYmd"
-                      :max-date="packageInformation.saleEndYmd"
+                      :min-date="packageInformation.saleStartDate"
+                      :max-date="packageInformation.saleEndDate"
                     >
                       <v-text-field slot-scope="{ inputProps, inputEvents }"
                                     v-bind="inputProps"
@@ -212,13 +212,13 @@ export default {
   name: 'HolidayInformation',
   props: {
     isEdit: Boolean,
-    pkgNoProp: String
+    packageNoProp: String
   },
   data: function () {
     return {
       selectedHolidayOpen: false,
       radioType: 'all',
-      pkgNo: '',
+      packageNo: '',
 
       focus: '',
       today: moment(new Date()).format('YYYY-MM-DD'),
@@ -255,7 +255,7 @@ export default {
         },
         {
           text: '객실유형 코드',
-          value: 'rmType',
+          value: 'roomType',
           align: 'center',
           sortable: false,
           width: '15%'
@@ -272,7 +272,7 @@ export default {
   },
   mounted () {
     this.$refs.calendar.checkChange()
-    this.pkgNo = this.pkgNoProp
+    this.packageNo = this.packageNoProp
     this.getPackageInformation()
     this.getStoreRoomList()
     if (this.isEdit) this.getEvents()
@@ -301,50 +301,43 @@ export default {
   },
   methods: {
     getPackageInformation () {
-      packageService.selectRoomPackageInformation(this.pkgNo).then((response) => {
+      packageService.selectRoomPackageInformation(this.packageNo).then((response) => {
         this.packageInformation = response.data
-        this.packageInformation.saleBgnYmd = moment(this.packageInformation.saleBgnYmd).format('YYYY-MM-DD')
-        this.packageInformation.saleEndYmd = moment(this.packageInformation.saleEndYmd).format('YYYY-MM-DD')
+        this.packageInformation.saleStartDate = moment(this.packageInformation.saleStartDate).format('YYYY-MM-DD')
+        this.packageInformation.saleEndDate = moment(this.packageInformation.saleEndDate).format('YYYY-MM-DD')
       })
     },
 
     getStoreRoomList () {
-      packageService.selectStoreRoomList(this.pkgNo).then((response) => {
+      packageService.selectStoreRoomList(this.packageNo).then((response) => {
         response.data.forEach(data => {
           this.storeRoomList.push({
             ...data,
-            rmTypeName: `${data.rmTypeName}`
+            roomTypeName: `${data.roomTypeName}`
           })
         })
-      }).catch((error) => {
-        console.log(error)
       })
     },
 
     getEvents () {
-      packageService.selectHolidayList(this.pkgNo).then((response) => {
-        const data = response.data
-        this.events = []
-        data.forEach(event => {
+      packageService.selectHolidayList(this.packageNo).then((response) => {
+        response.data.forEach(event => {
           this.events.push({
-            name: event.hldyCode === 'P' ? '패키지 휴일' : event.hldyCd === 'S' ? `${event.storeName} 휴일` : `${event.storeName} - ${event.rmTypeName} 휴일`,
-            start: moment(event.stndYmd).format('YYYY-MM-DD'),
-            color: event.hldyCd === 'P' ? 'red' : event.hldyCd === 'S' ? 'green' : 'blue',
-            type: event.hldyCd === 'P' ? 'package' : event.hldyCd === 'S' ? 'store' : 'room',
+            name: event.hldyCode === 'P' ? '패키지 휴일' : event.holidayCode === 'S' ? `${event.storeName} 휴일` : `${event.storeName} - ${event.roomTypeName} 휴일`,
+            start: moment(event.standardDate).format('YYYY-MM-DD'),
+            color: event.holidayCode === 'P' ? 'red' : event.holidayCode === 'S' ? 'green' : 'blue',
+            type: event.holidayCode === 'P' ? 'package' : event.holidayCode === 'S' ? 'store' : 'room',
             memo: event.memo,
-            hldyCd: event.hldyCd,
-            rmTypeCd: event.rmTypeCd,
-            rmTypeName: event.rmTypeName,
-            storeCd: event.storeCd,
-            storeName: event.storeName,
-            store: event.storeCd ? `${event.storeName} (${event.storeCd})` : '-',
-            rmType: event.rmTypeCd ? `${event.rmTypeName} (${event.rmTypeCd})` : '-'
+            holidayCode: event.holidayCode,
+            roomTypeCode: event.roomTypeCode ? event.roomTypeCode : '',
+            roomTypeName: event.roomTypeName ? event.roomTypeName : '',
+            storeCode: event.storeCode ? event.storeCode : '',
+            storeName: event.storeName ? event.storeName : '',
+            store: event.storeCode ? `${event.storeName} (${event.storeCode})` : '-',
+            roomType: event.roomTypeCode ? `${event.roomTypeName} (${event.roomTypeCode})` : '-'
           })
         })
-
         this.originEvents = Object.assign([], this.events)
-      }).catch((error) => {
-        console.log(error)
       })
     },
 
@@ -392,13 +385,13 @@ export default {
       const submitList = []
       this.events.forEach(event => {
         submitList.push({
-          pkgNo: this.pkgNo,
-          hldyCd: event.hldyCd,
+          packageNo: this.packageNo,
+          holidayCode: event.holidayCode,
           memo: event.memo,
-          rmTypeCd: event.rmTypeCd,
-          rmTypeName: event.rmTypeName,
-          stndYmd: moment(event.start).format('YYYYMMDD'),
-          storeCd: event.storeCd,
+          roomTypeCode: event.roomTypeCode,
+          roomTypeName: event.roomTypeName,
+          standardDate: moment(event.start).format('YYYYMMDD'),
+          storeCode: event.storeCode,
           storeName: event.storeName,
           useYn: 'Y'
         })
@@ -406,13 +399,13 @@ export default {
 
       if (submitList.length === 0) {
         submitList.push({
-          pkgNo: this.pkgNo,
-          hldyCd: '',
+          packageNo: this.packageNo,
+          holidayCode: '',
           memo: '',
-          rmTypeCd: '',
-          rmTypeName: '',
-          stndYmd: '',
-          storeCd: '',
+          roomTypeCode: '',
+          roomTypeName: '',
+          standardDate: '',
+          storeCode: '',
           storeName: '',
           useYn: 'Y'
         })
@@ -442,14 +435,14 @@ export default {
     },
 
     deleteHoliday (event) {
-      this.$dialog.confirm('선택한 휴일을 삭제하시겠습니까?').then((response) => {
+      this.$dialog.confirm('선택한 휴일을 삭제하시겠습니까?').then(() => {
         let index = -1
-        if (event.hldyCd === 'P') {
-          index = this.events.findIndex(e => e.start === event.start && e.hldyCd === event.hldyCd)
-        } else if (event.hldyCd === 'S') {
-          index = this.events.findIndex(e => e.start === event.start && e.hldyCd === event.hldyCd && e.storeCd === event.storeCd)
+        if (event.holidayCode === 'P') {
+          index = this.events.findIndex(e => e.start === event.start && e.holidayCode === event.holidayCode)
+        } else if (event.holidayCode === 'S') {
+          index = this.events.findIndex(e => e.start === event.start && e.holidayCode === event.holidayCode && e.storeCode === event.storeCode)
         } else {
-          index = this.events.findIndex(e => e.start === event.start && e.hldyCd === event.hldyCd && e.storeCd === event.storeCd && e.rmTypeCd === event.rmTypeCd)
+          index = this.events.findIndex(e => e.start === event.start && e.holidayCode === event.holidayCode && e.storeCode === event.storeCode && e.roomTypeCode === event.roomTypeCode)
         }
 
         if (index === -1) return
@@ -492,7 +485,7 @@ export default {
       if (allEqual(this.events)) {
         this.$dialog.alert('변경된 정보가 없습니다.')
       } else {
-        this.$dialog.confirm('수정 전 초기상태로 되돌립니다. 진행하시겠습니까?').then((response) => {
+        this.$dialog.confirm('수정 전 초기상태로 되돌립니다. 진행하시겠습니까?').then(() => {
           this.events = Object.assign([], this.originEvents)
         })
       }
@@ -504,23 +497,14 @@ export default {
         this.$emit('nextStep', 'RoomPackageTypeForm')
         return
       }
-
-      try {
-        await packageService.insertHolidayList(this.dataProcessing())
-        this.$emit('nextStep', 'RoomPackageTypeForm')
-      } catch (error) {
-        console.log(error)
-      }
+      await packageService.insertHolidayList(this.dataProcessing())
+      this.$emit('nextStep', 'RoomPackageTypeForm')
     },
 
     async update () {
-      try {
-        await packageService.updateHolidayList(this.dataProcessing())
-        this.originEvents = Object.assign([], this.events)
-        this.$dialog.alert('수정이 완료되었습니다.')
-      } catch (error) {
-        console.log(error)
-      }
+      await packageService.updateHolidayList(this.dataProcessing())
+      this.originEvents = Object.assign([], this.events)
+      this.$dialog.alert('수정이 완료되었습니다.')
     }
   }
 }
