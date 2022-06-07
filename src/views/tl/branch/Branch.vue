@@ -32,7 +32,7 @@
                 <v-list dense v-if="branch && branch.length > 0" class="pr-5">
                   <draggable v-model="branch">
                     <transition-group type="transition" name="flip-list">
-                      <v-list-item v-for="item of branch" :key="item.sortOrder" @click="viewDetail(item)" class="menu-list" :class="item.active? 'active' : ''">
+                      <v-list-item v-for="(item, index) of branch" :key="item.sortOrder + '' + index" @click="viewDetail(item)" class="menu-list" :class="item.active? 'active' : ''">
                         <v-list-item-action>
                           <v-icon>business</v-icon>
                         </v-list-item-action>
@@ -256,9 +256,7 @@ export default {
         await this.validForm(formElement)
         await this.$dialog.confirm(confirmTxt)
         if (isModify) {
-          const editFrom = _.cloneDeep(this.form)
-          delete editFrom.active
-          await branchService.updateBranch(editFrom).then(res => {
+          await branchService.updateBranch(this.form).then(res => {
             this.cloneForm = _.cloneDeep(this.form)
             this.selectBranch(this.form.brcNo)
           })
