@@ -2,173 +2,166 @@
   <div>
     <v-container fluid pt-0>
       <app-card colClasses="xl12 lg12 md12 sm12 xs12">
-        <vue-tour name="myTour" :steps="steps" :call-back="myCallbacks"></vue-tour>
-        <v-layout row wrap>
-          <branch-list :brcNo.sync="param.brcNo" :branchList.sync="branchList" :branchName.sync="param.branchName"
-                       @change="branchChange()" class="stock-step-0"></branch-list>
-          <v-menu v-model="menu" bottom offset-y :close-on-content-click="false" transition="slide-y-transition">
-            <template v-slot:activator="{ on }">
-              <v-btn v-on="on" outlined rounded :color="param.tlRmTypeCodeList && param.tlRmTypeCodeList.length > 0 ? 'green' : 'grey'" class="stock-step-1">
-                {{ roomTypeArray | textTruncate(60, '..') }}
-                <v-icon>{{ menu ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-              </v-btn>
-            </template>
-            <v-card>
-              <v-toolbar card color="green" dark dense>
-                <v-toolbar-title>TL-LINCOLN 객실타입 선택</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn icon @click="menu = false">
-                  <v-icon>close</v-icon>
+        <vue-tour :steps="steps"/>
+        <v-row>
+          <v-col cols="8" class="text-left">
+            <branch-list :brcNo.sync="param.brcNo" :branchList.sync="branchList" :branchName.sync="param.branchName"
+                         @change="branchChange()" class="stock-step-0 mb-2"></branch-list>
+            <v-menu v-model="menu" bottom offset-y :close-on-content-click="false" transition="slide-y-transition">
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" outlined rounded :color="param.tlRmTypeCodeList && param.tlRmTypeCodeList.length > 0 ? 'green' : 'grey'" class="stock-step-1 mb-2">
+                  {{ roomTypeArray | textTruncate(60, '..') }}
+                  <v-icon>{{ menu ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                 </v-btn>
-              </v-toolbar>
-              <v-card-text class="pa-0">
-                <select-list :selected.sync="param.tlRmTypeCodeList" :array="roomTypeList" :itemValue="'tlRmTypeCode'"
-                             :itemText="'tlRmTypeName'"></select-list>
-              </v-card-text>
-              <v-divider></v-divider>
-              <v-card-actions>
-                <v-label icon>
-                  <v-icon>error_outlined</v-icon>
-                  중복선택이 가능합니다.
-                </v-label>
-              </v-card-actions>
-            </v-card>
-          </v-menu>
-          <v-spacer></v-spacer>
-          <v-btn outlined middle rounded @click="showManual()" color="green">
-            <v-icon>search</v-icon>
-            메뉴얼
-          </v-btn>
-          <v-btn outlined middle rounded @click="search()" color="primary" class="stock-step-3">
-            <v-icon>search</v-icon>
-            {{ $t('message.search') }}
-          </v-btn>
-        </v-layout>
+              </template>
+              <v-card>
+                <v-toolbar color="green" dark dense>
+                  <v-toolbar-title>TL-LINCOLN 객실타입 선택</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-btn icon @click="menu = false">
+                    <v-icon>close</v-icon>
+                  </v-btn>
+                </v-toolbar>
+                <v-card-text class="pa-0">
+                  <select-list :selected.sync="param.tlRmTypeCodeList" :array="roomTypeList" :itemValue="'tlRmTypeCode'"
+                               :itemText="'tlRmTypeName'"></select-list>
+                </v-card-text>
+                <v-divider class="ma-0"></v-divider>
+                <v-card-actions>
+                  <v-label icon>
+                    <v-icon>error_outlined</v-icon>
+                    중복선택이 가능합니다.
+                  </v-label>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
+          </v-col>
+          <v-col align-self="center" class="text-right">
+            <v-btn outlined rounded @click="showManual()" color="green" class="mb-2">
+              <v-icon>search</v-icon>
+              메뉴얼
+            </v-btn>
+            <v-btn outlined rounded @click="search()" color="primary" class="stock-step-3 mb-2">
+              <v-icon>search</v-icon>
+              검색
+            </v-btn>
+          </v-col>
+        </v-row>
         <v-divider></v-divider>
-        <v-layout row wrap>
-          <v-flex xs12 md4>
-            <v-layout align-center justify-center fill-height>
-              <v-radio-group v-model="param.periodType" row @change="periodChange()">
-                <v-radio label="2주일" value="2w" class="stock-step-2"></v-radio>
-                <v-radio label="기간선택" value="p"></v-radio>
-              </v-radio-group>
-            </v-layout>
-          </v-flex>
-          <v-flex xs12 md4>
-            <v-layout align-center justify-center fill-height>
-              <date-picker v-if="param.periodType === 'p'" :shortcuts="false" :value-type="'format'" :not-before="new Date()"
-                           append-to-body v-model="param.selectDate" :lang="lang" range @change="checkDate()">
-              </date-picker>
-              <v-item-group v-else>
-                <v-item>
-                  <v-btn small @click="weekChange(true)">
-                    <v-icon left dark>
-                      keyboard_arrow_left
-                    </v-icon>
+        <v-row>
+          <v-col cols="4" align-self="center">
+            <v-radio-group v-model="param.periodType" row @change="periodChange()" hide-details class="mt-0">
+              <v-radio label="2주일" value="2w" class="stock-step-2"></v-radio>
+              <v-radio label="기간선택" value="p"></v-radio>
+            </v-radio-group>
+          </v-col>
+          <v-col cols="4" align-self="center">
+            <date-picker v-if="param.periodType === 'p'" :shortcuts="false" :value-type="'format'" :not-before="new Date()"
+                         append-to-body v-model="param.selectDate" :lang="lang" range @change="checkDate()">
+            </date-picker>
+            <v-item-group v-else>
+              <v-item>
+                <v-btn icon dark @click="weekChange(true)">
+                  <v-icon left color="black">
+                    keyboard_arrow_left
+                  </v-icon>
+                </v-btn>
+              </v-item>
+              <v-item>
+                <date-picker @change="weekChange()" append-to-body :clearable="false" format="YYYY 년 MM 월 DD 일"
+                             v-model="param.selectDate" :lang="lang" :not-before="new Date()"></date-picker>
+              </v-item>
+              <v-item>
+                <v-btn icon dark @click="weekChange(false)">
+                  <v-icon right color="black">
+                    keyboard_arrow_right
+                  </v-icon>
+                </v-btn>
+              </v-item>
+            </v-item-group>
+          </v-col>
+          <v-col cols="4" align-self="center" class="text-right">
+            <v-menu v-if="loading" v-model="menuPeriod" bottom offset-y left :close-on-content-click="false"
+                    transition="slide-y-transition">
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" outlined rounded :color="'green'" class="stock-step-4">
+                  기본입력값 셋팅
+                  <v-icon>{{ menuPeriod ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                </v-btn>
+              </template>
+              <v-card>
+                <v-toolbar color="green" dark dense>
+                  <v-toolbar-title>기본 셋팅값 선택</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-btn icon @click="menuPeriod = false">
+                    <v-icon>close</v-icon>
                   </v-btn>
-                </v-item>
-                <v-item>
-                  <date-picker @change="weekChange()" append-to-body :clearable="false" format="YYYY 년 MM 월 DD 일"
-                               v-model="param.selectDate" :lang="lang" :not-before="new Date()"></date-picker>
-                </v-item>
-                <v-item>
-                  <v-btn small @click="weekChange(false)">
-                    <v-icon right dark>
-                      keyboard_arrow_right
-                    </v-icon>
+                </v-toolbar>
+                <v-layout justify-end>
+                  <v-btn @click="settingBasic()" rounded small color="green" class="white--text mt-2 mr-2">
+                    <v-icon>check</v-icon>
+                    적용
                   </v-btn>
-                </v-item>
-              </v-item-group>
-            </v-layout>
-          </v-flex>
-          <v-flex xs12 md4>
-            <v-layout align-center justify-end fill-height>
-              <v-menu v-if="loading" v-model="menuPeriod" bottom offset-y left :close-on-content-click="false"
-                      transition="slide-y-transition">
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" outlined rounded :color="'green'" class="stock-step-4">
-                    기본입력값 셋팅
-                    <v-icon>{{ menuPeriod ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-                  </v-btn>
-                </template>
-                <v-card>
-                  <v-toolbar card color="green" dark dense>
-                    <v-toolbar-title>기본 셋팅값 선택</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-btn icon @click="menuPeriod = false">
-                      <v-icon>close</v-icon>
-                    </v-btn>
-                  </v-toolbar>
-                  <v-layout justify-end>
-                    <v-btn @click="settingBasic()" rounded small color="green" class="white--text">
-                      <v-icon>check</v-icon>
-                      적용
-                    </v-btn>
-                  </v-layout>
-                  <v-divider></v-divider>
-                  <v-list>
-                    <v-list-item>
-                      <v-list-item-action>
-                        <v-checkbox v-model="basic.all" label="전체요일" suffix="%" color="green"></v-checkbox>
-                      </v-list-item-action>
-                      <v-list-item-content class="pl-3 pr-3">
-                        <v-layout justify-space-between>
-                          <v-flex xs4>
-                            <v-text-field class="mt-0" type="number" v-model="basic.rate" suffix="%" hide-details label="설정비율" :disabled="!basic.all"></v-text-field>
-                          </v-flex>
-                          <v-flex xs4>
-                            <v-switch :label="basic.use? '판매' : '중지'" v-model="basic.use" color="primary" class="justify-center"
-                                      :disabled="!basic.all" hide-details></v-switch>
-                          </v-flex>
-                          <v-flex xs4>
-                            <v-switch :label="basic.rsvAuto? '예약 자동' : '예약 수동'" v-model="basic.rsvAuto" color="orange" class="justify-center"
-                                      hide-details :disabled="!basic.all"></v-switch>
-                          </v-flex>
-                        </v-layout>
-                      </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item v-for="day of basic.days" :key="day.key">
-                      <v-list-item-action>
-                        <v-checkbox v-model="day.value" :label="day.text" color="green" class="justify-start"
-                                    :disabled="day.disabled"></v-checkbox>
-                      </v-list-item-action>
-                      <v-list-item-content class="pl-3 pr-3">
-                        <v-layout justify-space-between>
-                          <v-flex xs4>
-                            <v-text-field type="number" v-model="day.rate" suffix="%" label="설정비율" hide-details class="mt-0"
-                                          :disabled="basic.all"></v-text-field>
-                          </v-flex>
-                          <v-flex xs4>
-                            <v-switch :label="day.use? '판매' : '중지'" v-model="day.use" color="primary" class="justify-center"
-                                      hide-details :disabled="basic.all"></v-switch>
-                          </v-flex>
-                          <v-flex xs4>
-                            <v-switch :label="day.rsvAuto? '예약 자동' : '예약 수동'" v-model="day.rsvAuto" color="orange" class="justify-center"
-                                      hide-details :disabled="basic.all"></v-switch>
-                          </v-flex>
-                        </v-layout>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-list>
-                  <v-divider></v-divider>
-                  <v-card-actions>
-                    <v-label icon>
-                      <v-icon>error_outlined</v-icon>
-                      요일별 셋팅을 원하시면 체크후 입력하여 주세요.
-                      <!--                                            <br/>
-                                                                  <v-icon>error_outlined</v-icon>
-                                                                  룸타입별 마스터블럭을 기준으로 셋팅됩니다.-->
-                    </v-label>
-                  </v-card-actions>
-                </v-card>
-              </v-menu>
-              <v-btn v-if="loading" outlined rounded middle @click="preview()" color="warning" class="stock-step-5">
-                <v-icon>fullscreen</v-icon>
-                {{ $t('message.preview') }}
-              </v-btn>
-            </v-layout>
-          </v-flex>
-        </v-layout>
+                </v-layout>
+                <v-divider></v-divider>
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-action style="width: 90px">
+                      <v-checkbox v-model="basic.all" label="전체요일" suffix="%" color="green"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content class="pl-3 pr-3">
+                      <v-layout justify-space-between>
+                        <v-flex xs4>
+                          <v-text-field class="mt-0" type="number" v-model="basic.rate" suffix="%" hide-details label="설정비율" :disabled="!basic.all"></v-text-field>
+                        </v-flex>
+                        <v-flex xs4>
+                          <v-switch :label="basic.use? '판매' : '중지'" v-model="basic.use" color="primary" class="justify-center"
+                                    :disabled="!basic.all" hide-details></v-switch>
+                        </v-flex>
+                        <v-flex xs4>
+                          <v-switch :label="basic.rsvAuto? '예약 자동' : '예약 수동'" v-model="basic.rsvAuto" color="orange" class="justify-center"
+                                    hide-details :disabled="!basic.all"></v-switch>
+                        </v-flex>
+                      </v-layout>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item v-for="day of basic.days" :key="day.key">
+                    <v-list-item-action style="width: 90px">
+                      <v-checkbox v-model="day.value" :label="day.text" color="green" class="justify-start"
+                                  :disabled="day.disabled"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content class="pl-3 pr-3">
+                      <v-layout justify-space-between>
+                        <v-flex xs4>
+                          <v-text-field type="number" v-model="day.rate" suffix="%" label="설정비율" hide-details class="mt-0"
+                                        :disabled="basic.all"></v-text-field>
+                        </v-flex>
+                        <v-flex xs4>
+                          <v-switch :label="day.use? '판매' : '중지'" v-model="day.use" color="primary" class="justify-center"
+                                    hide-details :disabled="basic.all"></v-switch>
+                        </v-flex>
+                        <v-flex xs4>
+                          <v-switch :label="day.rsvAuto? '예약 자동' : '예약 수동'" v-model="day.rsvAuto" color="orange" class="justify-center"
+                                    hide-details :disabled="basic.all"></v-switch>
+                        </v-flex>
+                      </v-layout>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+                <v-divider></v-divider>
+                <v-card-actions>
+                  <v-label icon>
+                    <v-icon>error_outlined</v-icon>
+                    요일별 셋팅을 원하시면 체크후 입력하여 주세요.
+                    <!--                                            <br/>
+                                                                <v-icon>error_outlined</v-icon>
+                                                                룸타입별 마스터블럭을 기준으로 셋팅됩니다.-->
+                  </v-label>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
+          </v-col>
+        </v-row>
         <v-divider></v-divider>
         <template v-if="!body || body.length === 0">
           <v-layout row wrap>
@@ -191,20 +184,20 @@
           <v-divider></v-divider>
         </template>
         <template v-for="(room, bodyIndex) in body">
-          <v-layout justify-space-between row wrap class="mb-1" :class="bodyIndex !== 0 ? 'mt-3' : ''">
+          <v-layout :key="bodyIndex" justify-space-between class="mb-1" :class="bodyIndex !== 0 ? 'mt-3' : ''">
             <h5 class="font-weight-bold mb-0">
               <v-icon color="orange darken-2" class="mb-1" :class="bodyIndex === 0 ? 'stock-step-6': ''">
                 play_circle_filled
               </v-icon>
               {{ room.tlRmTypeName }}
-              <v-btn small @click="room.isView = !room.isView">
-                <v-icon dark>
+              <v-btn icon dark @click="room.isView = !room.isView">
+                <v-icon color="black">
                   {{ !room.isView ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
                 </v-icon>
               </v-btn>
               AGENT 현황
-              <v-btn small @click="room.showAgt = !room.showAgt">
-                <v-icon dark>
+              <v-btn icon dark @click="room.showAgt = !room.showAgt">
+                <v-icon color="black">
                   {{ !room.showAgt ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
                 </v-icon>
               </v-btn>
@@ -221,18 +214,23 @@
                   :headers="headers"
                   :items="room.data"
                   class="condensed bordered"
-                  hide-actions>
-                  <template v-slot:headers="props">
-                    <tr>
-                      <th v-for="header in props.headers"
-                          :colspan="header.key === 'title'? 2: 1"
-                          :key="header.value"
-                          :class="[header.day === 6 ? 'blue--text' : header.day === 7 ? 'red--text' : '']">
-                        <span v-html="header.text"></span>
-                      </th>
-                    </tr>
+                  disable-pagination
+                  disable-sort
+                  hide-default-header
+                  hide-default-footer>
+                  <template v-slot:header="props">
+                    <thead>
+                      <tr>
+                        <th v-for="header in props.props.headers "
+                            :colspan="header.key === 'title'? 2: 1"
+                            :key="header.value"
+                            :class="[header.day === 6 ? 'blue--text' : header.day === 7 ? 'red--text' : '', 'text-center']">
+                          <span v-html="header.text"></span>
+                        </th>
+                      </tr>
+                    </thead>
                   </template>
-                  <template v-slot:items="props">
+                  <template v-slot:item="props">
                     <template v-if="props.item.key === 'pmsStock'">
                       <tr v-for="(block, index) in props.item.blockList">
                         <th v-if="index === 0" colspan="2" :rowspan="props.item.blockList.length" class="text-center" v-html="props.item.label"></th>
@@ -303,7 +301,6 @@
           </v-layout>
         </template>
       </app-card>
-      <stock-preview :dialog.sync="previewDialog" :preview-data="previewData" :start-date="start" :end-date="end" :branch-name="param.branchName" @reload="search()"></stock-preview>
     </v-container>
   </div>
 </template>
@@ -311,16 +308,18 @@
 <script>
 import DatePicker from 'vue2-datepicker'
 import moment from 'moment'
+import 'moment/locale/ko'
 import BranchList from '@/components/Branch/BranchList.vue'
 import SelectList from '@/components/SelectAll/SelectList.vue'
 import StockPreview from './stockPreview.vue'
 import roomTypeService from '@/api/modules/tl/roomType.service'
 import stockService from '@/api/modules/tl/stock.service'
+import VueTour from '@/components/Common/VueTour.vue'
 
-moment.locale('ko')
+moment().locale('ko')
 export default {
   name: 'stock',
-  components: { BranchList, SelectList, StockPreview, DatePicker },
+  components: { BranchList, SelectList, StockPreview, DatePicker, VueTour },
   data () {
     return {
       steps: [],
@@ -452,14 +451,6 @@ export default {
             }
           },
           {
-            target: '.stock-step-5',
-            content: '현재 검색값을 달력형태의 미리보기 화면으로 열수 있습니다.',
-            params: {
-              placement: 'top',
-              enableScrolling: false
-            }
-          },
-          {
             target: '.stock-step-6',
             content: '룸타입별 데이터 정보입니다.열고 닫을 수 있습니다.<br/>AGENT 별 현황을 열고 닫을 수 있습니다.',
             params: {
@@ -584,10 +575,7 @@ export default {
           }
         ]
       }
-      this.$dialog.tours.myTour.start()
-    },
-    nextStepCallback (currentStep) {
-      // console.log(currentStep);
+      this.$nextTick(() => { this.$tours.myTour.start() })
     },
     setBasic () {
       // 기본값 셋팅 폼
@@ -623,7 +611,7 @@ export default {
       roomTypeService.selectRoomTypeSync(this.param.brcNo, this.param.pkgYn).then(res => {
         // 싱크가 맞으면 진행한다.
         if (!res.data) {
-          this.$dialog.dialog.alert('해당 사업장(' + this.param.branchName + ')의<br/>객실타입마스터 싱크가 맞지 않습니다.')
+          this.$dialog.alert('해당 사업장(' + this.param.branchName + ')의<br/>객실타입마스터 싱크가 맞지 않습니다.')
         } else {
           roomTypeService.selectRoomTypeList({
             brcNo: this.param.brcNo,
@@ -934,7 +922,6 @@ export default {
           room.blockList = _.find(this.roomTypeList, { tlRmTypeCode: room.tlRmTypeCode }).blockList
           // manual 체크
           const autoYn = _.find(room.data, { key: 'autoYn' })
-          console.log('autoYn: ', autoYn)
           if (autoYn && autoYn.cols) {
             for (const col of autoYn.cols) {
               this.manualChange(room.data, col)
@@ -1016,7 +1003,7 @@ export default {
       this.previewDialog = true
     },
     async validation (index) {
-      await this.validForm(this.$dialog.refs.form[index])
+      await this.validForm(this.$refs.form[index])
 
       await this.$dialog.confirm(this.body[index].tlRmTypeName + ' 객실의 재고를 수정하시겠습니까?').then(() => {
         this.makeInsertList(this.body[index].tlRmTypeCode)
@@ -1026,7 +1013,7 @@ export default {
     async insertAll () {
       let pass = true
       _.range(0, this.body.length).forEach((index) => {
-        this.validForm(this.$dialog.refs.form[index])
+        this.validForm(this.$refs.form[index])
         pass = false
       })
       if (pass) {

@@ -7,49 +7,53 @@
     transition="dialog-bottom-transition"
     scrollable>
     <v-card tile>
-      <v-toolbar card dark color="primary">
-        <v-btn icon dark @click="closeCheck()">
-          <v-icon>close</v-icon>
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-toolbar-title>{{ branchName }} ( {{ startDate }} ~ {{ endDate }} ) {{ $t('message.preview') }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn dark flat @click="save()">
-            <v-icon>check</v-icon>
-            저장
+      <v-card-title class="pa-0">
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="closeCheck()">
+            <v-icon>close</v-icon>
           </v-btn>
-          <v-btn dark flat @click="closeCheck()">Close</v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-      <v-card-text>
+          <v-spacer></v-spacer>
+          <v-toolbar-title>{{ branchName }} ( {{ startDate }} ~ {{ endDate }} ) 미리보기</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon dark @click="save()">
+              <v-icon>check</v-icon>
+              저장
+            </v-btn>
+            <v-btn icon dark @click="closeCheck()">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+      </v-card-title>
+      <v-card-text class="pt-3">
         <v-layout wrap>
           <v-flex xs4 offset-xs4>
             <v-item-group class="text-center">
               <v-item>
-                <v-btn v-if="checkPrev" flat @click="$refs.calendar.prev()">
-                  <v-icon left dark>
+                <v-btn icon dark v-if="checkPrev" @click="$refs.calendar.prev()">
+                  <v-icon left color="black">
                     keyboard_arrow_left
                   </v-icon>
                 </v-btn>
-                <v-btn v-else flat disabled></v-btn>
+                <v-btn v-else icon dark disabled></v-btn>
               </v-item>
               <v-item>
                 <label>{{ selectMonth }}</label>
               </v-item>
               <v-item>
-                <v-btn v-if="checkNext" flat small @click="$refs.calendar.next()">
-                  <v-icon right dark>
+                <v-btn icon dark v-if="checkNext" @click="$refs.calendar.next()">
+                  <v-icon left color="black">
                     keyboard_arrow_right
                   </v-icon>
                 </v-btn>
-                <v-btn v-else flat disabled></v-btn>
+                <v-btn v-else icon dark disabled></v-btn>
               </v-item>
             </v-item-group>
           </v-flex>
           <v-flex xs4></v-flex>
           <v-layout justify-center>
-            <v-btn rounded small color="light-blue lighten-5" @click="condition.useTrue = !condition.useTrue">
+            <v-btn rounded color="light-blue lighten-5" @click="condition.useTrue = !condition.useTrue">
               <v-icon left>{{ condition.useTrue ? 'check_circle_outlined' : 'radio_button_unchecked' }}</v-icon>
               판매
             </v-btn>
@@ -210,11 +214,7 @@ export default {
       const pmsStockCnt = _.find(preview.pmsStock, { rsvBlockCode: preview.rsvBlockCode }).cnt
       // 입력 재고가 pms 재고보다 많은지 체크한다.
       if (parseInt(preview.expectStock) > parseInt(pmsStockCnt)) {
-        this.$dialog.alert('PMS 재고보다 크게 설정할 수 없습니다.<br/>최대 재고량 (' + pmsStockCnt + ') 으로 자동 설정됩니다.', '알림', {
-          confirmButtonText: '확인',
-          type: 'warning',
-          dangerouslyUseHTMLString: true
-        })
+        this.$dialog.alert('PMS 재고보다 크게 설정할 수 없습니다.<br/>최대 재고량 (' + pmsStockCnt + ') 으로 자동 설정됩니다.')
         preview.expectStock = pmsStockCnt
       }
     },
@@ -242,26 +242,18 @@ export default {
     closeCheck () {
       // 변경 내역이 있으면 닫을 것 인지 물어 본다.
       if (!_.isEqual(this.originData, this.previewData)) {
-        this.$dialog.confirm('변경된 내용은 저장하지 않으면 반영되지 않습니다.\n미리보기 창을 저장하지 않고 닫으시겠습니까?', '확인', {
-          confirmButtonText: '확인',
-          cancelButtonText: '취소',
-          type: 'info'
-        }).then(() => {
-          this.$dialog.emit('update:dialog', false)
+        this.$dialog.confirm('변경된 내용은 저장하지 않으면 반영되지 않습니다.\n미리보기 창을 저장하지 않고 닫으시겠습니까?').then(() => {
+          this.$emit('update:dialog', false)
         }, () => {
         })
       } else {
-        this.$dialog.emit('update:dialog', false)
+        this.$emit('update:dialog', false)
       }
     },
     save () {
       // 변경 내역이 있으면 저장을 진행한다.
       if (!_.isEqual(this.originData, this.previewData)) {
-        this.$dialog.confirm('변경된 내역을 저장 하시겠습니까?', '확인', {
-          confirmButtonText: '확인',
-          cancelButtonText: '취소',
-          type: 'info'
-        }).then(() => {
+        this.$dialog.confirm('변경된 내역을 저장 하시겠습니까?').then(() => {
           // 데이터를 만든다.
           // Master : brcNo, tlRmTypeCode, tlNetRmTypeGroupCode, rsvBlockCode, rmTypeCd, stndYmd, stock, ratio, autoYn, sellYn, rsvAutoYn
           // Detail : brcNo, tlRmTypeCode, tlNetRmTypeGroupCode, rsvBlockCode, stndYmd, agtCode, agtRmTypeCd, agtSellYn
@@ -286,20 +278,14 @@ export default {
             }
           }
           stockService.insertStock(stockData).then(res => {
-            this.$dialog.alert('재고를 입력하였습니다.', '알림', {
-              confirmButtonText: '확인',
-              type: 'warning'
-            })
-            this.$dialog.emit('reload')
+            this.$dialog.alert('재고를 입력하였습니다.')
+            this.$emit('reload')
             this.originData = _.cloneDeep(this.previewData)
           })
         }, () => {
         })
       } else {
-        this.$dialog.alert('변경된 내역이 없습니다.', '알림', {
-          confirmButtonText: '확인',
-          type: 'warning'
-        })
+        this.$dialog.alert('변경된 내역이 없습니다.')
       }
     }
   }

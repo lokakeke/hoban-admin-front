@@ -9,10 +9,10 @@
           <v-list-item-title>전체선택</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-divider></v-divider>
+      <v-divider class="ma-0"></v-divider>
       <v-list-item v-for="type of array" :key="type[valueField]" @click="check(type[valueField])">
         <v-list-item-action>
-          <v-checkbox v-model="checkList" color="green" :value="type[valueField]" @click.prevent=""></v-checkbox>
+          <v-checkbox v-model="checkList" color="green" :value="type[valueField]" @click.prevent="check(type[valueField])"></v-checkbox>
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>{{ type[textField] }}</v-list-item-title>
