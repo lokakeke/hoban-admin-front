@@ -11,16 +11,16 @@ const RoomType = () => import('@/views/tl/roomType/RoomType.vue')
 const Branch = () => import('@/views/tl/branch/Branch.vue')
 
 // 예약 수동 관리
-// const ReservationManual = () => import('@/views/tl/reservation/reservationManual/reservationManual.vue')
+const ReservationManual = () => import('@/views/tl/reservation/reservationManual/reservationManual.vue')
 
 // 예약 오류 목록
-// const ReservationError = () => import('@/views/tl/reservation/reservationError/reservationError.vue')
+const ReservationError = () => import('@/views/tl/reservation/reservationError/reservationError.vue')
 
 // 신규 예약 목록
-// const ReservationInput = () => import('@/views/tl/reservation/reservationInput/reservationInput.vue')
+const ReservationInput = () => import('@/views/tl/reservation/reservationInput/reservationInput.vue')
 
 // 예약 성공 목록
-// const ReservationSuccess = () => import('@/views/tl/reservation/reservationSuccess/reservationSuccess.vue')
+const ReservationSuccess = () => import('@/views/tl/reservation/reservationSuccess/reservationSuccess.vue')
 
 // 재고 전송이력
 // const SendStock = () => import('@/views/tl/sendStock/sendStock.vue')
@@ -92,51 +92,52 @@ export default {
         title: '사업장 관리',
         breadcrumb: 'branch'
       }
+    },
+    {
+      path: 'reservation/reservationManual',
+      component: ReservationManual,
+      name: 'tl.reservationManual',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예약 수동 관리',
+        breadcrumb: 'ReservationManual'
+      }
+    },
+    {
+      path: 'reservation/reservationError',
+      component: ReservationError,
+      name: 'tl.reservationError',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예약 오류 목록',
+        breadcrumb: 'ReservationError'
+      }
+    },
+    {
+      path: 'reservation/reservationInput',
+      component: ReservationInput,
+      name: 'tl.reservationInput',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '신규 예약 목록',
+        breadcrumb: 'ReservationInput'
+      }
+    },
+    // },
+    {
+      path: 'reservation/reservationSuccess',
+      component: ReservationSuccess,
+      name: 'tl.reservationSuccess',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예약 성공 목록',
+        breadcrumb: 'ReservationSuccess'
+      }
     }
-    // {
-    //   path: 'reservation/reservationManual',
-    //   component: ReservationManual,
-    //   name: 'tl.reservationManual',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '예약 수동 관리',
-    //     breadcrumb: 'ReservationManual'
-    //   }
-    // },
-    // {
-    //   path: 'reservation/reservationError',
-    //   component: ReservationError,
-    //   name: 'tl.reservationError',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '예약 오류 목록',
-    //     breadcrumb: 'ReservationError'
-    //   }
-    // },
-    // {
-    //   path: 'reservation/reservationInput',
-    //   component: ReservationInput,
-    //   name: 'tl.reservationInput',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '신규 예약 목록',
-    //     breadcrumb: 'ReservationInput'
-    //   }
-    // },
-    // {
-    //   path: 'reservation/reservationSuccess',
-    //   component: ReservationSuccess,
-    //   name: 'tl.reservationSuccess',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '예약 성공 목록',
-    //     breadcrumb: 'ReservationSuccess'
-    //   }
-    // },
     // {
     //   path: 'sendStock',
     //   component: SendStock,

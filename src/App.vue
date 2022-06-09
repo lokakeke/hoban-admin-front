@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import DialogContainer from '@/components/Dialog/DialogContainer.vue'
 import VueLoadingOverlay from '@/components/LoadingOverlay/VueLoadingOverlay.vue'
 import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'
@@ -89,7 +89,6 @@ export default {
     // 캐시 새로고침을 위한 빌드시간 주기적 확인
     this.build.interval = setInterval(async () => {
       try {
-        console.log('타니')
         // FIXME vite require 지원 불가..
         const res = await require('Api').default.get(`/build-date.html?t=${moment().unix()}`, {
           headers: {
