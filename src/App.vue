@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import DialogContainer from '@/components/Dialog/DialogContainer.vue'
 import VueLoadingOverlay from '@/components/LoadingOverlay/VueLoadingOverlay.vue'
 import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'

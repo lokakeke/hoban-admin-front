@@ -13,16 +13,16 @@ const RoomType = () => import('@/views/tl/roomType/RoomType.vue')
 const Branch = () => import('@/views/tl/branch/Branch.vue')
 
 // 예약 수동 관리
-// const ReservationManual = () => import('@/views/tl/reservation/reservationManual/reservationManual.vue')
+const ReservationManual = () => import('@/views/tl/reservation/reservationManual/reservationManual.vue')
 
 // 예약 오류 목록
-// const ReservationError = () => import('@/views/tl/reservation/reservationError/reservationError.vue')
+const ReservationError = () => import('@/views/tl/reservation/reservationError/reservationError.vue')
 
 // 신규 예약 목록
-// const ReservationInput = () => import('@/views/tl/reservation/reservationInput/reservationInput.vue')
+const ReservationInput = () => import('@/views/tl/reservation/reservationInput/reservationInput.vue')
 
 // 예약 성공 목록
-// const ReservationSuccess = () => import('@/views/tl/reservation/reservationSuccess/reservationSuccess.vue')
+const ReservationSuccess = () => import('@/views/tl/reservation/reservationSuccess/reservationSuccess.vue')
 
 // 재고 전송이력
 const SendStock = () => import('@/views/tl/sendStock/sendStock.vue')
@@ -92,104 +92,104 @@ export default {
         breadcrumb: 'branch'
       }
     },
-    // {
-    //   path: 'reservation/reservationManual',
-    //   component: ReservationManual,
-    //   name: 'tl.reservationManual',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '예약 수동 관리',
-    //     breadcrumb: 'ReservationManual'
-    //   }
-    // },
-    // {
-    //   path: 'reservation/reservationError',
-    //   component: ReservationError,
-    //   name: 'tl.reservationError',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '예약 오류 목록',
-    //     breadcrumb: 'ReservationError'
-    //   }
-    // },
-    // {
-    //   path: 'reservation/reservationInput',
-    //   component: ReservationInput,
-    //   name: 'tl.reservationInput',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '신규 예약 목록',
-    //     breadcrumb: 'ReservationInput'
-    //   }
-    // },
-    // {
-    //   path: 'reservation/reservationSuccess',
-    //   component: ReservationSuccess,
-    //   name: 'tl.reservationSuccess',
-    //   meta: {
-    //     auth: true,
-    //     requiresAuth: true,
-    //     title: '예약 성공 목록',
-    //     breadcrumb: 'ReservationSuccess'
-    //   }
-    // },
     {
-      path: 'sendStock',
-      component: SendStock,
-      name: 'tl.sendStock',
+      path: 'reservation/reservationManual',
+      component: ReservationManual,
+      name: 'tl.reservationManual',
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '재고 전송이력',
-        breadcrumb: 'SendStock'
+        title: '예약 수동 관리',
+        breadcrumb: 'ReservationManual'
       }
     },
     {
-      path: 'rate',
-      component: Rate,
-      name: 'tl.rate',
+      path: 'reservation/reservationError',
+      component: ReservationError,
+      name: 'tl.reservationError',
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '요율 관리',
-        breadcrumb: 'Rate'
+        title: '예약 오류 목록',
+        breadcrumb: 'ReservationError'
       }
     },
     {
-      path: 'memberNo',
-      component: MemberNo,
-      name: 'tl.memberNo',
+      path: 'reservation/reservationInput',
+      component: ReservationInput,
+      name: 'tl.reservationInput',
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '회원번호 관리',
-        breadcrumb: 'memberNo'
+        title: '신규 예약 목록',
+        breadcrumb: 'ReservationInput'
       }
     },
     {
-      path: 'price',
-      component: Price,
-      name: 'tl.price',
+      path: 'reservation/reservationSuccess',
+      component: ReservationSuccess,
+      name: 'tl.reservationSuccess',
       meta: {
         auth: true,
         requiresAuth: true,
-        title: '금액 관리',
-        breadcrumb: 'Price'
+        title: '예약 성공 목록',
+        breadcrumb: 'ReservationSuccess'
       }
     },
-    {
-      path: 'sendPrice',
-      component: SendPrice,
-      name: 'tl.sendPrice',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '금액 전송이력',
-        breadcrumb: 'SendPrice'
+      {
+          path: 'sendStock',
+          component: SendStock,
+          name: 'tl.sendStock',
+          meta: {
+              auth: true,
+              requiresAuth: true,
+              title: '재고 전송이력',
+              breadcrumb: 'SendStock'
+          }
+      },
+      {
+          path: 'rate',
+          component: Rate,
+          name: 'tl.rate',
+          meta: {
+              auth: true,
+              requiresAuth: true,
+              title: '요율 관리',
+              breadcrumb: 'Rate'
+          }
+      },
+      {
+          path: 'memberNo',
+          component: MemberNo,
+          name: 'tl.memberNo',
+          meta: {
+              auth: true,
+              requiresAuth: true,
+              title: '회원번호 관리',
+              breadcrumb: 'memberNo'
+          }
+      },
+      {
+          path: 'price',
+          component: Price,
+          name: 'tl.price',
+          meta: {
+              auth: true,
+              requiresAuth: true,
+              title: '금액 관리',
+              breadcrumb: 'Price'
+          }
+      },
+      {
+          path: 'sendPrice',
+          component: SendPrice,
+          name: 'tl.sendPrice',
+          meta: {
+              auth: true,
+              requiresAuth: true,
+              title: '금액 전송이력',
+              breadcrumb: 'SendPrice'
+          }
       }
-    }
   ]
 }
