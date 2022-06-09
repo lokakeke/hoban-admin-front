@@ -4,8 +4,8 @@
       <v-col cols="12" lg="4" md="6" sm="12">
         <v-text-field
             :label="pkgTextFieldLabel"
-            :rules="pkgNoRules"
-            v-model="pkgNo"
+            :rules="packageNoRules"
+            v-model="packageNo"
             :clearable="!isEdit"
             :readonly="isEdit"
         >
@@ -36,16 +36,10 @@
               <v-row>
                 <v-col class="subtitle-1" cols="12">
                   <v-row no-gutters>
-                    <v-col cols="12" lg="3" md="6" sm="12">패키지명 : {{ masterInformation.pkgName }} ({{ masterInformation.pkgNo }})</v-col>
-                    <v-col cols="12" lg="3" md="6" sm="12">판매유형 : {{ masterInformation.pkgSaleTypeName }} ({{ masterInformation.pkgSaleType }})</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">지불구분 : {{ masterInformation.pkgPymtName }} ({{ masterInformation.pkgPymtInd }})</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">조식유무 : {{ masterInformation.brkfstInYn === '1' ? '포함' : '미포함' }}</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">지역구분 : {{ masterInformation.lcalName }} ({{ masterInformation.lcalCode }})</v-col>
+                    <v-col cols="12" lg="3" md="6" sm="12">패키지명 : {{ masterInformation.packageName }} ({{ masterInformation.packageNo }})</v-col>
+                    <v-col cols="12" lg="2" md="6" sm="12">조식유무 : {{ masterInformation.breakfastInYn === '1' ? '포함' : '미포함' }}</v-col>
+                    <v-col cols="12" lg="2" md="6" sm="12">지역구분 : {{ masterInformation.localName }} ({{ masterInformation.localCode }})</v-col>
                     <v-col cols="12" lg="3" md="6" sm="12">시작/종료일 : {{ pkgMstTermFormat }}</v-col>
-                    <v-col cols="12" lg="3" md="6" sm="12">참고사항 : {{ masterInformation.pkgReferMatter ? masterInformation.pkgReferMatter : '-' }}</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">관리사번 : {{masterInformation.mngmEmplName}} ({{ masterInformation.mngmEmplNo }})</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">회원구분 : {{ masterInformation.memIndCode ? masterInformation.memIndCd : '-' }}</v-col>
-                    <v-col cols="12" lg="2" md="6" sm="12">게시구분 : {{ masterInformation.postInd ? masterInformation.postInd : '-' }}</v-col>
                   </v-row>
                 </v-col>
               </v-row>
@@ -58,27 +52,6 @@
                                 class="bordered"
                                 disable-pagination
                                 hide-default-footer>
-                    <template v-slot:item.pkgValidInd="{item}">
-                      {{ item.pkgValidIndName }} ({{ item.pkgValidIndCd }})
-                    </template>
-                    <template v-slot:item.dstbAmt="{item}">
-                      {{ item.dstbAmt ? item.dstbAmt : '-' }}
-                    </template>
-                    <template v-slot:item.tableInd="{item}">
-                      {{ item.tableIndName }} ({{ item.tableIndCd }})
-                    </template>
-                    <template v-slot:item.grupIssue="{item}">
-                      {{ item.grupIssue ? item.grupIssue : '-' }}
-                    </template>
-                    <template v-slot:item.etc01="{item}">
-                      {{ item.etc01 ? item.etc01 : '-' }}
-                    </template>
-                    <template v-slot:item.etc02="{item}">
-                      {{ item.etc02 ? item.etc02 : '-' }}
-                    </template>
-                    <template v-slot:item.useLcalCd="{item}">
-                      {{ item.useLcalCd ? item.useLcalCd : '-' }}
-                    </template>
                   </v-data-table>
                 </v-col>
               </v-row>
@@ -92,7 +65,7 @@
             <v-text-field
                 label="판매 패키지번호"
                 readonly
-                v-model="form.pkgNo"
+                v-model="form.packageNo"
             />
           </v-col>
           <v-col cols="12" lg="3" md="3" sm="12">
@@ -100,7 +73,7 @@
                 label="판매 패키지명"
                 clearable
                 :rules="emptyRules"
-                v-model="form.pkgName"
+                v-model="form.packageName"
                 :readonly="!writeAuth"
             />
           </v-col>
@@ -109,7 +82,7 @@
               :readonly="!writeAuth"
               clearable
               label="판매 시작일자"
-              v-model="form.saleBgnYmd"
+              v-model="form.saleStartDate"
               required
             />
           </v-col>
@@ -120,7 +93,7 @@
               hide-details
               label="판매 종료일자"
               required
-              v-model="form.saleEndYmd"
+              v-model="form.saleEndDate"
             />
           </v-col>
         </v-row>
@@ -178,7 +151,7 @@
                     label="객실 수"
                     type="number"
                     :readonly="!writeAuth"
-                    v-model="form.rmCnt"
+                    v-model="form.roomCount"
                 />
               </v-col>
             </v-row>
@@ -190,16 +163,16 @@
                 label="요청당 객실 수량 제한"
                 type="number"
                 :readonly="!writeAuth"
-                v-model="form.rmDayLimitNum"
+                v-model="form.roomDayLimit"
             />
           </v-col>
           <v-col cols="12" lg="3" md="6" sm="12" v-if="writeAuth">
             <v-select
                 :rules="emptyRules"
-                :items="blckItems"
+                :items="blockItems"
                 label="블럭코드"
                 :readonly="!writeAuth"
-                v-model="form.rsvBlckCd"
+                v-model="form.blockCode"
             />
           </v-col>
           <v-col cols="12" lg="9" md="9" sm="12">
@@ -207,7 +180,7 @@
                 :readonly="!writeAuth"
                 clearable
                 label="패키지 설명"
-                v-model="form.pkgDesc"
+                v-model="form.packageDesc"
             />
           </v-col>
           <v-col class="d-flex" cols="12" lg="3" md="3" sm="12">
@@ -245,12 +218,12 @@ export default {
   name: 'BasicInformation',
   props: {
     isEdit: Boolean,
-    pkgNoProp: String
+    packageNoProp: String
   },
   data: function () {
     return {
-      pkgNo: '',
-      pkgNoRules: [
+      packageNo: '',
+      packageNoRules: [
         value => !!value || '패키지번호를 입력해주세요.',
         value => {
           const pattern = /^[0-9]+$/g
@@ -261,20 +234,8 @@ export default {
       masterInformation: {},
       // 패키지 마스터 메뉴 테이블 헤더
       headers: [
-        { text: '패키지 메뉴순번', value: 'pkgMenuSeq', align: 'center', sortable: false },
-        { text: '인원수량', value: 'persQty', align: 'center', sortable: false },
-        { text: '패키지 메뉴명', value: 'pkgMenuName', align: 'center', sortable: false },
-        { text: '패키지 유효구분', value: 'pkgValidInd', align: 'center', sortable: false },
-        { text: '패키지 유효기간', value: 'pkgVaildThru', align: 'center', sortable: false },
-        { text: '배분금액', value: 'dstbAmt', align: 'center', sortable: false },
-        { text: '테이블 구분', value: 'tableInd', align: 'center', sortable: false },
-        { text: '적용사용일', value: 'applyUseDd', align: 'center', sortable: false },
-        { text: '추가적용인원', value: 'addApplyPers', align: 'center', sortable: false },
-        { text: '그룹발권', value: 'grupIssue', align: 'center', sortable: false },
-        { text: '비고01', value: 'etc01', align: 'center', sortable: false },
-        { text: '비고02', value: 'etc02', align: 'center', sortable: false },
-        { text: '패키지메뉴오픈여부', value: 'pkgMenuOpen', align: 'center', sortable: false },
-        { text: '사용가능지역', value: 'useLcalCd', align: 'center', sortable: false }
+        { text: '패키지 메뉴순번', value: 'packageMenuSeq', align: 'center', sortable: false },
+        { text: '패키지 메뉴명', value: 'packageMenuName', align: 'center', sortable: false }
       ],
       // 패키지 마스터 메뉴 테이블 데이터
       masterInformationList: [],
@@ -286,33 +247,33 @@ export default {
       todayRsvHour: '',
       todayRsvMinute: '',
       form: {
-        pkgNo: '',
-        pkgName: '',
-        saleBgnYmd: '',
-        saleEndYmd: '',
+        packageNo: '',
+        packageName: '',
+        saleStartDate: '',
+        saleEndDate: '',
         todayRsvYn: 'N',
         stayNights: 1,
         useYn: 'Y',
         allSaleYn: 'N',
-        rmCnt: 1,
-        rmDayLimitNum: 1,
-        rsvBlckCd: null,
+        roomCount: 1,
+        roomDayLimit: 1,
+        blockCode: null,
         report: '',
-        pkgDesc: '',
+        packageDesc: '',
         todaySaleYn: 'N'
       },
-      blckItems: [],
+      blockItems: [],
       pkgSaleType: []
     }
   },
   mounted () {
     if (this.isEdit) {
-      this.pkgNo = this.pkgNoProp
+      this.packageNo = this.packageNoProp
       this.getPackageInformation()
     }
     this.getReservationTime()
     this.getPkgSaleType()
-    this.getRsvBlckCd()
+    this.getBlockCode()
   },
   computed: {
     pkgTextFieldLabel () {
@@ -322,16 +283,16 @@ export default {
 
     // 패키지 마스터정보 판매 시작일 종료일 출력형식 변경
     pkgMstTermFormat () {
-      return `${moment(this.masterInformation.pkgBgnYmd).format('YYYY.MM.DD')} ~ ${moment(this.masterInformation.pkgEndYmd).format('YYYY.MM.DD')}`
+      return `${moment(this.masterInformation.startDate).format('YYYY.MM.DD')} ~ ${moment(this.masterInformation.endDate).format('YYYY.MM.DD')}`
     }
   },
   methods: {
     // 패키지 번호 유효성 검증
     validatePackageNumber () {
       const pattern = /^[0-9]+$/g
-      if (this.pkgNo === '' || this.pkgNo.length === 0) {
+      if (this.packageNo === '' || this.packageNo.length === 0) {
         this.$dialog.alert('패키지번호를 입력해주세요.')
-      } else if (!pattern.test(this.pkgNo)) {
+      } else if (!pattern.test(this.packageNo)) {
         this.$dialog.alert('유효하지 않은 패키지번호입니다.')
       } else {
         return true
@@ -346,37 +307,37 @@ export default {
     getPackageInformation () {
       if (!this.validatePackageNumber()) return
 
-      packageService.selectRoomPackageInformation(this.pkgNo).then((response) => {
+      packageService.selectRoomPackageInformation(this.packageNo).then((response) => {
         if (response.data === '' || this.isEdit) {
           if (this.isEdit) {
             const data = response.data
-            this.form.pkgName = data.pkgName
-            this.form.saleBgnYmd = moment(data.saleBgnYmd).format('YYYYMMDD')
-            this.form.saleEndYmd = moment(data.saleEndYmd).format('YYYYMMDD')
+            this.form.packageName = data.packageName
+            this.form.saleStartDate = moment(data.saleStartDate).format('YYYYMMDD')
+            this.form.saleEndDate = moment(data.saleEndDate).format('YYYYMMDD')
             this.form.todayRsvYn = data.todayRsvYn
             this.todayRsvHour = data.todayRsvTime !== null ? data.todayRsvTime.substr(0, 2) : ''
             this.todayRsvMinute = data.todayRsvTime !== null ? data.todayRsvTime.substr(2, 2) : ''
             this.form.stayNights = data.stayNights
-            this.form.rmCnt = data.rmCnt
-            this.form.rmDayLimitNum = data.rmDayLimitNum
+            this.form.roomCount = data.roomCount
+            this.form.roomDayLimit = data.roomDayLimit
             this.form.useYn = data.useYn
             this.form.allSaleYn = data.allSaleYn
-            this.form.rsvBlckCd = data.rsvBlckCd
+            this.form.blockCode = data.blockCode
             this.form.report = data.report
-            this.form.pkgDesc = data.pkgDesc
+            this.form.packageDesc = data.packageDesc
             this.form.todaySaleYn = data.todaySaleYn
           }
 
-          packageService.selectPackageMasterInformation(this.pkgNo, 1).then((response) => {
+          packageService.selectPackageMasterInformation(this.packageNo, 1).then((response) => {
             if (response.data.length === 0) {
               this.isPackageSearch = true
               this.$dialog.alert('DGNS 검색 결과가 존재하지 않습니다.')
             } else {
               this.masterInformation = response.data
-              this.masterInformation.pkgBgnYmd = moment(this.masterInformation.pkgBgnYmd).format('YYYYMMDD')
-              this.masterInformation.pkgEndYmd = moment(this.masterInformation.pkgEndYmd).format('YYYYMMDD')
+              this.masterInformation.startDate = moment(this.masterInformation.startDate).format('YYYYMMDD')
+              this.masterInformation.endDate = moment(this.masterInformation.endDate).format('YYYYMMDD')
               this.masterInformationList = this.masterInformation.packDgnsDetailList
-              this.form.pkgNo = this.pkgNo
+              this.form.packageNo = this.packageNo
               this.isPackageSearch = true
             }
           }).catch((error) => {
@@ -386,8 +347,6 @@ export default {
         } else {
           this.$dialog.alert('이미 등록된 패키지입니다.')
         }
-      }).catch((error) => {
-        console.log(error)
       })
     },
 
@@ -395,21 +354,17 @@ export default {
     getPkgSaleType () {
       commonCodeService.selectCommonCode('OTA0004').then((response) => {
         for (const data of response.data) {
-          this.pkgSaleType.push(data.commCd)
+          this.pkgSaleType.push(data.commonCode)
         }
-      }).catch((error) => {
-        console.log(error)
       })
     },
 
     // 공통코드 조회 - 예약블록 코드
-    getRsvBlckCd () {
+    getBlockCode () {
       commonCodeService.selectCommonCode('PKG_BLCK_CD').then((response) => {
         for (const data of response.data) {
-          this.blckItems.push(data.commCd)
+          this.blockItems.push(data.commonCode)
         }
-      }).catch((error) => {
-        console.log(error)
       })
     },
 
@@ -465,7 +420,7 @@ export default {
     async openSearchDgnsDialog () {
       if (!this.validatePackageNumber()) return
 
-      const response = await packageService.selectPackageMasterInformation(this.pkgNo, 2)
+      const response = await packageService.selectPackageMasterInformation(this.packageNo, 2)
       if (response.data === '') {
         this.$dialog.alert('검색 결과가 존재하지 않습니다.')
         return
@@ -485,40 +440,36 @@ export default {
     },
 
     // 기본정보 등록
-    async save () {
-      try {
-        await this.validForm(this.$refs.form)
+    save () {
+      this.validForm(this.$refs.form).then(() => {
         const submitForm = Object.assign({}, this.form)
-        submitForm.saleBgnYmd = moment(this.form.saleBgnYmd).format('YYYYMMDD')
-        submitForm.saleEndYmd = moment(this.form.saleEndYmd).format('YYYYMMDD')
+        submitForm.saleStartDate = moment(this.form.saleStartDate).format('YYYYMMDD')
+        submitForm.saleEndDate = moment(this.form.saleEndDate).format('YYYYMMDD')
         if ((this.todayRsvHour !== undefined && this.todayRsvHour !== null) && (this.todayRsvMinute !== undefined && this.todayRsvMinute !== null)) {
           submitForm.todayRsvTime = this.todayRsvHour + this.todayRsvMinute
         } else {
           submitForm.todayRsvTime = null
         }
-
-        await packageService.insertRoomPackageInformation(submitForm)
-        this.$emit('setPackageNumber', submitForm.pkgNo)
+        packageService.insertRoomPackageInformation(submitForm)
+        this.$emit('setPackageNo', submitForm.packageNo)
         this.$emit('nextStep', 'RoomTypeInformation')
-      } catch (error) { }
+      })
     },
 
     // 기본정보 수정
-    async update () {
-      try {
-        await this.validForm(this.$refs.form)
+    update () {
+      this.validForm(this.$refs.form).then(() => {
         const submitForm = Object.assign({}, this.form)
-        submitForm.saleBgnYmd = moment(this.form.saleBgnYmd).format('YYYYMMDD')
-        submitForm.saleEndYmd = moment(this.form.saleEndYmd).format('YYYYMMDD')
+        submitForm.saleStartDate = moment(this.form.saleStartDate).format('YYYYMMDD')
+        submitForm.saleEndDate = moment(this.form.saleEndDate).format('YYYYMMDD')
         if ((this.todayRsvHour !== undefined && this.todayRsvHour !== null) && (this.todayRsvMinute !== undefined && this.todayRsvMinute !== null)) {
           submitForm.todayRsvTime = this.todayRsvHour + this.todayRsvMinute
         } else {
           submitForm.todayRsvTime = null
         }
-
-        await packageService.updateRoomPackageInformation(submitForm)
-        this.$dialog.alert('수정이 완료되었습니다.')
-      } catch (error) { }
+        packageService.updateRoomPackageInformation(submitForm)
+      })
+      this.$dialog.alert('수정이 완료되었습니다.')
     }
   }
 }

@@ -28,7 +28,7 @@
           </v-row>
           <v-row v-if="holidayType !== 'package' || holidayType === ''">
             <v-col>
-<!--              :item-value="holidayType === 'store' ? 'storeCode' : 'rmTypeCode'"-->
+<!--              :item-value="holidayType === 'store' ? 'storeCode' : 'roomTypeCode'"-->
               <v-select :item-text="setItemText"
                         :item-value="setItemValue"
                         :items="items"
@@ -47,7 +47,7 @@
                       v-bind="attrs"
                   >
                     <strong v-if="holidayType === 'store'">{{ item.storeName }}</strong>
-                    <strong v-else>{{ item.rmTypeName }}</strong>
+                    <strong v-else>{{ item.roomTypeName }}</strong>
                   </v-chip>
                 </template>
               </v-select>
@@ -187,13 +187,9 @@ export default {
     },
 
     async getReasons () {
-      try {
-        const response = await commonCodeService.selectCommonCode('COMM0001')
-        for (const data of response.data) {
-          this.reasonItems.push(data)
-        }
-      } catch (error) {
-        console.log(error)
+      const response = await commonCodeService.selectCommonCode('COMM0001')
+      for (const data of response.data) {
+        this.reasonItems.push(data)
       }
     },
 
@@ -220,29 +216,29 @@ export default {
               if (this.holidayType !== 'package') {
                 this.selected.forEach(selectItem => {
                   const isStore = this.holidayType === 'store'
-                  const item = isStore ? this.items.find(item => selectItem === item.storeCd) : this.items.find(item => {
+                  const item = isStore ? this.items.find(item => selectItem === item.storeCode) : this.items.find(item => {
                     const itemArr = selectItem.split(',')
-                    if (itemArr[0] === item.storeCd && itemArr[1] === item.rmTypeCd) {
+                    if (itemArr[0] === item.storeCode && itemArr[1] === item.roomTypeCode) {
                       return true
                     }
                   })
-                  const finder = isStore ? this.events.find(event => event.start === targetDay && event.type === 'store' && event.storeCd === item.storeCd)
-                    : this.events.find(event => event.start === targetDay && event.type === 'room' && event.storeCd === item.storeCd && event.rmTypeCd === item.rmTypeCd)
+                  const finder = isStore ? this.events.find(event => event.start === targetDay && event.type === 'store' && event.storeCode === item.storeCode)
+                    : this.events.find(event => event.start === targetDay && event.type === 'room' && event.storeCode === item.storeCode && event.roomTypeCode === item.roomTypeCode)
 
                   if (finder === undefined) {
                     this.events.push({
-                      name: isStore ? `${item.storeName} 휴일` : `${item.storeName} - ${item.rmTypeName} 휴일`,
+                      name: isStore ? `${item.storeName} 휴일` : `${item.storeName} - ${item.roomTypeName} 휴일`,
                       start: targetDay,
                       color: this.holidayItems.find(data => data.name === this.holidayType).color,
                       type: this.holidayType,
                       memo: this.holidayMemo,
-                      hldyCd: isStore ? 'S' : 'R',
-                      rmTypeCd: isStore ? null : item.rmTypeCd,
-                      rmTypeName: isStore ? null : item.rmTypeName,
-                      storeCd: item.storeCd,
+                      holidayCode: isStore ? 'S' : 'R',
+                      roomTypeCode: isStore ? null : item.roomTypeCode,
+                      roomTypeName: isStore ? null : item.roomTypeName,
+                      storeCode: item.storeCode,
                       storeName: item.storeName,
-                      store: item.storeCd ? `${item.storeName} (${item.storeCd})` : '-',
-                      rmType: isStore ? '-' : item.rmTypeCd ? `${item.rmTypeName} (${item.rmTypeCd})` : '-'
+                      store: item.storeCode ? `${item.storeName} (${item.storeCode})` : '-',
+                      roomType: isStore ? '-' : item.roomTypeCode ? `${item.roomTypeName} (${item.roomTypeCode})` : '-'
                     })
                   }
                 })
@@ -259,10 +255,10 @@ export default {
                     color: this.holidayItems.find(data => data.name === this.holidayType).color,
                     type: this.holidayType,
                     memo: this.holidayMemo,
-                    hldyCd: 'P',
-                    rmTypeCd: '',
-                    rmTypeName: '',
-                    storeCd: '',
+                    holidayCode: 'P',
+                    roomTypeCode: '',
+                    roomTypeName: '',
+                    storeCode: '',
                     storeName: ''
                   })
                 }
@@ -281,11 +277,11 @@ export default {
     },
     setItemText (item) {
       const isStore = this.holidayType === 'store'
-      return isStore ? `${item.storeName}` : `${item.storeName} (${item.storeCd}) - ${item.rmTypeName} (${item.rmTypeCd})`
+      return isStore ? `${item.storeName}` : `${item.storeName} (${item.storeCode}) - ${item.roomTypeName} (${item.roomTypeCode})`
     },
     setItemValue (item) {
       const isStore = this.holidayType === 'store'
-      return isStore ? item.storeCd : `${item.storeCd},${item.rmTypeCd}`
+      return isStore ? item.storeCode : `${item.storeCode},${item.roomTypeCode}`
     },
     removeSelectedItem (item) {
       this.selected.splice(this.selected.indexOf(item), 1)

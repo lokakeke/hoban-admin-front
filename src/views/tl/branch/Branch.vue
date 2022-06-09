@@ -3,23 +3,23 @@
     <v-container fluid pt-0>
       <app-card colClasses="xl12 lg12 md12 sm12 xs12">
         <v-layout row wrap>
-          <v-flex xs12 md5 border-right>
+          <v-flex xs5 md5 lg5 border-right>
             <v-card flat>
               <v-card-title class="headline font-weight-bold justify-center pt-0">
                 TL-LINCOLN 사업장
               </v-card-title>
-              <v-layout justify-center class="border-bottom pb-1">
-                <div>
+              <v-layout justify-center class="border-bottom">
+                <div class="pb-2">
                   <v-btn outlined rounded small @click="sort(branch)" color="orange" v-if="!search || search.length === 0">
-                    <v-icon small class="mr-1">refresh</v-icon>
+                    <v-icon small>refresh</v-icon>
                     원래대로
                   </v-btn>
                   <v-btn outlined rounded small color="orange" @click="sortChange()" v-if="!search || search.length === 0">
-                    <v-icon small class="mr-1">swap_vert</v-icon>
+                    <v-icon small>swap_vert</v-icon>
                     순서 저장
                   </v-btn>
                   <v-btn outlined rounded small color="blue" @click="addBranch()">
-                    <v-icon small class="mr-1">add</v-icon>
+                    <v-icon small>add</v-icon>
                     사업장 추가
                   </v-btn>
                 </div>
@@ -32,7 +32,7 @@
                 <v-list dense v-if="branch && branch.length > 0" class="pr-5">
                   <draggable v-model="branch">
                     <transition-group type="transition" name="flip-list">
-                      <v-list-item v-for="item of branch" :key="item.sortOrder" @click="viewDetail(item)" class="menu-list" :class="item.active? 'active' : ''">
+                      <v-list-item v-for="(item, index) of branch" :key="item.sortOrder + '' + index" @click="viewDetail(item)" class="menu-list" :class="item.active? 'active' : ''">
                         <v-list-item-action>
                           <v-icon>business</v-icon>
                         </v-list-item-action>
@@ -71,11 +71,11 @@
               </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs12 md7>
+          <v-flex xs7 md7 lg7>
             <v-card flat>
               <v-card-title class="headline font-weight-bold justify-center pt-0">사업장 상세내역</v-card-title>
-              <v-layout justify-center class="border-bottom pb-1" v-if="param.branch">
-                <div>
+              <v-layout justify-center class="border-bottom">
+                <div v-if="param.branch" class="pb-2">
                   <v-btn outlined rounded small @click="resetForm()" color="orange">
                     <v-icon small class="mr-1">refresh</v-icon>
                     원래대로
@@ -86,25 +86,23 @@
                   </v-btn>
                 </div>
               </v-layout>
-              <v-card-text class="pl-5 pr-5">
+              <v-card-text>
                 <transition name="slide-fade" mode="out-in">
-                  <template v-if="param.branch">
-                    <v-form ref="form" lazy-validation :key="param.branch" autocomplete="off">
-                      <branch-form :formData.sync="form" :businessList="businessList"></branch-form>
-                      <v-layout justify-center>
-                        <div class="pa-2">
-                          <v-btn outlined rounded small @click="resetForm()" color="orange">
-                            <v-icon small class="mr-1">refresh</v-icon>
-                            원래대로
-                          </v-btn>
-                          <v-btn outlined rounded small color="info" @click="commit(true)">
-                            <v-icon small class="mr-1">check</v-icon>
-                            저장
-                          </v-btn>
-                        </div>
-                      </v-layout>
-                    </v-form>
-                  </template>
+                  <v-form v-if="param.branch" ref="form" lazy-validation :key="param.branch" autocomplete="off">
+                    <branch-form :formData.sync="form" :businessList="businessList"></branch-form>
+                    <v-layout justify-center>
+                      <div class="pa-2">
+                        <v-btn outlined rounded small @click="resetForm()" color="orange">
+                          <v-icon small class="mr-1">refresh</v-icon>
+                          원래대로
+                        </v-btn>
+                        <v-btn outlined rounded small color="info" @click="commit(true)">
+                          <v-icon small class="mr-1">check</v-icon>
+                          저장
+                        </v-btn>
+                      </div>
+                    </v-layout>
+                  </v-form>
                   <v-layout v-else align-center justify-center fill-height>
                     TL-LINCOLN 사업장을 선택해 주세요.
                   </v-layout>
@@ -256,9 +254,7 @@ export default {
         await this.validForm(formElement)
         await this.$dialog.confirm(confirmTxt)
         if (isModify) {
-          const editFrom = _.cloneDeep(this.form)
-          delete editFrom.active
-          await branchService.updateBranch(editFrom).then(res => {
+          await branchService.updateBranch(this.form).then(res => {
             this.cloneForm = _.cloneDeep(this.form)
             this.selectBranch(this.form.brcNo)
           })

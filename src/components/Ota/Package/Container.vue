@@ -24,10 +24,10 @@
               <component
                 :is="item.component"
                 :is-edit="isEdit"
-                :pkg-no-prop="pkgNo"
+                :package-no-prop="packageNo"
                 :ref="item.name"
                 @nextStep="nextStep($event)"
-                @setPackageNumber="setPackageNumber($event)"
+                @setPackageNo="setPackageNo($event)"
                 v-if="step === item.step"
               />
               <v-row>
@@ -77,14 +77,14 @@ export default {
       // 수정여부
       isEdit: Boolean,
       // 패키지 번호
-      pkgNo: '',
+      packageNo: '',
       // 스텝
       step: 1
     }
   },
   mounted () {
     this.isEdit = this.instance.params.isEdit
-    this.pkgNo = this.instance.params.pkgNoProp === '' ? '' : this.instance.params.pkgNoProp
+    this.packageNo = this.instance.params.packageNoProp ? this.instance.params.packageNoProp : ''
   },
   computed: {
     stepItems () {
@@ -143,27 +143,19 @@ export default {
     // 모든 스텝 저장 총괄 메소드
     // 스텝 추가 시 저장, 수정의 경우 'save, update' 메소드 구현 필수
     async add (item) {
-      try {
-        await this.$refs[item][0].save()
-        this.instance.params.getRoomPackageRegisterList()
-      } catch (error) {
-        console.log(error)
-      }
+      await this.$refs[item][0].save()
+      this.instance.params.getRoomPackageRegisterList()
     },
     // 모든 스텝 수정 총괄 메소드
     // 스텝 추가 시 저장, 수정의 경우 'save, update' 메소드 구현 필수
     async update (item) {
-      try {
-        await this.$refs[item][0].update()
-        this.instance.params.getRoomPackageRegisterList()
-      } catch (error) {
-        console.log(error)
-      }
+      await this.$refs[item][0].update()
+      this.instance.params.getRoomPackageRegisterList()
     },
     // 패키지 정보 등록 외에 나머지 스텝들은 모두 패키지 번호가 필요함
     // 패키지 정보 신규등록 시, 패키지 번호를 나머지 스텝에게 전달하기 위해 사용
-    setPackageNumber (pkgNo) {
-      this.pkgNo = pkgNo
+    setPackageNo (packageNo) {
+      this.packageNo = packageNo
     },
     // 각 스텝 이동 시, step 값을 변경시켜 줌
     // 마지막 스텝의 경우 Dialog 창을 종료

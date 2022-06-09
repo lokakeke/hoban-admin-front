@@ -45,6 +45,9 @@ const config = defineConfig({
       dts: true
     })
   ],
+  define: {
+    __BUILD_DATE__: JSON.stringify(new Date().toISOString())
+  },
 
   server: {
     port: 8888,

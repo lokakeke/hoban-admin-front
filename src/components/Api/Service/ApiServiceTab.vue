@@ -28,7 +28,7 @@
                                     <v-icon>{{item.devOpenYn === 'Y'? 'check_box': 'check_box_outline_blank'}}</v-icon>
                                 </v-list-item-action>
                                 <v-list-item-content>
-                                    {{item.svcName}}
+                                    {{item.serviceName}}
                                 </v-list-item-content>
                             </v-list-item>
                         </v-list>
@@ -50,7 +50,7 @@
                                         <v-icon>{{item.prodOpenYn === 'Y'? 'check_box': 'check_box_outline_blank'}}</v-icon>
                                     </v-list-item-action>
                                     <v-list-item-content>
-                                        {{item.svcName}}
+                                        {{item.serviceName}}
                                     </v-list-item-content>
                                 </v-list-item>
                             </template>
@@ -60,7 +60,7 @@
                                         <v-icon>{{item.prodOpenYn === 'Y'? 'check_box': 'check_box_outline_blank'}}</v-icon>
                                     </v-list-item-action>
                                     <v-list-item-content>
-                                        {{item.svcName}}
+                                        {{item.serviceName}}
                                     </v-list-item-content>
                                 </v-list-item>
                             </template>

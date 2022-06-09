@@ -12,72 +12,40 @@
           />
         </v-col>
       </v-row>
-      <v-row justify="space-between">
-        <v-col>
-          <v-radio-group :rules="emptyRules"
-                          @change="selected = []"
-                          class="mt-0"
-                          hide-details
-                          row
-                          v-model="form.typeCode"
-          >
-            <v-radio :key="item.name"
-                      :label="item.commCodeName"
-                      :value="item.commCode"
-                      v-for="item in typeItem"
-            />
-          </v-radio-group>
-          <v-text-field
-            placeholder="기획전 타이틀명 입력"
-            v-model="form.title"
-            counter="1000"
-            :rules="maxLengthRules(1000).concat(emptyRules)"
-          ></v-text-field>
-        </v-col>
-      </v-row>
     </v-form>
   </v-container>
 </template>
 
 <script>
 import packageService from '@/api/modules/ota/package.service'
-import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
   name: 'RoomPackageTypeForm',
   props: {
     isEdit: Boolean,
-    pkgNoProp: String
+    packageNoProp: String
   },
   data: function () {
     return {
-      pkgNo: '',
-      form: null,
-      typeItem: [],
-      typeList: []
+      packageNo: '',
+      form: {},
+      typeList: [],
+      selected: ''
     }
   },
   created () {
-    this.pkgNo = this.pkgNoProp
-    this.init()
-    this.getCommCodeList()
+    this.packageNo = this.packageNoProp
     this.getPackageTypeList()
   },
   methods: {
     getPackageTypeList () {
       if (this.isEdit) {
-        packageService.selectRoomPackageInformation(this.pkgNo).then((response) => {
-          this.typeList = response.data.packTypeCodeList
-          this.form.typeCd = response.data.typeCd
-          this.form.title = response.data.title
-        }).catch((error) => {
-          console.log(error)
+        packageService.selectRoomPackageInformation(this.packageNo).then((response) => {
+          this.typeList = response.data.packageTypeCodeList
         })
       } else {
         packageService.selectPackageTypeList().then((response) => {
           this.typeList = response.data
-        }).catch((error) => {
-          console.log(error)
         })
       }
     },
@@ -85,56 +53,32 @@ export default {
     async save () {
       await this.validForm(this.$refs.form)
 
-      const packTypeCdList = []
+      const packageTypeCodeList = []
       const typeCheckedList = this.typeList.filter(type => type.existYn === 'Y')
       typeCheckedList.forEach(type => {
-        packTypeCdList.push({ pkgNo: this.pkgNo, typeCd: type.typeCd })
+        packageTypeCodeList.push({ packageNo: this.packageNo, typeCode: type.typeCode })
       })
 
-      await this.validCheckBoxList(packTypeCdList)
-
-      try {
-        await packageService.insertRoomPackageType(this.pkgNo, this.form, packTypeCdList)
-        this.$emit('nextStep', null)
-      } catch (error) {
-        console.log(error)
-      }
+      await this.validCheckBoxList(packageTypeCodeList)
+      await packageService.insertRoomPackageType(this.packageNo, this.form, packageTypeCodeList)
+      this.$emit('nextStep', null)
     },
 
     async update () {
       await this.validForm(this.$refs.form)
 
-      const packTypeCdList = []
+      const packageTypeCodeList = []
       const typeCheckedList = this.typeList.filter(type => type.existYn === 'Y')
       typeCheckedList.forEach(type => {
-        packTypeCdList.push({ pkgNo: this.pkgNo, typeCd: type.typeCd })
+        packageTypeCodeList.push({ packageNo: this.packageNo, typeCode: type.typeCode })
       })
 
-      await this.validCheckBoxList(packTypeCdList)
-
-      try {
-        await packageService.updateRoomPackageType(this.pkgNo, this.form, packTypeCdList)
-        this.$dialog.alert('수정이 완료되었습니다.')
-        this.$emit('nextStep', null)
-      } catch (error) {
-        console.log(error)
-      }
+      await this.validCheckBoxList(packageTypeCodeList)
+      await packageService.updateRoomPackageType(packageTypeCodeList)
+      this.$dialog.alert('수정이 완료되었습니다.')
+      this.$emit('nextStep', null)
     },
 
-    /** 변수 초기화 */
-    async init () {
-      this.form = {
-        typeCd: null,
-        title: null
-      }
-    },
-
-    /** 공통 코드 조회 */
-    getCommCdList () {
-      commonCodeService.selectCommonCode('OTA0011').then(res => {
-        this.typeItem = res.data
-      })
-    },
     /** valid 체크 */
     async validCheckBoxList (list) {
       return new Promise((resolve, reject) => {

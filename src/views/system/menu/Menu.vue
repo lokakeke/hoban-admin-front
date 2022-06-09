@@ -46,8 +46,7 @@
                 </v-col>
                 <v-col cols="12">
                   <v-label>메뉴 이름</v-label>
-                  <v-text-field v-model="form.menuName" :rules="emptyRules" label="" required
-                                class="pt-0"></v-text-field>
+                  <v-text-field v-model="form.menuName" :rules="emptyRules" label="" required class="pt-0"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-label>메뉴 주소 (하위메뉴가 등록되어야 할 경우 비워주세요)</v-label>
@@ -237,10 +236,7 @@ export default {
         await this.validForm(this.$refs.form)
         await this.$dialog.confirm(this.form.menuId ? '메뉴정보를 수정하시겠습니까?' : '메뉴정보를 입력하시겠습니까?')
         if (this.form.menuId) {
-          const editFrom = _.cloneDeep(this.form)
-          delete editFrom.active
-
-          await menuService.updateMenu(editFrom)
+          await menuService.updateMenu(this.form)
           this.$dialog.alert('수정되었습니다.')
         } else {
           await menuService.insertMenu(this.form)

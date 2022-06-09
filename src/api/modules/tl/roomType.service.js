@@ -13,7 +13,7 @@ const roomTypeService = {
    * TL 룸타입 목록조회
    */
   selectTLRoomTypeList(brcNo, pkgYn) {
-    return api.get('/api/cms/tl/booking/roomTypeMasterSearch', { params: { brcNo: brcNo, pkgYn: pkgYn } })
+    return api.get('/api/cms/tl/api/roomTypeMasterSearch', { params: { brcNo: brcNo, pkgYn: pkgYn } })
   },
 
   /**

@@ -8,7 +8,7 @@ const partnerApiService = {
    * @returns API 리스트
    */
   selectPartnerApiList (partnerSeq) {
-    return api.get(`/api/cms/system/partnerApi/list/${partnerSeq}`)
+    return api.get(`/api/cms/ota/booking/partnerApi/list/${partnerSeq}`)
   },
 
   /**
@@ -18,7 +18,7 @@ const partnerApiService = {
    * @return 파트너 API 정보
    */
   selectPartnerApi (partnerSeq, apiInd) {
-    return api.get(`/api/cms/system/partnerApi/info/${partnerSeq}/${apiInd}`)
+    return api.get(`/api/cms/ota/booking/partnerApi/info/${partnerSeq}/${apiInd}`)
   },
 
   /**
@@ -27,7 +27,7 @@ const partnerApiService = {
    * @returns AxiosPromise<any>
    */
   insertPartnerApi (form) {
-    return api.post('/api/cms/system/partnerApi/insert', form)
+    return api.post('/api/cms/ota/booking/partnerApi/insert', form)
   },
 
   /**
@@ -36,7 +36,7 @@ const partnerApiService = {
    * @returns AxiosPromise<any>
    */
   updatePartnerApi (form) {
-    return api.post('/api/cms/system/partnerApi/update', form)
+    return api.post('/api/cms/ota/booking/partnerApi/update', form)
   },
 
   /**
@@ -45,7 +45,7 @@ const partnerApiService = {
    * @param apiInd
    */
   deletePartnerApi (partnerSeq, apiInd) {
-    return api.get(`/api/cms/system/partnerApi/delete/${partnerSeq}/${apiInd}`)
+    return api.get(`/api/cms/ota/booking/partnerApi/delete/${partnerSeq}/${apiInd}`)
   },
 
   /**
@@ -54,7 +54,7 @@ const partnerApiService = {
    * @returns AxiosPromise<any>
    */
   testSendRoomAmount (form) {
-    return api.post('/api/cms/system/partnerApi/testSendRoomAmount', form)
+    return api.post('/api/cms/ota/booking/partnerApi/testSendRoomAmount', form)
   }
 }
 

@@ -83,11 +83,11 @@ export default {
   name: 'SellerRegisterForm',
   props: {
     isEdit: Boolean,
-    pkgNoProp: String
+    packageNoProp: String
   },
   data: function () {
     return {
-      pkgNo: '',
+      packageNo: '',
       packageInformation: {},
 
       saleType: 'Y',
@@ -102,7 +102,7 @@ export default {
     }
   },
   mounted () {
-    this.pkgNo = this.pkgNoProp
+    this.packageNo = this.packageNoProp
     this.getPackageInformation()
   },
   computed: {
@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     getPackageInformation () {
-      packageService.selectRoomPackageInformation(this.pkgNo).then((response) => {
+      packageService.selectRoomPackageInformation(this.packageNo).then((response) => {
         this.packageInformation = response.data
         this.saleType = this.packageInformation.allSaleYn === 'Y' ? 'Y' : 'N'
         this.getSalePartnerList()
@@ -123,15 +123,13 @@ export default {
     },
 
     getSalePartnerList () {
-      let user = this.user.number
+      let partnerSeq = this.user.number
       if (this.isPartner !== true) {
-        user = null
+        partnerSeq = null
       }
 
-      packageService.selectPartnerList(this.pkgNo, user).then((response) => {
+      packageService.selectPartnerList(this.packageNo, partnerSeq).then((response) => {
         this.salePartnerList = response.data
-      }).catch((error) => {
-        console.log(error)
       })
     },
 
@@ -147,29 +145,25 @@ export default {
         return
       }
 
-      try {
-        if (this.saleType === 'Y') {
-          // 신규생성이므로 삭제 액션 필요없음.
-          await packageService.updateRoomPackageSaleType(this.pkgNo, 'Y')
-          this.$emit('nextStep', 'HolidayInformation')
-        } else {
-          // 개별적용의 경우
-          const submitList = []
-          this.salePartnerList.filter(partner => partner.existYn === 'Y').forEach((partner) => {
-            submitList.push({
-              pkgNo: this.pkgNo,
-              partnerSeq: partner.partnerSeq,
-              useYn: 'Y'
-            })
+      if (this.saleType === 'Y') {
+        // 신규생성이므로 삭제 액션 필요없음.
+        await packageService.updateRoomPackageSaleType(this.packageNo, 'Y')
+        this.$emit('nextStep', 'HolidayInformation')
+      } else {
+        // 개별적용의 경우
+        const submitList = []
+        this.salePartnerList.filter(partner => partner.existYn === 'Y').forEach((partner) => {
+          submitList.push({
+            packageNo: this.packageNo,
+            partnerSeq: partner.partnerSeq,
+            useYn: 'Y'
           })
+        })
 
-          // 패키지 allSaleYn을 "N"으로 변경 후 파트너 데이터 insert
-          await packageService.updateRoomPackageSaleType(this.pkgNo, 'N')
-          await packageService.insertSalePartnerList(submitList)
-          this.$emit('nextStep', 'HolidayInformation')
-        }
-      } catch (error) {
-        console.log(error)
+        // 패키지 allSaleYn을 "N"으로 변경 후 파트너 데이터 insert
+        await packageService.updateRoomPackageSaleType(this.packageNo, 'N')
+        await packageService.insertSalePartnerList(submitList)
+        this.$emit('nextStep', 'HolidayInformation')
       }
     },
 
@@ -179,40 +173,36 @@ export default {
         return
       }
 
-      try {
-        const responseObject = await packageService.selectPackageRoomTypeList(this.pkgNo)
-        const data = responseObject.data
-        const existY = data.filter(obj => obj.otaExistYn === 'Y').length
+      const responseObject = await packageService.selectPackageRoomTypeList(this.packageNo)
+      const data = responseObject.data
+      const existY = data.filter(obj => obj.otaExistYn === 'Y').length
 
-        if (existY === 0) {
-          this.$dialog.alert('판매객실이 등록되어있지 않습니다.\r\n판매객실 등록 후 다시 시도해주세요.')
-          this.$emit('nextStep', 'RoomTypeInformation')
-          return
-        }
+      if (existY === 0) {
+        this.$dialog.alert('판매객실이 등록되어있지 않습니다.\r\n판매객실 등록 후 다시 시도해주세요.')
+        this.$emit('nextStep', 'RoomTypeInformation')
+        return
+      }
 
-        if (this.saleType === 'Y') {
-          // 파트너 insert 데이터 삭제 후 allSaleYn을 Y로 변경한다.
-          await packageService.deleteSalePartnerList(this.pkgNo)
-          await packageService.updateRoomPackageSaleType(this.pkgNo, 'Y')
-          this.$dialog.alert('수정이 완료되었습니다.')
-        } else {
-          // 개별적용 수정의 경우
-          const submitList = []
-          this.salePartnerList.filter(partner => partner.existYn === 'Y').forEach((partner) => {
-            submitList.push({
-              pkgNo: this.pkgNo,
-              partnerSeq: partner.partnerSeq,
-              useYn: 'Y'
-            })
+      if (this.saleType === 'Y') {
+        // 파트너 insert 데이터 삭제 후 allSaleYn을 Y로 변경한다.
+        await packageService.deleteSalePartnerList(this.packageNo)
+        await packageService.updateRoomPackageSaleType(this.packageNo, 'Y')
+        this.$dialog.alert('수정이 완료되었습니다.')
+      } else {
+        // 개별적용 수정의 경우
+        const submitList = []
+        this.salePartnerList.filter(partner => partner.existYn === 'Y').forEach((partner) => {
+          submitList.push({
+            packageNo: this.packageNo,
+            partnerSeq: partner.partnerSeq,
+            useYn: 'Y'
           })
+        })
 
-          // 패키지 allSaleYn을 "N"으로 변경 후 파트너 데이터 update
-          await packageService.updateRoomPackageSaleType(this.pkgNo, 'N')
-          await packageService.updateSalePartnerList(submitList)
-          this.$dialog.alert('수정이 완료되었습니다.')
-        }
-      } catch (error) {
-        console.log(error)
+        // 패키지 allSaleYn을 "N"으로 변경 후 파트너 데이터 update
+        await packageService.updateRoomPackageSaleType(this.packageNo, 'N')
+        await packageService.updateSalePartnerList(submitList)
+        this.$dialog.alert('수정이 완료되었습니다.')
       }
     }
   }

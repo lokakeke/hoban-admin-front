@@ -101,6 +101,9 @@ const globalMixin = {
           }
         })
       } catch (e) {}
+    },
+    parseTrimLowerCase (value) {
+      return !value ? '' : value.replace(/^\s+|\s+$/g, '').toLowerCase()
     }
   },
   computed: {

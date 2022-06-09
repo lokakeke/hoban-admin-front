@@ -62,12 +62,6 @@ export default {
           type: 'error'
         }
       },
-      build: {
-        // eslint-disable-next-line no-undef
-        // FIXME 확인. 기존이랑 가져오는 스타일 다름.
-        date: JSON.stringify(moment().toISOString()),
-        interval: null
-      },
       partnerDepositInterval: null
     }
   },
@@ -86,26 +80,6 @@ export default {
     // 키 입력 이벤트 바인딩
     document.addEventListener('keydown', this.keydownEventHandler)
     document.addEventListener('keyup', this.keyupEventHandler)
-    // 캐시 새로고침을 위한 빌드시간 주기적 확인
-    this.build.interval = setInterval(async () => {
-      try {
-        // FIXME vite require 지원 불가..
-        const res = await require('Api').default.get(`/build-date.html?t=${moment().unix()}`, {
-          headers: {
-            Progress: false
-          }
-        })
-        const buildDate = res.data.trim()
-        if (buildDate !== this.build.date) {
-          console.info(`어플리케이션 신규 빌드 확인됨. 빌드시간: ${moment(buildDate).format('YYYY-MM-DD HH:mm:ss')}`)
-          this.snackbars.refresh.isShow = true
-        }
-        this.build.date = buildDate
-      } catch {
-        // 별도 처리 안함
-        console.warn('어플리케이션 빌드시간 확인에 실패하였습니다.')
-      }
-    }, 10 * 60 * 1000) // 10분 간격
     // 파트너 예치금 부족 주기적 확인
     // FIXME 개발 후 주석 풀기
     // this.checkPartnerDeposit()
@@ -114,9 +88,6 @@ export default {
   beforeDestroy () {
     document.removeEventListener('keydown', this.keydownEventHandler)
     document.removeEventListener('keyup', this.keyupEventHandler)
-    if (this.build.interval) {
-      clearInterval(this.build.interval)
-    }
     if (this.partnerDepositInterval) {
       clearInterval(this.partnerDepositInterval)
     }

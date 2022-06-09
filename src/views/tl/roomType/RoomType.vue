@@ -41,11 +41,11 @@
                         </v-list-item-action>
                       </v-list-item>
                     </template>
-                    <v-layout v-else align-center justify-center fill-height>
+                    <v-layout class="mt-5" v-else align-center justify-center fill-height>
                       객실타입이 존재하지 않습니다.
                     </v-layout>
                   </v-list>
-                  <v-layout v-else-if="!param.brcNo" align-center justify-center fill-height>
+                  <v-layout class="mt-5" v-else-if="!param.brcNo" align-center justify-center fill-height>
                     사업장 을 선택해 주세요.
                   </v-layout>
                 </transition>
@@ -65,7 +65,7 @@
             <v-card flat>
               <v-card-title class="headline font-weight-bold justify-center pt-0">객실 타입 상세</v-card-title>
               <v-layout justify-center class="border-bottom">
-                <div v-if="param.roomType && form.rmTypeCd" class="pb-1">
+                <div v-if="param.roomType && form.rmTypeCd" class="pb-2">
                   <v-btn outlined rounded small @click="resetForm()" color="orange">
                     <v-icon small class="mr-1">refresh</v-icon>
                     원래대로
@@ -80,36 +80,36 @@
                 <transition name="slide-fade" mode="out-in">
                   <v-form v-if="param.roomType && form.rmTypeCd" ref="form" lazy-validation :key="param.roomType">
                     <div class="subheading green--text">PMS 룸타입</div>
-                    <el-row :gutter="20">
-                      <el-col :span="12">
+                    <v-row>
+                      <v-col>
                         <v-autocomplete v-model="form.rmTypeCd"
                                         :items="pmsHotelRoomInfoList"
                                         :item-value="'roomType'"
                                         :item-text="'roomTypeName'"
                                         :rules="[v => !!v || '룸타입은 필수입력 사항입니다.']" class="pt-0" label="" required></v-autocomplete>
-                      </el-col>
-                    </el-row>
-                    <el-row :gutter="20">
-                      <el-col :span="6">
-                        <div class="pl-1 pb-1 subheading green--text">기준인원수</div>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="6">
+                        <div class="subheading green--text">기준인원수</div>
                         <v-text-field type="number" v-model="form.stndPersonCnt" :rules="numberRules" class="pt-0 mt-0" disabled></v-text-field>
-                      </el-col>
-                      <el-col :span="6">
-                        <div class="pl-1 pb-1 subheading green--text">최대인원수</div>
+                      </v-col>
+                      <v-col cols="6">
+                        <div class="subheading green--text">최대인원수</div>
                         <v-text-field type="number" v-model="form.maxPersonCnt" :rules="numberRules" class="pt-0 mt-0" disabled></v-text-field>
-                      </el-col>
-                    </el-row>
+                      </v-col>
+                    </v-row>
                     <v-divider></v-divider>
 
                     <v-layout v-show="false" align-center justify-space-between>
                       <div class="pl-1 subheading green--text">PMS 블럭 맵핑<span class="body-2 brown--text"> ( * 마스터 블럭을 필수로 지정해 주세요.)</span>
                       </div>
-                      <v-btn small round outline color="blue" @click="add()">
+                      <v-btn small outlined rounded color="blue" @click="add()">
                         <v-icon small>add</v-icon>
                         추가
                       </v-btn>
                     </v-layout>
-                    <v-data-table v-show="false" :no-data-text="'데이터가 없습니다.'" :headers="headers" :items="form.blockList" class="condensed" hide-actions>
+                    <v-data-table v-show="false" :no-data-text="'데이터가 없습니다.'" :headers="headers" :items="form.blockList" class="condensed">
                       <template v-slot:headers="props">
                         <tr>
                           <th v-for="header in props.headers" :key="header.value">
@@ -160,7 +160,7 @@
                     <div class="pl-1 pb-1 subheading green--text">Plan Group 정보</div>
                     <template v-if="form.planList && form.planList.length > 0">
                       <template v-for="(plan, index) of form.planList">
-                        <el-tag class="mt-1 mb-1 mr-2" style="background: #fff;color: #606266;border-color: #dcdfe6;">{{ plan.planGroupName + ' - (' + plan.planGroupCode + ')' }}</el-tag>
+                        <v-chip class="mt-1 mb-1 mr-2">{{ plan.planGroupName + ' - (' + plan.planGroupCode + ')' }}</v-chip>
                         <br v-if="index > 0 && index % 3 === 0"/>
                       </template>
                     </template>
@@ -199,14 +199,13 @@
 
 <script>
 import branchList from '@/components/Branch/BranchList.vue'
-import selectList from '@/components/SelectAll/SelectList.vue'
 import roomTypeSync from './RoomTypeSync'
 import branchService from '@/api/modules/tl/branch.service'
 import roomTypeService from '@/api/modules/tl/roomType.service'
 import moment from 'moment'
 
 export default {
-  components: { selectList, roomTypeSync, branchList },
+  components: { roomTypeSync, branchList },
   name: 'roomType',
   data() {
     return {
@@ -289,7 +288,7 @@ export default {
       }
     },
     reset() {
-      for (let room of this.roomTypeList) {
+      for (const room of this.roomTypeList) {
         room.active = false
       }
       this.param.roomType = ''

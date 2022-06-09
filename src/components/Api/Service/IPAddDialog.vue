@@ -16,7 +16,7 @@
         <v-col sm="6" md="4">
           <v-label>서버구분</v-label>
           <v-autocomplete v-model="form.serverCode" clearable autocomplete="off"
-                          :items="serverCodeList" :item-value="'commCode'" :item-text="'commCodeName'" :rules="emptyRules" required></v-autocomplete>
+                          :items="serverCodeList" :item-value="'commonCode'" :item-text="'commonCodeName'" :rules="emptyRules" required></v-autocomplete>
         </v-col>
         <v-col sm="6" md="4">
           <v-label>사용여부</v-label>
