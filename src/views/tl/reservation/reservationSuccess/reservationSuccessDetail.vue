@@ -124,10 +124,8 @@ export default {
     close () {
       this.$emit('update:dialog', false)
     },
-
     getDetail () {
       this.detail = {}
-
       reservationSuccessService.selectReservationSuccessDetail(this.toastData.bindParam1, this.toastData.bindParam2).then(response => {
         this.detail = response.data
       })

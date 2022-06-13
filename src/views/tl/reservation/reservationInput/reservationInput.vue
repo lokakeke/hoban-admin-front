@@ -26,7 +26,7 @@
                                                     {{ item.cnt }}
                                                     <v-icon>
                                                         {{
-                                                            item.expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
+                                                            item.isOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
                                                         }}
                                                     </v-icon>
                                                 </v-btn>
@@ -82,8 +82,8 @@
                                                @change="search"></search-pagination>
                         </div>
                     </v-flex>
-                </v-layout>
 
+                </v-layout>
             </app-card>
         </v-container>
 
@@ -159,15 +159,14 @@ export default {
           endField: 'endDate1',
           format: 'YYYYMMDD'
         },
-        // {key: 'insDt', label: '등록일', type: 'dateRange', startField: 'beginDate2', endField: 'endDate2', format: 'YYYYMMDD', defaultValue: {'start': moment().toDate(), 'end': moment().toDate()}},
         {
           key: 'createDatetime',
           label: '등록일',
           type: 'dateRange',
           startField: 'beginDate2',
           endField: 'endDate2',
-          format: 'YYYYMMDD'
-          // defaultValue: { start: moment.now(), end: moment.now() }
+          format: 'YYYYMMDD',
+          defaultValue: [moment().format('YYYYMMDD'), moment().format('YYYYMMDD')]
         },
         { key: 'travRsvNo', label: 'TL예약번호', type: 'text' },
         { key: 'isBreakfast', label: '조식여부', type: 'boolean' },

@@ -28,7 +28,7 @@
                                                     {{ item.cnt }}
                                                     <v-icon>
                                                         {{
-                                                            item.expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
+                                                            item.isOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
                                                         }}
                                                     </v-icon>
                                                 </v-btn>
@@ -159,8 +159,8 @@ export default {
           type: 'dateRange',
           startField: 'beginDate2',
           endField: 'endDate2',
-          format: 'YYYYMMDD'
-          // defaultValue: { start: moment().toDate(), end: moment().toDate() }
+          format: 'YYYYMMDD',
+          defaultValue: [moment().format('YYYYMMDD'), moment().format('YYYYMMDD')]
         },
         { key: 'travRsvNo', label: 'TL예약번호', type: 'text' },
         { key: 'rsvNo', label: '예약번호', type: 'text' },
