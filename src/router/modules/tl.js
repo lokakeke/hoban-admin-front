@@ -136,60 +136,60 @@ export default {
         breadcrumb: 'ReservationSuccess'
       }
     },
-      {
-          path: 'sendStock',
-          component: SendStock,
-          name: 'tl.sendStock',
-          meta: {
-              auth: true,
-              requiresAuth: true,
-              title: '재고 전송이력',
-              breadcrumb: 'SendStock'
-          }
-      },
-      {
-          path: 'rate',
-          component: Rate,
-          name: 'tl.rate',
-          meta: {
-              auth: true,
-              requiresAuth: true,
-              title: '요율 관리',
-              breadcrumb: 'Rate'
-          }
-      },
-      {
-          path: 'memberNo',
-          component: MemberNo,
-          name: 'tl.memberNo',
-          meta: {
-              auth: true,
-              requiresAuth: true,
-              title: '회원번호 관리',
-              breadcrumb: 'memberNo'
-          }
-      },
-      {
-          path: 'price',
-          component: Price,
-          name: 'tl.price',
-          meta: {
-              auth: true,
-              requiresAuth: true,
-              title: '금액 관리',
-              breadcrumb: 'Price'
-          }
-      },
-      {
-          path: 'sendPrice',
-          component: SendPrice,
-          name: 'tl.sendPrice',
-          meta: {
-              auth: true,
-              requiresAuth: true,
-              title: '금액 전송이력',
-              breadcrumb: 'SendPrice'
-          }
+    {
+      path: 'sendStock',
+      component: SendStock,
+      name: 'tl.sendStock',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '재고 전송이력',
+        breadcrumb: 'SendStock'
       }
+    },
+    {
+      path: 'rate',
+      component: Rate,
+      name: 'tl.rate',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '요율 관리',
+        breadcrumb: 'Rate'
+      }
+    },
+    {
+      path: 'memberNo',
+      component: MemberNo,
+      name: 'tl.memberNo',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '회원번호 관리',
+        breadcrumb: 'memberNo'
+      }
+    },
+    {
+      path: 'price',
+      component: Price,
+      name: 'tl.price',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '금액 관리',
+        breadcrumb: 'Price'
+      }
+    },
+    {
+      path: 'sendPrice',
+      component: SendPrice,
+      name: 'tl.sendPrice',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '금액 전송이력',
+        breadcrumb: 'SendPrice'
+      }
+    }
   ]
 }

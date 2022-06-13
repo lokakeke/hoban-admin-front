@@ -95,7 +95,7 @@
                                 <pre v-html="detail.remark"></pre>
                             </v-flex>
 
-                            <v-flex xs12 md6>
+                            <v-flex xs12 md6 class="pl-3">
                                 <pre v-html="detail.telegramData"></pre>
                             </v-flex>
                         </v-layout>
@@ -103,7 +103,7 @@
                         <reservation-history :brc-no="detail.brcNo"
                                              :org-data-id="detail.orgDataId"></reservation-history>
 
-                        <v-layout justify-end>
+                        <v-layout justify-end class="pt-5">
                             <v-flex xs5 md5>
                                 <v-label>KEY 번호</v-label>
                                 <v-text-field v-model="detail.keyRsvNo" label=""></v-text-field>
@@ -114,27 +114,33 @@
                                 <v-label>예약번호(4자리)</v-label>
                                 <v-text-field v-model="detail.rsvNo" label=""></v-text-field>
                             </v-flex>
-                            <v-btn  color="orange" @click="getRsvInfo()"><v-icon>check</v-icon>예약번호확인</v-btn>
+<!--                            <v-btn  color="orange" @click="getRsvInfo()"><v-icon>check</v-icon>예약번호확인</v-btn>-->
+                            <v-btn outlined rounded color="orange"  @click="getRsvInfo()">
+                                <v-icon>check</v-icon>
+                                예약번호확인
+                            </v-btn>
                         </v-layout>
 
-                        <v-layout justify-end v-if="detail.noHistoryYn == 'Y' && !detail.notTryConfirmYmd">
-                            <v-btn  color="info" @click="complete()">
+                        <v-layout justify-end v-if="detail.noHistoryYn == 'Y' && !detail.notTryConfirmYmd" class="pt-5">
+                            <v-btn outlined rounded color="info"  @click="complete()">
                                 <v-icon>check</v-icon>
                                 예약 미시도 확인완료
                             </v-btn>
                         </v-layout>
 
-                        <v-layout justify-end>
-                            <v-flex xs12 md6 class="pl-3">
+                        <v-layout justify-end class="pt-5">
+                            <v-flex xs18 md18 class="pl-3">
                                 <v-label>확인내용</v-label>
                                 <v-textarea
                                     solo
                                     name="input-7-4"
                                     rows="10"
                                     v-model="detail.confirmRemark" ></v-textarea>
-
                             </v-flex>
-                            <v-btn color="green" @click="complete()"><v-icon>check</v-icon>확인완료</v-btn>
+                                <v-btn class="pl-5" outlined rounded color="green"  @click="complete()">
+                                    <v-icon>check</v-icon>
+                                    확인완료
+                                </v-btn>
                         </v-layout>
                     </v-container>
                     <!-- 예약 에러 -->

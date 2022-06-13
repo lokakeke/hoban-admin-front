@@ -6,21 +6,25 @@
                              @search="search"></search-form>
                 <v-layout row wrap>
                     <v-flex xs12>
-                        <v-data-table most-sort :no-data-text="'예약 수동 목록이 없습니다.'" class="condensed" :headers="headers" :items="list"
-                                      ref="detail" item-key="orgDataId">
+                        <v-data-table most-sort :no-data-text="'예약 수동 목록이 없습니다.'"
+                                      :items-per-page="searchParam.size"
+                                      class="condensed click-row bordered" :headers="headers" :items="list"
+                                      ref="detail" item-key="travRsvNo"
+                                      hide-default-footer
+                        >
                             <template v-slot:body="{ items }">
                                 <tbody>
                                 <template v-for="(item,index) in items">
                                     <tr class="pointer" :key="index" @click="showDetail(item)">
                                         <td class="text-center">{{ item.brcName }}</td>
                                         <td class="text-center">
-                                            <template v-if="item.cnt == 1">
+                                            <template v-if="Number(item.cnt) === 1">
                                                                             <span class="v-badge error">
                                                                                 {{ item.cnt }}
                                                                             </span>
                                             </template>
                                             <template v-else>
-                                                <v-btn small @click="openSubDetailList(null, item)" @click.stop.prevent>
+                                                <v-btn small @click="openSubDetailList(item)" @click.stop.prevent>
                                                     {{ item.cnt }}
                                                     <v-icon>
                                                         {{
@@ -39,9 +43,10 @@
                                         <td class="text-center">{{ item.breakfastYn == 'Y' ? '포함' : '' }}</td>
                                         <td class="text-center">{{ item.rsvNo }}</td>
                                         <td class="text-center">{{ item.confirmDt | date }}</td>
-                                        <td class="text-center">{{ item.createDatetime}}</td>
+                                        <td class="text-center">{{ item.createDatetime }}</td>
                                     </tr>
-                                    <tr v-if="item.isOpen && item.isOpen === true" :key="index+ '-'" class="bordered sub-detail">
+                                    <tr v-if="item.isOpen && item.isOpen === true" :key="index+ '-'"
+                                        class="bordered sub-detail">
                                         <td colspan="14" class="pr-2 pl-2 text-md-center">
                                             <div class="condensed pt-2 pb-2">
                                                 <table class="bordered" style="width: 100%">
@@ -58,15 +63,17 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr v-for="(detail, index) of item.detailList" class="pointer pr-2 pl-2 text-md-center" :key="index" @click="showSubDetail(detail)">
-                                                        <td>{{detail.rsvName}}</td>
-                                                        <td>{{detail.rmTypeName}}</td>
-                                                        <td>{{detail.roomYmd }}</td>
-                                                        <td>{{detail.roomCnt}}</td>
-                                                        <td>{{detail.nights}}</td>
-                                                        <td>{{detail.roomPrice | price}}</td>
-                                                        <td>{{detail.confirmDt | date}}</td>
-                                                        <td>{{detail.createDatetime}}</td>
+                                                    <tr v-for="(detail, index) of item.detailList"
+                                                        class="pointer pr-2 pl-2 text-md-center" :key="index"
+                                                        @click="showSubDetail(detail)">
+                                                        <td>{{ detail.rsvName }}</td>
+                                                        <td>{{ detail.rmTypeName }}</td>
+                                                        <td>{{ detail.roomYmd }}</td>
+                                                        <td>{{ detail.roomCnt }}</td>
+                                                        <td>{{ detail.nights }}</td>
+                                                        <td>{{ detail.roomPrice | price }}</td>
+                                                        <td>{{ detail.confirmDt | date }}</td>
+                                                        <td>{{ detail.createDatetime }}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -86,8 +93,7 @@
 
                 <v-layout row justify-space-between>
                     <div>
-                        <v-btn color="primary" @click="getWaitList('Y')"
-                               v-if="this.searchParam.q.confirmYn ==='N' ">
+                        <v-btn color="primary" @click="getWaitList('Y')" v-if="this.searchParam.q.procYn ==='N' ">
                             <v-icon>search</v-icon>
                             처리,미처리건 조회
                         </v-btn>
@@ -227,13 +233,12 @@ export default {
       }
     },
     showDetail (item) {
-      console.log('showDetail')
-      console.log(item)
       if (item.detailList.length < 2) {
-        console.log('here')
         this.toastData.bindParam1 = item.brcNo
         this.toastData.bindParam4 = item.detailList[0].manualNo
         this.dialog = true
+      } else {
+        this.openSubDetailList(item)
       }
     },
     showSubDetail (item) {
@@ -241,7 +246,7 @@ export default {
       this.toastData.bindParam4 = item.manualNo
       this.dialog = true
     },
-    openSubDetailList (detail, item) {
+    openSubDetailList (item) {
       if (!item.isOpen) {
         Vue.set(item, 'isOpen', true)
       } else {
