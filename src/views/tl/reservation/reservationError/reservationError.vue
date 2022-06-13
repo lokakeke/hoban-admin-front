@@ -7,21 +7,23 @@
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-data-table most-sort :no-data-text="'예약 에러 목록이 없습니다.'"
-                                      :expand="true" class="condensed" :headers="headers" :items="list"
-                                      ref="detail" item-key="orgDataId">
+                                      :items-per-page="searchParam.size"
+                                      class="condensed click-row bordered" :headers="headers" :items="list"
+                                      ref="detail" item-key="orgDataId"
+                                      hide-default-footer>
                             <template v-slot:body="{ items }">
                                 <tbody>
                                 <template v-for="(item,index) in items">
                                     <tr class="pointer" :key="index" @click="showDetail(item)">
                                         <td class="text-center">{{ item.brcName }}</td>
                                         <td class="text-center">
-                                            <template v-if="item.cnt == 1">
+                                            <template v-if="Number(item.cnt) === 1">
                                                                             <span class="v-badge error">
                                                                                 {{ item.cnt }}
                                                                             </span>
                                             </template>
                                             <template v-else>
-                                                <v-btn small @click="openSubDetailList(null, item)" @click.stop.prevent>
+                                                <v-btn small @click="openSubDetailList(item)" @click.stop.prevent>
                                                     {{ item.cnt }}
                                                     <v-icon>
                                                         {{
@@ -237,12 +239,12 @@ export default {
     },
 
     showDetail (item) {
-      console.log('prop~')
       if (item.detailList.length < 2) {
-        console.log('ㅇㅇㅇㅇㅇ!@!')
         this.toastData.bindParam1 = item.brcNo
         this.toastData.bindParam4 = item.detailList[0].hstNo
         this.dialog = true
+      } else {
+        this.openSubDetailList(item)
       }
     },
 
@@ -251,7 +253,7 @@ export default {
       this.toastData.bindParam4 = item.hstNo
       this.dialog = true
     },
-    openSubDetailList (detail, item) {
+    openSubDetailList (item) {
       if (!item.isOpen) {
         Vue.set(item, 'isOpen', true)
       } else {

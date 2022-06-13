@@ -105,8 +105,8 @@
                         </v-layout>
                         <reservation-history :brc-no="detail.brcNo"
                                              :org-data-id="detail.orgDataId"></reservation-history>
-                        <v-layout justify-end v-if="detail.noHistoryYn == 'Y' && !detail.notTryConfirmYmd">
-                            <v-btn outlined rounded color="info" @click="complete()">
+                        <v-layout justify-end class="mt-3" v-if="detail.noHistoryYn == 'Y' && !detail.notTryConfirmYmd">
+                            <v-btn outlined rounded color="orange"  @click="complete()">
                                 <v-icon>check</v-icon>
                                 예약 미시도 확인완료
                             </v-btn>
@@ -131,10 +131,10 @@ export default {
     return {
       detail: {},
       headers: [
-        { text: '예약구분', value: 'rmTypeNm', align: 'center' },
-        { text: '등록일자', value: 'insDt', align: 'center' },
-        { text: '처리여부', value: 'errorCd', align: 'center' },
-        { text: '에러 메시지', value: 'errorMsg', align: 'center' }
+        { text: '예약구분', value: 'rmTypeNm', align: 'center', sortable: false },
+        { text: '등록일자', value: 'insDt', align: 'center', sortable: false },
+        { text: '처리여부', value: 'errorCd', align: 'center', sortable: false },
+        { text: '에러 메시지', value: 'errorMsg', align: 'center', sortable: false }
       ]
     }
   },

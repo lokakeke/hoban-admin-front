@@ -7,21 +7,24 @@
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-data-table most-sort :no-data-text="'예약 등록 목록이 없습니다.'"
-                                      class="condensed" :headers="headers" :items="list"
-                                      ref="detail" item-key="travRsvNo">
+                                      :items-per-page="searchParam.size"
+                                      class="condensed click-row bordered" :headers="headers" :items="list"
+                                      ref="detail" item-key="travRsvNo"
+                                      hide-default-footer
+                        >
                             <template v-slot:body="{ items }">
                                 <tbody>
                                 <template v-for="(item,index) in items">
                                     <tr class="pointer" :key="index" @click="showDetail(item)">
-                                        <td class="text-xs-center">{{ item.brcName }}</td>
-                                        <td class="text-xs-center">
-                                            <template v-if="item.cnt == 1">
+                                        <td class="text-center">{{ item.brcName }}</td>
+                                        <td class="text-center">
+                                            <template v-if="Number(item.cnt) === 1">
                                                                             <span class="v-badge error">
                                                                                 {{ item.cnt }}
                                                                             </span>
                                             </template>
                                             <template v-else>
-                                                <v-btn small @click="openSubDetailList(null, item)" @click.stop.prevent>
+                                                <v-btn small @click="openSubDetailList(item)" @click.stop.prevent>
                                                     {{ item.cnt }}
                                                     <v-icon>
                                                         {{
@@ -124,9 +127,9 @@ export default {
       page: 1,
       list: [],
       headers: [
-        { text: '사업장', value: 'brcName', align: 'center', sortable: false }, //
-        { text: '건수', value: 'cnt', align: 'center', sortable: false }, //
-        { text: '마지막 상태', value: 'rsvName', align: 'center', sortable: false }, //
+        { text: '사업장', value: 'brcName', align: 'center', sortable: false },
+        { text: '건수', value: 'cnt', align: 'center', sortable: false },
+        { text: '마지막 상태', value: 'rsvName', align: 'center', sortable: false },
         { text: '판매처', value: 'agtName', align: 'center', sortable: false },
         { text: 'TL예약번호', value: 'travRsvNo', align: 'center', sortable: false },
 
@@ -213,8 +216,9 @@ export default {
         this.toastData.bindParam1 = item.brcNo
         this.toastData.bindParam2 = item.detailList[0].successNo
         this.dialog = true
+      } else {
+        this.openSubDetailList(item)
       }
-      // this.getDetail()
     },
 
     showSubDetail (item) {
@@ -223,7 +227,7 @@ export default {
       this.toastData.bindParam3 = item.inputDetailNo
       this.dialog = true
     },
-    openSubDetailList (detail, item) {
+    openSubDetailList (item) {
       if (!item.isOpen) {
         Vue.set(item, 'isOpen', true)
       } else {

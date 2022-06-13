@@ -116,13 +116,12 @@
                             <reservation-history :brc-no="detail.brcNo"
                                                  :org-data-id="detail.orgDataId"></reservation-history>
 
-                            <v-layout justify-end v-if="!detail.procDt">
-                                <v-btn color="green" @click="detailUpdate()">
+                            <v-layout justify-end v-if="!detail.procDt" class="mt-5">
+                                <v-btn  outlined rounded color="orange" @click="detailUpdate()">
                                     <v-icon>check</v-icon>
                                     수정 및 예약
                                 </v-btn>
-
-                                <v-btn color="red" @click="confirmUpdate()">
+                                <v-btn color="red" outlined rounded  @click="confirmUpdate()">
                                     <v-icon>check</v-icon>
                                     예약을 진행하지 않고 확인완료
                                 </v-btn>
