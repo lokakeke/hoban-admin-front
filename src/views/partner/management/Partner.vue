@@ -69,7 +69,7 @@ export default {
     headers () {
       const headers = [
         { text: '업체 번호', value: 'partnerSeq', align: 'center', sortable: false },
-        { text: '업체 명', value: 'companyName', align: 'center', sortable: false },
+        { text: '업체 명', value: 'partnerName', align: 'center', sortable: false },
         { text: '로그인 아이디', value: 'loginId', align: 'center', sortable: false },
         { text: '사업자 번호', value: 'companyNo', align: 'center', sortable: false },
         { text: '관리자 성명', value: 'ceoName', align: 'center', sortable: false },
@@ -92,7 +92,7 @@ export default {
     },
     searchList () {
       const searchList = [
-        { key: 'companyName', label: '파트너명', type: 'text' },
+        { key: 'partnerName', label: '파트너명', type: 'text' },
         { key: 'loginId', label: '로그인 아이디', type: 'text' },
         { key: 'ceoName', label: '대표자 성명', type: 'text' },
         { key: 'menuAuthGroupId', label: '메뉴 권한', type: 'select', list: this.menuAuthList, listValue: 'menuAuthGroupId', listText: 'menuAuthGroupName' },
@@ -141,7 +141,7 @@ export default {
       if (rowData) {
         isModify = true
         partnerSeq = rowData.partnerSeq
-        partnerName = rowData.companyName
+        partnerName = rowData.partnerName
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
@@ -161,7 +161,7 @@ export default {
       })
     },
     passwordReset (row) {
-      this.$dialog.confirm(`${row.companyName} 의 임시 비밀번호 발급을 진행하시겠습니까?`).then(() => {
+      this.$dialog.confirm(`${row.partnerName} 의 임시 비밀번호 발급을 진행하시겠습니까?`).then(() => {
         service.createTemporaryPassword(row.loginId).then(res => {
           console.log('임시 비밀번호 확인용 : ', res.data)
           this.$dialog.alert('임시 비밀번호가 발급되었습니다.')

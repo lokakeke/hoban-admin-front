@@ -3,15 +3,15 @@
     <v-form ref="form" lazy-validation autocomplete="off">
       <v-row>
         <v-col cols="12">
-          <v-autocomplete v-model="newItem.cancelResnCd"
+          <v-autocomplete v-model="newItem.cancelResnCode"
                           autocomplete="off"
                           :items="cancelResnList"
-                          :item-value="'commCd'"
-                          :item-text="'commCdName'"
+                          :item-value="'commonCode'"
+                          :item-text="'commonCodeName'"
                           hide-details
                           label="취소코드"
                           :rules="emptyRules"
-                          @change="modifyCancelDesc(newItem.cancelResnCd)"
+                          @change="modifyCancelDesc(newItem.cancelResnCode)"
           />
         </v-col>
         <v-col cols="12">
@@ -68,22 +68,22 @@ export default {
      * 취소 사유 코드 선택/변경시
      */
     modifyCancelDesc (info) {
-      const cancel = this.cancelResnList.filter(data => data.commCd === info)
-      this.newItem.cancelResnDesc = cancel[0].commCdName
+      const cancel = this.cancelResnList.filter(data => data.commonCode === info)
+      this.newItem.cancelResnDesc = cancel[0].commonCodeName
     },
     /**
      * 저장(취소실행)
      */
     save () {
       this.validForm(this.$refs.form).then(() => {
-        if (!this.newItem.cancelResnCd) {
+        if (!this.newItem.cancelResnCode) {
           this.$dialog.alert('취소 사유 코드값을 선택해 주세요.')
         } else {
           this.$dialog.confirm('예약을 취소하시겠습니까?').then(() =>
             this.close({
               data:
                 {
-                  cancelResnCd: this.newItem.cancelResnCd,
+                  cancelResnCode: this.newItem.cancelResnCode,
                   cancelResnDesc: this.newItem.cancelResnDesc
                 }
             })

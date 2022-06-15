@@ -17,9 +17,9 @@
           <v-btn outlined rounded color="blue" class="my-1 px-1 room-step-2 package-step-2" @click="getPartnerInfo('PKG')">패키지신규(Ctrl+F6)</v-btn>
           <v-btn outlined rounded color="green" class="my-1 px-1 room-step-3 package-step-3" @click="changeMemInfo" :disabled="rsvDetail.rsvState !== '예약'">고객정보변경</v-btn>
           <v-btn outlined rounded color="green" class="my-1 px-1 room-step-4 package-step-4" @click="changeRsvInfo" :disabled="rsvDetail.rsvState !== '예약'">예약정보변경</v-btn>
-          <v-btn outlined rounded color="green" class="my-1 px-1 room-step-5 package-step-5" @click="changeRsvType" :disabled="rsvDetail.rsvState !== '예약'">예약이관</v-btn>
+<!--          <v-btn outlined rounded color="green" class="my-1 px-1 room-step-5 package-step-5" @click="changeRsvType" :disabled="rsvDetail.rsvState !== '예약'">예약이관</v-btn>
           <v-btn outlined rounded color="green" class="my-1 px-1 room-step-6" v-if="roomType.value === 'OTA_ROOM_API'" @click="splitNights" :disabled="rsvDetail.rsvState !== '예약'">박수분리</v-btn>
-          <v-btn outlined rounded color="green" class="my-1 px-1 room-step-7" v-if="roomType.value === 'OTA_ROOM_API'" @click="splitRmCnt" :disabled="rsvDetail.rsvState !== '예약'">실수분리</v-btn>
+          <v-btn outlined rounded color="green" class="my-1 px-1 room-step-7" v-if="roomType.value === 'OTA_ROOM_API'" @click="splitRoomCount" :disabled="rsvDetail.rsvState !== '예약'">실수분리</v-btn>-->
           <v-btn outlined rounded color="green" class="my-1 px-1 package-step-5" v-if="roomType.value === 'OTA_PKG_API'" @click="pkgTodayRsv">당일예약패키지</v-btn>
           <v-btn outlined rounded color="red" class="my-1 px-1 room-step-7 package-step-6" @click="openCancelPopup" :disabled="!(rsvDetail.rsvState === '예약' || rsvDetail.rsvState === '취소')">예약취소(F8)</v-btn>
         </v-col>
@@ -288,7 +288,7 @@ export default {
     /**
      * 예약이관
      */
-    changeRsvType () {
+    /* changeRsvType () {
       // 예약 번호 필수
       if (this.rsvDetail.rsvNo) {
         this.$store.dispatch('dialog/open', {
@@ -306,14 +306,14 @@ export default {
                 rsvInfo.keyRsvNo = this.rsvDetail.keyRsvNo
                 rsvInfo.guestName = params.data.guestName
                 rsvInfo.smsPhone = params.data.smsPhone
-                rsvInfo.chainRsvNo = params.data.chainRsvNo
+                rsvInfo.partnerRsvNo = params.data.partnerRsvNo
                 rsvInfo.loginId = this.user.number
                 rsvInfo.agentCode = params.data.agentCode
-                if (params.data.memNo) {
-                  rsvInfo.memNo = params.data.memNo
+                if (params.data.memberNo) {
+                  rsvInfo.memberNo = params.data.memberNo
                   this.rsvChangeToRoom(this.path, rsvInfo)
                 } else {
-                  rsvInfo.pkgNo = params.data.pkgNo
+                  rsvInfo.packageNo = params.data.packageNo
                   this.rsvChangeToPkg(this.path, rsvInfo)
                 }
               }
@@ -323,37 +323,37 @@ export default {
       } else {
         this.$dialog.alert('이관할 예약이 존재하지 않습니다.')
       }
-    },
+    }, */
     /**
      * 객실로 예약 이관 실행
      */
-    async rsvChangeToRoom (path, rsvInfo) {
+    /* async rsvChangeToRoom (path, rsvInfo) {
       const res = await roomService.updateRsvChangeToRoom(path, rsvInfo)
-      if (res.data.roomRsvNo) {
-        console.log(`예약번호: ${res.data.roomRsvNo},  ${res.data.roomRsvSeq}`)
-        this.$dialog.alert(`예약번호: ${res.data.roomRsvNo}`)
+      if (res.data.guestRsvNo) {
+        console.log(`예약번호: ${res.data.guestRsvNo},  ${res.data.partnerRsvNo}`)
+        this.$dialog.alert(`예약번호: ${res.data.guestRsvNo}`)
         this.$emit('show-detail', this.rsvDetail)
       } else {
         this.$dialog.alert(res.data.resultMsg)
       }
-    },
+    }, */
     /**
      * 패키지로 예약 이관 실행
      */
-    async rsvChangeToPkg (path, rsvInfo) {
+    /* async rsvChangeToPkg (path, rsvInfo) {
       const res = await roomService.updateRsvChangeToPkg(path, rsvInfo)
-      if (res.data.roomRsvNo) {
-        console.log(`예약번호: ${res.data.roomRsvNo},  ${res.data.roomRsvSeq}`)
-        this.$dialog.alert(`예약번호: ${res.data.roomRsvNo}`)
+      if (res.data.guestRsvNo) {
+        console.log(`예약번호: ${res.data.guestRsvNo},  ${res.data.partnerRsvNo}`)
+        this.$dialog.alert(`예약번호: ${res.data.guestRsvNo}`)
         this.$emit('show-detail', this.rsvDetail)
       } else {
         this.$dialog.alert(res.data.resultMsg)
       }
-    },
+    }, */
     /**
      * 실수분리
      */
-    async splitRmCnt () {
+    /* async splitRoomCount () {
       // 예약 번호 필수
       if (this.rsvDetail.rsvNo) {
         // 객실인 경우에만 실수분리 가능
@@ -361,15 +361,15 @@ export default {
           const confirm = await this.$dialog.confirm('객실수분리를 선택하셨습니다. 계속 진행하시겠습니까?')
           if (confirm) {
             // 실수분리는 2실 이상인 경우만 가능
-            if (this.rsvDetail.rmCnt < 2) {
+            if (this.rsvDetail.roomCount < 2) {
               this.$dialog.alert('실수분리는 2실 이상 예약에서만 가능합니다.')
             } else {
               // 실수분리 로직 실행
-              const res = await roomService.splitRmCnt(this.path, this.rsvDetail.keyRsvNo)
+              const res = await roomService.splitRoomCount(this.path, this.rsvDetail.keyRsvNo)
               if (res.data && res.data.length > 0) {
                 let rsvList = '신규예약번호 : '
                 for (const one of res.data) {
-                  rsvList = rsvList + one.roomRsvNo + ', '
+                  rsvList = rsvList + one.guestRsvNo + ', '
                 }
                 this.$dialog.alert(rsvList)
                 this.$emit('show-detail', this.rsvDetail)
@@ -384,11 +384,11 @@ export default {
       } else {
         this.$dialog.alert('실수분리할 예약이 존재하지 않습니다.')
       }
-    },
+    }, */
     /**
      * 박수분리
      */
-    async splitNights () {
+    /* async splitNights () {
       // 예약 번호 필수
       if (this.rsvDetail.rsvNo) {
         // 객실인 경우에만 박수분리 가능
@@ -404,7 +404,7 @@ export default {
               if (res.data && res.data.length > 0) {
                 let rsvList = '신규예약번호 : '
                 for (const one of res.data) {
-                  rsvList = rsvList + one.roomRsvNo + ', '
+                  rsvList = rsvList + one.guestRsvNo + ', '
                 }
                 this.$dialog.alert(rsvList)
                 this.$emit('show-detail', this.rsvDetail)
@@ -419,7 +419,7 @@ export default {
       } else {
         this.$dialog.alert('박수분리할 예약이 존재하지 않습니다.')
       }
-    },
+    }, */
     /**
      * 패키지 당일 예약
      */
@@ -505,7 +505,7 @@ export default {
         param.keySeq = this.rsvDetail.keySeq
         param.cancelResnCode = cancelReason.cancelResnCode
         param.cancelResnDesc = cancelReason.cancelResnDesc
-        param.updId = this.user.number // 수정자
+        param.modifyId = this.user.number // 수정자
         // 취소 사유 변경
         const res = await roomService.updateCancelResn(param)
         if (res.data.result === '0') {
@@ -526,9 +526,9 @@ export default {
         param.keyRsvNo = this.rsvDetail.keyRsvNo
         param.cancelResnCode = cancelReason.cancelResnCode
         param.cancelResnDesc = cancelReason.cancelResnDesc
-        param.updId = this.user.number // 수정자
+        param.modifyId = this.user.number // 수정자
         if (this.roomType.value === 'OTA_ROOM_API') { // 객실
-          param.memNo = this.rsvDetail.memNo
+          param.memberNo = this.rsvDetail.memberNo
           // 객실 예약 취소
           const res = await roomService.cancelRoomRsv(this.path, param)
           if (res.data.resultCode === '0000') {
@@ -565,9 +565,9 @@ export default {
         this.openPkgTodayRsv() // 당일예약 패키지 오픈
       } else {
         if (roomType === 'ROOM') {
-          this.openNewRoomRsvPopup() // 객실 신규 팝업 오픈
+          await this.openNewRoomRsvPopup() // 객실 신규 팝업 오픈
         } else if (roomType === 'PKG') {
-          this.openNewPkgRsvPopup() // 패키지 신규 팝업 오픈
+          await this.openNewPkgRsvPopup() // 패키지 신규 팝업 오픈
         }
       }
       this.isTodayRsvPkg = false
@@ -617,7 +617,7 @@ export default {
       // 예약 번호 필수
       if (this.rsvDetail.rsvNo) {
         const origin = {}
-        origin.chainRsvNo = this.rsvDetail.chainRsvNo // 업체예약번호
+        origin.partnerRsvNo = this.rsvDetail.partnerRsvNo // 업체예약번호
         origin.guestName = this.rsvDetail.guestName
         origin.smsPhone = this.rsvDetail.smsPhone
         this.$store.dispatch('dialog/open', {
@@ -632,7 +632,7 @@ export default {
             closeCallback: (params) => {
               if (params && params.data) {
                 // 총합계가 0원 일때
-                if (this.rsvDetail.payAmt === '0') {
+                if (this.rsvDetail.partnerRsvPrice === '0') {
                   const rsvInfoCopy = _.cloneDeep(this.rsvDetail)
                   if (params.data.smsPhone) {
                     rsvInfoCopy.smsPhone = params.data.smsPhone
@@ -640,8 +640,8 @@ export default {
                   if (params.data.guestLnm) {
                     rsvInfoCopy.guestName = params.data.guestLnm
                   }
-                  if (params.data.chainRsvNo) {
-                    rsvInfoCopy.chainRsvNo = params.data.chainRsvNo
+                  if (params.data.partnerRsvNo) {
+                    rsvInfoCopy.partnerRsvNo = params.data.partnerRsvNo
                   }
                   this.updateRsvInfo(rsvInfoCopy)
                 } else {
@@ -652,8 +652,8 @@ export default {
                     this.$dialog.alert('key예약번호는 필수값입니다. 다시 시도해주세요')
                     return
                   }
-                  if (params.data.chainRsvNo) {
-                    param.chainRsvNo = params.data.chainRsvNo
+                  if (params.data.partnerRsvNo) {
+                    param.partnerRsvNo = params.data.partnerRsvNo
                   }
                   if (params.data.guestLnm) {
                     param.guestLnm = params.data.guestLnm
@@ -695,26 +695,26 @@ export default {
      */
     async updateRsvInfo (item) {
       const rsvInfo = {}
-      rsvInfo.updId = this.user.number
-      rsvInfo.userName = item.guestName // 이용자명
-      rsvInfo.userTel = item.smsPhone // 이용자 연락처
+      rsvInfo.modifyId = this.user.number
+      rsvInfo.guestName = item.guestName // 이용자명
+      rsvInfo.guestTelNo = item.smsPhone // 이용자 연락처
       rsvInfo.keyRsvNo = item.keyRsvNo // key예약번호(수정시에만)
-      rsvInfo.comRsvNo = item.chainRsvNo// 업체 예약번호(주문번호)
+      rsvInfo.partnerRsvNo = item.partnerRsvNo// 업체 예약번호(주문번호)
       rsvInfo.storeCode = item.storeCode
-      rsvInfo.ciYmd = item.ciYmd
-      rsvInfo.rmTypeCode = item.rmTypeCode
-      rsvInfo.adultCnt = item.adultCnt
-      rsvInfo.childCnt = item.childCnt
-      rsvInfo.rsvBlckCode = item.rsvBlckCode
+      rsvInfo.checkInDate = item.checkInDate
+      rsvInfo.roomTypeCode = item.roomTypeCode
+      rsvInfo.adultCount = item.adultCount
+      rsvInfo.childCount = item.childCount
+      rsvInfo.blockCode = item.blockCode
       rsvInfo.agentCode = item.agentCode
-      rsvInfo.companyName = item.rsvGuestlnm// 예약자명(예약파트너명)
-      rsvInfo.rsvGuestTelNo = item.rsvGuestTelNo // 예약자 연락처
-      rsvInfo.payAmt = item.payAmt // 총합계
+      rsvInfo.partnerName = item.partnerName// 예약자명(예약파트너명)
+      rsvInfo.partnerTelNo = item.partnerTelNo // 예약자 연락처
+      rsvInfo.partnerRsvPrice = item.partnerRsvPrice // 총합계
       // 객실
-      if (item.memNo) {
-        rsvInfo.memNo = item.memNo
+      if (item.memberNo) {
+        rsvInfo.memberNo = item.memberNo
         rsvInfo.nights = item.nights
-        rsvInfo.rmCnt = item.rmCnt
+        rsvInfo.roomCount = item.roomCount
         const res = await roomService.updateRoomRsvInfo(this.path, rsvInfo)
         if (res.data.resultCode === '0000') {
           this.$dialog.alert('성공적으로 수정되었습니다.')
@@ -723,7 +723,7 @@ export default {
           this.$dialog.alert(res.data.resultMsg)
         }
       } else { // 패키지
-        rsvInfo.pkgNo = item.pkgNo
+        rsvInfo.packageNo = item.packageNo
         const res = await roomService.updatePackageRsvInfo(this.path, rsvInfo)
         if (res.data.resultCode === '0000') {
           this.$dialog.alert('성공적으로 수정되었습니다.')
@@ -740,17 +740,17 @@ export default {
       // 예약 번호 필수
       if (this.rsvDetail.rsvNo) {
         const origin = {}
-        origin.chainRsvNo = this.rsvDetail.chainRsvNo // 업체예약번호
+        origin.partnerRsvNo = this.rsvDetail.partnerRsvNo // 업체예약번호
         origin.guestName = this.rsvDetail.guestName // 이용자명
-        origin.smsPhone = this.rsvDetail.smsPhone // 이용자연락처
-        origin.memNo = this.rsvDetail.memNo // 회원번호
-        origin.memName = this.rsvDetail.memName // 회원명
-        origin.pkgNo = this.rsvDetail.pkgNo // 패키지번호
-        origin.pkgName = this.rsvDetail.pkgName // 패키지명
+        origin.guestTelNo = this.rsvDetail.smsPhone // 이용자연락처
+        origin.memberNo = this.rsvDetail.memberNo // 회원번호
+        origin.memberName = this.rsvDetail.memberName // 회원명
+        origin.packageNo = this.rsvDetail.packageNo // 패키지번호
+        origin.packageName = this.rsvDetail.packageName // 패키지명
         origin.storeCode = this.rsvDetail.storeCode // 영업장코드
         origin.storeName = this.rsvDetail.storeName // 영업장명
-        origin.rmTypeCode = this.rsvDetail.rmTypeCode // 객실유형코드
-        origin.rmTypeName = this.rsvDetail.rmTypeName // 객실유형명
+        origin.roomTypeCode = this.rsvDetail.roomTypeCode // 객실유형코드
+        origin.roomTypeName = this.rsvDetail.roomTypeName // 객실유형명
         origin.roomType = this.roomType.value // 타입
 
         this.$store.dispatch('dialog/open', {
@@ -765,7 +765,7 @@ export default {
             closeCallback: (params) => {
               if (params && params.data) {
                 const rsvInfoCopy = _.cloneDeep(this.rsvDetail)
-                this.getRsvBlckCode(rsvInfoCopy, params)
+                this.getBlockCode(rsvInfoCopy, params)
               }
             }
           }
@@ -777,12 +777,12 @@ export default {
     /**
      * 객실/패키지 정보 내 예약블럭 조회
      */
-    async getRsvBlckCode (rsvInfoCopy, params) {
-      if (params.data.rmTypeCode) {
-        rsvInfoCopy.rmTypeCode = params.data.rmTypeCode
+    async getBlockCode (rsvInfoCopy, params) {
+      if (params.data.roomTypeCode) {
+        rsvInfoCopy.roomTypeCode = params.data.roomTypeCode
       }
-      if (params.data.chainRsvNo) {
-        rsvInfoCopy.chainRsvNo = params.data.chainRsvNo
+      if (params.data.partnerRsvNo) {
+        rsvInfoCopy.partnerRsvNo = params.data.partnerRsvNo
       }
       if (params.data.guestName) {
         rsvInfoCopy.guestName = params.data.guestName
@@ -790,18 +790,18 @@ export default {
       if (params.data.smsPhone) {
         rsvInfoCopy.smsPhone = params.data.smsPhone
       }
-      if (rsvInfoCopy.rsvBlckCode === '104') {
+      if (rsvInfoCopy.blockCode === '104') {
         // 104 → 기본블럭으로 변경
-        if (rsvInfoCopy.memNo) { // 객실
+        if (rsvInfoCopy.memberNo) { // 객실
           const res = await roomTypeService.selectRoomTypeInformationPartner(rsvInfoCopy.storeCode, this.user.number)
-          rsvInfoCopy.rsvBlckCode = res.data.rsvBlckCode
+          rsvInfoCopy.blockCode = res.data.blockCode
         } else { // 패키지
-          const res = await packageService.selectRoomPackageInformation(rsvInfoCopy.pkgNo)
-          rsvInfoCopy.rsvBlckCode = res.data.rsvBlckCode
+          const res = await packageService.selectRoomPackageInformation(rsvInfoCopy.packageNo)
+          rsvInfoCopy.blockCode = res.data.blockCode
         }
       }
       // 파트너사의 경우 104블럭으로 예약정보변경 불가
-      if (rsvInfoCopy.rsvBlckCode === '104' || rsvInfoCopy.rsvBlckCode === '') {
+      if (rsvInfoCopy.blockCode === '104' || rsvInfoCopy.blockCode === '') {
         this.$dialog.alert('변경에 실패하였습니다. (예약블럭 조회 실패)')
         return
       }

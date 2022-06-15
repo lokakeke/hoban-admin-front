@@ -64,25 +64,25 @@ export default {
         },
         {
           text: '패키지번호',
-          value: 'pkgNo',
+          value: 'packageNo',
           align: 'center',
           width: '10%'
         },
         {
           text: '패키지명',
-          value: 'pkgName',
+          value: 'packageName',
           align: 'center',
           width: '50%'
         },
         {
           text: '판매시작일',
-          value: 'saleBgnYmd',
+          value: 'saleStartDate',
           align: 'center',
           width: '10%'
         },
         {
           text: '판매종료일',
-          value: 'saleEndYmd',
+          value: 'saleEndDate',
           align: 'center',
           width: '10%'
         },
@@ -102,13 +102,13 @@ export default {
         },
         {
           text: '패키지번호',
-          value: 'pkgNo',
+          value: 'packageNo',
           align: 'center',
           width: '10%'
         },
         {
           text: '패키지명',
-          value: 'pkgName',
+          value: 'packageName',
           align: 'center',
           width: '40%'
         },
@@ -134,7 +134,7 @@ export default {
     searchList () {
       return [
         {
-          key: 'pkgNo',
+          key: 'packageNo',
           label: '패키지명/No',
           type: 'text',
           cols: 4
@@ -154,7 +154,7 @@ export default {
     filterList () {
       if (this.pkgList && this.pkgList.length > 0) {
         if (this.filterText) {
-          return this.pkgList.filter(data => data.pkgNo.indexOf(this.filterText) !== -1 || data.pkgName.indexOf(this.filterText) !== -1 || data.pkgDesc.indexOf(this.filterText) !== -1)
+          return this.pkgList.filter(data => data.packageNo.indexOf(this.filterText) !== -1 || data.packageName.indexOf(this.filterText) !== -1 || data.pkgDesc.indexOf(this.filterText) !== -1)
         } else {
           return this.pkgList
         }
@@ -174,20 +174,20 @@ export default {
     async search () {
       // 전체 패키지 조회
       const param = {}
-      if (this.rsvInfo.pkgNo) { // 기존 패키지 번호
-        param.originPkgNo = this.rsvInfo.pkgNo
+      if (this.rsvInfo.packageNo) { // 기존 패키지 번호
+        param.originPackageNo = this.rsvInfo.packageNo
       }
-      if (this.searchParam.q.pkgNo) { // 신규 패키지 번호
-        param.pkgNo = this.searchParam.q.pkgNo
+      if (this.searchParam.q.packageNo) { // 신규 패키지 번호
+        param.packageNo = this.searchParam.q.packageNo
       }
       if (this.isPartner) { // 파트너인 경우
         param.partnerSeq = this.user.number
       }
       param.storeCode = this.rsvInfo.storeCode
-      param.rmTypeCode = this.rsvInfo.rmTypeCode
+      param.roomTypeCode = this.rsvInfo.roomTypeCode
       param.nights = this.rsvInfo.nights
-      param.rmCnt = this.rsvInfo.rmCnt
-      param.ciYmd = this.rsvInfo.ciYmd
+      param.roomCount = this.rsvInfo.roomCount
+      param.checkInDate = this.rsvInfo.checkInDate
       // 사용여부(기본값은 사용(Y))
       this.searchParam.q.useYn ? param.useYn = this.searchParam.q.useYn : param.useYn = 'Y'
       const res = await roomService.selectPkgInfoForRsvTypeChange(param)
@@ -210,8 +210,8 @@ export default {
         this.addCheckBox(this.pkgList)
         for (let i = 1; i < this.pkgList.length + 1; i++) {
           this.pkgList[i - 1].number = i
-          this.pkgList[i - 1].saleBgnYmd = moment(this.pkgList[i - 1].saleBgnYmd).format('YYYY-MM-DD')
-          this.pkgList[i - 1].saleEndYmd = moment(this.pkgList[i - 1].saleEndYmd).format('YYYY-MM-DD')
+          this.pkgList[i - 1].saleStartDate = moment(this.pkgList[i - 1].saleStartDate).format('YYYY-MM-DD')
+          this.pkgList[i - 1].saleEndDate = moment(this.pkgList[i - 1].saleEndDate).format('YYYY-MM-DD')
         }
       }
     },

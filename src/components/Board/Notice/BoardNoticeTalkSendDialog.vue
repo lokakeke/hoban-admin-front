@@ -36,7 +36,7 @@
                   class="ma-1"
                   v-for="partner in notice.partnerList"
                   :key="partner.partnerSeq"
-                >{{ partner.companyName }}</v-chip>
+                >{{ partner.partnerName }}</v-chip>
               </div>
               <div class="mt-2" v-else>
                 <!-- 전체 파트너 -->

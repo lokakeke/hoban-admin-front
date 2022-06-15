@@ -134,60 +134,64 @@ export default {
       if (this.isSearch) { // 검색창에서 영업장 조회
         if (this.isPartner) { // 파트너
           if (this.roomType.value === 'OTA_ROOM_API') { // 객실
-            param.useYn = '1'
-            const res = await roomService.selectStoreInfoForSearch(param)
+            param.useYn = 'Y'
+            param.isNowSale = false
+            const res = await roomService.selectStoreInfo(param)
             this.noStoreList(res.data)
           } else { // 패키지
-            param.pkgNo = this.item.pkgNo
+            param.packageNo = this.item.packageNo
             param.useYn = 'Y'
-            const res = await roomService.selectStoreInfoByPkgNo(param)
+            const res = await roomService.selectStoreInfoByPackageNo(param)
             this.noStoreList(res.data)
           }
         } else { // 관리자
           if (this.roomType.value === 'OTA_ROOM_API') { // 객실
-            this.searchParam.q.useYn ? param.useYn = this.searchParam.q.useYn : param.useYn = '1'
-            const res = await roomService.selectStoreInfoForSearch(param)
+            this.searchParam.q.useYn ? param.useYn = this.searchParam.q.useYn : param.useYn = 'Y'
+            param.isNowSale = false
+            const res = await roomService.selectStoreInfo(param)
             this.noStoreList(res.data)
           } else { // 패키지
-            param.pkgNo = this.item.pkgNo
-            if (this.searchParam.q.useYn === '1') {
+            param.packageNo = this.item.packageNo
+            if (this.searchParam.q.useYn === 'Y') {
               param.useYn = 'Y'
             } else if (this.searchParam.q.useYn === '0') {
               param.useYn = 'N'
             } else {
               param.useYn = ''
             }
-            const res = await roomService.selectStoreInfoByPkgNo(param)
+            const res = await roomService.selectStoreInfoByPackageNo(param)
             this.noStoreList(res.data)
           }
         }
       } else {
         if (this.isPartner) { // 파트너
           if (this.roomType.value === 'OTA_ROOM_API') { // 객실
-            param.useYn = '1'
+            param.useYn = 'Y'
+            param.isNowSale = true
             const res = await roomService.selectStoreInfo(param)
             this.noStoreList(res.data)
           } else { // 패키지
-            param.pkgNo = this.item.pkgNo
+            param.packageNo = this.item.packageNo
             param.useYn = 'Y'
-            const res = await roomService.selectStoreInfoByPkgNo(param)
+            const res = await roomService.selectStoreInfoByPackageNo(param)
             this.noStoreList(res.data)
           }
         } else { // 관리자
           if (this.roomType.value === 'OTA_ROOM_API') { // 객실
-            this.searchParam.q.useYn ? param.useYn = this.searchParam.q.useYn : param.useYn = '1'
+            param.useYn = this.searchParam.q.useYn ? this.searchParam.q.useYn : 'Y'
+            param.isNowSale = true
             const res = await roomService.selectStoreInfo(param)
             this.noStoreList(res.data)
           } else { // 패키지
-            param.pkgNo = this.item.pkgNo
-            if (this.searchParam.q.useYn === '1') {
+            param.packageNo = this.item.packageNo
+            if (this.searchParam.q.useYn === 'Y') {
               param.useYn = 'Y'
-            } else if (this.searchParam.q.useYn === '0') {
+            } else if (this.searchParam.q.useYn === 'N') {
               param.useYn = 'N'
             } else {
               param.useYn = ''
             }
-            const res = await roomService.selectStoreInfoByPkgNo(param)
+            const res = await roomService.selectStoreInfoByPackageNo(param)
             this.noStoreList(res.data)
           }
         }

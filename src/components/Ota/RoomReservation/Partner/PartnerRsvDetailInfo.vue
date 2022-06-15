@@ -34,7 +34,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.chainRsvNo"
+                        v-model="rsvDetailCopy.partnerRsvNo"
                         label="업체예약번호"
                         readonly
                         outlined
@@ -47,7 +47,7 @@
                 <v-col v-if="roomType.value === 'OTA_ROOM_API' || rsvDetailCopy.rsvType === 'ROOM'" lg="2" md="3"
                        cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.memNo"
+                        v-model="rsvDetailCopy.memberNo"
                         label="회원번호"
                         readonly
                         outlined
@@ -58,7 +58,7 @@
                 <v-col v-if="roomType.value === 'OTA_ROOM_API' || rsvDetailCopy.rsvType === 'ROOM'" lg="3" md="4"
                        cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.memName"
+                        v-model="rsvDetailCopy.memberName"
                         label="회원명"
                         readonly
                         outlined
@@ -69,7 +69,7 @@
                 <v-col v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'" lg="2" md="3"
                        cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.pkgNo"
+                        v-model="rsvDetailCopy.packageNo"
                         label="패키지번호"
                         readonly
                         outlined
@@ -80,7 +80,7 @@
                 <v-col v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'" lg="3" md="4"
                        cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.pkgName"
+                        v-model="rsvDetailCopy.packageName"
                         label="패키지명"
                         readonly
                         outlined
@@ -120,7 +120,7 @@
                 </v-col>
                 <v-col lg="1" md="2" cols="2">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmCnt"
+                        v-model="rsvDetailCopy.roomCount"
                         label="객"
                         readonly
                         outlined
@@ -130,7 +130,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvBlckCode"
+                        v-model="rsvDetailCopy.blockCode"
                         label="예약블럭"
                         outlined
                         hide-details
@@ -149,7 +149,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="ciYmd"
+                        v-model="checkInDate"
                         label="입실일자"
                         readonly
                         outlined
@@ -159,7 +159,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="coYmd"
+                        v-model="checkOutDate"
                         label="퇴실일자"
                         readonly
                         outlined
@@ -169,7 +169,7 @@
                 </v-col>
                 <v-col lg="1" md="2" cols="2">
                     <v-text-field
-                        v-model="rsvDetailCopy.adultCnt"
+                        v-model="rsvDetailCopy.adultCount"
                         label="대인"
                         readonly
                         outlined
@@ -179,7 +179,7 @@
                 </v-col>
                 <v-col lg="1" md="2" cols="2">
                     <v-text-field
-                        v-model="rsvDetailCopy.childCnt"
+                        v-model="rsvDetailCopy.childCount"
                         label="소인"
                         readonly
                         outlined
@@ -189,7 +189,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmTypeCode"
+                        v-model="rsvDetailCopy.roomTypeCode"
                         label="객실유형코드"
                         readonly
                         outlined
@@ -199,7 +199,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmTypeName"
+                        v-model="rsvDetailCopy.roomTypeName"
                         label="객실유형명"
                         readonly
                         outlined
@@ -207,7 +207,7 @@
                         dense
                     />
                 </v-col>
-                <v-col lg="3" md="4" cols="6">
+<!--                <v-col lg="3" md="4" cols="6">
                     <v-text-field
                         v-model="rsvDetailCopy.dongCode"
                         label="동코드"
@@ -226,7 +226,7 @@
                         hide-details
                         dense
                     />
-                </v-col>
+                </v-col>-->
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
                         v-model="rsvDetailCopy.guestName"
@@ -270,7 +270,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvGuestlnm"
+                        v-model="rsvDetailCopy.partnerName"
                         label="예약자명"
                         readonly
                         outlined
@@ -280,7 +280,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvGuestTelNo"
+                        v-model="rsvDetailCopy.partnerTelNo"
                         label="예약자연락처"
                         readonly
                         outlined
@@ -289,7 +289,7 @@
                         v-mask="['###-####-####', '###-###-####']"
                     />
                 </v-col>
-                <v-col lg="3" md="4" cols="6">
+<!--                <v-col lg="3" md="4" cols="6">
                     <v-text-field
                         v-model="rsvDetailCopy.rsvIndCodeAndName"
                         label="예약구분"
@@ -309,7 +309,7 @@
                         readonly
                         class="ma-1"
                     />
-                </v-col>
+                </v-col>-->
             </v-row>
             <v-row wrap dense>
                 <v-col cols="12">
@@ -340,7 +340,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="totalAmt"
+                        v-model="totalPrice"
                         label="판매금액"
                         readonly
                         outlined
@@ -471,21 +471,21 @@ export default {
     }
   },
   computed: {
-    totalAmt () { // 판매가
-      return NumberUtils.numberWithCommas(this.rsvDetailCopy.saleAmt)
+    totalPrice () { // 판매가
+      return NumberUtils.numberWithCommas(this.rsvDetailCopy.salePrice)
     },
     rcpmny () { // 입금가
-      return NumberUtils.numberWithCommas(this.rsvDetailCopy.payAmt)
+      return NumberUtils.numberWithCommas(this.rsvDetailCopy.partnerRsvPrice)
     },
-    ciYmd () {
-      if (this.rsvDetailCopy.ciYmd) {
-        return moment(this.rsvDetailCopy.ciYmd).format('YYYY-MM-DD')
+    checkInDate () {
+      if (this.rsvDetailCopy.checkInDate) {
+        return moment(this.rsvDetailCopy.checkInDate).format('YYYY-MM-DD')
       }
       return ''
     },
-    coYmd () {
-      if (this.rsvDetailCopy.coYmd) {
-        return moment(this.rsvDetailCopy.coYmd).format('YYYY-MM-DD')
+    checkOutDate () {
+      if (this.rsvDetailCopy.checkOutDate) {
+        return moment(this.rsvDetailCopy.checkOutDate).format('YYYY-MM-DD')
       }
       return ''
     }
@@ -504,7 +504,7 @@ export default {
         if (
           this.rsvDetailCopy.smsPhone &&
                     this.rsvDetailCopy.smsPhone.length > 12 &&
-                    this.rsvDetailCopy.payAmt
+                    this.rsvDetailCopy.partnerRsvPrice
         ) {
           this.$emit('change-rsv-detail', newVal)
         }

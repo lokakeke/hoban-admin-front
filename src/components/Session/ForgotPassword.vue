@@ -48,7 +48,6 @@
 
 <script>
 import adminAuth from '@/api/modules/system/authentication/admin/adminAuth.service'
-import partnerAuthService from '@/api/modules/system/authentication/partner/partnerAuth.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import { mapGetters } from 'vuex'
 

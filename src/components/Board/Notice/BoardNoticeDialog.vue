@@ -188,7 +188,7 @@
                         v-model="form.partnerList"
                         :items="partnerList"
                         item-value="partnerSeq"
-                        item-text="companyName"
+                        item-text="partnerName"
                         label="파트너를 선택해 주세요."
                         multiple
                         clearable

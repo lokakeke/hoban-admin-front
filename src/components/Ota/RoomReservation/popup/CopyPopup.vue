@@ -2,9 +2,9 @@
   <dialog-base :instance="instance" :title="'예약 복사'">
     <v-form ref="form" lazy-validation autocomplate="off">
       <v-row>
-        <v-col cols="3" v-if="newItem.memNo">
+        <v-col cols="3" v-if="newItem.memberNo">
           <v-text-field
-            v-model="newItem.memNo"
+            v-model="newItem.memberNo"
             label="회원번호"
             outlined
             hide-details
@@ -18,9 +18,9 @@
             </template>
           </v-text-field>
         </v-col>
-        <v-col cols="3" v-if="newItem.memNo">
+        <v-col cols="3" v-if="newItem.memberNo">
           <v-text-field
-            v-model="newItem.memName"
+            v-model="newItem.memberName"
             label="회원명"
             disabled
             outlined
@@ -28,9 +28,9 @@
             dense
           />
         </v-col>
-        <v-col cols="3" v-if="newItem.pkgNo">
+        <v-col cols="3" v-if="newItem.packageNo">
           <v-text-field
-            v-model="newItem.pkgNo"
+            v-model="newItem.packageNo"
             label="패키지번호"
             disabled
             outlined
@@ -38,9 +38,9 @@
             dense
           />
         </v-col>
-        <v-col cols="3" v-if="newItem.pkgNo">
+        <v-col cols="3" v-if="newItem.packageNo">
           <v-text-field
-            v-model="newItem.pkgName"
+            v-model="newItem.packageName"
             label="패키지명"
             disabled
             outlined
@@ -50,7 +50,7 @@
         </v-col>
         <v-col cols="3">
           <v-text-field
-            v-model="newItem.cntrctYmd"
+            v-model="newItem.contractDate"
             label="계약일자"
             disabled
             outlined
@@ -60,7 +60,7 @@
         </v-col>
         <v-col cols="3">
           <v-text-field
-            v-model="newItem.cancelYmd"
+            v-model="newItem.cancelDate"
             label="해약일자"
             disabled
             outlined
@@ -91,7 +91,7 @@
         </v-col>
         <v-col cols="3">
           <v-text-field
-            v-model="newItem.chainRsvNo"
+            v-model="newItem.partnerRsvNo"
             label="업체주문번호"
             required
             outlined
@@ -101,9 +101,9 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="3" v-if="newItem.pkgNo">
+        <v-col cols="3" v-if="newItem.packageNo">
           <v-text-field
-            v-model="newItem.agentCd"
+            v-model="newItem.agentCode"
             label="Agent코드"
             outlined
             hide-details
@@ -117,7 +117,7 @@
             </template>
           </v-text-field>
         </v-col>
-        <v-col cols="3" v-if="newItem.pkgNo">
+        <v-col cols="3" v-if="newItem.packageNo">
           <v-text-field
             v-model="newItem.agentName"
             label="Agent명"
@@ -168,7 +168,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/SearchDialog/PartnerTermSearch',
         params: {
-          taskType: this.newItem.pkgNo ? 'OTA_PKG_API' : 'OTA_ROOM_API'
+          taskType: this.newItem.packageNo ? 'OTA_PKG_API' : 'OTA_ROOM_API'
         },
         options: {
           fullscreen: false,
@@ -178,12 +178,12 @@ export default {
           width: 1200,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.newItem.memNo = params.data.memNo
-              this.newItem.memName = params.data.memName
-              this.newItem.rsvGuestlnm = params.data.companyName
-              this.newItem.rsvGuestTelNo = params.data.capTelNo
-              this.newItem.agentCd = params.data.agentCd
-              this.newItem.agentName = params.data.agentCdName
+              this.newItem.memberNo = params.data.memberNo
+              this.newItem.memberName = params.data.memberName
+              this.newItem.partnerName = params.data.partnerName
+              this.newItem.partnerTelNo = params.data.partnerTelNo
+              this.newItem.agentCode = params.data.agentCode
+              this.newItem.agentName = params.data.agentCodeName
             }
           }
         }
@@ -196,7 +196,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/SearchDialog/PartnerTermSearch',
         params: {
-          taskType: this.newItem.pkgNo ? 'OTA_PKG_API' : 'OTA_ROOM_API'
+          taskType: this.newItem.packageNo ? 'OTA_PKG_API' : 'OTA_ROOM_API'
         },
         options: {
           fullscreen: false,
@@ -206,8 +206,8 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.newItem.agentCd = params.data.agentCd
-              this.newItem.agentName = params.data.agentCdName
+              this.newItem.agentCode = params.data.agentCode
+              this.newItem.agentName = params.data.agentCodeName
             }
           }
         }
