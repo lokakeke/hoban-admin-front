@@ -16,7 +16,7 @@
         </v-col>
         <v-col lg="1" md="2" sm="2" cols="3">
           <v-checkbox
-            v-model="isRsvBlckCode"
+            v-model="isBlockCode"
             label="예약블럭"
             false-value="N"
             true-value="Y"
@@ -25,7 +25,7 @@
         </v-col>
         <v-col v-if="roomType.value === 'OTA_ROOM_API'" lg="2" md="3" cols="6">
           <v-text-field
-            v-model="form.memNo"
+            v-model="form.memberNo"
             label="회원번호"
             clearable
             hide-details
@@ -40,7 +40,7 @@
         </v-col>
         <v-col v-if="roomType.value === 'OTA_ROOM_API'" lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.memName"
+            v-model="form.memberName"
             label="회원명"
             disabled
             clearable
@@ -49,7 +49,7 @@
         </v-col>
         <v-col v-if="roomType.value === 'OTA_PKG_API'" lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.pkgNo"
+            v-model="form.packageNo"
             label="패키지번호"
             clearable
             hide-details
@@ -64,7 +64,7 @@
         </v-col>
         <v-col v-if="roomType.value === 'OTA_PKG_API'" lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.pkgName"
+            v-model="form.packageName"
             label="패키지명"
             disabled
             clearable
@@ -73,7 +73,7 @@
         </v-col>
         <v-col lg="2" md="3" sm="4" cols="6">
           <date-range-picker
-            v-model="form.ciDate"
+            v-model="form.checkInDate"
             label="입실일자"
             hide-details
             hide-placeholder
@@ -90,31 +90,31 @@
         </v-col>
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.chainRsvNo"
+            v-model="form.partnerRsvNo"
             label="업체예약번호"
             clearable
             hide-details
           />
         </v-col>
       </v-row>
-      <v-row>
-        <v-col lg="2" md="3" sm="4" cols="6">
-          <v-text-field
-            v-model="form.agentCode"
-            label="Agent코드"
-            clearable
-            hide-details
-            dense
-            :disabled="roomType.value != 'OTA_ROOM_API'"
-            @keypress.enter="openAgentPopup(form)"
-          >
-            <template v-slot:append>
-              <v-btn icon small color="primary" tabindex="-1" @click="openAgentPopup(form)">
-                <v-icon>search</v-icon>
-              </v-btn>
-            </template>
-          </v-text-field>
-        </v-col>
+     <v-row>
+       <!--         <v-col lg="2" md="3" sm="4" cols="6">
+                 <v-text-field
+                   v-model="form.agentCode"
+                   label="Agent코드"
+                   clearable
+                   hide-details
+                   dense
+                   :disabled="roomType.value != 'OTA_ROOM_API'"
+                   @keypress.enter="openAgentPopup(form)"
+                 >
+                   <template v-slot:append>
+                     <v-btn icon small color="primary" tabindex="-1" @click="openAgentPopup(form)">
+                       <v-icon>search</v-icon>
+                     </v-btn>
+                   </template>
+                 </v-text-field>
+               </v-col>-->
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
             v-model="form.storeCode"
@@ -177,12 +177,12 @@
       </v-row>
     </v-form>
     <v-row no-gutters justify="space-between">
-      <div class="v-input v-input--hide-details theme--light v-input--selection-controls v-input--checkbox pointer" @click="checkToggle(statusList)">
+<!--      <div class="v-input v-input&#45;&#45;hide-details theme&#45;&#45;light v-input&#45;&#45;selection-controls v-input&#45;&#45;checkbox pointer" @click="checkToggle(statusList)">
         <div class="v-input__slot">
-          <div class="v-input--selection-controls__input">
+          <div class="v-input&#45;&#45;selection-controls__input">
             <v-icon>{{checkAllList(statusList)}}</v-icon>
           </div>
-          <div class="v-label theme--light mr-2">전체 선택</div>
+          <div class="v-label theme&#45;&#45;light mr-2">전체 선택</div>
         </div>
       </div>
       <v-checkbox
@@ -195,14 +195,8 @@
         dense
         multiple
         hide-details
-      />
+      />-->
       <v-col align-self="center" class="text-right pa-0">
-        <v-btn v-if="!isMultiCancel" outlined rounded color="blue" @click="makeNew('ROOM')">
-          <v-icon left>edit</v-icon>객실신규(Ctrl+F5)
-        </v-btn>
-        <v-btn v-if="!isMultiCancel" outlined rounded color="blue" @click="makeNew('PKG')">
-          <v-icon left>edit</v-icon>패키지신규(Ctrl+F6)
-        </v-btn>
         <v-btn outlined rounded color="green" @click="exportExcel">
           <v-icon left>dashboard</v-icon>엑셀(F2)
         </v-btn>
@@ -259,11 +253,11 @@ export default {
   data () {
     return {
       form: {
-        memNo: '',
-        memName: '',
-        pkgNo: '',
-        pkgName: '',
-        ciDate: [moment().format('YYYYMMDD'), moment().add(30, 'day').format('YYYYMMDD')], // 오늘부터 30일
+        memberNo: '',
+        memberName: '',
+        packageNo: '',
+        packageName: '',
+        checkInDate: [moment().format('YYYYMMDD'), moment().add(30, 'day').format('YYYYMMDD')], // 오늘부터 30일
         rsvNo: '',
         keyRsvNo: '',
         agentCode: '',
@@ -276,7 +270,7 @@ export default {
       checkAll: false, // 전체선택 default = false
       statusList: [], // 예약상태 목록
       isSearch: true,
-      isRsvBlckCode: 'N', // 예약블럭 검색 여부
+      isBlockCode: 'N', // 예약블럭 검색 여부
       key: 0
     }
   },
@@ -319,8 +313,8 @@ export default {
      * 파트너 정보 세팅
      */
     setPartnerInfo () {
-      this.$set(this.form, 'memNo', this.partnerInfo.memNo)
-      this.$set(this.form, 'memName', this.partnerInfo.memName)
+      this.$set(this.form, 'memberNo', this.partnerInfo.memberNo)
+      this.$set(this.form, 'memberName', this.partnerInfo.memberName)
       this.$set(this.form, 'agentCode', this.partnerInfo.agentCode)
       this.$set(this.form, 'agentName', this.partnerInfo.agentName)
     },
@@ -336,12 +330,12 @@ export default {
      */
     changeType (type) {
       if (type === 'OTA_PKG_API') {
-        this.form.memNo = ''
-        this.form.memName = ''
+        this.form.memberNo = ''
+        this.form.memberName = ''
         this.setPartnerInfoPkg() // agent코드 설정
       } else {
-        this.form.pkgNo = ''
-        this.form.pkgName = ''
+        this.form.packageNo = ''
+        this.form.packageName = ''
         this.setPartnerInfo() // 회원번호 및 회원명 설정
       }
       this.$emit('change-type', type)
@@ -398,17 +392,17 @@ export default {
     async searchPartnerInfo () {
       const q = {}
       q.taskType = this.roomType.value
-      let memNo = this.form.memNo
-      if (memNo && memNo.length === 6) {
-        memNo = memNo + '00'
+      let memberNo = this.form.memberNo
+      if (memberNo && memberNo.length === 6) {
+        memberNo = memberNo + '00'
       }
-      q.memNo = memNo
+      q.memberNo = memberNo
       const param = {}
       param.q = q
       const res = await partnerTermService.selectPartnerTermList(param)
       if (res.data && res.data.length === 1) {
-        this.$set(this.form, 'memNo', res.data[0].memNo)
-        this.$set(this.form, 'memName', res.data[0].memName)
+        this.$set(this.form, 'memberNo', res.data[0].memberNo)
+        this.$set(this.form, 'memberName', res.data[0].memberName)
         this.$set(this.form, 'partnerSeq', res.data[0].partnerSeq)
       } else {
         this.openPartnerInfo()
@@ -422,7 +416,7 @@ export default {
         componentPath: '/SearchDialog/PartnerTermSearch',
         params: {
           taskType: this.roomType.value,
-          memNo: this.form.memNo
+          memberNo: this.form.memberNo
         },
         options: {
           fullscreen: false,
@@ -432,8 +426,8 @@ export default {
           width: 1500,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(this.form, 'memNo', params.data.memNo)
-              this.$set(this.form, 'memName', params.data.memName)
+              this.$set(this.form, 'memberNo', params.data.memberNo)
+              this.$set(this.form, 'memberName', params.data.memberName)
               this.$set(this.form, 'partnerSeq', params.data.partnerSeq)
               this.form.storeCode = ''
               this.form.storeName = ''
@@ -448,8 +442,9 @@ export default {
     async searchStoreInfo (item) {
       const param = {}
       param.storeCode = item.storeCode
-      param.useYn = '1'
-      const res = await roomService.selectStoreInfoForSearch(param)
+      param.useYn = 'Y'
+      param.isNowSale = false
+      const res = await roomService.selectStoreInfo(param)
       if (res.data && res.data.length === 1) {
         this.$set(item, 'storeCode', res.data[0].storeCode)
         this.$set(item, 'storeName', res.data[0].storeName)
@@ -515,7 +510,7 @@ export default {
         componentPath: '/Ota/RoomReservation/popup/PackSearchPopup',
         params: {
           item: {
-            pkgNo: item.pkgNo,
+            packageNo: item.packageNo,
             groupFlag: 'ota',
             rsvYn: 'N'
           }
@@ -526,8 +521,8 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(this.form, 'pkgNo', params.data.pkgNo)
-              this.$set(this.form, 'pkgName', params.data.pkgName)
+              this.$set(this.form, 'packageNo', params.data.packageNo)
+              this.$set(this.form, 'packageName', params.data.packageName)
               this.form.storeCode = ''
               this.form.storeName = ''
               this.key += 1
@@ -542,11 +537,11 @@ export default {
     emit (isRefresh) {
       this.validForm(this.$refs.form).then(() => {
         if (isRefresh === true) { // 초기화
-          this.form.memNo = ''
-          this.form.memName = ''
-          this.form.pkgNo = ''
-          this.form.pkgName = ''
-          this.form.ciDate = [moment().format('YYYYMMDD'), moment().add(30, 'day').format('YYYYMMDD')]
+          this.form.memberNo = ''
+          this.form.memberName = ''
+          this.form.packageNo = ''
+          this.form.packageName = ''
+          this.form.checkInDate = [moment().format('YYYYMMDD'), moment().add(30, 'day').format('YYYYMMDD')]
           this.form.rsvNo = ''
           this.form.keyRsvNo = ''
           if (this.roomType.value === 'OTA_ROOM_API') { // 객실인 경우에만 agentCode 초기화
@@ -563,10 +558,10 @@ export default {
         } else { // 검색
           const searchForm = _.cloneDeep(this.searchParam)
           searchForm.page = 1
-          if (this.isRsvBlckCode === 'Y') {
-            this.$set(this.form, 'rsvBlckCode', '104')
+          if (this.isBlockCode === 'Y') {
+            this.$set(this.form, 'blockCode', '104')
           } else {
-            this.$set(this.form, 'rsvBlckCode', '')
+            this.$set(this.form, 'blockCode', '')
           }
           this.form.roomType = this.roomType.value
           searchForm.q = this.form
@@ -574,12 +569,6 @@ export default {
           this.$emit('search')
         }
       })
-    },
-    /**
-     * 신규
-     */
-    makeNew (roomType) {
-      this.$emit('partner-new-rsv', roomType)
     },
     /**
      * 엑셀 다운로드

@@ -34,7 +34,7 @@
         </v-col>
         <v-col cols="4">
           <v-text-field
-            v-model="origin.rmTypeName"
+            v-model="origin.roomTypeName"
             label="객실유형명"
             outlined
             hide-details
@@ -46,7 +46,7 @@
       <v-row>
         <v-col cols="4">
           <v-text-field
-            v-model="origin.chainRsvNo"
+            v-model="origin.partnerRsvNo"
             label="업체예약번호"
             outlined
             hide-details
@@ -78,7 +78,7 @@
       <v-row>
         <v-col cols="4">
            <v-text-field
-            v-model="newInfo.rmTypeCode"
+            v-model="newInfo.roomTypeCode"
             label="객실유형"
             outlined
             hide-details
@@ -97,7 +97,7 @@
         </v-col>
         <v-col cols="4">
            <v-text-field
-            v-model="newInfo.rmTypeName"
+            v-model="newInfo.roomTypeName"
             label="객실유형명"
             outlined
             hide-details
@@ -110,7 +110,7 @@
       <v-row>
         <v-col cols="4">
           <v-text-field
-            v-model="newInfo.chainRsvNo"
+            v-model="newInfo.partnerRsvNo"
             label="업체예약번호"
             outlined
             hide-details
@@ -179,7 +179,7 @@ export default {
   },
   methods: {
     save () {
-      if (this.newInfo.rmTypeCode === this.origin.rmTypeCode) {
+      if (this.newInfo.roomTypeCode === this.origin.roomTypeCode) {
         this.$dialog.alert('같은 객실유형으로 변경할 수 없습니다.')
         return
       }
@@ -193,11 +193,11 @@ export default {
      */
     copy () {
       const res = {}
-      res.chainRsvNo = this.origin.chainRsvNo
+      res.partnerRsvNo = this.origin.partnerRsvNo
       res.guestName = this.origin.guestName
       res.smsPhone = this.origin.smsPhone
-      res.rmTypeName = this.newInfo.rmTypeName
-      res.rmTypeCode = this.newInfo.rmTypeCode
+      res.roomTypeName = this.newInfo.roomTypeName
+      res.roomTypeCode = this.newInfo.roomTypeCode
       this.newInfo = res
     },
     /**
@@ -211,7 +211,7 @@ export default {
       } else if (this.origin.roomType === 'OTA_PKG_API') {
         const rmTypeItems = {}
         rmTypeItems.storeCode = this.origin.storeCode
-        rmTypeItems.pkgNo = this.origin.pkgNo
+        rmTypeItems.packageNo = this.origin.packageNo
         this.openRmTypePopup(rmTypeItems)
       } else {
         this.$dialog.alert('객실/패키지 선택 값은 필수값입니다.')
@@ -221,9 +221,9 @@ export default {
      * 객실유형 조회 팝업 오픈
      */
     openRmTypePopup (items) {
-      if (this.origin.storeCode && this.origin.rmTypeCode) {
+      if (this.origin.storeCode && this.origin.roomTypeCode) {
         this.$store.dispatch('dialog/open', {
-          componentPath: '/Ota/RoomReservation/popup/RmTypePopup',
+          componentPath: '/Ota/RoomReservation/popup/RoomTypePopup',
           params: {
             item: items
           },
@@ -246,8 +246,8 @@ export default {
      * 객실 유형 정보 조회 결과값 매핑
      */
     mapRmTypeInfoResult (result) {
-      this.$set(this.newInfo, 'rmTypeCode', result.rmTypeCode)
-      this.$set(this.newInfo, 'rmTypeName', result.rmTypeName)
+      this.$set(this.newInfo, 'roomTypeCode', result.roomTypeCode)
+      this.$set(this.newInfo, 'roomTypeName', result.roomTypeName)
     },
     /**
      * 초기화

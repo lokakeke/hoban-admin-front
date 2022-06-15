@@ -40,11 +40,10 @@ export default {
       disabled: false,
       list: [],
       headers: [
-        { text: '파트너명', value: 'companyName', align: 'center' },
+        { text: '파트너명', value: 'partnerName', align: 'center' },
         { text: '업무구분', value: 'taskTypeCodeName', align: 'center' },
         { text: '회원번호', value: 'memberNo', align: 'center' },
         { text: '업무구분명', value: 'taskTypeName', align: 'center' },
-        { text: '대매사', value: 'agentCodeName', align: 'center' },
         { text: '대매사코드', value: 'agentCode', align: 'center' },
         { text: '예치금 Key', value: 'depositKey', align: 'center' },
         { text: '예치금', value: 'price', align: 'center' },
@@ -58,9 +57,8 @@ export default {
       return [
         { key: 'taskType', label: '업무 구분', type: 'code', commCode: 'TASK_TYPE', defaultValue: this.taskType, disabled: this.disabled },
         { key: 'memberNo', label: '회원번호', type: 'text', defaultValue: this.memberNo },
-        { key: 'companyName', label: '파트너명', type: 'text' },
+        { key: 'partnerName', label: '파트너명', type: 'text' },
         { key: 'useDate', label: '계약 기간', type: 'dateRange', startField: 'useStartDate', endField: 'useEndDate', format: 'YYYYMMDD' },
-        { key: 'agentCodeName', label: '대매사', type: 'text' },
         { key: 'agentCode', label: '대매사코드', type: 'text' }
       ]
     }

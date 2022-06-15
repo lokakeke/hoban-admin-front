@@ -7,7 +7,7 @@
         </v-col>
         <v-col cols="3">
           <v-label>업체 명</v-label>
-          <v-text-field v-if="isNew" v-model="form.companyName" label="" :rules="emptyRules" readonly
+          <v-text-field v-if="isNew" v-model="form.partnerName" label="" :rules="emptyRules" readonly
                         @click="openPartner">
             <template v-slot:append-outer>
               <v-btn outlined color="info" @click="openPartner" tabindex="-1">
@@ -16,7 +16,7 @@
               </v-btn>
             </template>
           </v-text-field>
-          <v-text-field v-else :value="form.companyName" label="" readonly hide-details></v-text-field>
+          <v-text-field v-else :value="form.partnerName" label="" readonly hide-details></v-text-field>
         </v-col>
         <v-col cols="3">
           <v-label>업무 구분</v-label>
@@ -157,7 +157,7 @@ export default {
       this.form = {
         businessId: '',
         partnerSeq: '',
-        companyName: '',
+        partnerName: '',
         termSeq: '',
         // agentCodeName: '',
         taskType: '',

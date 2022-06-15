@@ -70,7 +70,7 @@ export default {
 
         const resultEvents = this.events.filter(data => {
           return filterEvents.findIndex(row => {
-            return data.storeCd === row.storeCd && data.hldyCd === row.hldyCd && data.rmTypeCd === row.rmTypeCd && data.start === row.start
+            return data.storeCode === row.storeCode && data.hldyCd === row.hldyCd && data.roomTypeCode === row.roomTypeCode && data.start === row.start
           }) === -1
         })
 

@@ -4,7 +4,7 @@
       <v-col md="6" cols="12">
         <v-label>회원</v-label>
         <v-text-field
-          :value="form.memName"
+          :value="form.memberName"
           hide-details
           dense
           readonly
@@ -12,7 +12,7 @@
           @click="openPartnerInfo"
         >
           <template v-slot:prepend-inner>
-            <v-chip x-small class="mt-2" v-if="form.memNo">{{ form.memNo }}</v-chip>
+            <v-chip x-small class="mt-2" v-if="form.memberNo">{{ form.memberNo }}</v-chip>
           </template>
           <template v-slot:append>
             <v-btn icon small color="primary" tabindex="-1" @click="openPartnerInfo">
@@ -44,9 +44,9 @@
       <v-col md="6" cols="12">
         <v-label>객실유형</v-label>
         <v-select
-          v-model="form.rmTypeCodes"
+          v-model="form.roomTypeCodes"
           :items="roomTypeList"
-          item-value="rmTypeCode"
+          item-value="roomTypeCode"
           item-text="rmTypeName"
           multiple
           required
@@ -67,25 +67,25 @@
                 <v-icon>{{ getRoomTypeSelectIcon(item) }}</v-icon>
               </v-list-item-action>
               <v-list-item-action>
-                <v-chip x-small class="mr-1">{{ item.rmTypeCode }}</v-chip>
+                <v-chip x-small class="mr-1">{{ item.roomTypeCode }}</v-chip>
               </v-list-item-action>
               <v-list-item-content>{{ item.rmTypeName }}</v-list-item-content>
             </v-list-item>
           </template>
           <template v-slot:selection="{ item, index }">
             <template v-if="index === 0">
-              <template v-if="form.rmTypeCodes.length === roomTypeList.length">
+              <template v-if="form.roomTypeCodes.length === roomTypeList.length">
                 <span>전체 객실유형</span>
               </template>
               <template v-else>
-                <v-chip x-small class="mt-1 mr-1">{{ item.rmTypeCode }}</v-chip>
+                <v-chip x-small class="mt-1 mr-1">{{ item.roomTypeCode }}</v-chip>
                 <span class="body-2">{{ item.rmTypeName }}</span>
               </template>
             </template>
             <span
-              v-if="form.rmTypeCodes.length !== roomTypeList.length && index === 1"
+              v-if="form.roomTypeCodes.length !== roomTypeList.length && index === 1"
               class="grey--text body-2 ml-1"
-            >외 {{ form.rmTypeCodes.length - 1 }}개 객실유형</span>
+            >외 {{ form.roomTypeCodes.length - 1 }}개 객실유형</span>
           </template>
         </v-select>
         <v-text-field disabled placeholder="먼저 영업장을 선택해 주세요." v-else></v-text-field>
@@ -134,8 +134,8 @@
       <v-card class="pl-3 pr-3">
         <v-row class="mt-6 mb-1">
           <v-col md="9" cols="12" class="text-md-left text-center">
-            <v-chip x-small class="mr-1">{{ roomAmount.searchParam.memNo }}</v-chip>
-            <span class="body-2">{{ roomAmount.searchParam.memName }}</span>
+            <v-chip x-small class="mr-1">{{ roomAmount.searchParam.memberNo }}</v-chip>
+            <span class="body-2">{{ roomAmount.searchParam.memberName }}</span>
             <span class="grey--text caption ml-2 mr-2">/</span>
             <v-chip x-small class="mr-1">{{ roomAmount.searchParam.storeCode }}</v-chip>
             <span class="body-2">{{ roomAmount.searchParam.storeName}}</span>
@@ -143,7 +143,7 @@
           <v-col md="3" cols="12" class="text-md-right text-center">
             <span
               class="body-2"
-            >{{ roomAmount.searchParam.startYmd | date }} ~ {{ roomAmount.searchParam.endYmd | date }}</span>
+            >{{ roomAmount.searchParam.startDate | date }} ~ {{ roomAmount.searchParam.endDate | date }}</span>
           </v-col>
         </v-row>
       </v-card>
@@ -172,7 +172,7 @@
         <template v-slot:body>
           <tbody>
             <template v-for="roomAmountItem in roomAmount.roomAmountList">
-              <tr :key="roomAmountItem.rmTypeCode">
+              <tr :key="roomAmountItem.roomTypeCode">
                 <td
                   class="text-right fixed_column"
                   :class="{ 'grey lighten-2 grey--text': !roomAmountItem.amount }"
@@ -187,7 +187,7 @@
                       <template v-slot:activator="{ on }">
                         <div v-on="on">
                           <small class="grey--text">￦</small>
-                          <strong class="primary--text">{{ amountItem.totAmt | price }}</strong>
+                          <strong class="primary--text">{{ amountItem.totalPrice | price }}</strong>
                         </div>
                       </template>
                       <span>판매가</span>
@@ -237,19 +237,19 @@ export default {
        */
       form: {
         // 회원번호
-        memNo: null,
+        memberNo: null,
         // 회원명
-        memName: null,
+        memberName: null,
         // 영업장코드
         storeCode: null,
         // 영업장명
         storeName: null,
         // 객실유형코드 목록
-        rmTypeCodes: [],
+        roomTypeCodes: [],
         // 조회기간
         dateRange: [
-          moment(this.nowYmd).format('YYYYMMDD'),
-          moment(this.nowYmd).add(14 - 1, 'days').format('YYYYMMDD')
+          moment(this.nowDate).format('YYYYMMDD'),
+          moment(this.nowDate).add(14 - 1, 'days').format('YYYYMMDD')
         ]
       },
       /**
@@ -271,11 +271,11 @@ export default {
      * 객실유형 선택항목 체크박스 아이콘
      */
     roomTypeSelectIcon () {
-      if (this.roomTypeList.length === this.form.rmTypeCodes.length) {
+      if (this.roomTypeList.length === this.form.roomTypeCodes.length) {
         return 'check_box'
       } else if (
         this.roomTypeList.length > 0 &&
-        this.form.rmTypeCodes.length > 0
+        this.form.roomTypeCodes.length > 0
       ) {
         return 'indeterminate_check_box'
       }
@@ -284,21 +284,21 @@ export default {
     /**
      * 오늘 일자
      */
-    nowYmd () {
+    nowDate () {
       return moment().format('YYYYMMDD')
     },
     /**
      * 조회기간 최소값
      */
     minDate () {
-      return moment(this.nowYmd).format('YYYY-MM-DD')
+      return moment(this.nowDate).format('YYYY-MM-DD')
     },
     /**
      * 조회기간 최대값
      */
     maxDate () {
       if (this.form.dateRange.length !== 2 || !this.form.dateRange[0]) {
-        return moment(this.nowYmd).add(1, 'years').format('YYYY-MM-DD')
+        return moment(this.nowDate).add(1, 'years').format('YYYY-MM-DD')
       }
       return moment(this.form.dateRange[0])
         .add(this.dayRange - 1, 'days')
@@ -307,10 +307,10 @@ export default {
     /**
      * 이전 조회시작일 (moment 객체)
      */
-    prevStartYmd () {
+    prevStartDate () {
       let prevStartDate = null
       if (this.roomAmount) {
-        prevStartDate = moment(this.roomAmount.searchParam.startYmd)
+        prevStartDate = moment(this.roomAmount.searchParam.startDate)
         const minDate = moment(this.minDate)
         prevStartDate = prevStartDate.subtract(this.dayRange, 'days')
         if (prevStartDate.isBefore(minDate)) {
@@ -322,10 +322,10 @@ export default {
     /**
      * 다음 조회시작일
      */
-    prevEndYmd () {
+    prevEndDate () {
       let prevEndDate = null
-      if (this.prevStartYmd) {
-        prevEndDate = moment(this.prevStartYmd).add(this.dayRange - 1, 'days')
+      if (this.prevStartDate) {
+        prevEndDate = moment(this.prevStartDate).add(this.dayRange - 1, 'days')
       }
       return prevEndDate ? prevEndDate.format('YYYYMMDD') : null
     },
@@ -335,28 +335,28 @@ export default {
     isAllowPrevSearch () {
       return (
         this.roomAmount != null &&
-        this.prevStartYmd !== this.roomAmount.searchParam.startYmd &&
-        moment(this.prevStartYmd).isSameOrAfter(moment(this.nowYmd))
+        this.prevStartDate !== this.roomAmount.searchParam.startDate &&
+        moment(this.prevStartDate).isSameOrAfter(moment(this.nowDate))
       )
     },
     /**
      * 다음 조회시작일
      */
-    nextStartYmd () {
+    nextStartDate () {
       let nextStartDate = null
-      if (this.nextEndYmd) {
-        nextStartDate = moment(this.nextEndYmd).subtract(this.dayRange - 1, 'days')
+      if (this.nextEndDate) {
+        nextStartDate = moment(this.nextEndDate).subtract(this.dayRange - 1, 'days')
       }
       return nextStartDate ? nextStartDate.format('YYYYMMDD') : null
     },
     /**
      * 다음 조회시작일
      */
-    nextEndYmd () {
+    nextEndDate () {
       let nextEndDate = null
       if (this.roomAmount) {
-        nextEndDate = moment(this.roomAmount.searchParam.endYmd)
-        const maxDate = moment(this.nowYmd).add(1, 'years')
+        nextEndDate = moment(this.roomAmount.searchParam.endDate)
+        const maxDate = moment(this.nowDate).add(1, 'years')
         nextEndDate = nextEndDate.add(this.dayRange, 'days')
         if (nextEndDate.isAfter(maxDate)) {
           nextEndDate = maxDate
@@ -369,10 +369,10 @@ export default {
      */
     isAllowNextSearch () {
       return (
-        this.nextEndYmd !== null &&
-        this.nextEndYmd !== this.roomAmount.searchParam.endYmd &&
-        moment(this.nextStartYmd).isSameOrBefore(
-          moment(this.nowYmd).add(1, 'years')
+        this.nextEndDate !== null &&
+        this.nextEndDate !== this.roomAmount.searchParam.endDate &&
+        moment(this.nextStartDate).isSameOrBefore(
+          moment(this.nowDate).add(1, 'years')
         )
       )
     },
@@ -382,8 +382,8 @@ export default {
     headers () {
       const headers = []
       if (this.roomAmount) {
-        const startDate = moment(this.roomAmount.searchParam.startYmd)
-        const endDate = moment(this.roomAmount.searchParam.endYmd)
+        const startDate = moment(this.roomAmount.searchParam.startDate)
+        const endDate = moment(this.roomAmount.searchParam.endDate)
         let ymd = startDate.format('YYYYMMDD')
         while (ymd <= endDate.format('YYYYMMDD')) {
           const date = moment(ymd)
@@ -435,8 +435,8 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.form.memNo = params.data.memNo
-              this.form.memName = params.data.memName
+              this.form.memberNo = params.data.memberNo
+              this.form.memberName = params.data.memberName
             }
           }
         }
@@ -473,7 +473,7 @@ export default {
      * 영업장의 객실유형 목록 조회
      */
     async selectStoreRoomUseList () {
-      this.form.rmTypeCodes = []
+      this.form.roomTypeCodes = []
       const res = await roomTypeService.selectStoreRoomUseList(this.form.storeCode)
       this.roomTypeList = res.data
       this.chooseAllRoomType()
@@ -483,7 +483,7 @@ export default {
      */
     async search () {
       // 회원번호 확인
-      if (!this.form.memNo) {
+      if (!this.form.memberNo) {
         this.$dialog.alert('회원을 선택해 주세요.')
         return
       }
@@ -493,7 +493,7 @@ export default {
         return
       }
       // 객실유형
-      if (this.form.rmTypeCodes.length === 0) {
+      if (this.form.roomTypeCodes.length === 0) {
         this.$dialog.alert('객실유형을 하나 이상 선택해 주세요.')
         return
       }
@@ -512,15 +512,15 @@ export default {
       }
       this.roomAmount = null
       const searchParam = {
-        memNo: this.form.memNo,
+        memberNo: this.form.memberNo,
         storeCode: this.form.storeCode,
-        rmTypeCodes: this.form.rmTypeCodes.join(','),
-        startYmd: this.form.dateRange[0],
-        endYmd: this.form.dateRange[1]
+        roomTypeCodes: this.form.roomTypeCodes.join(','),
+        startDate: this.form.dateRange[0],
+        endDate: this.form.dateRange[1]
       }
       await this.selectBoardRoomAmount(
         searchParam,
-        this.form.memName,
+        this.form.memberName,
         this.form.storeName
       )
     },
@@ -530,15 +530,15 @@ export default {
     prevSearch () {
       if (this.isAllowPrevSearch === true) {
         const searchParam = {
-          memNo: this.roomAmount.searchParam.memNo,
+          memberNo: this.roomAmount.searchParam.memberNo,
           storeCode: this.roomAmount.searchParam.storeCode,
-          rmTypeCodes: this.roomAmount.searchParam.rmTypeCodes,
-          startYmd: this.prevStartYmd,
-          endYmd: this.prevEndYmd
+          roomTypeCodes: this.roomAmount.searchParam.roomTypeCodes,
+          startDate: this.prevStartDate,
+          endDate: this.prevEndDate
         }
         this.selectBoardRoomAmount(
           searchParam,
-          this.roomAmount.searchParam.memName,
+          this.roomAmount.searchParam.memberName,
           this.roomAmount.searchParam.storeName
         )
       }
@@ -549,15 +549,15 @@ export default {
     nextSearch () {
       if (this.isAllowNextSearch === true) {
         const searchParam = {
-          memNo: this.roomAmount.searchParam.memNo,
+          memberNo: this.roomAmount.searchParam.memberNo,
           storeCode: this.roomAmount.searchParam.storeCode,
-          rmTypeCodes: this.roomAmount.searchParam.rmTypeCodes,
-          startYmd: this.nextStartYmd,
-          endYmd: this.nextEndYmd
+          roomTypeCodes: this.roomAmount.searchParam.roomTypeCodes,
+          startDate: this.nextStartDate,
+          endDate: this.nextEndDate
         }
         this.selectBoardRoomAmount(
           searchParam,
-          this.roomAmount.searchParam.memName,
+          this.roomAmount.searchParam.memberName,
           this.roomAmount.searchParam.storeName
         )
       }
@@ -565,11 +565,11 @@ export default {
     /**
      * 객실 요금 조회
      */
-    async selectBoardRoomAmount (searchParam, memName, storeName) {
+    async selectBoardRoomAmount (searchParam, memberName, storeName) {
       const res = await boardAmountService.selectBoardRoomAmount({
         q: searchParam
       })
-      searchParam.memName = memName
+      searchParam.memberName = memberName
       searchParam.storeName = storeName
       this.roomAmount = Object.assign(
         {},
@@ -600,12 +600,12 @@ export default {
       if (!this.roomTypeList || this.roomTypeList.length === 0) {
         return false
       }
-      if (this.form.rmTypeCodes.length > 0) {
-        this.form.rmTypeCodes = []
+      if (this.form.roomTypeCodes.length > 0) {
+        this.form.roomTypeCodes = []
       } else {
-        this.form.rmTypeCodes = []
+        this.form.roomTypeCodes = []
         this.roomTypeList.forEach((roomType) => {
-          this.form.rmTypeCodes.push(roomType.rmTypeCode)
+          this.form.roomTypeCodes.push(roomType.roomTypeCode)
         })
       }
     },
@@ -614,9 +614,9 @@ export default {
      */
     getRoomTypeSelectIcon (item) {
       let isSelected = false
-      if (this.form.rmTypeCodes) {
-        this.form.rmTypeCodes.some((rmTypeCode) => {
-          if (rmTypeCode === item.rmTypeCode) {
+      if (this.form.roomTypeCodes) {
+        this.form.roomTypeCodes.some((roomTypeCode) => {
+          if (roomTypeCode === item.roomTypeCode) {
             isSelected = true
           }
           return isSelected
