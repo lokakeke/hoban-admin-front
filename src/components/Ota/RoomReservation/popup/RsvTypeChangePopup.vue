@@ -179,7 +179,7 @@
           </v-col>
           <v-col cols="3">
             <v-text-field
-              v-model="newItem.smsPhone"
+              v-model="newItem.guestTelNo"
               label="이용자연락처"
               outlined
               hide-details
@@ -324,7 +324,7 @@ export default {
       this.newItem.nights = this.rsvInfo.nights
       this.newItem.roomCount = this.rsvInfo.roomCount
       this.newItem.guestName = this.rsvInfo.guestName
-      this.newItem.smsPhone = this.rsvInfo.smsPhone
+      this.newItem.guestTelNo = this.rsvInfo.guestTelNo
       this.newItem.partnerRsvNo = this.rsvInfo.partnerRsvNo
       this.newItem.agentCode = this.rsvInfo.agentCode
       this.newItem.agentName = this.rsvInfo.agentName

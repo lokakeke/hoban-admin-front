@@ -34,7 +34,7 @@
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">이용자 연락처</div>
-        <v-text-field :value="form.smsPhone" hide-details readonly></v-text-field>
+        <v-text-field :value="form.guestTelNo" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">영업장</div>
