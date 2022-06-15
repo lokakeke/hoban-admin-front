@@ -37,9 +37,9 @@
                 <template v-slot:guestName="{item}">
                     <span :class="`font-${selectedSize}`">{{ item.guestName }}</span>
                 </template>
-                <template v-slot:smsPhone="{item}">
-                    <template v-if="item.smsPhone">
-                        <mask-phone-number :height="20" :font-size="selectedSize" :text="item.smsPhone"
+                <template v-slot:guestTelNo="{item}">
+                    <template v-if="item.guestTelNo">
+                        <mask-phone-number :height="20" :font-size="selectedSize" :text="item.guestTelNo"
                                            @selectPhone="selectPhone(item)" />
                     </template>
                 </template>
@@ -155,8 +155,8 @@ export default {
     },
     /** 실제 이용자 연락처 조회 */
     async selectPhone (item) {
-      const res = await roomService.selectRealSmsphone(item.keyRsvNo)
-      item.smsPhone = res.data.toString()
+      const res = await roomService.selectRealGuestTelNo(item.keyRsvNo)
+      item.guestTelNo = res.data.toString()
     }
   }
 }

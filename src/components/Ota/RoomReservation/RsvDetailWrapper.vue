@@ -424,7 +424,7 @@ export default {
                 const rsvInfo = {}
                 rsvInfo.keyRsvNo = this.rsvDetail.keyRsvNo
                 rsvInfo.guestName = params.data.guestName
-                rsvInfo.smsPhone = params.data.smsPhone
+                rsvInfo.guestTelNo = params.data.guestTelNo
                 rsvInfo.partnerRsvNo = params.data.partnerRsvNo
                 rsvInfo.loginId = this.user.number
                 rsvInfo.agentCode = params.data.agentCode
@@ -740,7 +740,7 @@ export default {
       const rsvInfo = {}
       rsvInfo.modifyId = this.user.number
       rsvInfo.guestName = item.guestName // 이용자명
-      rsvInfo.guestTelNo = item.smsPhone // 이용자 연락처
+      rsvInfo.guestTelNo = item.guestTelNo // 이용자 연락처
       rsvInfo.partnerRsvNo = item.partnerRsvNo // 업체 예약번호(주문번호)
       rsvInfo.storeCode = item.storeCode
       rsvInfo.checkInDate = item.checkInDate
@@ -895,7 +895,7 @@ export default {
         const origin = {}
         origin.partnerRsvNo = this.rsvDetail.partnerRsvNo // 업체예약번호
         origin.guestName = this.rsvDetail.guestName
-        origin.smsPhone = this.rsvDetail.smsPhone
+        origin.guestTelNo = this.rsvDetail.guestTelNo
         this.$store.dispatch('dialog/open', {
           componentPath: '/Ota/RoomReservation/popup/MemInfoChangePopup',
           params: {
@@ -910,8 +910,8 @@ export default {
                 // 총합계가 0원 일때
                 if (this.rsvDetail.totalPrice === '0') {
                   const rsvInfoCopy = _.cloneDeep(this.rsvDetail)
-                  if (params.data.smsPhone) {
-                    rsvInfoCopy.smsPhone = params.data.smsPhone
+                  if (params.data.guestTelNo) {
+                    rsvInfoCopy.guestTelNo = params.data.guestTelNo
                   }
                   if (params.data.guestLnm) {
                     rsvInfoCopy.guestName = params.data.guestLnm
@@ -937,11 +937,11 @@ export default {
                     this.$dialog.alert('이용자명은 필수값입니다. 다시 시도해주세요')
                     return
                   }
-                  if (params.data.smsPhone) {
-                    param.smsPhone = params.data.smsPhone
+                  if (params.data.guestTelNo) {
+                    param.guestTelNo = params.data.guestTelNo
                   }
                   // 필수값이 다 있는 경우
-                  if (param.keyRsvNo && param.smsPhone && param.guestLnm) {
+                  if (param.keyRsvNo && param.guestTelNo && param.guestLnm) {
                     // 고객 정보 변경 실행
                     this.updateGuestInfo(param)
                   }

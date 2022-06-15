@@ -80,7 +80,7 @@
         </v-col>
         <v-col cols="3">
           <v-text-field
-            v-model="newItem.smsPhone"
+            v-model="newItem.guestTelNo"
             label="이용자연락처"
             required
             outlined

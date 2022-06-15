@@ -151,7 +151,7 @@
         </v-col>
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
-            v-model="form.smsPhone"
+            v-model="form.guestTelNo"
             label="이용자연락처"
             clearable
             hide-details
@@ -257,7 +257,7 @@ export default {
         storeCode: '',
         storeName: '',
         guestName: '',
-        smsPhone: '',
+        guestTelNo: '',
         statusCode: [],
         partnerRsvNo: '' // 업체 예약번호
       },
@@ -511,7 +511,7 @@ export default {
           this.form.storeCode = ''
           this.form.storeName = ''
           this.form.guestName = ''
-          this.form.smsPhone = ''
+          this.form.guestTelNo = ''
           this.form.partnerRsvNo = ''
           this.form.statusCode = []
           this.form.statusCode.push('RS')
