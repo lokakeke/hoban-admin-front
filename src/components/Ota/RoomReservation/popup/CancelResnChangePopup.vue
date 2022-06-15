@@ -6,8 +6,8 @@
           <v-autocomplete v-model="newItem.cancelResnCode"
                           autocomplete="off"
                           :items="cancelResnList"
-                          :item-value="'commCode'"
-                          :item-text="'commCodeName'"
+                          :item-value="'commonCode'"
+                          :item-text="'commonCodeName'"
                           hide-details
                           label="취소코드"
                           :rules="emptyRules"
@@ -80,8 +80,8 @@ export default {
      * 취소 사유 코드 선택/변경 시
      */
     modifyCancelDesc (info) {
-      const cancel = this.cancelResnList.filter(data => data.commCode === info)
-      this.newItem.cancelResnDesc = cancel[0].commCodeName
+      const cancel = this.cancelResnList.filter(data => data.commonCode === info)
+      this.newItem.cancelResnDesc = cancel[0].commonCodeName
     },
     /**
      * 취소 사유 수정 실행

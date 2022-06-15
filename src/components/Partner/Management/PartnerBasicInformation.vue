@@ -9,7 +9,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>업체 명</v-label>
-            <v-text-field type="text" v-model="form.companyName" :rules="emptyRules"></v-text-field>
+            <v-text-field type="text" v-model="form.partnerName" :rules="emptyRules"></v-text-field>
           </v-col>
           <v-col v-if="isModify && (!isPartner || isSupervisor)" cols="3" align-self="center">
             <partner-password-reset :item="form"></partner-password-reset>
@@ -64,7 +64,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>관리자 연락처</v-label>
-            <v-text-field type="text" v-model="form.companyTelNo" v-mask="['###-####-####', '##-###-####', '##-####-####']" :rules="emptyRules.concat(phoneRegex)"></v-text-field>
+            <v-text-field type="text" v-model="form.partnerTelNo" v-mask="['###-####-####', '##-###-####', '##-####-####']" :rules="emptyRules.concat(phoneRegex)"></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>메뉴 권한</v-label>
@@ -210,12 +210,12 @@ export default {
         loginId: '',
         newPw: '',
         tempPwYn: 'Y',
-        companyName: '',
+        partnerName: '',
         newPwConfirm: '',
         memberNo: '',
         ceoName: '',
-        companyTelNo: '',
-        companyNo: '',
+        partnerTelNo: '',
+        partnerNo: '',
         menuAuthGroupId: '',
         addAuthNo: '',
         blacklistYn: 'N',
@@ -298,7 +298,7 @@ export default {
         useForm = Object.assign({}, row)
         useForm.useStartDate = moment(useForm.useStartDate).format('YYYYMMDD')
         useForm.useEndDate = moment(useForm.useEndDate).format('YYYYMMDD')
-        useForm.companyName = this.form.companyName
+        useForm.partnerName = this.form.partnerName
         this.dataIndex = index
       }
       // 추가된 로우인지 아닌지 판단한다.
@@ -376,7 +376,7 @@ export default {
           const form = _.cloneDeep(this.form)
           form.partnerManager = _.cloneDeep(this.managerForm)
           const res = await partnerAccountService.insertPartner(form)
-          this.setInfo(true, res.data.partnerSeq, res.data.companyName)
+          this.setInfo(true, res.data.partnerSeq, res.data.partnerName)
           this.search()
           // 재조회
           this.$nextTick(() => {

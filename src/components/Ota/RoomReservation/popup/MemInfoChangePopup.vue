@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="4">
           <v-text-field
-            v-model="origin.chainRsvNo"
+            v-model="origin.partnerRsvNo"
             label="업체예약번호"
             outlined
             hide-details
@@ -36,7 +36,7 @@
       <v-row>
         <v-col cols="4">
           <v-text-field
-            v-model="newInfo.chainRsvNo"
+            v-model="newInfo.partnerRsvNo"
             label="업체예약번호"
             outlined
             hide-details

@@ -30,7 +30,7 @@ export default {
       },
       list: [],
       headers: [
-        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'partnerName', align: 'center', sortable: false },
         { text: '대표자 성명', value: 'ceoName', align: 'center', sortable: false },
         { text: '메뉴 권한 명', value: 'menuAuthGrupName', align: 'center', sortable: false }
       ]
@@ -39,7 +39,7 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'companyName', label: '파트너명', type: 'text' },
+        { key: 'partnerName', label: '파트너명', type: 'text' },
         { key: 'ceoName', label: '대표자 명', type: 'text' },
         { key: 'menuAuthGrupName', label: '메뉴 권한 명', type: 'text' }
       ]
