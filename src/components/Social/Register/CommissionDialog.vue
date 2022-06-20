@@ -8,8 +8,8 @@
         <v-col sm="4" md="6">
           <v-label>법인구분</v-label>
           <v-select v-model="form.corpInd" :items="corpIndList" item-text="commCodeName" item-value="commCode">
-            <template v-slot:item="{ item }">{{ item.commCodeName }} <span v-if="item.commCode === 'D'">({{companyName}})</span></template>
-            <template v-slot:selection="{ item }">{{ item.commCodeName }} <span v-if="item.commCode === 'D'">({{companyName}})</span></template>
+            <template v-slot:item="{ item }">{{ item.commCodeName }} <span v-if="item.commCode === 'D'">({{partnerName}})</span></template>
+            <template v-slot:selection="{ item }">{{ item.commCodeName }} <span v-if="item.commCode === 'D'">({{partnerName}})</span></template>
           </v-select>
         </v-col>
         <v-col sm="12" md="6">
@@ -52,7 +52,7 @@ export default {
     if (this.instance.params) {
       this.isNew = this.instance.params.isNew
       this.form = this.instance.params.commForm
-      this.companyName = this.instance.params.companyName
+      this.partnerName = this.instance.params.partnerName
     }
     // 법인구분 공통코드 조회
     this.getCommonCode()
@@ -67,7 +67,7 @@ export default {
           // res.data.forEach(item => {
           //   if (item.commCode === 'D') {
           //     console.log(item.commCodeName)
-          //     item.commCodeName = (item.commCodeName + ' (' + this.companyName + ')')
+          //     item.commCodeName = (item.commCodeName + ' (' + this.partnerName + ')')
           //   }
           // })
           this.corpIndList = res.data

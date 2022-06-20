@@ -41,7 +41,7 @@ export default {
       list: [],
       headers: [
         { text: 'BUSINESS ID', value: 'businessId', align: 'center' },
-        { text: '파트너명', value: 'companyName', align: 'center' },
+        { text: '파트너명', value: 'partnerName', align: 'center' },
         { text: '업무 구분', value: 'taskTypeCodeName', align: 'center' },
         { text: '업무 구분이름', value: 'taskTypeName', align: 'center' },
         { text: '객실용 회원번호', value: 'memberNo', align: 'center' },
@@ -69,7 +69,7 @@ export default {
       } else {
         return [
           { key: 'businessId', label: 'BUSINESS ID', type: 'text' },
-          { key: 'companyName', label: '파트너명', type: 'text' },
+          { key: 'partnerName', label: '파트너명', type: 'text' },
           { key: 'taskType', label: '업무 구분', type: 'code', commonCode: 'TASK_TYPE' },
           { key: 'memNo', label: '회원번호', type: 'text' },
           {

@@ -150,7 +150,6 @@ export default {
     close () {
       this.$emit('update:dialog', false)
     },
-
     getDetail () {
       this.detail = {}
 
@@ -158,7 +157,6 @@ export default {
         this.detail = response.data
       })
     },
-
     complete () {
       // this.$dialog.confirm('삭제하시겠습니까?').then(() => {
       //     scheduleTempService.updateScheduleTempMst(item.tempNo, { status: 'D' }).then(() => {
@@ -168,17 +166,9 @@ export default {
       //         })
       //     })
       // })
-      this.$confirm('예약 미시도 건에 대해 확인 완료 처리 하시겠습니까?', '확인', {
-        confirmButtonText: '확인',
-        cancelButtonText: '취소',
-        type: 'info',
-        dangerouslyUseHTMLString: true
-      }).then(() => {
-        reservationInputService.updateReservationNoHistorycConfirm(this.detail).then(response => {
-          this.$alert('처리완료 되었습니다.', '알림', {
-            confirmButtonText: '확인',
-            type: 'warning'
-          })
+      this.$dialog.confirm('예약 미시도 건에 대해 확인 완료 처리 하시겠습니까?').then(() => {
+        reservationInputService.updateReservationNoHistorycConfirm(this.detail).then(_ => {
+          this.$dialog.alert('처리완료 되었습니다.')
           this.close()
           this.$parent.search()
         })

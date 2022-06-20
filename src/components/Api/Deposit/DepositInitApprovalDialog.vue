@@ -24,7 +24,7 @@
                 v-for="ptnr in list"
                 :key="ptnr.partnerSeq"
               >
-                {{ptnr.companyName}}
+                {{ptnr.partnerName}}
               </v-chip>
             </div>
           </v-col>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import depositAccountService from '@/api/modules/api/depositAccount.service'
 

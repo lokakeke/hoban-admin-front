@@ -81,12 +81,12 @@
                                 <v-label>일박 요금</v-label>
                                 <p>{{detail.dayPrice | price}}</p>
 
-                                <template v-if="detail.breakfastYn == 'Y'">
+                                <template v-if="detail.breakfastYn === 'Y'">
                                     <v-label>일박 조식금액</v-label>
                                     <p>{{detail.breakfastPrice | price}}</p>
                                 </template>
 
-                                <template v-if="detail.priceDiffYn == 'Y'">
+                                <template v-if="detail.priceDiffYn === 'Y'">
                                     <v-label>객실료 차이</v-label>
                                     <p class="red--text">PMS 요금 : {{detail.pmsSalePrice | price}} , TL 요금 : {{detail.roomPrice | price }}</p>
                                 </template>
@@ -121,7 +121,7 @@
                             </v-btn>
                         </v-layout>
 
-                        <v-layout justify-end v-if="detail.noHistoryYn == 'Y' && !detail.notTryConfirmYmd" class="pt-5">
+                        <v-layout justify-end v-if="detail.noHistoryYn === 'Y' && !detail.notTryConfirmYmd" class="pt-5">
                             <v-btn outlined rounded color="info"  @click="complete()">
                                 <v-icon>check</v-icon>
                                 예약 미시도 확인완료
@@ -129,10 +129,11 @@
                         </v-layout>
 
                         <v-layout justify-end class="pt-5">
-                            <v-flex xs18 md18 class="pl-3">
+                            <v-flex xs18 md18 class="pr-5">
                                 <v-label>확인내용</v-label>
                                 <v-textarea
                                     solo
+                                    class="pt-5"
                                     name="input-7-4"
                                     rows="10"
                                     v-model="detail.confirmRemark" ></v-textarea>
@@ -205,9 +206,11 @@ export default {
       })
     },
     getRsvInfo () {
-      const searchParam = { keyRsvNo: this.detail.keyRsvNo, rsvNo: this.detail.rsvNo }
+      // FIXME API 연결후 주석 해제
+      this.$dialog.alert('미구현')
 
       /*
+        const searchParam = { keyRsvNo: this.detail.keyRsvNo, rsvNo: this.detail.rsvNo }
                   service.selectReservationErrorDgnsInfo(searchParam).then(response => {
                       this.rsvInfo = response.data;
                       if(this.rsvInfo) {

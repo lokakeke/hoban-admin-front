@@ -84,7 +84,7 @@ export default {
         },
         {
           text: '등록자명',
-          value: 'companyName',
+          value: 'partnerName',
           align: 'center'
         },
         {

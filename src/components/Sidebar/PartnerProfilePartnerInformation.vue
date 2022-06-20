@@ -9,7 +9,7 @@
                     </v-col>
                     <v-col cols="3">
                         <v-label>업체 명</v-label>
-                        <v-text-field type="text" v-model="form.companyName" :rules="emptyRules"
+                        <v-text-field type="text" v-model="form.partnerName" :rules="emptyRules"
                                       disabled></v-text-field>
                     </v-col>
                     <v-col cols="3">
@@ -29,7 +29,7 @@
                     </v-col>
                     <v-col cols="3">
                         <v-label>관리자 연락처</v-label>
-                        <v-text-field type="text" v-model="form.companyTelNo"
+                        <v-text-field type="text" v-model="form.partnerTelNo"
                                       v-mask="['###-####-####', '##-###-####', '##-####-####']"
                                       :rules="emptyRules.concat(phoneRegex)"></v-text-field>
                     </v-col>

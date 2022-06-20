@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import service from '@/api/modules/api/apiHistory.service'
+import service from '@/api/modules/api/apiLog.service'
 
 export default {
-  name: 'naverHistory',
+  name: 'naverApiLogs',
   computed: {
     searchList () {
       return [
@@ -60,7 +60,7 @@ export default {
           type: 'text'
         },
         {
-          key: 'crtDt',
+          key: 'createDatetime',
           label: '요청 일시',
           type: 'date',
           format: 'YYYY-MM-DD'
@@ -75,7 +75,7 @@ export default {
         page: 1,
         size: 10,
         total: 0,
-        sort: '_id'
+        sort: '_id,DESC'
       },
       list: [],
       headers: [
@@ -111,7 +111,7 @@ export default {
         },
         {
           text: '요청 일시',
-          value: 'crtDt',
+          value: 'createDatetime',
           align: 'center'
         }
       ],
@@ -145,7 +145,7 @@ export default {
      */
     open (row) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/History/NaverHistoryDialog',
+        componentPath: '@/api/Logs/NaverHistoryDialog.vue',
         params: {
           item: row
         },

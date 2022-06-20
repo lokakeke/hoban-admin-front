@@ -209,7 +209,7 @@
               hide-details
               :items="partnerList"
               :item-value="'partnerSeq'"
-              :item-text="'companyName'"
+              :item-text="'partnerName'"
               :label="param.label"
               @change="param.event !== undefined? param.event(param.value): undefined"
               :rules="param.required? emptyRules: undefined"
@@ -736,8 +736,9 @@ export default {
       })
     },
     openBusinessId (item) {
+      console.log('openBusinessId ', item)
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/History/BusinessIdPopup',
+        componentPath: '/Api/Logs/BusinessIdPopup',
         params: {
           item: ''
         },
@@ -748,7 +749,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               item.value = params.data.businessId
-              item.text = params.data.companyName
+              item.text = params.data.partnerName
             }
           }
         }

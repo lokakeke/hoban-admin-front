@@ -33,7 +33,7 @@
         <v-col sm="6" md="6">
           <v-label>예치금 키</v-label>
           <v-text-field
-            :value="useForm.companyName"
+            :value="useForm.partnerName"
             readonly
             @click="isNewData === false ? openDepositAccount() : null"
           >

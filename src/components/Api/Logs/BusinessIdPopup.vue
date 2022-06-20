@@ -25,7 +25,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import service from '@/api/modules/api/apiHistory.service'
+import apiLogService from '@/api/modules/api/apiLog.service'
 
 export default {
   extends: DialogBase,
@@ -72,12 +72,12 @@ export default {
   },
   methods: {
     search () {
-      service.selectPartnerList(this.searchParam).then(res => {
+      apiLogService.selectPartnerList(this.searchParam).then(res => {
         this.noPartnerList(res.data)
       })
     },
     selectSvcList () {
-      service.selectCommCodeForPartner().then(res => {
+      apiLogService.selectCommonCodeForPartner().then(res => {
         this.serviceList = res.data
       })
     },

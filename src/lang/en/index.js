@@ -523,7 +523,7 @@ export default {
   allClients: 'All Clients',
   recentlyAdded: 'Recently Added',
   favourite: 'Favourite',
-  tradeHistory: 'Trade History',
+  tradeHistory: 'Trade Logs',
   safeTrade: 'Safe Trade',
   exchangeStatistics: 'Exchange Statistics',
   quickTrade: 'Quick Trade',

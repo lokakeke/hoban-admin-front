@@ -58,7 +58,7 @@
 <script>
 
 import calculateService from '@/api/modules/social/calculate.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'CalculateHistory',
@@ -77,7 +77,7 @@ export default {
     searchList () {
       return [
         { key: 'ticketNo', label: '우대번호', type: 'text' },
-        { key: 'companyName', label: '파트너명', type: 'text' },
+        { key: 'partnerName', label: '파트너명', type: 'text' },
         { key: 'calcInd', label: '정산구분', type: 'text' },
         { key: 'progress', label: '진행단계', type: 'text' },
         { key: 'crtDt', label: '생성일자', type: 'text' }
@@ -89,7 +89,7 @@ export default {
         { text: '정산 번호', value: 'calcNo', align: 'center', sortable: false },
         { text: '정산 명', value: 'calcName', align: 'center', sortable: false },
         { text: '정산기간', value: 'calcYmd', align: 'center', sortable: false },
-        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'partnerName', align: 'center', sortable: false },
         { text: '정산 구분', value: 'calcInd', align: 'center', sortable: false },
         { text: '생성 일자', value: 'crtDt', align: 'center', sortable: false }
       ]

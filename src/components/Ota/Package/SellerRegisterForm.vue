@@ -77,7 +77,7 @@
 
 <script>
 import packageService from '@/api/modules/ota/package.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'SellerRegisterForm',
@@ -96,7 +96,7 @@ export default {
       searchSalePartner: '',
       saleHeaders: [
         { text: '판매여부', value: 'existYn', align: 'center', width: '20%' },
-        { text: '업체 명', value: 'companyName', align: 'start', width: '80%' }
+        { text: '업체 명', value: 'partnerName', align: 'start', width: '80%' }
       ],
       salePartnerList: []
     }

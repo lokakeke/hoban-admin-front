@@ -54,7 +54,7 @@
                             <v-card-text class="py-0">
                                 <v-row dense align="center">
                                     <v-col cols="3" class="font-weight-black subtitle-1">
-                                        {{ item.companyName }} <small>({{ item.ptnrId }})</small>
+                                        {{ item.partnerName }} <small>({{ item.ptnrId }})</small>
                                     </v-col>
                                     <v-menu
                                         offset-y
@@ -172,7 +172,7 @@
 
 <script>
 import partnerInventoryRateService from '@/api/modules/partner/partnerInventoryRate.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   props: {
@@ -227,7 +227,7 @@ export default {
     },
     filterList () {
       if (this.searchKeyword) {
-        return this.list.filter(data => data.companyName.includes(this.searchKeyword))
+        return this.list.filter(data => data.partnerName.includes(this.searchKeyword))
       } else {
         return this.list
       }
@@ -292,7 +292,7 @@ export default {
          */
     async removePartner (item) {
       try {
-        await this.$dialog.confirm(`${item.companyName}를 재고관리목록에서 제거 하시겠습니까?`)
+        await this.$dialog.confirm(`${item.partnerName}를 재고관리목록에서 제거 하시겠습니까?`)
         // 관리 리스트에서 제거
         const list = this.list
         list.splice(list.findIndex(data => data.partnerSeq === item.partnerSeq), 1)

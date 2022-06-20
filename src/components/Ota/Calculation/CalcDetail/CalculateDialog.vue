@@ -279,7 +279,7 @@
 import calculationService from '@/api/modules/ota/calculation.service'
 import VirtualScrollTable from '@/components/Common/VirtualScrollTable.vue'
 import excelMixin from '@/mixins/excelMixin'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'CalculateDialog',
@@ -426,9 +426,9 @@ export default {
         calcHeaders.find(data => data.value === 'memNo').name = '패키지 번호'
         calcHeaders.find(data => data.value === 'memName').name = '패키지 명'
 
-        const companyName = { name: '파트너명', value: 'companyName', size: 4, type: 'truncate', textSize: 8 }
+        const partnerName = { name: '파트너명', value: 'partnerName', size: 4, type: 'truncate', textSize: 8 }
         const rsvNoIndex = calcHeaders.findIndex(data => data.value === 'rsvNo')
-        calcHeaders.splice(rsvNoIndex + 1, 0, companyName)
+        calcHeaders.splice(rsvNoIndex + 1, 0, partnerName)
       }
       // 위약금 - 후불금액(제거), 예약일자(추가), 취소일자(추가), 예약상태(추가), 위약금(추가), 입금현황메모(제거)
       if (this.calcHisItem.calcInd === '2') {

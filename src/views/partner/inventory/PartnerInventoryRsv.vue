@@ -128,7 +128,7 @@ export default {
         { text: '전송상태', value: 'sendStatusName', align: 'center' },
         { text: '예약상태', value: 'rsvStatus', align: 'center' },
         { text: '객실 수', value: 'rmCnt', align: 'center' },
-        { text: '파트너', value: 'companyName', align: 'center' },
+        { text: '파트너', value: 'partnerName', align: 'center' },
         { text: '영업장', value: 'storeName', align: 'center' },
         { text: '객실타입', value: 'rmTypeName', align: 'center' },
         { text: '기준일자', value: 'ciYmdDate', align: 'center' },

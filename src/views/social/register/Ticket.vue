@@ -49,7 +49,7 @@
 
 <script>
 import ticketService from '@/api/modules/social/ticket.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'Ticket',
@@ -57,7 +57,7 @@ export default {
     searchList () {
       return [
         { key: 'ticketNo', label: '우대번호', type: 'text' },
-        { key: 'companyName', label: '파트너명', type: 'text', disabled: this.isPartner }
+        { key: 'partnerName', label: '파트너명', type: 'text', disabled: this.isPartner }
       ]
     },
     ...mapGetters({ user: 'auth/user' })
@@ -74,7 +74,7 @@ export default {
       headers: [
         { text: '우대번호', value: 'ticketNo', align: 'center' },
         { text: '우대번호 명', value: 'ticketName', align: 'center' },
-        { text: '업체', value: 'companyName', align: 'center' },
+        { text: '업체', value: 'partnerName', align: 'center' },
         { text: '판매 시작일', value: 'saleBgnYmd', align: 'center' },
         { text: '판매 종료일', value: 'saleEndYmd', align: 'center' },
         { text: '우대번호 유효기간(시작)', value: 'vaildThruBgnYmd', align: 'center' },
