@@ -320,7 +320,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.smsPhone"
+                        v-model="rsvDetailCopy.guestTelNo"
                         label="이용자연락처"
                         readonly
                         outlined
@@ -583,8 +583,8 @@ export default {
     rsvDetailCopy: {
       handler (newVal) {
         if (
-          this.rsvDetailCopy.smsPhone &&
-                    this.rsvDetailCopy.smsPhone.length > 12 &&
+          this.rsvDetailCopy.guestTelNo &&
+                    this.rsvDetailCopy.guestTelNo.length > 12 &&
                     this.rsvDetailCopy.partnerRsvPrice
         ) {
           this.$emit('change-rsv-detail', newVal)

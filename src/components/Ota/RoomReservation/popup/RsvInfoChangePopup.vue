@@ -66,7 +66,7 @@
         </v-col>
         <v-col cols="4">
           <v-text-field
-            v-model="origin.smsPhone"
+            v-model="origin.guestTelNo"
             label="이용자연락처"
             outlined
             hide-details
@@ -131,7 +131,7 @@
         </v-col>
         <v-col cols="4">
           <v-text-field
-            v-model="newInfo.smsPhone"
+            v-model="newInfo.guestTelNo"
             label="이용자연락처"
             outlined
             hide-details
@@ -195,7 +195,7 @@ export default {
       const res = {}
       res.partnerRsvNo = this.origin.partnerRsvNo
       res.guestName = this.origin.guestName
-      res.smsPhone = this.origin.smsPhone
+      res.guestTelNo = this.origin.guestTelNo
       res.roomTypeName = this.newInfo.roomTypeName
       res.roomTypeCode = this.newInfo.roomTypeCode
       this.newInfo = res

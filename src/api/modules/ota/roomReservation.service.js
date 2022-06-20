@@ -82,8 +82,8 @@ export default {
   /**
    * 실제 이용자 연락처 조회
    */
-  selectRealSmsphone (keyRsvNo) {
-    return api.get(`/api/cms/ota/booking/roomReservation/smsPhone/${keyRsvNo}`)
+  selectRealGuestTelNo (keyRsvNo) {
+    return api.get(`/api/cms/ota/booking/roomReservation/guestTelNo/${keyRsvNo}`)
   },
 
   /**
