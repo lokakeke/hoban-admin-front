@@ -101,7 +101,7 @@
 
 <script>
 import ptnrCalcStatusService from '@/api/modules/ota/partnerCalculationStatus.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import excelMixin from '@/mixins/excelMixin'
 
 export default {
@@ -116,7 +116,7 @@ export default {
       headers: [
         {
           text: '파트너사',
-          value: 'companyName',
+          value: 'partnerName',
           align: 'center',
           sortable: true
         },

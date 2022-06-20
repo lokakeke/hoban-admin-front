@@ -6,14 +6,14 @@ export default {
      * OTA & SOCIAL Api 이력 목록 조회
      */
   selectApiHistoryList (param) {
-    return api.get('/api/history/apiLogList', { params: param })
+    return api.get('/api/cms/logs/apiLogList', { params: param })
   },
 
   /**
      * NAVER Api 이력 목록 조회
      */
   selectNaverApiHistoryList (param) {
-    return api.get('/api/history/naver/apiLogList', { params: param })
+    return api.get('/api/cms/logs/naver/apiLogList', { params: param })
   },
 
   /**
@@ -42,13 +42,14 @@ export default {
   /**
    * 파트너 구분값 리스트 조회
    */
-  selectCommCodeForPartner () {
-    return api.get('/api/cms/system/apiLog/commCodeForPartner')
+  selectCommonCodeForPartner () {
+    return api.get('/api/cms/system/apiLog/commonCodeForPartner')
   },
   /**
    *  Api 예약 이력 목록 조회
    */
   selectReservationHistoryList (param) {
-    return api.get('/api/history/reservation/logList', { params: param })
+    return api.get('/api/cms/logs/reservation/logList', { params: param })
   }
+
 }

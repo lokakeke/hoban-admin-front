@@ -15,7 +15,7 @@
         <v-col sm="3" md="2">
           <v-label>파트너명</v-label>
           <v-text-field
-            :value="form.companyName"
+            :value="form.partnerName"
             label
             :rules="emptyRules"
             readonly
@@ -28,7 +28,7 @@
               </v-btn>
             </template>
           </v-text-field>
-          <v-text-field :value="form.companyName" label readonly hide-details v-else></v-text-field>
+          <v-text-field :value="form.partnerName" label readonly hide-details v-else></v-text-field>
         </v-col>
 
         <v-col sm="3" md="2">
@@ -118,13 +118,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import depositAccountService from '@/api/modules/api/depositAccount.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 
 const DEFAULT_FORM = {
-  companyName: null,
+  partnerName: null,
   partnerSeq: null,
   amt: 0,
   useYn: 'N'
@@ -182,7 +182,7 @@ export default {
         if (this.isPartner === true) {
           // 파트너인 경우 파트너정보 주입
           this.form.partnerSeq = this.user.number
-          this.form.companyName = this.user.name
+          this.form.partnerName = this.user.name
         }
         this.orgForm = _.cloneDeep(this.form)
       } catch (e) {
@@ -226,7 +226,7 @@ export default {
           width: 1400,
           closeCallback: params => {
             if (params && params.data) {
-              this.$set(this.form, 'companyName', params.data.companyName)
+              this.$set(this.form, 'partnerName', params.data.partnerName)
               this.$set(this.form, 'partnerSeq', params.data.partnerSeq)
             }
           }

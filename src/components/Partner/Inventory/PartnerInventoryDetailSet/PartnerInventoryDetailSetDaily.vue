@@ -42,7 +42,7 @@
           <v-row no-gutters align="center">
             <v-col cols="3" class="pointer" @click="check(item)">
               <v-icon left>{{item.check? 'check_box': 'check_box_outline_blank'}}</v-icon>
-              {{item.companyName}} <!--<small>( {{item.ptnrId}} )</small>-->
+              {{item.partnerName}} <!--<small>( {{item.ptnrId}} )</small>-->
             </v-col>
             <v-menu
               offset-y

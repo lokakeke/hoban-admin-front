@@ -39,7 +39,7 @@
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">파트너</div>
-          <v-text-field v-model="form.companyName" dense readonly />
+          <v-text-field v-model="form.partnerName" dense readonly />
         </v-col>
       </v-row>
       <v-row>

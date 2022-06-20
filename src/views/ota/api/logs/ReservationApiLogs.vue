@@ -2,7 +2,7 @@
     <v-row wrap>
       <app-card :heading="'API 예약 이력 관리'" col-classes="col-12">
           <search-form :search-param.sync="searchParam" :search-list.sync="searchList" @search="search"></search-form>
-          <v-data-table disable-pagination :no-data-text="'검색 결과가 없습니다.'" :headers="headers"  :items="list" disable-sort hide-default-footer @click:row="open($event)" class="click-row bordered">
+          <v-data-table disable-pagination :no-data-text="'검색 결과가 없습니다.'" :headers="headers"  :items="list" disable-sort hide-default-footer @click:row="open" class="click-row bordered">
               <template v-slot:item.parameter="{ item }">
                 {{ JSON.stringify(item.parameter) | textTruncate(50)}}
               </template>
@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import service from '@/api/modules/api/apiHistory.service'
+import service from '@/api/modules/api/apiLog.service'
 
 export default {
-  name: 'reservationHistory',
+  name: 'reservationApiLogs',
   computed: {
     searchList () {
       const list = [
@@ -44,12 +44,12 @@ export default {
           type: 'text'
         },
         {
-          key: 'comRsvNo',
+          key: 'partnerRsvNo',
           label: '업체주문번호',
           type: 'text'
         },
         {
-          key: 'crtDt',
+          key: 'createDatetime',
           label: '요청 일시',
           type: 'dateRange',
           format: 'YYYY-MM-DD'
@@ -63,9 +63,9 @@ export default {
       searchParam: {
         q: {},
         page: 1,
-        size: 10,
+        size: 20,
         total: 0,
-        sort: '_id'
+        sort: '_id,DESC'
       },
       list: [],
       headers: [
@@ -91,7 +91,7 @@ export default {
         },
         {
           text: '요청 일시',
-          value: 'requestDt',
+          value: 'requestDatetime',
           align: 'center'
         }
       ],
@@ -100,6 +100,7 @@ export default {
     }
   },
   mounted () {
+    this.search()
   },
   methods: {
     /**
@@ -115,8 +116,9 @@ export default {
      * @param row
      */
     open (row) {
+      console.log('open!!! ', row)
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/History/ReservationHistoryDialog',
+        componentPath: '/Api/Logs/ReservationHistoryDialog',
         params: {
           item: row
         },

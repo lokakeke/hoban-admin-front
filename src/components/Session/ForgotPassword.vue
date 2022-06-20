@@ -15,7 +15,7 @@
                 <v-form ref="form" lazy-validation autocomplete="off">
                     <v-text-field v-model="form.loginId" :rules="emptyRules" label="* 아이디" required></v-text-field>
                     <template v-if="isPartner">
-                        <v-text-field v-model="form.companyName" :rules="emptyRules" label="* 업체명" required></v-text-field>
+                        <v-text-field v-model="form.partnerName" :rules="emptyRules" label="* 업체명" required></v-text-field>
                         <v-text-field v-model="form.addAuthNo" :rules="emptyRules"
                                       label="* 추가 인증번호 (파트너 등록 시 생성된 추가 인증번호)" required></v-text-field>
                         <v-text-field v-model="form.partnerManagerId" :rules="emptyRules" label="* 매니저 아이디"
@@ -49,7 +49,7 @@
 <script>
 import adminAuth from '@/api/modules/system/authentication/admin/adminAuth.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   extends: DialogBase,
@@ -62,7 +62,7 @@ export default {
         addAuthNo: '',
         partnerManagerId: '',
         adminName: '',
-        companyName: '',
+        partnerName: '',
         codeType: 'E'
       }
     }

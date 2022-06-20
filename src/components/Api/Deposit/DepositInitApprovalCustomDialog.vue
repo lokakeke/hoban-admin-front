@@ -8,7 +8,7 @@
           </v-col>
           <v-col cols="3">
             <v-label>대상 파트너사</v-label>
-            <v-text-field :value="targetPartner.companyName" readonly disabled></v-text-field>
+            <v-text-field :value="targetPartner.partnerName" readonly disabled></v-text-field>
           </v-col>
           <v-col cols="3">
             <v-label>객실 기준일자</v-label>
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import depositAccountService from '@/api/modules/api/depositAccount.service'
 
@@ -184,7 +184,7 @@ export default {
         list: this.list,
         gubun: this.gubun,
         partnerSeq: this.targetPartner.partnerSeq,
-        companyName: this.targetPartner.companyName,
+        partnerName: this.targetPartner.partnerName,
         loginId: this.user.number
       }
       depositAccountService.updateScheduleDepositInitCustomList(paramList).then(res => {

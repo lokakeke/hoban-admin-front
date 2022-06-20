@@ -3,49 +3,49 @@
         <v-row>
             <v-col>
                 <v-label>TOKEN</v-label>
-                <v-textarea no-resize rows="2" v-model="item.token" label="" readonly></v-textarea>
+                <v-textarea no-resize rows="2" v-model="item.token"  readonly></v-textarea>
             </v-col>
         </v-row>
         <v-row>
             <v-col cols="6">
                 <v-label>URL</v-label>
-                <v-text-field v-model="item.url" label="" readonly></v-text-field>
+                <v-text-field v-model="item.url"  readonly></v-text-field>
             </v-col>
             <v-col cols="6">
                 <v-label>요청 일시</v-label>
-                <v-text-field v-model="item.crtDt" label="" readonly></v-text-field>
+                <v-text-field v-model="item.createDatetime"  readonly></v-text-field>
             </v-col>
         </v-row>
         <v-row>
             <v-col sm="6" md="4">
                 <v-label>Business Id</v-label>
-                <v-text-field v-model="item.businessId" label="" readonly></v-text-field>
+                <v-text-field v-model="item.businessId"  readonly></v-text-field>
             </v-col>
             <v-col sm="6" md="4">
                 <v-label>IP 주소</v-label>
-                <v-text-field v-model="item.ip" label="" readonly></v-text-field>
+                <v-text-field v-model="item.ip"  readonly></v-text-field>
             </v-col>
             <v-col sm="6" md="4">
                 <v-label>METHOD</v-label>
-                <v-text-field v-model="item.method" label="" readonly></v-text-field>
+                <v-text-field v-model="item.method"  readonly></v-text-field>
             </v-col>
             <v-col sm="6" md="4">
                 <v-label>시스템 구분</v-label>
-                <v-text-field v-model="item.systemDivision" label="" readonly></v-text-field>
+                <v-text-field v-model="item.systemDivision"  readonly></v-text-field>
             </v-col>
             <v-col sm="6" md="4">
                 <v-label>서비스 구분</v-label>
-                <v-text-field v-model="item.serviceDivision" label="" readonly></v-text-field>
+                <v-text-field v-model="item.serviceDivision"  readonly></v-text-field>
             </v-col>
             <v-col sm="6" md="4">
                 <v-label>결과 코드</v-label>
-                <v-text-field v-model="item.resultCode" label="" readonly></v-text-field>
+                <v-text-field v-model="item.resultCode"  readonly></v-text-field>
             </v-col>
         </v-row>
         <v-row>
             <v-col>
                 <v-label>결과 메시지</v-label>
-                <v-text-field v-model="item.resultMsg" label="" readonly></v-text-field>
+                <v-text-field v-model="item.resultMsg"  readonly></v-text-field>
             </v-col>
         </v-row>
         <v-row>
@@ -54,7 +54,7 @@
                     <v-card-title class="pb-0 pt-2">
                         파라미터 목록
                     </v-card-title>
-                    <v-textarea v-model="item.params" rows="10" class="pt-0" hide-details no-resize></v-textarea>
+                    <v-textarea :value="JSON.stringify(item.params,undefined, 2)" rows="10" class="pt-0" hide-details no-resize></v-textarea>
                 </v-card>
             </v-col>
             <v-col v-if="!isPartner" cols="12" class="text-right">
@@ -67,11 +67,11 @@
         <v-row v-if="progress">
             <v-col sm="6" md="4">
                 <v-label>호출 결과코드</v-label>
-                <v-text-field v-model="resultItem.resultCode" label="" readonly></v-text-field>
+                <v-text-field v-model="resultItem.resultCode"  readonly></v-text-field>
             </v-col>
             <v-col sm="6" md="4">
                 <v-label>호출 결과메시지</v-label>
-                <v-text-field v-model="resultItem.resultMsg" label="" readonly></v-text-field>
+                <v-text-field v-model="resultItem.resultMsg"  readonly></v-text-field>
             </v-col>
         </v-row>
         <template v-slot:actions>
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import service from '@/api/modules/api/apiHistory.service'
+import service from '@/api/modules/api/apiLog.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
@@ -96,6 +96,9 @@ export default {
       },
       item: {}
     }
+  },
+  created () {
+    console.log('CRE')
   },
   mounted () {
     this.item = this.instance.params.item

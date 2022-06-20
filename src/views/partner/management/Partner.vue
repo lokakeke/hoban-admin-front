@@ -15,8 +15,8 @@
         <template v-slot:item.login="{item}">
           <partner-login-for-admin :item="item"></partner-login-for-admin>
         </template>
-        <template v-slot:item.companyTelNo="{item}">
-          <mask-tel-number :text="item.companyTelNo" @search="viewTelNo(item)" />
+        <template v-slot:item.partnerTelNo="{item}">
+          <mask-tel-number :text="item.partnerTelNo" @search="viewTelNo(item)" />
         </template>
       </v-data-table>
       <v-row>
@@ -71,9 +71,9 @@ export default {
         { text: '업체 번호', value: 'partnerSeq', align: 'center', sortable: false },
         { text: '업체 명', value: 'partnerName', align: 'center', sortable: false },
         { text: '로그인 아이디', value: 'loginId', align: 'center', sortable: false },
-        { text: '사업자 번호', value: 'companyNo', align: 'center', sortable: false },
+        { text: '사업자 번호', value: 'partnerNo', align: 'center', sortable: false },
         { text: '관리자 성명', value: 'ceoName', align: 'center', sortable: false },
-        { text: '관리자 연락처', value: 'companyTelNo', align: 'center', sortable: false },
+        { text: '관리자 연락처', value: 'partnerTelNo', align: 'center', sortable: false },
         { text: '메뉴 권한', value: 'menuAuthGroupName', align: 'center', sortable: false },
         { text: '추가 인증번호', value: 'addAuthNo', align: 'center', sortable: false },
         { text: '잠김 여부', value: 'lockYn', align: 'center', sortable: false }
@@ -132,7 +132,7 @@ export default {
     },
     async viewTelNo (item) {
       const res = await service.selectPartnerDetails(item.partnerSeq)
-      item.companyTelNo = res.data.companyTelNo
+      item.partnerTelNo = res.data.partnerTelNo
     },
     open (rowData) {
       let isModify = false

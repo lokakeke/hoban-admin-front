@@ -29,7 +29,7 @@
         <td class="text-center">{{item.storeName}} - {{item.storeCode}}</td>
         <td class="text-center">{{item.rmTypeName}} - {{item.rmTypeCode}}</td>
         <td class="text-center">{{item.ciYmd | date}}</td>
-        <td class="text-center">{{item.companyName}}</td>
+        <td class="text-center">{{item.partnerName}}</td>
         <td class="text-center">{{item.rmCnt}}</td>
         <td class="text-center">{{item.rsvBlckCode}}</td>
         <td class="text-center">{{item.rsvBlckCnt}}</td>

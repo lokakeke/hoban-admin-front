@@ -170,7 +170,7 @@ export default {
       headers: [
         { text: '파트너번호', value: 'partnerSeq', align: 'center' },
         { text: '아이디', value: 'loginId', align: 'center' },
-        { text: '파트너명', value: 'companyName', align: 'center' },
+        { text: '파트너명', value: 'partnerName', align: 'center' },
         { text: '상세보기', value: 'action', align: 'center' }
       ],
       search: '',

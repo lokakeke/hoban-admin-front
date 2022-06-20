@@ -62,7 +62,7 @@ export default {
           align: 'center',
           sortable: false
         },
-        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'partnerName', align: 'center', sortable: false },
         { text: '예치금', value: 'amt', align: 'center', sortable: false },
         { text: '사용여부', value: 'useYn', align: 'center', sortable: false }
       ]

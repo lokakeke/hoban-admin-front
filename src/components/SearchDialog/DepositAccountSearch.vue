@@ -67,7 +67,7 @@ export default {
           align: 'center',
           sortable: false
         },
-        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'partnerName', align: 'center', sortable: false },
         { text: '업무유형명', value: 'taskTypeName', align: 'center', sortable: false },
         {
           text: '누적 입금액',
@@ -91,7 +91,7 @@ export default {
     searchList () {
       const searchList = [
         { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
-        { key: 'companyName', label: '파트너명', type: 'text', cols: 2 },
+        { key: 'partnerName', label: '파트너명', type: 'text', cols: 2 },
         {
           key: 'taskType',
           label: '예치금 구분',
@@ -125,7 +125,7 @@ export default {
       if (row.depositKey) {
         this.$dialog
           .confirm(
-            `${row.companyName} - ${row.depositKey} 예치금 계좌를 선택 하시겠습니까?`
+            `${row.partnerName} - ${row.depositKey} 예치금 계좌를 선택 하시겠습니까?`
           )
           .then(() => {
             this.close({ data: row })

@@ -62,7 +62,7 @@ export default {
         auth: true,
         requiresAuth: true,
         title: '우대번호 거래내역 조회',
-        breadcrumb: 'Pvl Ticket History'
+        breadcrumb: 'Pvl Ticket Logs'
       }
     },
     {
@@ -150,7 +150,7 @@ export default {
         auth: true,
         requiresAuth: true,
         title: '이전 정산 이력',
-        breadcrumb: 'Calculate History'
+        breadcrumb: 'Calculate Logs'
       }
     },
     {

@@ -13,35 +13,35 @@
         <v-row>
             <v-col cols="6">
                 <v-label>요청 시간</v-label>
-                <v-text-field v-model="item.requestDt" label="" readonly></v-text-field>
+                <v-text-field v-model="item.requestDatetime" label="" readonly></v-text-field>
             </v-col>
             <v-col cols="6">
                 <v-label>응답 시간</v-label>
-                <v-text-field v-model="item.responseDt" label="" readonly></v-text-field>
+                <v-text-field v-model="item.responseDatetime" label="" readonly></v-text-field>
             </v-col>
         </v-row>
-        <v-row>
-            <v-col cols="12">
-                <v-card outlined>
-                    <v-card-title class="pb-0 pt-2">
-                        요청 파라미터
-                    </v-card-title>
-                    <v-textarea :value="JSON.stringify(item.parameter)" rows="10" class="pt-0" hide-details
-                                no-resize></v-textarea>
-                </v-card>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12">
-                <v-card outlined>
-                    <v-card-title class="pb-0 pt-2">
-                        예약정보
-                    </v-card-title>
-                    <v-textarea :value="JSON.stringify(item.reservationModel)" rows="10" class="pt-0" hide-details
-                                no-resize></v-textarea>
-                </v-card>
-            </v-col>
-        </v-row>
+            <v-row>
+                <v-col cols="12">
+                    <v-card outlined>
+                        <v-card-title class="pb-0 pt-2">
+                            요청 파라미터
+                        </v-card-title>
+                        <v-textarea :value="JSON.stringify(item.parameter, undefined, 2)" rows="10" class="pt-0 pa-4" hide-details readonly
+                                    no-resize></v-textarea>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12">
+                    <v-card outlined>
+                        <v-card-title class="pb-0 pt-2">
+                            예약정보
+                        </v-card-title>
+                        <v-textarea :value="JSON.stringify(item.reservationModel,undefined,2)" rows="10" class="pt-0" hide-details readonly
+                                    no-resize></v-textarea>
+                    </v-card>
+                </v-col>
+            </v-row>
         <template v-slot:actions>
             <v-btn outlined rounded color="primary" @click="close">닫기(ESC)</v-btn>
         </template>
