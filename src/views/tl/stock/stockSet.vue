@@ -160,7 +160,7 @@
                 </v-flex>
               </template>
               <template v-else>
-                <v-flex xs12 sm6 md4 lg3 v-for="(room, index) of roomTypeList" :key="room.tlRmTypeCode" class="pa-2">
+                <v-flex xs12 sm6 md4 lg3 v-for="room of roomTypeList" :key="room.tlRmTypeCode" class="pa-2">
                   <v-hover>
                     <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 5 : 2}`" :color="(room.priceYn ? 'cyan lighten-4' : (room.isVisible ? '' : 'grey lighten-3'))">
                       <v-card-text>

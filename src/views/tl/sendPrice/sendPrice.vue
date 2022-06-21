@@ -20,7 +20,7 @@
         <v-layout>
           <v-flex xs12>
             <v-data-table :headers="headers"
-                          :items="list" v-model="selected"
+                          :items="list" :value="selected"
                           item-key="sendNo"
                           disable-pagination
                           hide-default-header
@@ -30,7 +30,8 @@
                 <thead>
                   <tr>
                     <th>
-                      <v-checkbox color="primary" hide-details @click.stop="toggleAll"
+                      <v-checkbox @click.stop="toggleAll"
+                                  class="check-center"
                                   :input-value="selectedAll"
                                   :indeterminate="indeterminate"></v-checkbox>
                     </th>
@@ -44,9 +45,8 @@
                 <tr @click="showDetail(props.item)" class="pointer">
                   <td class="text-xs-right" @click="$event.cancelBubble=true">
                     <v-checkbox
-                      color="primary"
-                      hide-details
-                      v-model="props.selected"
+                      class="check-center"
+                      v-model="props.item.selected"
                       :disabled="props.item.sendStatus !== 'R'"
                     ></v-checkbox>
                   </td>
@@ -108,7 +108,7 @@ import branchService from '@/api/modules/tl/branch.service'
 export default {
   components: { sendPriceDetail },
   name: 'sendPrice',
-  data() {
+  data () {
     return {
       searchParam: {
         q: {},
@@ -152,7 +152,7 @@ export default {
     }
   },
   computed: {
-    searchList() {
+    searchList () {
       return [
         { key: 'brcNo', label: '사업장', type: 'branch' },
         {
@@ -175,15 +175,15 @@ export default {
         { key: 'searchDate', label: '전송 일자', type: 'date', format: 'YYYYMMDD' }
       ]
     },
-    selectedAll() {
-      return this.selected.length === _.filter(this.list, { sendStatus: 'R' }).length && this.selected.length > 0
+    selectedAll () {
+      return _.filter(this.list, { sendStatus: 'R' }).length === _.filter(this.list, { selected: true }).length
     },
-    indeterminate() {
-      return !this.selectedAll && this.selected.length > 0
+    indeterminate () {
+      return _.filter(this.list, { selected: true }).length > 0 && (_.filter(this.list, { sendStatus: 'R' }).length !== _.filter(this.list, { selected: true }).length)
     }
   },
   methods: {
-    search() {
+    search () {
       this.selected = []
       this.list = []
       this.pagination = {
@@ -192,15 +192,18 @@ export default {
         rowsPerPage: -1
       }
       sendPriceService.selectList(this.searchParam).then(res => {
+        res.data.forEach(item => {
+          item.selected = false
+        })
         this.list = res.data
         this.searchParam.total = res.pagination.total
       })
     },
-    showDetail(info) {
+    showDetail (info) {
       this.form = info
       this.dialog = true
     },
-    dateSet(value, currFormat = moment.defaultFormat, format = 'YYYY.MM.DD HH:mm:ss') {
+    dateSet (value, currFormat = moment.defaultFormat, format = 'YYYY.MM.DD HH:mm:ss') {
       if (!value) {
         return '-'
       } else if (!moment(value, currFormat).isValid()) {
@@ -208,24 +211,27 @@ export default {
       }
       return moment(value, currFormat).format(format)
     },
-    toggleAll() {
-      if (this.selected.length) this.selected = []
-      else this.selected = _.filter(this.list, { sendStatus: 'R' }).slice()
-    },
-    changeSort(column) {
-      if (this.pagination.sortBy === column) {
-        this.pagination.descending = !this.pagination.descending
+    toggleAll () {
+      if (_.filter(this.list, { selected: true }).length === 0 || _.filter(this.list, { sendStatus: 'R' }).length !== _.filter(this.list, { selected: true }).length) {
+        this.list.forEach(item => {
+          if (item.sendStatus === 'R') {
+            item['selected'] = true
+          }
+        })
       } else {
-        this.pagination.sortBy = column
-        this.pagination.descending = false
+        this.list.forEach(item => {
+          if (item.sendStatus === 'R') {
+            item['selected'] = false
+          }
+        })
       }
     },
-    approveSendPrice() {
-      if (!this.selected || this.selected.length === 0) {
+    approveSendPrice () {
+      if (_.filter(this.list, { selected: true }).length === 0) {
         this.$dialog.alert('선택된 금액 정보가 없습니다.')
         return false
       }
-      const checkedSendNo = _.map(this.selected, 'sendNo')
+      const checkedSendNo = _.map(_.filter(this.list, { selected: true }), 'sendNo')
 
       this.$dialog.confirm('선택한 금액 정보를 전송하시겠습니까?').then(() => {
         sendPriceService.approveSendPrice(checkedSendNo).then(res => {
@@ -234,12 +240,12 @@ export default {
         })
       })
     },
-    deleteSendPrice() {
-      if (!this.selected || this.selected.length === 0) {
+    deleteSendPrice () {
+      if (_.filter(this.list, { selected: true }).length === 0) {
         this.$dialog.alert('선택된 금액 정보가 없습니다.')
         return false
       }
-      const checkedSendNo = _.map(this.selected, 'sendNo')
+      const checkedSendNo = _.map(_.filter(this.list, { selected: true }), 'sendNo')
 
       this.$dialog.confirm('선택한 금액 정보를 삭제하시겠습니까?').then(() => {
         sendPriceService.deleteSendPrice(checkedSendNo).then(res => {
@@ -248,11 +254,11 @@ export default {
         })
       })
     },
-    refresh() {
+    refresh () {
       this.$refs.SearchForm.emit(true)
     }
   },
-  mounted() {
+  mounted () {
     branchService.selectPmsHotelInfoList().then(res => {
       this.businessList = res.data
     })

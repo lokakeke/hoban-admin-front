@@ -1,8 +1,8 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-container fluid pt-0>
+      <vue-tour :steps="steps"/>
       <app-card colClasses="xl12 lg12 md12 sm12 xs12">
-        <vue-tour :steps="steps"/>
         <v-row>
           <v-col cols="8" class="text-left">
             <branch-list :brcNo.sync="param.brcNo" :branchList.sync="branchList" :branchName.sync="param.branchName"
