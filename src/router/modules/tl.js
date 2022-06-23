@@ -38,6 +38,7 @@ const Price = () => import('@/views/tl/price/price.vue')
 
 // 금액 전송이력
 const SendPrice = () => import('@/views/tl/sendPrice/sendPrice.vue')
+const TlApiLogs = () => import('@/views/tl/log/TlApiLogs.vue')
 
 export default {
   path: '/tl',
@@ -189,6 +190,18 @@ export default {
         requiresAuth: true,
         title: '금액 전송이력',
         breadcrumb: 'SendPrice'
+      }
+    },
+    // TlApiLogs
+    {
+      path: 'tlLogManagement',
+      component: TlApiLogs,
+      name: 'tl.tlApiLogs',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: 'Tl API 통신 이력',
+        breadcrumb: 'TlApiLogs'
       }
     }
   ]

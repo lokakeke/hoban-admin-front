@@ -116,9 +116,8 @@ export default {
      * @param row
      */
     open (row) {
-      console.log('open!!! ', row)
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Logs/ReservationHistoryDialog',
+        componentPath: '/Api/Log/ReservationApiLogDialog',
         params: {
           item: row
         },

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import service from '@/api/modules/api/apiLog.service'
+import apiLogService from '@/api/modules/api/apiLog.service'
 
 export default {
   name: 'naverApiLogs',
@@ -135,7 +135,7 @@ export default {
      * 검색
      */
     async search () {
-      const res = await service.selectNaverApiHistoryList(this.searchParam)
+      const res = await apiLogService.selectNaverApiHistoryList(this.searchParam)
       this.list = res.data.list
       this.searchParam.total = res.data.total
     },
@@ -145,7 +145,7 @@ export default {
      */
     open (row) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/Logs/NaverHistoryDialog.vue',
+        componentPath: '/Naver/Api/Log/NaverApiLogDialog',
         params: {
           item: row
         },

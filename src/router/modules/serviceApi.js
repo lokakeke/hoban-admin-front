@@ -2,9 +2,9 @@ import Full from '@/container/Full.vue'
 
 // API 서비스 등록관리
 const service = () => import('@/views/ota/api/service/Service.vue')
-const apiLogs = () => import('@/views/ota/api/logs/ApiLogs.vue')
-const reservationLogs = () => import('@/views/ota/api/logs/ReservationApiLogs.vue')
-const naverApiLogs = () => import('@/views/ota/api/logs/NaverApiLogs')
+const apiLogs = () => import('@/views/ota/api/log/ApiLogs.vue')
+const reservationLogs = () => import('@/views/ota/api/log/ReservationApiLogs.vue')
+const naverApiLogs = () => import('@/views/naver/log/NaverApiLogs')
 const resultCode = () => import('@/views/ota/api/resultCode/resultCode.vue')
 const serviceApi = () => import('@/views/ota/api/service/Api.vue')
 
@@ -31,12 +31,12 @@ export default {
     {
       path: 'apiLogs',
       component: apiLogs,
-      name: 'serviceApi.logs',
+      name: 'serviceApi.log',
       meta: {
         auth: true,
         requiresAuth: true,
         title: 'API 이력관리',
-        breadcrumb: 'API Logs '
+        breadcrumb: 'API Log '
       }
     },
     {
@@ -47,7 +47,7 @@ export default {
         auth: true,
         requiresAuth: true,
         title: 'API 예약 이력관리',
-        breadcrumb: 'API Reservation Logs '
+        breadcrumb: 'API Reservation Log '
       }
     },
     {
@@ -58,7 +58,7 @@ export default {
         auth: true,
         requiresAuth: true,
         title: 'Naver API 예약 이력관리',
-        breadcrumb: 'Naver API Reservation Logs '
+        breadcrumb: 'Naver API Reservation Log '
       }
     },
     {
