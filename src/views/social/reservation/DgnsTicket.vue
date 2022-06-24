@@ -1,7 +1,7 @@
 <template>
     <v-row wrap>
         <v-col sm="12">
-            <app-card :heading="'DGNS 우대번호 조회'">
+            <app-card :heading="'PMS 우대번호 조회'">
                 <v-row>
                     <v-col sm="2" md="1" class="pr-0">
                         <v-label>종류구분코드</v-label>

@@ -108,7 +108,7 @@
             <!-- List 3-->
             <v-row class="sumTitle">
               <v-col cols="12" class="font-weight-bold black--text pb-0">
-                ▣ 후불 (DGNS매출 + 미사용 30%)
+                ▣ 후불 (PMS매출 + 미사용 30%)
               </v-col>
             </v-row>
             <v-col cols="12" class="sumBody mb-1">
@@ -131,7 +131,7 @@
                 </tbody>-->
                 <tbody v-if="form">
                 <tr>
-                  <td>DGNS 매출</td>
+                  <td>PMS 매출</td>
                   <td>{{form.useSum | price}}</td>
                 </tr>
                 <tr>
@@ -270,7 +270,7 @@
               <!-- List 3-->
               <v-row class="sumTitle">
                 <v-col cols="12" class="font-weight-bold black--text pb-0">
-                  ▣ 후불 (DGNS매출 + 미사용 30%)
+                  ▣ 후불 (PMS매출 + 미사용 30%)
                 </v-col>
               </v-row>
               <v-col cols="12" class="sumBody mb-1">
@@ -283,7 +283,7 @@
                   </thead>
                   <tbody v-if="form">
                   <tr>
-                    <td>DGNS 매출</td>
+                    <td>PMS 매출</td>
                     <td>{{form.useSum | price}}</td>
                   </tr>
                   <tr>

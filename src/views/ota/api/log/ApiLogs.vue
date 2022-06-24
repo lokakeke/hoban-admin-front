@@ -30,7 +30,7 @@ export default {
           key: 'systemDivision',
           label: '시스템 구분',
           type: 'code',
-          commCode: 'TASK_TYPE',
+          commonCode: 'TASK_TYPE',
           event: this.changeDivision
         },
         {
@@ -149,9 +149,8 @@ export default {
      * @param row
      */
     open (row) {
-      console.log('open~')
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Api/Logs/HistoryDialog',
+        componentPath: '/Api/Log/HistoryDialog',
         params: {
           item: row
         },
@@ -168,7 +167,7 @@ export default {
      */
     changeDivision (value) {
       if (value !== undefined) {
-        this.serviceList = this.serviceListCopy.filter(data => data.parentCommCode === value)
+        this.serviceList = this.serviceListCopy.filter(data => data.parentCommonCode === value)
       } else {
         this.serviceList = []
       }

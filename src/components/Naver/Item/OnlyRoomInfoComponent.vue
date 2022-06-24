@@ -10,7 +10,7 @@
     <v-row v-else no-gutters justify="space-between">
       <v-col cols="12">
         <v-alert dense outlined type="error" class="mb-0">
-          아래 정보 수정시 상품의 재고/가격이 DGNS 재고/가격 기준으로 일괄 변경됩니다.
+          아래 정보 수정시 상품의 재고/가격이 PMS 재고/가격 기준으로 일괄 변경됩니다.
         </v-alert>
       </v-col>
     </v-row>
@@ -89,7 +89,7 @@
 <script>
 import itemService from '@/api/modules/naver/item.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'OnlyRoomInfoComponent',

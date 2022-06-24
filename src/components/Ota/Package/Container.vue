@@ -124,16 +124,17 @@ export default {
           component: HolidayInformation,
           name: 'HolidayInformation',
           auth: true
-        },
-        {
-          step: 5,
-          label: this.isEdit
-            ? '패키지 분류수정'
-            : '패키지 분류지정',
-          component: RoomPackageTypeForm,
-          name: 'RoomPackageTypeForm',
-          auth: !this.isPartner // 파트너는 해당 스텝 접근 불가
         }
+        // FIXME 잠시 주석처리(woojung, 0624)
+        // ,{
+        //   step: 5,
+        //   label: this.isEdit
+        //     ? '패키지 분류수정'
+        //     : '패키지 분류지정',
+        //   component: RoomPackageTypeForm,
+        //   name: 'RoomPackageTypeForm',
+        //   auth: !this.isPartner // 파트너는 해당 스텝 접근 불가
+        // }
       ]
 
       return items.filter(data => data.auth === true)

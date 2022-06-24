@@ -16,7 +16,7 @@
                 <thead>
                   <tr>
                     <th class="text-center" colspan="8">판매</th>
-                    <th class="text-center" colspan="2">회수<br>(DGNS 발생기준)</th>
+                    <th class="text-center" colspan="2">회수<br>(PMS 발생기준)</th>
                     <th class="text-center" colspan="2">미회수<br>(비발디 낙전)</th>
                     <th class="text-center" colspan="2">미사용30%<br>(비발디 낙전)</th>
                   </tr>
@@ -82,7 +82,7 @@
                 <thead>
                 <tr>
                   <th class="text-center" colspan="8">판매</th>
-                  <th class="text-center" colspan="2">회수<br>(DGNS 발생기준)</th>
+                  <th class="text-center" colspan="2">회수<br>(PMS 발생기준)</th>
                   <th class="text-center" colspan="2">미회수<br>(비발디 낙전)</th>
                   <th class="text-center" colspan="2">미사용30%<br>(비발디 낙전)</th>
                 </tr>
@@ -166,7 +166,7 @@
                 <thead>
                 <tr>
                   <th class="text-center" colspan="8">판매</th>
-                  <th class="text-center" colspan="2">회수<br>(DGNS 발생기준)</th>
+                  <th class="text-center" colspan="2">회수<br>(PMS 발생기준)</th>
                   <th class="text-center" colspan="2">미회수<br>(비발디 낙전)</th>
                   <th class="text-center" colspan="2">미사용30%<br>(비발디 낙전)</th>
                 </tr>
@@ -232,7 +232,7 @@
                 <thead>
                 <tr>
                   <th class="text-center" colspan="8">판매</th>
-                  <th class="text-center" colspan="2">회수<br>(DGNS 발생기준)</th>
+                  <th class="text-center" colspan="2">회수<br>(PMS 발생기준)</th>
                   <th class="text-center" colspan="2">미회수<br>(비발디 낙전)</th>
                   <th class="text-center" colspan="2">미사용30%<br>(비발디 낙전)</th>
                 </tr>

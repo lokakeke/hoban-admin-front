@@ -54,7 +54,7 @@
                     <v-card-title class="pb-0 pt-2">
                         파라미터 목록
                     </v-card-title>
-                    <v-textarea :value="JSON.stringify(item.params,undefined, 2)" rows="10" class="pt-0" hide-details no-resize></v-textarea>
+                    <v-textarea :value="JSON.stringify(item.params,undefined, 2)" rows="10" class="pt-0 pa-4" hide-details no-resize></v-textarea>
                 </v-card>
             </v-col>
             <v-col v-if="!isPartner" cols="12" class="text-right">
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import service from '@/api/modules/api/apiLog.service'
+import apiLogService from '@/api/modules/api/apiLog.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
@@ -115,12 +115,12 @@ export default {
     call () {
       this.progress = true
       if (this.item.method === 'POST') {
-        service.selectPostApiCallAgain(this.item.url, this.item.token, JSON.parse(this.item.params)).then(res => {
+        apiLogService.selectPostApiCallAgain(this.item.url, this.item.token, JSON.parse(this.item.params)).then(res => {
           this.resultItem.resultCode = res.data.resultCode
           this.resultItem.resultMsg = res.data.resultMsg
         })
       } else if (this.item.method === 'GET') {
-        service.selectGetApiCallAgain(this.item.url, this.item.token, JSON.parse(this.item.params)).then(res => {
+        apiLogService.selectGetApiCallAgain(this.item.url, this.item.token, JSON.parse(this.item.params)).then(res => {
           this.resultItem.resultCode = res.data.resultCode
           this.resultItem.resultMsg = res.data.resultMsg
         })

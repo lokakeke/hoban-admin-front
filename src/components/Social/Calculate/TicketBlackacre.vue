@@ -90,7 +90,7 @@
             <!-- List 2 -->
             <v-row>
               <v-col cols="12" class="font-weight-bold black--text pb-0">
-                ▣ DGNS 이용 매출(정산기준)
+                ▣ PMS 이용 매출(정산기준)
               </v-col>
             </v-row>
             <v-col cols="12" class="mb-1">
@@ -143,7 +143,7 @@
             <!-- List 3 -->
             <v-row>
               <v-col cols="12" class="font-weight-bold black--text pb-0">
-                ▣ 판매 후 미사용 30% 매출 ( 총판매 수량 - DGNS이용 수량)
+                ▣ 판매 후 미사용 30% 매출 ( 총판매 수량 - PMS이용 수량)
               </v-col>
             </v-row>
             <v-col cols="12" class="mb-1">
@@ -276,7 +276,7 @@
             <!-- List 2 -->
             <v-row>
               <v-col cols="12" class="font-weight-bold black--text pb-0">
-                ▣ DGNS 이용 매출(정산기준)
+                ▣ PMS 이용 매출(정산기준)
               </v-col>
             </v-row>
             <v-col cols="12" class="mb-1">
@@ -329,7 +329,7 @@
             <!-- List 3 -->
             <v-row>
               <v-col cols="12" class="font-weight-bold black--text pb-0">
-                ▣ 판매 후 미사용 30% 매출 ( 총판매 수량 - DGNS이용 수량)
+                ▣ 판매 후 미사용 30% 매출 ( 총판매 수량 - PMS이용 수량)
               </v-col>
             </v-row>
             <v-col cols="12" class="mb-1">

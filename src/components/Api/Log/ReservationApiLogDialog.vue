@@ -37,7 +37,7 @@
                         <v-card-title class="pb-0 pt-2">
                             예약정보
                         </v-card-title>
-                        <v-textarea :value="JSON.stringify(item.reservationModel,undefined,2)" rows="10" class="pt-0" hide-details readonly
+                        <v-textarea :value="JSON.stringify(item.reservationModel,undefined,2)" rows="10" class="pt-0 pa-4" hide-details readonly
                                     no-resize></v-textarea>
                     </v-card>
                 </v-col>
@@ -53,7 +53,7 @@ import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
-  name: 'ReservationHistoryDialog',
+  name: 'reservationApiLogDialog',
   data () {
     return {
       progress: false,

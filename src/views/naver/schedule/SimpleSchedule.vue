@@ -58,7 +58,7 @@
       <v-row>
         <v-col cols="12" v-if="isSelect">
           <v-alert dense outlined type="error" class="font-sm">
-            네이버에 연동되는 재고 정보입니다. DGNS 재고와는 다를 수 있습니다.<br />
+            네이버에 연동되는 재고 정보입니다. PMS 재고와는 다를 수 있습니다.<br />
             상품노출, 판매여부 수정시 네이버 예약 파트너센터에 바로 적용됩니다.<br />
             수동 관리시 '오버부킹' 으로 예약되며 재고 차감만 이뤄집니다. '오버부킹 예약 취소'시 재고는 plus(+) 되지 않습니다.
           </v-alert>
