@@ -25,7 +25,7 @@
         <v-col cols="12" class="pt-2 pb-0 mb-3" v-else-if="instance.params.property === 'memo'">
           <v-textarea outlined dense :rules="maxLengthRules(500)"
             v-if="instance.params.isDgns === 'dgns'"
-            label="DGNS 직원메모 수정" counter="500" v-model="form.memo" :value="form.memo"
+            label="PMS 직원메모 수정" counter="500" v-model="form.memo" :value="form.memo"
             placeholder="내부 직원용으로 고객에게 보이지 않는 메모입니다. (최대 500자 입력가능)"
           ></v-textarea>
           <v-textarea outlined dense :rules="maxLengthRules(500)"

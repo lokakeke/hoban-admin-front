@@ -1,10 +1,10 @@
 <template>
   <dialog-base :instance="instance">
     <template v-slot:title>
-      패키지 조회 (DGNS)
+      패키지 조회 (PMS)
     </template>
     <v-card>
-      <v-card-title>DGNS 패키지 마스터 정보</v-card-title>
+      <v-card-title>PMS 패키지 마스터 정보</v-card-title>
       <v-card-text>
         <v-row>
           <v-col class="subtitle-1" cols="12">

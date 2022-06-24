@@ -16,7 +16,7 @@
           <v-icon>search</v-icon>등록
         </v-btn>
         <v-btn @click="openSearchDgnsDialog" color="info" outlined>
-          <v-icon>search</v-icon>DGNS 검색
+          <v-icon>search</v-icon>PMS 검색
         </v-btn>
       </v-col>
     </v-row>
@@ -331,7 +331,7 @@ export default {
           packageService.selectPackageMasterInformation(this.packageNo, 1).then((response) => {
             if (response.data.length === 0) {
               this.isPackageSearch = true
-              this.$dialog.alert('DGNS 검색 결과가 존재하지 않습니다.')
+              this.$dialog.alert('PMS 검색 결과가 존재하지 않습니다.')
             } else {
               this.masterInformation = response.data
               this.masterInformation.startDate = moment(this.masterInformation.startDate).format('YYYYMMDD')
@@ -416,7 +416,7 @@ export default {
       })
     },
 
-    // DGNS 에서 패키지 정보를 조회하는 Dialog 창 출력 (패키지 구분 상관없이 모두)
+    // PMS 에서 패키지 정보를 조회하는 Dialog 창 출력 (패키지 구분 상관없이 모두)
     async openSearchDgnsDialog () {
       if (!this.validatePackageNumber()) return
 

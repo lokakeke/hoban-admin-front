@@ -337,7 +337,7 @@
    *              * commonCode: type 이 code 일 경우 검색 될 parentcommonCode 값. default: 없음
    *              * event: select 박스의 change 이벤트 시 실행될 함수를 맵핑시킨다.(선택값을 인자로 넘겨준다.) default: undefined
    *
-   *          7.dgnsCode: DGNS comm code 데이터를 조회하여 select box 컴포넌트를 생성한다.
+   *          7.dgnsCode: PMS comm code 데이터를 조회하여 select box 컴포넌트를 생성한다.
    *              * commonCode: type 이 code 일 경우 검색 될 commTypeCode 값. default: 없음
    *              * event: select 박스의 change 이벤트 시 실행될 함수를 맵핑시킨다.(선택값을 인자로 넘겨준다.) default: undefined
    *

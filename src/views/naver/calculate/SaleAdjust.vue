@@ -105,9 +105,9 @@ export default {
         { text: '사업장명', value: 'storeCode', align: 'center', sortable: false },
         { text: '회원/패키지번호', value: 'mid', align: 'center', sortable: false },
         { text: '네이버예약ID', value: 'bookingId', align: 'center', sortable: false },
-        { text: 'DGNS회원/예약자명', value: 'name', align: 'center', sortable: false },
-        { text: 'DGNS/KEY예약번호', value: 'rsvNo', align: 'center', sortable: false },
-        { text: 'DGNS상품명', value: 'dgnsItemName', align: 'center', sortable: false },
+        { text: 'PMS회원/예약자명', value: 'name', align: 'center', sortable: false },
+        { text: 'PMS/KEY예약번호', value: 'rsvNo', align: 'center', sortable: false },
+        { text: 'PMS상품명', value: 'dgnsItemName', align: 'center', sortable: false },
         { text: '패키지여부', value: 'pkgYn', align: 'center', sortable: false },
         { text: '매출조정금액', value: 'aftpayAmt', align: 'center', sortable: false },
         { text: '메모', value: 'memo', align: 'center', sortable: false },
@@ -138,9 +138,9 @@ export default {
         { key: 'pkgYn', label: '패키지여부', type: 'select', list: this.pkgYnList, cols: 3 },
         { key: 'bookingId', label: '네이버예약ID', type: 'text', cols: 3 },
         { key: 'name', label: '예약자명', type: 'text', cols: 3 },
-        { key: 'rsvNo', label: 'DGNS예약번호', type: 'text', cols: 3 },
-        { key: 'keyRsvNo', label: 'DGNS예약키번호', type: 'text', cols: 3 },
-        { key: 'dgnsItemName', label: 'DGNS상품명', type: 'text', cols: 6 },
+        { key: 'rsvNo', label: 'PMS예약번호', type: 'text', cols: 3 },
+        { key: 'keyRsvNo', label: 'PMS예약키번호', type: 'text', cols: 3 },
+        { key: 'dgnsItemName', label: 'PMS상품명', type: 'text', cols: 6 },
         { key: 'saleAdjustYn', label: '월정산매핑여부', type: 'select', list: this.saleAdjustYnList, cols: 3 }
       ]
     }

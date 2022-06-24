@@ -143,7 +143,7 @@
 import service from '@/api/modules/naver/booking.service'
 import itemService from '@/api/modules/naver/item.service'
 
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import excelMixin from '@/mixins/excelMixin'
 import MaskPhoneNumber from '@/components/Mask/MaskPhoneNumber.vue'
 
@@ -167,7 +167,7 @@ export default {
         { text: '예약자', value: 'name', align: 'center', sortable: false },
         { text: '전화번호', value: 'phone', align: 'center', sortable: false },
         { text: '예약번호', value: 'bookingId', align: 'center', sortable: false },
-        { text: 'DGNS예약번호/키', value: 'rsvNo', align: 'center', sortable: false },
+        { text: 'PMS예약번호/키', value: 'rsvNo', align: 'center', sortable: false },
         { text: '이용기간', value: 'usage', align: 'center', sortable: false },
         { text: '서비스명', value: 'dmStoreName', align: 'center', sortable: false },
         { text: '상품명', value: 'dmItemName', align: 'center', sortable: false },
@@ -217,7 +217,7 @@ export default {
         { key: 'phone', label: '전화번호', type: 'text', cols: 4 },
         { key: 'memoStatus', label: '메모 여부', type: 'select', list: this.searchVal.memoStatus, listValue: 'value', listText: 'text', cols: 3 },
         { key: 'overBookingYn', label: '오버부킹 여부', type: 'select', list: this.searchVal.overBookingYn, listValue: 'value', listText: 'text', cols: 3 },
-        { key: 'searchDgns', label: 'DGNS예약번호/키', type: 'select', list: this.searchVal.searchDgns, listValue: 'value', listText: 'text', cols: 3 },
+        { key: 'searchDgns', label: 'PMS예약번호/키', type: 'select', list: this.searchVal.searchDgns, listValue: 'value', listText: 'text', cols: 3 },
         { key: 'status', label: '예약상태', type: 'selectMulti', list: this.searchVal.status, listValue: 'value', defaultValue: ['payCompleted'], listText: 'text', cols: 3 }
       ]
     },

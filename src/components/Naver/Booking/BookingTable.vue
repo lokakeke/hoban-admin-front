@@ -9,16 +9,16 @@
             / 결제상태: {{ form.statusCode.nPayChargedStatusCode ? form.statusCode.nPayChargedStatusCode : '-' }}
           </v-chip>
         </th>
-        <th>DGNS
+        <th>PMS
           <v-chip class="ma-1 font-weight-light" small>상태: {{ dgnsInfo.rsvState ? dgnsInfo.rsvState : '-' }}</v-chip>
         </th>
       </tr>
       <tr>
-        <th>DGNS 예약번호</th>
+        <th>PMS 예약번호</th>
         <td colspan="2">{{ form.naver.rsvNo ? form.naver.rsvNo : '-' }}</td>
       </tr>
       <tr>
-        <th>DGNS KEY 예약번호</th>
+        <th>PMS KEY 예약번호</th>
         <td colspan="2">{{ form.naver.keyRsvNo ? form.naver.keyRsvNo : '-' }}</td>
       </tr>
       <tr v-if="item.pkgYn === 'Y'">
@@ -47,10 +47,10 @@
         <td>{{ dgnsInfo.rsvBlckCode ? dgnsInfo.rsvBlckCode : '-' }}</td>
       </tr>
       <tr>
-        <th>DGNS예약부가정보</th>
+        <th>PMS예약부가정보</th>
         <td colspan="2" v-if="!dgnsInfo.keyRsvNo">
           <v-alert dense outlined type="info" class="ma-1 font-sm" v-if="!form.dgns">
-            DGNS에 해당 예약과 일치하는 데이터가 없습니다.
+            PMS에 해당 예약과 일치하는 데이터가 없습니다.
           </v-alert>
         </td>
         <td colspan="2" class="pb-1" v-else>

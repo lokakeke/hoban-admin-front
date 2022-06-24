@@ -55,7 +55,7 @@ export default {
       }]
     })
     if (!this.instance.params.copyItem.mid || !this.instance.params.copyItem.storeCode || !this.instance.params.copyItem.rmTypeCode) {
-      this.$dialog.alert('DGNS 상품 연결을 먼저 해주세요.')
+      this.$dialog.alert('PMS 상품 연결을 먼저 해주세요.')
       this.close()
     }
     this.name = this.instance.params.copyItem.name

@@ -45,7 +45,7 @@
                                 <v-label>예약구분</v-label>
                                 <p>{{ detail.rsvTypeNm }}</p>
 
-                                <v-label>DGNS 객실이름</v-label>
+                                <v-label>PMS 객실이름</v-label>
                                 <p>{{ detail.rmTypeNm }}</p>
 
                                 <v-label>회원번호</v-label>
@@ -101,7 +101,7 @@
                                 <v-label>예약구분</v-label>
                                 <p>{{ tlRsv.rsvTypeNm }} ({{ tlRsv.rsvIndNm }})</p>
 
-                                <v-label>DGNS 객실이름</v-label>
+                                <v-label>PMS 객실이름</v-label>
                                 <p>{{ tlRsv.rmTypeNm }}</p>
 
                                 <v-label>판매처</v-label>

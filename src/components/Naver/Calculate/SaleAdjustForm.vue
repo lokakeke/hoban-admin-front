@@ -39,7 +39,7 @@
                             <v-icon color="green darken-2">check</v-icon>
                             회원/패키지번호
                             <common-tooltip :type="'info'" :position="'top'"
-                                            :text="'패키지번호를 입력한 후 오른쪽 아이콘을 클릭하면 DGNS상품명이 입력됩니다.'" />
+                                            :text="'패키지번호를 입력한 후 오른쪽 아이콘을 클릭하면 PMS상품명이 입력됩니다.'" />
                             <v-chip label small class="ml-1">
                                 <v-checkbox label="패키지여부" color="green" true-value="Y" false-value="N"
                                             v-model="form.pkgYn" class="float-right font-sm"></v-checkbox>
@@ -56,9 +56,9 @@
                     <v-col lg="4" md="4" sm="6">
                         <div class="pb-1">
                             <v-icon color="green darken-2">check</v-icon>
-                            DGNS회원/예약자명
+                            PMS회원/예약자명
                         </div>
-                        <v-text-field v-model="form.name" placeholder="DGNS회원/예약자명을 입력해 주세요."
+                        <v-text-field v-model="form.name" placeholder="PMS회원/예약자명을 입력해 주세요."
                                       counter="30" :rules="betweenLengthRules(1,30).concat(emptyRules)"></v-text-field>
                     </v-col>
                     <v-col lg="6" md="6" sm="6">
@@ -81,25 +81,25 @@
                     <v-col lg="6" md="6" sm="6">
                         <div class="pb-1">
                             <v-icon color="green darken-2">check</v-icon>
-                            DGNS상품명
+                            PMS상품명
                         </div>
-                        <v-text-field v-model="form.dgnsItemName" placeholder="DGNS상품명을 입력해 주세요."
+                        <v-text-field v-model="form.dgnsItemName" placeholder="PMS상품명을 입력해 주세요."
                                       :rules="emptyRules"></v-text-field>
                     </v-col>
                     <v-col lg="4" md="4" sm="6">
                         <div class="pb-1">
                             <v-icon color="grey lighten-1">check</v-icon>
-                            DGNS예약번호
+                            PMS예약번호
                         </div>
-                        <v-text-field v-model="form.rsvNo" placeholder="DGNS예약번호를 입력해 주세요."
+                        <v-text-field v-model="form.rsvNo" placeholder="PMS예약번호를 입력해 주세요."
                                       :rules="numberRules" v-mask="'##########'"></v-text-field>
                     </v-col>
                     <v-col lg="4" md="4" sm="6">
                         <div class="pb-1">
                             <v-icon color="grey lighten-1">check</v-icon>
-                            DGNS KEY예약번호
+                            PMS KEY예약번호
                         </div>
-                        <v-text-field v-model="form.keyRsvNo" placeholder="DGNS KEY예약번호를 입력해 주세요."
+                        <v-text-field v-model="form.keyRsvNo" placeholder="PMS KEY예약번호를 입력해 주세요."
                                       :rules="numberRules" v-mask="'##########'"></v-text-field>
                     </v-col>
                     <v-col lg="4" md="4" sm="6">

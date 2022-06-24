@@ -206,7 +206,7 @@ import itemService from '@/api/modules/naver/item.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import BookingInfoComponent from '@/components/Naver/Booking/BookingInfoComponent.vue'
 import BookingTable from '@/components/Naver/Booking/BookingTable.vue'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import roomService from '@/api/modules/ota/roomReservation.service'
 import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
@@ -281,7 +281,7 @@ export default {
       return !status ? '(없음)' : this.setStatus[status][idx]
     },
     /**
-         *  DGNS 정보 상세 조회
+         *  PMS 정보 상세 조회
          */
     getDgnsInfo () {
       if (this.instance.params.form.keyRsvNo) {

@@ -138,7 +138,7 @@ export default {
         { text: '입금액', align: 'center', value: 'pcpmnyAmt' },
         { text: '정산승인여부', align: 'center', value: 'calcAprlYn', maxWidth: 100 },
         { text: '정산승인시간', align: 'center', value: 'calcAprlTime' },
-        /* { text: 'DGNS전표입력여부', value: 'dgnsSlipInpYn', align: 'center', maxWidth: 100 }, */
+        /* { text: 'PMS전표입력여부', value: 'dgnsSlipInpYn', align: 'center', maxWidth: 100 }, */
         { text: '메모', align: 'center', value: 'memo' },
         { text: '정산등록일', align: 'center', value: 'calcRegDate' },
         { text: '엑셀다운로드', align: 'center', value: 'excel' },
@@ -274,7 +274,7 @@ export default {
       const param = {}
       param[property] = item[property]
       service.updateCalculateDayMstYn(item.dayCalcMstNo, param).then(res => {
-        this.showSnackbar('success', `${property === 'calcAprlYn' ? '정산승인상태' : 'DGNS전표입력여부'}가 변경됩니다.`)
+        this.showSnackbar('success', `${property === 'calcAprlYn' ? '정산승인상태' : 'PMS전표입력여부'}가 변경됩니다.`)
         this.search()
       }).catch(() => {
         this.search()
