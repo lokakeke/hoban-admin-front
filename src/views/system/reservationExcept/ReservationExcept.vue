@@ -272,7 +272,6 @@ export default {
       return moment().format('YYYY-MM-DD')
     },
     minBgnYmd () {
-      console.log('MINMIN')
       return moment(this.form.tempStartYmd).format('YYYY-MM-DD')
       // return '1950-01-01'
     }

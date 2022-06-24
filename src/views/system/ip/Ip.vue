@@ -55,8 +55,8 @@
             ></v-text-field>
             <v-label>IP 이름</v-label>
             <v-text-field v-model="ipInfo.ipName" :rules="emptyRules" label required class="pt-0"></v-text-field>
-            <v-label>사번</v-label>
-            <v-text-field v-model="ipInfo.adminSeq" label required class="pt-0"></v-text-field>
+            <v-label>관리자 계정 시퀀스</v-label>
+            <v-text-field v-model="ipInfo.adminSeq" type="number" label required class="pt-0"></v-text-field>
             <v-label>서버 구분</v-label>
             <v-autocomplete v-model="ipInfo.serverCode" :rules="emptyRules" :items="serverCodeList" :item-text="'commonCodeName'" :item-value="'commonCode'" required class="pt-0"></v-autocomplete>
             <v-checkbox
