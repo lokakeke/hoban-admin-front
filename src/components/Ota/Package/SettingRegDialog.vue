@@ -14,13 +14,13 @@
                   <v-col cols="6">
                     <v-list-item>
                       <v-list-item-content>지역:</v-list-item-content>
-                      <v-list-item-content>{{ pkgInfo.lcalName }}({{ pkgInfo.lcalCode }})</v-list-item-content>
+                      <v-list-item-content>{{ packageInfo.localName }}({{ packageInfo.localCode }})</v-list-item-content>
                     </v-list-item>
                   </v-col>
                   <v-col cols="6">
                     <v-list-item>
                       <v-list-item-content>패키지번호:</v-list-item-content>
-                      <v-list-item-content>{{ pkgInfo.pkgNo }}</v-list-item-content>
+                      <v-list-item-content>{{ packageInfo.packageNo }}</v-list-item-content>
                     </v-list-item>
                   </v-col>
                 </v-row>
@@ -28,13 +28,13 @@
                   <v-col cols="6">
                     <v-list-item>
                       <v-list-item-content>패키지명:</v-list-item-content>
-                      <v-list-item-content>{{ pkgInfo.pkgName }}</v-list-item-content>
+                      <v-list-item-content>{{ packageInfo.packageName }}</v-list-item-content>
                     </v-list-item>
                   </v-col>
                   <v-col cols="6">
                     <v-list-item>
                       <v-list-item-content>패키지 설명:</v-list-item-content>
-                      <v-list-item-content>{{ pkgInfo.pkgDesc }}</v-list-item-content>
+                      <v-list-item-content>{{ packageInfo.packageDesc }}</v-list-item-content>
                     </v-list-item>
                   </v-col>
                 </v-row>
@@ -42,13 +42,13 @@
                   <v-col cols="6">
                     <v-list-item>
                       <v-list-item-content>판매시작:</v-list-item-content>
-                      <v-list-item-content>{{ pkgInfo.saleBgnYmd | date }}</v-list-item-content>
+                      <v-list-item-content>{{ packageInfo.saleStartDate | date }}</v-list-item-content>
                     </v-list-item>
                   </v-col>
                   <v-col cols="6">
                     <v-list-item>
                       <v-list-item-content>판매종료:</v-list-item-content>
-                      <v-list-item-content>{{ pkgInfo.saleEndYmd | date}}</v-list-item-content>
+                      <v-list-item-content>{{ packageInfo.saleEndDate | date }}</v-list-item-content>
                     </v-list-item>
                   </v-col>
                 </v-row>
@@ -62,11 +62,11 @@
           <v-text-field
               :label="pkgTextFieldLabel"
               :rules="pkgNoRules"
-              v-model="targetPkgNo"
+              v-model="targetPackageNo"
           />
         </v-col>
         <v-col cols="6" class="align-self-center">
-          <v-btn outlined rounded color="indigo" @click="addPkg">
+          <v-btn outlined rounded color="indigo" @click="addPackage">
             <v-icon>add</v-icon>등록
           </v-btn>
         </v-col>
@@ -95,9 +95,9 @@ export default {
   name: 'SettingRegDialog',
   data: function () {
     return {
-      pkgInfo: '',
+      packageInfo: '',
 
-      targetPkgNo: '',
+      targetPackageNo: '',
       pkgNoRules: [
         value => !!value || '패키지번호를 입력해주세요.',
         value => {
@@ -105,16 +105,16 @@ export default {
           return pattern.test(value) || '숫자만 입력할 수 있습니다.'
         }
       ],
-      pkgSaleType: []
+      packageSaleType: []
     }
   },
   mounted () {
-    this.pkgInfo = this.instance.params.pkgInfo
+    this.packageInfo = this.instance.params.packageInfo
     this.getPkgSaleType()
   },
   computed: {
     pkgTextFieldLabel () {
-      const saleType = this.pkgSaleType.join(', ')
+      const saleType = this.packageSaleType.join(', ')
       return `패키지 번호 입력 [해당 판매유형(${saleType})만 등록가능]`
     }
   },
@@ -123,15 +123,16 @@ export default {
     async getPkgSaleType () {
       const response = await commonCodeService.selectCommonCode('OTA0004')
       for (const data of response.data) {
-        this.pkgSaleType.push(data.commCode)
+        this.packageSaleType.push(data.commonCode)
+        console.log(data.commonCode)
       }
     },
     // 패키지 번호 유효성 검증
     validatePackageNumber () {
       const pattern = /^[0-9]+$/g
-      if (this.targetPkgNo === '' || this.targetPkgNo.length === 0) {
+      if (this.targetPackageNo === '' || this.targetPackageNo.length === 0) {
         this.$dialog.alert('패키지번호를 입력해주세요.')
-      } else if (!pattern.test(this.targetPkgNo)) {
+      } else if (!pattern.test(this.targetPackageNo)) {
         this.$dialog.alert('유효하지 않은 패키지번호입니다.')
       } else {
         return true
@@ -140,12 +141,12 @@ export default {
       return false
     },
 
-    async addPkg () {
+    async addPackage () {
       if (!this.validatePackageNumber()) return
 
       try {
         await this.$dialog.confirm('선택한 패키지의 설정으로 해당 패키지를 등록하시겠습니까?')
-        const response = await packageService.insertCopyPackageInformation(this.pkgInfo.pkgNo, this.targetPkgNo)
+        const response = await packageService.insertCopyPackageInformation(this.packageInfo.packageNo, this.targetPackageNo)
         const data = response.data
 
         if (data.resultCode !== '0000') {

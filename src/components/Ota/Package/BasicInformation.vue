@@ -89,6 +89,7 @@
           <v-col cols="12" lg="3" md="3" sm="12">
             <date-picker
               :readonly="!writeAuth"
+              :min="endDateMin"
               clearable
               hide-details
               label="판매 종료일자"
@@ -141,7 +142,7 @@
                     label="박 수"
                     type="number"
                     :readonly="!writeAuth"
-                    v-model="form.stayNights"
+                    v-model="form.nights"
                 />
               </v-col>
               <v-col class="pl-sm-3 pl-md-3 pl-lg-3" cols="12" lg="6" md="6" sm="6">
@@ -252,7 +253,7 @@ export default {
         saleStartDate: '',
         saleEndDate: '',
         todayRsvYn: 'N',
-        stayNights: 1,
+        nights: 1,
         useYn: 'Y',
         allSaleYn: 'N',
         roomCount: 1,
@@ -284,6 +285,10 @@ export default {
     // 패키지 마스터정보 판매 시작일 종료일 출력형식 변경
     pkgMstTermFormat () {
       return `${moment(this.masterInformation.startDate).format('YYYY.MM.DD')} ~ ${moment(this.masterInformation.endDate).format('YYYY.MM.DD')}`
+    },
+    endDateMin () {
+      // 20220627
+      return `${this.form.saleStartDate.substring(0, 4)}-${this.form.saleStartDate.substring(4, 6)}-${this.form.saleStartDate.substring(6)}`
     }
   },
   methods: {
@@ -317,7 +322,7 @@ export default {
             this.form.todayRsvYn = data.todayRsvYn
             this.todayRsvHour = data.todayRsvTime !== null ? data.todayRsvTime.substr(0, 2) : ''
             this.todayRsvMinute = data.todayRsvTime !== null ? data.todayRsvTime.substr(2, 2) : ''
-            this.form.stayNights = data.stayNights
+            this.form.nights = data.nights
             this.form.roomCount = data.roomCount
             this.form.roomDayLimit = data.roomDayLimit
             this.form.useYn = data.useYn

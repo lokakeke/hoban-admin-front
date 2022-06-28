@@ -101,7 +101,7 @@
                   <v-text-field
                       :rules="emptyRules.concat(oneOrMoreRegex)"
                       label="최대 예약가능 박 수"
-                      v-model="form.stayNights"
+                      v-model="form.nights"
                       :readonly="!writeAuth"
                   />
                 </v-col>
@@ -149,7 +149,7 @@
 <script>
 import roomTypeService from '@/api/modules/ota/roomType.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'BasicInformation',
@@ -173,7 +173,7 @@ export default {
         saleEndDate: '',
         dailyRsvLimit: 10,
         roomSearchCount: 60,
-        stayNights: 1,
+        nights: 1,
         roomCount: 1,
         todayRsvYn: 'N',
         blockCode: '',
@@ -249,7 +249,7 @@ export default {
               this.form.roomSearchCount = params.roomSearchCount
               this.form.todayRsvYn = params.todayRsvYn
               // this.form.todayRsvTime = params.todayRsvTime
-              this.form.stayNights = params.stayNights
+              this.form.nights = params.nights
               this.form.roomCount = params.roomCount
               this.form.rsvBlckCd = params.rsvBlckCd
               this.form.useYn = params.useYn

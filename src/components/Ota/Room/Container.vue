@@ -51,7 +51,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import BasicInformation from './BasicInformation'
+import BasicInformation from '@/components/Ota/Room/BasicInformation'
 import PartnerExceptionSetting from './PartnerExceptionSetting'
 import RoomTypeInformation from './RoomTypeInformation'
 import HolidayInformation from './HolidayInformation'
