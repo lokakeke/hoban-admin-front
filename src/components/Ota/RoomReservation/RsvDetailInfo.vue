@@ -34,32 +34,29 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.chainRsvNo"
+                        v-model="rsvDetailCopy.partnerRsvNo"
                         label="업체예약번호"
-                        :background-color="groupFlag === 'naver' && workStatus === 'new' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail' || workStatus === 'update'"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        :rules="groupFlag === 'naver' ? emptyRules : []"
                     />
                 </v-col>
-                <v-col v-if="roomType.value === 'OTA_PKG_API' && workStatus === 'new'" lg="2" md="3" cols="4">
+                <v-col v-if="roomType.value === 'OTA_PKG_API'" lg="2" md="3" cols="4">
                     <v-text-field
                         v-model="partnerName"
                         label="파트너명"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        @keypress.enter="openPartnerInfo(rsvDetailCopy)"
                     >
+                    <!-- @keypress.enter="openPartnerInfo(rsvDetailCopy)"
                         <template v-slot:append v-if="roomType.value === 'OTA_PKG_API'">
-                            <v-btn icon small color="primary" tabindex="-1" @click="openPartnerInfo(rsvDetailCopy)"
-                                   :disabled="workStatus === '' || workStatus === 'detail'">
+                            <v-btn icon small color="primary" tabindex="-1" @click="openPartnerInfo(rsvDetailCopy)">
                                 <v-icon>search</v-icon>
                             </v-btn>
-                        </template>
+                        </template>-->
                     </v-text-field>
                 </v-col>
             </v-row>
@@ -67,29 +64,26 @@
                 <v-col v-if="roomType.value === 'OTA_ROOM_API' || rsvDetailCopy.rsvType === 'ROOM'" lg="2" md="3"
                        cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.memNo"
+                        v-model="rsvDetailCopy.memberNo"
                         label="회원번호"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        @keypress.enter="searchPartnerInfo()"
-                        :rules="emptyRules"
                     >
+<!--                      @keypress.enter="searchPartnerInfo()"
                         <template v-slot:append
                                   v-if="roomType.value === 'OTA_ROOM_API' || rsvDetailCopy.rsvType === 'ROOM'">
-                            <v-btn icon small color="primary" tabindex="-1" @click="openPartnerInfo()"
-                                   :disabled="workStatus === '' || workStatus === 'detail'">
+                            <v-btn icon small color="primary" tabindex="-1" @click="openPartnerInfo()">
                                 <v-icon>search</v-icon>
                             </v-btn>
-                        </template>
+                        </template>-->
                     </v-text-field>
                 </v-col>
                 <v-col v-if="roomType.value === 'OTA_ROOM_API' || rsvDetailCopy.rsvType === 'ROOM'" lg="3" md="4"
                        cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.memName"
+                        v-model="rsvDetailCopy.memberName"
                         label="회원명"
                         readonly
                         outlined
@@ -100,29 +94,26 @@
                 <v-col v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'" lg="2" md="3"
                        cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.pkgNo"
+                        v-model="rsvDetailCopy.packageNo"
                         label="패키지번호"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        @keypress.enter="openPackagePopup(rsvDetailCopy)"
-                        :rules="emptyRules"
                     >
+<!--                      @keypress.enter="openPackagePopup(rsvDetailCopy)"
                         <template v-slot:append
                                   v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'">
-                            <v-btn icon small color="primary" tabindex="-1" @click="openPackagePopup(rsvDetailCopy)"
-                                   :disabled="workStatus === '' || workStatus === 'detail'">
+                            <v-btn icon small color="primary" tabindex="-1" @click="openPackagePopup(rsvDetailCopy)">
                                 <v-icon>search</v-icon>
                             </v-btn>
-                        </template>
+                        </template>-->
                     </v-text-field>
                 </v-col>
                 <v-col v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'" lg="3" md="4"
                        cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.pkgName"
+                        v-model="rsvDetailCopy.packageName"
                         label="패키지명"
                         readonly
                         outlined
@@ -134,20 +125,17 @@
                     <v-text-field
                         v-model="rsvDetailCopy.storeCode"
                         label="영업장코드"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        @keypress.enter="searchStoreInfo(rsvDetailCopy)"
-                        :rules="emptyRules"
                     >
+<!--                      @keypress.enter="searchStoreInfo(rsvDetailCopy)"
                         <template v-slot:append v-if="rsvDetailCopy">
-                            <v-btn icon small color="primary" tabindex="-1" @click="openStorePopup(rsvDetailCopy)"
-                                   :disabled="workStatus === '' || workStatus === 'detail'">
+                            <v-btn icon small color="primary" tabindex="-1" @click="openStorePopup(rsvDetailCopy)">
                                 <v-icon>search</v-icon>
                             </v-btn>
-                        </template>
+                        </template>-->
                     </v-text-field>
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
@@ -165,27 +153,23 @@
                     <v-text-field
                         v-model="rsvDetailCopy.nights"
                         label="박"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        @input="changeCiYmdOrNights"
-                        :rules="emptyRules"
+                        @input="changeCheckInDateOrNights"
                     />
                 </v-col>
                 <v-col v-if="roomType.value === 'OTA_ROOM_API' || rsvDetailCopy.rsvType === 'ROOM'" lg="1" md="2"
                        cols="2">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmCnt"
+                        v-model="rsvDetailCopy.roomCount"
                         label="객"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        @input="changeMemInfoOrRmCnt"
-                        :rules="emptyRules"
+                        @input="changeMemInfoOrRoomCount"
                     />
                 </v-col>
                 <v-col v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'" lg="1" md="2"
@@ -193,45 +177,39 @@
                     <v-text-field
                         v-model="rsvDetailCopy.nights"
                         label="박"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
                         :readonly="groupFlag === 'ota'"
                         outlined
                         hide-details
                         dense
-                        @input="changeCiYmdOrNights"
-                        :rules="emptyRules"
+                        @input="changeCheckInDateOrNights"
                     />
                 </v-col>
                 <v-col v-if="roomType.value === 'OTA_PKG_API' || rsvDetailCopy.rsvType === 'PKG'" lg="1" md="2"
                        cols="2">
                     <v-text-field
-                        v-model="rsvDetailCopy.rmCnt"
+                        v-model="rsvDetailCopy.roomCount"
                         label="객"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
                         :readonly="groupFlag === 'ota'"
                         outlined
                         hide-details
                         dense
-                        @input="changeMemInfoOrRmCnt"
-                        :rules="emptyRules"
+                        @input="changeMemInfoOrRoomCount"
                     />
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvBlckCode"
+                        v-model="rsvDetailCopy.blockCode"
                         label="예약블럭"
-                        :background-color="groupFlag === 'naver' && workStatus === 'new' ? 'deep-orange lighten-5' : ''"
-                        :readonly="(workStatus === '' || workStatus === 'detail' || workStatus === 'new' || workStatus === 'update') && groupFlag === 'ota'"
+                        :readonly="groupFlag === 'ota'"
                         outlined
                         hide-details
                         dense
-                        :rules="groupFlag === 'naver' ? emptyRules : []"
                         @keypress.enter="selectRsvBlockInfo(rsvDetailCopy)"
                     />
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvBlck"
+                        v-model="rsvDetailCopy.rsvBlock"
                         label="예약블럭명"
                         readonly
                         outlined
@@ -241,25 +219,22 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <date-picker
-                        v-model="rsvDetailCopy.ciYmd"
+                        v-model="rsvDetailCopy.checkInDate"
                         label="입실일자"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         :min="minDate"
-                        :max="maxDate"
+                        :max="checkInMaxDate"
                         hide-details
-                        @change="changeCiYmdOrNights"
-                        :rules="emptyRules"
+                        @change="changeCheckInDateOrNights"
                     />
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <date-picker
-                        v-model="rsvDetailCopy.coYmd"
+                        v-model="rsvDetailCopy.checkOutDate"
                         label="퇴실일자"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         :min="minDate"
-                        :max="coMaxDate"
+                        :max="checkOutMaxDate"
                         hide-details
                     />
                 </v-col>
@@ -268,51 +243,18 @@
                 </v-col>
                 <v-col lg="1" md="2" cols="2">
                     <v-text-field
-                        v-model="rsvDetailCopy.adultCnt"
+                        v-model="rsvDetailCopy.adultCount"
                         label="대인"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        :rules="emptyRules"
                     />
                 </v-col>
                 <v-col lg="1" md="2" cols="2">
                     <v-text-field
-                        v-model="rsvDetailCopy.childCnt"
+                        v-model="rsvDetailCopy.childCount"
                         label="소인"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
-                        outlined
-                        hide-details
-                        dense
-                    />
-                </v-col>
-                <v-col lg="3" md="4" cols="6">
-                    <v-text-field
-                        v-model="rsvDetailCopy.rmTypeCode"
-                        label="객실유형코드"
-                        :background-color="workStatus === 'new' || workStatus === 'update' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
-                        outlined
-                        hide-details
-                        dense
-                        @keypress.enter="searchRmTypePopup(rsvDetailCopy)"
-                        :rules="emptyRules"
-                    >
-                        <template v-slot:append v-if="rsvDetailCopy">
-                            <v-btn icon small color="primary" tabindex="-1" @click="openRmTypePopup(rsvDetailCopy)"
-                                   :disabled="workStatus === '' || workStatus === 'detail'">
-                                <v-icon>search</v-icon>
-                            </v-btn>
-                        </template>
-                    </v-text-field>
-                </v-col>
-                <v-col lg="3" md="4" cols="6">
-                    <v-text-field
-                        v-model="rsvDetailCopy.rmTypeName"
-                        label="객실유형명"
                         readonly
                         outlined
                         hide-details
@@ -320,6 +262,33 @@
                     />
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
+                    <v-text-field
+                        v-model="rsvDetailCopy.roomTypeCode"
+                        label="객실유형코드"
+                        readonly
+                        outlined
+                        hide-details
+                        dense
+                    >
+<!--                      @keypress.enter="searchRmTypePopup(rsvDetailCopy)"
+                        <template v-slot:append v-if="rsvDetailCopy">
+                            <v-btn icon small color="primary" tabindex="-1" @click="openRmTypePopup(rsvDetailCopy)">
+                                <v-icon>search</v-icon>
+                            </v-btn>
+                        </template>-->
+                    </v-text-field>
+                </v-col>
+                <v-col lg="3" md="4" cols="6">
+                    <v-text-field
+                        v-model="rsvDetailCopy.roomTypeName"
+                        label="객실유형명"
+                        readonly
+                        outlined
+                        hide-details
+                        dense
+                    />
+                </v-col>
+<!--                <v-col lg="3" md="4" cols="6">
                     <v-text-field
                         v-model="rsvDetailCopy.dongCode"
                         label="동코드"
@@ -338,30 +307,26 @@
                         hide-details
                         dense
                     />
-                </v-col>
+                </v-col>-->
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
                         v-model="rsvDetailCopy.guestName"
                         label="이용자명"
-                        :background-color="workStatus === 'new' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail' || workStatus === 'update'"
+                        readonly
                         outlined
                         hide-details
                         dense
-                        :rules="emptyRules"
                     />
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.smsPhone"
+                        v-model="rsvDetailCopy.guestTelNo"
                         label="이용자연락처"
-                        :background-color="groupFlag === 'naver' && workStatus === 'new' ? 'deep-orange lighten-5' : ''"
-                        :readonly="workStatus === '' || workStatus === 'detail' || workStatus === 'update'"
+                        readonly
                         outlined
                         hide-details
                         dense
                         v-mask="['###-####-####', '###-###-####']"
-                        :rules="groupFlag === 'naver' ? emptyRules : []"
                     />
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
@@ -386,18 +351,17 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvGuestlnm"
+                        v-model="rsvDetailCopy.partnerName"
                         label="예약자명"
                         readonly
                         outlined
                         hide-details
                         dense
-                        :rules="emptyRules"
                     />
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.rsvGuestTelNo"
+                        v-model="rsvDetailCopy.partnerTelNo"
                         label="예약자연락처"
                         readonly
                         outlined
@@ -406,7 +370,7 @@
                         v-mask="['###-####-####', '###-###-####']"
                     />
                 </v-col>
-                <v-col lg="3" md="4" cols="6">
+<!--                <v-col lg="3" md="4" cols="6">
                     <v-text-field
                         v-model="rsvDetailCopy.rsvIndCodeAndName"
                         label="예약구분"
@@ -426,7 +390,7 @@
                         readonly
                         class="ma-1"
                     />
-                </v-col>
+                </v-col>-->
             </v-row>
             <v-row wrap dense>
                 <v-col cols="12">
@@ -440,10 +404,10 @@
                         outlined
                         hide-details
                         dense
-                        :rules="emptyRules"
                     />
                 </v-col>
-                <v-col v-if="workStatus !== 'detail'" cols="3">
+              <v-col cols="3"></v-col>
+<!--                <v-col v-if="workStatus !== 'detail'" cols="3">
                     <v-btn outlined rounded color="primary" class="my-1 px-1"
                            @click="openDayAmtInfo"
                            :disabled="workStatus === ''"
@@ -455,10 +419,10 @@
                            @click="openDayAmtInfoAfterRsv"
                     >일별요금
                     </v-btn>
-                </v-col>
+                </v-col>-->
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="totalAmt"
+                        v-model="totalPrice"
                         label="판매금액"
                         readonly
                         outlined
@@ -480,7 +444,7 @@
                     <v-textarea
                         v-model="rsvDetailCopy.etc"
                         label="예약참고"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         no-resize
                         outlined
                         hide-details
@@ -491,7 +455,7 @@
                     <v-textarea
                         v-model="rsvDetailCopy.cancelResnDesc"
                         label="취소사유"
-                        :readonly="workStatus === '' || workStatus === 'detail'"
+                        readonly
                         no-resize
                         outlined
                         hide-details
@@ -564,27 +528,15 @@ import NumberUtils from '@/utils/number.util'
 export default {
   name: 'RoomAndMemberInfo',
   props: {
-    /**
-         * 객실/패키지
-         */
+    /** 객실/패키지 */
     roomType: {
       type: Object
     },
-    /**
-         * 예약 상세 정보 객체
-         */
+    /** 예약 상세 정보 객체 */
     rsvDetail: {
       type: Object
     },
-    /**
-         * 작업 상태
-         */
-    workStatus: {
-      type: String
-    },
-    /**
-         * OTA인지 NAVER인지 구분값
-         */
+    /** OTA인지 NAVER인지 구분값 */
     groupFlag: {
       type: String
     }
@@ -595,22 +547,22 @@ export default {
       partnerName: '', // 파트너명
       dayAmtList: [], // 일별요금 목록
       minDate: '', // date picker min date
-      maxDate: '', // 입실일자 date picker max date
-      coMaxDate: '', // 퇴실일자 date picker max date
+      checkInMaxDate: '', // 입실일자 date picker max date
+      checkOutMaxDate: '', // 퇴실일자 date picker max date
       storeMinDate: '', // 영업장 판매 시작일자
       storeMaxDate: '', // 영업장 판매 종료일자
-      rmMinDate: '', // 객실 판매 시작일자
-      rmMaxDate: '', // 객실 판매 종료일자
+      roomMinDate: '', // 객실 판매 시작일자
+      roomMaxDate: '', // 객실 판매 종료일자
       childGroupFlag: 'ota',
       key: 0 // 강제 렌더링을 위한 변수
     }
   },
   computed: {
-    totalAmt () { // 판매가
-      return NumberUtils.numberWithCommas(this.rsvDetailCopy.saleAmt)
+    totalPrice () { // 판매가
+      return NumberUtils.numberWithCommas(this.rsvDetailCopy.salePrice)
     },
     rcpmny () { // 입금가
-      return NumberUtils.numberWithCommas(this.rsvDetailCopy.payAmt)
+      return NumberUtils.numberWithCommas(this.rsvDetailCopy.partnerRsvPrice)
     }
   },
   watch: {
@@ -623,17 +575,17 @@ export default {
         if (!newVal.storeCode) {
           this.partnerName = ''
         }
-        if (this.workStatus === '' || this.workStatus === 'detail') {
+        /* if (this.workStatus === '' || this.workStatus === 'detail') {
           this.key += 1 // 이용자 연락처가 바뀐걸 인식하지 못하는 버그를 위한 변수
-        }
+        } */
       }
     },
     rsvDetailCopy: {
       handler (newVal) {
         if (
-          this.rsvDetailCopy.smsPhone &&
-                    this.rsvDetailCopy.smsPhone.length > 12 &&
-                    this.rsvDetailCopy.payAmt
+          this.rsvDetailCopy.guestTelNo &&
+                    this.rsvDetailCopy.guestTelNo.length > 12 &&
+                    this.rsvDetailCopy.partnerRsvPrice
         ) {
           this.$emit('change-rsv-detail', newVal)
         }
@@ -656,17 +608,17 @@ export default {
     /**
          * 회원번호 조회 결과값 세팅
          */
-    setPartnerInfoReseult (result) {
-      this.$set(this, 'partnerName', result.companyName) // 파트너명
+    setPartnerInfoResult (result) {
+      this.$set(this, 'partnerName', result.partnerName) // 파트너명
       this.$set(this.rsvDetailCopy, 'partnerSeq', result.partnerSeq) // 파트너 번호(예치금에 필요)
       this.$set(this.rsvDetailCopy, 'termSeq', result.termSeq) // 예치금에 필요
-      this.$set(this.rsvDetailCopy, 'rsvGuestlnm', result.companyName)
-      this.$set(this.rsvDetailCopy, 'rsvGuestTelNo', result.capTelNo)
+      this.$set(this.rsvDetailCopy, 'partnerName', result.partnerName)
+      this.$set(this.rsvDetailCopy, 'partnerTelNo', result.partnerTelNo)
       this.$set(this.rsvDetailCopy, 'agentCode', result.agentCode)
       this.$set(this.rsvDetailCopy, 'agentName', result.agentCodeName)
       if (this.roomType.value === 'OTA_ROOM_API') { // 객실인 경우
-        this.$set(this.rsvDetailCopy, 'memNo', result.memNo)
-        this.$set(this.rsvDetailCopy, 'memName', result.memName)
+        this.$set(this.rsvDetailCopy, 'memberNo', result.memberNo)
+        this.$set(this.rsvDetailCopy, 'memberName', result.memberName)
       }
     },
     /**
@@ -675,16 +627,16 @@ export default {
     async searchPartnerInfo () {
       const q = {}
       q.taskType = this.roomType.value
-      let memNo = this.rsvDetailCopy.memNo
-      if (memNo && memNo.length === 6) {
-        memNo = memNo + '00'
+      let memberNo = this.rsvDetailCopy.memberNo
+      if (memberNo && memberNo.length === 6) {
+        memberNo = memberNo + '00'
       }
-      q.memNo = memNo
+      q.memberNo = memberNo
       const param = {}
       param.q = q
       const res = await partnerTermService.selectPartnerTermList(param)
       if (res.data && res.data.length === 1) {
-        this.setPartnerInfoReseult(res.data[0])
+        this.setPartnerInfoResult(res.data[0])
       } else {
         this.openPartnerInfo()
       }
@@ -697,7 +649,7 @@ export default {
         componentPath: '/SearchDialog/PartnerTermSearch',
         params: {
           taskType: this.roomType.value,
-          memNo: this.rsvDetailCopy.memNo
+          memberNo: this.rsvDetailCopy.memberNo
         },
         options: {
           fullscreen: false,
@@ -707,8 +659,8 @@ export default {
           width: 1500,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.setPartnerInfoReseult(params.data)
-              this.changeMemInfoOrRmCnt()
+              this.setPartnerInfoResult(params.data)
+              this.changeMemInfoOrRoomCount()
             }
           }
         }
@@ -720,8 +672,8 @@ export default {
     mapStoreInfoResult (result) {
       this.$set(this.rsvDetailCopy, 'storeCode', result.storeCode)
       this.$set(this.rsvDetailCopy, 'storeName', result.storeName)
-      this.$set(this.rsvDetailCopy, 'rsvBlckCode', result.rsvBlckCode)
-      this.$set(this.rsvDetailCopy, 'rsvBlck', result.rsvBlckCodeName)
+      this.$set(this.rsvDetailCopy, 'blockCode', result.blockCode)
+      this.$set(this.rsvDetailCopy, 'rsvBlock', result.blockCodeName)
     },
     /**
          * 영업장번호/명 검색
@@ -731,24 +683,25 @@ export default {
       param.storeCode = item.storeCode
       if (this.roomType.value === 'OTA_ROOM_API' || item.rsvType === 'ROOM') {
         param.useYn = '1'
+        param.isNowSale = true
         const res = await roomService.selectStoreInfo(param)
         if (res.data && res.data.length === 1) {
-          this.resetRmInfoAndTotalAmt() // 객실 유형 정보 및 요금 총 합계 초기화
+          this.resetRoomInfoAndTotalPrice() // 객실 유형 정보 및 요금 총 합계 초기화
           this.mapStoreInfoResult(res.data[0]) // 결과값 화면에 매핑
-          this.storeMinDate = res.data[0].saleBgnYmd
-          this.storeMaxDate = res.data[0].saleEndYmd
-          this.setMinAndMaxDateByStore(res.data[0].saleBgnYmd, res.data[0].saleEndYmd)
+          this.storeMinDate = res.data[0].saleStartDate
+          this.storeMaxDate = res.data[0].saleEndDate
+          this.setMinAndMaxDateByStore(res.data[0].saleStartDate, res.data[0].saleEndDate)
           this.getInventoryList() // 잔여객실 조회
         } else {
           this.openStorePopup(item)
         }
       } else { // 패키지
-        if (item.pkgNo) {
-          param.pkgNo = item.pkgNo
+        if (item.packageNo) {
+          param.packageNo = item.packageNo
           param.useYn = 'Y'
-          const res = await roomService.selectStoreInfoByPkgNo(param)
+          const res = await roomService.selectStoreInfoByPackageNo(param)
           if (res.data && res.data.length === 1) {
-            this.resetRmInfoAndTotalAmt() // 객실 유형 정보 및 요금 총 합계 초기화
+            this.resetRoomInfoAndTotalPrice() // 객실 유형 정보 및 요금 총 합계 초기화
             this.mapStoreInfoResult(res.data[0]) // 결과값 화면에 매핑
             this.getInventoryList() // 잔여객실 조회
           } else {
@@ -763,7 +716,7 @@ export default {
          * 영업장번호/명 검색창 오픈
          */
     openStorePopup (item) {
-      const paramCheck = Boolean(this.roomType.value === 'OTA_ROOM_API' || ((this.roomType.value === 'OTA_PKG_API' || item.rsvType === 'PKG') && item.pkgNo))
+      const paramCheck = Boolean(this.roomType.value === 'OTA_ROOM_API' || ((this.roomType.value === 'OTA_PKG_API' || item.rsvType === 'PKG') && item.packageNo))
       if (paramCheck) {
         this.$store.dispatch('dialog/open', {
           componentPath: '/Ota/RoomReservation/popup/StoreSearchPopup',
@@ -779,12 +732,12 @@ export default {
             width: 900,
             closeCallback: (params) => {
               if (params && params.data) {
-                this.resetRmInfoAndTotalAmt() // 객실 유형 정보 및 요금 총 합계 초기화
+                this.resetRoomInfoAndTotalPrice() // 객실 유형 정보 및 요금 총 합계 초기화
                 this.mapStoreInfoResult(params.data) // 결과값 화면에 매핑
                 if (this.roomType.value === 'OTA_ROOM_API' || item.rsvType === 'ROOM') {
-                  this.storeMinDate = params.data.saleBgnYmd
-                  this.storeMaxDate = params.data.saleEndYmd
-                  this.setMinAndMaxDateByStore(params.data.saleBgnYmd, params.data.saleEndYmd)
+                  this.storeMinDate = params.data.saleStartDate
+                  this.storeMaxDate = params.data.saleEndDate
+                  this.setMinAndMaxDateByStore(params.data.saleStartDate, params.data.saleEndDate)
                 }
                 this.getInventoryList() // 잔여객실 조회
               }
@@ -800,20 +753,20 @@ export default {
          */
     async selectRsvBlockInfo (item) {
       const param = {}
-      param.rsvBlckCode = item.rsvBlckCode
+      param.blockCode = item.blockCode
       // 블럭정보 조회
       const res = await roomService.selectRsvBlockInfo(param)
-      this.$set(this.rsvDetailCopy, 'rsvBlckCode', res.data.rsvBlckCode)
-      this.$set(this.rsvDetailCopy, 'rsvBlck', res.data.rsvBlckCodeName)
+      this.$set(this.rsvDetailCopy, 'blockCode', res.data.blockCode)
+      this.$set(this.rsvDetailCopy, 'rsvBlock', res.data.blockName)
     },
     /**
          * 객실 유형 정보 조회 결과값 매핑
          */
     mapRmTypeInfoResult (result) {
-      this.$set(this.rsvDetailCopy, 'rmTypeCode', result.rmTypeCode)
-      this.$set(this.rsvDetailCopy, 'rmTypeName', result.rmTypeName)
+      this.$set(this.rsvDetailCopy, 'roomTypeCode', result.roomTypeCode)
+      this.$set(this.rsvDetailCopy, 'roomTypeName', result.roomTypeName)
       this.$set(this.rsvDetailCopy, 'dongCode', result.dongCode)
-      this.$set(this.rsvDetailCopy, 'dongCodeName', result.dongName)
+      this.$set(this.rsvDetailCopy, 'dongCodeName', result.dongCodeName)
     },
     /**
          * 객실유형코드 검색
@@ -822,19 +775,19 @@ export default {
       if (item.storeCode) {
         const param = {}
         param.storeCode = item.storeCode
-        param.rmTypeCode = item.rmTypeCode
+        param.roomTypeCode = item.roomTypeCode
         param.useYn = '1'
-        if (item.pkgNo) {
-          param.pkgNo = item.pkgNo
+        if (item.packageNo) {
+          param.packageNo = item.packageNo
         }
         // 객실유형코드 조회
-        const res = await roomService.selectRmTypeAndDongInfo(param)
+        const res = await roomService.selectRoomTypeAndDongInfo(param)
         if (res.data && res.data.length === 1) {
           this.mapRmTypeInfoResult(res.data[0]) // 결과값을 화면에 매핑
           if (this.roomType.value === 'OTA_ROOM_API' || item.rsvType === 'ROOM') {
-            this.rmMinDate = res.data[0].saleBgnYmd
-            this.rmMaxDate = res.data[0].saleEndYmd
-            this.setMinAndMaxDateByRmType(res.data[0].saleBgnYmd, res.data[0].saleEndYmd)
+            this.roomMinDate = res.data[0].saleStartDate
+            this.roomMaxDate = res.data[0].saleEndDate
+            this.setMinAndMaxDateByRmType(res.data[0].saleStartDate, res.data[0].saleEndDate)
           }
           this.selectChargeInfo(this.rsvDetailCopy)
         } else {
@@ -850,11 +803,11 @@ export default {
     openRmTypePopup (item) {
       if (item.storeCode) {
         this.$store.dispatch('dialog/open', {
-          componentPath: '/Ota/RoomReservation/popup/RmTypePopup',
+          componentPath: '/Ota/RoomReservation/popup/RoomTypePopup',
           params: {
             item: {
               storeCode: item.storeCode,
-              pkgNo: item.pkgNo
+              packageNo: item.packageNo
             }
           },
           options: {
@@ -865,9 +818,9 @@ export default {
               if (params && params.data) {
                 this.mapRmTypeInfoResult(params.data) // 결과값을 화면에 매핑
                 if (this.roomType.value === 'OTA_ROOM_API' || item.rsvType === 'ROOM') {
-                  this.rmMinDate = params.data.saleBgnYmd
-                  this.rmMaxDate = params.data.saleEndYmd
-                  this.setMinAndMaxDateByRmType(params.data.saleBgnYmd, params.data.saleEndYmd)
+                  this.roomMinDate = params.data.saleStartDate
+                  this.roomMaxDate = params.data.saleEndDate
+                  this.setMinAndMaxDateByRmType(params.data.saleStartDate, params.data.saleEndDate)
                 }
                 this.selectChargeInfo(this.rsvDetailCopy)
               }
@@ -886,10 +839,9 @@ export default {
         componentPath: '/Ota/RoomReservation/popup/PackSearchPopup',
         params: {
           item: {
-            pkgNo: item.pkgNo,
+            packageNo: item.packageNo,
             rsvYn: 'Y',
-            groupFlag: this.groupFlag,
-            workStatus: this.workStatus
+            groupFlag: this.groupFlag
           }
         },
         options: {
@@ -902,40 +854,40 @@ export default {
                 this.$emit('change-group-flag', params.group)
               }
               this.childGroupFlag = params.group
-              this.$set(this.rsvDetailCopy, 'pkgNo', params.data.pkgNo)
-              this.$set(this.rsvDetailCopy, 'pkgName', params.data.pkgName)
+              this.$set(this.rsvDetailCopy, 'packageNo', params.data.packageNo)
+              this.$set(this.rsvDetailCopy, 'packageName', params.data.packageName)
               // 입실일자 및 퇴실일자 최소, 최대값 설정
-              if (moment().isBefore(params.data.saleBgnYmd)) {
-                this.minDate = moment(params.data.saleBgnYmd).format('YYYY-MM-DD')
+              if (moment().isBefore(params.data.saleStartDate)) {
+                this.minDate = moment(params.data.saleStartDate).format('YYYY-MM-DD')
               } else {
                 this.minDate = moment().format('YYYY-MM-DD')
               }
-              this.maxDate = moment(params.data.saleEndYmd).format('YYYY-MM-DD')
-              this.coMaxDate = moment(this.maxDate).add(1, 'day').format('YYYY-MM-DD')
+              this.checkInMaxDate = moment(params.data.saleEndDate).format('YYYY-MM-DD')
+              this.checkOutMaxDate = moment(this.checkInMaxDate).add(1, 'day').format('YYYY-MM-DD')
               if (params.group === 'ota') {
                 // 영업장 정보가 있는 경우 초기화
                 if (this.rsvDetailCopy.storeCode) {
                   this.rsvDetailCopy.storeCode = ''
                   this.rsvDetailCopy.storeName = ''
-                  this.rsvDetailCopy.rsvBlckCode = ''
-                  this.rsvDetailCopy.rsvBlck = ''
+                  this.rsvDetailCopy.blockCode = ''
+                  this.rsvDetailCopy.rsvBlock = ''
                 }
-                this.resetRmInfoAndTotalAmt() // 객실 유형 정보 및 요금 총 합계 초기화
-                this.$set(this.rsvDetailCopy, 'nights', params.data.stayNights)
-                this.$set(this.rsvDetailCopy, 'rmCnt', params.data.rmCnt)
+                this.resetRoomInfoAndTotalPrice() // 객실 유형 정보 및 요금 총 합계 초기화
+                this.$set(this.rsvDetailCopy, 'nights', params.data.nights)
+                this.$set(this.rsvDetailCopy, 'roomCount', params.data.roomCount)
               } else { // 네이버
                 this.$set(this.rsvDetailCopy, 'storeCode', params.data.storeCode)
                 this.$set(this.rsvDetailCopy, 'storeName', params.data.storeName)
-                this.$set(this.rsvDetailCopy, 'rsvBlckCode', params.data.rsvBlckCode)
-                this.$set(this.rsvDetailCopy, 'rsvBlck', params.data.rsvBlckName)
-                this.$set(this.rsvDetailCopy, 'rmTypeCode', params.data.rmTypeCode)
-                this.$set(this.rsvDetailCopy, 'rmTypeName', params.data.rmTypeName)
+                this.$set(this.rsvDetailCopy, 'blockCode', params.data.blockCode)
+                this.$set(this.rsvDetailCopy, 'rsvBlock', params.data.rsvBlockName)
+                this.$set(this.rsvDetailCopy, 'roomTypeCode', params.data.roomTypeCode)
+                this.$set(this.rsvDetailCopy, 'roomTypeName', params.data.roomTypeName)
                 this.$set(this.rsvDetailCopy, 'dongCode', params.data.dongCode)
-                this.$set(this.rsvDetailCopy, 'dongCodeName', params.data.dongName)
+                this.$set(this.rsvDetailCopy, 'dongCodeName', params.data.dongCodeName)
               }
-              this.changeCiYmdOrNights() // 퇴실일자 및 요금변경
+              this.changeCheckInDateOrNights() // 퇴실일자 및 요금변경
             }
-            this.key += 1 // 패키지 번호를 지우고 동일한 패키지를 선택했을 때, pkgNo값이 매핑되지 않는 문제 해결을 위해 사용.
+            this.key += 1 // 패키지 번호를 지우고 동일한 패키지를 선택했을 때, packageNo값이 매핑되지 않는 문제 해결을 위해 사용.
           }
         }
       })
@@ -943,91 +895,91 @@ export default {
     /**
          * 객실 유형 정보 및 요금 총 합계 초기화
          */
-    resetRmInfoAndTotalAmt () {
+    resetRoomInfoAndTotalPrice () {
       // 객실 유형 정보가 있는 경우 초기화
-      if (this.rsvDetailCopy.rmTypeCode) {
-        this.rsvDetailCopy.rmTypeCode = ''
-        this.rsvDetailCopy.rmTypeName = ''
+      if (this.rsvDetailCopy.roomTypeCode) {
+        this.rsvDetailCopy.roomTypeCode = ''
+        this.rsvDetailCopy.roomTypeName = ''
         this.rsvDetailCopy.dongCode = ''
         this.rsvDetailCopy.dongCodeName = ''
       }
       // 요금 총 합계 초기화
-      if (this.rsvDetailCopy.payAmt) {
-        this.rsvDetailCopy.payAmt = ''
+      if (this.rsvDetailCopy.partnerRsvPrice) {
+        this.rsvDetailCopy.partnerRsvPrice = ''
       }
     },
     /**
          * 영업장에 따른 입실일자 및 퇴실일자 최소, 최대값 설정
          */
-    setMinAndMaxDateByStore (bgnDate, endDate) { // 영업장 판매 시작일, 영업장 판매 종료일
-      if (this.rmMinDate) { // 객실 판매 시작일이 있는 경우
-        if (moment().isBefore(bgnDate) && moment(bgnDate).isBefore(this.rmMinDate)) {
-          this.minDate = moment(bgnDate).format('YYYY-MM-DD') // 영업장 판매 시작일
-        } else if (moment().isBefore(this.rmMinDate) && moment(this.rmMinDate).isBefore(bgnDate)) {
-          this.minDate = moment(this.rmMinDate).format('YYYY-MM-DD') // 객실 판매시작일
+    setMinAndMaxDateByStore (startDate, endDate) { // 영업장 판매 시작일, 영업장 판매 종료일
+      if (this.roomMinDate) { // 객실 판매 시작일이 있는 경우
+        if (moment().isBefore(startDate) && moment(startDate).isBefore(this.roomMinDate)) {
+          this.minDate = moment(startDate).format('YYYY-MM-DD') // 영업장 판매 시작일
+        } else if (moment().isBefore(this.roomMinDate) && moment(this.roomMinDate).isBefore(startDate)) {
+          this.minDate = moment(this.roomMinDate).format('YYYY-MM-DD') // 객실 판매시작일
         } else {
           this.minDate = moment().format('YYYY-MM-DD') // 오늘
         }
       } else { // 객실 판매 시작일이 없는 경우
-        if (moment().isBefore(bgnDate)) {
-          this.minDate = moment(bgnDate).format('YYYY-MM-DD')
+        if (moment().isBefore(startDate)) {
+          this.minDate = moment(startDate).format('YYYY-MM-DD')
         } else {
           this.minDate = moment().format('YYYY-MM-DD')
         }
       }
-      if (this.rmMaxDate) { // 객실 판매 종료일이 있는 경우
-        if (moment(endDate).isAfter(this.rmMaxDate)) {
-          this.maxDate = moment(this.rmMaxDate).format('YYYY-MM-DD')
-          this.coMaxDate = moment(this.maxDate).add(1, 'day').format('YYYY-MM-DD')
+      if (this.roomMaxDate) { // 객실 판매 종료일이 있는 경우
+        if (moment(endDate).isAfter(this.roomMaxDate)) {
+          this.checkInMaxDate = moment(this.roomMaxDate).format('YYYY-MM-DD')
+          this.checkOutMaxDate = moment(this.checkInMaxDate).add(1, 'day').format('YYYY-MM-DD')
         } else {
-          this.maxDate = moment(endDate).format('YYYY-MM-DD')
-          this.coMaxDate = moment(this.maxDate).add(1, 'day').format('YYYY-MM-DD')
+          this.checkInMaxDate = moment(endDate).format('YYYY-MM-DD')
+          this.checkOutMaxDate = moment(this.checkInMaxDate).add(1, 'day').format('YYYY-MM-DD')
         }
       } else { // 객실 판매 종료일이 없는 경우
-        this.maxDate = moment(endDate).format('YYYY-MM-DD')
-        this.coMaxDate = moment(this.maxDate).add(1, 'day').format('YYYY-MM-DD')
+        this.checkInMaxDate = moment(endDate).format('YYYY-MM-DD')
+        this.checkOutMaxDate = moment(this.checkInMaxDate).add(1, 'day').format('YYYY-MM-DD')
       }
     },
     /**
          * 객실유형에 따른 입실일자 및 퇴실일자 최소, 최대값 설정
          */
-    setMinAndMaxDateByRmType (bgnDate, endDate) { // 객실 판매 시작일, 객실 판매 종료일
+    setMinAndMaxDateByRmType (startDate, endDate) { // 객실 판매 시작일, 객실 판매 종료일
       // mimDate 설정
-      if (moment().isBefore(this.storeMinDate) && moment(this.storeMinDate).isBefore(this.bgnDate)) {
+      if (moment().isBefore(this.storeMinDate) && moment(this.storeMinDate).isBefore(this.startDate)) {
         this.minDate = moment(this.storeMinDate).format('YYYY-MM-DD') // 영업장 판매 시작일
-      } else if (moment().isBefore(bgnDate) && moment(bgnDate).isBefore(this.storeMinDate)) {
-        this.minDate = moment(bgnDate).format('YYYY-MM-DD') // 객실 판매시작일
+      } else if (moment().isBefore(startDate) && moment(startDate).isBefore(this.storeMinDate)) {
+        this.minDate = moment(startDate).format('YYYY-MM-DD') // 객실 판매시작일
       } else {
         this.minDate = moment().format('YYYY-MM-DD') // 오늘
       }
       // maxDate 설정
       if (moment(this.storeMaxDate).isAfter(endDate)) {
-        this.maxDate = moment(endDate).format('YYYY-MM-DD')
-        this.coMaxDate = moment(this.maxDate).add(1, 'day').format('YYYY-MM-DD')
+        this.checkInMaxDate = moment(endDate).format('YYYY-MM-DD')
+        this.checkOutMaxDate = moment(this.checkInMaxDate).add(1, 'day').format('YYYY-MM-DD')
       } else {
-        this.maxDate = moment(this.storeMaxDate).format('YYYY-MM-DD')
-        this.coMaxDate = moment(this.maxDate).add(1, 'day').format('YYYY-MM-DD')
+        this.checkInMaxDate = moment(this.storeMaxDate).format('YYYY-MM-DD')
+        this.checkOutMaxDate = moment(this.checkInMaxDate).add(1, 'day').format('YYYY-MM-DD')
       }
     },
     /**
          * 회원정보 OR 실수 변경
          */
-    changeMemInfoOrRmCnt () {
+    changeMemInfoOrRoomCount () {
       this.selectChargeInfo(this.rsvDetailCopy) // 요금 조회
     },
     /**
          * 입실일자 OR 박수 변경
          */
-    changeCiYmdOrNights () {
-      this.changeCoYmd() // 퇴실일자 변경
+    changeCheckInDateOrNights () {
+      this.changeCheckOutDate() // 퇴실일자 변경
       this.selectChargeInfo(this.rsvDetailCopy) // 요금 조회
     },
     /**
          * 박수와 입실일자에 따른 퇴실일자 변경
          */
-    changeCoYmd () {
-      if (this.rsvDetailCopy.ciYmd && this.rsvDetailCopy.nights) {
-        this.rsvDetailCopy.coYmd = moment(this.rsvDetailCopy.ciYmd).add(this.rsvDetailCopy.nights, 'days').format('YYYYMMDD')
+    changeCheckOutDate () {
+      if (this.rsvDetailCopy.checkInDate && this.rsvDetailCopy.nights) {
+        this.rsvDetailCopy.checkOutDate = moment(this.rsvDetailCopy.checkInDate).add(this.rsvDetailCopy.nights, 'days').format('YYYYMMDD')
       }
       this.getInventoryList() // 잔여객실 조회
     },
@@ -1037,15 +989,15 @@ export default {
     getInventoryList () {
       if (
         this.rsvDetailCopy.storeCode &&
-                this.rsvDetailCopy.rsvBlckCode &&
-                this.rsvDetailCopy.ciYmd &&
-                this.rsvDetailCopy.coYmd
+                this.rsvDetailCopy.blockCode &&
+                this.rsvDetailCopy.checkInDate &&
+                this.rsvDetailCopy.checkOutDate
       ) {
         const param = {}
         param.storeCode = this.rsvDetailCopy.storeCode
-        param.startDate = this.rsvDetailCopy.ciYmd
-        param.endDate = moment(this.rsvDetailCopy.ciYmd).add(30, 'days').format('YYYYMMDD')
-        param.rsvBlckCode = this.rsvDetailCopy.rsvBlckCode
+        param.startDate = this.rsvDetailCopy.checkInDate
+        param.endDate = moment(this.rsvDetailCopy.checkInDate).add(30, 'days').format('YYYYMMDD')
+        param.blockCode = this.rsvDetailCopy.blockCode
         this.$emit('change-rm-list', param)
       }
     },
@@ -1053,43 +1005,37 @@ export default {
          * 요금조회
          */
     async selectChargeInfo (item) {
-      if (
-        (this.workStatus === 'new' || this.workStatus === 'update') &&
-                item.storeCode &&
-                item.nights &&
-                item.rmCnt &&
-                item.rmTypeCode &&
-                item.rmTypeCode.length > 4
-      ) {
+      if (item.storeCode && item.nights && item.roomCount &&
+                item.roomTypeCode && item.roomTypeCode.length > 4) {
         const param = {}
-        param.ciYmd = item.ciYmd
+        param.checkInDate = item.checkInDate
         param.storeCode = item.storeCode
         param.nights = item.nights
-        param.rmCnt = item.rmCnt
-        if (item.pkgNo) { // 패키지
-          param.pkgNo = item.pkgNo
-          param.rmTypeCode = Array(item.rmTypeCode)
+        param.roomCount = item.roomCount
+        if (item.packageNo) { // 패키지
+          param.packageNo = item.packageNo
+          param.roomTypeCode = Array(item.roomTypeCode)
           // 패키지 요금 조회
           try {
             const res = await roomService.selectPkgAmount(this.childGroupFlag, param)
-            this.$set(this.rsvDetailCopy, 'saleAmt', res.data.total) // 판매가
-            this.$set(this.rsvDetailCopy, 'payAmt', res.data.rcpmnyTotal) // 입금가
+            this.$set(this.rsvDetailCopy, 'salePrice', res.data.total) // 판매가
+            this.$set(this.rsvDetailCopy, 'partnerRsvPrice', res.data.rcpmnyTotal) // 입금가
             this.dayAmtList = res.data.list
           } catch (e) {
-            this.$set(this.rsvDetailCopy, 'payAmt', 0) // 입금가
+            this.$set(this.rsvDetailCopy, 'partnerRsvPrice', 0) // 입금가
           }
-        } else if (item.memNo) { // 객실
-          param.memNo = item.memNo
-          param.rsvBlckCode = item.rsvBlckCode
-          param.rmTypeCode = item.rmTypeCode
+        } else if (item.memberNo) { // 객실
+          param.memberNo = item.memberNo
+          param.blockCode = item.blockCode
+          param.roomTypeCode = item.roomTypeCode
           // 객실 요금 조회
           try {
             const res = await roomService.selectRoomAmount(param)
-            this.$set(this.rsvDetailCopy, 'saleAmt', res.data.total) // 판매가
-            this.$set(this.rsvDetailCopy, 'payAmt', res.data.rcpmnyTotal) // 입금가
+            this.$set(this.rsvDetailCopy, 'salePrice', res.data.total) // 판매가
+            this.$set(this.rsvDetailCopy, 'partnerRsvPrice', res.data.rcpmnyTotal) // 입금가
             this.dayAmtList = res.data.list
           } catch (e) {
-            this.$set(this.rsvDetailCopy, 'payAmt', 0) // 입금가
+            this.$set(this.rsvDetailCopy, 'partnerRsvPrice', 0) // 입금가
           }
         }
       }
@@ -1097,13 +1043,13 @@ export default {
     /**
          * 일별 요금조회 팝업 오픈(예약 전)
          */
-    openDayAmtInfo () {
+    /* openDayAmtInfo () {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Ota/RoomReservation/popup/DayAmtPopup',
         params: {
           dayAmtList: this.dayAmtList,
           isBefore: true,
-          rmCnt: this.rsvDetailCopy.rmCnt
+          roomCount: this.rsvDetailCopy.roomCount
         },
         options: {
           fullscreen: false,
@@ -1111,11 +1057,11 @@ export default {
           width: 700
         }
       })
-    },
+    }, */
     /**
          * 일별 요금조회 팝업 오픈(예약 후)
          */
-    async openDayAmtInfoAfterRsv () {
+    /* async openDayAmtInfoAfterRsv () {
       let type = ''
       // 객실인지 패키지인지 확인
       this.roomType.value === 'OTA_ROOM_API' ? type = 'room' : type = 'pkg'
@@ -1132,7 +1078,7 @@ export default {
           width: 700
         }
       })
-    }
+    } */
   }
 }
 </script>

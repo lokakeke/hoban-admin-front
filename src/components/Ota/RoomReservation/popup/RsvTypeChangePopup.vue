@@ -22,7 +22,7 @@
           </v-col>
           <v-col cols="3">
             <v-text-field
-              v-model="newItem.rmTypeName"
+              v-model="newItem.roomTypeName"
               label="객실유형명"
               disabled
               outlined
@@ -32,7 +32,7 @@
           </v-col>
           <v-col cols="2">
             <v-text-field
-              v-model="ciYmd"
+              v-model="checkInDate"
               label="입실일자"
               disabled
               outlined
@@ -42,7 +42,7 @@
           </v-col>
           <v-col cols="2">
             <v-text-field
-              v-model="coYmd"
+              v-model="checkOutDate"
               label="퇴실일자"
               disabled
               outlined
@@ -62,7 +62,7 @@
           </v-col>
           <v-col cols="1">
             <v-text-field
-              v-model="newItem.rmCnt"
+              v-model="newItem.roomCount"
               label="객"
               disabled
               outlined
@@ -101,7 +101,7 @@
           </v-col>
           <v-col cols="3" v-if="type === pkg">
             <v-text-field
-              v-model="newItem.pkgNo"
+              v-model="newItem.packageNo"
               label="패키지번호"
               outlined
               hide-details
@@ -148,7 +148,7 @@
           </v-col>
           <v-col cols="3" v-if="type === pkg">
             <v-text-field
-              v-model="newItem.saleBgnYmd"
+              v-model="newItem.saleStartDate"
               label="판매시작일"
               disabled
               outlined
@@ -158,7 +158,7 @@
           </v-col>
           <v-col cols="3" v-if="type === pkg">
             <v-text-field
-              v-model="newItem.saleEndYmd"
+              v-model="newItem.saleEndDate"
               label="판매종료일"
               disabled
               outlined
@@ -179,7 +179,7 @@
           </v-col>
           <v-col cols="3">
             <v-text-field
-              v-model="newItem.smsPhone"
+              v-model="newItem.guestTelNo"
               label="이용자연락처"
               outlined
               hide-details
@@ -189,7 +189,7 @@
           </v-col>
           <v-col cols="3">
             <v-text-field
-              v-model="newItem.chainRsvNo"
+              v-model="newItem.partnerRsvNo"
               label="업체주문번호"
               required
               outlined
@@ -199,7 +199,7 @@
           </v-col>
           <v-col cols="3">
             <v-text-field
-              v-model="totalAmt"
+              v-model="totalPrice"
               label="입금금액"
               required
               readonly
@@ -273,19 +273,19 @@ export default {
       type: 'PKG', // Tab의 변경을 담는 변수
       pkg: 'PKG',
       room: 'ROOM',
-      saleAmt: 0, // 판매가
+      salePrice: 0, // 판매가
       partnerName: ''
     }
   },
   computed: {
-    totalAmt () { // 입금금액(판매금액)
-      return NumberUtils.numberWithCommas(this.rsvInfo.payAmt) // + '(' + NumberUtils.numberWithCommas(this.saleAmt) + ')'
+    totalPrice () { // 입금금액(판매금액)
+      return NumberUtils.numberWithCommas(this.rsvInfo.partnerRsvPrice) // + '(' + NumberUtils.numberWithCommas(this.salePrice) + ')'
     },
-    ciYmd () {
-      return moment(this.rsvInfo.ciYmd).format('YYYY-MM-DD')
+    checkInDate () {
+      return moment(this.rsvInfo.checkInDate).format('YYYY-MM-DD')
     },
-    coYmd () {
-      return moment(this.rsvInfo.coYmd).format('YYYY-MM-DD')
+    checkOutDate () {
+      return moment(this.rsvInfo.checkOutDate).format('YYYY-MM-DD')
     }
   },
   mounted () {
@@ -320,12 +320,12 @@ export default {
      */
     setOriginInfo () {
       this.newItem.storeName = this.rsvInfo.storeName
-      this.newItem.rmTypeName = this.rsvInfo.rmTypeName
+      this.newItem.roomTypeName = this.rsvInfo.roomTypeName
       this.newItem.nights = this.rsvInfo.nights
-      this.newItem.rmCnt = this.rsvInfo.rmCnt
+      this.newItem.roomCount = this.rsvInfo.roomCount
       this.newItem.guestName = this.rsvInfo.guestName
-      this.newItem.smsPhone = this.rsvInfo.smsPhone
-      this.newItem.chainRsvNo = this.rsvInfo.chainRsvNo
+      this.newItem.guestTelNo = this.rsvInfo.guestTelNo
+      this.newItem.partnerRsvNo = this.rsvInfo.partnerRsvNo
       this.newItem.agentCode = this.rsvInfo.agentCode
       this.newItem.agentName = this.rsvInfo.agentName
     },
@@ -347,17 +347,17 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               if (this.type === this.room) { // 객실로 예약이관
-                this.newItem.pkgNo = '' // 패키지번호 초기화
+                this.newItem.packageNo = '' // 패키지번호 초기화
                 this.$set(this.newItem, 'memNo', params.data.memNo)
                 this.$set(this.newItem, 'memName', params.data.memName)
                 this.$set(this.newItem, 'cntrctYmd', params.data.cntrctYmd)
                 this.$set(this.newItem, 'cancelYmd', params.data.cancelYmd)
-                this.newItem.companyName = params.data.companyName // 예약자 이름
-                this.newItem.rsvGuestTelNo = params.data.capTelNo // 예약자 번호
+                this.newItem.partnerName = params.data.partnerName // 예약자 이름
+                this.newItem.partnerTelNo = params.data.partnerTelNo // 예약자 번호
                 this.newItem.agentCode = params.data.agentCode
                 this.selectRoomAmount()
               } else { // 패키지로 예약이관
-                this.$set(this, 'partnerName', params.data.companyName)
+                this.$set(this, 'partnerName', params.data.partnerName)
                 this.newItem.agentCode = params.data.agentCode
                 this.newItem.agentName = params.data.agentCodeName
               }
@@ -374,18 +374,18 @@ export default {
       const priceParam = {}
       priceParam.memNo = this.newItem.memNo
       priceParam.storeCode = this.rsvInfo.storeCode
-      priceParam.ciYmd = this.rsvInfo.ciYmd.replace(/-/gi, '')
-      priceParam.rmTypeCode = this.rsvInfo.rmTypeCode
+      priceParam.checkInDate = this.rsvInfo.checkInDate.replace(/-/gi, '')
+      priceParam.roomTypeCode = this.rsvInfo.roomTypeCode
       priceParam.nights = this.rsvInfo.nights
-      priceParam.rmCnt = this.rsvInfo.rmCnt
-      priceParam.rsvBlckCode = this.rsvInfo.rsvBlckCode
+      priceParam.roomCount = this.rsvInfo.roomCount
+      priceParam.blockCode = this.rsvInfo.blockCode
       try {
         // 요금 조회
         const res = await roomService.selectRoomAmount(priceParam)
-        this.rsvInfo.payAmt = res.data.rcpmnyTotal // 입금가
-        this.saleAmt = res.data.total // 판매가
+        this.rsvInfo.partnerRsvPrice = res.data.rcpmnyTotal // 입금가
+        this.salePrice = res.data.total // 판매가
       } catch (e) {
-        this.rsvInfo.payAmt = 0 // 입금가
+        this.rsvInfo.partnerRsvPrice = 0 // 입금가
       }
     },
     /**
@@ -404,10 +404,10 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               this.newItem.memNo = '' // 회원번호 초기화
-              this.$set(this.newItem, 'pkgNo', params.data.pkgNo)
+              this.$set(this.newItem, 'packageNo', params.data.packageNo)
               this.$set(this.newItem, 'pkgName', params.data.pkgName)
-              this.$set(this.newItem, 'saleBgnYmd', params.data.saleBgnYmd)
-              this.$set(this.newItem, 'saleEndYmd', params.data.saleEndYmd)
+              this.$set(this.newItem, 'saleStartDate', params.data.saleStartDate)
+              this.$set(this.newItem, 'saleEndDate', params.data.saleEndDate)
               this.$set(this.newItem, 'todayRsvYn', params.data.todayRsvYn)
               this.selectPackageAmount()
             }
@@ -420,19 +420,19 @@ export default {
      */
     async selectPackageAmount () {
       const priceParam = {}
-      priceParam.pkgNo = this.newItem.pkgNo
+      priceParam.packageNo = this.newItem.packageNo
       priceParam.storeCode = this.rsvInfo.storeCode
-      priceParam.rmTypeCode = Array(this.rsvInfo.rmTypeCode)
-      priceParam.ciYmd = this.rsvInfo.ciYmd
+      priceParam.roomTypeCode = Array(this.rsvInfo.roomTypeCode)
+      priceParam.checkInDate = this.rsvInfo.checkInDate
       priceParam.nights = this.rsvInfo.nights
-      priceParam.rmCnt = this.rsvInfo.rmCnt
+      priceParam.roomCount = this.rsvInfo.roomCount
       try {
         // 요금 조회
         const res = await roomService.selectPkgAmount('ota', priceParam)
-        this.rsvInfo.payAmt = res.data.rcpmnyTotal // 입금가
-        this.saleAmt = res.data.total // 판매가
+        this.rsvInfo.partnerRsvPrice = res.data.rcpmnyTotal // 입금가
+        this.salePrice = res.data.total // 판매가
       } catch (e) {
-        this.rsvInfo.payAmt = 0 // 입금가
+        this.rsvInfo.partnerRsvPrice = 0 // 입금가
       }
     },
     /**
@@ -440,12 +440,12 @@ export default {
      */
     update () {
       // 파트너 일 경우 당일예약불가 여부 체크
-      if (this.isPartner && moment().format('YYYYMMDD') === this.rsvInfo.ciYmd && this.newItem.todayRsvYn === 'N') {
+      if (this.isPartner && moment().format('YYYYMMDD') === this.rsvInfo.checkInDate && this.newItem.todayRsvYn === 'N') {
         this.$dialog.alert('당일예약 불가 상품입니다.')
         return
       }
       this.validForm(this.$refs.form).then(() => {
-        this.newItem.payAmt = this.rsvInfo.payAmt // newItem에 payAmt 세팅
+        this.newItem.partnerRsvPrice = this.rsvInfo.partnerRsvPrice // newItem에 partnerRsvPrice 세팅
         this.close({ data: this.newItem })
       })
     }

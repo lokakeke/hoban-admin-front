@@ -2,7 +2,7 @@
     <v-row wrap>
         <app-card :heading="'API 이력 관리'" col-classes="col-12">
             <search-form :search-param.sync="searchParam" :search-list.sync="searchList" @search="search"></search-form>
-            <v-data-table disable-pagination :no-data-text="'검색 결과가 없습니다.'" :headers="headers" :items="list" disable-sort hide-default-footer @click:row="open($event)" class="click-row bordered">
+            <v-data-table disable-pagination :no-data-text="'검색 결과가 없습니다.'" :headers="headers" :items="list" disable-sort hide-default-footer @click:row="open" class="click-row bordered">
                 <template v-slot:item.url="{ item }">
                     {{ item.url }}
                 </template>
@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import service from '@/api/modules/api/apiHistory.service'
+import service from '@/api/modules/api/apiLog.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {
-  name: 'history',
+  name: 'apiLogs',
   computed: {
     searchList () {
       let list = [
@@ -30,7 +30,7 @@ export default {
           key: 'systemDivision',
           label: '시스템 구분',
           type: 'code',
-          commCode: 'TASK_TYPE',
+          commonCode: 'TASK_TYPE',
           event: this.changeDivision
         },
         {
@@ -38,8 +38,8 @@ export default {
           label: '서비스 구분',
           type: 'select',
           list: this.serviceList,
-          listValue: 'commCode',
-          listText: 'commCodeName'
+          listValue: 'commonCode',
+          listText: 'commonCodeName'
         },
         {
           key: 'reqParams',
@@ -52,7 +52,7 @@ export default {
           type: 'text'
         },
         {
-          key: 'crtDt',
+          key: 'createDatetime',
           label: '요청 일시',
           type: 'dateRange',
           format: 'YYYY-MM-DD'
@@ -74,7 +74,7 @@ export default {
         page: 1,
         size: 10,
         total: 0,
-        sort: '_id'
+        sort: '_id,DESC'
       },
       list: [],
       headers: [
@@ -85,7 +85,7 @@ export default {
         },
         {
           text: '파트너명',
-          value: 'companyName',
+          value: 'partnerName',
           align: 'center'
         },
         {
@@ -115,7 +115,7 @@ export default {
         },
         {
           text: '요청 일시',
-          value: 'crtDt',
+          value: 'createDatetime',
           align: 'center'
         }
       ],
@@ -125,6 +125,7 @@ export default {
   },
   mounted () {
     this.serviceDivisionList()
+    this.search()
   },
   methods: {
     /**
@@ -149,7 +150,7 @@ export default {
      */
     open (row) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/History/HistoryDialog',
+        componentPath: '/Api/Log/HistoryDialog',
         params: {
           item: row
         },
@@ -166,7 +167,7 @@ export default {
      */
     changeDivision (value) {
       if (value !== undefined) {
-        this.serviceList = this.serviceListCopy.filter(data => data.parentCommCode === value)
+        this.serviceList = this.serviceListCopy.filter(data => data.parentCommonCode === value)
       } else {
         this.serviceList = []
       }

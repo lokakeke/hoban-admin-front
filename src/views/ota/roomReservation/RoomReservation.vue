@@ -35,8 +35,8 @@
                         <template v-slot:rsvState="{item}">
                             <span :class="`font-${selectedSize}`">{{ item.rsvState }}</span>
                         </template>
-                        <template v-slot:memNo="{item}">
-                            <span :class="`font-${selectedSize}`">{{ item.memNo }}</span>
+                        <template v-slot:memberNo="{item}">
+                            <span :class="`font-${selectedSize}`">{{ item.memberNo }}</span>
                         </template>
                         <template v-slot:rsvNo="{item}">
               <span :class="`font-${selectedSize} info--text`" @click="showDetail(item)">
@@ -46,20 +46,20 @@
                         <template v-slot:guestName="{item}">
                             <span :class="`font-${selectedSize}`">{{ item.guestName }}</span>
                         </template>
-                        <template v-slot:smsPhone="{item}">
-                            <template v-if="item.smsPhone">
-                                <mask-phone-number :height="20" :font-size="selectedSize" :text="item.smsPhone"
+                        <template v-slot:guestTelNo="{item}">
+                            <template v-if="item.guestTelNo">
+                                <mask-phone-number :height="20" :font-size="selectedSize" :text="item.guestTelNo"
                                                    @selectPhone="selectPhone(item)" />
                             </template>
                         </template>
-                        <template v-slot:ciYmd="{item}">
-                            <span :class="`font-${selectedSize}`">{{ item.ciYmd }}</span>
+                        <template v-slot:checkInDate="{item}">
+                            <span :class="`font-${selectedSize}`">{{ item.checkInDate }}</span>
                         </template>
                         <template v-slot:nights="{item}">
                             <span :class="`font-${selectedSize}`">{{ item.nights }}</span>
                         </template>
-                        <template v-slot:rmCnt="{item}">
-                            <span :class="`font-${selectedSize}`">{{ item.rmCnt }}</span>
+                        <template v-slot:roomCount="{item}">
+                            <span :class="`font-${selectedSize}`">{{ item.roomCount }}</span>
                         </template>
                         <template v-slot:storeName="{item}">
                             <span :class="`font-${selectedSize}`">{{ item.storeName }}</span>
@@ -67,8 +67,8 @@
                         <template v-slot:dongCodeName="{item}">
                             <span :class="`font-${selectedSize}`">{{ item.dongCodeName }}</span>
                         </template>
-                        <template v-slot:rmTypeName="{item}">
-                            <span :class="`font-${selectedSize}`">{{ item.rmTypeName }}</span>
+                        <template v-slot:roomTypeName="{item}">
+                            <span :class="`font-${selectedSize}`">{{ item.roomTypeName }}</span>
                         </template>
                         <template v-slot:rsvTypeName="{item}">
                             <span :class="`font-${selectedSize}`">{{ item.rsvTypeName }}</span>
@@ -77,11 +77,10 @@
                 </app-card>
             </v-col>
             <v-col :cols="colDetail">
-                <partner-rsv-detail-wrapper ref="ptnrChild" :partner-info="partnerInfo" :work-status="workStatus"
+                <partner-rsv-detail-wrapper ref="ptnrChild" :partner-info="partnerInfo"
                                             :room-type="roomType" :room-type-list="roomTypeList"
                                             :rsv-detail.sync="rsvDetail" :btn-name="btnName"
                                             @select-type="selectType($event)"
-                                            @change-work-status="changeWorkStatus($event)"
                                             @show-detail="showDetail($event)" @search="search"
                                             @change-size="changeSize()" />
             </v-col>
@@ -101,11 +100,11 @@
                                   :origin-list="originList" @show-detail="showDetail($event)" />
             </v-col>
             <v-col :cols="colDetail">
-                <rsv-detail-wrapper ref="child" :work-status="workStatus" :room-type="roomType"
+                <rsv-detail-wrapper ref="child" :room-type="roomType"
                                     :room-type-list="roomTypeList" :rsv-detail.sync="rsvDetail" :btn-name="btnName"
                                     @select-type="selectType($event)" @change-rm-list="changeRmList($event)"
-                                    @system-new-rsv="systemNewRsv" @change-work-status="changeWorkStatus($event)"
-                                    @show-detail="showDetail($event)" @search="search" @change-size="changeSize()" />
+                                    @system-new-rsv="systemNewRsv" @show-detail="showDetail($event)"
+                                    @search="search" @change-size="changeSize()" />
             </v-col>
         </v-row>
     </div>
@@ -113,7 +112,7 @@
 
 <script>
 import roomService from '@/api/modules/ota/roomReservation.service'
-import productService from '@/api/modules/ota/product.service'
+import pmsStockPriceService from '@/api/modules/pms/stockPrice.service'
 
 import RsvSearchForm from '@/components/Ota/RoomReservation/RsvSearchForm.vue'
 import RsvDetailWrapper from '@/components/Ota/RoomReservation/RsvDetailWrapper.vue'
@@ -160,7 +159,7 @@ export default {
         },
         {
           name: '회원번호',
-          value: 'memNo',
+          value: 'memberNo',
           align: 'center',
           sortable: false,
           size: 2
@@ -181,14 +180,14 @@ export default {
         },
         {
           name: '이용자연락처',
-          value: 'smsPhone',
+          value: 'guestTelNo',
           align: 'center',
           sortable: false,
           size: 2
         },
         {
           name: '입실일자',
-          value: 'ciYmd',
+          value: 'checkInDate',
           align: 'center',
           sortable: true,
           size: 2
@@ -202,7 +201,7 @@ export default {
         },
         {
           name: '객',
-          value: 'rmCnt',
+          value: 'roomCount',
           align: 'center',
           sortable: false,
           size: 1
@@ -225,7 +224,7 @@ export default {
         },
         {
           name: '객실유형명',
-          value: 'rmTypeName',
+          value: 'roomTypeName',
           align: 'center',
           sortable: false,
           size: 3,
@@ -255,14 +254,13 @@ export default {
       ],
       originList: [], // 원래 객실 리스트
       roomList: {}, // 가공된 객실 정보
-      workStatus: '', // 작업상태 ''(기본), new(신규), detail(상세정보조회), update(예약정보수정)
       partnerSeq: '', // 파트너번호(예치금시 필요)
       partnerInfo: { // 파트너 정보
-        memNo: '',
-        memName: '',
+        memberNo: '',
+        partnerName: '',
         termSeq: '',
         agentCode: '',
-        rsvGuestTelNo: ''
+        partnerTelNo: ''
       },
       isLoading: false,
       selectedSize: 12 // font-size 변수
@@ -283,122 +281,98 @@ export default {
     })
   },
   methods: {
-    /**
-         * 파트너인 경우 회원정보 조회
-         */
+    /** 파트너인 경우 회원정보 조회 */
     async selectDefaultPartnerInfo () {
       if (this.isPartner) {
         this.listHeight = '850'
         const res = await partnerTermService.selectDefaultPartnerInfo()
-        this.partnerInfo.memNo = res.data.memNo
-        this.partnerInfo.memName = res.data.memName
+        this.partnerInfo.memberNo = res.data.memberNo
+        this.partnerInfo.partnerName = res.data.partnerName
         this.partnerInfo.termSeq = res.data.termSeq
         this.partnerInfo.agentCode = res.data.agentCode
-        this.partnerInfo.rsvGuestTelNo = res.data.rsvGuestTelNo
+        this.partnerInfo.partnerTelNo = res.data.partnerTelNo
         this.isLoading = true
       }
     },
-    /**
-         * 잔여 객실 현황 목록 조회
-         */
+    /** 잔여 객실 현황 목록 조회 */
     async changeRmList (param) {
       // 잔여 객실 현황 필수값 확인
-      if (
-        param.storeCode &&
-                param.rsvBlckCode &&
-                param.startDate &&
-                param.endDate
-      ) {
+      if (param.storeCode && param.blockCode && param.startDate && param.endDate) {
         const newParam = {}
         newParam.storeCode = param.storeCode
         newParam.startDate = param.startDate
         newParam.endDate = param.endDate
         // 잔여 객실 현황 조회
-        const res = await productService.selectLeaveRooms(param.rsvBlckCode, newParam)
+        const res = await pmsStockPriceService.selectLeaveRooms(param.blockCode, newParam)
         // 조회된 정보 중 날짜만 뽑아서 가공
-        const days = _.uniqBy(res.data, 'ciYmd')
-        this.originList = res.data.filter(room => room.ciYmd === days[0].ciYmd)
+        const days = _.uniqBy(res.data, 'checkInDate')
+        this.originList = res.data.filter(room => room.checkInDate === days[0].checkInDate)
 
         // 객실에 대한 정보 가공
         const arr = {}
         for (const day of days) {
-          arr[day.ciYmd] = res.data.filter(room => room.ciYmd === day.ciYmd)
+          arr[day.checkInDate] = res.data.filter(room => room.checkInDate === day.checkInDate)
         }
         this.roomList = arr
       }
     },
-    /**
-         * 객실 혹은 패키지 선택
-         */
+    /** 객실 혹은 패키지 선택 */
     changeType (type) {
       // type이 객실인 경우와 패키지인 경우에 따라 roomType 변경
       type === this.roomTypeList[0].value ? this.roomType = this.roomTypeList[0] : this.roomType = this.roomTypeList[1]
       this.rsvDetail = {} // 초기화
       this.rsvList = [] // 예약목록 초기화
-      this.resetRmList() // 잔여객실 관련 목록 초기화
+      this.resetRoomList() // 잔여객실 관련 목록 초기화
       this.detailReset() // 예약상세화면 설정 초기화
     },
-    /**
-         * 잔여객실 관련 목록 초기화
-         */
-    resetRmList () {
+    /** 잔여객실 관련 목록 초기화 */
+    resetRoomList () {
       this.originList = [] // 원래 잔여객실 목록
       this.roomList = {} // 가공된 잔여객실
     },
-    /**
-         * 관리자 - 신규
-         */
+    /** 관리자 - 신규 */
     systemNewRsv () {
       if (this.btnName === '확장' && !this.isPartner) {
-        this.workStatus = 'new'
         this.changeSize()
       }
     },
-    /**
-         * 파트너 - 신규
-         */
+    /** 파트너 - 신규 */
     partnerNewRsv (roomType) {
-      if (this.isPartner) {
+      // 파트너 정보 조회 후 신규 팝업
+      this.selectType(roomType)
+      this.$nextTick(() => {
+        this.$refs.ptnrChild.getPartnerInfo(roomType)
+      })
+      /* if (this.isPartner) {
         // 파트너 정보 조회 후 신규 팝업
         this.selectType(roomType)
         this.$nextTick(() => {
           this.$refs.ptnrChild.getPartnerInfo(roomType)
         })
       } else {
-        this.workStatus = 'new'
         this.$refs.child.makeNew()
         if (this.btnName === '확장') {
           this.changeSize()
         }
-      }
+      } */
     },
-    /**
-         * 객실인지 패키지인지 여부를 판단해 this.roomType의 값을 세팅
-         */
+    /** 객실인지 패키지인지 여부를 판단해 this.roomType의 값을 세팅 */
     selectType (roomType) {
-      roomType === 'ROOM' ? this.roomType = this.roomTypeList[0] : this.roomType = this.roomTypeList[1]
+      this.roomType = roomType === 'ROOM' ? this.roomTypeList[0] : this.roomTypeList[1]
     },
-    /**
-         * 작업상태 변경
-         */
-    changeWorkStatus (code) {
-      this.workStatus = code
-    },
-    /**
-         * 검색
-         */
+    /** 검색 */
     async search () {
       this.rsvList = [] // 예약 현황 목록 초기화
       this.partnerSeq = this.searchParam.q.partnerSeq
 
       // keyRsvNo로 검색하지 않는 경우 OR 파트너인 경우 필수 조건 적용
-      if (!this.searchParam.q.keyRsvNo || this.isPartner) {
+      /* if (!this.searchParam.q.keyRsvNo || this.isPartner) {
         if (
-          this.searchParam.q.memNo ||
-                    this.searchParam.q.pkgNo ||
+          this.searchParam.q.memberNo ||
+                    this.searchParam.q.packageNo ||
                     this.searchParam.q.agentCode
         ) {
-          if (this.searchParam.q.memNo && !this.searchParam.q.memNo.startsWith('5')) {
+          if (this.searchParam.q.memberNo && !this.searchParam.q.memberNo.startsWith('5')) {
             this.$dialog.alert('회원번호는 5로 시작해야 합니다')
             return
           }
@@ -417,10 +391,10 @@ export default {
           this.$dialog.alert('입실일자는 필수값 입니다.')
           return
         }
-      }
+      } */
 
       // 객실인 경우 패키지 번호 제거, 패키지인 경우 회원 번호 제거
-      this.roomType.value === 'OTA_ROOM_API' ? this.searchParam.q.pkgNo = '' : this.searchParam.q.memNo = ''
+      this.roomType.value === 'OTA_ROOM_API' ? this.searchParam.q.packageNo = '' : this.searchParam.q.memberNo = ''
 
       // 파트너 여부 추가
       this.searchParam.q.isPartner = this.isPartner ? 'Y' : 'N'
@@ -438,11 +412,9 @@ export default {
       if (this.sizeFlag) {
         this.changeSize()
       }
-      this.resetRmList() // 잔여객실 관련 목록 초기화
+      this.resetRoomList() // 잔여객실 관련 목록 초기화
     },
-    /**
-         * 예약 목록 중 1개 선택시 상세정보 보기
-         */
+    /** 예약 목록 중 1개 선택시 상세정보 보기 */
     async showDetail (item) {
       // keyRsvNo가 있는 경우
       if (item.keyRsvNo) {
@@ -457,13 +429,11 @@ export default {
           }
           this.detailReset() // 예약상세화면 설정 초기화
 
-          // 작업상태 변경
-          this.workStatus = 'detail'
           if (this.rsvDetail.rsvType === 'PKG') { // 패키지인 경우
-            this.rsvDetail.pkgNo = res.data.memNo
-            this.rsvDetail.pkgName = res.data.memName
-            this.rsvDetail.memNo = ''
-            this.rsvDetail.memName = ''
+            this.rsvDetail.packageNo = res.data.memberNo
+            this.rsvDetail.packageName = res.data.partnerName
+            this.rsvDetail.memberNo = ''
+            this.rsvDetail.memberName = ''
             this.roomType = this.roomTypeList[1]
           } else {
             this.roomType = this.roomTypeList[0]
@@ -473,9 +443,9 @@ export default {
           if (!this.isPartner) {
             const param = {}
             param.storeCode = this.rsvDetail.storeCode
-            param.startDate = this.rsvDetail.ciYmd
-            param.endDate = moment(this.rsvDetail.ciYmd).add(30, 'days').format('YYYYMMDD')
-            param.rsvBlckCode = this.rsvDetail.rsvBlckCode
+            param.startDate = this.rsvDetail.checkInDate
+            param.endDate = moment(this.rsvDetail.checkInDate).add(30, 'days').format('YYYYMMDD')
+            param.blockCode = this.rsvDetail.blockCode
             this.changeRmList(param)
           }
         } else {
@@ -483,9 +453,7 @@ export default {
         }
       }
     },
-    /**
-         * 버튼 클릭시 화면 비율 변경
-         */
+    /** 버튼 클릭시 화면 비율 변경 */
     changeSize () {
       this.sizeFlag = !this.sizeFlag
       if (this.sizeFlag) { // detail이 넓은경우
@@ -500,9 +468,7 @@ export default {
         this.listHeight = this.isPartner ? '905' : '680'
       }
     },
-    /**
-         * 엑셀 다운로드
-         */
+    /** 엑셀 다운로드 */
     exportExcel () {
       if (this.rsvList.length > 0) {
         const searchParam = _.cloneDeep(this.searchParam)
@@ -513,15 +479,11 @@ export default {
         this.$dialog.alert('다운로드할 예약이 없습니다.')
       }
     },
-    /**
-         * 단축키 F11 예약번호 검색창으로 focus
-         */
+    /** 단축키 F11 예약번호 검색창으로 focus */
     focusRsv () {
       document.getElementById('rsvNo').focus()
     },
-    /**
-         * 배경색 및 readonly 설정
-         */
+    /** 배경색 및 readonly 설정 */
     detailReset () {
       if (this.isPartner) {
         this.$refs.ptnrChild.allReset() // 디테일 화면 전부 readOnly 처리 & 배경색 제거
@@ -529,18 +491,14 @@ export default {
         this.$refs.child.allReset() // 디테일 화면 전부 readOnly 처리 & 배경색 제거
       }
     },
-    /**
-         * font size 변경
-         */
+    /** font size 변경 */
     changeFontSize (size) {
       this.selectedSize = size
     },
-    /**
-         * 실제 이용자 연락처 조회
-         */
+    /** 실제 이용자 연락처 조회 */
     async selectPhone (item) {
-      const res = await roomService.selectRealSmsphone(item.keyRsvNo)
-      item.smsPhone = res.data.toString()
+      const res = await roomService.selectRealGuestTelNo(item.keyRsvNo)
+      item.guestTelNo = res.data.toString()
     }
   }
 }

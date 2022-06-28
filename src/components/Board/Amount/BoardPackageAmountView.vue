@@ -4,7 +4,7 @@
       <v-col md="6" cols="12">
         <v-label>패키지</v-label>
         <v-text-field
-          :value="form.pkgName"
+          :value="form.packageName"
           hide-details
           dense
           readonly
@@ -12,7 +12,7 @@
           @click="openPackagePopup"
         >
           <template v-slot:prepend-inner>
-            <v-chip x-small class="mt-2" v-if="form.pkgNo">{{ form.pkgNo }}</v-chip>
+            <v-chip x-small class="mt-2" v-if="form.packageNo">{{ form.packageNo }}</v-chip>
           </template>
           <template v-slot:append>
             <v-btn icon small color="primary" tabindex="-1" @click="openPackagePopup">
@@ -120,14 +120,14 @@
         <v-card class="pl-3 pr-3">
           <v-row class="mt-6 mb-1">
             <v-col md="9" cols="12" class="text-md-left text-center">
-              <v-chip x-small class="mr-1">{{ packageRoomAmount.searchParam.pkgNo }}</v-chip>
-              <span class="body-2">{{ packageRoomAmount.searchParam.pkgName }}</span>
+              <v-chip x-small class="mr-1">{{ packageRoomAmount.searchParam.packageNo }}</v-chip>
+              <span class="body-2">{{ packageRoomAmount.searchParam.packageName }}</span>
               <span class="grey--text caption ml-2 mr-2">/</span>
               <v-chip x-small class="mr-1">{{ store.storeCode }}</v-chip>
               <span class="body-2">{{ store.storeName}}</span>
             </v-col>
             <v-col md="3" cols="12" class="text-md-right text-center">
-              <span class="body-2">{{ packageRoomAmount.searchParam.startYmd | date }} ~ {{ packageRoomAmount.searchParam.endYmd | date }}</span>
+              <span class="body-2">{{ packageRoomAmount.searchParam.startDate | date }} ~ {{ packageRoomAmount.searchParam.endDate | date }}</span>
             </v-col>
           </v-row>
         </v-card>
@@ -213,17 +213,17 @@ export default {
        */
       form: {
         // 패키지번호
-        pkgNo: null,
+        packageNo: null,
         // 패키지명
-        pkgName: null,
+        packageName: null,
         // 영업장코드 목록
         storeCodes: [],
         // 객실유형코드 목록
-        rmTypeCodes: [],
+        roomTypeCodes: [],
         // 조회기간
         dateRange: [
-          moment(this.nowYmd).format('YYYYMMDD'),
-          moment(this.nowYmd).add(14 - 1, 'days').format('YYYYMMDD')
+          moment(this.nowDate).format('YYYYMMDD'),
+          moment(this.nowDate).add(14 - 1, 'days').format('YYYYMMDD')
         ]
       },
       /**
@@ -263,21 +263,21 @@ export default {
     /**
      * 오늘 일자
      */
-    nowYmd () {
+    nowDate () {
       return moment().format('YYYYMMDD')
     },
     /**
      * 조회기간 최소값
      */
     minDate () {
-      return moment(this.nowYmd).format('YYYY-MM-DD')
+      return moment(this.nowDate).format('YYYY-MM-DD')
     },
     /**
      * 조회기간 최대값
      */
     maxDate () {
       if (this.form.dateRange.length !== 2 || !this.form.dateRange[0]) {
-        return moment(this.nowYmd).add(1, 'years').format('YYYY-MM-DD')
+        return moment(this.nowDate).add(1, 'years').format('YYYY-MM-DD')
       }
       return moment(this.form.dateRange[0])
         .add(this.dayRange - 1, 'days')
@@ -286,10 +286,10 @@ export default {
     /**
      * 이전 조회시작일 (moment 객체)
      */
-    prevStartYmd () {
+    prevStartDate () {
       let prevStartDate = null
       if (this.packageRoomAmount) {
-        prevStartDate = moment(this.packageRoomAmount.searchParam.startYmd)
+        prevStartDate = moment(this.packageRoomAmount.searchParam.startDate)
         const minDate = moment(this.minDate)
         prevStartDate = prevStartDate.subtract(this.dayRange, 'days')
         if (prevStartDate.isBefore(minDate)) {
@@ -301,10 +301,10 @@ export default {
     /**
      * 다음 조회시작일
      */
-    prevEndYmd () {
+    prevEndDate () {
       let prevEndDate = null
-      if (this.prevStartYmd) {
-        prevEndDate = moment(this.prevStartYmd).add(this.dayRange - 1, 'days')
+      if (this.prevStartDate) {
+        prevEndDate = moment(this.prevStartDate).add(this.dayRange - 1, 'days')
       }
       return prevEndDate ? prevEndDate.format('YYYYMMDD') : null
     },
@@ -314,28 +314,28 @@ export default {
     isAllowPrevSearch () {
       return (
         this.packageRoomAmount != null &&
-        this.prevStartYmd !== this.packageRoomAmount.searchParam.startYmd &&
-        moment(this.prevStartYmd).isSameOrAfter(moment(this.nowYmd))
+        this.prevStartDate !== this.packageRoomAmount.searchParam.startDate &&
+        moment(this.prevStartDate).isSameOrAfter(moment(this.nowDate))
       )
     },
     /**
      * 다음 조회시작일
      */
-    nextStartYmd () {
+    nextStartDate () {
       let nextStartDate = null
-      if (this.nextEndYmd) {
-        nextStartDate = moment(this.nextEndYmd).subtract(this.dayRange - 1, 'days')
+      if (this.nextEndDate) {
+        nextStartDate = moment(this.nextEndDate).subtract(this.dayRange - 1, 'days')
       }
       return nextStartDate ? nextStartDate.format('YYYYMMDD') : null
     },
     /**
      * 다음 조회시작일
      */
-    nextEndYmd () {
+    nextEndDate () {
       let nextEndDate = null
       if (this.packageRoomAmount) {
-        nextEndDate = moment(this.packageRoomAmount.searchParam.endYmd)
-        const maxDate = moment(this.nowYmd).add(1, 'years')
+        nextEndDate = moment(this.packageRoomAmount.searchParam.endDate)
+        const maxDate = moment(this.nowDate).add(1, 'years')
         nextEndDate = nextEndDate.add(this.dayRange, 'days')
         if (nextEndDate.isAfter(maxDate)) {
           nextEndDate = maxDate
@@ -348,10 +348,10 @@ export default {
      */
     isAllowNextSearch () {
       return (
-        this.nextEndYmd !== null &&
-        this.nextEndYmd !== this.packageRoomAmount.searchParam.endYmd &&
-        moment(this.nextStartYmd).isSameOrBefore(
-          moment(this.nowYmd).add(1, 'years')
+        this.nextEndDate !== null &&
+        this.nextEndDate !== this.packageRoomAmount.searchParam.endDate &&
+        moment(this.nextStartDate).isSameOrBefore(
+          moment(this.nowDate).add(1, 'years')
         )
       )
     },
@@ -361,8 +361,8 @@ export default {
     headers () {
       const headers = []
       if (this.packageRoomAmount) {
-        const startDate = moment(this.packageRoomAmount.searchParam.startYmd)
-        const endDate = moment(this.packageRoomAmount.searchParam.endYmd)
+        const startDate = moment(this.packageRoomAmount.searchParam.startDate)
+        const endDate = moment(this.packageRoomAmount.searchParam.endDate)
         let ymd = startDate.format('YYYYMMDD')
         while (ymd <= endDate.format('YYYYMMDD')) {
           const date = moment(ymd)
@@ -400,7 +400,7 @@ export default {
         componentPath: '/Ota/RoomReservation/popup/PackSearchPopup',
         params: {
           item: {
-            pkgNo: null,
+            packageNo: null,
             groupFlag: 'ota'
           }
         },
@@ -412,12 +412,12 @@ export default {
             if (params && params.data) {
               if (params.data.localCode) {
                 this.$dialog.alert('네이버 패키지는 선택하실 수 없습니다.')
-                this.form.pkgNo = null
-                this.form.pkgName = null
+                this.form.packageNo = null
+                this.form.packageName = null
                 return false
               }
-              this.form.pkgNo = params.data.pkgNo
-              this.form.pkgName = params.data.pkgName
+              this.form.packageNo = params.data.packageNo
+              this.form.packageName = params.data.packageName
               await this.selectPackageStoreList()
             }
           }
@@ -430,10 +430,10 @@ export default {
     async selectPackageStoreList () {
       this.form.storeCodes = []
       const params = {
-        pkgNo: this.form.pkgNo,
+        packageNo: this.form.packageNo,
         useYn: 'Y'
       }
-      const res = await roomReservation.selectStoreInfoByPkgNo(params)
+      const res = await roomReservation.selectStoreInfoByPackageNo(params)
       this.storeList = res.data
       this.chooseAllStore()
     },
@@ -473,7 +473,7 @@ export default {
      */
     async selectRoomAmount () {
       // 패키지번호 확인
-      if (!this.form.pkgNo) {
+      if (!this.form.packageNo) {
         this.$dialog.alert('패키지를 선택해 주세요.')
         return
       }
@@ -497,14 +497,14 @@ export default {
       }
       this.packageRoomAmount = null
       const searchParam = {
-        pkgNo: this.form.pkgNo,
+        packageNo: this.form.packageNo,
         storeCodes: this.form.storeCodes.join(','),
-        startYmd: this.form.dateRange[0],
-        endYmd: this.form.dateRange[1]
+        startDate: this.form.dateRange[0],
+        endDate: this.form.dateRange[1]
       }
       await this.selectBoardPackageRoomAmount(
         searchParam,
-        this.form.pkgName
+        this.form.packageName
       )
     },
     /**
@@ -513,14 +513,14 @@ export default {
     prevSearch () {
       if (this.isAllowPrevSearch === true) {
         const searchParam = {
-          pkgNo: this.packageRoomAmount.searchParam.pkgNo,
+          packageNo: this.packageRoomAmount.searchParam.packageNo,
           storeCodes: this.packageRoomAmount.searchParam.storeCodes,
-          startYmd: this.prevStartYmd,
-          endYmd: this.prevEndYmd
+          startDate: this.prevStartDate,
+          endDate: this.prevEndDate
         }
         this.selectBoardPackageRoomAmount(
           searchParam,
-          this.packageRoomAmount.searchParam.pkgName
+          this.packageRoomAmount.searchParam.packageName
         )
       }
     },
@@ -530,25 +530,25 @@ export default {
     nextSearch () {
       if (this.isAllowNextSearch === true) {
         const searchParam = {
-          pkgNo: this.packageRoomAmount.searchParam.pkgNo,
+          packageNo: this.packageRoomAmount.searchParam.packageNo,
           storeCodes: this.packageRoomAmount.searchParam.storeCodes,
-          startYmd: this.nextStartYmd,
-          endYmd: this.nextEndYmd
+          startDate: this.nextStartDate,
+          endDate: this.nextEndDate
         }
         this.selectBoardPackageRoomAmount(
           searchParam,
-          this.packageRoomAmount.searchParam.pkgName
+          this.packageRoomAmount.searchParam.packageName
         )
       }
     },
     /**
      * 패키지 요금 조회
      */
-    async selectBoardPackageRoomAmount (searchParam, pkgName) {
+    async selectBoardPackageRoomAmount (searchParam, packageName) {
       const res = await boardAmountService.selectBoardPackageRoomAmount({
         q: searchParam
       })
-      searchParam.pkgName = pkgName
+      searchParam.packageName = packageName
       this.packageRoomAmount = Object.assign(
         {},
         {

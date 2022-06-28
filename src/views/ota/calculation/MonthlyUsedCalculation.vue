@@ -140,7 +140,7 @@
           <tbody v-if="ptnrAllList">
           <tr v-for="(item, index) in ptnrAllList" :key="index">
             <td class="text-center py-1" v-if="index % 5 === 0" rowspan="5" :class="index % 5 === 0 && index+5 != ptnrAllList.length ? 'bottom-border' : ''">
-              {{ item.companyName }}
+              {{ item.partnerName }}
             </td>
             <td class="text-center py-1" :class="index % 5 === 4 ? 'bottom-border' : ''">
               <span :class="index % 5 === 3 ? 'font-weight-bold': ''">{{ item.amtTypeName }}</span>
@@ -269,7 +269,7 @@
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.companyName }}</td>
+            <td class="text-center py-1">{{ item.partnerName }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.roomAftpayAmt02 | price }}</td>
@@ -365,7 +365,7 @@
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.companyName }}</td>
+            <td class="text-center py-1">{{ item.partnerName }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.pkgAftpayAmt02 | price }}</td>
@@ -485,7 +485,7 @@
           </thead>
           <tbody v-if="processedList">
           <tr v-for="(item, index) in processedList" :key="index">
-            <td class="text-center py-1">{{ item.companyName }}</td>
+            <td class="text-center py-1">{{ item.partnerName }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt26 | price }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt01 | price }}</td>
             <td class="text-center py-1">{{ item.bkpmsAftpayAmt0001 | price }}</td>
@@ -516,7 +516,7 @@ import monthlyUsedCalcService from '@/api/modules/ota/monthlyUsedCalculation.ser
 import excelMixin from '@/mixins/excelMixin'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'MonthlyUsedCalculation',

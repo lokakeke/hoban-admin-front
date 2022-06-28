@@ -7,8 +7,8 @@
         <template v-slot:item.totAmt="{item}">
           {{item.totAmt | price}}원
         </template>
-        <template v-slot:item.companyName="{item}">
-          {{item.companyName}}/{{item.chrgName}}
+        <template v-slot:item.partnerName="{item}">
+          {{item.partnerName}}/{{item.chrgName}}
         </template>
         <template v-slot:item.ciYmd="{item}">
           {{item.ciYmd | date}}
@@ -72,7 +72,7 @@ export default {
         { text: '예약번호', value: 'rsvNo', align: 'center' },
         { text: '객실료', value: 'totAmt', align: 'center' },
         { text: '메모', value: 'memo', align: 'center' },
-        { text: '요청업체/직원명', value: 'companyName', align: 'center' },
+        { text: '요청업체/직원명', value: 'partnerName', align: 'center' },
         { text: '신청일', value: 'crtDt', align: 'center' },
         { text: '회원번호', value: 'memName', align: 'center' },
         { text: '영업장', value: 'storeName', align: 'center' },

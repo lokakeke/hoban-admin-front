@@ -26,8 +26,8 @@
                 <template v-slot:rsvState="{item}">
                     <span :class="`font-${selectedSize}`">{{ item.rsvState }}</span>
                 </template>
-                <template v-slot:memNo="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.memNo }}</span>
+                <template v-slot:memberNo="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.memberNo }}</span>
                 </template>
                 <template v-slot:rsvNo="{item}">
           <span :class="`font-${selectedSize} info--text`" @click="showDetail(item)">
@@ -37,20 +37,20 @@
                 <template v-slot:guestName="{item}">
                     <span :class="`font-${selectedSize}`">{{ item.guestName }}</span>
                 </template>
-                <template v-slot:smsPhone="{item}">
-                    <template v-if="item.smsPhone">
-                        <mask-phone-number :height="20" :font-size="selectedSize" :text="item.smsPhone"
+                <template v-slot:guestTelNo="{item}">
+                    <template v-if="item.guestTelNo">
+                        <mask-phone-number :height="20" :font-size="selectedSize" :text="item.guestTelNo"
                                            @selectPhone="selectPhone(item)" />
                     </template>
                 </template>
-                <template v-slot:ciYmd="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.ciYmd }}</span>
+                <template v-slot:checkInDate="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.checkInDate }}</span>
                 </template>
                 <template v-slot:nights="{item}">
                     <span :class="`font-${selectedSize}`">{{ item.nights }}</span>
                 </template>
-                <template v-slot:rmCnt="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.rmCnt }}</span>
+                <template v-slot:roomCount="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.roomCount }}</span>
                 </template>
                 <template v-slot:storeName="{item}">
                     <span :class="`font-${selectedSize}`">{{ item.storeName }}</span>
@@ -58,15 +58,15 @@
                 <template v-slot:dongCodeName="{item}">
                     <span :class="`font-${selectedSize}`">{{ item.dongCodeName }}</span>
                 </template>
-                <template v-slot:rmTypeName="{item}">
-                    <span :class="`font-${selectedSize}`">{{ item.rmTypeName }}</span>
+                <template v-slot:roomTypeName="{item}">
+                    <span :class="`font-${selectedSize}`">{{ item.roomTypeName }}</span>
                 </template>
                 <template v-slot:rsvTypeName="{item}">
                     <span :class="`font-${selectedSize}`">{{ item.rsvTypeName }}</span>
                 </template>
             </virtual-scroll-table>
         </app-card>
-        <app-card custom-classes="elevation-0">
+<!--        <app-card custom-classes="elevation-0">
             <template v-slot:heading>
                 <div class="title font-weight-bold">잔여 객실 현황</div>
             </template>
@@ -80,8 +80,8 @@
                     <thead>
                     <tr>
                         <th class="text-center">날짜</th>
-                        <th v-for="room in originList" :key="room.rmTypeCode"
-                            class="text-center font-weight-medium text--darken-1" v-html="room.rmTypeName" />
+                        <th v-for="room in originList" :key="room.roomTypeCode"
+                            class="text-center font-weight-medium text&#45;&#45;darken-1" v-html="room.roomTypeName" />
                     </tr>
                     </thead>
                     <tbody>
@@ -94,7 +94,7 @@
                     </tbody>
                 </v-simple-table>
             </v-col>
-        </app-card>
+        </app-card>-->
     </div>
 </template>
 
@@ -106,39 +106,27 @@ export default {
   components: { VirtualScrollTable },
   name: 'RoomReservationListWrapper',
   props: {
-    /**
-         * 검색 조건
-         */
+    /** 검색 조건 */
     searchParam: {
       type: Object
     },
-    /**
-         * 예약 현황 목록
-         */
+    /** 예약 현황 목록 */
     rsvList: {
       type: Array
     },
-    /**
-         * 테이블 Header
-         */
+    /** 테이블 Header */
     headers: {
       type: Array
     },
-    /**
-         * 가공된 잔여 객실 목록
-         */
+    /** 가공된 잔여 객실 목록 */
     roomList: {
       type: Object
     },
-    /**
-         * 원본 잔여 객실 목록
-         */
+    /** 원본 잔여 객실 목록 */
     originList: {
       type: Array
     },
-    /**
-         * 예약 현황 목록의 높이
-         */
+    /** 예약 현황 목록의 높이 */
     listHeight: {
       type: String
     }
@@ -149,15 +137,11 @@ export default {
     }
   },
   methods: {
-    /**
-         * 리스트 중 1개 선택시
-         */
+    /** 리스트 중 1개 선택시 */
     showDetail (item) {
       this.$emit('show-detail', item)
     },
-    /**
-         * 날짜포멧 변경
-         */
+    /** 날짜포멧 변경 */
     getDate (oneDay) {
       if (oneDay) {
         return moment(oneDay).format('YYYY-MM-DD (ddd)')
@@ -165,18 +149,14 @@ export default {
         return oneDay
       }
     },
-    /**
-         * font size 변경
-         */
+    /** font size 변경 */
     changeFontSize (size) {
       this.selectedSize = size
     },
-    /**
-         * 실제 이용자 연락처 조회
-         */
+    /** 실제 이용자 연락처 조회 */
     async selectPhone (item) {
-      const res = await roomService.selectRealSmsphone(item.keyRsvNo)
-      item.smsPhone = res.data.toString()
+      const res = await roomService.selectRealGuestTelNo(item.keyRsvNo)
+      item.guestTelNo = res.data.toString()
     }
   }
 }

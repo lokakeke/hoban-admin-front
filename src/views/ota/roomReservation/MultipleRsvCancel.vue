@@ -3,7 +3,7 @@
     <v-row v-if="isPartner" no-gutters>
       <v-col cols="12">
         <app-card :heading="'다중 예약 취소(파트너)'" col-classes="col-12 pl-0 pb-0 pr-0">
-          <partner-rsv-search-form :is-multi-cancel="isMultiCancel" v-if="partnerInfo.memNo" :partner-info="partnerInfo" :room-type="roomType" :room-type-list="roomTypeList" :search-param.sync="searchParam" @change-type="changeType" @search="search" @export="exportExcel" disable-pagination/>
+          <partner-rsv-search-form :is-multi-cancel="isMultiCancel" v-if="partnerInfo.memberNo" :partner-info="partnerInfo" :room-type="roomType" :room-type-list="roomTypeList" :search-param.sync="searchParam" @change-type="changeType" @search="search" @export="exportExcel" disable-pagination/>
         </app-card>
       </v-col>
       <v-col>
@@ -22,9 +22,9 @@
             <template v-slot:realGuestName="{item}">
               <mask-name :text="item.realGuestName" />
             </template>
-            <template v-slot:smsPhone="{item}">
-              <template v-if="item.smsPhone">
-                <mask-phone-number :height="20" :text="item.smsPhone" @selectPhone="selectPhone(item)"/>
+            <template v-slot:guestTelNo="{item}">
+              <template v-if="item.guestTelNo">
+                <mask-phone-number :height="20" :text="item.guestTelNo" @selectPhone="selectPhone(item)"/>
               </template>
             </template>
             <template v-slot:rsvNo="{item}">
@@ -62,9 +62,9 @@
             <template v-slot:realGuestName="{item}">
               <mask-name :text="item.realGuestName" />
             </template>
-            <template v-slot:smsPhone="{item}">
-              <template v-if="item.smsPhone">
-                <mask-phone-number :height="20" :text="item.smsPhone" @selectPhone="selectPhone(item)"/>
+            <template v-slot:guestTelNo="{item}">
+              <template v-if="item.guestTelNo">
+                <mask-phone-number :height="20" :text="item.guestTelNo" @selectPhone="selectPhone(item)"/>
               </template>
             </template>
             <template v-slot:rsvNo="{item}">
@@ -123,7 +123,7 @@ export default {
         },
         {
           name: '회원번호',
-          value: 'memNo',
+          value: 'memberNo',
           align: 'center',
           sortable: false,
           size: 2
@@ -144,14 +144,14 @@ export default {
         },
         {
           name: '이용자연락처',
-          value: 'smsPhone',
+          value: 'guestTelNo',
           align: 'center',
           sortable: false,
           size: 2
         },
         {
           name: '입실일자',
-          value: 'ciYmd',
+          value: 'checkInDate',
           align: 'center',
           sortable: true,
           size: 2
@@ -165,7 +165,7 @@ export default {
         },
         {
           name: '객',
-          value: 'rmCnt',
+          value: 'roomCount',
           align: 'center',
           sortable: false,
           size: 1
@@ -188,7 +188,7 @@ export default {
         },
         {
           name: '객실유형명',
-          value: 'rmTypeName',
+          value: 'roomTypeName',
           align: 'center',
           sortable: false,
           size: 3,
@@ -218,7 +218,7 @@ export default {
       isMultiCancel: true, // 다건취소 여부
       path: '', // 파트너 or 관리자
       partnerInfo: { // 파트너 정보
-        memNo: '',
+        memberNo: '',
         memName: '',
         termSeq: '',
         agentCode: '',
@@ -253,7 +253,7 @@ export default {
     async selectDefaultPartnerInfo () {
       if (this.isPartner) {
         const res = await partnerTermService.selectDefaultPartnerInfo()
-        this.partnerInfo.memNo = res.data.memNo
+        this.partnerInfo.memberNo = res.data.memberNo
         this.partnerInfo.memName = res.data.memName
         this.partnerInfo.termSeq = res.data.termSeq
         this.partnerInfo.agentCode = res.data.agentCode
@@ -292,11 +292,11 @@ export default {
       // keyRsvNo로 검색하지 않는 경우 OR 파트너인 경우 필수 조건 적용
       if (!this.searchParam.q.keyRsvNo || this.isPartner) {
         if (
-          this.searchParam.q.memNo ||
-          this.searchParam.q.pkgNo ||
+          this.searchParam.q.memberNo ||
+          this.searchParam.q.packageNo ||
           this.searchParam.q.agentCode
         ) {
-          if (this.searchParam.q.memNo && !this.searchParam.q.memNo.startsWith('5')) {
+          if (this.searchParam.q.memberNo && !this.searchParam.q.memberNo.startsWith('5')) {
             this.$dialog.alert('회원번호는 5로 시작해야 합니다')
             return
           }
@@ -318,7 +318,7 @@ export default {
       }
 
       // 객실인 경우 패키지 번호 제거, 패키지인 경우 회원 번호 제거
-      this.roomType.value === 'OTA_ROOM_API' ? this.searchParam.q.pkgNo = '' : this.searchParam.q.memNo = ''
+      this.roomType.value === 'OTA_ROOM_API' ? this.searchParam.q.packageNo = '' : this.searchParam.q.memberNo = ''
 
       // 파트너 여부 추가
       this.searchParam.q.isPartner = this.isPartner ? 'Y' : 'N'
@@ -415,8 +415,8 @@ export default {
         oneRsv.cancelResnCode = cancelReason.cancelResnCode
         oneRsv.cancelResnDesc = cancelReason.cancelResnDesc
         oneRsv.updId = this.user.number // 수정자
-        if (rsv.memNo && rsv.memNo.startsWith('56')) { // 객실
-          oneRsv.memNo = rsv.memNo
+        if (rsv.memberNo && rsv.memberNo.startsWith('56')) { // 객실
+          oneRsv.memberNo = rsv.memberNo
         } else { // 패키지
           oneRsv.agentCode = rsv.agentCode
         }
@@ -490,8 +490,8 @@ export default {
      * 실제 이용자 연락처 조회
      */
     async selectPhone (item) {
-      const res = await roomService.selectRealSmsphone(item.keyRsvNo)
-      item.smsPhone = res.data.toString()
+      const res = await roomService.selectRealGuestTelNo(item.keyRsvNo)
+      item.guestTelNo = res.data.toString()
     }
   }
 }

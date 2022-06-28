@@ -12,7 +12,7 @@
         </v-col>
         <v-col cols="3">
           <v-label>파트너명</v-label>
-          <v-text-field :value="form.companyName" label readonly></v-text-field>
+          <v-text-field :value="form.partnerName" label readonly></v-text-field>
         </v-col>
         <v-col cols="3">
           <v-label>금액구분</v-label>

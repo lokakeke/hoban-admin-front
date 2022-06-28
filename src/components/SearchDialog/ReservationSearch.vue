@@ -10,7 +10,7 @@
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">예약 블럭</div>
-        <v-text-field :value="form.rsvBlck + ' - ' + form.rsvBlckCode" hide-details readonly></v-text-field>
+        <v-text-field :value="form.rsvBlck + ' - ' + form.blockCode" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">KEY 예약 번호</div>
@@ -22,11 +22,11 @@
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">예약자 명</div>
-        <v-text-field :value="form.rsvGuestlnm" hide-details readonly></v-text-field>
+        <v-text-field :value="form.partnerName" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">예약자 연락처</div>
-        <v-text-field :value="form.rsvGuestTelNo" hide-details readonly></v-text-field>
+        <v-text-field :value="form.partnerTelNo" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">이용자 명</div>
@@ -34,7 +34,7 @@
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">이용자 연락처</div>
-        <v-text-field :value="form.smsPhone" hide-details readonly></v-text-field>
+        <v-text-field :value="form.guestTelNo" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">영업장</div>
@@ -42,7 +42,7 @@
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">객실 유형</div>
-        <v-text-field :value="form.rmTypeName + ' - ' + form.rmTypeCode" hide-details readonly></v-text-field>
+        <v-text-field :value="form.roomTypeName + ' - ' + form.roomTypeCode" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="12" v-if="form.cancelResnDesc">
         <div class="v-label font-weight-bold info--text">취소 사유</div>
@@ -50,7 +50,7 @@
       </v-col>
       <v-col cols="12">
         <div class="v-label font-weight-bold info--text">{{isPkg ? '패키지 정보' : '회원 정보'}}</div>
-        <v-text-field :value="form.memName + ' - ( ' + form.memNo + ' )'" hide-details readonly></v-text-field>
+        <v-text-field :value="form.memberName + ' - ( ' + form.memberNo + ' )'" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">체크인 / 체크아웃</div>
@@ -66,15 +66,15 @@
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">실수</div>
-        <v-text-field :value="form.rmCnt" hide-details readonly></v-text-field>
+        <v-text-field :value="form.roomCount" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">입금가</div>
-        <v-text-field :value="form.payAmt | price" hide-details readonly></v-text-field>
+        <v-text-field :value="form.partnerRsvPrice | price" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">판매가</div>
-        <v-text-field :value="form.saleAmt | price" hide-details readonly></v-text-field>
+        <v-text-field :value="form.salePrice | price" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">등록자</div>

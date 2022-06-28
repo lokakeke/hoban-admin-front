@@ -92,7 +92,7 @@
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import service from '@/api/modules/naver/bookingLog.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import MaskPhoneNumber from '@/components/Mask/MaskPhoneNumber.vue'
 import MaskEmail from '@/components/Mask/MaskEmail.vue'
 
@@ -157,13 +157,13 @@ export default {
         sortable: false
       },
       {
-        text: 'DGNS예약번호',
+        text: 'PMS예약번호',
         value: 'rsvNo',
         align: 'center',
         sortable: false
       },
       {
-        text: 'DGNS KEY 예약번호',
+        text: 'PMS KEY 예약번호',
         value: 'keyRsvNo',
         align: 'center',
         sortable: false

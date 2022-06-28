@@ -71,7 +71,7 @@
             :key="confirm.partnerSeq + confirm.partnerManagerId"
           >
             {{ confirm.managerName || '?' }}
-            <small class="grey--text ml-1">({{ confirm.companyName }})</small>
+            <small class="grey--text ml-1">({{ confirm.partnerName }})</small>
             <small class="grey--text ml-1">{{ confirm.createDatetime }}</small>
           </v-chip>
         </div>
@@ -114,7 +114,7 @@
             class="ma-1"
             v-for="partner in form.partnerList"
             :key="partner.partnerSeq"
-          >{{ partner.companyName }}</v-chip>
+          >{{ partner.partnerName }}</v-chip>
         </div>
         <div class="mt-2" v-else>
           <!-- 전체 파트너 -->

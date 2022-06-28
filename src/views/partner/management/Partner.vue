@@ -15,8 +15,8 @@
         <template v-slot:item.login="{item}">
           <partner-login-for-admin :item="item"></partner-login-for-admin>
         </template>
-        <template v-slot:item.companyTelNo="{item}">
-          <mask-tel-number :text="item.companyTelNo" @search="viewTelNo(item)" />
+        <template v-slot:item.partnerTelNo="{item}">
+          <mask-tel-number :text="item.partnerTelNo" @search="viewTelNo(item)" />
         </template>
       </v-data-table>
       <v-row>
@@ -69,11 +69,11 @@ export default {
     headers () {
       const headers = [
         { text: '업체 번호', value: 'partnerSeq', align: 'center', sortable: false },
-        { text: '업체 명', value: 'companyName', align: 'center', sortable: false },
+        { text: '업체 명', value: 'partnerName', align: 'center', sortable: false },
         { text: '로그인 아이디', value: 'loginId', align: 'center', sortable: false },
-        { text: '사업자 번호', value: 'companyNo', align: 'center', sortable: false },
+        { text: '사업자 번호', value: 'partnerNo', align: 'center', sortable: false },
         { text: '관리자 성명', value: 'ceoName', align: 'center', sortable: false },
-        { text: '관리자 연락처', value: 'companyTelNo', align: 'center', sortable: false },
+        { text: '관리자 연락처', value: 'partnerTelNo', align: 'center', sortable: false },
         { text: '메뉴 권한', value: 'menuAuthGroupName', align: 'center', sortable: false },
         { text: '추가 인증번호', value: 'addAuthNo', align: 'center', sortable: false },
         { text: '잠김 여부', value: 'lockYn', align: 'center', sortable: false }
@@ -92,7 +92,7 @@ export default {
     },
     searchList () {
       const searchList = [
-        { key: 'companyName', label: '파트너명', type: 'text' },
+        { key: 'partnerName', label: '파트너명', type: 'text' },
         { key: 'loginId', label: '로그인 아이디', type: 'text' },
         { key: 'ceoName', label: '대표자 성명', type: 'text' },
         { key: 'menuAuthGroupId', label: '메뉴 권한', type: 'select', list: this.menuAuthList, listValue: 'menuAuthGroupId', listText: 'menuAuthGroupName' },
@@ -132,7 +132,7 @@ export default {
     },
     async viewTelNo (item) {
       const res = await service.selectPartnerDetails(item.partnerSeq)
-      item.companyTelNo = res.data.companyTelNo
+      item.partnerTelNo = res.data.partnerTelNo
     },
     open (rowData) {
       let isModify = false
@@ -141,7 +141,7 @@ export default {
       if (rowData) {
         isModify = true
         partnerSeq = rowData.partnerSeq
-        partnerName = rowData.companyName
+        partnerName = rowData.partnerName
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
@@ -161,7 +161,7 @@ export default {
       })
     },
     passwordReset (row) {
-      this.$dialog.confirm(`${row.companyName} 의 임시 비밀번호 발급을 진행하시겠습니까?`).then(() => {
+      this.$dialog.confirm(`${row.partnerName} 의 임시 비밀번호 발급을 진행하시겠습니까?`).then(() => {
         service.createTemporaryPassword(row.loginId).then(res => {
           console.log('임시 비밀번호 확인용 : ', res.data)
           this.$dialog.alert('임시 비밀번호가 발급되었습니다.')

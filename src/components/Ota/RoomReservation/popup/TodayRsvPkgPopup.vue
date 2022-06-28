@@ -33,7 +33,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.pkgNo"
+              v-model="form.packageNo"
               label="패키지번호"
               :rules="emptyRules"
               outlined
@@ -51,7 +51,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.pkgName"
+              v-model="form.packageName"
               label="패키지명"
               outlined
               disabled
@@ -61,7 +61,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="saleBgnYmd"
+              v-model="saleStartDate"
               label="패키지시작일"
               :rules="emptyRules"
               outlined
@@ -72,7 +72,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="saleEndYmd"
+              v-model="saleEndDate"
               label="패키지종료일"
               outlined
               disabled
@@ -110,7 +110,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.rmTypeCode"
+              v-model="form.roomTypeCode"
               label="객실유형"
               outlined
               hide-details
@@ -126,7 +126,7 @@
           </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-text-field
-              v-model="form.rmTypeName"
+              v-model="form.roomTypeName"
               label="객실유형명"
               disabled
               outlined
@@ -147,7 +147,7 @@
           </v-col>
           <v-col lg="1" md="2" cols="2">
             <v-text-field
-              v-model="form.rmCnt"
+              v-model="form.roomCount"
               label="객"
               :rules="emptyRules"
               disabled
@@ -228,7 +228,7 @@
           <v-row>
             <v-col lg="2" md="3" cols="6">
               <v-text-field
-                v-model="saveForm.ciYmd"
+                v-model="saveForm.checkInDate"
                 label="선택한 날짜"
                 :rules="emptyRules"
                 outlined
@@ -239,7 +239,7 @@
             </v-col>
             <v-col lg="2" md="3" cols="6">
               <v-text-field
-                v-model="saveForm.rmTypeName"
+                v-model="saveForm.roomTypeName"
                 label="객실유형명"
                 :rules="emptyRules"
                 outlined
@@ -250,7 +250,7 @@
             </v-col>
             <v-col lg="2" md="3" cols="6">
               <v-text-field
-                v-model="totalAmt"
+                v-model="totalPrice"
                 label="입금금액"
                 :rules="emptyRules"
                 outlined
@@ -261,7 +261,7 @@
             </v-col>
             <v-col lg="2" md="3" cols="6">
               <v-text-field
-                v-model="saleAmt"
+                v-model="salePrice"
                 label="판매금액"
                 :rules="emptyRules"
                 outlined
@@ -272,7 +272,7 @@
             </v-col>
             <v-col lg="2" md="3" cols="6">
               <v-text-field
-                v-model="saveForm.comRsvNo"
+                v-model="saveForm.partnerRsvNo"
                 label="업체예약번호"
                 outlined
                 clearable
@@ -282,7 +282,7 @@
             </v-col>
             <v-col lg="2" md="3" cols="6">
               <v-text-field
-                v-model="saveForm.userName"
+                v-model="saveForm.guestName"
                 label="이용자명"
                 :rules="emptyRules"
                 outlined
@@ -293,7 +293,7 @@
             </v-col>
             <v-col lg="2" md="3" cols="6">
               <v-text-field
-                v-model="saveForm.userTel"
+                v-model="saveForm.guestTelNo"
                 label="이용자연락처"
                 outlined
                 clearable
@@ -304,7 +304,7 @@
             </v-col>
             <v-col lg="1" md="2" cols="2">
               <v-text-field
-                v-model="saveForm.adultCnt"
+                v-model="saveForm.adultCount"
                 label="대인"
                 :rules="emptyRules"
                 outlined
@@ -314,7 +314,7 @@
             </v-col>
             <v-col lg="1" md="2" cols="2">
               <v-text-field
-                v-model="saveForm.childCnt"
+                v-model="saveForm.childCount"
                 label="소인"
                 outlined
                 hide-details
@@ -348,7 +348,7 @@ import NumberUtils from '@/utils/number.util'
 
 import roomService from '@/api/modules/ota/roomReservation.service'
 import packageService from '@/api/modules/ota/package.service'
-import productService from '@/api/modules/ota/product.service'
+import pmsReservationService from '@/api/modules/pms/reservation.service'
 
 export default {
   extends: DialogBase,
@@ -374,28 +374,28 @@ export default {
         { code: 'M', name: '회원우선예약' }
       ],
       pkgSearchParam: {
-        pkgNo: '', // 패키지번호
+        packageNo: '', // 패키지번호
         storeCode: '',
-        baseDate: moment().format('YYYYMMDD'),
+        checkInDate: moment().format('YYYYMMDD'),
         partnerSeq: 0,
-        rmDayLimitNum: 0, // 잔여객실 수 최대치 제한
-        rmTypeCode: '',
-        rsvBlckCode: '',
+        roomDayLimit: 0, // 잔여객실 수 최대치 제한
+        roomTypeCode: '',
+        blockCode: '',
         nights: 1,
-        rmCnt: 1,
-        rsvStdDay: '',
-        rsvStdTm: '',
-        srchRmMonth: 1 // 기준일로부터 조회 일 수
+        roomCount: 1,
+        todayRsvYn: '',
+        todayRsvTime: '',
+        searchDayCount: 1 // 기준일로부터 조회 일 수
       },
       todayRsvYn: '', // 당일 예약 여부
-      saleBgnYmd: '', // 판매시작일
-      saleEndYmd: '', // 판매종료일
+      saleStartDate: '', // 판매시작일
+      saleEndDate: '', // 판매종료일
       holidayList: [], // 휴일 정보 목록
       isSearch: true, // 패키지 변경 시 이벤트 변경을 막는 변수
       taskTypeName: '', // 업무구분명(파트너)
       taskTypeNameList: [], // 업무구분 목록(파트너)
       ptnrBasicInfo: [], // 파트너 기본 정보(파트너)
-      leaveCnt: 0,
+      leaveCount: 0,
       adminPartnerInfo: {} // 파트너 정보
     }
   },
@@ -413,11 +413,11 @@ export default {
     monthFormatter () {
       return this.$refs.calendar.getFormatter({ timeZone: 'UTC', month: 'long' })
     },
-    totalAmt () { // 입금가
+    totalPrice () { // 입금가
       return NumberUtils.numberWithCommas(this.saveForm.totalPrice)
     },
-    saleAmt () { // 판매가
-      return NumberUtils.numberWithCommas(this.saveForm.saleAmt)
+    salePrice () { // 판매가
+      return NumberUtils.numberWithCommas(this.saveForm.salePrice)
     }
   },
   mounted () {
@@ -472,8 +472,8 @@ export default {
      */
     async search () {
       this.pkgSearchParam.storeCode = this.form.storeCode
-      if (this.form.rmTypeCode) {
-        this.pkgSearchParam.rmTypeCode = this.form.rmTypeCode
+      if (this.form.roomTypeCode) {
+        this.pkgSearchParam.roomTypeCode = this.form.roomTypeCode
       }
       this.isSearch = true
       await this.searchOnePkgInfo(this.form) // 선택된 패키지 정보 조회
@@ -485,8 +485,8 @@ export default {
     selectInventory () {
       if (this.isSearch) {
         this.validForm(this.$refs.form).then(() => {
-          this.pkgSearchParam.isRealLeaveCnt = 'Y'
-          if (this.pkgSearchParam.rmTypeCode === '') {
+          this.pkgSearchParam.isRealLeaveCount = 'Y'
+          if (this.pkgSearchParam.roomTypeCode === '') {
             roomService.selectPkgInventory('store', this.pkgSearchParam).then(res => { // 영업장으로만 조회
               this.realSetEvents(res.data)
             })
@@ -510,12 +510,12 @@ export default {
         const events = []
         result.forEach(event => {
           // 휴일 확인 확인
-          const one = this.holidayList.filter(data => data.stndYmd === event.ciYmd)
+          const one = this.holidayList.filter(data => data.standardDate === event.checkInDate)
           if (one && one.length > 0) { // 휴일 처리가 필요한 경우
-            const holidayCode = one[0].hldyCode
+            const holidayCode = one[0].holidayCode
             if (holidayCode === 'P') { // 패키지 휴일
               events.push({
-                start: moment(event.ciYmd).format('YYYY-MM-DD'),
+                start: moment(event.checkInDate).format('YYYY-MM-DD'),
                 name: this.names[3].name + ' (' + one[0].memo + ')',
                 nameCheck: this.names[3].name,
                 color: this.colors[2],
@@ -524,7 +524,7 @@ export default {
               })
             } else if (holidayCode === 'S') { // 영업장 휴일
               events.push({
-                start: moment(event.ciYmd).format('YYYY-MM-DD'),
+                start: moment(event.checkInDate).format('YYYY-MM-DD'),
                 name: this.names[3].name + ' (' + one[0].memo + ')',
                 nameCheck: this.names[3].name,
                 color: this.colors[2],
@@ -533,7 +533,7 @@ export default {
               })
             } else { // 객실 휴일
               events.push({
-                start: moment(event.ciYmd).format('YYYY-MM-DD'),
+                start: moment(event.checkInDate).format('YYYY-MM-DD'),
                 name: this.names[3].name + ' (' + one[0].memo + ')',
                 nameCheck: this.names[3].name,
                 color: this.colors[2],
@@ -542,35 +542,35 @@ export default {
               })
             }
           } else { // 휴일이 아닌 경우
-            if (event.leaveCnt && event.leaveCnt < 0) {
-              if (event.realLeaveCnt > 0) { // 회원 우선 예약(파트너는 불가능)
+            if (event.leaveCount && event.leaveCount < 0) {
+              if (event.realLeaveCount > 0) { // 회원 우선 예약(파트너는 불가능)
                 events.push({
-                  start: moment(event.ciYmd).format('YYYY-MM-DD'),
-                  name: event.rmTypeName + ' / ' + event.leaveCnt,
+                  start: moment(event.checkInDate).format('YYYY-MM-DD'),
+                  name: event.roomTypeName + ' / ' + event.leaveCount,
                   nameCheck: this.names[4].name,
                   color: this.colors[3],
-                  rmTypeCode: event.rmTypeCode,
-                  tooltip: event.rmTypeName + ' / ' + event.leaveCnt + ' / ' + event.procMsg,
+                  roomTypeCode: event.roomTypeCode,
+                  tooltip: event.roomTypeName + ' / ' + event.leaveCount + ' / ' + event.procMsg,
                   procMsg: event.procMsg
                 })
               } else {
                 events.push({ // 예약 마감
-                  start: moment(event.ciYmd).format('YYYY-MM-DD'),
-                  name: event.rmTypeName + ' / ' + event.leaveCnt,
+                  start: moment(event.checkInDate).format('YYYY-MM-DD'),
+                  name: event.roomTypeName + ' / ' + event.leaveCount,
                   nameCheck: this.names[1].name,
                   color: this.colors[1],
-                  tooltip: event.rmTypeName + ' / ' + event.leaveCnt + ' / ' + event.procMsg,
+                  tooltip: event.roomTypeName + ' / ' + event.leaveCount + ' / ' + event.procMsg,
                   procMsg: event.procMsg
                 })
               }
-            } else if (event.leaveCnt && event.procMsg === '0000') {
+            } else if (event.leaveCount && event.procMsg === '0000') {
               events.push({ // 예약 가능
-                start: moment(event.ciYmd).format('YYYY-MM-DD'),
-                name: event.rmTypeName + ' / ' + event.leaveCnt,
+                start: moment(event.checkInDate).format('YYYY-MM-DD'),
+                name: event.roomTypeName + ' / ' + event.leaveCount,
                 color: this.colors[0],
                 nameCheck: this.names[0].name,
-                rmTypeCode: event.rmTypeCode,
-                tooltip: event.rmTypeName + ' / ' + event.leaveCnt
+                roomTypeCode: event.roomTypeCode,
+                tooltip: event.roomTypeName + ' / ' + event.leaveCount
               })
             }
           }
@@ -596,12 +596,12 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(this.adminPartnerInfo, 'partnerName', params.data.companyName)
-              this.adminPartnerInfo.partnerName = params.data.companyName
+              this.$set(this.adminPartnerInfo, 'partnerName', params.data.partnerName)
+              this.adminPartnerInfo.partnerName = params.data.partnerName
               this.adminPartnerInfo.partnerSeq = params.data.partnerSeq
               this.pkgSearchParam.partnerSeq = params.data.partnerSeq // 검색조건에 파트너 번호 추가
               this.adminPartnerInfo.agentCode = params.data.agentCode
-              this.adminPartnerInfo.rsvGuestTelNo = params.data.capTelNo
+              this.adminPartnerInfo.partnerTelNo = params.data.partnerTelNo
               this.adminPartnerInfo.termSeq = params.data.termSeq
             }
           }
@@ -620,8 +620,8 @@ export default {
      */
     resetSaveForm () {
       this.saveForm = {}
-      this.saveForm.adultCnt = 1
-      this.saveForm.childCnt = 0
+      this.saveForm.adultCount = 1
+      this.saveForm.childCount = 0
     },
     /**
      * 영업장 정보 조회 결과값 화면에 매핑
@@ -636,9 +636,9 @@ export default {
     async searchStoreInfo (item) {
       const param = {}
       item.storeCode ? param.storeCode = item.storeCode : param.storeCode = ''
-      param.pkgNo = item.pkgNo
+      param.packageNo = item.packageNo
       param.useYn = 'Y'
-      const res = await roomService.selectStoreInfoByPkgNo(param)
+      const res = await roomService.selectStoreInfoByPackageNo(param)
       if (res.data && res.data.length === 1) {
         this.resetEventsAndSaveForm()
         this.mapStoreInfoResult(res.data[0]) // 결과값 화면에 매핑
@@ -650,7 +650,7 @@ export default {
      * 영업장 조회 팝업 오픈
      */
     openStorePopup (item) {
-      if (item.pkgNo === undefined) {
+      if (item.packageNo === undefined) {
         this.$dialog.alert('패키지 번호를 먼저 선택해주세요.')
         return
       }
@@ -683,7 +683,7 @@ export default {
         componentPath: '/Ota/RoomReservation/popup/PackSearchPopup',
         params: {
           item: {
-            pkgNo: item.pkgNo,
+            packageNo: item.packageNo,
             rsvYn: 'Y',
             todayYn: 'Y',
             groupFlag: 'ota'
@@ -695,9 +695,9 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(this.form, 'pkgNo', params.data.pkgNo)
-              this.$set(this.form, 'pkgName', params.data.pkgName)
-              this.selectPkgName(params.data)
+              this.$set(this.form, 'packageNo', params.data.packageNo)
+              this.$set(this.form, 'packageName', params.data.packageName)
+              this.selectPackageName(params.data)
             }
           }
         }
@@ -707,27 +707,27 @@ export default {
      * 패키지 1개 정보 조회
      */
     async searchOnePkgInfo (item) {
-      const res = await packageService.selectRoomPackageInformation(item.pkgNo)
-      this.saleBgnYmd = res.data.saleBgnYmd // 판매 시작일
-      this.saleEndYmd = res.data.saleEndYmd // 판매 종료일
-      this.pkgSearchParam.pkgNo = item.pkgNo
+      const res = await packageService.selectRoomPackageInformation(item.packageNo)
+      this.saleStartDate = res.data.saleStartDate // 판매 시작일
+      this.saleEndDate = res.data.saleEndDate // 판매 종료일
+      this.pkgSearchParam.packageNo = item.packageNo
       this.todayRsvYn = res.data.todayRsvYn // 당일 예약 여부
-      this.pkgSearchParam.rsvStdDay = this.todayRsvYn // 당일 예약 여부
-      this.pkgSearchParam.rsvStdTm = res.data.todayRsvTime // 당일 예약 가능 시간
-      this.pkgSearchParam.rsvBlckCode = res.data.rsvBlckCode // 예약 블럭 코드
-      this.pkgSearchParam.rmDayLimitNum = res.data.rmDayLimitNum
-      this.pkgSearchParam.nights = res.data.stayNights
-      this.pkgSearchParam.rmCnt = res.data.rmCnt
-      this.$set(this.form, 'nights', res.data.stayNights)
-      this.$set(this.form, 'rmCnt', res.data.rmCnt)
+      this.pkgSearchParam.todayRsvYn = this.todayRsvYn // 당일 예약 여부
+      this.pkgSearchParam.todayRsvTime = res.data.todayRsvTime // 당일 예약 가능 시간
+      this.pkgSearchParam.blockCode = res.data.blockCode // 예약 블럭 코드
+      this.pkgSearchParam.roomDayLimit = res.data.roomDayLimit
+      this.pkgSearchParam.nights = res.data.nights
+      this.pkgSearchParam.roomCount = res.data.roomCount
+      this.$set(this.form, 'nights', res.data.nights)
+      this.$set(this.form, 'roomCount', res.data.roomCount)
     },
     /**
      * 패키지 선택시
      */
-    async selectPkgName (item) {
+    async selectPackageName (item) {
       this.searchOnePkgInfo(item)
       // 휴일 정보 조회
-      const res = await roomService.selectTodayPkgRsvInfo(item.pkgNo, this.pkgSearchParam.baseDate)
+      const res = await roomService.selectTodayPkgRsvInfo(item.packageNo, this.pkgSearchParam.checkInDate)
       this.holidayList = res.data
       this.isSearch = false
       this.resetEventsAndSaveForm()
@@ -737,9 +737,9 @@ export default {
         this.form.storeName = ''
       }
       // 객실 유형 정보가 있는 경우 초기화
-      if (this.form.rmTypeCode) {
-        this.form.rmTypeCode = ''
-        this.form.rmTypeName = ''
+      if (this.form.roomTypeCode) {
+        this.form.roomTypeCode = ''
+        this.form.roomTypeName = ''
       }
       this.searchStoreInfo(this.form)
     },
@@ -747,8 +747,8 @@ export default {
      * 객실 유형 정보 조회 결과값 매핑
      */
     mapRmTypeInfoResult (result) {
-      this.$set(this.form, 'rmTypeCode', result.rmTypeCode)
-      this.$set(this.form, 'rmTypeName', result.rmTypeName)
+      this.$set(this.form, 'roomTypeCode', result.roomTypeCode)
+      this.$set(this.form, 'roomTypeName', result.roomTypeName)
     },
     /**
      * 객실유형코드 조회
@@ -760,10 +760,10 @@ export default {
       }
       const param = {}
       param.storeCode = item.storeCode
-      param.rmTypeCode = item.rmTypeCode
-      param.pkgNo = item.pkgNo
+      param.roomTypeCode = item.roomTypeCode
+      param.packageNo = item.packageNo
       param.useYn = '1'
-      const res = await roomService.selectRmTypeAndDongInfo(param)
+      const res = await roomService.selectRoomTypeAndDongInfo(param)
       if (res.data && res.data.length === 1) {
         this.resetEventsAndSaveForm()
         this.mapRmTypeInfoResult(res.data[0]) // 결과값을 화면에 매핑
@@ -780,7 +780,7 @@ export default {
         return
       }
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Ota/RoomReservation/popup/RmTypePopup',
+        componentPath: '/Ota/RoomReservation/popup/RoomTypePopup',
         params: {
           item: {
             storeCode: item.storeCode
@@ -822,36 +822,36 @@ export default {
         this.$dialog.alert(`예약이 불가능합니다.<br/>${event.procMsg}`)
       } else {
         const param = {}
-        param.pkgNo = this.form.pkgNo
+        param.packageNo = this.form.packageNo
         param.storeCode = this.form.storeCode
         param.nights = this.form.nights
-        param.rmCnt = this.form.rmCnt
-        param.ciYmd = event.start.replace(/-/gi, '')
-        param.rsvStdDay = this.todayRsvYn
-        param.rsvStdTm = this.pkgSearchParam.rsvStdTm
-        param.rsvBlckCode = this.pkgSearchParam.rsvBlckCode
-        param.leaveCnt = event.leaveCnt
+        param.roomCount = this.form.roomCount
+        param.checkInDate = event.start.replace(/-/gi, '')
+        param.todayRsvYn = this.todayRsvYn
+        param.todayRsvTime = this.pkgSearchParam.todayRsvTime
+        param.blockCode = this.pkgSearchParam.blockCode
+        param.leaveCount = event.leaveCount
         // 예약 가능여부 확인
-        const res = await productService.selectPossiblePkgInventory(event.rmTypeCode, param)
+        const res = await pmsReservationService.selectPossiblePkgInventory(event.roomTypeCode, param)
         if (res.data.procMsg === '0000') {
           // 예약을 위한 정보 세팅
-          this.$set(this.saveForm, 'ciYmd', event.start)
-          this.$set(this.saveForm, 'rmTypeName', nativeEvent.target.textContent.substring(0, nativeEvent.target.textContent.lastIndexOf(' ')))
-          this.saveForm.rmTypeCode = event.rmTypeCode
-          this.$set(this.saveForm, 'adultCnt', 1)
-          this.$set(this.saveForm, 'childCnt', 0)
+          this.$set(this.saveForm, 'checkInDate', event.start)
+          this.$set(this.saveForm, 'roomTypeName', nativeEvent.target.textContent.substring(0, nativeEvent.target.textContent.lastIndexOf(' ')))
+          this.saveForm.roomTypeCode = event.roomTypeCode
+          this.$set(this.saveForm, 'adultCount', 1)
+          this.$set(this.saveForm, 'childCount', 0)
           // 요금 조회를 위한 파라미터 세팅
           const priceParam = {}
-          priceParam.pkgNo = param.pkgNo
+          priceParam.packageNo = param.packageNo
           priceParam.storeCode = param.storeCode
-          priceParam.rmTypeCode = Array(event.rmTypeCode)
-          priceParam.ciYmd = param.ciYmd
+          priceParam.roomTypeCode = Array(event.roomTypeCode)
+          priceParam.checkInDate = param.checkInDate
           priceParam.nights = param.nights
-          priceParam.rmCnt = param.rmCnt
+          priceParam.roomCount = param.roomCount
           try {
             // 패키지 요금 조회
             const priceRes = await roomService.selectPkgAmount('ota', priceParam)
-            this.$set(this.saveForm, 'saleAmt', priceRes.data.total) // 판매가
+            this.$set(this.saveForm, 'salePrice', priceRes.data.total) // 판매가
             this.$set(this.saveForm, 'totalPrice', priceRes.data.rcpmnyTotal) // 입금가
           } catch (e) {
             this.$set(this.saveForm, 'totalPrice', 0) // 입금가
@@ -865,64 +865,64 @@ export default {
      * 예약
      */
     async save () {
-      const basicCheck = Boolean(this.form.pkgNo && this.form.storeCode && this.pkgSearchParam.nights && this.pkgSearchParam.rmCnt && this.todayRsvYn && this.pkgSearchParam.rsvBlckCode)
-      const saveFormCheck = Boolean(this.saveForm.ciYmd && this.saveForm.userName && this.saveForm.totalPrice && this.saveForm.rmTypeCode && this.saveForm.adultCnt)
+      const basicCheck = Boolean(this.form.packageNo && this.form.storeCode && this.pkgSearchParam.nights && this.pkgSearchParam.roomCount && this.todayRsvYn && this.pkgSearchParam.blockCode)
+      const saveFormCheck = Boolean(this.saveForm.checkInDate && this.saveForm.guestName && this.saveForm.totalPrice && this.saveForm.roomTypeCode && this.saveForm.adultCount)
       // 예약에 필요한 파라미터들이 있는 경우에만 실행
       if (basicCheck && saveFormCheck) {
         const param = {}
         this.validForm(this.$refs.form).then(() => {
-          param.pkgNo = this.form.pkgNo
+          param.packageNo = this.form.packageNo
           param.storeCode = this.form.storeCode
           param.nights = this.form.nights
-          param.rmCnt = this.form.rmCnt
+          param.roomCount = this.form.roomCount
         })
         this.validForm(this.$refs.rsvForm).then(() => {
-          param.ciYmd = this.saveForm.ciYmd.replace(/-/gi, '')
+          param.checkInDate = this.saveForm.checkInDate.replace(/-/gi, '')
         })
-        param.rsvStdDay = this.todayRsvYn
-        param.rsvStdTm = this.pkgSearchParam.rsvStdTm
-        param.rsvBlckCode = this.pkgSearchParam.rsvBlckCode
+        param.todayRsvYn = this.todayRsvYn
+        param.todayRsvTime = this.pkgSearchParam.todayRsvTime
+        param.blockCode = this.pkgSearchParam.blockCode
         // 예약 가능여부 확인
-        const res = await productService.selectPossiblePkgInventory(this.saveForm.rmTypeCode, param)
+        const res = await pmsReservationService.selectPossiblePkgInventory(this.saveForm.roomTypeCode, param)
         if (res.data.procMsg === '0000') {
-          delete param.rsvStdDay
-          delete param.rsvStdTm
-          param.updId = this.user.number
-          param.userTel = this.saveForm.userTel // 이용자 연락처
-          if (this.saveForm.comRsvNo) { // 업체예약번호는 필수값 아님
-            param.comRsvNo = this.saveForm.comRsvNo
+          delete param.todayRsvYn
+          delete param.todayRsvTime
+          param.modifyId = this.user.number
+          param.guestTelNo = this.saveForm.guestTelNo // 이용자 연락처
+          if (this.saveForm.partnerRsvNo) { // 업체예약번호는 필수값 아님
+            param.partnerRsvNo = this.saveForm.partnerRsvNo
           }
           this.validForm(this.$refs.rsvForm).then(() => {
-            param.userName = this.saveForm.userName
-            param.payAmt = this.saveForm.totalPrice
-            param.rmTypeCode = this.saveForm.rmTypeCode
-            param.adultCnt = this.saveForm.adultCnt
-            param.childCnt = this.saveForm.childCnt
+            param.guestName = this.saveForm.guestName
+            param.partnerRsvPrice = this.saveForm.totalPrice
+            param.roomTypeCode = this.saveForm.roomTypeCode
+            param.adultCount = this.saveForm.adultCount
+            param.childCount = this.saveForm.childCount
           })
           if (this.isPartner) { //  파트너
             for (const one of this.ptnrBasicInfo) {
               if (one.taskTypeName === this.taskTypeName) {
-                param.companyName = one.companyName
+                param.partnerName = one.partnerName
                 param.agentCode = one.agentCode
-                param.rsvGuestTelNo = one.capTelNo
+                param.partnerTelNo = one.partnerTelNo
                 param.partnerSeq = this.user.number // 예치금에 필요
                 param.termSeq = one.termSeq // 예치금에 필요
               }
             }
           } else { // 관리자
             param.agentCode = this.adminPartnerInfo.agentCode
-            param.rsvGuestTelNo = this.adminPartnerInfo.rsvGuestTelNo
+            param.partnerTelNo = this.adminPartnerInfo.partnerTelNo
             param.partnerSeq = this.adminPartnerInfo.partnerSeq
             param.termSeq = this.adminPartnerInfo.termSeq
-            param.companyName = this.adminPartnerInfo.partnerName
+            param.partnerName = this.adminPartnerInfo.partnerName
           }
           // 실제 예약 처리
           const confirm = await this.$dialog.confirm('개인 정보 수집에 동의하시겠습니까?')
           if (confirm) {
             const result = await roomService.insertPkgNewRsv('partner', param)
             if (result.data.resultMsg === 'SUCCESS') {
-              console.log(`예약번호: ${result.data.roomRsvNo},  ${result.data.roomRsvSeq}`)
-              this.$dialog.alert(`예약번호: ${result.data.roomRsvNo}`)
+              console.log(`예약번호: ${result.data.guestRsvNo},  ${result.data.partnerRsvNo}`)
+              this.$dialog.alert(`예약번호: ${result.data.guestRsvNo}`)
             } else {
               this.$dialog.alert(result.data.resultMsg)
             }
@@ -942,7 +942,7 @@ export default {
             //         if (params.data && params.data === authNo.toString()) {
             //           roomService.insertPkgNewRsv('partner', param).then(res => {
             //             if (res.data.resultMsg === 'SUCCESS') {
-            //               this.$dialog.alert(`예약번호: ${res.data.roomRsvNo}`)
+            //               this.$dialog.alert(`예약번호: ${res.data.guestRsvNo}`)
             //             } else {
             //               this.$dialog.alert(res.data.resultMsg)
             //             }

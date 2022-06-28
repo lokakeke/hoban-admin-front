@@ -1,7 +1,7 @@
 <template>
     <dialog-base :instance="instance">
         <template v-slot:title>
-            파트너({{ partner.companyName }}) - 담당자({{ profile.managerName }}) 프로필
+            파트너({{ partner.partnerName }}) - 담당자({{ profile.managerName }}) 프로필
         </template>
         <v-tabs v-model="tab" color="info">
             <v-tab

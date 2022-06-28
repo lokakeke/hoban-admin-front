@@ -6,7 +6,7 @@
                 <v-col cols="4" class="pt-0 pb-0">
                     <div class="text-right subtitle-1 pt-2">
                         <common-tooltip v-if="available" :type="'info'" :position="'top'"
-                                        :text="'오른쪽에 위치한 아이콘을 누르면 수정가능합니다. DGNS 정보만 수정되니 유의바랍니다.'" />
+                                        :text="'오른쪽에 위치한 아이콘을 누르면 수정가능합니다. PMS 정보만 수정되니 유의바랍니다.'" />
                         {{ isDgns ? "이용자" : "이용자(예약자)" }}
                     </div>
                 </v-col>
@@ -22,7 +22,7 @@
                 <v-col cols="4" class="pt-0 pb-0">
                     <div class="text-right subtitle-1 pt-2">
                         <common-tooltip v-if="available" :type="'info'" :position="'top'"
-                                        :text="'오른쪽에 위치한 아이콘을 누르면 수정가능합니다. DGNS 정보만 수정되니 유의바랍니다.'" />
+                                        :text="'오른쪽에 위치한 아이콘을 누르면 수정가능합니다. PMS 정보만 수정되니 유의바랍니다.'" />
                         전화번호
                     </div>
                 </v-col>
@@ -216,8 +216,8 @@
                 <v-col cols="12" class="pt-0 pb-0">
                     <div class="text-left title font-weight-bold pt-2">
                         <common-tooltip :type="'info'" :position="'top'" :text="'오른쪽에 위치한 아이콘을 누르면 수정가능합니다.'" />
-                        직원메모<span class="font-sm"> ({{ isDgns ? "DGNS " : "네이버 " }}메모만 수정됩니다)</span>
-                        <!-- DGNS 메모 수정 주석 처리 -->
+                        직원메모<span class="font-sm"> ({{ isDgns ? "PMS " : "네이버 " }}메모만 수정됩니다)</span>
+                        <!-- PMS 메모 수정 주석 처리 -->
                         <!--<v-icon v-if="available" slot="append" class="float-right" color="info" @click="updatePopup('dgns', 'memo')">edit</v-icon>
                         <v-icon v-else-if="form.status !== 'noshow' && form.status !== 'cancelled' && form.status !== 'completed'"
                           slot="append" class="float-right" color="info" @click="updatePopup('naver', 'memo')">edit</v-icon>-->
@@ -239,7 +239,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
 export default {

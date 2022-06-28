@@ -25,7 +25,7 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import service from '@/api/modules/api/apiHistory.service'
+import apiLogService from '@/api/modules/api/apiLog.service'
 
 export default {
   extends: DialogBase,
@@ -34,7 +34,7 @@ export default {
     searchList () {
       return [
         { key: 'businessId', label: 'Business Id', type: 'text', defaultValue: this.businessId, cols: 4 },
-        { key: 'companyName', label: '파트너 명', type: 'text', cols: 4 },
+        { key: 'partnerName', label: '파트너 명', type: 'text', cols: 4 },
         {
           key: 'taskType',
           label: '구분값',
@@ -58,7 +58,7 @@ export default {
       headers: [
         { text: 'No', value: 'number', align: 'center' },
         { text: 'Business Id', value: 'businessId', align: 'center' },
-        { text: '파트너 명', value: 'companyName', align: 'center' },
+        { text: '파트너 명', value: 'partnerName', align: 'center' },
         { text: '구분값', value: 'apiName', align: 'center' }
       ],
       businessId: '',
@@ -72,12 +72,12 @@ export default {
   },
   methods: {
     search () {
-      service.selectPartnerList(this.searchParam).then(res => {
+      apiLogService.selectPartnerList(this.searchParam).then(res => {
         this.noPartnerList(res.data)
       })
     },
     selectSvcList () {
-      service.selectCommCodeForPartner().then(res => {
+      apiLogService.selectCommonCodeForPartner().then(res => {
         this.serviceList = res.data
       })
     },

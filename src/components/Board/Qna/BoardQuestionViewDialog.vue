@@ -13,7 +13,7 @@
         </v-col>
         <v-col md="6" cols="12">
           <v-label>작성자</v-label>
-          <v-text-field :value="`${form.ptnrChrgName || '?'} (${form.companyName})`" readonly disabled></v-text-field>
+          <v-text-field :value="`${form.ptnrChrgName || '?'} (${form.partnerName})`" readonly disabled></v-text-field>
         </v-col>
         <v-col md="6" cols="12">
           <v-label>작성일</v-label>

@@ -55,7 +55,7 @@ export default {
         { text: '우대번호 명', value: 'ticketName', align: 'center' },
         { text: '판매기간', value: 'saleYmd', align: 'center' },
         { text: '판매채널', value: 'saleChnnl', align: 'center' },
-        { text: '파트너사', value: 'companyName', align: 'center' }
+        { text: '파트너사', value: 'partnerName', align: 'center' }
       ]
     }
   },
@@ -64,7 +64,7 @@ export default {
       return [
         { key: 'ticketNo', label: '우대번호', type: 'text', cols: 3 },
         { key: 'ticketName', label: '우대번호명', type: 'text', cols: 3 },
-        { key: 'companyName', label: '파트너명', type: 'text', cols: 3 },
+        { key: 'partnerName', label: '파트너명', type: 'text', cols: 3 },
         { key: 'saleChnnl', label: '채널명', type: 'text', cols: 3 }
       ]
     }

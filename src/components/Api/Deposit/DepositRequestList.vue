@@ -80,7 +80,7 @@ export default {
       headers: [
         { text: '신청순번', value: 'appSeq', align: 'center', sortable: false },
         { text: '예치금KEY', value: 'depositKey', align: 'center', sortable: false },
-        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'partnerName', align: 'center', sortable: false },
         { text: '업무유형', value: 'taskTypeName', align: 'center', sortable: false },
         { text: '입금구분', value: 'rcpmnyAcctName', align: 'center', sortable: false },
         { text: '입금예정일', value: 'depositPlanDate', align: 'center', sortable: false },
@@ -96,7 +96,7 @@ export default {
     searchList () {
       const searchList = [
         { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
-        { key: 'companyName', label: '파트너명', type: 'text', cols: 2 },
+        { key: 'partnerName', label: '파트너명', type: 'text', cols: 2 },
         { key: 'rcpmnyAcct', label: '입금구분', type: 'code', commCode: 'COMM0004', cols: 2 },
         { key: 'accountNo', label: '입금계좌번호', type: 'text', cols: 2 },
         { key: 'depositSenderName', label: '입금내용', type: 'text', cols: 2 },

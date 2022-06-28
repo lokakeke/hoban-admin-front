@@ -59,7 +59,7 @@ export default {
     return {
       partnerListHeader: [
         { text: '파트너 번호', value: 'partnerSeq', align: 'center', sortable: false },
-        { text: '파트너 명', value: 'companyName', align: 'center', sortable: false },
+        { text: '파트너 명', value: 'partnerName', align: 'center', sortable: false },
         { text: '최대 예약가능 객실 수', value: 'roomCount', align: 'center', sortable: false },
         { text: '최대 예약가능 박 수', value: 'stayNights', align: 'center', sortable: false }
       ],

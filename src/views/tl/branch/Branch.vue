@@ -147,12 +147,12 @@
 <script>
 import draggable from 'vuedraggable'
 import branchService from '@/api/modules/tl/branch.service'
-import BranchForm from './BranchForm.vue'
+import BranchForm from '@/views/tl/branch/BranchForm.vue'
 
 export default {
   components: { BranchForm, draggable },
   name: 'branch',
-  data() {
+  data () {
     return {
       // 사업장 리스트
       branchOrigin: [],
@@ -168,16 +168,16 @@ export default {
     }
   },
   methods: {
-    initFilter() {
+    initFilter () {
       this.search = ''
       this.filter()
     },
-    filter() {
+    filter () {
       this.branch = this.branchOrigin.filter(value => {
         return value.brcName.toLowerCase().includes(this.search.toLowerCase())
       })
     },
-    selectBranch(brcNo) {
+    selectBranch (brcNo) {
       branchService.selectTLBranchList().then(res => {
         this.branchOrigin = res.data
         this.filter()
@@ -188,7 +188,7 @@ export default {
         }
       })
     },
-    viewDetail(item) {
+    viewDetail (item) {
       for (const data of this.branch) {
         data.active = false
       }
@@ -197,10 +197,10 @@ export default {
       this.cloneForm = _.cloneDeep(this.form)
       this.param.branch = item.brcNo
     },
-    sort(menus) {
+    sort (menus) {
       menus = menus.sort((a, b) => a.sortOrder - b.sortOrder)
     },
-    sortChange() {
+    sortChange () {
       // 순서가 변환된 목록을 추려낸다.
       const changeList = []
       for (let index = 0; index < this.branch.length; index++) {
@@ -221,18 +221,18 @@ export default {
         })
       }
     },
-    addBranch() {
+    addBranch () {
       this.resetAddForm()
       this.dialog = true
     },
-    resetForm() {
+    resetForm () {
       this.form = _.cloneDeep(this.cloneForm)
     },
-    resetAddForm() {
+    resetAddForm () {
       this.$refs.addForm.resetValidation()
       this.addForm = {}
     },
-    async commit(isModify) {
+    async commit (isModify) {
       try {
         let formElement, confirmTxt
         if (isModify) {
@@ -269,7 +269,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.selectBranch()
     // PMS 영업장 리스트 조회
     branchService.selectPmsHotelInfoList().then(res => {

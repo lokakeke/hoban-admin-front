@@ -1,5 +1,5 @@
 <template>
-  <dialog-base :instance="instance" :title="'DGNS 객실 상품 연결'">
+  <dialog-base :instance="instance" :title="'PMS 객실 상품 연결'">
     <template v-slot:buttons>
       <v-btn dark text @click="save()">
         <v-icon left>check</v-icon>저장
@@ -21,7 +21,7 @@
 <script>
 import itemService from '@/api/modules/naver/item.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import OnlyRoomInfoComponent from './OnlyRoomInfoComponent'
 
 export default {
@@ -81,7 +81,7 @@ export default {
         this.$dialog.alert('블럭코드를 선택해주세요.')
         return
       }
-      this.$dialog.confirm('DGNS 상품 연결을 하시겠습니까?<br />저장시 상품의 재고/가격이 DGNS 재고/가격 기준으로 일괄 변경됩니다.').then(() => {
+      this.$dialog.confirm('PMS 상품 연결을 하시겠습니까?<br />저장시 상품의 재고/가격이 PMS 재고/가격 기준으로 일괄 변경됩니다.').then(() => {
         const dgnsItemInfo = {
           dmStoreId: this.roomInfo.dmStoreId,
           dmItemId: this.roomInfo.dmItemId,

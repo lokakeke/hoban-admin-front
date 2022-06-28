@@ -42,8 +42,8 @@
               hide-details
               :items="param.list"
               :disabled="param.disabled"
-              :item-value="'commCode'"
-              :item-text="'commCodeName'"
+              :item-value="'commonCode'"
+              :item-text="'commonCodeName'"
               :label="param.label"
               no-data-text="데이터가 없습니다."
               @change="param.event !== undefined? param.event(param.value): undefined"
@@ -57,8 +57,8 @@
               hide-details
               :items="param.list"
               :disabled="param.disabled"
-              :item-value="'commCode'"
-              :item-text="'commCodeName'"
+              :item-value="'commonCode'"
+              :item-text="'commonCodeName'"
               :label="param.label"
               no-data-text="데이터가 없습니다."
               @change="param.event !== undefined? param.event(param.value): undefined"
@@ -209,7 +209,7 @@
               hide-details
               :items="partnerList"
               :item-value="'partnerSeq'"
-              :item-text="'companyName'"
+              :item-text="'partnerName'"
               :label="param.label"
               @change="param.event !== undefined? param.event(param.value): undefined"
               :rules="param.required? emptyRules: undefined"
@@ -334,11 +334,11 @@
    *              * includeFalse: type 이 boolean 일 경우 false 값을 검색결과에 포함시킬 지 여부. default: false
    *
    *          6.code: comm code 데이터를 조회하여 select box 컴포넌트를 생성한다.
-   *              * commCode: type 이 code 일 경우 검색 될 parentCommCode 값. default: 없음
+   *              * commonCode: type 이 code 일 경우 검색 될 parentcommonCode 값. default: 없음
    *              * event: select 박스의 change 이벤트 시 실행될 함수를 맵핑시킨다.(선택값을 인자로 넘겨준다.) default: undefined
    *
-   *          7.dgnsCode: DGNS comm code 데이터를 조회하여 select box 컴포넌트를 생성한다.
-   *              * commCode: type 이 code 일 경우 검색 될 commTypeCode 값. default: 없음
+   *          7.dgnsCode: PMS comm code 데이터를 조회하여 select box 컴포넌트를 생성한다.
+   *              * commonCode: type 이 code 일 경우 검색 될 commTypeCode 값. default: 없음
    *              * event: select 박스의 change 이벤트 시 실행될 함수를 맵핑시킨다.(선택값을 인자로 넘겨준다.) default: undefined
    *
    *          8.staff: 대명 사원 검색폼을 생성한다.
@@ -349,13 +349,13 @@
    *              * list: type 이 select 일 경우 select box 를 구성할 Array list 이다. default: []
    *              * listValue: select 박스의 value field 이름을 맵핑시킨다. default: 'value'
    *              * listText: select 박스의 text field 이름을 맵핑시킨다. default: 'text'
-   *              * commCode: 존재 하면 common code 에서 리스트 를 조회한다.. default: undefined
+   *              * commonCode: 존재 하면 common code 에서 리스트 를 조회한다.. default: undefined
    *
    *          11.selectMulti: select Multi 선택.
    *              * list: type 이 checkList 일 경우 select box 를 구성할 Array list 이다. default: []
    *              * listValue: select 박스의 value field 이름을 맵핑시킨다. default: 'value'
    *              * listText: select 박스의 text field 이름을 맵핑시킨다. default: 'text'
-   *              * commCode: 존재 하면 common code 에서 리스트 를 조회한다.. default: undefined
+   *              * commonCode: 존재 하면 common code 에서 리스트 를 조회한다.. default: undefined
    *
    *          12.partner: 파트너 리스트를 생성한다.
    *              * event: select 박스의 change 이벤트 시 실행될 함수를 맵핑시킨다.(선택값을 인자로 넘겨준다.) default: undefined
@@ -498,8 +498,8 @@ export default {
         })
       }
     },
-    searchCommCode (data, parentCommCode) {
-      commonCodeService.selectCommonCode(parentCommCode).then(res => {
+    searchCommCode (data, parentCommonCode) {
+      commonCodeService.selectCommonCode(parentCommonCode).then(res => {
         data.list = res.data
       })
     },
@@ -592,10 +592,10 @@ export default {
               data.event = param.event
             }
             // parent comm cd 가 있을 경우만 진행한다.
-            if (param.commCode) {
+            if (param.commonCode) {
               // code select box 를 만든다.
               data.list = []
-              this.searchCommCode(data, param.commCode)
+              this.searchCommCode(data, param.commonCode)
               rtnArray.push(data)
             }
           } else if (type === 'dgnsCode') {
@@ -604,10 +604,10 @@ export default {
               data.event = param.event
             }
             // parent comm cd 가 있을 경우만 진행한다.
-            if (param.commCode) {
+            if (param.commonCode) {
               // code select box 를 만든다.
               data.list = []
-              this.searchDgnsCommCode(data, param.commCode)
+              this.searchDgnsCommCode(data, param.commonCode)
               rtnArray.push(data)
             }
           } else if (type === 'selectMulti' || type === 'checkList') {
@@ -615,11 +615,11 @@ export default {
             let listValue = ''
             let listText = ''
             data.list = []
-            if (param.commCode) {
-              listValue = 'commCode'
-              listText = 'commCodeName'
+            if (param.commonCode) {
+              listValue = 'commonCode'
+              listText = 'commonCodeName'
               // 코드 조회
-              this.searchCommCode(data, param.commCode)
+              this.searchCommCode(data, param.commonCode)
             } else {
               listValue = param.listValue ? param.listValue : 'value'
               listText = param.listText ? param.listText : 'text'
@@ -736,8 +736,9 @@ export default {
       })
     },
     openBusinessId (item) {
+      console.log('openBusinessId ', item)
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/History/BusinessIdPopup',
+        componentPath: '/Api/Log/BusinessIdPopup',
         params: {
           item: ''
         },
@@ -748,7 +749,7 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               item.value = params.data.businessId
-              item.text = params.data.companyName
+              item.text = params.data.partnerName
             }
           }
         }

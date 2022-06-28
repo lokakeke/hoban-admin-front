@@ -170,7 +170,7 @@ export default {
       return array
     },
     setMenu () {
-      this.$dialog.confirm('파트너사(' + this.user.companyName + ') 의 개인 메뉴권한을<br/>적용 하시겠습니까?').then(() => {
+      this.$dialog.confirm('파트너사(' + this.user.partnerName + ') 의 개인 메뉴권한을<br/>적용 하시겠습니까?').then(() => {
         // 메뉴 권한 리스트를 작성
         const array = this.selectInclude(this.menus)
         partnerMenuAuthGroupService.updatePartnerMenuAuthUser(this.user.partnerSeq, array).then(res => {

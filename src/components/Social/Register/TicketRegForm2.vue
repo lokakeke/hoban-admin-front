@@ -49,7 +49,7 @@
               class="bordered"
             >
               <template v-slot:item.corpInd="{ item }">
-                <span>{{item.corpInd | label(corpIndList, 'commCode', 'commCodeName')}} <span v-if="item.corpInd == 'D'">({{data.companyName}})</span> </span>
+                <span>{{item.corpInd | label(corpIndList, 'commCode', 'commCodeName')}} <span v-if="item.corpInd == 'D'">({{data.partnerName}})</span> </span>
               </template>
               <template v-slot:item.cmsnRate="{ item }">
                 <span>{{item.cmsnRate}} %</span>
@@ -319,7 +319,7 @@ export default {
     // 수수료율 추가/수정 Modal Open
     addCommission (row) {
       let isNew = true
-      const companyName = this.data.companyName
+      const partnerName = this.data.partnerName
       let commForm = {}
       if (row) {
         isNew = false
@@ -330,7 +330,7 @@ export default {
         params: {
           isNew,
           commForm,
-          companyName
+          partnerName
         },
         options: {
           fullscreen: false,

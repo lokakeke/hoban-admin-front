@@ -75,7 +75,7 @@
                 </v-col>
                 <v-col sm="4" md="2">
                     <v-label>판매 파트너명</v-label>
-                    <v-text-field v-model="form.companyName" label="" :rules="emptyRules" required disabled></v-text-field>
+                    <v-text-field v-model="form.partnerName" label="" :rules="emptyRules" required disabled></v-text-field>
                 </v-col>
                 <v-col align-self="start" sm="2" md="1" class="pl-0 pt-10">
                   <v-btn outlined color="info" @click="openPartnerTerm" tabindex="-1" v-if="writeAuth"><v-icon left>search</v-icon> 조회</v-btn>
@@ -367,7 +367,7 @@ export default {
     },
     // 판매 업체 담당자 disabled
     chargeDisableYn () {
-      return !(this.form.companyName !== undefined && this.form.companyName !== '')
+      return !(this.form.partnerName !== undefined && this.form.partnerName !== '')
     },
     // 우대번호 상품정보 disabled
     ticketDetailYn () {
@@ -431,7 +431,7 @@ export default {
               // 판매 업체 담당자 초기화
               this.form.chrgList = []
               this.$set(this.form, 'partnerSeq', params.data.partnerSeq)
-              this.$set(this.form, 'companyName', params.data.companyName + '(' + params.data.taskTypeName + ')')
+              this.$set(this.form, 'partnerName', params.data.partnerName + '(' + params.data.taskTypeName + ')')
               this.$set(this.form, 'termSeq', params.data.termSeq)
             }
           }

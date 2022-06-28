@@ -15,7 +15,7 @@ export const menus = [
     children: [
       { menuId: 31, menuName: 'API 서비스 등록관리', menuPath: '/apiService/service' },
       { menuId: 32, menuName: 'NAVER API 이력관리', menuPath: '/apiService/naverHistory' },
-      { menuId: 33, menuName: 'API 이력관리', menuPath: '/apiService/history' },
+      { menuId: 33, menuName: 'API 이력관리', menuPath: '/apiService/log' },
       { menuId: 34, menuName: '결과 코드 조회', menuPath: '/apiService/resultCode' }
     ]
   },

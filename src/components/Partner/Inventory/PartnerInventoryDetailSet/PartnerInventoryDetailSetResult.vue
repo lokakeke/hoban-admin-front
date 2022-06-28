@@ -16,7 +16,7 @@
       </thead>
       <tbody>
       <tr v-for="(item, index) of list" :key="index">
-        <td class="text-center">{{item.companyName}}</td>
+        <td class="text-center">{{item.partnerName}}</td>
         <td class="text-center">{{item.sendStatus === 'S' ? '성공' : '실패'}}</td>
         <td class="text-center">{{item.roomRsvNo}}</td>
         <td class="text-center">{{item.keyRsvNo}}</td>

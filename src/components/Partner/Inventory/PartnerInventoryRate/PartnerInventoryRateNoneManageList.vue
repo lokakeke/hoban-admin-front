@@ -25,7 +25,7 @@
                     <v-card-text class="py-0">
                         <v-row class="font-weight-black subtitle-1" align="center">
                             <v-col cols="7" class="py-0">
-                                {{ item.companyName }} <small>({{ item.ptnrId }})</small>
+                                {{ item.partnerName }} <small>({{ item.ptnrId }})</small>
                             </v-col>
                             <v-col cols="5" class="text-right success--text subtitle-1 pr-5">
                                 <v-icon left>arrow_forward</v-icon>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'PartnerInventoryRateNoneManageList',
@@ -64,7 +64,7 @@ export default {
     }),
     filterList () {
       if (this.searchKeyword) {
-        return this.list.filter(data => data.companyName.includes(this.searchKeyword))
+        return this.list.filter(data => data.partnerName.includes(this.searchKeyword))
       } else {
         return this.list
       }
@@ -73,7 +73,7 @@ export default {
   methods: {
     async addPartner (item) {
       try {
-        await this.$dialog.confirm(`${item.companyName} 파트너를 재고관리 리스트에 추가하시겠습니까?`)
+        await this.$dialog.confirm(`${item.partnerName} 파트너를 재고관리 리스트에 추가하시겠습니까?`)
         // 미관리 리스트에서 제거
         const list = _.cloneDeep(this.list)
         list.splice(list.findIndex(data => data.partnerSeq === item.partnerSeq), 1)

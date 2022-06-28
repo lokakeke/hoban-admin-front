@@ -184,7 +184,7 @@ export default {
       headers: [
         { text: '객실명', value: 'name', align: 'center', sortable: false },
         { text: '상품 타입', value: 'itemType', align: 'center', sortable: false },
-        { text: 'DGNS 상품 정보', value: 'pkgInfo', align: 'center', sortable: false, width: 400 },
+        { text: 'PMS 상품 정보', value: 'pkgInfo', align: 'center', sortable: false, width: 400 },
         { text: '네이버API 전송여부', value: 'sendYn', align: 'center', sortable: false, maxWidth: 200 },
         { text: '객실 노출중', value: 'isImp', align: 'center', sortable: false, maxWidth: 200 },
         { text: '스케줄전송', value: 'scheduleSendYn', align: 'center', sortable: false, maxWidth: 200 },
@@ -332,7 +332,7 @@ export default {
     },
     showDetail (item) {
       if (this.isNotSettingDgnsItem(item)) {
-        this.$dialog.alert('DGNS 상품 연결을 먼저 해주세요.')
+        this.$dialog.alert('PMS 상품 연결을 먼저 해주세요.')
         return
       }
       if (this.isNotEditor(item)) {
@@ -366,7 +366,7 @@ export default {
     },
     copyItem (item) {
       if (this.isNotSettingDgnsItem(item)) {
-        this.$dialog.alert('DGNS 상품 연결을 먼저 해주세요.')
+        this.$dialog.alert('PMS 상품 연결을 먼저 해주세요.')
         return
       }
       if (this.isNotEditor(item)) {
@@ -408,7 +408,7 @@ export default {
     },
     changeImp (item) {
       if (this.isNotSettingDgnsItem(item)) {
-        this.$dialog.alert('DGNS 상품 연결을 먼저 해주세요.')
+        this.$dialog.alert('PMS 상품 연결을 먼저 해주세요.')
         this.search()
         return
       }
@@ -431,7 +431,7 @@ export default {
     },
     changeScheduleSend (item) {
       if (this.isNotSettingDgnsItem(item)) {
-        this.$dialog.alert('DGNS 상품 연결을 먼저 해주세요.')
+        this.$dialog.alert('PMS 상품 연결을 먼저 해주세요.')
         this.search()
         return
       }
@@ -459,7 +459,7 @@ export default {
     },
     changeNpay (item) {
       if (this.isNotSettingDgnsItem(item)) {
-        this.$dialog.alert('DGNS 상품 연결을 먼저 해주세요.')
+        this.$dialog.alert('PMS 상품 연결을 먼저 해주세요.')
         return
       }
       if (this.isNotEditor(item)) {
@@ -490,7 +490,7 @@ export default {
     },
     showOrderModal () {
       if (this.isNotSettingDgnsItemList) {
-        this.$dialog.alert('DGNS 상품 연결이 안된 상품이 존재합니다. DGNS 상품 연결 후 수정해주세요.')
+        this.$dialog.alert('PMS 상품 연결이 안된 상품이 존재합니다. PMS 상품 연결 후 수정해주세요.')
         return
       }
       if (this.isNotEditorList) {
@@ -513,7 +513,7 @@ export default {
     },
     showChangeAllModal () {
       if (this.isNotSettingDgnsItemList) {
-        this.$dialog.alert('DGNS 상품 연결이 안된 상품이 존재합니다. DGNS 상품 연결 후 수정해주세요.')
+        this.$dialog.alert('PMS 상품 연결이 안된 상품이 존재합니다. PMS 상품 연결 후 수정해주세요.')
         return
       }
       if (this.isNotEditorList) {
@@ -551,7 +551,7 @@ export default {
     },
     showChangeInfoModal () {
       if (this.isNotSettingDgnsItemList) {
-        this.$dialog.alert('DGNS 상품 연결이 안된 상품이 존재합니다. DGNS 상품 연결 후 수정해주세요.')
+        this.$dialog.alert('PMS 상품 연결이 안된 상품이 존재합니다. PMS 상품 연결 후 수정해주세요.')
         return
       }
       if (this.isNotEditorList) {

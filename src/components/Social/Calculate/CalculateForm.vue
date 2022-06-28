@@ -15,13 +15,13 @@
       <v-row>
           <v-col cols="12" class="pt-0">
               <v-card tile>
-                  <div v-if="data.calcInd && data.companyName">
+                  <div v-if="data.calcInd && data.partnerName">
                       <v-card-title>
                           정산 정보
                       </v-card-title>
                       <v-card-text class="subtitle-1">
                           <span class="mr-10">정산 구분 : <span class="font-weight-bold">{{data.calcInd === 'A' ? '월정산' : '딜정산'}}</span></span>
-                          <span class="mr-10">업체 명 : <span class="font-weight-bold">{{data.companyName}}</span></span>
+                          <span class="mr-10">업체 명 : <span class="font-weight-bold">{{data.partnerName}}</span></span>
                       </v-card-text>
                   </div>
               </v-card>

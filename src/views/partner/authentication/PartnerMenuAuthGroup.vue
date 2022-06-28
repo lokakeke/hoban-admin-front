@@ -183,7 +183,7 @@ export default {
       headers: [
         { text: '파트너번호', value: 'partnerSeq', align: 'center' },
         { text: '아이디', value: 'loginId', align: 'center' },
-        { text: '파트너명', value: 'companyName', align: 'center' },
+        { text: '파트너명', value: 'partnerName', align: 'center' },
         { text: '상세보기', value: 'action', align: 'center' }
       ],
       search: '',
@@ -252,7 +252,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Partner/MenuAuthGroup/PartnerMenuAuthGroupUser',
         params: {
-          title: `파트너사 (${item.companyName}) 개인 메뉴 설정 - ${this.menuAuthGroupName} 권한`,
+          title: `파트너사 (${item.partnerName}) 개인 메뉴 설정 - ${this.menuAuthGroupName} 권한`,
           user: item,
           menuList: this.menuFullList,
           selectMenu: this.menuList

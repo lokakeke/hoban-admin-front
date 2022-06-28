@@ -212,7 +212,7 @@ export default {
       searchPartner: '',
       searchTargetPartner: '',
       headerPartner: [
-        { text: '파트너명', value: 'companyName', align: 'center' },
+        { text: '파트너명', value: 'partnerName', align: 'center' },
         { text: '증권-입금현황', value: 'insuranceAmt', align: 'center' },
         { text: '기타-입금현황', value: 'uninsuranceAmt', align: 'center' },
         { text: '출금현황', value: 'accmltWithdrawAmt', align: 'center' },

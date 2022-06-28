@@ -27,7 +27,7 @@
       <v-row v-else no-gutters justify="space-between">
         <v-col cols="12">
           <v-alert dense outlined type="error">
-            아래 정보 수정시 상품의 재고/가격이 DGNS 재고/가격 기준으로 일괄 변경됩니다.
+            아래 정보 수정시 상품의 재고/가격이 PMS 재고/가격 기준으로 일괄 변경됩니다.
           </v-alert>
         </v-col>
       </v-row>

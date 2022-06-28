@@ -79,7 +79,7 @@ export default {
           align: 'center',
           sortable: false
         },
-        { text: '파트너명', value: 'companyName', align: 'center', sortable: false },
+        { text: '파트너명', value: 'partnerName', align: 'center', sortable: false },
         { text: '업무유형명', value: 'taskTypeName', align: 'center', sortable: false },
         {
           text: '증권-입금현황',
@@ -109,7 +109,7 @@ export default {
     searchList () {
       const searchList = [
         { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
-        { key: 'companyName', label: '파트너명', type: 'text', cols: 2 },
+        { key: 'partnerName', label: '파트너명', type: 'text', cols: 2 },
         {
           key: 'taskType',
           label: '예치금 구분',
