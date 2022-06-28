@@ -200,7 +200,7 @@ export default {
       meta: {
         auth: true,
         requiresAuth: true,
-        title: 'Tl API 통신 이력',
+        title: 'Tl API 이력',
         breadcrumb: 'TlApiLogs'
       }
     }
