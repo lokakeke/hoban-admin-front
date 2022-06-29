@@ -83,7 +83,7 @@
 
 <script>
 import packageService from '@/api/modules/ota/package.service'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'RoomPackage',
@@ -177,11 +177,11 @@ export default {
       return items.map((item) => item.packageMenuName).join(', ')
     },
     // 등록된 패키지 설정으로 일괄설정 팝업
-    async openSettingRegDialog (pkgInfo) {
+    async openSettingRegDialog (packageInfo) {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Ota/Package/SettingRegDialog',
         params: {
-          pkgInfo: pkgInfo
+          packageInfo
         },
         options: {
           fullscreen: false,

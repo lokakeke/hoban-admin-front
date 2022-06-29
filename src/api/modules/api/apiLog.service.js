@@ -17,6 +17,13 @@ export default {
   },
 
   /**
+     * Tl Api 이력 목록 조회
+     */
+  selectTlApiHistoryList (param) {
+    return api.get('/api/cms/logs/tl/apiLogList', { params: param })
+  },
+
+  /**
      * 상세화면에서 호출 버튼 클릭시 POST로 API 호출
      */
   selectPostApiCallAgain (url, token, param) {

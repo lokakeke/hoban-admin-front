@@ -16,8 +16,8 @@ const getters = {
 
 // mutations
 const mutations = {
-  setCommonCode (state, { parentCommCode, codeList }) {
-    state.wrapper[parentCommCode] = codeList
+  setCommonCode (state, { parentCommonCode, codeList }) {
+    state.wrapper[parentCommonCode] = codeList
   }
 }
 
