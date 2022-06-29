@@ -1,5 +1,6 @@
 <template>
   <v-container class="pa-0" fluid>
+      {{ this.partnerList }}
     <v-row>
       <v-col align-self="center" cols="6">
         <span class="title font-weight-bold" style="word-break: keep-all">파트너 예외 설정</span>
@@ -34,10 +35,10 @@
                 v-model="item.roomCount"
             />
           </template>
-          <template v-slot:item.stayNights="{item}">
+          <template v-slot:item.nights="{item}">
             <v-text-field
                 label="최대 예약가능 박 수"
-                v-model="item.stayNights"
+                v-model="item.nights"
             />
           </template>
         </v-data-table>
@@ -61,7 +62,7 @@ export default {
         { text: '파트너 번호', value: 'partnerSeq', align: 'center', sortable: false },
         { text: '파트너 명', value: 'partnerName', align: 'center', sortable: false },
         { text: '최대 예약가능 객실 수', value: 'roomCount', align: 'center', sortable: false },
-        { text: '최대 예약가능 박 수', value: 'stayNights', align: 'center', sortable: false }
+        { text: '최대 예약가능 박 수', value: 'nights', align: 'center', sortable: false }
       ],
       partnerList: [],
       isExcept: 'N'
@@ -69,7 +70,7 @@ export default {
   },
   computed: {
     exceptPartnerList () {
-      return this.partnerList.filter(data => data.roomCount || data.stayNights)
+      return this.partnerList.filter(data => data.roomCount || data.nights)
     }
   },
   mounted () {
@@ -79,7 +80,8 @@ export default {
     async getPartnerList () {
       const response = await roomTypeService.selectStoreInPartnerList(this.storeCodeProp)
       this.partnerList = response.data
-
+      console.log('this.partnerList')
+      console.log(this.partnerList)
       this.isExcept = this.exceptPartnerList.length > 0 ? 'Y' : 'N'
     },
 
