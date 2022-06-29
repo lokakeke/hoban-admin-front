@@ -221,7 +221,7 @@ export default {
       meta: {
         auth: true,
         requiresAuth: true,
-        title: 'Naver API 관리',
+        title: 'API 통신 이력 조회 (NAVER)',
         breadcrumb: 'Naver API Log'
       }
     }

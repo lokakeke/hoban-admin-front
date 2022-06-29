@@ -1,6 +1,6 @@
 <template>
     <v-row wrap>
-      <app-card :heading="'API 예약 이력 관리'" col-classes="col-12">
+      <app-card :heading="'API 예약 이력 조회'" col-classes="col-12">
           <search-form :search-param.sync="searchParam" :search-list.sync="searchList" @search="search"></search-form>
           <v-data-table disable-pagination :no-data-text="'검색 결과가 없습니다.'" :headers="headers"  :items="list" disable-sort hide-default-footer @click:row="open" class="click-row bordered">
               <template v-slot:item.parameter="{ item }">

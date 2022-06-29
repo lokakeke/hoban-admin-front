@@ -56,7 +56,7 @@ export default {
    *  Api 예약 이력 목록 조회
    */
   selectReservationHistoryList (param) {
-    return api.get('/api/cms/logs/reservation/logList', { params: param })
+    return api.get('/api/cms/logs/reservation/apiLogList', { params: param })
   }
 
 }
