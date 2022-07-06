@@ -35,7 +35,7 @@ export default {
       meta: {
         auth: true,
         requiresAuth: true,
-        title: 'API 이력관리',
+        title: 'API 통신 이력 조회',
         breadcrumb: 'API Log '
       }
     },
@@ -46,19 +46,8 @@ export default {
       meta: {
         auth: true,
         requiresAuth: true,
-        title: 'API 예약 이력관리',
+        title: 'API 예약 이력 조회',
         breadcrumb: 'API Reservation Log '
-      }
-    },
-    {
-      path: 'naverApiLogs',
-      component: naverApiLogs,
-      name: 'serviceApi.naverApiLogs',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: 'Naver API 예약 이력관리',
-        breadcrumb: 'Naver API Reservation Log '
       }
     },
     {
