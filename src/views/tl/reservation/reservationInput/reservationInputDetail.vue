@@ -120,7 +120,7 @@
 
 <script>
 import reservationInputService from '@/api/modules/tl/reservation/reservationInput.service'
-import reservationHistory from '@/views/tl/reservation/common/reservationHistory'
+import reservationHistory from '@/views/tl/reservation/common/reservationHistory.vue'
 // import scheduleTempService from '@/api/modules/naver/schedule.service'
 
 export default {

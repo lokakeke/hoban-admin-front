@@ -93,7 +93,7 @@
 
 <script>
 import reservationInputService from '@/api/modules/tl/reservation/reservationInput.service'
-import reservationInputDetail from '@/views/tl/reservation/reservationInput/reservationInputDetail'
+import reservationInputDetail from '@/views/tl/reservation/reservationInput/reservationInputDetail.vue'
 import Vue from 'vue'
 
 export default {

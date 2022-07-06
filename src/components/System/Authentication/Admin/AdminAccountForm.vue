@@ -67,8 +67,8 @@
           <v-label>부서</v-label>
           <v-autocomplete v-model="form.deptCode"
                           :items="deptList"
-                          item-value="commCode"
-                          item-text="commCodeName"
+                          item-value="commonCode"
+                          item-text="commonCodeName"
                           placeholder="부서를 선택해 주세요."
                           clearable></v-autocomplete>
         </v-col>-->

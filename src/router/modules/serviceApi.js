@@ -4,7 +4,7 @@ import Full from '@/container/Full.vue'
 const service = () => import('@/views/ota/api/service/Service.vue')
 const apiLogs = () => import('@/views/ota/api/log/ApiLogs.vue')
 const reservationLogs = () => import('@/views/ota/api/log/ReservationApiLogs.vue')
-const naverApiLogs = () => import('@/views/naver/log/NaverApiLogs')
+const naverApiLogs = () => import('@/views/naver/log/NaverApiLogs.vue')
 const resultCode = () => import('@/views/ota/api/resultCode/resultCode.vue')
 const serviceApi = () => import('@/views/ota/api/service/Api.vue')
 

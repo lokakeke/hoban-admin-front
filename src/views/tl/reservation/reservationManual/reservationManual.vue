@@ -116,7 +116,7 @@
 <script>
 
 import reservationManualService from '@/api/modules/tl/reservation/reservationManual.service'
-import reservationManualDetail from '@/views/tl/reservation/reservationManual/reservationManualDetail'
+import reservationManualDetail from '@/views/tl/reservation/reservationManual/reservationManualDetail.vue'
 import Vue from 'vue'
 
 export default {

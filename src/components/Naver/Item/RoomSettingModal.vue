@@ -7,13 +7,13 @@
     </template>
     <only-room-info-component v-if="originRoomInfo && originRoomInfo.storeCode"
                               type = "view"
-                              :dmStoreId="originRoomInfo.dmStoreId"
+                              :storeId="originRoomInfo.storeId"
                               :viewStoreCode="originRoomInfo.storeCode"
                               :originRoomInfo="originRoomInfo"
     ></only-room-info-component>
     <only-room-info-component v-else
                               type = "view"
-                              :dmStoreId="originRoomInfo.dmStoreId"
+                              :storeId="originRoomInfo.storeId"
     ></only-room-info-component>
   </dialog-base>
 </template>
@@ -21,7 +21,7 @@
 <script>
 import itemService from '@/api/modules/naver/item.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import OnlyRoomInfoComponent from './OnlyRoomInfoComponent'
 
 export default {
@@ -33,8 +33,8 @@ export default {
   data: function () {
     return {
       originRoomInfo: {
-        dmStoreId: '',
-        dmItemId: '',
+        storeId: '',
+        itemId: '',
         mid: '',
         storeCode: '',
         rmTypeCode: '',
@@ -49,8 +49,8 @@ export default {
   },
   created () {
     this.$store.dispatch('naver/setRoomInfo', {
-      dmStoreId: this.instance.params.dgnsItemInfo.dmStoreId,
-      dmItemId: this.instance.params.dgnsItemInfo.dmItemId,
+      storeId: this.instance.params.dgnsItemInfo.storeId,
+      itemId: this.instance.params.dgnsItemInfo.itemId,
       mid: this.instance.params.dgnsItemInfo.mid,
       storeCode: this.instance.params.dgnsItemInfo.storeCode,
       rmTypeCode: this.instance.params.dgnsItemInfo.rmTypeCode,
@@ -83,15 +83,15 @@ export default {
       }
       this.$dialog.confirm('PMS 상품 연결을 하시겠습니까?<br />저장시 상품의 재고/가격이 PMS 재고/가격 기준으로 일괄 변경됩니다.').then(() => {
         const dgnsItemInfo = {
-          dmStoreId: this.roomInfo.dmStoreId,
-          dmItemId: this.roomInfo.dmItemId,
+          storeId: this.roomInfo.storeId,
+          itemId: this.roomInfo.itemId,
           mid: this.roomInfo.mid,
           storeCode: this.roomInfo.storeCode,
           rmTypeCode: this.roomInfo.rmTypeCode,
           rsvBlckCode: this.roomInfo.rsvBlckCode,
           pkgYn: 'N'
         }
-        itemService.updateDgnsItemInfo(this.roomInfo.dmItemId, dgnsItemInfo).then(() => {
+        itemService.updateDgnsItemInfo(this.roomInfo.itemId, dgnsItemInfo).then(() => {
           this.close()
           const snackbarObj = { type: 'success', text: '저장되었습니다' }
           this.instance.params.search(snackbarObj)

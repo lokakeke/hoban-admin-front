@@ -8,8 +8,8 @@
                     <v-select
                       v-model="form.itemAttrb"
                       :items="itemAttrbList"
-                      item-text="commCodeName"
-                      item-value="commCode"
+                      item-text="commonCodeName"
+                      item-value="commonCode"
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -19,8 +19,8 @@
                     <v-select
                       v-model="form.itemType"
                       :items="itemTypeList"
-                      item-text="commCodeName"
-                      item-value="commCode"
+                      item-text="commonCodeName"
+                      item-value="commonCode"
                     ></v-select>
                   </v-col>
                 </v-row>

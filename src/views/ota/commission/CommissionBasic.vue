@@ -190,7 +190,7 @@ export default {
           key: 'calcTypeCode',
           label: '정산유형',
           type: 'dgnsCode',
-          commCode: 'RSL0114'
+          commonCode: 'RSL0114'
         },
         {
           key: 'existYn',

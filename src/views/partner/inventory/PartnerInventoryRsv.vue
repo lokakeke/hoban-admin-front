@@ -101,9 +101,9 @@ export default {
         { key: 'rmTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCode', listText: 'rmTypeName', cols: 4 },
         { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 4 },
         { key: 'memNo', label: '회원 번호', type: 'text', cols: 3 },
-        { key: 'sendType', label: '전송 타입', type: 'code', commCode: 'OTA0002', cols: 3 },
-        { key: 'sendStatus', label: '전송 상태', type: 'code', commCode: 'OTA0001', cols: 3 },
-        { key: 'rsvStatus', label: '예약 상태', type: 'select', list: this.rmStatusList, listValue: 'commCode', listText: 'commCodeName', cols: 3 },
+        { key: 'sendType', label: '전송 타입', type: 'code', commonCode: 'OTA0002', cols: 3 },
+        { key: 'sendStatus', label: '전송 상태', type: 'code', commonCode: 'OTA0001', cols: 3 },
+        { key: 'rsvStatus', label: '예약 상태', type: 'select', list: this.rmStatusList, listValue: 'commonCode', listText: 'commonCodeName', cols: 3 },
         { key: 'crtDt', label: '입력 일자', type: 'date', format: 'YYYYMMDD', cols: 3 },
         { key: 'ciYmd', label: '기준 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 3 },
         { key: 'autoCancelYn', label: '자동취소 건', type: 'boolean', trueValue: 'Y', falseValue: 'N', cols: 3 }

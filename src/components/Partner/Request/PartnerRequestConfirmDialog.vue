@@ -67,8 +67,8 @@
           <v-autocomplete v-model="form.cancelResnCode"
                           autocomplete="off"
                           :items="cancelResnList"
-                          :item-value="'commCode'"
-                          :item-text="'commCodeName'"
+                          :item-value="'commonCode'"
+                          :item-text="'commonCodeName'"
                           hide-details
                           @change="modifyCancelDesc(form.cancelResnCode)"
           />
@@ -182,7 +182,7 @@ export default {
         const cancelCodeList = []
 
         res.data.forEach(item => {
-          if (item.commCode === '01') return true
+          if (item.commonCode === '01') return true
           cancelCodeList.push(item)
         })
 
@@ -191,8 +191,8 @@ export default {
     },
     /** 취소 사유 코드 선택/변경시 */
     modifyCancelDesc (info) {
-      const cancel = this.cancelResnList.filter(data => data.commCode === info)
-      this.form.cancelResnDesc = cancel[0].commCodeName
+      const cancel = this.cancelResnList.filter(data => data.commonCode === info)
+      this.form.cancelResnDesc = cancel[0].commonCodeName
     },
     /**
      * 입력폼 초기화

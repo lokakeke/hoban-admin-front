@@ -8,16 +8,16 @@ const state = {
    * 객실 정보
    */
   roomInfo: {
-    dmStoreId: '',
-    dmItemId: '',
+    storeId: '',
+    itemId: '',
     mid: '',
     storeCode: '',
     rmTypeCode: '',
     rsvBlckCode: ''
   },
   emptyRoomInfo: {
-    dmStoreId: '',
-    dmItemId: '',
+    storeId: '',
+    itemId: '',
     mid: '',
     storeCode: '',
     rmTypeCode: '',

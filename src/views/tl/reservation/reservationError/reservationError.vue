@@ -113,7 +113,7 @@
 <script>
 
 import reservationErrorService from '@/api/modules/tl/reservation/reservationError.service'
-import reservationErrorDetail from '@/views/tl/reservation/reservationError/reservationErrorDetail'
+import reservationErrorDetail from '@/views/tl/reservation/reservationError/reservationErrorDetail.vue'
 import Vue from 'vue'
 
 export default {

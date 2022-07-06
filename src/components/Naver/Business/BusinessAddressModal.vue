@@ -1,8 +1,8 @@
 <template>
-  <dialog-base :instance="instance" right :title="`주소 ${ instance.params.addrModal.commCodeNo ? '수정': '등록' }`">
+  <dialog-base :instance="instance" right :title="`주소 ${ instance.params.addrModal.commonCodeSeq ? '수정': '등록' }`">
     <template v-slot:buttons>
       <v-btn dark text @click="emit()">
-        <v-icon left>check</v-icon>{{ instance.params.addrModal.commCodeNo ? '수정': '등록' }}
+        <v-icon left>check</v-icon>{{ instance.params.addrModal.commonCodeSeq ? '수정': '등록' }}
       </v-btn>
     </template>
     <v-card-text class="pt-2" style="height: 560px;">
@@ -11,7 +11,7 @@
           <v-col cols="12">
             <v-icon color="green darken-2">check</v-icon>주소이름
             <v-text-field placeholder="주소이름을 입력해주세요." counter="30"
-              v-model="form.commCodeName" :rules="betweenLengthRules(1,30).concat(emptyRules)"></v-text-field>
+              v-model="form.commonCodeName" :rules="betweenLengthRules(1,30).concat(emptyRules)"></v-text-field>
           </v-col>
           <v-col cols="10">
             <v-icon color="green darken-2">check</v-icon>지번주소
@@ -51,7 +51,7 @@
           <v-col cols="12">
             <v-icon color="green darken-2">check</v-icon>상세주소
             <v-textarea outlined dense class="mt-2"
-              v-model="form.commCodeDesc" :value="form.commCodeDesc"
+              v-model="form.commonCodeDesc" :value="form.commonCodeDesc"
               placeholder="방문객이 쉽게 찾도록 위치에 대한 상세한 설명 및 교통편을 입력해주세요."
               counter="300" :rules="maxLengthRules(300)"></v-textarea>
           </v-col>
@@ -114,8 +114,8 @@ export default {
     },
     emit () {
       this.validForm(this.$refs.form).then(() => {
-        this.$dialog.confirm(this.form.commCodeNo ? '주소를 수정하시겠습니까?' : '주소를 입력하시겠습니까?').then(() => {
-          if (this.form.commCodeNo) {
+        this.$dialog.confirm(this.form.commonCodeSeq ? '주소를 수정하시겠습니까?' : '주소를 입력하시겠습니까?').then(() => {
+          if (this.form.commonCodeSeq) {
             commonCodeService.updateCommonCode(this.form).then(res => {
               this.$dialog.alert('수정되었습니다.')
               this.close({ data: this.form })
@@ -124,14 +124,14 @@ export default {
             this.form = {
               parentCommCode: 'STORE_ADDR',
               useYn: 'Y',
-              commCode: this.form.commCodeName,
-              commCodeName: this.form.commCodeName,
+              commonCode: this.form.commonCodeName,
+              commonCodeName: this.form.commonCodeName,
               item01: this.form.item01,
               item02: this.form.item02,
               item03: this.form.item03,
               item04: this.form.item04,
               item05: this.form.item05,
-              commCodeDesc: this.form.commCodeDesc
+              commonCodeDesc: this.form.commonCodeDesc
             }
             commonCodeService.insertCommonCode(this.form).then(res => {
               this.$dialog.alert('저장되었습니다.')

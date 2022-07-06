@@ -16,7 +16,7 @@
           <v-text-field v-model="item.itemName" label :rules="emptyRules"></v-text-field>
         </template>
         <template v-slot:item.itemInd="{item}">
-          <v-select v-model="item.itemInd" :items="itemIndList" item-text="commCodeName" item-value="commCode"></v-select>
+          <v-select v-model="item.itemInd" :items="itemIndList" item-text="commonCodeName" item-value="commonCode"></v-select>
         </template>
         <template v-slot:item.amt="{item}">
           {{item.amt | price}}

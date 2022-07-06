@@ -136,7 +136,7 @@
 
 <script>
 import reservationManualService from '@/api/modules/tl/reservation/reservationManual.service'
-import reservationHistory from '@/views/tl/reservation/common/reservationHistory'
+import reservationHistory from '@/views/tl/reservation/common/reservationHistory.vue'
 
 export default {
   components: { reservationHistory },

@@ -1,6 +1,6 @@
 <template>
   <dialog-base :instance="instance" :title="'객실 등록'">
-    <only-room-info-component :dmStoreId="dmStoreId"></only-room-info-component>
+    <only-room-info-component :storeId="storeId"></only-room-info-component>
   </dialog-base>
 </template>
 
@@ -15,8 +15,8 @@ export default {
     OnlyRoomInfoComponent
   },
   computed: {
-    dmStoreId () {
-      return this.instance.params.dmStoreId
+    storeId () {
+      return this.instance.params.storeId
     }
   },
   mounted () {

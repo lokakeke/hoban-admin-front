@@ -8,8 +8,8 @@
           <v-autocomplete
             v-model="form.apiInd"
             :items="apiIndList"
-            item-value="commCode"
-            item-text="commCodeName"
+            item-value="commonCode"
+            item-text="commonCodeName"
             :rules="emptyRules"
             autocomplete="off"
             @change="setApiIndInfo"
@@ -192,7 +192,7 @@ export default {
     setApiIndInfo () {
       let apiIndObj = null
       this.apiIndList.some((apiIndItem) => {
-        if (apiIndItem.commCode === this.form.apiInd) {
+        if (apiIndItem.commonCode === this.form.apiInd) {
           apiIndObj = apiIndItem
           return true
         }

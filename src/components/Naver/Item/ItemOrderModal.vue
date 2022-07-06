@@ -55,10 +55,10 @@ export default {
   methods: {
     save () {
       this.$dialog.confirm('노출순서 변경을 하시겠습니까?').then(() => {
-        const dmItemIdList = this.itemList.map(item => item.dmItemId).join(',')
+        const itemIdList = this.itemList.map(item => item.itemId).join(',')
         const param = {
-          dmStoreId: this.itemList[0].dmStoreId,
-          dmItemIds: dmItemIdList,
+          storeId: this.itemList[0].storeId,
+          itemIds: itemIdList,
           order: 1
         }
         service.patchItem(param).then(() => {

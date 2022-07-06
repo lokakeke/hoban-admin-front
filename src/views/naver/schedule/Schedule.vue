@@ -15,7 +15,7 @@
               <v-autocomplete
                 v-model="selectBusiness"
                 :items="businessCodeList"
-                item-value="dmStoreId"
+                item-value="storeId"
                 item-text="serviceName"
                 :rules="emptyRules"
                 @change="selectItemList"
@@ -29,7 +29,7 @@
               <select-all-list
                 v-model="selectItem"
                 :items="itemList"
-                item-value="dmItemId"
+                item-value="itemId"
                 :item-text="setItemText"
                 autocomplete="off"
                 label="상품을 선택해 주세요."
@@ -87,7 +87,7 @@
           </v-col>
           <v-col sm="3" cols="12" headline>
             <div class="headline mb-3"><v-icon color="info" left>done_outline</v-icon>상품</div>
-            <div class="subtitle-2 mt-2" v-for="item of selectItem" :key="item.dmItemId">
+            <div class="subtitle-2 mt-2" v-for="item of selectItem" :key="item.itemId">
               {{ item.name }}
             </div>
           </v-col>
@@ -205,7 +205,7 @@ export default {
       this.itemList = []
       this.selectItem = []
       const param = {
-        dmStoreId: this.selectBusiness.dmStoreId,
+        storeId: this.selectBusiness.storeId,
         filterItem: 'Y',
         scheduleSendYn: 'Y',
         sorts: 'recent'

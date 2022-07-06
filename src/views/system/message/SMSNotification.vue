@@ -52,9 +52,9 @@
         <template v-else>
           <v-form ref="detail" lazy-validation>
             <v-label>서비스 번호</v-label>
-            <v-autocomplete v-model="detail.svcNo" :items="serviceList" :item-value="'commCode'" :item-text="'commCodeName'" autocomplete="off" :rules="emptyRules" label required class="pt-0"></v-autocomplete>
+            <v-autocomplete v-model="detail.svcNo" :items="serviceList" :item-value="'commonCode'" :item-text="'commonCodeName'" autocomplete="off" :rules="emptyRules" label required class="pt-0"></v-autocomplete>
             <v-label>진행단계</v-label>
-            <v-autocomplete v-model="detail.progStat" :items="progStatList" :item-value="'commCode'" :item-text="'commCodeName'" autocomplete="off" :rules="emptyRules" label required class="pt-0"></v-autocomplete>
+            <v-autocomplete v-model="detail.progStat" :items="progStatList" :item-value="'commonCode'" :item-text="'commonCodeName'" autocomplete="off" :rules="emptyRules" label required class="pt-0"></v-autocomplete>
             <v-label>템플릿 번호</v-label>
             <v-text-field v-model="detail.notifyId" :rules="emptyRules" label required class="pt-0" disabled></v-text-field>
             <v-label>템플릿 명</v-label>
@@ -157,9 +157,9 @@
       <v-container fluid>
         <v-form ref="form" lazy-validation>
           <v-label>서비스 번호</v-label>
-          <v-autocomplete v-model="form.svcNo" :items="serviceList" :item-value="'commCode'" :item-text="'commCodeName'" autocomplete="off" :rules="emptyRules" label required class="pt-0"></v-autocomplete>
+          <v-autocomplete v-model="form.svcNo" :items="serviceList" :item-value="'commonCode'" :item-text="'commonCodeName'" autocomplete="off" :rules="emptyRules" label required class="pt-0"></v-autocomplete>
           <v-label>진행단계</v-label>
-          <v-autocomplete v-model="form.progStat" :items="progStatList" :item-value="'commCode'" :item-text="'commCodeName'" autocomplete="off" :rules="emptyRules" label required class="pt-0"></v-autocomplete>
+          <v-autocomplete v-model="form.progStat" :items="progStatList" :item-value="'commonCode'" :item-text="'commonCodeName'" autocomplete="off" :rules="emptyRules" label required class="pt-0"></v-autocomplete>
           <v-label>템플릿 번호</v-label>
           <v-text-field v-model="form.notifyId" :rules="emptyRules" label required class="pt-0"></v-text-field>
           <v-label>카카오 알림 이름</v-label>

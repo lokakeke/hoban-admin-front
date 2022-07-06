@@ -200,7 +200,7 @@ export default {
     return {
       itemInfoList: [],
       itemInfoObj: {
-        dmStoreId: '',
+        storeId: '',
         name: '',
         desc: '',
         order: 0,

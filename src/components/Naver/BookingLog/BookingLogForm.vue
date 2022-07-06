@@ -92,7 +92,7 @@
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import service from '@/api/modules/naver/bookingLog.service'
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import MaskPhoneNumber from '@/components/Mask/MaskPhoneNumber.vue'
 import MaskEmail from '@/components/Mask/MaskEmail.vue'
 
@@ -146,13 +146,13 @@ export default {
       },
       {
         text: '서비스명',
-        value: 'dmStoreId',
+        value: 'storeId',
         align: 'center',
         sortable: false
       },
       {
         text: '상품명',
-        value: 'dmItemId',
+        value: 'itemId',
         align: 'center',
         sortable: false
       },

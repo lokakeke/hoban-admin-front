@@ -124,7 +124,6 @@ export default {
       const response = await commonCodeService.selectCommonCode('OTA0004')
       for (const data of response.data) {
         this.packageSaleType.push(data.commonCode)
-        console.log(data.commonCode)
       }
     },
     // 패키지 번호 유효성 검증

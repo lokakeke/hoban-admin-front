@@ -7,9 +7,9 @@
       <v-row>
         <v-col sm="4" md="6">
           <v-label>법인구분</v-label>
-          <v-select v-model="form.corpInd" :items="corpIndList" item-text="commCodeName" item-value="commCode">
-            <template v-slot:item="{ item }">{{ item.commCodeName }} <span v-if="item.commCode === 'D'">({{partnerName}})</span></template>
-            <template v-slot:selection="{ item }">{{ item.commCodeName }} <span v-if="item.commCode === 'D'">({{partnerName}})</span></template>
+          <v-select v-model="form.corpInd" :items="corpIndList" item-text="commonCodeName" item-value="commonCode">
+            <template v-slot:item="{ item }">{{ item.commonCodeName }} <span v-if="item.commonCode === 'D'">({{partnerName}})</span></template>
+            <template v-slot:selection="{ item }">{{ item.commonCodeName }} <span v-if="item.commonCode === 'D'">({{partnerName}})</span></template>
           </v-select>
         </v-col>
         <v-col sm="12" md="6">
@@ -65,9 +65,9 @@ export default {
         if (res.data) {
           // 판매업체명
           // res.data.forEach(item => {
-          //   if (item.commCode === 'D') {
-          //     console.log(item.commCodeName)
-          //     item.commCodeName = (item.commCodeName + ' (' + this.partnerName + ')')
+          //   if (item.commonCode === 'D') {
+          //     console.log(item.commonCodeName)
+          //     item.commonCodeName = (item.commonCodeName + ' (' + this.partnerName + ')')
           //   }
           // })
           this.corpIndList = res.data

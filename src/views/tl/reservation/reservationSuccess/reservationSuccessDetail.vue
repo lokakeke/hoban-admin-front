@@ -95,7 +95,7 @@
 
 <script>
 import reservationSuccessService from '@/api/modules/tl/reservation/reservationSuccess.service'
-import reservationHistory from '@/views/tl/reservation/common/reservationHistory'
+import reservationHistory from '@/views/tl/reservation/common/reservationHistory.vue'
 
 export default {
   components: { reservationHistory },

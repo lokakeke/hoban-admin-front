@@ -154,8 +154,8 @@
 
 <script>
 import service from '@/api/modules/tl/reservation/reservationError.service'
-import reservationHistory from '@/views/tl/reservation/common/reservationHistory'
-import reservationInfo from '@/views/tl/reservation/common/reservationInfo'
+import reservationHistory from '@/views/tl/reservation/common/reservationHistory.vue'
+import reservationInfo from '@/views/tl/reservation/common/reservationInfo.vue'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 
 export default {

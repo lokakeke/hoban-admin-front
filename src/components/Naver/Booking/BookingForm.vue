@@ -206,7 +206,7 @@ import itemService from '@/api/modules/naver/item.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import BookingInfoComponent from '@/components/Naver/Booking/BookingInfoComponent.vue'
 import BookingTable from '@/components/Naver/Booking/BookingTable.vue'
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import roomService from '@/api/modules/ota/roomReservation.service'
 import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
@@ -296,7 +296,7 @@ export default {
          * 상품정보 조회
          */
     getItemInfo () {
-      itemService.selectItem(this.instance.params.form.dmItemId).then(res => {
+      itemService.selectItem(this.instance.params.form.itemId).then(res => {
         this.item = res.data
       })
     },

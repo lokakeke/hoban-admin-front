@@ -96,7 +96,7 @@
       </v-row>
     </template>
     <package-room-info-component v-if="isPackageSearch"
-                                 :dmStoreId="dmStoreId"
+                                 :storeId="storeId"
                                  :isPackageSearch="isPackageSearch"
                                  :pkgNo="pkgNo"
                                  :originRoomInfo="originRoomInfo"
@@ -117,7 +117,7 @@ export default {
     PackageRoomInfoComponent
   },
   props: {
-    dmStoreId: {
+    storeId: {
       type: String,
       required: true
     },

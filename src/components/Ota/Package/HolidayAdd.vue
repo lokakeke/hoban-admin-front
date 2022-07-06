@@ -102,7 +102,7 @@
                   <v-select :items="reasonItems"
                             @change="selectReason"
                             hide-details
-                            item-text="commCodeDesc"
+                            item-text="commonCodeDesc"
                             item-value="commCdDesc"
                             label="선택"
                             v-model="reasonItem"

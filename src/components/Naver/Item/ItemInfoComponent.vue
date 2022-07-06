@@ -134,9 +134,9 @@ export default {
     return {
       compareColor: 'grey lighten-3',
       itemInfo: {
-        dmItemId: '',
+        itemId: '',
         bizItemId: '',
-        dmStoreId: '',
+        storeId: '',
         businessId: '',
         storeCode: '',
         rmTypeCode: '',

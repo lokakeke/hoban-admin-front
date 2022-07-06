@@ -33,7 +33,7 @@
               <v-chip v-if="item.sendYn === 'Y'" small color="success">성공</v-chip>
               <template v-else>
                 <v-chip small color="red" text-color="white" class="mr-2">실패</v-chip>
-                <v-btn outlined rounded small color="red" @click="resendNaverApi(item.dmStoreId)" :disabled="isDisabledResend">
+                <v-btn outlined rounded small color="red" @click="resendNaverApi(item.storeId)" :disabled="isDisabledResend">
                   재전송
                 </v-btn>
               </template>
@@ -49,7 +49,7 @@
               </v-btn>
             </template>
             <template v-slot:item.copy="{item}">
-              <v-btn text block rounded color="green" @click="copyBusiness(item.dmStoreId)" :disabled="isNotEditor(item)">
+              <v-btn text block rounded color="green" @click="copyBusiness(item.storeId)" :disabled="isNotEditor(item)">
                 <v-icon left>file_copy</v-icon>복사
               </v-btn>
             </template>
@@ -89,7 +89,7 @@ export default {
         total: 0
       },
       list: [],
-      dmStoreId: '',
+      storeId: '',
       headers: [
         { text: '서비스명', value: 'serviceName', align: 'center', sortable: false },
         { text: '네이버API 전송여부', value: 'sendYn', align: 'center', sortable: false, width: 200 },
@@ -149,16 +149,16 @@ export default {
      * 팝업 열기
      */
     open (event) {
-      if (event && event.dmStoreId && this.isNotEditor(event)) {
+      if (event && event.storeId && this.isNotEditor(event)) {
         this.$dialog.alert('네이버 API 재전송을 해주세요.')
         return
       }
-      this.dmStoreId = event ? event.dmStoreId : ''
+      this.storeId = event ? event.storeId : ''
       this.$nextTick(() => {
         this.$store.dispatch('dialog/open', {
           componentPath: '/Naver/Business/BusinessForm',
           params: {
-            dmStoreId: this.dmStoreId,
+            storeId: this.storeId,
             search: this.search
           },
           options: {
@@ -195,8 +195,8 @@ export default {
     /**
      * 복사
      */
-    copyBusiness (dmStoreId) {
-      service.selectBusiness(dmStoreId).then(res => {
+    copyBusiness (storeId) {
+      service.selectBusiness(storeId).then(res => {
         this.originItem = res.data
 
         this.$nextTick(() => {
@@ -224,10 +224,10 @@ export default {
     /**
      * 재전송
      */
-    resendNaverApi (dmStoreId) {
+    resendNaverApi (storeId) {
       this.$dialog.confirm('재전송하시겠습니까?').then(() => {
         this.isDisabledResend = true
-        service.resendApiBusiness(dmStoreId).then(() => {
+        service.resendApiBusiness(storeId).then(() => {
           this.isDisabledResend = false
           this.showSnackbar('success', '재전송되었습니다.')
           this.search()
@@ -245,7 +245,7 @@ export default {
         this.search()
       }
       this.$dialog.confirm(`[${item.serviceName}] 삭제 하시겠습니까? 삭제시 복구할 수 없습니다.`).then(() => {
-        service.deleteBusiness(item.dmStoreId).then(() => {
+        service.deleteBusiness(item.storeId).then(() => {
           this.showSnackbar('success', `[${item.serviceName}] 삭제 되었습니다.`)
           this.search()
         }).catch(() => {

@@ -1,6 +1,6 @@
 <template>
   <dialog-base :instance="instance" :title="'패키지 등록'">
-    <package-info-component :dmStoreId="dmStoreId"></package-info-component>
+    <package-info-component :storeId="storeId"></package-info-component>
   </dialog-base>
 </template>
 
@@ -15,8 +15,8 @@ export default {
     PackageInfoComponent
   },
   computed: {
-    dmStoreId () {
-      return this.instance.params.dmStoreId
+    storeId () {
+      return this.instance.params.storeId
     }
   },
   mounted () {

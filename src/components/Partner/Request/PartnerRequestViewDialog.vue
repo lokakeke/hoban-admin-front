@@ -179,7 +179,7 @@ export default {
         const cancelCodeList = []
 
         res.data.forEach(item => {
-          if (item.commCode === '01') return true
+          if (item.commonCode === '01') return true
           cancelCodeList.push(item)
         })
 
@@ -188,8 +188,8 @@ export default {
     },
     /** 취소 사유 코드 선택/변경시 */
     modifyCancelDesc (info) {
-      const cancel = this.cancelResnList.filter(data => data.commCode === info)
-      this.form.cancelResnDesc = cancel[0].commCodeName
+      const cancel = this.cancelResnList.filter(data => data.commonCode === info)
+      this.form.cancelResnDesc = cancel[0].commonCodeName
     },
     /**
      * 신청관리 > 위약취소환불 > 수정 팝업 열기

@@ -89,12 +89,12 @@
 <script>
 import itemService from '@/api/modules/naver/item.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'OnlyRoomInfoComponent',
   props: {
-    dmStoreId: {
+    storeId: {
       type: String,
       required: true
     },
@@ -208,7 +208,7 @@ export default {
         return
       }
       const itemInfo = {
-        dmStoreId: this.dmStoreId,
+        storeId: this.storeId,
         rsvBlckCode: this.rsvBlckCode,
         storeCode: this.storeCode.storeCode,
         storeName: this.storeCode.storeName,
@@ -253,7 +253,7 @@ export default {
     },
     async selectBlckCode () {
       await commonCodeService.selectCommonCode('PKG_BLCK_CD').then(res => {
-        this.rsvBlckCodeList = res.data ? _.map(res.data, 'commCode') : []
+        this.rsvBlckCodeList = res.data ? _.map(res.data, 'commonCode') : []
         /**
          *  블럭코드 주입
          */
