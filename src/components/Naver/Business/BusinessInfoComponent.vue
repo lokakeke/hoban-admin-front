@@ -622,13 +622,13 @@ export default {
     /**
      * 주차지원여부
      */
-    isParkingSupported() {
+    isParkingSupported () {
       return this.form.businessParkingInfoList[0].isParkingSupported === 'Y'
     },
     /**
      * 기본요금무료여부
      */
-    basicChargeIsFree() {
+    basicChargeIsFree () {
       return this.form.businessParkingInfoList[0].basicChargeIsFree === 'Y'
     }
   },
@@ -636,14 +636,14 @@ export default {
     /**
      * validation
      */
-    setValidate() {
+    setValidate () {
       return this.validForm(this.$refs.form).then(() => {
         return Promise.resolve(this.form)
       }).catch(() => {
         return Promise.reject(new Error('에러'))
       })
     },
-    setParsingBusiness() {
+    setParsingBusiness () {
       /**
        * 관리자 번호 리스트 추가
        */
@@ -689,7 +689,7 @@ export default {
     /**
      * 주차시간, 분 계산
      */
-    selectCalculator(n) {
+    selectCalculator (n) {
       const item = []
       if (n === 'hour') {
         for (let i = 0; i < 24; i++) {
@@ -703,7 +703,7 @@ export default {
       return item
     }
   },
-  mounted() {
+  mounted () {
     /**
      * 선택된 영업장 보기
      */
