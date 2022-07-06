@@ -1,16 +1,13 @@
 <template>
   <dialog-base :instance="instance">
     <template v-slot:title>
-      {{ '서비스 ' + `${ instance.params.dmStoreId ? '상세정보 / 수정' : '등록' }` }}
+      {{ '서비스 ' + `${ instance.params.storeId ? '상세정보 / 수정' : '등록' }` }}
       <v-chip small v-if="form && form.businessId" class="pt-0 ml-2">BusinessId : {{ form.businessId }}</v-chip>
     </template>
     <template v-slot:buttons>
-      <v-btn v-if="instance.params.dmStoreId" dark text @click="compareToOpen">
-        <v-icon>report_problem</v-icon>비교하기
-      </v-btn>
       <v-btn dark text @click="setBusinessOne">
         <v-icon left>check</v-icon>
-        {{ instance.params.dmStoreId ? '수정': '등록' }}
+        {{ instance.params.storeId ? '수정': '등록' }}
       </v-btn>
     </template>
     <v-card-text class="pa-0">
@@ -25,7 +22,7 @@
         <v-col cols="10" class="text-right mt-5 pt-5 mb-5">
           <v-btn outlined rounded color="info" @click="setBusinessOne">
             <v-icon>check</v-icon>
-            {{ instance.params.dmStoreId !== '' ? '수정하기' : '등록하기' }}
+            {{ instance.params.storeId !== '' ? '수정하기' : '등록하기' }}
           </v-btn>
           <v-btn outlined rounded color="primary" @click="close()">
             <v-icon>close</v-icon>닫기
@@ -82,7 +79,7 @@ export default {
                 posLat: params.data.item03,
                 posLong: params.data.item04,
                 zoomLevel: params.data.item05,
-                detail: params.data.commCodeDesc
+                detail: params.data.commonCodeDesc
               }
             }
           }
@@ -90,44 +87,22 @@ export default {
       })
     },
     /**
-     * 비교 팝업 열기
-     */
-    compareToOpen () {
-      this.$nextTick(() => {
-        this.$store.dispatch('dialog/open', {
-          componentPath: '/Naver/Business/BusinessCompareModal',
-          params: {
-            dmStoreId: this.instance.params.dmStoreId,
-            loading: true,
-            amenityItems: this.amenityItems,
-            readonly: true
-          },
-          options: {
-            fullscreen: true,
-            persistent: true,
-            scrollable: true,
-            transition: 'dialog-bottom-transition'
-          }
-        })
-      })
-    },
-    /**
      * 선택된 영업장 정보 불러오기
      */
-    getBusinessOne (dmStoreId) {
-      service.selectBusiness(dmStoreId).then(res => {
+    getBusinessOne (storeId) {
+      service.selectBusiness(storeId).then(res => {
         this.form = res.data
       })
     },
     setBusinessOne () {
       this.$refs.form.setValidate().then(() => {
-        this.$dialog.confirm('사업장을 ' + (this.instance.params.dmStoreId !== '' ? '수정' : '등록') + ' 하시겠습니까?' +
-          (this.instance.params.dmStoreId ? '<p style="color: red;">수정시 네이버 예약 파트너센터의 정보를 수정하게 됩니다.</p>' : ''))
+        this.$dialog.confirm('사업장을 ' + (this.instance.params.storeId !== '' ? '수정' : '등록') + ' 하시겠습니까?' +
+          (this.instance.params.storeId ? '<p style="color: red;">수정시 네이버 예약 파트너센터의 정보를 수정하게 됩니다.</p>' : ''))
           .then(() => {
             /**
              * 선택된 영업장 정보 수정하기
              */
-            if (this.instance.params.dmStoreId !== '') {
+            if (this.instance.params.storeId !== '') {
               this.$refs.form.setParsingBusiness()
               service.updateBusiness(this.form).then(res => {
                 this.$dialog.alert('수정되었습니다')
@@ -179,17 +154,17 @@ export default {
     /**
      * 선택된 영업장 보기
      */
-    if (this.instance.params.dmStoreId !== '') {
-      this.getBusinessOne(this.instance.params.dmStoreId)
+    if (this.instance.params.storeId !== '') {
+      this.getBusinessOne(this.instance.params.storeId)
     /**
      * 새로운 영업장 등록
      */
     } else {
       this.form = {
-        name: '(주) 소노호텔인리조트',
+        name: '(주)호반호텔&리조트',
         serviceName: '',
         desc: '',
-        reprOwnerName: '최주영, 서준혁',
+        reprOwnerName: '-',
         addressJson: {
           jibun: '',
           roadAddr: '',
@@ -198,10 +173,10 @@ export default {
           posLong: '',
           zoomLevel: ''
         },
-        email: 'webmaster@daemyung.com',
+        email: 'hoban@hoban.com',
         phoneInformationJson: {
-          wiredPhone: '02-1588-4888',
-          reprPhone: '02-1588-4888',
+          wiredPhone: '1600-0060',
+          reprPhone: '1600-0060',
           phoneList: [],
           phoneListStr: ''
         },

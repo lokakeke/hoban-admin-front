@@ -8,7 +8,7 @@
             <v-autocomplete
               v-model="selectBusiness"
               :items="businessCodeList"
-              item-value="dmStoreId"
+              item-value="storeId"
               item-text="serviceName"
               @change="selectLogList"
               autocomplete="off"
@@ -133,7 +133,7 @@ export default {
      */
     selectServiceList () {
       itemService.selectBusinessCodeList().then(res => {
-        const list = [{ serviceName: '전체', dmStoreId: '' }]
+        const list = [{ serviceName: '전체', storeId: '' }]
         this.businessCodeList = list.concat(res.data)
       })
     },
@@ -145,7 +145,7 @@ export default {
       const events = []
       const params = {
         yearMonth: yearMonth,
-        dmStoreId: this.selectBusiness.dmStoreId
+        storeId: this.selectBusiness.storeId
       }
       service.selectBookingLogCalendar(params).then(res => {
         if (res.data.length <= 0) {

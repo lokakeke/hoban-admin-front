@@ -3,10 +3,10 @@
     <app-card :heading="'객실 목록'" col-classes="col-12">
       <v-row justify="space-between">
         <v-col cols="4">
-          <v-autocomplete v-model="searchParam.dmStoreId" hide-details
+          <v-autocomplete v-model="searchParam.storeId" hide-details
                           autocomplete="off"
                           :items="businessCodeList"
-                          item-value="dmStoreId"
+                          item-value="storeId"
                           item-text="serviceName"
                           label="서비스명"
                           @change="search"
@@ -158,8 +158,13 @@
           </v-btn>
         </template>
       </v-data-table>
+      <search-pagination
+        v-model="searchParam"
+        :total-visible="10" circle
+        @change="search"
+      ></search-pagination>
+      <common-snackbars :text="snackbarText" v-model="isShowSnackbar" :type="snackbarType"></common-snackbars>
     </app-card>
-    <common-snackbars :text="snackbarText" v-model="isShowSnackbar" :type="snackbarType"></common-snackbars>
   </v-row>
 </template>
 
@@ -177,7 +182,7 @@ export default {
   data () {
     return {
       searchParam: {
-        dmStoreId: ''
+        storeId: null
       },
       originList: [],
       list: [],
@@ -235,14 +240,14 @@ export default {
     service.selectBusinessCodeList().then(res => {
       this.businessCodeList = res.data
       if (this.businessCodeList && this.businessCodeList.length > 0) {
-        if (this.$route.query && this.$route.query.dmStoreId) {
-          this.searchParam.dmStoreId = this.$route.query.dmStoreId
+        if (this.$route.query && this.$route.query.storeId) {
+          this.searchParam.storeId = this.$route.query.storeId
           this.$nextTick(() => {
             this.search()
           })
         } else {
-          this.searchParam.dmStoreId = this.businessCodeList[0].dmStoreId
-          this.$router.replace(this.$route.path + '?dmStoreId=' + this.businessCodeList[0].dmStoreId)
+          this.searchParam.storeId = this.businessCodeList[0].storeId
+          this.$router.replace(this.$route.path + '?storeId=' + this.businessCodeList[0].storeId)
           this.$nextTick(() => {
             this.search()
           })
@@ -264,8 +269,8 @@ export default {
       this.rmTypeCode = ''
       this.sendYn = ''
 
-      if (this.$route.query && this.$route.query.dmStoreId && (this.searchParam.dmStoreId !== this.$route.query.dmStoreId)) {
-        this.$router.replace(this.$route.path + '?dmStoreId=' + this.searchParam.dmStoreId)
+      if (this.$route.query && this.$route.query.storeId && (this.searchParam.storeId !== this.$route.query.storeId)) {
+        this.$router.replace(this.$route.path + '?storeId=' + this.searchParam.storeId)
       }
       service.selectItemList(this.searchParam).then(res => {
         this.originList = res.data
@@ -308,7 +313,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Naver/Item/ItemRoomForm',
         params: {
-          dmStoreId: this.searchParam.dmStoreId
+          storeId: this.searchParam.storeId
         },
         options: {
           fullscreen: true,
@@ -321,7 +326,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Naver/Item/ItemPackageForm',
         params: {
-          dmStoreId: this.searchParam.dmStoreId
+          storeId: this.searchParam.storeId
         },
         options: {
           fullscreen: true,
@@ -342,7 +347,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Naver/Item/ItemView',
         params: {
-          dmItemId: item.dmItemId,
+          itemId: item.itemId,
           search: this.search
         },
         options: {
@@ -397,7 +402,7 @@ export default {
     resendNaverApi (item) {
       this.$dialog.confirm('재전송하시겠습니까?').then(() => {
         this.isDisabledResend = true
-        service.resendApiItem(item.dmItemId).then(() => {
+        service.resendApiItem(item.itemId).then(() => {
           this.isDisabledResend = false
           this.showSnackbar('success', '재전송되었습니다.')
           this.search()
@@ -418,8 +423,8 @@ export default {
         return
       }
       const param = {
-        dmStoreId: this.searchParam.dmStoreId,
-        dmItemIds: item.dmItemId,
+        storeId: this.searchParam.storeId,
+        itemIds: item.itemId,
         isImp: item.isImp
       }
       service.patchItem(param).then(() => {
@@ -446,8 +451,8 @@ export default {
         return
       }
       const param = {
-        dmStoreId: this.searchParam.dmStoreId,
-        dmItemIds: item.dmItemId,
+        storeId: this.searchParam.storeId,
+        itemIds: item.itemId,
         scheduleSendYn: item.scheduleSendYn
       }
       service.patchItem(param).then(() => {
@@ -471,8 +476,8 @@ export default {
       // const text = `네이버페이를 ${item.isNPayUsed === 'Y' ? '적용' : '미적용'}하시겠습니까?`
       // this.$dialog.confirm(text).then(() => {
       //   const param = {
-      //     dmStoreId: this.searchParam.dmStoreId,
-      //     dmItemIds: item.dmItemId,
+      //     storeId: this.searchParam.storeId,
+      //     itemIds: item.itemId,
       //     isNPayUsed: item.isNPayUsed
       //   }
       //   service.patchItem(param).then(() => {
@@ -607,7 +612,7 @@ export default {
         return
       }
       this.$dialog.confirm(`[${item.name}] 삭제 하시겠습니까? 삭제시 복구할 수 없습니다.`).then(() => {
-        service.deleteItem(item.dmItemId).then(() => {
+        service.deleteItem(item.itemId).then(() => {
           this.showSnackbar('success', `[${item.name}] 삭제 되었습니다.`)
           this.search()
         }).catch(() => {

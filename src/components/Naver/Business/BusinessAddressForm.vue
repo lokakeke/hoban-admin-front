@@ -9,12 +9,12 @@
       <v-row>
         <v-col cols="11" draggable="true" max-height="400" class="pa-5 pt-3 mb-5 mx-auto">
           <v-expansion-panels accordion>
-            <v-expansion-panel v-for="info in form" :key="info.commCodeNo">
+            <v-expansion-panel v-for="info in form" :key="info.commonCodeSeq">
               <v-expansion-panel-header class="ma-0 pa-0 pl-5 pr-5">
                 <v-row>
                   <v-col cols="5" class="mt-2 text-center">
                     <v-icon>place</v-icon>
-                    {{ info.commCodeName }}
+                    {{ info.commonCodeName }}
                   </v-col>
                   <v-col cols="7" class="text-center">
                     <v-btn outlined rounded color="info" class="ma-1" small @click="chooseAddr(info)">
@@ -41,7 +41,7 @@
                   </li>
                   <li class="ma-2">
                     <v-icon small>check_box</v-icon>
-                    <span class="font-weight-bold">상세주소: </span>{{ info.commCodeDesc ? info.commCodeDesc : '(없음)' }}
+                    <span class="font-weight-bold">상세주소: </span>{{ info.commonCodeDesc ? info.commonCodeDesc : '(없음)' }}
                   </li>
                   <li class="ma-2 pb-5">
                     <v-chip class="ml-1 mr-2 float-left" small>위도 : {{ info.item03 }}</v-chip>
@@ -100,14 +100,14 @@ export default {
         info = {
           parentCommCode: 'STORE_ADDR',
           useYn: 'Y',
-          commCode: '',
-          commCodeName: '',
+          commonCode: '',
+          commonCodeName: '',
           item01: '',
           item02: '',
           item03: '',
           item04: '',
           item05: '',
-          commCodeDesc: ''
+          commonCodeDesc: ''
         }
       }
       this.$nextTick(() => {
@@ -149,7 +149,7 @@ export default {
      */
     deleteAddr (info) {
       this.$dialog.confirm('주소를 삭제하시겠습니까?').then(() => {
-        commonCodeService.deleteCommonCode(info.commCodeNo).then(res => {
+        commonCodeService.deleteCommonCode(info.commonCodeSeq).then(res => {
           this.$dialog.alert('삭제되었습니다.')
           this.inits()
         })

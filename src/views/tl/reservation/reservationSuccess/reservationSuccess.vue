@@ -96,7 +96,7 @@
 <script>
 import reservationSuccessService from '@/api/modules/tl/reservation/reservationSuccess.service'
 import Vue from 'vue'
-import reservationSuccessDetail from '@/views/tl/reservation/reservationSuccess/reservationSuccessDetail'
+import reservationSuccessDetail from '@/views/tl/reservation/reservationSuccess/reservationSuccessDetail.vue'
 
 export default {
   components: { reservationSuccessDetail },

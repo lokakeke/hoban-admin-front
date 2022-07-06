@@ -11,7 +11,7 @@
             <v-autocomplete
               v-model="selectBusiness"
               :items="businessCodeList"
-              item-value="dmStoreId"
+              item-value="storeId"
               item-text="serviceName"
               @change="selectItemList"
               autocomplete="off"
@@ -24,7 +24,7 @@
             <v-autocomplete
               v-model="selectedItem"
               :items="selectItem"
-              item-value="dmItemId"
+              item-value="itemId"
               :item-text="setItemText"
               autocomplete="off"
               placeholder="상품을 선택해 주세요."
@@ -168,7 +168,7 @@ export default {
      */
     selectServiceList () {
       itemService.selectBusinessCodeList().then(res => {
-        const list = [{ serviceName: '전체', dmStoreId: '' }]
+        const list = [{ serviceName: '전체', storeId: '' }]
         this.businessCodeList = list.concat(res.data)
       })
     },
@@ -179,7 +179,7 @@ export default {
       const yearMonth = this.start ? this.start.date.substr(0, 7) : moment().format('YYYY-MM')
       const params = {
         yearMonth: yearMonth,
-        dmStoreId: this.selectBusiness.dmStoreId
+        storeId: this.selectBusiness.storeId
       }
       service.selectBookingCalendar(params).then(res => {
         this.itemList = res.data
@@ -187,7 +187,7 @@ export default {
         this.itemList.forEach(item => {
           const dateSubtract = moment(item.endDate).diff(item.startDate, 'days')
           events.push({
-            dmItemId: item.dmItemId,
+            itemId: item.itemId,
             pkgYn: item.pkgYn,
             mid: item.mid,
             name: item.dmItemName,
@@ -207,10 +207,10 @@ export default {
      * 선택된 서비스 리스트에 대한 상품 리스트 불러오기
      */
     selectItemList () {
-      if (this.selectBusiness.dmStoreId) {
+      if (this.selectBusiness.storeId) {
         this.selectItem = []
         const param = {
-          dmStoreId: this.selectBusiness.dmStoreId,
+          storeId: this.selectBusiness.storeId,
           filterItem: 'Y',
           sorts: 'recent'
         }
@@ -234,14 +234,14 @@ export default {
     },
     filterItemList (selectedItem) {
       if (selectedItem && selectedItem.length > 0) {
-        const dmItemIds = _.map(selectedItem, 'dmItemId')
+        const itemIds = _.map(selectedItem, 'itemId')
         this.events = []
-        for (const item of dmItemIds) {
+        for (const item of itemIds) {
           this.events = this.events.concat(this.originEvents.filter((event) => {
-            return event.dmItemId === item
+            return event.itemId === item
           }))
         }
-        this.events = _.cloneDeep(this.originEvents.filter(data => dmItemIds.some(item => data.dmItemId === item)))
+        this.events = _.cloneDeep(this.originEvents.filter(data => itemIds.some(item => data.itemId === item)))
       } else {
         this.events = _.cloneDeep(this.originEvents)
       }

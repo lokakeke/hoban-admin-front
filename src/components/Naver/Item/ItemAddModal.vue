@@ -48,9 +48,9 @@ export default {
   data: function () {
     return {
       itemInfo: {
-        dmItemId: '',
+        itemId: '',
         bizItemId: '',
-        dmStoreId: '',
+        storeId: '',
         businessId: '',
         storeCode: '',
         rmTypeCode: '',

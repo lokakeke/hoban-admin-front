@@ -114,7 +114,7 @@ export default {
           key: 'taskType',
           label: '예치금 구분',
           type: 'code',
-          commCode: 'COMM0009',
+          commonCode: 'COMM0009',
           cols: 2
         },
         { key: 'agentCode', label: 'agent코드', type: 'text', cols: 2 },

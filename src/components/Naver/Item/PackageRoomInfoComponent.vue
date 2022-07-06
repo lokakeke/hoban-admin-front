@@ -64,7 +64,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'PackageRoomInfoComponent',
   props: {
-    dmStoreId: {
+    storeId: {
       type: String,
       required: true
     },
@@ -119,7 +119,7 @@ export default {
   },
   methods: {
     getPackageRoomTypeList () {
-      itemService.selectPackageRoomList(this.dmStoreId, this.pkgNo).then((response) => {
+      itemService.selectPackageRoomList(this.storeId, this.pkgNo).then((response) => {
         const data = response.data
         this.list = []
         data.map(obj => {
@@ -163,7 +163,7 @@ export default {
       }
       const itemList = selectItemList.map(item => {
         return {
-          dmStoreId: this.dmStoreId,
+          storeId: this.storeId,
           mid: this.pkgNo,
           pkgName: this.pkgName,
           rsvBlckCode: this.rsvBlckCode,
@@ -217,7 +217,7 @@ export default {
     },
     async selectBlckCode () {
       await commonCodeService.selectCommonCode('PKG_BLCK_CD').then(res => {
-        this.rsvBlckCodeList = res.data ? _.map(res.data, 'commCode') : []
+        this.rsvBlckCodeList = res.data ? _.map(res.data, 'commonCode') : []
         /**
          *  블럭코드 주입
          */

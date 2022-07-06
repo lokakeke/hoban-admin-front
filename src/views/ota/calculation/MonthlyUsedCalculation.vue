@@ -82,8 +82,8 @@
             <th class="text-center">합계</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
             <th class="text-center">제주 제외 합계</th>
-            <th v-for="local in localList" :key="local.commCode"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
+            <th v-for="local in localList" :key="local.commonCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commonCodeName"/>
           </tr>
           </thead>
           <tbody v-if="totalAllList">
@@ -133,8 +133,8 @@
             <th class="text-center">합계</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
             <th class="text-center">제주 제외 합계</th>
-            <th v-for="local in localList" :key="local.commCode"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
+            <th v-for="local in localList" :key="local.commonCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commonCodeName"/>
           </tr>
           </thead>
           <tbody v-if="ptnrAllList">
@@ -217,8 +217,8 @@
           <tr>
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
-            <th v-for="local in localList" :key="local.commCode"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
+            <th v-for="local in localList" :key="local.commonCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commonCodeName"/>
           </tr>
           </thead>
           <tbody v-if="totAmt">
@@ -263,8 +263,8 @@
           <tr>
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
-            <th v-for="local in localList" :key="local.commCode"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
+            <th v-for="local in localList" :key="local.commonCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commonCodeName"/>
           </tr>
           </thead>
           <tbody v-if="processedList">
@@ -309,8 +309,8 @@
           <tr>
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
-            <th v-for="local in localList" :key="local.commCode"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
+            <th v-for="local in localList" :key="local.commonCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commonCodeName"/>
           </tr>
           </thead>
           <tbody v-if="totAmt">
@@ -359,8 +359,8 @@
           <tr>
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
-            <th v-for="local in localList" :key="local.commCode"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
+            <th v-for="local in localList" :key="local.commonCode"
+                class="text-center font-weight-medium text--darken-1" v-html="local.commonCodeName"/>
           </tr>
           </thead>
           <tbody v-if="processedList">
@@ -434,7 +434,7 @@
             <th class="text-center font-weight-medium">지역</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
             <th v-for="(local, index) in breakLocalList" :key="index"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
+                class="text-center font-weight-medium text--darken-1" v-html="local.commonCodeName"/>
           </tr>
           </thead>
           <tbody v-if="totAmt">
@@ -480,7 +480,7 @@
             <th class="text-center font-weight-medium">파트너사</th>
             <th class="text-center font-weight-medium">소노캄 제주</th>
             <th v-for="(local, index) in breakLocalList" :key="index"
-                class="text-center font-weight-medium text--darken-1" v-html="local.commCodeName"/>
+                class="text-center font-weight-medium text--darken-1" v-html="local.commonCodeName"/>
           </tr>
           </thead>
           <tbody v-if="processedList">
@@ -516,7 +516,7 @@ import monthlyUsedCalcService from '@/api/modules/ota/monthlyUsedCalculation.ser
 import excelMixin from '@/mixins/excelMixin'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'MonthlyUsedCalculation',
@@ -641,7 +641,7 @@ export default {
 
       // 위약금 지역 정보 리스트 생성(비발디파크 -> 비발디, 소노펠리체로 분리)
       const localList = _.cloneDeep(this.localList)
-      localList.splice(1, 1, { commCodeName: '비발디' }, { commCdName: '소노펠리체' })
+      localList.splice(1, 1, { commonCodeName: '비발디' }, { commCdName: '소노펠리체' })
       this.breakLocalList = localList
     },
     /**

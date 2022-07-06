@@ -97,10 +97,10 @@ export default {
       const searchList = [
         { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
         { key: 'partnerName', label: '파트너명', type: 'text', cols: 2 },
-        { key: 'rcpmnyAcct', label: '입금구분', type: 'code', commCode: 'COMM0004', cols: 2 },
+        { key: 'rcpmnyAcct', label: '입금구분', type: 'code', commonCode: 'COMM0004', cols: 2 },
         { key: 'accountNo', label: '입금계좌번호', type: 'text', cols: 2 },
         { key: 'depositSenderName', label: '입금내용', type: 'text', cols: 2 },
-        { key: 'approveCode', label: '승인상태', type: 'code', commCode: 'COMM0003', cols: 2 }
+        { key: 'approveCode', label: '승인상태', type: 'code', commonCode: 'COMM0003', cols: 2 }
       ]
       if (this.isPartner) {
         // 파트너의 경우 파트너명 검색을 제거

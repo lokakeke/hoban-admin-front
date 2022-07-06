@@ -90,10 +90,10 @@ export default {
     changeAllImp (isImp) {
       const text = isImp === 'Y' ? '전체 객실을 예약서비스에서 노출하시겠습니까?' : '전체 객실을 예약서비스에서 미노출하시겠습니까? 미노출된 객실은 예약이 불가합니다.'
       this.$dialog.confirm(text).then(() => {
-        const dmItemIdList = this.itemList.map(item => item.dmItemId).join(',')
+        const itemIdList = this.itemList.map(item => item.itemId).join(',')
         const param = {
-          dmStoreId: this.itemList[0].dmStoreId,
-          dmItemIds: dmItemIdList,
+          storeId: this.itemList[0].storeId,
+          itemIds: itemIdList,
           isImp: isImp
         }
         service.patchItem(param).then(() => {

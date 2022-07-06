@@ -11,7 +11,7 @@
             <v-autocomplete
               v-model="selectBusiness"
               :items="businessCodeList"
-              item-value="dmStoreId"
+              item-value="storeId"
               item-text="serviceName"
               :rules="emptyRules"
               @change="setInit"
@@ -246,8 +246,8 @@ export default {
     },
     changeImp (item) {
       const param = {
-        dmStoreId: item.dmStoreId,
-        dmItemIds: item.dmItemId,
+        storeId: item.storeId,
+        itemIds: item.itemId,
         isImp: item.isImp
       }
       itemService.patchItem(param).then(() => {

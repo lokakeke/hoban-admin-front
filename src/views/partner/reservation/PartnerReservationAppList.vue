@@ -98,7 +98,7 @@ export default {
           { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 2, event: this.changeStore },
           { key: 'rmTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCode', listText: 'rmTypeName', cols: 4 },
           { key: 'ciYmd', label: '입실 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 4 },
-          { key: 'aprlCode', label: '승인 상태', type: 'code', commCode: 'OTA0003', cols: 2 },
+          { key: 'aprlCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
           { key: 'userName', label: '이용자', type: 'text', cols: 2 },
           { key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 },
           { key: 'appSeq', label: '요청번호', type: 'text', cols: 2 }
@@ -110,7 +110,7 @@ export default {
           { key: 'rmTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCode', listText: 'rmTypeName', cols: 4 },
           { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 4 },
           { key: 'ciYmd', label: '입실 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 2 },
-          { key: 'aprlCode', label: '승인 상태', type: 'code', commCode: 'OTA0003', cols: 2 },
+          { key: 'aprlCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
           { key: 'userName', label: '이용자', type: 'text', cols: 2 },
           { key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 },
           { key: 'appSeq', label: '요청번호', type: 'text', cols: 2 }

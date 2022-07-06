@@ -52,15 +52,15 @@
           </v-col>
           <v-col cols="12">
             <v-row justify="space-between" class="px-3 py-1">
-              <div>선택한 객실 <span style="color: #1FA2FA;">{{ dmItemIdArray.length }}</span>건</div>
+              <div>선택한 객실 <span style="color: #1FA2FA;">{{ itemIdArray.length }}</span>건</div>
               <div class="text-right pointer" @click="checkAll()"><v-icon left>{{checkIcon}}</v-icon> 전체 선택</div>
             </v-row>
             <v-card>
               <v-list shaped>
-                <v-list-item-group v-model="dmItemIdArray" multiple>
+                <v-list-item-group v-model="itemIdArray" multiple>
                   <template v-for="(item, i) in itemList">
-                    <v-divider v-if="!item.dmItemId" :key="`divider-${i}`"></v-divider>
-                    <v-list-item v-else :key="`item-${i}`" :value="item.dmItemId" active-class="deep-purple--text text--accent-4">
+                    <v-divider v-if="!item.itemId" :key="`divider-${i}`"></v-divider>
+                    <v-list-item v-else :key="`item-${i}`" :value="item.itemId" active-class="deep-purple--text text--accent-4">
                       <template v-slot:default="{ active }">
                         <v-list-item-content>
                           <v-list-item-title v-text="item.name"></v-list-item-title>
@@ -68,7 +68,7 @@
                         <v-list-item-action>
                           <v-checkbox
                             :input-value="active"
-                            :true-value="item.dmItemId"
+                            :true-value="item.itemId"
                             color="deep-purple accent-4"
                           ></v-checkbox>
                         </v-list-item-action>
@@ -96,7 +96,7 @@ export default {
   data: function () {
     return {
       itemList: [],
-      dmItemIdArray: [],
+      itemIdArray: [],
       desc: '',
       bookingPrecaution: ''
     }
@@ -104,9 +104,9 @@ export default {
   computed: {
     checkIcon () {
       if (this.itemList.length > 0) {
-        if (this.itemList.length === this.dmItemIdArray.length) {
+        if (this.itemList.length === this.itemIdArray.length) {
           return 'check_box'
-        } else if (this.dmItemIdArray.length === 0) {
+        } else if (this.itemIdArray.length === 0) {
           return 'check_box_outline_blank'
         } else {
           return 'indeterminate_check_box'
@@ -128,10 +128,10 @@ export default {
   },
   methods: {
     checkAll () {
-      if (this.itemList.length === this.dmItemIdArray.length) {
-        this.dmItemIdArray = []
+      if (this.itemList.length === this.itemIdArray.length) {
+        this.itemIdArray = []
       } else {
-        this.dmItemIdArray = this.itemList.map(data => data.dmItemId)
+        this.itemIdArray = this.itemList.map(data => data.itemId)
       }
     },
     save () {
@@ -140,15 +140,15 @@ export default {
           this.$dialog.alert('객실소개나 알립니다 정보를 입력해주세요.')
           return
         }
-        if (this.dmItemIdArray.length < 1) {
+        if (this.itemIdArray.length < 1) {
           this.$dialog.alert('변경할 객실을 선택해주세요.')
           return
         }
         this.$dialog.confirm('정보일괄 변경을 하시겠습니까?').then(() => {
-          const dmItemIdList = this.dmItemIdArray.join(',')
+          const itemIdList = this.itemIdArray.join(',')
           const param = {
-            dmStoreId: this.itemList[0].dmStoreId,
-            dmItemIds: dmItemIdList,
+            storeId: this.itemList[0].storeId,
+            itemIds: itemIdList,
             desc: this.desc,
             bookingPrecaution: this.bookingPrecaution
           }

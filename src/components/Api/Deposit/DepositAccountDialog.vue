@@ -62,8 +62,8 @@
           <v-autocomplete
             v-model="form.taskType"
             :items="taskTypeList"
-            item-value="commCode"
-            item-text="commCodeName"
+            item-value="commonCode"
+            item-text="commonCodeName"
             :rules="emptyRules"
             autocomplete="off"
           ></v-autocomplete>
@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import depositAccountService from '@/api/modules/api/depositAccount.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'

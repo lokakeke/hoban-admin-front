@@ -26,16 +26,16 @@
                                   disabled></v-text-field>
                     <v-label>코드</v-label>
                     <v-text-field v-model.trim="form.commonCode" :rules="emptyRules" label="" required
-                                  class="pt-0"></v-text-field>
+                                  :disabled="form.commonCodeSeq !== undefined && form.commonCodeSeq !== null" class="pt-0"></v-text-field>
                 </template>
                 <template v-else>
                     <v-label>코드</v-label>
                     <v-row>
                         <!-- 최상의 코드 등록시 -->
                         <v-col v-if="!form.commonCodeSeq">
-                            <v-autocomplete v-model="commCodeText" :items="codeReset" :item-value="'commonCode'"
+                            <v-autocomplete v-model="commonCodeText" :items="codeReset" :item-value="'commonCode'"
                                             :item-text="'commonCodeName'" :rules="emptyRules" label required class="pt-0"
-                                            @change="newCommCode(commCodeText)"></v-autocomplete>
+                                            @change="newCommCode(commonCodeText)"></v-autocomplete>
                         </v-col>
                         <v-col>
                             <v-text-field v-model="form.commonCode" :rules="emptyRules" label required class="pt-0" readonly
@@ -95,7 +95,7 @@ export default {
   data () {
     return {
       form: {},
-      commCodeText: ''
+      commonCodeText: ''
     }
   },
   mounted () {
@@ -104,7 +104,7 @@ export default {
   watch: {
     dialog () {
       this.form = _.cloneDeep(this.data)
-      this.commCodeText = ''
+      this.commonCodeText = ''
       this.$refs.form.resetValidation()
     }
   },

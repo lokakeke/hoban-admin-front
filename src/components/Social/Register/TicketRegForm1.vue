@@ -112,7 +112,7 @@
                     class="bordered"
                   >
                     <template v-slot:item.chrgType="{item}">
-                      <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCodeName" item-value="commCode"></v-select>
+                      <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commonCodeName" item-value="commonCode"></v-select>
                     </template>
                     <template v-slot:item.action="{ item }">
                       <v-btn small color="accent" rounded outlined @click="chrgRemove(item)">
@@ -141,7 +141,7 @@
                     class="bordered"
                   >
                     <template v-slot:item.chrgType="{item}">
-                      <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCodeName" item-value="commCode" :disabled="item.isNew === 'Y' ? false : true"></v-select>
+                      <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commonCodeName" item-value="commonCode" :disabled="item.isNew === 'Y' ? false : true"></v-select>
                     </template>
                     <template v-slot:item.action="{ item }">
                       <v-btn small color="accent" rounded outlined @click="accountEmpRemove(item)">
@@ -197,7 +197,7 @@
                         <td>{{item.ticketNo}} ( {{item.remainCnt | price}}개 )</td>
                         <td>{{item.ticketName}}</td>
                         <td>{{item.itemName}}</td>
-                        <td>{{item.itemInd | label(itemIndList, 'commCode', 'commCodeName')}}</td>
+                        <td>{{item.itemInd | label(itemIndList, 'commonCode', 'commonCodeName')}}</td>
                         <td>{{item.amt | price}}</td>
                         <td>{{item.qty | price}}</td>
                       </tr>

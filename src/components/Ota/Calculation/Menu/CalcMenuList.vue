@@ -13,17 +13,17 @@
         <span class="ml-2">{{ calcMenu.partnerName }}</span>
       </div>
       <v-spacer></v-spacer>
-      <v-tooltip bottom v-for="calcMenuCode in calcMenuCodeList" :key="calcMenuCode.commCode">
+      <v-tooltip bottom v-for="calcMenuCode in calcMenuCodeList" :key="calcMenuCode.commonCode">
         <template v-slot:activator="{ on }">
           <v-btn
-            :color="calcMenu.openCalcMenu[calcMenuCode.commCode] === true ? 'green' : 'grey'"
+            :color="calcMenu.openCalcMenu[calcMenuCode.commonCode] === true ? 'green' : 'grey'"
             class="ml-1"
-            :style="{ 'color': calcMenu.openCalcMenu[calcMenuCode.commCode] === true ? 'white' : '#ddd' }"
+            :style="{ 'color': calcMenu.openCalcMenu[calcMenuCode.commonCode] === true ? 'white' : '#ddd' }"
             @click="toggleCalcMenu(calcMenu, calcMenuCode)"
             v-on="on"
-          >{{ calcMenuCode.commCodeName }}</v-btn>
+          >{{ calcMenuCode.commonCodeName }}</v-btn>
         </template>
-        클릭하면 "{{ calcMenu.partnerName }}" 파트너에게 " {{ calcMenuCode.commCodeName }}" 정산 메뉴를 {{ calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? '숨깁니다.' : '노출합니다.' }}
+        클릭하면 "{{ calcMenu.partnerName }}" 파트너에게 " {{ calcMenuCode.commonCodeName }}" 정산 메뉴를 {{ calcMenu.openCalcMenu[calcMenuCode.commCd] === true ? '숨깁니다.' : '노출합니다.' }}
       </v-tooltip>
     </v-list-item>
   </v-list>

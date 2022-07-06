@@ -421,3 +421,17 @@ div.bordered table {
 div.bordered  table th, div.bordered  table td {
   border: 1px solid #ccc;
 }
+
+// 체크박스 정중앙
+.check-center.v-input--checkbox {
+  margin-top: 0;
+  .v-input__slot {
+    margin-bottom: 0!important;
+    .v-input--selection-controls__input {
+      margin-right: 0;
+    }
+  }
+  .v-messages {
+    display: none;
+  }
+}
