@@ -79,7 +79,7 @@
               <template v-slot:event="{ event }">
                 <v-row align="center" no-gutters style="padding-top: 1px;">
                   <v-col cols="11" class="pl-1 text-ellipse">
-                    {{ event.pkgYn === 'Y' ? '[패키지] ' : '[객실] '}}{{ event.name }}
+                    {{ event.packageYn === 'Y' ? '[패키지] ' : '[객실] '}}{{ event.name }}
                   </v-col>
                   <v-col cols="1" class="pr-1 font-weight-bold">
                     {{ event.saleCnt }}
@@ -98,7 +98,7 @@
                 <v-card-text>
                   <span>
                     <li>서비스명 : {{ selectedEvent.dmStoreName }}</li>
-                    <li>상품명 : {{ selectedEvent.pkgYn === 'Y' ? '[패키지] ' : '[객실] ' }}{{ selectedEvent.name }}</li>
+                    <li>상품명 : {{ selectedEvent.packageYn === 'Y' ? '[패키지] ' : '[객실] ' }}{{ selectedEvent.name }}</li>
                     <li>수량 : {{ selectedEvent.saleCnt }}</li>
                   </span>
                 </v-card-text>
@@ -188,7 +188,7 @@ export default {
           const dateSubtract = moment(item.endDate).diff(item.startDate, 'days')
           events.push({
             itemId: item.itemId,
-            pkgYn: item.pkgYn,
+            packageYn: item.packageYn,
             mid: item.mid,
             name: item.dmItemName,
             dmStoreName: item.dmStoreName,
@@ -216,7 +216,7 @@ export default {
         }
         itemService.selectItemList(param).then(res => {
           if (res.data && res.data.length > 0) {
-            this.selectItem = _.sortBy(res.data, 'pkgYn', 'name').reverse()
+            this.selectItem = _.sortBy(res.data, 'packageYn', 'name').reverse()
             // 전체 상품을 가져온 후 예약 현황 조회
             this.$nextTick(() => {
               this.selectBookingCalendar()
@@ -285,7 +285,7 @@ export default {
       return Math.floor((b - a + 1) * Math.random()) + a
     },
     setItemText (item) {
-      return `${item.pkgYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid})`
+      return `${item.packageYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid})`
     },
     totalCount (date) {
       return _.sumBy(_.filter(this.events, (item) => {

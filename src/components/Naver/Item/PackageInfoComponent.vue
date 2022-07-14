@@ -118,7 +118,7 @@ export default {
   },
   props: {
     storeId: {
-      type: String,
+      type: Number,
       required: true
     },
     originRoomInfo: {},
@@ -197,8 +197,8 @@ export default {
         this.$store.dispatch('naver/setRoomInfo', {
           mid: this.pkgNo,
           storeCode: '',
-          rmTypeCode: '',
-          rsvBlckCode: ''
+          roomTypeCode: '',
+          blockCode: ''
         })
         return
       }
@@ -207,16 +207,16 @@ export default {
         this.$store.dispatch('naver/setRoomInfo', {
           mid: this.pkgNo,
           storeCode: '',
-          rmTypeCode: '',
-          rsvBlckCode: ''
+          roomTypeCode: '',
+          blockCode: ''
         })
       } else {
         // pkgNo 가 같을 경우 기존 데이터로 원복
         this.$store.dispatch('naver/setRoomInfo', {
           mid: this.pkgNo,
           storeCode: this.originRoomInfo.storeCode,
-          rmTypeCode: this.originRoomInfo.rmTypeCode,
-          rsvBlckCode: this.originRoomInfo.rsvBlckCode
+          roomTypeCode: this.originRoomInfo.roomTypeCode,
+          blockCode: this.originRoomInfo.blockCode
         })
       }
       itemService.selectPackageMasterInfo(this.pkgNo).then((response) => {

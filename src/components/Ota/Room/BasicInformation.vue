@@ -149,7 +149,7 @@
 <script>
 import roomTypeService from '@/api/modules/ota/roomType.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'BasicInformation',
@@ -262,7 +262,7 @@ export default {
     },
 
     async getBlockCode () {
-      const response = await commonCodeService.selectCommonCode('PKG_BLCK_CD')
+      const response = await commonCodeService.selectCommonCode('PACKAGE_BLOCK_CODE')
       for (const item of response.data) {
         this.blckItems.push(item.commonCode)
       }

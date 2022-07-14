@@ -25,7 +25,7 @@
           <v-layout class="headline mb-2">
             <v-icon>business</v-icon>&nbsp;사업장 : {{ masterData.brcName }} [{{ masterData.brcNo }}]
             <v-spacer></v-spacer>
-            <v-icon>business</v-icon>&nbsp;영업장 : {{ masterData.hotelName }} [{{ masterData.hotelCode }}]
+            <v-icon>business</v-icon>&nbsp;영업장 : {{ masterData.storeName }} [{{ masterData.storeCode }}]
           </v-layout>
           <v-layout class="headline mb-2">
             <v-icon medium>bed</v-icon>&nbsp;TL객실타입 : {{ masterData.tlRmTypeName || '---' }} [{{ masterData.tlNetRmTypeGroupCode }}]
@@ -54,26 +54,26 @@ export default {
   components: { sendPriceDetailList, sendPriceDetailMonthly },
   props: ['dialog', 'formData', 'toastData'],
   name: 'sendPriceDetail',
-  data() {
+  data () {
     return {
       masterData: {},
       sendNoMst: ''
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:dialog', false)
     },
-    refresh() {
+    refresh () {
       this.$emit('refresh')
     },
-    getMstData() {
+    getMstData () {
       sendPriceService.selectMst(this.sendNoMst).then(res => {
         this.masterData = res.data
       })
     }
   },
-  mounted() {
+  mounted () {
     this.sendNoMst = this.formData.sendNo || this.toastData.bindParam1 || ''
     this.getMstData()
   }

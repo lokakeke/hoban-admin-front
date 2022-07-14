@@ -301,7 +301,7 @@ export default {
       }
       itemService.selectItemList(param).then(res => {
         if (res.data && res.data.length > 0) {
-          this.selectItem = _.sortBy(res.data, 'pkgYn', 'name').reverse()
+          this.selectItem = _.sortBy(res.data, 'packageYn', 'name').reverse()
           // 전체 상품을 가져오고
         } else {
           this.$dialog.alert('등록된 상품이 없습니다. 상품을 등록해주세요.')
@@ -309,7 +309,7 @@ export default {
       })
     },
     setItemText (item) {
-      return `${item.pkgYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid})`
+      return `${item.packageYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid})`
     },
     /**
      * 상세정보 팝업 열기

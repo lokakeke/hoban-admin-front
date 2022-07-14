@@ -7,7 +7,7 @@
             <v-card flat>
               <v-card-title class="headline font-weight-bold justify-center border-bottom pt-0">사업장 선택</v-card-title>
               <v-card-text class="pt-4">
-                <branch-list :brcNo.sync="param.brcNo" :hotelCode.sync="param.hotelCode" :branchList.sync="branchList" :use-yn="''" @change="branchChange(false)" block></branch-list>
+                <branch-list :brcNo.sync="param.brcNo" :storeCode.sync="param.storeCode" :branchList.sync="branchList" :use-yn="''" @change="branchChange(false)" block></branch-list>
               </v-card-text>
               <v-card-title class="headline font-weight-bold justify-center border-bottom pt-0">TL-LINCOLN 객실 타입</v-card-title>
               <v-card-text class="pl-4 pr-4">
@@ -84,7 +84,7 @@
                       <v-col>
                         <v-autocomplete v-model="form.rmTypeCd"
                                         :items="pmsHotelRoomInfoList"
-                                        :item-value="'roomType'"
+                                        :item-value="'roomTypeCode'"
                                         :item-text="'roomTypeName'"
                                         :rules="[v => !!v || '룸타입은 필수입력 사항입니다.']" class="pt-0" label="" required></v-autocomplete>
                       </v-col>
@@ -207,7 +207,7 @@ import moment from 'moment'
 export default {
   components: { roomTypeSync, branchList },
   name: 'roomType',
-  data() {
+  data () {
     return {
       dialog: false,
       // 객실 타입 상세
@@ -227,7 +227,7 @@ export default {
       ],
       param: {
         brcNo: '',
-        hotelCode: '',
+        storeCode: '',
         roomType: '',
         pkgYn: 'N'
       },
@@ -249,34 +249,34 @@ export default {
     }
   },
   watch: {
-    selectedRoomTypeList(newVal) {
+    selectedRoomTypeList (newVal) {
       if (newVal && newVal.length > 0) {
         this.filterRoomTypeList = newVal
       } else {
         this.filterRoomTypeList = this.roomTypeList
       }
     },
-    'form.rmTypeCd'(newVal) {
+    'form.rmTypeCd' (newVal) {
       if (newVal) {
-        this.form.stndPersonCnt = _.find(this.pmsHotelRoomInfoList, { roomType: newVal }).standardPsn
-        this.form.maxPersonCnt = _.find(this.pmsHotelRoomInfoList, { roomType: newVal }).maximumPsn
+        this.form.stndPersonCnt = _.find(this.pmsHotelRoomInfoList, { roomType: newVal }).standardPerson
+        this.form.maxPersonCnt = _.find(this.pmsHotelRoomInfoList, { roomType: newVal }).maximumPerson
       }
     }
   },
   methods: {
-    moment(date) {
+    moment (date) {
       return moment(date).format('YYYY.MM.DD')
     },
-    add() {
+    add () {
       this.form.blockList.push({ masterYn: 'N', useYn: 'Y' })
     },
-    remove(index) {
+    remove (index) {
       this.$dialog.confirm('선택한 블럭을 삭제하시겠습니까?').then(() => {
         this.form.blockList.splice(index, 1)
       }, () => {
       })
     },
-    changeMaster(index) {
+    changeMaster (index) {
       // 해당 로우를 제외하고는 master 를 해제한다.
       for (let idx = 0; idx < this.form.blockList.length; idx++) {
         if (idx !== index) {
@@ -287,13 +287,13 @@ export default {
         }
       }
     },
-    reset() {
+    reset () {
       for (const room of this.roomTypeList) {
         room.active = false
       }
       this.param.roomType = ''
     },
-    branchChange(reload) {
+    branchChange (reload) {
       this.form = {}
       this.formClone = {}
 
@@ -301,16 +301,21 @@ export default {
       this.selectedRoomTypeList = []
       this.filterRoomTypeList = []
 
+      branchService.selectPmsStoreRoomTypeList(this.param.storeCode).then(res => {
+        this.pmsHotelRoomInfoList = res.data
+        this.filterRoomTypeList = this.roomTypeList
+      })
+
       // 영업장 셋팅 - plan list 같이 검색
-      roomTypeService.selectRoomTypeList({
+      /* roomTypeService.selectRoomTypeList({
         brcNo: this.param.brcNo,
         searchPlanYn: 'Y',
         pkgYn: this.param.pkgYn
       }).then(res => {
         this.roomTypeList = res.data
 
-        if (this.param.hotelCode) {
-          branchService.selectPmsHotelRoomInfoList(this.param.hotelCode).then(res => {
+        if (this.param.storeCode) {
+          branchService.selectPmsStoreRoomTypeList(this.param.storeCode).then(res => {
             this.pmsHotelRoomInfoList = res.data
             this.filterRoomTypeList = this.roomTypeList
           })
@@ -328,9 +333,9 @@ export default {
         } else {
           this.reset()
         }
-      })
+      }) */
     },
-    viewChildren(select) {
+    viewChildren (select) {
       if (select.active) {
         return
       }
@@ -347,10 +352,10 @@ export default {
       this.form = _.cloneDeep(select)
       this.formClone = _.cloneDeep(select)
     },
-    resetForm() {
+    resetForm () {
       this.form = _.cloneDeep(this.formClone)
     },
-    async save() {
+    async save () {
       try {
         // validation 체크
         await this.validForm(this.$refs.form)
@@ -368,7 +373,7 @@ export default {
           return
         }
         this.form.rmTypeName = _.find(this.pmsHotelRoomInfoList, { roomType: this.form.rmTypeCd }).roomTypeName
-        this.form.hotelName = _.find(this.pmsHotelRoomInfoList, { roomType: this.form.rmTypeCd }).hotelName
+        this.form.storeName = _.find(this.pmsHotelRoomInfoList, { roomType: this.form.rmTypeCd }).storeName
 
         await this.$dialog.confirm('상세내용을 저장 하시겠습니까?')
 
@@ -380,7 +385,7 @@ export default {
       } catch (e) {
       }
     },
-    setRoomTypeText(room) {
+    setRoomTypeText (room) {
       return `${room.tlRmTypeName} (${room.tlNetRmTypeGroupName})`
     }
   }

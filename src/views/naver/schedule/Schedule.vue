@@ -300,7 +300,7 @@ export default {
       ]
     },
     setItemText (item) {
-      return `${item.pkgYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid}) ${Number(item.scheduleCnt) === 0 ? ' : 신규' : ''}`
+      return `${item.packageYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid}) ${Number(item.scheduleCnt) === 0 ? ' : 신규' : ''}`
     },
     save () {
       this.$dialog.confirm('저장을 하시겠습니까? <br/>임시 테이블에 일정 저장 완료시 알림이 옵니다. 임시 일정 메뉴에서 승인 처리 후 최종 일정 데이터가 생성됩니다.').then(() => {

@@ -888,11 +888,11 @@ export default {
       for (const roomTypeCd of this.param.tlRmTypeCodeList) {
         const roomType = _.find(this.roomTypeList, { tlRmTypeCode: roomTypeCd })
         if (roomType) {
-          const storeCheck = _.find(storeInfo, { hotelCode: roomType.hotelCode })
+          const storeCheck = _.find(storeInfo, { storeCode: roomType.storeCode })
           if (storeCheck) {
             storeCheck.rmTypeCds.push(roomType.rmTypeCd)
           } else {
-            storeInfo.push({ hotelCode: roomType.hotelCode, rmTypeCds: [roomType.rmTypeCd] })
+            storeInfo.push({ storeCode: roomType.storeCode, rmTypeCds: [roomType.rmTypeCd] })
           }
         }
       }

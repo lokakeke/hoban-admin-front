@@ -2,11 +2,11 @@
   <v-row>
     <v-col cols="12" class="pb-0">
       <v-autocomplete :style="{'max-width':'250px'}"
-        :items="rsvBlckCodeList" label="블럭코드" v-model="rsvBlckCode" @change="selectRsvBlckCode()" :rules="emptyRules"></v-autocomplete>
+        :items="blockCodeList" label="블럭코드" v-model="blockCode" @change="selectRsvBlckCode()" :rules="emptyRules"></v-autocomplete>
     </v-col>
     <v-col cols="10" class="pt-1 pb-0">
       <v-alert dense outlined type="error" class="font-sm">
-        소노문 비발디파크 (구 더 파크 호텔), 소노캄 여수 (구 엠블호텔 여수), 소노캄 고양 의 경우 블럭코드 [002] 를 선택해주세요.
+        블럭코드를 유의하여 등록해주세요.
       </v-alert>
     </v-col>
     <v-col cols="2" class="pt-1 pb-0">
@@ -24,7 +24,7 @@
             :no-data-text="'검색 결과가 없습니다.'"
             :headers="headers"
             :items="list"
-            item-key="rmTypeCode"
+            item-key="roomTypeCode"
             hide-default-footer
             disable-pagination
             dense
@@ -47,7 +47,7 @@
               <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.store }}</span>
             </template>
             <template v-slot:item.rmType="{ item }">
-              <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.rmTypeName }} ({{ item.rmTypeCode }})</span>
+              <span :class="{ 'font-weight-bold': item.isOriginSelected }">{{ item.roomTypeName }} ({{ item.roomTypeCode }})</span>
             </template>
           </v-data-table>
         </app-card>
@@ -65,7 +65,7 @@ export default {
   name: 'PackageRoomInfoComponent',
   props: {
     storeId: {
-      type: String,
+      type: Number,
       required: true
     },
     originRoomInfo: Object,
@@ -93,8 +93,8 @@ export default {
       /**
        *  prop받은 블럭코드를 받을 data, 블럭코드목록
        */
-      rsvBlckCode: '',
-      rsvBlckCodeList: []
+      blockCode: '',
+      blockCodeList: []
     }
   },
   computed: {
@@ -129,7 +129,7 @@ export default {
           if (this.originRoomInfo &&
             this.originRoomInfo.mid === this.pkgNo &&
             this.originRoomInfo.storeCode === obj.storeCode &&
-            this.originRoomInfo.rmTypeCode === obj.rmTypeCode) {
+            this.originRoomInfo.roomTypeCode === obj.roomTypeCode) {
             isSelected = true
             isOriginSelected = true
           }
@@ -138,8 +138,8 @@ export default {
             dong: `${obj.dongName} (${obj.dongCode})`,
             pyeong: `${obj.pyeongName} (${obj.pyeongCode})`,
             roomType: `${obj.rmKindName} (${obj.rmKindCode})`,
-            rmTypeCode: obj.rmTypeCode,
-            rmTypeName: obj.rmTypeName,
+            roomTypeCode: obj.roomTypeCode,
+            roomTypeName: obj.roomTypeName,
             storeName: obj.storeName,
             storeCode: obj.storeCode,
             useYn: obj.otaExistYn,
@@ -157,7 +157,7 @@ export default {
       if (selectItemList.length === 0) {
         this.$dialog.alert('객실을 선택해주세요.')
         return
-      } else if (this.rsvBlckCode === '') {
+      } else if (this.blockCode === '') {
         this.$dialog.alert('블럭코드를 선택해주세요.')
         return
       }
@@ -166,13 +166,13 @@ export default {
           storeId: this.storeId,
           mid: this.pkgNo,
           pkgName: this.pkgName,
-          rsvBlckCode: this.rsvBlckCode,
+          blockCode: this.blockCode,
           storeCode: item.storeCode,
           storeName: item.storeName,
-          rmTypeCode: item.rmTypeCode,
-          rmTypeName: item.rmTypeName,
+          roomTypeCode: item.roomTypeCode,
+          roomTypeName: item.roomTypeName,
           maxPersonCount: item.initPersCnt,
-          pkgYn: 'Y'
+          packageYn: 'Y'
         }
       })
       this.$store.dispatch('dialog/open', {
@@ -199,29 +199,29 @@ export default {
       }
       if (item.isSelected) {
         this.list.forEach(i => {
-          if (item.rmTypeCode !== i.rmTypeCode) {
+          if (item.roomTypeCode !== i.roomTypeCode) {
             i.isSelected = false
           }
         })
         this.$store.dispatch('naver/setRoomInfo', {
           mid: this.pkgNo,
           storeCode: item.storeCode,
-          rmTypeCode: item.rmTypeCode
+          roomTypeCode: item.roomTypeCode
         })
       }
     },
     selectRsvBlckCode () {
       this.$store.dispatch('naver/setRoomInfo', {
-        rsvBlckCode: this.rsvBlckCode
+        blockCode: this.blockCode
       })
     },
     async selectBlckCode () {
-      await commonCodeService.selectCommonCode('PKG_BLCK_CD').then(res => {
-        this.rsvBlckCodeList = res.data ? _.map(res.data, 'commonCode') : []
+      await commonCodeService.selectCommonCode('PACKAGE_BLOCK_CODE').then(res => {
+        this.blockCodeList = res.data ? _.map(res.data, 'commonCode') : []
         /**
          *  블럭코드 주입
          */
-        this.rsvBlckCode = this.roomInfo.rsvBlckCode
+        this.blockCode = this.roomInfo.blockCode
       })
     }
   },

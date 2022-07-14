@@ -82,7 +82,7 @@
               <tr v-for="(itemInfo, index) of item.detailList" :key="item.bizItemId + '_' + index">
                 <td v-if="index === 0" rowspan="3" class="text-center font-weight-bold"
                     style="background-color: #E0F2F1;">
-                  {{ (item.pkgYn === 'Y' ? '[패키지] ' : '[객실] ') }} <br /> {{ item.name }} <br /> {{ ' (' + item.mid + ')' }}
+                  {{ (item.packageYn === 'Y' ? '[패키지] ' : '[객실] ') }} <br /> {{ item.name }} <br /> {{ ' (' + item.mid + ')' }}
                 </td>
                 <td class="text-right grey--text font-weight-black">
                   {{ itemInfo.label }}

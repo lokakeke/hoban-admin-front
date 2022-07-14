@@ -5,7 +5,7 @@ export default {
    * 상품 목록 조회
    */
   selectItemList (param) {
-    return api.get('/api/cms/naver/booking/item', { params: param })
+    return api.get('/api/cms/naver/booking/item', { params: { q: param } })
   },
   /**
    * 모든 상품 목록 조회

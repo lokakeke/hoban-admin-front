@@ -40,7 +40,7 @@
                             <v-flex xs12 md6 border-right>
 
                                 <v-label>영업장</v-label>
-                                <p>{{ detail.storeNm }} ({{ detail.hotelCode }})</p>
+                                <p>{{ detail.storeNm }} ({{ detail.storeCode }})</p>
 
                                 <v-label>예약구분</v-label>
                                 <p>{{ detail.rsvTypeNm }}</p>

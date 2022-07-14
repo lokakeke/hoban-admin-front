@@ -22,9 +22,9 @@
 import branchService from '@/api/modules/tl/branch.service'
 
 export default {
-  props: ['branchList', 'brcNo', 'block', 'branchName', 'useYn', 'hotelCode'],
+  props: ['branchList', 'brcNo', 'block', 'branchName', 'useYn', 'storeCode'],
   name: 'BranchList',
-  data() {
+  data () {
     return {
       model: '',
       list: [],
@@ -33,11 +33,11 @@ export default {
     }
   },
   watch: {
-    brcNo(newVal) {
+    brcNo (newVal) {
       this.model = newVal
     }
   },
-  mounted() {
+  mounted () {
     this.model = this.brcNo
     if (this.useYn !== undefined) {
       this.use = this.useYn
@@ -51,7 +51,7 @@ export default {
     }
   },
   methods: {
-    changeSelect() {
+    changeSelect () {
       let text = ''
       const findBranch = _.find(this.list, { brcNo: this.model })
       if (findBranch) {
@@ -61,7 +61,7 @@ export default {
       }
       this.$emit('update:branchName', text)
       this.$emit('update:brcNo', this.model)
-      this.$emit('update:hotelCode', findBranch.hotelCode || '')
+      this.$emit('update:storeCode', findBranch.storeCode || '')
       this.$emit('change')
     }
   }

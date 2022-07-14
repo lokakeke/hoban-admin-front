@@ -366,7 +366,7 @@ export default {
 
     // 공통코드 조회 - 예약블록 코드
     getBlockCode () {
-      commonCodeService.selectCommonCode('PKG_BLCK_CD').then((response) => {
+      commonCodeService.selectCommonCode('PACKAGE_BLOCK_CODE').then((response) => {
         for (const data of response.data) {
           this.blockItems.push(data.commonCode)
         }
