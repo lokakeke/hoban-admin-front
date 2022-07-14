@@ -12,16 +12,16 @@ const state = {
     itemId: '',
     mid: '',
     storeCode: '',
-    rmTypeCode: '',
-    rsvBlckCode: ''
+    roomTypeCode: '',
+    blockCode: ''
   },
   emptyRoomInfo: {
     storeId: '',
     itemId: '',
     mid: '',
     storeCode: '',
-    rmTypeCode: '',
-    rsvBlckCode: ''
+    roomTypeCode: '',
+    blockCode: ''
   },
   status: {
     confirmed: {

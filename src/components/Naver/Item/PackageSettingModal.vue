@@ -39,8 +39,8 @@ export default {
         itemId: '',
         mid: '',
         storeCode: '',
-        rmTypeCode: '',
-        rsvBlckCode: ''
+        roomTypeCode: '',
+        blockCode: ''
       },
       isValidPkg: false
     }
@@ -63,8 +63,8 @@ export default {
       itemId: this.instance.params.dgnsItemInfo.itemId,
       mid: this.instance.params.dgnsItemInfo.mid,
       storeCode: this.instance.params.dgnsItemInfo.storeCode,
-      rmTypeCode: this.instance.params.dgnsItemInfo.rmTypeCode,
-      rsvBlckCode: this.instance.params.dgnsItemInfo.rsvBlckCode
+      roomTypeCode: this.instance.params.dgnsItemInfo.roomTypeCode,
+      blockCode: this.instance.params.dgnsItemInfo.blockCode
     })
     this.$nextTick(() => {
       this.originRoomInfo = _.cloneDeep(this.roomInfo)
@@ -76,10 +76,10 @@ export default {
         this.$dialog.alert('패키지를 검색해주세요.')
         return
       }
-      if (!this.roomInfo.rmTypeCode || !this.roomInfo.storeCode) {
+      if (!this.roomInfo.roomTypeCode || !this.roomInfo.storeCode) {
         this.$dialog.alert('객실을 선택해주세요.')
         return
-      } else if (!this.roomInfo.rsvBlckCode) {
+      } else if (!this.roomInfo.blockCode) {
         this.$dialog.alert('블럭코드를 선택해주세요.')
         return
       }
@@ -89,9 +89,9 @@ export default {
           itemId: this.roomInfo.itemId,
           mid: this.roomInfo.mid,
           storeCode: this.roomInfo.storeCode,
-          rmTypeCode: this.roomInfo.rmTypeCode,
-          rsvBlckCode: this.roomInfo.rsvBlckCode,
-          pkgYn: 'Y'
+          roomTypeCode: this.roomInfo.roomTypeCode,
+          blockCode: this.roomInfo.blockCode,
+          packageYn: 'Y'
         }
         itemService.updateDgnsItemInfo(this.roomInfo.itemId, dgnsItemInfo).then(() => {
           this.close()

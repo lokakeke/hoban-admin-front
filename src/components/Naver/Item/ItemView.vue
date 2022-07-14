@@ -11,28 +11,28 @@
     <v-row>
       <v-col cols="6" offset="3">
         <v-row>
-          <v-col cols="12" v-if="itemInfo && itemInfo.rmTypeCode">
+          <v-col cols="12" v-if="itemInfo && itemInfo.roomTypeCode">
             <v-card outlined>
               <v-card-title>
-                {{ itemInfo.pkgYn === 'Y' ? '패키지' : '객실' }} 정보
+                {{ itemInfo.packageYn === 'Y' ? '패키지' : '객실' }} 정보
               </v-card-title>
-              <v-card-text class="black--text" v-if="itemInfo.pkgYn === 'Y'">
+              <v-card-text class="black--text" v-if="itemInfo.packageYn === 'Y'">
                 패키지명 : {{ itemInfo.pkgName }} ({{ itemInfo.mid }})
               </v-card-text>
-              <v-card-text class="black--text" v-if="itemInfo.pkgYn === 'N'">
+              <v-card-text class="black--text" v-if="itemInfo.packageYn === 'N'">
                 회원번호 : {{ itemInfo.mid }}
               </v-card-text>
               <v-card-text class="black--text pt-0">
                 영업장명 : {{ itemInfo.storeName }} ({{ itemInfo.storeCode }})
               </v-card-text>
               <v-card-text class="black--text pt-0">
-                객실타입명 : {{ itemInfo.rmTypeName }} ({{ itemInfo.rmTypeCode }})
+                객실타입명 : {{ itemInfo.roomTypeName }} ({{ itemInfo.roomTypeCode }})
               </v-card-text>
-              <v-card-text class="black--text pt-0" v-if="itemInfo.pkgYn === 'Y'">
+              <v-card-text class="black--text pt-0" v-if="itemInfo.packageYn === 'Y'">
                 시작/종료일 : {{ moment(itemInfo.pkgBgnYmd).format('YYYY.MM.DD') }} ~ {{ moment(itemInfo.pkgEndYmd).format('YYYY.MM.DD') }}
               </v-card-text>
               <v-card-text class="black--text pt-0">
-                객실타입명 : {{ itemInfo.rsvBlckCode }}
+                객실타입명 : {{ itemInfo.blockCode }}
               </v-card-text>
             </v-card>
           </v-col>
@@ -67,10 +67,10 @@ export default {
         storeId: '',
         businessId: '',
         storeCode: '',
-        rmTypeCode: '',
-        pkgYn: '',
+        roomTypeCode: '',
+        packageYn: '',
         mid: '',
-        rsvBlckCode: '',
+        blockCode: '',
         name: '',
         desc: '',
         order: 0,

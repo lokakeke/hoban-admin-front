@@ -52,7 +52,7 @@
                   </td>
                   <td class="text-xs-right">{{ props.item.rnum }}</td>
                   <td class="text-xs-center">{{ props.item.brcName }} [{{ props.item.brcNo }}]</td>
-                  <td class="text-xs-center">{{ props.item.hotelName }} [{{props.item.hotelCode}}]
+                  <td class="text-xs-center">{{ props.item.storeName }} [{{props.item.storeCode}}]
                   </td>
                   <td class="text-xs-center">{{ props.item.tlRmTypeName || '---' }}[{{ props.item.tlNetRmTypeGroupCode }}]
                   </td>
@@ -122,7 +122,7 @@ export default {
       headers: [
         { text: '번호', value: 'rnum', align: 'right' },
         { text: '사업장', value: 'brcName', align: 'center' },
-        { text: '영업장', value: 'hotelName', align: 'center' },
+        { text: '영업장', value: 'storeName', align: 'center' },
         { text: 'TL객실타입', value: 'tlRmTypeName', align: 'center' },
         { text: '객실타입', value: 'rmTypeName', align: 'center' },
         { text: '시작일자', value: 'startYmd', align: 'center' },
@@ -156,12 +156,12 @@ export default {
       return [
         { key: 'brcNo', label: '사업장', type: 'branch' },
         {
-          key: 'hotelCode',
+          key: 'storeCode',
           label: '영업장',
           type: 'select',
           list: this.businessList,
-          listValue: 'hotelCode',
-          listText: 'hotelName'
+          listValue: 'storeCode',
+          listText: 'storeName'
         },
         { key: 'rmTypeName', label: '객실타입', type: 'text' },
         {
@@ -215,13 +215,13 @@ export default {
       if (_.filter(this.list, { selected: true }).length === 0 || _.filter(this.list, { sendStatus: 'R' }).length !== _.filter(this.list, { selected: true }).length) {
         this.list.forEach(item => {
           if (item.sendStatus === 'R') {
-            item['selected'] = true
+            item.selected = true
           }
         })
       } else {
         this.list.forEach(item => {
           if (item.sendStatus === 'R') {
-            item['selected'] = false
+            item.selected = false
           }
         })
       }
@@ -259,7 +259,7 @@ export default {
     }
   },
   mounted () {
-    branchService.selectPmsHotelInfoList().then(res => {
+    branchService.selectPmsStoreList().then(res => {
       this.businessList = res.data
     })
   }

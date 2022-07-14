@@ -272,7 +272,7 @@ export default {
   mounted () {
     this.selectBranch()
     // PMS 영업장 리스트 조회
-    branchService.selectPmsHotelInfoList().then(res => {
+    branchService.selectPmsStoreList().then(res => {
       this.businessList = res.data
     })
   }

@@ -95,7 +95,7 @@
                 <td v-if="index === 0" :rowspan="item.detailList.length" class="text-center font-weight-bold"
                     :style="{ 'background-color': item.isImp === 'N' ? '#EEEEEE' : '#E0F2F1' }">
               <span>
-                {{ (item.pkgYn === 'Y' ? '[패키지] ' : '[객실] ') }} <br /> {{ item.name }} <br /> {{ ' (' + item.mid + ')' }}
+                {{ (item.packageYn === 'Y' ? '[패키지] ' : '[객실] ') }} <br /> {{ item.name }} <br /> {{ ' (' + item.mid + ')' }}
               </span>
                 </td>
                 <td v-if="index === 0" :rowspan="item.detailList.length" class="text-center font-weight-bold"
