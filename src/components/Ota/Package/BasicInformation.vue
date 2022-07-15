@@ -15,7 +15,7 @@
         <v-btn outlined color="primary" @click="getPackageInformation">
           <v-icon>search</v-icon>등록
         </v-btn>
-        <v-btn @click="openSearchDgnsDialog" color="info" outlined>
+        <v-btn @click="openSearchPmsDialog" color="info" outlined>
           <v-icon>search</v-icon>PMS 검색
         </v-btn>
       </v-col>
@@ -332,7 +332,6 @@ export default {
             this.form.packageDesc = data.packageDesc
             this.form.todaySaleYn = data.todaySaleYn
           }
-
           packageService.selectPackageMasterInformation(this.packageNo, 1).then((response) => {
             if (response.data.length === 0) {
               this.isPackageSearch = true
@@ -341,7 +340,7 @@ export default {
               this.masterInformation = response.data
               this.masterInformation.startDate = moment(this.masterInformation.startDate).format('YYYYMMDD')
               this.masterInformation.endDate = moment(this.masterInformation.endDate).format('YYYYMMDD')
-              this.masterInformationList = this.masterInformation.packDgnsDetailList
+              this.masterInformationList = this.masterInformation.packPmsDetailList
               this.form.packageNo = this.packageNo
               this.isPackageSearch = true
             }
@@ -422,7 +421,7 @@ export default {
     },
 
     // PMS 에서 패키지 정보를 조회하는 Dialog 창 출력 (패키지 구분 상관없이 모두)
-    async openSearchDgnsDialog () {
+    async openSearchPmsDialog () {
       if (!this.validatePackageNumber()) return
 
       const response = await packageService.selectPackageMasterInformation(this.packageNo, 2)
@@ -432,7 +431,7 @@ export default {
       }
 
       this.$store.dispatch('dialog/open', {
-        componentPath: '/Ota/Package/SearchDgnsDialog',
+        componentPath: '/Ota/Package/SearchPmsDialog',
         params: {
           pkgMstInfo: response.data
         },

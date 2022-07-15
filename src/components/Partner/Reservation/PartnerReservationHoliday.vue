@@ -51,13 +51,13 @@ export default {
         return ''
       }
     },
-    rmTypeCode: {
+    roomTypeCode: {
       type: String,
       default () {
         return ''
       }
     },
-    ciYmd: {
+    checkInYmd: {
       type: String,
       default () {
         return ''
@@ -94,8 +94,8 @@ export default {
     events () {
       if (this.originEvents && this.originEvents.length > 0) {
         // 객실타입 코드가 있다면 필터링 : 영업장 휴일 + 선택된 객실타입 만 보이기
-        if (this.rmTypeCode) {
-          return this.originEvents.filter(data => data.rmTypeCode === null || data.rmTypeCode === this.rmTypeCode)
+        if (this.roomTypeCode) {
+          return this.originEvents.filter(data => data.roomTypeCode === null || data.roomTypeCode === this.roomTypeCode)
         } else {
           return this.originEvents
         }
@@ -120,7 +120,7 @@ export default {
     /**
      * 입실일자가 변경되면 해당 일자로 월력을 이동한다.
      */
-    ciYmd (newVal) {
+    checkInYmd (newVal) {
       if (newVal && moment(newVal).isValid()) {
         this.focus = moment(newVal).format('YYYY-MM-DD')
       }
@@ -140,18 +140,18 @@ export default {
         const events = []
         data.forEach(event => {
           events.push({
-            name: event.hldyCode === 'S' ? '영업장 휴일' : `${event.rmTypeName} 휴일`,
-            start: moment(event.stndYmd).format('YYYY-MM-DD'),
-            color: event.hldyCode === 'S' ? 'green' : 'blue',
-            type: event.hldyCode === 'S' ? 'store' : 'room',
+            name: event.holidayCode === 'S' ? '영업장 휴일' : `${event.roomTypeName} 휴일`,
+            start: moment(event.standardDate).format('YYYY-MM-DD'),
+            color: event.holidayCode === 'S' ? 'green' : 'blue',
+            type: event.holidayCode === 'S' ? 'store' : 'room',
             memo: event.memo,
-            hldyCode: event.hldyCode,
-            rmTypeCode: event.rmTypeCode,
-            rmTypeName: event.rmTypeName,
+            holidayCode: event.holidayCode,
+            roomTypeCode: event.roomTypeCode,
+            roomTypeName: event.roomTypeName,
             storeCode: event.storeCode,
             storeName: event.storeName,
             store: `${event.storeName} (${event.storeCode})`,
-            rmType: event.rmTypeCode === null ? '-' : `${event.rmTypeName} (${event.rmTypeCode})`
+            roomType: event.roomTypeCode === null ? '-' : `${event.roomTypeName} (${event.roomTypeCode})`
           })
         })
         this.originEvents = events
