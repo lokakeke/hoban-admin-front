@@ -13,8 +13,8 @@
                 <template v-slot:item.partnerName="{item}">
                     {{ item.partnerName }}/{{ item.managerName }}
                 </template>
-                <template v-slot:item.checkInYmd="{item}">
-                    {{ item.checkInYmd | date }}
+                <template v-slot:item.checkInDate="{item}">
+                    {{ item.checkInDate | date }}
                 </template>
                 <template v-slot:item.guestName="{item}">
                     <mask-name :text="item.guestName"/>
@@ -88,7 +88,7 @@ export default {
         { text: '회원번호', value: 'memberName', align: 'center' },
         { text: '영업장', value: 'storeName', align: 'center' },
         { text: '객실유형', value: 'roomTypeName', align: 'center' },
-        { text: '입실일', value: 'checkInYmd', align: 'center' },
+        { text: '입실일', value: 'checkInDate', align: 'center' },
         { text: '박수', value: 'nights', align: 'center' },
         { text: '객실수', value: 'roomCount', align: 'center' },
         { text: '이용자명', value: 'guestName', align: 'center' },
@@ -135,7 +135,7 @@ export default {
             cols: 4
           },
           {
-            key: 'checkInYmd',
+            key: 'checkInDate',
             label: '입실 일자',
             type: 'dateRange',
             format: 'YYYYMMDD',
@@ -181,7 +181,7 @@ export default {
           },
           { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 4 },
           {
-            key: 'checkInYmd',
+            key: 'checkInDate',
             label: '입실 일자',
             type: 'dateRange',
             format: 'YYYYMMDD',

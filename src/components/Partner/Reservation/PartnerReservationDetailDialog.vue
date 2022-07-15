@@ -153,7 +153,7 @@
       <v-row :dense="writable">
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">입실 일자</div>
-          <date-picker v-model="form.checkInYmd" dense
+          <date-picker v-model="form.checkInDate" dense
                        format="YYYYMMDD"
                        :min="minDate"
                        :disabled="!canSubmit"
@@ -190,7 +190,7 @@
       </v-row>
 
       <!-- 신규 / 신청 중인 상태일 경우 휴일 노출 -->
-      <partner-reservation-holiday v-if="form.approveCode === '' || form.approveCode === 'A'" :storeCode="form.storeCode" :roomTypeCode="form.roomTypeCode" :checkInYmd="form.checkInYmd"></partner-reservation-holiday>
+      <partner-reservation-holiday v-if="form.approveCode === '' || form.approveCode === 'A'" :storeCode="form.storeCode" :roomTypeCode="form.roomTypeCode" :checkInDate="form.checkInDate"></partner-reservation-holiday>
 
       <!-- 관리자 처리 후 결과 노출 -->
       <app-card v-else heading="객실예약 신청내역 처리결과" custom-classes="border" content-classes="pt-2" class="pt-2">
@@ -277,7 +277,7 @@ export default {
         guestTel: '',
         storeCode: '',
         roomTypeCode: '',
-        checkInYmd: '',
+        checkInDate: '',
         nights: '',
         roomCount: '',
         approveCode: ''

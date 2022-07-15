@@ -57,7 +57,7 @@ export default {
         return ''
       }
     },
-    checkInYmd: {
+    checkInDate: {
       type: String,
       default () {
         return ''
@@ -120,7 +120,7 @@ export default {
     /**
      * 입실일자가 변경되면 해당 일자로 월력을 이동한다.
      */
-    checkInYmd (newVal) {
+    checkInDate (newVal) {
       if (newVal && moment(newVal).isValid()) {
         this.focus = moment(newVal).format('YYYY-MM-DD')
       }

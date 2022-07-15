@@ -67,7 +67,7 @@
       <v-row>
         <v-col cols="4" md="2">
           <div class="font-weight-bold info--text body-1">입실 일자</div>
-          <v-text-field :value="form.checkInYmd | date" dense readonly hide-details append-icon="today" />
+          <v-text-field :value="form.checkInDate | date" dense readonly hide-details append-icon="today" />
         </v-col>
         <v-col cols="4" md="2">
           <div class="font-weight-bold info--text body-1">박수</div>
@@ -103,7 +103,7 @@
           </v-simple-table>
         </v-col>
         <v-col cols="8">
-          <partner-reservation-holiday :storeCode="form.storeCode" :rmTypeCode="form.rmTypeCode" :checkInYmd="form.checkInYmd"></partner-reservation-holiday>
+          <partner-reservation-holiday :storeCode="form.storeCode" :rmTypeCode="form.rmTypeCode" :checkInDate="form.checkInDate"></partner-reservation-holiday>
         </v-col>
       </v-row>
     </app-card>
@@ -242,7 +242,7 @@ export default {
         guestTel: '',
         storeCode: '',
         rmTypeCode: '',
-        checkInYmd: '',
+        checkInDate: '',
         nights: '',
         roomCount: '',
         approveCode: '',
@@ -304,7 +304,7 @@ export default {
           const dateList = []
           const days = parseInt(this.form.nights)
           for (let index = 0; index < days; index++) {
-            const value = moment(this.form.checkInYmd).add(index, 'days')
+            const value = moment(this.form.checkInDate).add(index, 'days')
             dateList.push({ label: value.format('YYYY[년] MM[월] DD[일]'), value: value.format('YYYYMMDD') })
           }
           this.dateList = dateList
@@ -373,7 +373,7 @@ export default {
     setBlockData (blockList, blockCode, dateList) {
       const row = { block: blockCode }
       for (const date of dateList) {
-        const index = blockList.findIndex(data => data.blockCode === blockCode && data.checkInYmd === date.value)
+        const index = blockList.findIndex(data => data.blockCode === blockCode && data.checkInDate === date.value)
         if (index > -1) {
           row[date.value] = blockList[index].stockQty
         } else {
