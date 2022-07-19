@@ -9,12 +9,12 @@
               <v-divider></v-divider>
               <v-layout align-center>
                 <div class="mt-1 ml-2">
-                  <v-radio-group v-model="param.setStockYn" row @change="param.brcNo ? branchChange() : () => {}">
+                  <v-radio-group v-model="param.setStockYn" row @change="param.branchNo ? branchChange() : () => {}">
                     <v-radio label="재고" value="Y"></v-radio>
                     <v-radio label="금액" value="N"></v-radio>
                   </v-radio-group>
                 </div>
-                <branch-list :brcNo.sync="param.brcNo" :branchList.sync="branchList" :branchName.sync="param.branchName" @change="branchChange()"></branch-list>
+                <branch-list :branchNo.sync="param.branchNo" :branchList.sync="branchList" :branchName.sync="param.branchName" @change="branchChange()"></branch-list>
                 <vc-date-picker class="ml-2" :min-date="new Date()" :max-date="maxDate" :columns="2" @drag="getMaxDate($event)"
                                 mode='range' v-model='param.selectDate' :popover="{visibility: 'focus'}">
                   <v-text-field slot-scope="{ inputProps, inputEvents }" v-bind="inputProps" v-on="inputEvents" @click:append-outer="param.selectDate = null"
@@ -61,7 +61,7 @@
                 <v-icon color="green" class="mr-2">done_outlined</v-icon>
                 사업장
               </div>
-              <div class="mt-2">[{{ param.pkgYn === 'N' ? '객실' : '패키지' }}] {{ param.branchName }}</div>
+              <div class="mt-2">[{{ param.packageYn === 'N' ? '객실' : '패키지' }}] {{ param.branchName }}</div>
             </v-flex>
             <v-flex xs12 sm6>
               <div>
@@ -118,7 +118,7 @@
                       </v-card-text>
                       <v-card-text v-show="false">
                         <v-autocomplete
-                          v-model="room.rsvBlockCode" :items="room.blockList" hide-details color="primary"
+                          v-model="room.blockCode" :items="room.blockList" hide-details color="primary"
                           :item-text="'blockCode'"
                           :item-value="'blockCode'" label="재고 블럭" placeholder="재고 블럭을 선택해주세요."
                         ></v-autocomplete>
@@ -212,7 +212,7 @@
                   <v-icon color="green" class="mr-2">done_outlined</v-icon>
                   사업장
                 </div>
-                <div class="mt-2">[{{ param.pkgYn === 'N' ? '객실' : '패키지' }}] {{ param.branchName }}</div>
+                <div class="mt-2">[{{ param.packageYn === 'N' ? '객실' : '패키지' }}] {{ param.branchName }}</div>
               </v-flex>
               <v-flex xs12 sm6>
                 <div>
@@ -239,7 +239,7 @@
                     <v-card color="cyan lighten-4" slot-scope="{ hover }" :class="`elevation-${hover ? 5 : 2}`">
                       <v-card-text>
                         <span class="subtitle-1 font-weight-bold pa-0">
-                          {{ room.tlRmTypeName }} - ({{ room.tlNetRmTypeGroupName }})<!-- - {{room.rsvBlockCode}} 블럭-->
+                          {{ room.tlRmTypeName }} - ({{ room.tlNetRmTypeGroupName }})<!-- - {{room.blockCode}} 블럭-->
                         </span>
                       </v-card-text>
                       <v-card-actions class="pt-0">
@@ -288,11 +288,11 @@ export default {
       // 검색조건
       param: {
         // 사업장
-        brcNo: '',
+        branchNo: '',
         branchName: '',
         // 기간
         selectDate: {},
-        pkgYn: 'N',
+        packageYn: 'N',
         setStockYn: 'Y'
       },
       rateRules: [
@@ -333,13 +333,13 @@ export default {
         if (room.stock || room.ratio || !room.sellYn) {
           room.active = true
           filterData.push({
-            brcNo: this.param.brcNo,
+            branchNo: this.param.branchNo,
             tlRmTypeName: room.tlRmTypeName,
             tlRmTypeCode: room.tlRmTypeCode,
             tlNetRmTypeGroupCode: room.tlNetRmTypeGroupCode,
             tlNetRmTypeGroupName: room.tlNetRmTypeGroupName,
-            rsvBlockCode: room.rsvBlockCode,
-            rmTypeCd: room.rmTypeCd,
+            blockCode: room.blockCode,
+            roomTypeCode: room.roomTypeCode,
             stock: room.stock,
             ratio: room.ratio,
             autoYn: room.autoYn ? 'Y' : 'N',
@@ -362,18 +362,18 @@ export default {
       this.menuRoomType = false
       this.param = {
         // 사업장
-        brcNo: '',
+        branchNo: '',
         branchName: '',
         // 기간
         selectDate: { start: null, end: null },
-        pkgYn: 'N',
+        packageYn: 'N',
         setStockYn: 'Y'
       }
     },
     branchChange () {
       // 초기화
       this.roomTypeList = []
-      roomTypeService.selectRoomTypeSync(this.param.brcNo, this.param.pkgYn).then(res => {
+      roomTypeService.selectRoomTypeSync(this.param.branchNo, this.param.packageYn).then(res => {
         // 싱크가 맞으면 진행한다.
         if (!res.data) {
           // 초기화
@@ -381,16 +381,16 @@ export default {
           this.init()
         } else {
           roomTypeService.selectRoomTypeList({
-            brcNo: this.param.brcNo,
+            branchNo: this.param.branchNo,
             useYn: 'Y',
-            pkgYn: this.param.pkgYn
+            packageYn: this.param.packageYn
           }).then(res => {
             const roomTypeList = res.data
             if (roomTypeList && roomTypeList.length > 0) {
               for (const roomType of roomTypeList) {
                 // 데이터를 셋팅해준다.
                 if (this.param.setStockYn === 'Y') {
-                  roomType.rsvBlockCode = roomType.blockList && roomType.blockList.length > 0 ? roomType.blockList[0].blockCode : ''
+                  roomType.blockCode = roomType.blockList && roomType.blockList.length > 0 ? roomType.blockList[0].blockCode : ''
                   roomType.stock = ''
                   roomType.ratio = ''
                   roomType.autoYn = true
@@ -423,7 +423,7 @@ export default {
         this.$dialog.alert('입력할 데이터가 없습니다.')
       } else {
         for (const type of this.filterData) {
-          if (!type.rsvBlockCode) {
+          if (!type.blockCode) {
             this.$dialog.alert(type.tlRmTypeName + ' 의 재고 블럭을 지정해 주세요.')
             return
           }
@@ -442,9 +442,9 @@ export default {
           stockService.updateStockSet({
             stockList: this.filterData,
             dateList: dateArray,
-            brcNo: this.param.brcNo,
+            branchNo: this.param.branchNo,
             tlRmTypeCodes: tlRmTypeCodes,
-            pkgYn: this.param.pkgYn
+            packageYn: this.param.packageYn
           }).then(res => {
             this.$dialog.alert('저장되었습니다.')
             this.init()
@@ -471,9 +471,9 @@ export default {
           tlRmTypeCodes = [...new Set(tlRmTypeCodes)]
           priceService.updatePriceSet({
             dateList: dateArray,
-            brcNo: this.param.brcNo,
+            branchNo: this.param.branchNo,
             tlRmTypeCodes: tlRmTypeCodes,
-            pkgYn: this.param.pkgYn
+            packageYn: this.param.packageYn
           }).then(res => {
             this.$dialog.alert('금액 데이터 생성 완료 후 알림이 옵니다. 알림이 오면 확인해주세요.')
             this.init()
@@ -489,7 +489,7 @@ export default {
     },
     search () {
       // 데이터를 만든다.
-      if (!this.param.brcNo) {
+      if (!this.param.branchNo) {
         this.$dialog.alert('사업장을 선택해 주세요.')
         return
       } else if (!this.param.selectDate || !this.param.selectDate.start || !this.param.selectDate.end) {
@@ -520,7 +520,7 @@ export default {
       if (!this.param.setStockYn) {
         this.$dialog.alert('기초입력 타입을 선택해 주세요.')
         return
-      } else if (!this.param.brcNo) {
+      } else if (!this.param.branchNo) {
         this.$dialog.alert('사업장을 선택해 주세요.')
         return
       } else if (!this.dates || this.dates.length === 0) {

@@ -3,7 +3,7 @@
         <v-row>
             <v-col>
                 <v-label>Tl 예약 번호</v-label>
-                <v-text-field :value="item.travRsvNos" label="" readonly></v-text-field>
+                <v-text-field :value="item.travelRsvNos" label="" readonly></v-text-field>
             </v-col>
         </v-row>
         <v-row>

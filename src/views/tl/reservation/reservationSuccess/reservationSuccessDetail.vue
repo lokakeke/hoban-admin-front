@@ -29,28 +29,28 @@
                     <v-layout wrap>
                         <v-flex xs12 md6 border-right>
                             <v-label>사업장</v-label>
-                            <p>{{detail.brcName}}</p>
+                            <p>{{detail.branchName}}</p>
 
                             <v-label>예약구분</v-label>
-                            <p>{{detail.rsvName}} ({{detail.rsvIndNm}})</p>
+                            <p>{{detail.rsvName}} ({{detail.rsvIndName}})</p>
 
                             <v-label>PMS 객실이름</v-label>
-                            <p>{{detail.rmTypeName}}</p>
+                            <p>{{detail.roomTypeName}}</p>
 
                             <v-label>판매처</v-label>
-                            <p>{{detail.agtName}}</p>
+                            <p>{{detail.agentName}}</p>
 
                             <v-label>예약자</v-label>
-                            <p>{{detail.userNm}}</p>
+                            <p>{{detail.userName}}</p>
 
                             <v-label>전화번호</v-label>
                             <p>{{detail.phoneNo}}</p>
 
                             <v-label>투숙일</v-label>
-                            <p>{{detail.roomYmd | date}}</p>
+                            <p>{{detail.roomDate | date}}</p>
 
                             <v-label>객실수</v-label>
-                            <p>{{detail.roomCnt}}</p>
+                            <p>{{detail.roomCount}}</p>
 
                             <v-label>박수</v-label>
                             <p>{{detail.nights}}</p>
@@ -84,7 +84,7 @@
                         </v-flex>
                     </v-layout>
 
-                    <reservation-history :brc-no="detail.brcNo" :org-data-id="detail.orgDataId"></reservation-history>
+                    <reservation-history :brc-no="detail.branchNo" :org-data-id="detail.orgDataId"></reservation-history>
 
                 </v-container>
             </v-card-text>
@@ -106,9 +106,9 @@ export default {
       detail: {},
       headers: [
         { text: '예약구분', value: 'rmTypeNm', align: 'center' },
-        { text: '등록일자', value: 'insDt', align: 'center' },
-        { text: '처리여부', value: 'errorCd', align: 'center' },
-        { text: '에러 메시지', value: 'errorMsg', align: 'center' }
+        { text: '등록일자', value: 'insDatetime', align: 'center' },
+        { text: '처리여부', value: 'errorCode', align: 'center' },
+        { text: '에러 메시지', value: 'errorMessage', align: 'center' }
       ]
     }
   },

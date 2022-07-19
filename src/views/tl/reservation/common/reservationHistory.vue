@@ -8,7 +8,7 @@
                 </v-flex>
 
                 <v-flex class="mt-5">
-                    <v-data-table :no-data-text="'데이터가 없습니다.'" :headers="headers" item-key="hstNo"
+                    <v-data-table :no-data-text="'데이터가 없습니다.'" :headers="headers" item-key="historyNo"
                                   :items="list" class="condensed bordered" hide-default-footer>
                         <template v-slot:body="{ items }">
                             <tbody>
@@ -18,13 +18,13 @@
                                     <td class="text-center">{{ item.createDatetime }}</td>
                                     <td class="text-center">{{ item.tlNetRmTypeGroupName }}</td>
                                     <td class="text-center">{{ item.netAgtRmTypeName }}</td>
-                                    <td class="text-center">{{ item.errorCd && item.errorCd !== '0' ? '오류발생' :'처리완료'  }}</td>
+                                    <td class="text-center">{{ item.errorCode && item.errorCode !== '0' ? '오류발생' :'처리완료'  }}</td>
                                     <td class="text-center">
-                                        {{ item.errorMsg }}
+                                        {{ item.errorMessage }}
                                     </td>
                                     <td class="text-xs-center">{{ item.keyRsvNo }}</td>
                                     <td class="text-xs-center">{{ item.rsvNo }}</td>
-                                    <td class="text-xs-center">{{ item.confirmDt }}</td>
+                                    <td class="text-xs-center">{{ item.confirmDatetime }}</td>
                                     <td class="text-xs-center">
                                         <pre v-html="item.confirmRemark"></pre>
                                     </td>
@@ -44,7 +44,7 @@
 import reservationHistoryService from '@/api/modules/tl/reservation/reservationHistory.service'
 
 export default {
-  props: ['brcNo', 'orgDataId'],
+  props: ['branchNo', 'orgDataId'],
   data () {
     return {
       detail: {},
@@ -53,11 +53,11 @@ export default {
         { text: '등록일자', value: 'createDatetime', align: 'center' },
         { text: 'TL객실이름', value: 'tlRmTypeName', align: 'center', sortable: false },
         { text: '판매처 객실이름', value: 'netAgtRmTypeName', align: 'center', sortable: false },
-        { text: '처리여부', value: 'errorCd', align: 'center', sortable: false },
-        { text: '에러 메시지', value: 'errorMsg', align: 'center', sortable: false },
+        { text: '처리여부', value: 'errorCode', align: 'center', sortable: false },
+        { text: '에러 메시지', value: 'errorMessage', align: 'center', sortable: false },
         { text: '예약KEY번호', value: 'keyRsvNo', align: 'center', sortable: false },
         { text: '예약번호', value: 'rsvNo', align: 'center', sortable: false },
-        { text: '확인시간', value: 'confirmDt', align: 'center' },
+        { text: '확인시간', value: 'confirmDatetime', align: 'center' },
         { text: '확인내용', value: 'confirmRemark', align: 'center', sortable: false }
       ],
       list: []
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     getHistoryList () {
-      const searchParam = { brcNo: this.brcNo, orgDataId: this.orgDataId }
+      const searchParam = { branchNo: this.branchNo, orgDataId: this.orgDataId }
       reservationHistoryService.selectReservationHistoryList(searchParam).then(res => {
         this.list = res.data
       })

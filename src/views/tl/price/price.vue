@@ -4,7 +4,7 @@
       <app-card colClasses="xl12 lg12 md12 sm12 xs12">
         <v-row>
           <v-col cols="10" class="text-left">
-            <branch-list :brcNo.sync="param.brcNo" :branchList.sync="branchList" :branchName.sync="param.branchName"
+            <branch-list :branchNo.sync="param.branchNo" :branchList.sync="branchList" :branchName.sync="param.branchName"
                          @change="branchChange()" class="mb-2"></branch-list>
             <v-menu v-model="menu" bottom offset-y :close-on-content-click="false" transition="slide-y-transition">
               <template v-slot:activator="{ on }">
@@ -164,7 +164,7 @@ moment.locale('ko')
 export default {
   name: 'price',
   components: { BranchList, SelectList, DatePicker },
-  data() {
+  data () {
     return {
       // 검색기간
       start: '',
@@ -181,7 +181,7 @@ export default {
         periodType: '2w',
         // 선택기간
         selectDate: '',
-        pkgYn: 'N'
+        packageYn: 'N'
       },
       headers: [],
       dates: [],
@@ -203,18 +203,18 @@ export default {
       roomTypeList: []
     }
   },
-  mounted() {
+  mounted () {
     this.param.selectDate = moment().toDate()
   },
   computed: {
-    roomTypeArray() {
+    roomTypeArray () {
       let text = ''
       let index = 1
-      let length = this.param.tlRmTypeCodeList.length
+      const length = this.param.tlRmTypeCodeList.length
       if (length === 0) {
         text = '객실 타입을 선택하세요.'
       } else {
-        for (let type of this.param.tlRmTypeCodeList) {
+        for (const type of this.param.tlRmTypeCodeList) {
           text += _.find(this.roomTypeList, { tlRmTypeCode: type }).tlRmTypeName
           if (index !== length) {
             text += ' , '
@@ -226,8 +226,8 @@ export default {
     }
   },
   methods: {
-    branchChange() {
-      if (!this.param.brcNo) {
+    branchChange () {
+      if (!this.param.branchNo) {
         this.$dialog.alert('사업장을 선택 후 진행하여 주세요.')
         return
       }
@@ -235,28 +235,28 @@ export default {
       this.param.tlRmTypeCodeList = []
       this.roomTypeList = []
       this.body = []
-      roomTypeService.selectRoomTypeSync(this.param.brcNo, this.param.pkgYn).then(res => {
+      roomTypeService.selectRoomTypeSync(this.param.branchNo, this.param.packageYn).then(res => {
         // 싱크가 맞으면 진행한다.
         if (!res.data) {
           this.$dialog.alert('해당 사업장(' + this.param.branchName + ')의<br/>객실타입마스터 싱크가 맞지 않습니다.')
         } else {
           roomTypeService.selectRoomTypeList({
-            brcNo: this.param.brcNo,
+            branchNo: this.param.branchNo,
             useYn: 'Y',
-            pkgYn: this.param.pkgYn
+            packageYn: this.param.packageYn
           }).then(res => {
             this.roomTypeList = res.data
           })
         }
       })
     },
-    closeAll() {
+    closeAll () {
       this.menuClose = !this.menuClose
-      for (let room of this.body) {
+      for (const room of this.body) {
         room.isView = this.menuClose
       }
     },
-    checkDate() {
+    checkDate () {
       // 시작일 90일 초과 시 disable
       if (this.param.selectDate[0] && this.param.selectDate[1]) {
         if (moment(this.param.selectDate[1], 'YYYY-MM-DD').diff(this.param.selectDate[0], 'day') > 90) {
@@ -265,14 +265,14 @@ export default {
         }
       }
     },
-    periodChange() {
+    periodChange () {
       if (this.param.periodType === 'p') {
         this.param.selectDate = []
       } else {
         this.param.selectDate = moment().toDate()
       }
     },
-    weekChange(isPrev) {
+    weekChange (isPrev) {
       const addWeeks = this.param.periodType === '2w' ? 2 : 1
       if (isPrev === undefined) {
         this.param.selectDate = moment(this.param.selectDate)
@@ -287,8 +287,8 @@ export default {
         this.param.selectDate = moment(this.param.selectDate).add(+addWeeks, 'weeks')
       }
     },
-    search() {
-      if (!this.param.brcNo) {
+    search () {
+      if (!this.param.branchNo) {
         this.$dialog.alert('사업장을 선택해 주세요.')
         return
       } else if (!this.param.tlRmTypeCodeList || this.param.tlRmTypeCodeList.length === 0) {
@@ -310,13 +310,13 @@ export default {
       this.param.startDate = startDate
       this.param.endDate = endDate
       // 파라미터를 만든다.
-      let nights = moment(endDate).diff(startDate, 'day')
-      let params = {
-        brcNo: this.param.brcNo,
+      const nights = moment(endDate).diff(startDate, 'day')
+      const params = {
+        branchNo: this.param.branchNo,
         nights: nights,
-        stndYmd: moment(startDate).format('YYYYMMDD'),
+        standardDate: moment(startDate).format('YYYYMMDD'),
         tlRmTypeCodes: this.param.tlRmTypeCodeList,
-        pkgYn: this.param.pkgYn
+        packageYn: this.param.packageYn
       }
       // 조회
       this.headers = []
@@ -324,7 +324,7 @@ export default {
       this.dates = []
       priceService.selectPriceList(params).then(res => {
         // 테이블을 만든다.
-        let headers = [{ text: '플랜그룹명', sortable: false }, { text: '-', sortable: false }, {
+        const headers = [{ text: '플랜그룹명', sortable: false }, { text: '-', sortable: false }, {
           text: '인원수',
           sortable: false
         }]
@@ -339,7 +339,7 @@ export default {
           this.dates.push(date)
         }
         this.headers = headers
-        for (let room of res.data) {
+        for (const room of res.data) {
           room.isView = true
           // 금액 없는 인원 ROW 제거
           _.forEach(room.data, function (planGroup) {
@@ -354,7 +354,7 @@ export default {
         this.loading = true
       })
     },
-    getPriceValue(value) {
+    getPriceValue (value) {
       return value ? this.$options.filters.price(value) + '원' : '-'
     }
   }

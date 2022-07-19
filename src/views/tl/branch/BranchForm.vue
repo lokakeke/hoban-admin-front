@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-label>사업장 이름</v-label>
-        <v-text-field v-model="formData.brcName" :counter="100" label="" :rules="emptyRules" required
+        <v-text-field v-model="formData.branchName" :counter="100" label="" :rules="emptyRules" required
                       class="pt-0 ime-active"></v-text-field>
         <v-label>영업장</v-label>
         <v-autocomplete v-model="formData.storeCode" :items="businessList" :rules="emptyRules"

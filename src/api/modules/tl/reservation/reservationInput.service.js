@@ -12,8 +12,8 @@ const reservationInputService = {
   /**
      * 예약 정보 상세조회
      */
-  selectReservationInputDetail (brcNo, inputNo, inputDtlNo) {
-    return api.get(`/api/cms/tl/booking/reservation/reservationInput/${brcNo}/${inputNo}/${inputDtlNo}`)
+  selectReservationInputDetail (branchNo, inputNo, inputDtlNo) {
+    return api.get(`/api/cms/tl/booking/reservation/reservationInput/${branchNo}/${inputNo}/${inputDtlNo}`)
   },
   updateReservationNoHistorycConfirm (param) {
     return api.post('/api/cms/tl/booking/reservation/reservationInput/noHistoryConfirm', param)

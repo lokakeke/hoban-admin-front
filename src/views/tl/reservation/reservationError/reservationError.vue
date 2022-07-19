@@ -15,7 +15,7 @@
                                 <tbody>
                                 <template v-for="(item,index) in items">
                                     <tr class="pointer" :key="index" @click="showDetail(item)">
-                                        <td class="text-center">{{ item.brcName }}</td>
+                                        <td class="text-center">{{ item.branchName }}</td>
                                         <td class="text-center">
                                             <template v-if="Number(item.cnt) === 1">
                                                                             <span class="v-badge error">
@@ -34,14 +34,14 @@
                                             </template>
                                         </td>
                                         <td class="text-center">{{ item.rsvName }}</td>
-                                        <td class="text-center">{{ item.agtName }}</td>
-                                        <td class="text-center">{{ item.travRsvNo }}</td>
-                                        <td class="text-center">{{ item.userNm }}</td>
-                                        <td class="text-center">{{ item.roomYmd | date }}</td>
+                                        <td class="text-center">{{ item.agentName }}</td>
+                                        <td class="text-center">{{ item.travelRsvNo }}</td>
+                                        <td class="text-center">{{ item.userName }}</td>
+                                        <td class="text-center">{{ item.roomDate | date }}</td>
                                         <td class="text-center">{{ item.roomPrice | price }}</td>
                                         <td class="text-center">{{ item.breakfastYn == 'Y' ? '포함' : '' }}</td>
                                         <td class="text-center">{{ item.rsvNo }}</td>
-                                        <td class="text-center">{{ item.confirmDt | date }}</td>
+                                        <td class="text-center">{{ item.confirmDatetime | date }}</td>
                                         <td class="text-center">{{ item.createDatetime}}</td>
                                     </tr>
                                     <tr v-if="item.isOpen && item.isOpen === true" :key="index+ '-'" class="bordered sub-detail">
@@ -63,12 +63,12 @@
                                                     <tbody>
                                                     <tr v-for="(detail, index) of item.detailList" class="pointer pr-2 pl-2 text-md-center sub-detail" :key="index" @click="showSubDetail(detail)">
                                                         <td>{{detail.rsvName}}</td>
-                                                        <td>{{detail.rmTypeName}}</td>
-                                                        <td>{{detail.roomYmd }}</td>
-                                                        <td>{{detail.roomCnt}}</td>
+                                                        <td>{{detail.roomTypeName}}</td>
+                                                        <td>{{detail.roomDate }}</td>
+                                                        <td>{{detail.roomCount}}</td>
                                                         <td>{{detail.nights}}</td>
                                                         <td>{{detail.roomPrice | price}}</td>
-                                                        <td>{{detail.confirmDt | date}}</td>
+                                                        <td>{{detail.confirmDatetime | date}}</td>
                                                         <td>{{detail.createDatetime}}</td>
                                                     </tr>
                                                     </tbody>
@@ -149,26 +149,26 @@ export default {
       rsvTypeList: [],
       otaList: [],
       headers: [
-        { text: '사업장', value: 'brcName', align: 'center', sortable: false },
+        { text: '사업장', value: 'branchName', align: 'center', sortable: false },
         { text: '건수', value: 'cnt', align: 'center', sortable: false },
         { text: '마지막 상태', value: 'rsvName', align: 'center', sortable: false },
-        { text: '판매처', value: 'agtName', align: 'center', sortable: false },
-        { text: 'TL예약번호', value: 'travRsvNo', align: 'center', sortable: false },
-        { text: '예약자', value: 'userNm', align: 'center', sortable: false },
-        { text: '마지막 투숙일', value: 'roomYmd', align: 'center' },
+        { text: '판매처', value: 'agentName', align: 'center', sortable: false },
+        { text: 'TL예약번호', value: 'travelRsvNo', align: 'center', sortable: false },
+        { text: '예약자', value: 'userName', align: 'center', sortable: false },
+        { text: '마지막 투숙일', value: 'roomDate', align: 'center' },
         { text: '마지막 객실료', value: 'roomPrice', align: 'center', sortable: false },
         { text: '조식여부', value: 'breakfastYn', align: 'center', sortable: false },
         { text: '예약번호', value: 'rsvNo', align: 'center', sortable: false },
-        { text: '처리일', value: 'confirmDt', align: 'center', sortable: false },
+        { text: '처리일', value: 'confirmDatetime', align: 'center', sortable: false },
         { text: '실패시간', value: 'createDatetime', align: 'center' }
       ],
       searchList: [
-        { key: 'brcNo', label: '사업장', type: 'branch' },
-        { key: 'rsvType', label: '예약구분', type: 'code', commCd: 'tl_rsv_type' },
-        { key: 'agtCode', label: '판매처', type: 'code', commCd: 'agt' },
-        { key: 'userNm', label: '예약자', type: 'text' },
+        { key: 'branchNo', label: '사업장', type: 'branch' },
+        { key: 'rsvType', label: '예약구분', type: 'code', commonCode: 'tl_rsv_type' },
+        { key: 'agentCode', label: '판매처', type: 'code', commonCode: 'agent' },
+        { key: 'userName', label: '예약자', type: 'text' },
         {
-          key: 'roomYmd',
+          key: 'roomDate',
           label: '투숙일',
           type: 'dateRange',
           startField: 'beginDate1',
@@ -184,7 +184,7 @@ export default {
           format: 'YYYYMMDD',
           defaultValue: [moment().format('YYYYMMDD'), moment().format('YYYYMMDD')]
         },
-        { key: 'travRsvNo', label: 'TL예약번호', type: 'text' },
+        { key: 'travelRsvNo', label: 'TL예약번호', type: 'text' },
         { key: 'rsvNo', label: '예약번호', type: 'text' },
         { key: 'isBreakfast', label: '조식여부', type: 'boolean' },
         { key: 'isPriceDiff', label: '금액 차이 발생', type: 'boolean' }
@@ -241,8 +241,8 @@ export default {
 
     showDetail (item) {
       if (item.detailList.length < 2) {
-        this.toastData.bindParam1 = item.brcNo
-        this.toastData.bindParam4 = item.detailList[0].hstNo
+        this.toastData.bindParam1 = item.branchNo
+        this.toastData.bindParam4 = item.detailList[0].historyNo
         this.dialog = true
       } else {
         this.openSubDetailList(item)
@@ -250,8 +250,8 @@ export default {
     },
 
     showSubDetail (item) {
-      this.toastData.bindParam1 = item.brcNo
-      this.toastData.bindParam4 = item.hstNo
+      this.toastData.bindParam1 = item.branchNo
+      this.toastData.bindParam4 = item.historyNo
       this.dialog = true
     },
     openSubDetailList (item) {

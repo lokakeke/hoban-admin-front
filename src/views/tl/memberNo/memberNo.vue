@@ -7,9 +7,9 @@
             <v-card flat>
               <v-card-title class="headline font-weight-bold justify-center border-bottom pt-0">AGENT 선택</v-card-title>
               <v-card-text class="mt-8 pl-5 pr-5">
-                <v-list dense v-if="agtCodeList && agtCodeList.length > 0" class="pr-5">
+                <v-list dense v-if="agentCodeList && agentCodeList.length > 0" class="pr-5">
                   <transition-group type="transition" name="flip-list">
-                    <v-list-item v-for="item of agtCodeList" :key="item.commonCode" @click="viewDetail(item)" class="menu-list" :class="item.active? 'active' : ''">
+                    <v-list-item v-for="item of agentCodeList" :key="item.commonCode" @click="viewDetail(item)" class="menu-list" :class="item.active? 'active' : ''">
                       <v-list-item-action>
                         <v-icon>business</v-icon>
                       </v-list-item-action>
@@ -35,8 +35,8 @@
               <v-card-title class="headline font-weight-bold justify-center border-bottom pt-0">회원번호 정보 내용</v-card-title>
               <v-card-text class="mt-8 pl-5 pr-5">
                 <transition name="slide-fade" mode="out-in">
-                  <template v-if="param.agtCode">
-                    <v-form ref="form" lazy-validation :key="param.agtCode" autocomplete="off">
+                  <template v-if="param.agentCode">
+                    <v-form ref="form" lazy-validation :key="param.agentCode" autocomplete="off">
                       <v-flex xs12 class="mb-3">
                         <v-label>회원번호 정보</v-label>
                         <v-btn small rounded outlined color="blue" @click="add()">
@@ -105,21 +105,21 @@ import memberNoService from '@/api/modules/tl/memberNo.service'
 export default {
   components: {},
   name: 'memberNo',
-  mounted() {
-    commonCodeService.selectCommonCode('agt').then(res => {
-      this.agtCodeList = res.data
+  mounted () {
+    commonCodeService.selectCommonCode('agent').then(res => {
+      this.agentCodeList = res.data
     })
 
     commonCodeService.selectCommonCode('member_type').then(res => {
       this.memberTypeList = res.data
     })
   },
-  data() {
+  data () {
     return {
       // ota 코드리스트
-      agtCodeList: [],
+      agentCodeList: [],
       memberTypeList: [],
-      param: { agtCode: '', memberNo: '' },
+      param: { agentCode: '', memberNo: '' },
       headers: [
         { text: '회원번호', value: 'memberNo', align: 'center', sortable: false },
         { text: '회원번호구분', value: 'memberType', align: 'center', sortable: false },
@@ -130,7 +130,7 @@ export default {
     }
   },
   methods: {
-    selectMemberNoList() {
+    selectMemberNoList () {
       memberNoService.selectMemberNoList(this.param).then(res => {
         if (res.data) {
           this.form.list = res.data
@@ -139,20 +139,20 @@ export default {
         }
       })
     },
-    add() {
-      this.form.list.push({ agtCode: this.param.agtCode, memberNo: '', memberType: '' })
+    add () {
+      this.form.list.push({ agentCode: this.param.agentCode, memberNo: '', memberType: '' })
     },
-    viewDetail(item) {
-      for (let data of this.agtCodeList) {
+    viewDetail (item) {
+      for (const data of this.agentCodeList) {
         data.active = false
       }
       item.active = true
-      this.param.agtCode = item.commonCode
+      this.param.agentCode = item.commonCode
       // 기존에 저장된 정보를 가져와야됨.
       this.selectMemberNoList()
     },
-    async commit() {
-      this.form.agtCode = this.param.agtCode
+    async commit () {
+      this.form.agentCode = this.param.agentCode
       this.form.memberNo = this.param.memberNo
 
       await this.validForm(this.$refs.form)
@@ -165,7 +165,7 @@ export default {
       }, () => {
       })
     },
-    remove(index) {
+    remove (index) {
       this.$dialog.confirm('선택한 항목을 삭제하시겠습니까?').then(() => {
         this.form.list.splice(index, 1)
       }, () => {

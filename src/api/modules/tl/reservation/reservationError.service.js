@@ -10,8 +10,8 @@ const reservationErrorService = {
       params: param
     })
   },
-  selectReservationErrorDetail (brcNo, hstNo) {
-    return api.get(`/api/cms/tl/booking/reservation/reservationError/${brcNo}/${hstNo}`)
+  selectReservationErrorDetail (branchNo, historyNo) {
+    return api.get(`/api/cms/tl/booking/reservation/reservationError/${branchNo}/${historyNo}`)
   },
 
   updateReservationErrorConfirm (param) {

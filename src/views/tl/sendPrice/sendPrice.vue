@@ -51,16 +51,16 @@
                     ></v-checkbox>
                   </td>
                   <td class="text-xs-right">{{ props.item.rnum }}</td>
-                  <td class="text-xs-center">{{ props.item.brcName }} [{{ props.item.brcNo }}]</td>
+                  <td class="text-xs-center">{{ props.item.branchName }} [{{ props.item.branchNo }}]</td>
                   <td class="text-xs-center">{{ props.item.storeName }} [{{props.item.storeCode}}]
                   </td>
                   <td class="text-xs-center">{{ props.item.tlRmTypeName || '---' }}[{{ props.item.tlNetRmTypeGroupCode }}]
                   </td>
-                  <td class="text-xs-center">{{ props.item.rmTypeName }} [{{props.item.rmTypeCd}}]
+                  <td class="text-xs-center">{{ props.item.roomTypeName }} [{{props.item.roomTypeCode}}]
                   </td>
-                  <td class="text-xs-center">{{dateSet(props.item.startYmd, 'YYYYMMDD', 'YYYY-MM-DD')}}
+                  <td class="text-xs-center">{{dateSet(props.item.startDate, 'YYYYMMDD', 'YYYY-MM-DD')}}
                   </td>
-                  <td class="text-xs-center">{{dateSet(props.item.endYmd, 'YYYYMMDD', 'YYYY-MM-DD')}}
+                  <td class="text-xs-center">{{dateSet(props.item.endDate, 'YYYYMMDD', 'YYYY-MM-DD')}}
                   </td>
                   <td class="text-xs-center">
                     <v-chip v-if="props.item.sendStatus === 'R'" small
@@ -79,12 +79,12 @@
                       {{ props.item.sendStatusName }}
                     </v-chip>
                   </td>
-                  <td class="text-xs-center">{{ props.item.sendDetailCnt }}</td>
+                  <td class="text-xs-center">{{ props.item.sendDetailCount }}</td>
                   <td class="text-xs-center">
-                    {{ props.item.sendDetailSuccCnt ? props.item.sendDetailSuccCnt : 0 }}
+                    {{ props.item.sendDetailSuccessCount ? props.item.sendDetailSuccessCount : 0 }}
                   </td>
                   <td class="text-xs-center">
-                    {{ props.item.sendDetailFailCnt ? props.item.sendDetailFailCnt : 0 }}
+                    {{ props.item.sendDetailFailCount ? props.item.sendDetailFailCount : 0 }}
                   </td>
                   <td class="text-xs-center">{{ props.item.createDatetime }}</td>
                 </tr>
@@ -121,16 +121,16 @@ export default {
       businessList: [],
       headers: [
         { text: '번호', value: 'rnum', align: 'right' },
-        { text: '사업장', value: 'brcName', align: 'center' },
+        { text: '사업장', value: 'branchName', align: 'center' },
         { text: '영업장', value: 'storeName', align: 'center' },
         { text: 'TL객실타입', value: 'tlRmTypeName', align: 'center' },
-        { text: '객실타입', value: 'rmTypeName', align: 'center' },
-        { text: '시작일자', value: 'startYmd', align: 'center' },
-        { text: '종료일자', value: 'endYmd', align: 'center' },
+        { text: '객실타입', value: 'roomTypeName', align: 'center' },
+        { text: '시작일자', value: 'startDate', align: 'center' },
+        { text: '종료일자', value: 'endDate', align: 'center' },
         { text: '전송 상태', value: 'sendStatusName', align: 'center' },
-        { text: '전송상세 갯수', value: 'sendDetailCnt', align: 'right' },
-        { text: '상세 성공갯수', value: 'sendDetailSuccCnt', align: 'right' },
-        { text: '상세 실패갯수', value: 'sendDetailFailCnt', align: 'right' },
+        { text: '전송상세 갯수', value: 'sendDetailCount', align: 'right' },
+        { text: '상세 성공갯수', value: 'sendDetailSuccessCount', align: 'right' },
+        { text: '상세 실패갯수', value: 'sendDetailFailCount', align: 'right' },
         { text: '전송 일자', value: 'createDatetime', align: 'center' }
       ],
       sendStatusList: [
@@ -154,7 +154,7 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'brcNo', label: '사업장', type: 'branch' },
+        { key: 'branchNo', label: '사업장', type: 'branch' },
         {
           key: 'storeCode',
           label: '영업장',
@@ -163,7 +163,7 @@ export default {
           listValue: 'storeCode',
           listText: 'storeName'
         },
-        { key: 'rmTypeName', label: '객실타입', type: 'text' },
+        { key: 'roomTypeName', label: '객실타입', type: 'text' },
         {
           key: 'sendStatus',
           label: '전송 상태',

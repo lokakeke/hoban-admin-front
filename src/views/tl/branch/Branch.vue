@@ -38,7 +38,7 @@
                         </v-list-item-action>
                         <v-list-item-content>
                           <v-list-item-title>
-                            {{ item.brcName + '(' + item.brcNo + ')' }}
+                            {{ item.branchName + '(' + item.branchNo + ')' }}
                           </v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-action>
@@ -174,15 +174,15 @@ export default {
     },
     filter () {
       this.branch = this.branchOrigin.filter(value => {
-        return value.brcName.toLowerCase().includes(this.search.toLowerCase())
+        return value.branchName.toLowerCase().includes(this.search.toLowerCase())
       })
     },
-    selectBranch (brcNo) {
+    selectBranch (branchNo) {
       branchService.selectTLBranchList().then(res => {
         this.branchOrigin = res.data
         this.filter()
         for (const row of this.branch) {
-          if (brcNo && row.brcNo === brcNo) {
+          if (branchNo && row.branchNo === branchNo) {
             this.viewDetail(row)
           }
         }
@@ -195,7 +195,7 @@ export default {
       item.active = true
       this.form = _.cloneDeep(item)
       this.cloneForm = _.cloneDeep(this.form)
-      this.param.branch = item.brcNo
+      this.param.branch = item.branchNo
     },
     sort (menus) {
       menus = menus.sort((a, b) => a.sortOrder - b.sortOrder)
@@ -206,7 +206,7 @@ export default {
       for (let index = 0; index < this.branch.length; index++) {
         const order = index + 1
         if (order !== this.branch[index].sortOrder) {
-          changeList.push({ brcNo: this.branch[index].brcNo, sortOrder: order })
+          changeList.push({ branchNo: this.branch[index].branchNo, sortOrder: order })
         }
       }
       if (changeList.length === 0) {
@@ -214,7 +214,7 @@ export default {
       } else {
         this.$dialog.confirm('사업장 순서를 변경하시겠습니까?').then(() => {
           branchService.updateBranchOrder(changeList).then(res => {
-            this.selectBranch(this.form.brcNo)
+            this.selectBranch(this.form.branchNo)
             this.$dialog.alert('저장되었습니다.')
           })
         }, () => {
@@ -256,7 +256,7 @@ export default {
         if (isModify) {
           await branchService.updateBranch(this.form).then(res => {
             this.cloneForm = _.cloneDeep(this.form)
-            this.selectBranch(this.form.brcNo)
+            this.selectBranch(this.form.branchNo)
           })
         } else {
           await branchService.insertBranch(this.addForm).then(res => {
