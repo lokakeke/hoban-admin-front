@@ -9,7 +9,7 @@
       <template v-slot:item="props">
         <template v-for="(priceInfo, index) in props.item.sendPricePersonDetailList">
           <tr :class="props.item.sendStatus === '9' ? 'red lighten-2': ''">
-            <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ getYmdToDateFormat(props.item.stndYmd) }}</td>
+            <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ getYmdToDateFormat(props.item.standardDate) }}</td>
             <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ props.item.sendStatusName }}</td>
             <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ props.item.planGroupName }} ( {{ props.item.planGroupCode }} )</td>
             <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ props.item.sellStatus === '1' ? '판매' : (props.item.sellStatus === '2' ? '중지' : '판매상태 변경 안함') }}</td>
@@ -18,8 +18,8 @@
             <td class="text-xs-center">{{ getPriceValue(priceInfo.roomPrice) }}</td>
             <td class="text-xs-center">{{ getPriceValue(priceInfo.breakfastPrice) }}</td>
             <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ dateSet(props.item.createDatetime) }}</td>
-            <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ props.item.errorCd }}</td>
-            <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ props.item.errorMsg }}</td>
+            <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ props.item.errorCode }}</td>
+            <td v-if="index === 0" :rowspan="props.item.sendPricePersonDetailList.length" class="text-xs-center">{{ props.item.errorMessage }}</td>
           </tr>
         </template>
       </template>
@@ -36,7 +36,7 @@ import moment from 'moment'
 export default {
   props: ['dialog', 'sendNo'],
   name: 'sendPriceDetailList',
-  data() {
+  data () {
     return {
       expand: false,
       reset: false,
@@ -49,7 +49,7 @@ export default {
         total: 0
       },
       headers: [
-        { text: '기준일', value: 'stndYmd', align: 'center' },
+        { text: '기준일', value: 'standardDate', align: 'center' },
         { text: '전송상태', value: 'sendStatus', align: 'center' },
         { text: '플랜그룹명', value: 'planGroupName', align: 'center' },
         { text: '판매상태', value: 'sellStatus', align: 'center' },
@@ -58,8 +58,8 @@ export default {
         { text: '객실요금', value: 'roomPrice', align: 'center' },
         { text: '조식금액', value: 'breakfastPrice', align: 'center' },
         { text: '등록일', value: 'createDatetime', align: 'center' },
-        { text: '에러 코드', value: 'errorCd', align: 'center' },
-        { text: '에러 메시지', value: 'errorMsg', align: 'center' }
+        { text: '에러 코드', value: 'errorCode', align: 'center' },
+        { text: '에러 메시지', value: 'errorMessage', align: 'center' }
       ],
       sendStatusList: [
         { status: 'R', statusName: '전송대기' },
@@ -71,7 +71,7 @@ export default {
   watch: {
     dialog: {
       immediate: true,
-      handler(newVal) {
+      handler (newVal) {
         if (newVal) {
           this.selectDetail(this.sendNo, this.searchParam)
         } else if (this.$refs.SearchForm) {
@@ -81,7 +81,7 @@ export default {
     }
   },
   computed: {
-    searchList() {
+    searchList () {
       return [
         {
           key: 'sendStatus',
@@ -91,12 +91,12 @@ export default {
           listValue: 'status',
           listText: 'statusName'
         },
-        { key: 'stndYmd', label: '기준일', type: 'date', format: 'YYYYMMDD' }
+        { key: 'standardDate', label: '기준일', type: 'date', format: 'YYYYMMDD' }
       ]
     }
   },
   methods: {
-    selectDetail(sendNo, searchParam) {
+    selectDetail (sendNo, searchParam) {
       this.form = {}
       this.list = []
       sendPriceService.selectDetail(sendNo, searchParam).then(res => {
@@ -105,20 +105,20 @@ export default {
         this.searchParam.total = res.pagination.total
       })
     },
-    resetSearchParam() {
+    resetSearchParam () {
       this.reset = true
       this.$refs.SearchForm.emit(true)
       this.reset = false
     },
-    search() {
+    search () {
       if (!this.reset) {
         this.selectDetail(this.sendNo, this.searchParam)
       }
     },
-    getYmdToDateFormat(ymd) {
+    getYmdToDateFormat (ymd) {
       return moment(ymd, 'YYYYMMDD').locale('ko').format('YYYY-MM-DD(dd)')
     },
-    dateSet(value, currFormat = moment.defaultFormat, format = 'YYYY.MM.DD HH:mm:ss') {
+    dateSet (value, currFormat = moment.defaultFormat, format = 'YYYY.MM.DD HH:mm:ss') {
       if (!value) {
         return '-'
       } else if (!moment(value, currFormat).isValid()) {
@@ -126,7 +126,7 @@ export default {
       }
       return moment(value, currFormat).format(format)
     },
-    getPriceValue(value) {
+    getPriceValue (value) {
       return this.$options.filters.price(value)
     }
   }

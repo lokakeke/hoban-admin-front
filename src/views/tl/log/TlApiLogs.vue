@@ -3,8 +3,8 @@
         <app-card :heading="'API 통신 이력 조회 (TL) '" col-classes="col-12">
             <search-form :search-param.sync="searchParam" :search-list.sync="searchList" @search="search"></search-form>
             <v-data-table disable-pagination :no-data-text="'검색 결과가 없습니다.'" :headers="headers" :items="list" disable-sort hide-default-footer @click:row="open($event)" class="click-row bordered">
-                <template v-slot:item.travRsvNos="{ item }">
-                    {{ item.travRsvNos.join(', ') | textTruncate(40) }}
+                <template v-slot:item.travelRsvNos="{ item }">
+                    {{ item.travelRsvNos.join(', ') | textTruncate(40) }}
                 </template>
               <template v-slot:item.requestBody="{ item }">
                   {{ item.requestBody | textTruncate(70) }}
@@ -27,7 +27,7 @@ export default {
     searchList () {
       return [
         {
-          key: 'travRsvNo',
+          key: 'travelRsvNo',
           label: 'Tl 예약 번호',
           type: 'text'
         },
@@ -53,7 +53,7 @@ export default {
       headers: [
         {
           text: 'Tl 예약 번호',
-          value: 'travRsvNos',
+          value: 'travelRsvNos',
           align: 'center'
         },
         {

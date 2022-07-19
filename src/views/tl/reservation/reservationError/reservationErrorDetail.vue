@@ -28,7 +28,7 @@
                 <v-container>
                     <v-layout class="headline mb-2">
                         <v-flex xs12 md6>
-                            사업장 : {{ detail.brcName }}
+                            사업장 : {{ detail.branchName }}
                             <v-spacer></v-spacer>
                         </v-flex>
 
@@ -43,34 +43,34 @@
                             <v-flex xs12 md6 border-right>
 
                                 <v-label>에러코드</v-label>
-                                <p>{{detail.errorCd}}</p>
+                                <p>{{detail.errorCode}}</p>
 
                                 <v-label>에러메시지</v-label>
-                                <p class="red--text">{{detail.errorMsg}}</p>
+                                <p class="red--text">{{detail.errorMessage}}</p>
 
                                 <v-label>사업장</v-label>
-                                <p>{{detail.brcName}}</p>
+                                <p>{{detail.branchName}}</p>
 
                                 <v-label>예약구분</v-label>
-                                <p>{{detail.rsvName}} ({{detail.rsvIndNm}})</p>
+                                <p>{{detail.rsvName}} ({{detail.rsvIndName}})</p>
 
                                 <v-label>PMS 객실이름</v-label>
-                                <p>{{detail.rmTypeName}}</p>
+                                <p>{{detail.roomTypeName}}</p>
 
                                 <v-label>판매처</v-label>
-                                <p>{{detail.agtName}}</p>
+                                <p>{{detail.agentName}}</p>
 
                                 <v-label>예약자</v-label>
-                                <p>{{detail.userNm}}</p>
+                                <p>{{detail.userName}}</p>
 
                                 <v-label>전화번호</v-label>
                                 <p>{{detail.phoneNo}}</p>
 
                                 <v-label>투숙일</v-label>
-                                <p>{{detail.roomYmd | date}}</p>
+                                <p>{{detail.roomDate | date}}</p>
 
                                 <v-label>객실수</v-label>
-                                <p>{{detail.roomCnt}}</p>
+                                <p>{{detail.roomCount}}</p>
 
                                 <v-label>박수</v-label>
                                 <p>{{detail.nights}}</p>
@@ -100,7 +100,7 @@
                             </v-flex>
                         </v-layout>
 
-                        <reservation-history :brc-no="detail.brcNo"
+                        <reservation-history :brc-no="detail.branchNo"
                                              :org-data-id="detail.orgDataId"></reservation-history>
 
                         <v-layout justify-end class="pt-5">
@@ -121,7 +121,7 @@
                             </v-btn>
                         </v-layout>
 
-                        <v-layout justify-end v-if="detail.noHistoryYn === 'Y' && !detail.notTryConfirmYmd" class="pt-5">
+                        <v-layout justify-end v-if="detail.noHistoryYn === 'Y' && !detail.notTryConfirmDate" class="pt-5">
                             <v-btn outlined rounded color="info"  @click="complete()">
                                 <v-icon>check</v-icon>
                                 예약 미시도 확인완료

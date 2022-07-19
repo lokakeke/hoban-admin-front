@@ -89,7 +89,7 @@
                         <v-divider v-if="roomIndex !== 0" :key="roomType.text + roomIndex" class="ma-0"></v-divider>
                         <v-list-item :key="roomType.text" :class="roomType.sellYn === 'Y' ? 'light-blue lighten-5' : 'red lighten-5'">
                           <v-list-item-content>
-                            <v-list-item-title>{{ roomType.text }}-({{ roomType.rsvBlockCode }})</v-list-item-title>
+                            <v-list-item-title>{{ roomType.text }}-({{ roomType.blockCode }})</v-list-item-title>
                           </v-list-item-content>
                           <v-list-item-action>
                             <v-menu v-model="roomType.focus" bottom left offset-y :close-on-content-click="false" transition="slide-y-transition">
@@ -100,13 +100,13 @@
                               </template>
                               <v-card>
                                 <v-flex class="pa-1">
-                                  <v-flex v-for="block in roomType.pmsStock" :key="block.rsvBlockCode">
+                                  <v-flex v-for="block in roomType.pmsStock" :key="block.blockCode">
                                     재고량 : {{ block.cnt }}
                                   </v-flex>
                                   <v-divider></v-divider>
                                   <template v-if="false">
                                     <v-autocomplete
-                                      v-model="roomType.rsvBlockCode" :items="roomType.blockList" hide-details color="primary"
+                                      v-model="roomType.blockCode" :items="roomType.blockList" hide-details color="primary"
                                       label="전송 블럭"
                                       :item-text="'blockCode'"
                                       :item-value="'blockCode'"
@@ -211,17 +211,17 @@ export default {
     },
     checkAllotment (preview) {
       // pmsStock 를 구한다.
-      const pmsStockCnt = _.find(preview.pmsStock, { rsvBlockCode: preview.rsvBlockCode }).cnt
+      const pmsStockCount = _.find(preview.pmsStock, { blockCode: preview.blockCode }).cnt
       // 입력 재고가 pms 재고보다 많은지 체크한다.
-      if (parseInt(preview.expectStock) > parseInt(pmsStockCnt)) {
-        this.$dialog.alert('PMS 재고보다 크게 설정할 수 없습니다.<br/>최대 재고량 (' + pmsStockCnt + ') 으로 자동 설정됩니다.')
-        preview.expectStock = pmsStockCnt
+      if (parseInt(preview.expectStock) > parseInt(pmsStockCount)) {
+        this.$dialog.alert('PMS 재고보다 크게 설정할 수 없습니다.<br/>최대 재고량 (' + pmsStockCount + ') 으로 자동 설정됩니다.')
+        preview.expectStock = pmsStockCount
       }
     },
     setAllotment (preview) {
-      // pmsStockCnt 를 구한다.
-      const pmsStockCnt = _.find(preview.pmsStock, { rsvBlockCode: preview.rsvBlockCode }).cnt
-      preview.expectStock = Math.floor(pmsStockCnt * (preview.ratio / 100)) + ''
+      // pmsStockCount 를 구한다.
+      const pmsStockCount = _.find(preview.pmsStock, { blockCode: preview.blockCode }).cnt
+      preview.expectStock = Math.floor(pmsStockCount * (preview.ratio / 100)) + ''
     },
     checkDisplay (item) {
       let use = false; let manual = false
@@ -255,25 +255,25 @@ export default {
       if (!_.isEqual(this.originData, this.previewData)) {
         this.$dialog.confirm('변경된 내역을 저장 하시겠습니까?').then(() => {
           // 데이터를 만든다.
-          // Master : brcNo, tlRmTypeCode, tlNetRmTypeGroupCode, rsvBlockCode, rmTypeCd, stndYmd, stock, ratio, autoYn, sellYn, rsvAutoYn
-          // Detail : brcNo, tlRmTypeCode, tlNetRmTypeGroupCode, rsvBlockCode, stndYmd, agtCode, agtRmTypeCd, agtSellYn
+          // Master : branchNo, tlRmTypeCode, tlNetRmTypeGroupCode, blockCode, roomTypeCode, standardDate, stock, ratio, autoYn, sellYn, rsvAutoYn
+          // Detail : branchNo, tlRmTypeCode, tlNetRmTypeGroupCode, blockCode, standardDate, agentCode, agtRmTypeCd, agentSellYn
           const stockData = []
           for (const [key, value] of Object.entries(this.previewData)) {
             for (const room of value) {
-              const pmsStockCnt = _.find(room.pmsStock, { rsvBlockCode: room.rsvBlockCode }).cnt
+              const pmsStockCount = _.find(room.pmsStock, { blockCode: room.blockCode }).cnt
               stockData.push({
-                brcNo: room.brcNo,
+                branchNo: room.branchNo,
                 tlRmTypeCode: room.tlRmTypeCode,
                 tlNetRmTypeGroupCode: room.tlNetRmTypeGroupCode,
-                rsvBlockCode: room.rsvBlockCode,
-                rmTypeCd: room.rmTypeCd,
-                stndYmd: room.stndYmd,
+                blockCode: room.blockCode,
+                roomTypeCode: room.roomTypeCode,
+                standardDate: room.standardDate,
                 stock: room.expectStock,
                 ratio: room.ratio,
                 autoYn: room.autoYn,
                 sellYn: room.sellYn,
                 rsvAutoYn: room.rsvAutoYn,
-                pmsStock: pmsStockCnt
+                pmsStock: pmsStockCount
               })
             }
           }

@@ -34,7 +34,7 @@ import sendStockService from '@/api/modules/tl/sendStock.service'
 export default {
   components: { sendStockDetail },
   name: 'sendStock',
-  data() {
+  data () {
     return {
       searchParam: {
         q: {},
@@ -45,19 +45,19 @@ export default {
       list: [],
       headers: [
         { text: '전송 번호', value: 'sendNo', align: 'right' },
-        { text: '사업장', value: 'brcName', align: 'center' },
+        { text: '사업장', value: 'branchName', align: 'center' },
         { text: '전송 상태', value: 'sendStatus', align: 'center' },
         { text: '총 횟수', value: 'totCount', align: 'right' },
         { text: '대기 횟수', value: 'standByCount', align: 'right' },
         { text: '성공 횟수', value: 'successCount', align: 'right' },
         { text: '실패 횟수', value: 'failCount', align: 'right' },
-        { text: '기준 일자', value: 'stndYmd', align: 'center' },
+        { text: '기준 일자', value: 'standardDate', align: 'center' },
         { text: '전송 시간', value: 'createDatetime', align: 'center' }
       ],
       searchList: [
-        { key: 'brcNo', label: '사업장', type: 'branch' },
+        { key: 'branchNo', label: '사업장', type: 'branch' },
         { key: 'sendNo', label: '전송 번호', type: 'text' },
-        { key: 'sendStatus', label: '전송 상태', type: 'code', commCd: 'send_status' },
+        { key: 'sendStatus', label: '전송 상태', type: 'code', commonCode: 'send_status' },
         { key: 'searchDate', label: '전송 일자', type: 'date', format: 'YYYYMMDD' }
       ],
       form: {},
@@ -65,7 +65,7 @@ export default {
     }
   },
   methods: {
-    search() {
+    search () {
       if (this.searchParam.q.sendNo) {
         this.searchParam.q.sendNo = parseInt(this.searchParam.q.sendNo)
       }
@@ -74,7 +74,7 @@ export default {
         this.searchParam.total = res.pagination.total
       })
     },
-    showDetail(info) {
+    showDetail (info) {
       this.form = info
       this.dialog = true
     }

@@ -11,8 +11,8 @@ const reservationSuccessService = {
     })
   },
 
-  selectReservationSuccessDetail (brcNo, successNo) {
-    return api.get(`/api/cms/tl/booking/reservation/reservationSuccess/${brcNo}/${successNo}`)
+  selectReservationSuccessDetail (branchNo, successNo) {
+    return api.get(`/api/cms/tl/booking/reservation/reservationSuccess/${branchNo}/${successNo}`)
   }
 }
 export default reservationSuccessService
