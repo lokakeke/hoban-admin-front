@@ -40,7 +40,7 @@ const storeService = {
    * 지역코드, 명 (영업장 정보, 객실타입 정보 포함)
    */
   selectLcalCodeAllList () {
-    return api.get('/api/cms/system/store/lcalCodeAllList')
+    return api.get('/api/pms/product/store/localCodeAllList')
   }
 
 }
