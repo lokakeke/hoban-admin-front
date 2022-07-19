@@ -58,7 +58,7 @@
             <v-row>
               <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
                 <v-label>시작일</v-label>
-                <date-picker v-model="detail.tempStartYmd" :min="'1970-01-01'" clearable required></date-picker>
+                <date-picker v-model="detail.tempStartDate" :min="'1970-01-01'" clearable required></date-picker>
               </v-col>
 
               <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
@@ -80,7 +80,7 @@
             <v-row>
               <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
                 <v-label>종료일</v-label>
-                <date-picker v-model="detail.tempEndYmd" :min="dataRangeEnd" clearable required></date-picker>
+                <date-picker v-model="detail.tempEndDate" :min="dataRangeEnd" clearable required></date-picker>
               </v-col>
 
               <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
@@ -154,7 +154,7 @@
           <v-row>
             <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
               <v-label>시작일</v-label>
-              <date-picker v-model="form.tempStartYmd" :min="toDay" clearable required></date-picker>
+              <date-picker v-model="form.tempStartDate" :min="toDay" clearable required></date-picker>
             </v-col>
 
             <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
@@ -176,7 +176,7 @@
           <v-row>
             <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
               <v-label>종료일</v-label>
-              <date-picker v-model="form.tempEndYmd" :min="minBgnYmd" clearable required></date-picker>
+              <date-picker v-model="form.tempEndDate" :min="minBgnYmd" clearable required></date-picker>
             </v-col>
 
             <v-col class="pr-md-3 pr-lg-3" cols="12" lg="4" md="4" sm="12">
@@ -272,7 +272,7 @@ export default {
       return moment().format('YYYY-MM-DD')
     },
     minBgnYmd () {
-      return moment(this.form.tempStartYmd).format('YYYY-MM-DD')
+      return moment(this.form.tempStartDate).format('YYYY-MM-DD')
       // return '1950-01-01'
     }
   },
@@ -320,12 +320,12 @@ export default {
     },
     modify () {
       this.validForm(this.$refs.detail).then(() => {
-        this.dataRangeEnd = this.detail.tempStartYmd
+        this.dataRangeEnd = this.detail.tempStartDate
         this.$dialog
           .confirm('예약 제외 내용을 수정하시겠습니까?')
           .then(() => {
-            this.detail.startDatetime = moment(moment(this.detail.tempStartYmd).format('YYYY-MM-DD') + ` ${this.detail.startHour}:${this.detail.startMin}:00`).format('YYYY-MM-DD HH:mm:ss')
-            this.detail.endDatetime = moment(moment(this.detail.tempEndYmd).format('YYYY-MM-DD') + ` ${this.detail.endHour}:${this.detail.endMin}:00`).format('YYYY-MM-DD HH:mm:ss')
+            this.detail.startDatetime = moment(moment(this.detail.tempStartDate).format('YYYY-MM-DD') + ` ${this.detail.startHour}:${this.detail.startMin}:00`).format('YYYY-MM-DD HH:mm:ss')
+            this.detail.endDatetime = moment(moment(this.detail.tempEndDate).format('YYYY-MM-DD') + ` ${this.detail.endHour}:${this.detail.endMin}:00`).format('YYYY-MM-DD HH:mm:ss')
 
             console.log('this.detail.startDatetime', this.detail.startDatetime)
             console.log('this.detail.endDatetime', this.detail.endDatetime)
@@ -343,8 +343,8 @@ export default {
         this.$dialog
           .confirm('예약 제외 내용을 입력하시겠습니까?')
           .then(() => {
-            this.form.startDatetime = moment(moment(this.form.tempStartYmd).format('YYYY-MM-DD') + ` ${this.form.startHour}:${this.form.startMin}:00`).format('YYYY-MM-DD HH:mm:ss')
-            this.form.endDatetime = moment(moment(this.form.tempEndYmd).format('YYYY-MM-DD') + ` ${this.form.endHour}:${this.form.endMin}:00`).format('YYYY-MM-DD HH:mm:ss')
+            this.form.startDatetime = moment(moment(this.form.tempStartDate).format('YYYY-MM-DD') + ` ${this.form.startHour}:${this.form.startMin}:00`).format('YYYY-MM-DD HH:mm:ss')
+            this.form.endDatetime = moment(moment(this.form.tempEndDate).format('YYYY-MM-DD') + ` ${this.form.endHour}:${this.form.endMin}:00`).format('YYYY-MM-DD HH:mm:ss')
             reservationExceptService.insert(this.form).then(res => {
               this.$dialog.alert('예약 제한이 추가되었습니다.')
               this.search(this.detail.exceptSeq)

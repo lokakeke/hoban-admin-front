@@ -19,8 +19,11 @@
                 <template v-slot:item.guestName="{item}">
                     <mask-name :text="item.guestName"/>
                 </template>
-                <template v-slot:item.guestTel="{item}">
-                    <mask-tel-number :text="item.guestTel" @search="viewTelNo(item)"/>
+                <template v-slot:item.memberName="{item}">
+                    {{ item.memberName}} {{(item.memberNo)}}
+                </template>
+                <template v-slot:item.guestTelNo="{item}">
+                    <mask-tel-number :text="item.guestTelNo" @search="viewTelNo(item)"/>
                 </template>
                 <template v-slot:item.approveName="{item}">
                     <span
@@ -92,7 +95,7 @@ export default {
         { text: '박수', value: 'nights', align: 'center' },
         { text: '객실수', value: 'roomCount', align: 'center' },
         { text: '이용자명', value: 'guestName', align: 'center' },
-        { text: '핸드폰', value: 'guestTel', align: 'center' },
+        { text: '핸드폰', value: 'guestTelNo', align: 'center' },
         { text: '상태', value: 'approveCodeName', align: 'center' }
       ]
     }
@@ -241,7 +244,7 @@ export default {
     },
     async viewTelNo (item) {
       const res = await partnerReservationService.selectPartnerReservationApply(item.reqSeq)
-      item.guestTel = res.data.data.guestTel
+      item.guestTelNo = res.data.data.guestTelNo
     },
     /**
          * 상세보기

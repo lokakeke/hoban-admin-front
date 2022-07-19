@@ -85,7 +85,7 @@
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">이용자 핸드폰번호</div>
-          <v-text-field v-model="form.guestTel" dense
+          <v-text-field v-model="form.guestTelNo" dense
                         v-mask="['###-####-####', '###-###-####']"
                         :rules="emptyRules.concat(mobileRegex)"
                         placeholder="이용자 연락처를 입력 해주세요."
@@ -274,7 +274,7 @@ export default {
         agentCode: '',
         agentCodeName: '',
         guestName: '',
-        guestTel: '',
+        guestTelNo: '',
         storeCode: '',
         roomTypeCode: '',
         checkInDate: '',

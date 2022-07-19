@@ -7,7 +7,7 @@
           {{' - ' + (form.cancelYn === 'Y' ? '취소 됨' : '신청 중')}}
         </span>
         <span v-else-if="form.approveCode">
-          {{' - 처리완료 : ' + form.approveName}}
+          {{' - 처리완료 : ' + form.approveCodeName}}
         </span>
       </span>
     </template>
@@ -15,7 +15,7 @@
       <v-row>
         <v-col cols="4" md="2">
           <div class="font-weight-bold info--text body-1">회원번호</div>
-          <v-text-field :value="form.memberName" dense readonly hide-details />
+            <v-text-field :value="form.memberNo" dense readonly hide-details > {{ form.memberNo }}</v-text-field>
         </v-col>
 <!-- FIXME           -->
         <v-col cols="4" md="2">
@@ -28,7 +28,7 @@
         </v-col>
         <v-col cols="4" md="2">
           <div class="font-weight-bold info--text body-1">이용자 핸드폰번호</div>
-          <v-text-field :value="form.guestTel" dense readonly hide-details />
+          <v-text-field :value="form.guestTelNo" dense readonly hide-details />
         </v-col>
         <v-col cols="4" md="2">
           <div class="font-weight-bold info--text body-1">업체 주문번호</div>
@@ -85,6 +85,7 @@
       <v-row v-if="form.approveCode === 'A'">
         <v-col cols="4">
           <v-toolbar color="white" flat dense>
+            <!-- TODO PmsStockPrice 완성되면 작동하는지 확인 -->
             <v-toolbar-title>PMS 재고량</v-toolbar-title>
           </v-toolbar>
           <v-simple-table class="bordered">
@@ -234,12 +235,12 @@ export default {
       param: {},
       // 신청 정보 데이터
       form: {
-        memNo: '',
+        memberNo: '',
         memberName: '',
         agentCode: '',
-        agnetCodeName: '',
+        agentCodeName: '',
         guestName: '',
-        guestTel: '',
+        guestTelNo: '',
         storeCode: '',
         rmTypeCode: '',
         checkInDate: '',
@@ -308,7 +309,7 @@ export default {
             dateList.push({ label: value.format('YYYY[년] MM[월] DD[일]'), value: value.format('YYYYMMDD') })
           }
           this.dateList = dateList
-          // dgns 블럭재고 셋팅 - 객실기본 블럭코드 + 104 블럭코드
+          // PMS 블럭재고 셋팅 - 객실기본 블럭코드 + 104 블럭코드
           const blockData = result.blockList || []
           const blockList = []
           if (this.partner.blockCode) {
