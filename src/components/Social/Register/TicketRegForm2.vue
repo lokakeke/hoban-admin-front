@@ -22,8 +22,8 @@
             <v-select
               v-model="form.calcInd"
               :items="calcIndList"
-              item-text="commCodeName"
-              item-value="commCode"
+              item-text="commonCodeName"
+              item-value="commonCode"
             ></v-select>
           </v-col>
         </v-row>
@@ -49,7 +49,7 @@
               class="bordered"
             >
               <template v-slot:item.corpInd="{ item }">
-                <span>{{item.corpInd | label(corpIndList, 'commCode', 'commCodeName')}} <span v-if="item.corpInd == 'D'">({{data.partnerName}})</span> </span>
+                <span>{{item.corpInd | label(corpIndList, 'commonCode', 'commonCodeName')}} <span v-if="item.corpInd == 'D'">({{data.partnerName}})</span> </span>
               </template>
               <template v-slot:item.cmsnRate="{ item }">
                 <span>{{item.cmsnRate}} %</span>
@@ -91,7 +91,7 @@
               class="bordered"
             >
               <template v-slot:item.chrgType="{item}">
-                <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commCodeName" item-value="commCode" :disabled="item.isNew === 'Y' ? false : true"></v-select>
+                <v-select v-model="item.chrgType" :items="chrgCodeList" item-text="commonCodeName" item-value="commonCode" :disabled="item.isNew === 'Y' ? false : true"></v-select>
               </template>
               <template v-slot:item.action="{ item }">
                 <v-btn small color="accent" rounded outlined @click="accountEmpRemove(item)">
@@ -125,8 +125,8 @@
             <v-select
               v-model="form.uuseCalcWayInd"
               :items="calcWayList"
-              item-text="commCodeName"
-              item-value="commCode"
+              item-text="commonCodeName"
+              item-value="commonCode"
               :disabled="isDisabled"
             ></v-select>
           </v-col>

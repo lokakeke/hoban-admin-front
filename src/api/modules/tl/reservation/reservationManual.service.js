@@ -11,8 +11,8 @@ const reservationManualService = {
     })
   },
 
-  selectReservationManualDetail (brcNo, manualNo) {
-    return api.get(`/api/cms/tl/booking/reservation/reservationManual/${brcNo}/${manualNo}`)
+  selectReservationManualDetail (branchNo, manualNo) {
+    return api.get(`/api/cms/tl/booking/reservation/reservationManual/${branchNo}/${manualNo}`)
   },
 
   updateReservationManual (param) {

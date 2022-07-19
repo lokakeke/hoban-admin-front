@@ -23,7 +23,7 @@
       <v-card-text>
         <v-container>
           <v-layout class="headline mb-2">
-            <v-icon>business</v-icon>&nbsp;사업장 : {{ form.brcName }}
+            <v-icon>business</v-icon>&nbsp;사업장 : {{ form.branchName }}
             <v-spacer></v-spacer>
             <v-icon>format_list_numbered</v-icon>&nbsp;전송번호 : {{ form.sendNo }}
             <v-spacer></v-spacer>
@@ -35,7 +35,7 @@
                 <v-text-field v-model="searchFilter.tlRmTypeCode" append-icon="search" label="TL 객실타입" hide-details clearable></v-text-field>
               </v-flex>
               <v-flex xs4 pl-2 pr-2>
-                <v-text-field v-model="searchFilter.stndYmd" append-icon="search" label="기준일자 (YYYY-MM-DD)" hide-details clearable></v-text-field>
+                <v-text-field v-model="searchFilter.standardDate" append-icon="search" label="기준일자 (YYYY-MM-DD)" hide-details clearable></v-text-field>
               </v-flex>
               <v-flex xs4>
                 <v-layout justify-end>
@@ -63,15 +63,15 @@
             <template v-slot:item="props">
               <tr :class="props.item.sendStatus === '9' ? 'red lighten-2': ''">
                 <td class="text-xs-center">{{ props.index + 1 }}</td>
-                <td class="text-xs-center">{{ props.item.stndYmd }}</td>
-                <td class="text-xs-center">{{ props.item.rmTypeName }} [{{ props.item.rmTypeCd }}]</td>
-                <td class="text-xs-center">{{ props.item.hotelName }} [{{ props.item.hotelCode }}]</td>
+                <td class="text-xs-center">{{ props.item.standardDate }}</td>
+                <td class="text-xs-center">{{ props.item.roomTypeName }} [{{ props.item.roomTypeCode }}]</td>
+                <td class="text-xs-center">{{ props.item.storeName }} [{{ props.item.storeCode }}]</td>
                 <td class="text-xs-center">{{ props.item.sellStatus === '1' ? '판매' : '중지' }}</td>
                 <td class="text-xs-center">{{ props.item.sendStatusName }}</td>
                 <td class="text-xs-center">{{ props.item.tlRmTypeCode }}</td>
                 <td class="text-xs-center">{{ props.item.tlNetRmTypeGroupCode }}</td>
                 <td class="text-xs-right">{{ props.item.stock }}</td>
-                <td v-show="false" class="text-xs-center">{{ props.item.rsvBlockCode }} 블럭</td>
+                <td v-show="false" class="text-xs-center">{{ props.item.blockCode }} 블럭</td>
                 <td class="text-xs-right">{{ props.item.pmsStock }}</td>
                 <td class="text-xs-right">{{ props.item.sendCount }}</td>
                 <td class="text-xs-right">{{ props.item.tlSellStock }}</td>
@@ -86,8 +86,8 @@
                     </v-btn>
                   </template>
                 </td>
-                <td class="text-xs-center">{{ props.item.errorCd }}</td>
-                <td class="text-xs-center">{{ props.item.errorMsg }}</td>
+                <td class="text-xs-center">{{ props.item.errorCode }}</td>
+                <td class="text-xs-center">{{ props.item.errorMessage }}</td>
               </tr>
               <template v-if="props.expanded && props.item.sendStockAgentDetailList && props.item.sendStockAgentDetailList.length > 0">
                 <tr>
@@ -106,14 +106,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="agt of props.item.sendStockAgentDetailList" :class="agt.agtSendStatus === '9' ? 'red lighten-2': ''">
-                            <td class="text-center">{{ agt.agtName + '(' + agt.agtCode + ')' }}</td>
+                          <tr v-for="agt of props.item.sendStockAgentDetailList" :class="agt.agentSendStatus === '9' ? 'red lighten-2': ''">
+                            <td class="text-center">{{ agt.agentName + '(' + agt.agentCode + ')' }}</td>
                             <td class="text-center">{{ agt.netAgtRmTypeCode }}</td>
-                            <td class="text-center">{{ agt.agtSellStatus === '1' ? '판매' : '중지' }}</td>
-                            <td class="text-center">{{ agt.agtSendStatusName }}</td>
-                            <td class="text-right">{{ agt.agtSellStock }}</td>
-                            <td class="text-center">{{ agt.agtErrorCd }}</td>
-                            <td class="text-center">{{ agt.agtErrorMsg }}</td>
+                            <td class="text-center">{{ agt.agentSellStatus === '1' ? '판매' : '중지' }}</td>
+                            <td class="text-center">{{ agt.agentSendStatusName }}</td>
+                            <td class="text-right">{{ agt.agentSellStock }}</td>
+                            <td class="text-center">{{ agt.agentErrorCode }}</td>
+                            <td class="text-center">{{ agt.agentErrorMessage }}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -136,63 +136,63 @@ export default {
   props: ['dialog', 'masterData', 'toastData'],
   name: 'sendStockDetail',
   watch: {
-    dialog(newVal) {
+    dialog (newVal) {
       if (newVal) {
         this.refreshFilter()
         this.selectDetail(this.masterData)
       }
     }
   },
-  data() {
+  data () {
     return {
       expand: false,
       form: {},
       list: [],
       listOrigin: [],
       searchFilter: {
-        stndYmd: '',
+        standardDate: '',
         tlRmTypeCode: ''
       },
       headers: [
         { text: '번호', value: 'sendDetailNo', align: 'center' },
-        { text: '일자', value: 'stndYmd', align: 'center' },
-        { text: '객실타입 코드', value: 'rmTypeCd', align: 'center' },
-        { text: '영업장 코드', value: 'hotelCode', align: 'center' },
+        { text: '일자', value: 'standardDate', align: 'center' },
+        { text: '객실타입 코드', value: 'roomTypeCode', align: 'center' },
+        { text: '영업장 코드', value: 'storeCode', align: 'center' },
         { text: '판매여부', value: 'sellStatus', align: 'center' },
         { text: '전송상태', value: 'sendStatus', align: 'center' },
         { text: 'TL 객실타입', value: 'tlRmTypeCode', align: 'center' },
         { text: 'TL 객실그룹', value: 'tlNetRmTypeGroupCode', align: 'center' },
         { text: '재고 전송수량', value: 'stock', align: 'center' },
-        /*{ text: '재고 전송블럭', value: 'rsvBlockCode', align: 'center' },*/
+        /* { text: '재고 전송블럭', value: 'blockCode', align: 'center' }, */
         { text: 'PMS 수량', value: 'pmsStock', align: 'center' },
         { text: '전송횟수', value: 'sendCount', align: 'center' },
         { text: 'TL 판매수량', value: 'tlSellStock', align: 'center' },
-        { text: 'AGENT 전송데이터', value: 'agt', align: 'center' },
-        { text: '에러 코드', value: 'errorCd', align: 'center' },
-        { text: '에러 메시지', value: 'errorMsg', align: 'center' }
+        { text: 'AGENT 전송데이터', value: 'agent', align: 'center' },
+        { text: '에러 코드', value: 'errorCode', align: 'center' },
+        { text: '에러 메시지', value: 'errorMessage', align: 'center' }
       ]
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:dialog', false)
     },
-    selectDetail(param) {
+    selectDetail (param) {
       if (this.toastData) {
-        param = { brcNo: this.toastData.bindParam1, sendNo: this.toastData.bindParam2 }
+        param = { branchNo: this.toastData.bindParam1, sendNo: this.toastData.bindParam2 }
       }
       this.form = {}
       this.list = []
       this.listOrigin = []
-      sendStockService.selectDetail(parseInt(param.brcNo), parseInt(param.sendNo)).then(res => {
+      sendStockService.selectDetail(parseInt(param.branchNo), parseInt(param.sendNo)).then(res => {
         this.form = res.data
         if (this.form.sendStockDetailList && this.form.sendStockDetailList.length > 0) {
           this.list = this.form.sendStockDetailList
           this.listOrigin = this.form.sendStockDetailList
           // agt cd 정보가 있으면 열어준다.
           if (this.toastData && this.toastData.bindParam4) {
-            for (let detail of this.list) {
-              if (detail.brcNo === this.toastData.bindParam1 && detail.sendNo + '' === this.toastData.bindParam2 &&
+            for (const detail of this.list) {
+              if (detail.branchNo === this.toastData.bindParam1 && detail.sendNo + '' === this.toastData.bindParam2 &&
                 detail.sendDetailNo === this.toastData.bindParam3) {
                 this.$set(this.$refs.detail.expanded, detail.sendDetailNo, true)
               }
@@ -201,11 +201,11 @@ export default {
         }
       })
     },
-    doFilter() {
-      if (this.searchFilter.stndYmd || this.searchFilter.tlRmTypeCode) {
+    doFilter () {
+      if (this.searchFilter.standardDate || this.searchFilter.tlRmTypeCode) {
         this.list = this.listOrigin.filter(data => {
-          return (this.searchFilter.stndYmd ? data.stndYmd.includes(this.searchFilter.stndYmd) : true)
-            && (this.searchFilter.tlRmTypeCode ? this.parseTrimLowerCase(data.tlRmTypeCode).includes(this.parseTrimLowerCase(this.searchFilter.tlRmTypeCode)) : true)
+          return (this.searchFilter.standardDate ? data.standardDate.includes(this.searchFilter.standardDate) : true) &&
+            (this.searchFilter.tlRmTypeCode ? this.parseTrimLowerCase(data.tlRmTypeCode).includes(this.parseTrimLowerCase(this.searchFilter.tlRmTypeCode)) : true)
         })
       } else {
         this.list = this.listOrigin
@@ -213,7 +213,7 @@ export default {
     },
     refreshFilter () {
       this.searchFilter = {
-        stndYmd: '',
+        standardDate: '',
         tlRmTypeCode: ''
       }
       this.doFilter()

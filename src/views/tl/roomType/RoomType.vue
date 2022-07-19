@@ -7,12 +7,12 @@
             <v-card flat>
               <v-card-title class="headline font-weight-bold justify-center border-bottom pt-0">사업장 선택</v-card-title>
               <v-card-text class="pt-4">
-                <branch-list :brcNo.sync="param.brcNo" :hotelCode.sync="param.hotelCode" :branchList.sync="branchList" :use-yn="''" @change="branchChange(false)" block></branch-list>
+                <branch-list :branchNo.sync="param.branchNo" :storeCode.sync="param.storeCode" :branchList.sync="branchList" :use-yn="''" @change="branchChange(false)" block></branch-list>
               </v-card-text>
               <v-card-title class="headline font-weight-bold justify-center border-bottom pt-0">TL-LINCOLN 객실 타입</v-card-title>
               <v-card-text class="pl-4 pr-4">
                 <transition name="slide-fade" mode="out-in">
-                  <v-list dense v-if="param.brcNo" :key="param.brcNo">
+                  <v-list dense v-if="param.branchNo" :key="param.branchNo">
                     <template v-if="filterRoomTypeList && filterRoomTypeList.length > 0">
                       <div class="font-weight-bold subtitle-1 pa-1">객실 타입 선택<span class="font-sm font-weight-light"> (객실명으로 검색 가능합니다.)</span>
                       </div>
@@ -45,12 +45,12 @@
                       객실타입이 존재하지 않습니다.
                     </v-layout>
                   </v-list>
-                  <v-layout class="mt-5" v-else-if="!param.brcNo" align-center justify-center fill-height>
+                  <v-layout class="mt-5" v-else-if="!param.branchNo" align-center justify-center fill-height>
                     사업장 을 선택해 주세요.
                   </v-layout>
                 </transition>
                 <v-layout justify-center>
-                  <div v-if="param.brcNo">
+                  <div v-if="param.branchNo">
                     <v-divider></v-divider>
                     <v-btn outlined rounded small @click="dialog = true" color="orange">
                       <v-icon small class="mr-1">refresh</v-icon>
@@ -65,7 +65,7 @@
             <v-card flat>
               <v-card-title class="headline font-weight-bold justify-center pt-0">객실 타입 상세</v-card-title>
               <v-layout justify-center class="border-bottom">
-                <div v-if="param.roomType && form.rmTypeCd" class="pb-2">
+                <div v-if="param.roomTypeCode && form.roomTypeCode" class="pb-2">
                   <v-btn outlined rounded small @click="resetForm()" color="orange">
                     <v-icon small class="mr-1">refresh</v-icon>
                     원래대로
@@ -78,13 +78,13 @@
               </v-layout>
               <v-card-text>
                 <transition name="slide-fade" mode="out-in">
-                  <v-form v-if="param.roomType && form.rmTypeCd" ref="form" lazy-validation :key="param.roomType">
+                  <v-form v-if="param.roomTypeCode && form.roomTypeCode" ref="form" lazy-validation :key="param.roomTypeCode">
                     <div class="subheading green--text">PMS 룸타입</div>
                     <v-row>
                       <v-col>
-                        <v-autocomplete v-model="form.rmTypeCd"
-                                        :items="pmsHotelRoomInfoList"
-                                        :item-value="'roomType'"
+                        <v-autocomplete v-model="form.roomTypeCode"
+                                        :items="pmsStoreRoomInfoList"
+                                        :item-value="'roomTypeCode'"
                                         :item-text="'roomTypeName'"
                                         :rules="[v => !!v || '룸타입은 필수입력 사항입니다.']" class="pt-0" label="" required></v-autocomplete>
                       </v-col>
@@ -92,11 +92,11 @@
                     <v-row>
                       <v-col cols="6">
                         <div class="subheading green--text">기준인원수</div>
-                        <v-text-field type="number" v-model="form.stndPersonCnt" :rules="numberRules" class="pt-0 mt-0" disabled></v-text-field>
+                        <v-text-field type="number" v-model="form.minPersonCount" :rules="numberRules" class="pt-0 mt-0" disabled></v-text-field>
                       </v-col>
                       <v-col cols="6">
                         <div class="subheading green--text">최대인원수</div>
-                        <v-text-field type="number" v-model="form.maxPersonCnt" :rules="numberRules" class="pt-0 mt-0" disabled></v-text-field>
+                        <v-text-field type="number" v-model="form.maxPersonCount" :rules="numberRules" class="pt-0 mt-0" disabled></v-text-field>
                       </v-col>
                     </v-row>
                     <v-divider></v-divider>
@@ -149,8 +149,8 @@
                           <v-icon>business</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                          <v-list-item-title v-if="agt.agtName">{{ agt.agtName + '(' + agt.agtCode + ')' + ' - ' + agt.netAgtRmTypeName }}</v-list-item-title>
-                          <v-list-item-title v-else>{{ agt.agtCode + ' - ' + agt.netAgtRmTypeName }}</v-list-item-title>
+                          <v-list-item-title v-if="agt.agentName">{{ agt.agentName + '(' + agt.agentCode + ')' + ' - ' + agt.netAgtRmTypeName }}</v-list-item-title>
+                          <v-list-item-title v-else>{{ agt.agentCode + ' - ' + agt.netAgtRmTypeName }}</v-list-item-title>
                         </v-list-item-content>
                       </v-list-item>
                     </v-list>
@@ -166,8 +166,8 @@
                     </template>
                     <div class="subheading deep-orange--text" v-else>
                       <p class="mb-2 mt-2">* 객실에 포함된 요금 PLAN 정보가 없습니다.</p>
-                      <p class="mb-0" v-if="param.pkgYn === 'N'">* TL-Lincoln 관리자 사이트에서 요금 PLAN GROUP NAME 이</p>
-                      <p class="mb-1 ml-2" v-if="param.pkgYn === 'N'"> roomonly 또는 breakfast 로 생성되어야 합니다.</p>
+                      <p class="mb-0" v-if="param.packageYn === 'N'">* TL-Lincoln 관리자 사이트에서 요금 PLAN GROUP NAME 이</p>
+                      <p class="mb-1 ml-2" v-if="param.packageYn === 'N'"> roomonly 또는 breakfast 로 생성되어야 합니다.</p>
                     </div>
 
                     <v-layout justify-center>
@@ -193,7 +193,7 @@
         </v-layout>
       </app-card>
     </v-container>
-    <room-type-sync :dialog.sync="dialog" :branchList="branchList" :selectBrcNo="param.brcNo" :pmsHotelRoomInfoList="pmsHotelRoomInfoList" :pkgYn="param.pkgYn" @sync="branchChange(true)"></room-type-sync>
+    <room-type-sync :dialog.sync="dialog" :branchList="branchList" :selectBrcNo="param.branchNo" :pmsStoreRoomInfoList="pmsStoreRoomInfoList" :packageYn="param.packageYn" @sync="branchChange(true)"></room-type-sync>
   </div>
 </template>
 
@@ -207,7 +207,7 @@ import moment from 'moment'
 export default {
   components: { roomTypeSync, branchList },
   name: 'roomType',
-  data() {
+  data () {
     return {
       dialog: false,
       // 객실 타입 상세
@@ -226,10 +226,10 @@ export default {
         v => (!v || /^[0-9\\,]+$/.test(v)) || '숫자만 입력 가능합니다.'
       ],
       param: {
-        brcNo: '',
-        hotelCode: '',
-        roomType: '',
-        pkgYn: 'N'
+        branchNo: '',
+        storeCode: '',
+        roomTypeCode: '',
+        packageYn: 'N'
       },
       headers: [
         { text: '마스터<br/>블럭', value: 'masterYn', align: 'center', sortable: false },
@@ -241,7 +241,7 @@ export default {
       // TL 사업장
       branchList: [],
       // PMS 객실 타입 리스트
-      pmsHotelRoomInfoList: [],
+      pmsStoreRoomInfoList: [],
       // TL 객실 타입 리스트
       roomTypeList: [],
       selectedRoomTypeList: [],
@@ -249,34 +249,34 @@ export default {
     }
   },
   watch: {
-    selectedRoomTypeList(newVal) {
+    selectedRoomTypeList (newVal) {
       if (newVal && newVal.length > 0) {
         this.filterRoomTypeList = newVal
       } else {
         this.filterRoomTypeList = this.roomTypeList
       }
     },
-    'form.rmTypeCd'(newVal) {
+    'form.roomTypeCode' (newVal) {
       if (newVal) {
-        this.form.stndPersonCnt = _.find(this.pmsHotelRoomInfoList, { roomType: newVal }).standardPsn
-        this.form.maxPersonCnt = _.find(this.pmsHotelRoomInfoList, { roomType: newVal }).maximumPsn
+        this.form.minPersonCount = _.find(this.pmsStoreRoomInfoList, { roomTypeCode: newVal }).standardPerson
+        this.form.maxPersonCount = _.find(this.pmsStoreRoomInfoList, { roomTypeCode: newVal }).maxPerson
       }
     }
   },
   methods: {
-    moment(date) {
+    moment (date) {
       return moment(date).format('YYYY.MM.DD')
     },
-    add() {
+    add () {
       this.form.blockList.push({ masterYn: 'N', useYn: 'Y' })
     },
-    remove(index) {
+    remove (index) {
       this.$dialog.confirm('선택한 블럭을 삭제하시겠습니까?').then(() => {
         this.form.blockList.splice(index, 1)
       }, () => {
       })
     },
-    changeMaster(index) {
+    changeMaster (index) {
       // 해당 로우를 제외하고는 master 를 해제한다.
       for (let idx = 0; idx < this.form.blockList.length; idx++) {
         if (idx !== index) {
@@ -287,13 +287,13 @@ export default {
         }
       }
     },
-    reset() {
+    reset () {
       for (const room of this.roomTypeList) {
         room.active = false
       }
-      this.param.roomType = ''
+      this.param.roomTypeCode = ''
     },
-    branchChange(reload) {
+    branchChange (reload) {
       this.form = {}
       this.formClone = {}
 
@@ -303,22 +303,22 @@ export default {
 
       // 영업장 셋팅 - plan list 같이 검색
       roomTypeService.selectRoomTypeList({
-        brcNo: this.param.brcNo,
+        branchNo: this.param.branchNo,
         searchPlanYn: 'Y',
-        pkgYn: this.param.pkgYn
+        packageYn: this.param.packageYn
       }).then(res => {
         this.roomTypeList = res.data
 
-        if (this.param.hotelCode) {
-          branchService.selectPmsHotelRoomInfoList(this.param.hotelCode).then(res => {
-            this.pmsHotelRoomInfoList = res.data
+        if (this.param.storeCode) {
+          branchService.selectPmsStoreRoomTypeList(this.param.storeCode).then(res => {
+            this.pmsStoreRoomInfoList = res.data
             this.filterRoomTypeList = this.roomTypeList
           })
         }
         if (this.roomTypeList && this.roomTypeList.length > 0) {
           if (reload) {
             for (const room of this.roomTypeList) {
-              if (room.tlRmTypeCode === this.param.roomType) {
+              if (room.tlRmTypeCode === this.param.roomTypeCode) {
                 this.viewChildren(room)
               }
             }
@@ -330,7 +330,7 @@ export default {
         }
       })
     },
-    viewChildren(select) {
+    viewChildren (select) {
       if (select.active) {
         return
       }
@@ -338,19 +338,19 @@ export default {
       if (select.blockList && select.blockList.length > 0) {
         this.blockList = select.blockList
       }
-      this.param.roomType = ''
+      this.param.roomTypeCode = ''
       for (const room of this.roomTypeList) {
         room.active = room.tlRmTypeCode === select.tlRmTypeCode
       }
-      this.param.roomType = select.tlRmTypeCode
+      this.param.roomTypeCode = select.tlRmTypeCode
 
       this.form = _.cloneDeep(select)
       this.formClone = _.cloneDeep(select)
     },
-    resetForm() {
+    resetForm () {
       this.form = _.cloneDeep(this.formClone)
     },
-    async save() {
+    async save () {
       try {
         // validation 체크
         await this.validForm(this.$refs.form)
@@ -363,12 +363,12 @@ export default {
           this.$dialog.alert('PMS 마스터 블럭코드를 입력해 주세요.')
           return
         }
-        if (this.form.stndPersonCnt >= this.form.maxPersonCnt) {
+        if (this.form.minPersonCount >= this.form.maxPersonCount) {
           this.$dialog.alert('기준인원수보다 최대인원수를 크게 설정해 주세요.')
           return
         }
-        this.form.rmTypeName = _.find(this.pmsHotelRoomInfoList, { roomType: this.form.rmTypeCd }).roomTypeName
-        this.form.hotelName = _.find(this.pmsHotelRoomInfoList, { roomType: this.form.rmTypeCd }).hotelName
+        this.form.roomTypeName = _.find(this.pmsStoreRoomInfoList, { roomTypeCode: this.form.roomTypeCode }).roomTypeName
+        this.form.storeName = _.find(this.pmsStoreRoomInfoList, { roomTypeCode: this.form.roomTypeCode }).storeName
 
         await this.$dialog.confirm('상세내용을 저장 하시겠습니까?')
 
@@ -380,7 +380,7 @@ export default {
       } catch (e) {
       }
     },
-    setRoomTypeText(room) {
+    setRoomTypeText (room) {
       return `${room.tlRmTypeName} (${room.tlNetRmTypeGroupName})`
     }
   }

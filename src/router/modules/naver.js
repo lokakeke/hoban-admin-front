@@ -12,9 +12,6 @@ const Business = () => import('@/views/naver/business/Business.vue')
 // Item
 const Item = () => import('@/views/naver/item/Item.vue')
 
-// Option
-const Option = () => import('@/views/naver/item/Option.vue')
-
 // Schedule
 const Schedule = () => import('@/views/naver/schedule/Schedule.vue')
 
@@ -33,11 +30,7 @@ const ScheduleSend = () => import('@/views/naver/scheduleSend/ScheduleSend.vue')
 // RsvLog
 const BookingLog = () => import('@/views/naver/bookingLog/BookingLog.vue')
 
-// 정산
-const CalculateMonth = () => import('@/views/naver/calculate/Month.vue')
-const CalculateDay = () => import('@/views/naver/calculate/Day.vue')
-const CalculateSaleAdjust = () => import('@/views/naver/calculate/SaleAdjust.vue')
-const CalculateTpne = () => import('@/views/naver/calculate/Tpne.vue')
+// NaverApiLog
 const NaverApiLogs = () => import('@/views/naver/log/NaverApiLogs.vue')
 
 export default {
@@ -69,17 +62,6 @@ export default {
         requiresAuth: true,
         title: '상품 관리',
         breadcrumb: 'Item '
-      }
-    },
-    {
-      path: 'option',
-      component: Option,
-      name: 'option',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '옵션 관리',
-        breadcrumb: 'Option '
       }
     },
     {
@@ -157,50 +139,6 @@ export default {
         requiresAuth: true,
         title: '예약 로그',
         breadcrumb: 'Rsv Log Calendar'
-      }
-    },
-    {
-      path: 'calculateDay',
-      component: CalculateDay,
-      name: 'calculateDay',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '일정산',
-        breadcrumb: 'Calculate Day'
-      }
-    },
-    {
-      path: 'calculateMonth',
-      component: CalculateMonth,
-      name: 'calculateMonth',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '월정산',
-        breadcrumb: 'Calculate Month'
-      }
-    },
-    {
-      path: 'calculateSaleAdjust',
-      component: CalculateSaleAdjust,
-      name: 'calculateSaleAdjust',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '매출조정 관리',
-        breadcrumb: 'Calculate Sale Adjust '
-      }
-    },
-    {
-      path: 'calculateTpne',
-      component: CalculateTpne,
-      name: 'calculateTpne',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: 'TPNE 정산 관리',
-        breadcrumb: 'Calculate TPNE '
       }
     },
     {

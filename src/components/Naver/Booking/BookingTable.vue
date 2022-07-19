@@ -21,7 +21,7 @@
         <th>PMS KEY 예약번호</th>
         <td colspan="2">{{ form.naver.keyRsvNo ? form.naver.keyRsvNo : '-' }}</td>
       </tr>
-      <tr v-if="item.pkgYn === 'Y'">
+      <tr v-if="item.packageYn === 'Y'">
         <th>패키지명</th>
         <td>{{ item.pkgName }}({{ item.mid }})</td>
         <td>{{ form.partnerName ? form.partnerName : '-' }}({{ dgnsInfo.memNo ? dgnsInfo.memNo : '-' }})</td>
@@ -39,12 +39,12 @@
       <tr>
         <th>객실타입명</th>
         <td>{{ form.naver.dmItemName }}</td>
-        <td>{{ dgnsInfo.rmTypeName ? dgnsInfo.rmTypeName : '-' }} ({{ dgnsInfo.rmTypeCode ? dgnsInfo.rmTypeCode : '-' }})</td>
+        <td>{{ dgnsInfo.roomTypeName ? dgnsInfo.roomTypeName : '-' }} ({{ dgnsInfo.roomTypeCode ? dgnsInfo.roomTypeCode : '-' }})</td>
       </tr>
       <tr>
         <th>블럭코드</th>
-        <td>{{ item.rsvBlckCode }}</td>
-        <td>{{ dgnsInfo.rsvBlckCode ? dgnsInfo.rsvBlckCode : '-' }}</td>
+        <td>{{ item.blockCode }}</td>
+        <td>{{ dgnsInfo.blockCode ? dgnsInfo.blockCode : '-' }}</td>
       </tr>
       <tr>
         <th>PMS예약부가정보</th>

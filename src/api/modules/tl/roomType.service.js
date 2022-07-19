@@ -5,35 +5,35 @@ const roomTypeService = {
   /**
    * 룸타입 목록조회
    */
-  selectRoomTypeList(param) {
+  selectRoomTypeList (param) {
     return api.get('/api/cms/tl/booking/roomType/list', { params: param })
   },
 
   /**
    * TL 룸타입 목록조회
    */
-  selectTLRoomTypeList(brcNo, pkgYn) {
-    return api.get('/api/cms/tl/api/roomTypeMasterSearch', { params: { brcNo: brcNo, pkgYn: pkgYn } })
+  selectTLRoomTypeList (branchNo, packageYn) {
+    return api.get('/api/cms/tl/api/roomTypeMasterSearch', { params: { branchNo: branchNo, packageYn: packageYn } })
   },
 
   /**
    * 룸타입 싱크확인
    */
-  selectRoomTypeSync(brcNo, pkgYn) {
-    return api.get('/api/cms/tl/booking/roomType/sync', { params: { brcNo: brcNo, pkgYn: pkgYn } })
+  selectRoomTypeSync (branchNo, packageYn) {
+    return api.get('/api/cms/tl/booking/roomType/sync', { params: { branchNo: branchNo, packageYn: packageYn } })
   },
 
   /**
    * 룸타입 싱크 동기화 입력
    */
-  insertRoomTypeSync(brcNo, pkgYn, roomTypeArray) {
-    return api.post(`/api/cms/tl/booking/roomType/insertSync/${brcNo}/pkgYn/${pkgYn}`, roomTypeArray)
+  insertRoomTypeSync (branchNo, packageYn, roomTypeArray) {
+    return api.post(`/api/cms/tl/booking/roomType/insertSync/${branchNo}/packageYn/${packageYn}`, roomTypeArray)
   },
 
   /**
    * 룸타입 PMS 정보 업데이트
    */
-  updateRoomType(form) {
+  updateRoomType (form) {
     return api.post('/api/cms/tl/booking/roomType/update', form)
   }
 }

@@ -63,7 +63,7 @@
           <v-text-field v-model="itemInfo.minBookingTime" label="최소 예약일" suffix="일" :rules="oneOrMoreRegex.concat(emptyRules)" :readonly="isReadonly"></v-text-field>
         </v-col>
         <v-col cols="6" :class="itemInfo.isNotSameMaxBookingTime ? compareColor : ''">
-          <v-text-field v-model="itemInfo.maxBookingTime" label="최대 예약일" suffix="일" :rules="oneOrMoreRegex.concat(emptyRules)" :disabled="itemInfo.pkgYn === 'Y' && !isReadonly" :readonly="isReadonly"></v-text-field>
+          <v-text-field v-model="itemInfo.maxBookingTime" label="최대 예약일" suffix="일" :rules="oneOrMoreRegex.concat(emptyRules)" :disabled="itemInfo.packageYn === 'Y' && !isReadonly" :readonly="isReadonly"></v-text-field>
         </v-col>
       </v-row>
       <v-divider></v-divider>
@@ -134,15 +134,15 @@ export default {
     return {
       compareColor: 'grey lighten-3',
       itemInfo: {
-        dmItemId: '',
+        itemId: '',
         bizItemId: '',
-        dmStoreId: '',
+        storeId: '',
         businessId: '',
         storeCode: '',
-        rmTypeCode: '',
-        pkgYn: '',
+        roomTypeCode: '',
+        packageYn: '',
         mid: '',
-        rsvBlckCode: '',
+        blockCode: '',
         name: '',
         desc: '',
         order: 0,
@@ -166,7 +166,7 @@ export default {
   watch: {
     'itemInfo.minBookingTime': {
       handler (value) {
-        if (this.itemInfo.pkgYn === 'Y') {
+        if (this.itemInfo.packageYn === 'Y') {
           this.itemInfo.maxBookingTime = _.cloneDeep(value)
         }
       },

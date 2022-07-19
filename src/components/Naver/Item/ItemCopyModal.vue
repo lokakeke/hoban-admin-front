@@ -54,7 +54,7 @@ export default {
         action: this.close
       }]
     })
-    if (!this.instance.params.copyItem.mid || !this.instance.params.copyItem.storeCode || !this.instance.params.copyItem.rmTypeCode) {
+    if (!this.instance.params.copyItem.mid || !this.instance.params.copyItem.storeCode || !this.instance.params.copyItem.roomTypeCode) {
       this.$dialog.alert('PMS 상품 연결을 먼저 해주세요.')
       this.close()
     }

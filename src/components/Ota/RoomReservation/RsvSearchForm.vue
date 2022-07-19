@@ -189,8 +189,8 @@
         v-for="(item, index) of statusList"
         :key="index"
         v-model="form.statusCode"
-        :label="item.commCodeName"
-        :value="item.commCode"
+        :label="item.commonCodeName"
+        :value="item.commonCode"
         dense
         multiple
         hide-details
@@ -334,7 +334,7 @@ export default {
         this.form.statusCode.push('CI')
       } else {
         this.form.statusCode = param.map(data => {
-          return data.commCode
+          return data.commonCode
         })
       }
     },
@@ -346,7 +346,7 @@ export default {
       this.statusList = res.data
       for (const code of this.statusList) {
         if (code.item01 === 'Y') {
-          this.form.statusCode.push(code.commCode)
+          this.form.statusCode.push(code.commonCode)
         }
       }
     },

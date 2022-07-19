@@ -7,8 +7,8 @@
           <v-autocomplete
             v-model="form.aprlCode"
             :items="aprlCodeList"
-            item-value="commCode"
-            item-text="commCodeName"
+            item-value="commonCode"
+            item-text="commonCodeName"
             :rules="[...emptyRules, v => v !== 'A' || '승인완료 혹은 반려를 선택해 주세요.']"
             autocomplete="off"
           ></v-autocomplete>

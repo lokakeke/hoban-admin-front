@@ -33,8 +33,8 @@
           <v-autocomplete
             v-model="form.rcpmnyAcct"
             :items="rcpmnyAcctList"
-            item-value="commCode"
-            item-text="commCodeName"
+            item-value="commonCode"
+            item-text="commonCodeName"
             :rules="emptyRules"
             autocomplete="off"
             :readonly="isApproved"
@@ -81,8 +81,8 @@
           <v-autocomplete
             v-model="form.taskType"
             :items="taskTypeList"
-            item-value="commCode"
-            item-text="commCodeName"
+            item-value="commonCode"
+            item-text="commonCodeName"
             :rules="emptyRules"
             autocomplete="off"
             :readonly="true"

@@ -103,7 +103,7 @@ export default {
       // 파트너 여부에 따라 다르다.
       if (this.isPartner) {
         return [
-          { key: 'aprlCode', label: '상태', type: 'code', commCode: 'OTA0003', cols: 2 },
+          { key: 'aprlCode', label: '상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
           { key: 'title', label: '제목', type: 'text', cols: 2 },
           { key: 'contents', label: '요청사유', type: 'text', cols: 2 },
           { key: 'keyRsvNo', label: 'KEY예약번호', type: 'text', cols: 2 },
@@ -111,7 +111,7 @@ export default {
         ]
       } else {
         return [
-          { key: 'aprlCode', label: '상태', type: 'code', commCode: 'OTA0003', cols: 2 },
+          { key: 'aprlCode', label: '상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
           { key: 'title', label: '제목', type: 'text', cols: 2 },
           { key: 'contents', label: '요청사유', type: 'text', cols: 2 },
           { key: 'keyRsvNo', label: 'KEY예약번호', type: 'text', cols: 2 },

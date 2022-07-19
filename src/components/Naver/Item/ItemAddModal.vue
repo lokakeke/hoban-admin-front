@@ -19,10 +19,10 @@
                         영업장명 : {{ itemInfo.storeName }}
                     </v-card-text>
                     <v-card-text class="black--text pt-0">
-                        객실타입명 : {{ itemInfo.rmTypeName }} ({{ itemInfo.rmTypeCode }})
+                        객실타입명 : {{ itemInfo.roomTypeName }} ({{ itemInfo.roomTypeCode }})
                     </v-card-text>
                     <v-card-text class="black--text pt-0">
-                        블럭코드 : {{ itemInfo.rsvBlckCode }}
+                        블럭코드 : {{ itemInfo.blockCode }}
                     </v-card-text>
                 </v-card>
                 <item-info-component :originItemInfo="itemInfo" ref="itemInfo"></item-info-component>
@@ -48,15 +48,15 @@ export default {
   data: function () {
     return {
       itemInfo: {
-        dmItemId: '',
+        itemId: '',
         bizItemId: '',
-        dmStoreId: '',
+        storeId: '',
         businessId: '',
         storeCode: '',
-        rmTypeCode: '',
-        pkgYn: '',
+        roomTypeCode: '',
+        packageYn: '',
         mid: '',
-        rsvBlckCode: '',
+        blockCode: '',
         name: '',
         desc: '',
         order: 0,

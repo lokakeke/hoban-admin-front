@@ -11,7 +11,7 @@
             <v-autocomplete
               v-model="selectBusiness"
               :items="businessCodeList"
-              item-value="dmStoreId"
+              item-value="storeId"
               item-text="serviceName"
               @change="selectItemList"
               autocomplete="off"
@@ -24,7 +24,7 @@
             <v-autocomplete
               v-model="selectedItem"
               :items="selectItem"
-              item-value="dmItemId"
+              item-value="itemId"
               :item-text="setItemText"
               autocomplete="off"
               placeholder="상품을 선택해 주세요."
@@ -79,7 +79,7 @@
               <template v-slot:event="{ event }">
                 <v-row align="center" no-gutters style="padding-top: 1px;">
                   <v-col cols="11" class="pl-1 text-ellipse">
-                    {{ event.pkgYn === 'Y' ? '[패키지] ' : '[객실] '}}{{ event.name }}
+                    {{ event.packageYn === 'Y' ? '[패키지] ' : '[객실] '}}{{ event.name }}
                   </v-col>
                   <v-col cols="1" class="pr-1 font-weight-bold">
                     {{ event.saleCnt }}
@@ -98,7 +98,7 @@
                 <v-card-text>
                   <span>
                     <li>서비스명 : {{ selectedEvent.dmStoreName }}</li>
-                    <li>상품명 : {{ selectedEvent.pkgYn === 'Y' ? '[패키지] ' : '[객실] ' }}{{ selectedEvent.name }}</li>
+                    <li>상품명 : {{ selectedEvent.packageYn === 'Y' ? '[패키지] ' : '[객실] ' }}{{ selectedEvent.name }}</li>
                     <li>수량 : {{ selectedEvent.saleCnt }}</li>
                   </span>
                 </v-card-text>
@@ -168,7 +168,7 @@ export default {
      */
     selectServiceList () {
       itemService.selectBusinessCodeList().then(res => {
-        const list = [{ serviceName: '전체', dmStoreId: '' }]
+        const list = [{ serviceName: '전체', storeId: '' }]
         this.businessCodeList = list.concat(res.data)
       })
     },
@@ -179,7 +179,7 @@ export default {
       const yearMonth = this.start ? this.start.date.substr(0, 7) : moment().format('YYYY-MM')
       const params = {
         yearMonth: yearMonth,
-        dmStoreId: this.selectBusiness.dmStoreId
+        storeId: this.selectBusiness.storeId
       }
       service.selectBookingCalendar(params).then(res => {
         this.itemList = res.data
@@ -187,8 +187,8 @@ export default {
         this.itemList.forEach(item => {
           const dateSubtract = moment(item.endDate).diff(item.startDate, 'days')
           events.push({
-            dmItemId: item.dmItemId,
-            pkgYn: item.pkgYn,
+            itemId: item.itemId,
+            packageYn: item.packageYn,
             mid: item.mid,
             name: item.dmItemName,
             dmStoreName: item.dmStoreName,
@@ -207,16 +207,16 @@ export default {
      * 선택된 서비스 리스트에 대한 상품 리스트 불러오기
      */
     selectItemList () {
-      if (this.selectBusiness.dmStoreId) {
+      if (this.selectBusiness.storeId) {
         this.selectItem = []
         const param = {
-          dmStoreId: this.selectBusiness.dmStoreId,
+          storeId: this.selectBusiness.storeId,
           filterItem: 'Y',
           sorts: 'recent'
         }
         itemService.selectItemList(param).then(res => {
           if (res.data && res.data.length > 0) {
-            this.selectItem = _.sortBy(res.data, 'pkgYn', 'name').reverse()
+            this.selectItem = _.sortBy(res.data, 'packageYn', 'name').reverse()
             // 전체 상품을 가져온 후 예약 현황 조회
             this.$nextTick(() => {
               this.selectBookingCalendar()
@@ -234,14 +234,14 @@ export default {
     },
     filterItemList (selectedItem) {
       if (selectedItem && selectedItem.length > 0) {
-        const dmItemIds = _.map(selectedItem, 'dmItemId')
+        const itemIds = _.map(selectedItem, 'itemId')
         this.events = []
-        for (const item of dmItemIds) {
+        for (const item of itemIds) {
           this.events = this.events.concat(this.originEvents.filter((event) => {
-            return event.dmItemId === item
+            return event.itemId === item
           }))
         }
-        this.events = _.cloneDeep(this.originEvents.filter(data => dmItemIds.some(item => data.dmItemId === item)))
+        this.events = _.cloneDeep(this.originEvents.filter(data => itemIds.some(item => data.itemId === item)))
       } else {
         this.events = _.cloneDeep(this.originEvents)
       }
@@ -285,7 +285,7 @@ export default {
       return Math.floor((b - a + 1) * Math.random()) + a
     },
     setItemText (item) {
-      return `${item.pkgYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid})`
+      return `${item.packageYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid})`
     },
     totalCount (date) {
       return _.sumBy(_.filter(this.events, (item) => {

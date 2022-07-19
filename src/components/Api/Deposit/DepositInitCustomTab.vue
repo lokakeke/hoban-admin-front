@@ -24,8 +24,8 @@
               <v-autocomplete
                 v-model="form.taskType"
                 :items="taskTypeList"
-                item-value="commCode"
-                item-text="commCodeName"
+                item-value="commonCode"
+                item-text="commonCodeName"
                 :rules="emptyRules"
                 autocomplete="off"
                 clearable

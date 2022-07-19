@@ -11,7 +11,7 @@
             <v-autocomplete
               v-model="selectBusiness"
               :items="businessCodeList"
-              item-value="dmStoreId"
+              item-value="storeId"
               item-text="serviceName"
               :rules="emptyRules"
               @change="setInit"
@@ -95,7 +95,7 @@
                 <td v-if="index === 0" :rowspan="item.detailList.length" class="text-center font-weight-bold"
                     :style="{ 'background-color': item.isImp === 'N' ? '#EEEEEE' : '#E0F2F1' }">
               <span>
-                {{ (item.pkgYn === 'Y' ? '[패키지] ' : '[객실] ') }} <br /> {{ item.name }} <br /> {{ ' (' + item.mid + ')' }}
+                {{ (item.packageYn === 'Y' ? '[패키지] ' : '[객실] ') }} <br /> {{ item.name }} <br /> {{ ' (' + item.mid + ')' }}
               </span>
                 </td>
                 <td v-if="index === 0" :rowspan="item.detailList.length" class="text-center font-weight-bold"
@@ -246,8 +246,8 @@ export default {
     },
     changeImp (item) {
       const param = {
-        dmStoreId: item.dmStoreId,
-        dmItemIds: item.dmItemId,
+        storeId: item.storeId,
+        itemIds: item.itemId,
         isImp: item.isImp
       }
       itemService.patchItem(param).then(() => {

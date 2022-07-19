@@ -3,8 +3,8 @@
     <v-autocomplete
       v-model="model"
       :items="list"
-      :item-text="'brcName'"
-      :item-value="'brcNo'"
+      :item-text="'branchName'"
+      :item-value="'branchNo'"
       :placeholder="'사업장을 선택하세요.'"
       append-icon="keyboard_arrow_down"
       single-line
@@ -22,9 +22,9 @@
 import branchService from '@/api/modules/tl/branch.service'
 
 export default {
-  props: ['branchList', 'brcNo', 'block', 'branchName', 'useYn', 'hotelCode'],
+  props: ['branchList', 'branchNo', 'block', 'branchName', 'useYn', 'storeCode'],
   name: 'BranchList',
-  data() {
+  data () {
     return {
       model: '',
       list: [],
@@ -33,12 +33,12 @@ export default {
     }
   },
   watch: {
-    brcNo(newVal) {
+    branchNo (newVal) {
       this.model = newVal
     }
   },
-  mounted() {
-    this.model = this.brcNo
+  mounted () {
+    this.model = this.branchNo
     if (this.useYn !== undefined) {
       this.use = this.useYn
     }
@@ -51,17 +51,17 @@ export default {
     }
   },
   methods: {
-    changeSelect() {
+    changeSelect () {
       let text = ''
-      const findBranch = _.find(this.list, { brcNo: this.model })
+      const findBranch = _.find(this.list, { branchNo: this.model })
       if (findBranch) {
-        text += findBranch.brcName
+        text += findBranch.branchName
       } else {
         text = ''
       }
       this.$emit('update:branchName', text)
-      this.$emit('update:brcNo', this.model)
-      this.$emit('update:hotelCode', findBranch.hotelCode || '')
+      this.$emit('update:branchNo', this.model)
+      this.$emit('update:storeCode', findBranch.storeCode || '')
       this.$emit('change')
     }
   }

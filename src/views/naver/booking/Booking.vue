@@ -22,7 +22,7 @@
           <v-autocomplete
             v-model="selectBusiness"
             :items="businessCodeList"
-            item-value="dmStoreId"
+            item-value="storeId"
             item-text="serviceName"
             @change="selectItemList"
             autocomplete="off"
@@ -37,7 +37,7 @@
           <v-autocomplete
             v-model="selectedItem"
             :items="selectItem"
-            item-value="dmItemId"
+            item-value="itemId"
             :item-text="setItemText"
             autocomplete="off"
             placeholder="상품을 선택해 주세요."
@@ -143,7 +143,7 @@
 import service from '@/api/modules/naver/booking.service'
 import itemService from '@/api/modules/naver/item.service'
 
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import excelMixin from '@/mixins/excelMixin'
 import MaskPhoneNumber from '@/components/Mask/MaskPhoneNumber.vue'
 
@@ -237,13 +237,13 @@ export default {
      */
     search () {
       // 사업장 id 검색
-      this.searchParam.q.dmStoreId = this.selectBusiness.dmStoreId
+      this.searchParam.q.storeId = this.selectBusiness.storeId
       // 상품 id 검색
-      this.searchParam.q.dmItemIds = []
+      this.searchParam.q.itemIds = []
       this.selectedItem.forEach(item => {
-        this.searchParam.q.dmItemIds.push(item.dmItemId)
+        this.searchParam.q.itemIds.push(item.itemId)
       })
-      this.searchParam.q.dmItemIds = _.join(this.searchParam.q.dmItemIds, ',')
+      this.searchParam.q.itemIds = _.join(this.searchParam.q.itemIds, ',')
       // status 검색
       const status = _.cloneDeep(this.searchParam.q.status)
       this.searchParam.q.status = _.join(this.searchParam.q.status, ',')
@@ -274,7 +274,7 @@ export default {
      */
     async getBusinessCodeList () {
       const selectBusinessCodeList = await itemService.selectBusinessCodeList()
-      const list = [{ serviceName: '전체', dmStoreId: '' }]
+      const list = [{ serviceName: '전체', storeId: '' }]
       this.businessCodeList = list.concat(selectBusinessCodeList.data)
     },
     /**
@@ -295,13 +295,13 @@ export default {
     selectItemList () {
       this.selectItem = []
       const param = {
-        dmStoreId: this.selectBusiness.dmStoreId !== undefined ? this.selectBusiness.dmStoreId : null,
+        storeId: this.selectBusiness.storeId !== undefined ? this.selectBusiness.storeId : null,
         filterItem: 'Y',
         sorts: 'recent'
       }
       itemService.selectItemList(param).then(res => {
         if (res.data && res.data.length > 0) {
-          this.selectItem = _.sortBy(res.data, 'pkgYn', 'name').reverse()
+          this.selectItem = _.sortBy(res.data, 'packageYn', 'name').reverse()
           // 전체 상품을 가져오고
         } else {
           this.$dialog.alert('등록된 상품이 없습니다. 상품을 등록해주세요.')
@@ -309,7 +309,7 @@ export default {
       })
     },
     setItemText (item) {
-      return `${item.pkgYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid})`
+      return `${item.packageYn === 'Y' ? '[패키지]' : '[객실]'} ${item.name} (${item.mid})`
     },
     /**
      * 상세정보 팝업 열기
@@ -363,16 +363,16 @@ export default {
      */
     exportExcel () {
       // 사업장 id 검색
-      this.searchParam.q.dmStoreId = this.selectBusiness.dmStoreId
+      this.searchParam.q.storeId = this.selectBusiness.storeId
       // 상품 id 검색
-      this.searchParam.q.dmItemIds = []
+      this.searchParam.q.itemIds = []
       this.selectedItem.forEach(item => {
-        this.searchParam.q.dmItemIds.push(item.dmItemId)
+        this.searchParam.q.itemIds.push(item.itemId)
       })
-      this.searchParam.q.dmItemIds = _.join(this.searchParam.q.dmItemIds, ',')
+      this.searchParam.q.itemIds = _.join(this.searchParam.q.itemIds, ',')
       // status 검색
       this.searchParam.q.status = _.join(this.searchParam.q.status, ',')
-      this.downLoadExcel('/api/naver/booking/excel', '(주) 호반호텔앤리조트_예약자관리', this.searchParam, '.csv')
+      this.downLoadExcel('/api/cms/naver/booking/booking/excel', '(주) 호반호텔앤리조트_예약자관리', this.searchParam, '.csv')
     },
     selectPhone (booking) {
       service.selectBookingForPhone(booking.bookingId).then(res => {

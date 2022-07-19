@@ -28,7 +28,7 @@
                 <v-container>
                     <v-layout class="headline mb-2">
                         <v-flex xs12 md6>
-                            사업장 : {{ detail.brcName }}
+                            사업장 : {{ detail.branchName }}
                             <v-spacer></v-spacer>
                         </v-flex>
 
@@ -47,32 +47,32 @@
                                     <p class="red--text">{{ detail.manualCause }}</p>
 
                                     <v-label>사업장</v-label>
-                                    <p>{{ detail.brcName }}</p>
+                                    <p>{{ detail.branchName }}</p>
 
                                     <v-label>예약구분</v-label>
-                                    <p>{{ detail.rsvName }} ({{ detail.rsvIndNm }})</p>
+                                    <p>{{ detail.rsvName }} ({{ detail.rsvIndName }})</p>
 
                                     <v-label>PMS 객실이름</v-label>
-                                    <p>{{ detail.rmTypeName }}</p>
+                                    <p>{{ detail.roomTypeName }}</p>
 
                                     <v-label>판매처</v-label>
-                                    <p>{{ detail.agtName }}</p>
+                                    <p>{{ detail.agentName }}</p>
 
                                     <v-label>예약자</v-label>
-                                    <v-text-field v-model="detail.userNm" label="" v-if="!detail.procDt"
+                                    <v-text-field v-model="detail.userName" label="" v-if="!detail.procDatetime"
                                                   :rules="emptyRules"></v-text-field>
-                                    <p v-else>{{ detail.userNm }}</p>
+                                    <p v-else>{{ detail.userName }}</p>
 
                                     <v-label>전화번호</v-label>
                                     <v-text-field v-model="detail.phoneNo" label=""
-                                                  v-if="!detail.procDt"></v-text-field>
+                                                  v-if="!detail.procDatetime"></v-text-field>
                                     <p v-else>{{ detail.phoneNo }}</p>
 
                                     <v-label>투숙일</v-label>
-                                    <p>{{ detail.roomYmd | date }}</p>
+                                    <p>{{ detail.roomDate | date }}</p>
 
                                     <v-label>객실수</v-label>
-                                    <p>{{ detail.roomCnt }}</p>
+                                    <p>{{ detail.roomCount }}</p>
 
                                     <v-label>박수</v-label>
                                     <p>{{ detail.nights }}</p>
@@ -90,21 +90,21 @@
                                     </template>
 
                                     <v-label>비고</v-label>
-                                    <v-textarea v-if="!detail.procDt"
+                                    <v-textarea v-if="!detail.procDatetime"
                                                 solo
                                                 name="input-7-4"
                                                 v-model="detail.remark"
                                     ></v-textarea>
                                     <pre v-else v-html="detail.remark"></pre>
 
-                                    <v-flex v-if="detail.procDt">
+                                    <v-flex v-if="detail.procDatetime">
                                         <v-label>예약번호</v-label>
                                         <p>{{ detail.rsvNo }}</p>
                                     </v-flex>
 
-                                    <v-flex v-if="detail.procDt">
+                                    <v-flex v-if="detail.procDatetime">
                                         <v-label>처리일자</v-label>
-                                        <p>{{ detail.procDt }}</p>
+                                        <p>{{ detail.procDatetime }}</p>
                                     </v-flex>
                                 </v-flex>
 
@@ -113,10 +113,10 @@
                                 </v-flex>
                             </v-layout>
 
-                            <reservation-history :brc-no="detail.brcNo"
+                            <reservation-history :brc-no="detail.branchNo"
                                                  :org-data-id="detail.orgDataId"></reservation-history>
 
-                            <v-layout justify-end v-if="!detail.procDt" class="mt-5">
+                            <v-layout justify-end v-if="!detail.procDatetime" class="mt-5">
                                 <v-btn  outlined rounded color="orange" @click="detailUpdate()">
                                     <v-icon>check</v-icon>
                                     수정 및 예약
@@ -136,7 +136,7 @@
 
 <script>
 import reservationManualService from '@/api/modules/tl/reservation/reservationManual.service'
-import reservationHistory from '@/views/tl/reservation/common/reservationHistory'
+import reservationHistory from '@/views/tl/reservation/common/reservationHistory.vue'
 
 export default {
   components: { reservationHistory },

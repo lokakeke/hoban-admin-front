@@ -13,7 +13,7 @@
             <v-icon>close</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-toolbar-title>{{ pkgYn === 'N' ? '객실' : '패키지' }} 동기화</v-toolbar-title>
+          <v-toolbar-title>{{ packageYn === 'N' ? '객실' : '패키지' }} 동기화</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn dark text @click="submit()">
@@ -26,7 +26,7 @@
       </v-card-title>
       <v-card-text class="pt-3">
         <v-layout wrap>
-          <select-box :selected.sync="brcNo" :list="branchList" :title="'사업장'" :value="'brcNo'" :text="'brcName'"></select-box>
+          <select-box :selected.sync="branchNo" :list="branchList" :title="'사업장'" :value="'branchNo'" :text="'branchName'"></select-box>
           <v-btn outlined rounded color="orange" @click="sync()">
             <v-icon left>search</v-icon>
             TL-Lincoln 객실타입 동기화 조회
@@ -99,7 +99,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="agt of data.adminRmTypeInfo.netAgtRmTypeList">
-                              <td :class="agt.agtName.state">{{ agt.agtName.value }}</td>
+                              <td :class="agt.agentName.state">{{ agt.agentName.value }}</td>
                               <td :class="agt.netAgtRmTypeCode.state">{{ agt.netAgtRmTypeCode.value }}</td>
                               <td :class="agt.netAgtRmTypeName.state">
                                 <v-tooltip top>
@@ -137,8 +137,8 @@
                         <template v-else>
                           <div class="subheading deep-orange--text">
                             <p class="mb-2 mt-2">* 객실에 포함된 요금 PLAN 정보가 없습니다.</p>
-                            <p class="mb-0" v-if="pkgYn === 'N'">* TL-Lincoln 관리자 사이트에서 요금 PLAN GROUP NAME 이</p>
-                            <p class="mb-1 ml-2" v-if="pkgYn === 'N'"> roomonly 또는 breakfast 로 생성되어야 합니다.</p>
+                            <p class="mb-0" v-if="packageYn === 'N'">* TL-Lincoln 관리자 사이트에서 요금 PLAN GROUP NAME 이</p>
+                            <p class="mb-1 ml-2" v-if="packageYn === 'N'"> roomonly 또는 breakfast 로 생성되어야 합니다.</p>
                           </div>
                         </template>
                       </td>
@@ -149,10 +149,10 @@
                         <v-row wrap>
                           <v-col cols="12">
                             <div class="title-2 font-weight-bold brown--text">PMS 룸타입</div>
-                            <v-autocomplete v-model="data.tlRmTypeInfo.rmTypeCd"
-                                            :items="pmsHotelRoomInfoList"
+                            <v-autocomplete v-model="data.tlRmTypeInfo.roomTypeCode"
+                                            :items="pmsStoreRoomInfoList"
                                             :rules="[v => !!v || '룸타입은 필수입력 사항입니다.']"
-                                            :item-value="'roomType'"
+                                            :item-value="'roomTypeCode'"
                                             :item-text="'roomTypeName'"
                                             @change="changeRoomType(data.tlRmTypeInfo)"
                                             class="pt-0"></v-autocomplete>
@@ -166,11 +166,11 @@
                         <v-row wrap>
                           <v-col cols="6">
                             <div class="title-2 font-weight-bold brown--text">기준인원수</div>
-                            <v-text-field type="number" v-model="data.tlRmTypeInfo.stndPersonCnt" :rules="numberRules" class="pt-0" required disabled></v-text-field>
+                            <v-text-field type="number" v-model="data.tlRmTypeInfo.minPersonCount" :rules="numberRules" class="pt-0" required disabled></v-text-field>
                           </v-col>
                           <v-col cols="6">
                             <div class="title-2 font-weight-bold brown--text">최대인원수</div>
-                            <v-text-field type="number" v-model="data.tlRmTypeInfo.maxPersonCnt" :rules="numberRules" class="pt-0" required disabled></v-text-field>
+                            <v-text-field type="number" v-model="data.tlRmTypeInfo.maxPersonCount" :rules="numberRules" class="pt-0" required disabled></v-text-field>
                           </v-col>
                         </v-row>
                       </td>
@@ -256,11 +256,11 @@ import commonCodeService from '@/api/modules/system/commonCode.service'
 export default {
   name: 'roomTypeSync',
   components: { SelectBox },
-  props: ['dialog', 'branchList', 'selectBrcNo', 'pmsHotelRoomInfoList', 'pkgYn'],
-  data() {
+  props: ['dialog', 'branchList', 'selectBrcNo', 'pmsStoreRoomInfoList', 'packageYn'],
+  data () {
     return {
-      brcNo: '',
-      hotelCode: '',
+      branchNo: '',
+      storeCode: '',
       roomTypeSync: [],
       isSync: null,
       orderRules: [
@@ -277,21 +277,21 @@ export default {
     }
   },
   computed: {
-    branchName() {
+    branchName () {
       let text = ''
-      if (!this.brcNo) {
+      if (!this.branchNo) {
         text = '사업장을 선택하세요.'
       } else {
-        text += _.find(this.branchList, { brcNo: this.brcNo }).brcName
+        text += _.find(this.branchList, { branchNo: this.branchNo }).branchName
       }
       return text
     }
   },
   watch: {
-    selectBrcNo(newVal) {
-      this.brcNo = newVal
+    selectBrcNo (newVal) {
+      this.branchNo = newVal
     },
-    dialog(newVal) {
+    dialog (newVal) {
       if (newVal) {
         this.isSync = null
         this.sync()
@@ -299,19 +299,19 @@ export default {
     }
   },
   methods: {
-    moment(date) {
+    moment (date) {
       return moment(date).format('YYYY.MM.DD')
     },
-    add(blockList) {
+    add (blockList) {
       blockList.push({ masterYn: 'N', useYn: 'Y' })
     },
-    remove(blockList, index) {
+    remove (blockList, index) {
       this.$dialog.confirm('선택한 블럭을 삭제하시겠습니까?').then(() => {
         blockList.splice(index, 1)
       }, () => {
       })
     },
-    changeMaster(blockList, index) {
+    changeMaster (blockList, index) {
       // 해당 로우를 제외하고는 master 를 해제한다.
       for (let idx = 0; idx < blockList.length; idx++) {
         if (idx !== index) {
@@ -322,26 +322,26 @@ export default {
         }
       }
     },
-    close() {
+    close () {
       this.$emit('update:dialog', false)
     },
-    async sync() {
+    async sync () {
       // 사업장 선택 validation
-      if (!this.brcNo) {
+      if (!this.branchNo) {
         this.$dialog.alert('사업장을 선택해 주세요.')
         return
       }
       this.roomTypeSync = []
       // TL 객실타입 동기화 여부 조회
-      const sync = await roomTypeService.selectRoomTypeSync(this.brcNo, this.pkgYn)
+      const sync = await roomTypeService.selectRoomTypeSync(this.branchNo, this.packageYn)
       this.isSync = sync.data
 
       // TL 요금 plan 리스트 조회
-      const plan = await planService.selectBranchPlanGroupInfo(this.brcNo)
+      const plan = await planService.selectBranchPlanGroupInfo(this.branchNo)
       const planMasterList = plan.data
 
       // TL 객실 타입 마스터 조회
-      const res = await roomTypeService.selectTLRoomTypeList(this.brcNo, this.pkgYn)
+      const res = await roomTypeService.selectTLRoomTypeList(this.branchNo, this.packageYn)
       const tlRmTypeMaster = res.data
 
       // TL - Admin 동기화 데이터 sync
@@ -350,32 +350,32 @@ export default {
         return
       }
       // TL-Lincoln 데이터를 검증한다.
-      if ((!tlRmTypeMaster.rmTypeList || tlRmTypeMaster.rmTypeList.length === 0) || (!tlRmTypeMaster.netRmTypeGroupList || tlRmTypeMaster.netRmTypeGroupList.length === 0)
-            || tlRmTypeMaster.rmTypeList.length !== tlRmTypeMaster.netRmTypeGroupList.length) {
+      if ((!tlRmTypeMaster.rmTypeList || tlRmTypeMaster.rmTypeList.length === 0) || (!tlRmTypeMaster.netRmTypeGroupList || tlRmTypeMaster.netRmTypeGroupList.length === 0) ||
+            tlRmTypeMaster.rmTypeList.length !== tlRmTypeMaster.netRmTypeGroupList.length) {
         this.$dialog.alert('TL-Lincoln 객실타입 정보가 잘못되었습니다.<br/>관리자에게 문의바랍니다.')
         return
       }
       let tlRmTypeList = []
       const originTlRmTypeList = tlRmTypeMaster.rmTypeList
-      const commonAgtList = await commonCodeService.selectCommonCode('agt').then(res => {
+      const commonAgtList = await commonCodeService.selectCommonCode('agent').then(res => {
         return res.data
       })
       for (const tlRmType of originTlRmTypeList) {
-        const tlNetRmTypeGroup = _.find(tlRmTypeMaster.netRmTypeGroupList, { rmTypeCode: tlRmType.rmTypeCode })
+        const tlNetRmTypeGroup = _.find(tlRmTypeMaster.netRmTypeGroupList, { roomTypeCode: tlRmType.roomTypeCode })
         if (!tlNetRmTypeGroup) {
           this.$dialog.alert('TL-Lincoln 객실타입 정보가 잘못되었습니다.<br/>관리자에게 문의바랍니다.')
           return
         } else {
-          let row = {
-            tlRmTypeCode: tlRmType.rmTypeCode,
-            tlRmTypeName: tlRmType.rmTypeName,
+          const row = {
+            tlRmTypeCode: tlRmType.roomTypeCode,
+            tlRmTypeName: tlRmType.roomTypeName,
             tlNetRmTypeGroupCode: tlNetRmTypeGroup.netRmTypeGroupCode,
             tlNetRmTypeGroupName: tlNetRmTypeGroup.netRmTypeGroupName
           }
-          let netAgtRmTypeArray = []
+          const netAgtRmTypeArray = []
           if (tlRmTypeMaster.netAgtRmTypeList && tlRmTypeMaster.netAgtRmTypeList.length > 0) {
             // TL-Lincoln 객실타입과 링크설정이 되어 있는지 확인 [필수]
-            if (_.some(tlRmTypeMaster.netAgtRmTypeList, { rmTypeCode: '----' })) {
+            if (_.some(tlRmTypeMaster.netAgtRmTypeList, { roomTypeCode: '----' })) {
               this.$dialog.alert('TL-Lincoln 객실타입코드 설정이 안된 객실이 있습니다.<br/>TL-Lincoln 에서 설정 완료 후 동기화를 해주세요.')
               return
               // TL-Lincoln 온라인 객실타입 그룹과 링크 설정이 되어 있는지 확인 [필수]
@@ -383,15 +383,15 @@ export default {
               this.$dialog.alert('TL-Lincoln 온라인객실타입 그룹코드 설정이 안된 객실이 있습니다.<br/>TL-Lincoln 에서 설정 완료 후 동기화를 해주세요.')
               return
             }
-            const tlNetAgtRmTypeList = _.filter(tlRmTypeMaster.netAgtRmTypeList, { rmTypeCode: tlRmType.rmTypeCode })
+            const tlNetAgtRmTypeList = _.filter(tlRmTypeMaster.netAgtRmTypeList, { roomTypeCode: tlRmType.roomTypeCode })
             if (tlNetAgtRmTypeList && tlNetAgtRmTypeList.length > 0) {
               for (const tlNetAgtRmType of tlNetAgtRmTypeList) {
                 netAgtRmTypeArray.push({
-                  agtName: _.some(commonAgtList, { commonCode: tlNetAgtRmType.agtCode }) ? _.find(commonAgtList, { commonCode: tlNetAgtRmType.agtCode }).commonCodeName : '',
-                  agtCode: tlNetAgtRmType.agtCode,
+                  agentName: _.some(commonAgtList, { commonCode: tlNetAgtRmType.agentCode }) ? _.find(commonAgtList, { commonCode: tlNetAgtRmType.agentCode }).commonCodeName : '',
+                  agentCode: tlNetAgtRmType.agentCode,
                   netAgtRmTypeCode: tlNetAgtRmType.netAgtRmTypeCode,
                   netAgtRmTypeName: tlNetAgtRmType.netAgtRmTypeName,
-                  tlRmTypeCode: tlNetAgtRmType.rmTypeCode,
+                  tlRmTypeCode: tlNetAgtRmType.roomTypeCode,
                   tlNetRmTypeGroupCode: tlNetAgtRmType.netRmTypeGroupCode,
                   isStockAdjustable: tlNetAgtRmType.isStockAdjustable === 'true' ? 'Y' : 'N',
                   lincolnUseFlag: tlNetAgtRmType.lincolnUseFlag === '1' ? 'Y' : 'N'
@@ -404,14 +404,14 @@ export default {
         }
       }
       // ADMIN 시스템 룸타입 정보
-      const adminRmType = await roomTypeService.selectRoomTypeList({ brcNo: this.brcNo, pkgYn: this.pkgYn })
+      const adminRmType = await roomTypeService.selectRoomTypeList({ branchNo: this.branchNo, packageYn: this.packageYn })
       const adminRmTypeList = adminRmType.data
       // FIXME 2개만 TEST
       tlRmTypeList = [tlRmTypeList[0], tlRmTypeList[1]]
 
       for (const tlRmType of tlRmTypeList) {
-        let tlRmTypeInfo = tlRmType.tlRmTypeInfo
-        let adminRmTypeInfo = {}
+        const tlRmTypeInfo = tlRmType.tlRmTypeInfo
+        const adminRmTypeInfo = {}
         // 현재 ADMIN 정보에 맵핑되는 데이터가 있는지 확인한다.
         let matchAdminRmTypeInfo = _.some(adminRmTypeList, { tlRmTypeCode: tlRmTypeInfo.tlRmTypeCode }) ? _.find(adminRmTypeList, { tlRmTypeCode: tlRmTypeInfo.tlRmTypeCode }) : {}
         let match = true
@@ -420,22 +420,22 @@ export default {
           match = false
         }
         // PMS 영업장 코드
-        this.hotelCode = _.find(this.branchList, { brcNo: this.brcNo }).hotelCode
-        tlRmTypeInfo.hotelCode = match ? matchAdminRmTypeInfo.hotelCode : this.hotelCode
+        this.storeCode = _.find(this.branchList, { branchNo: this.branchNo }).storeCode
+        tlRmTypeInfo.storeCode = match ? matchAdminRmTypeInfo.storeCode : this.storeCode
         // PMS 객실타입 코드
         this.selectHotel(tlRmType)
-        tlRmTypeInfo.rmTypeCd = match ? matchAdminRmTypeInfo.rmTypeCd : ''
+        tlRmTypeInfo.roomTypeCode = match ? matchAdminRmTypeInfo.roomTypeCode : ''
         // 기준인원수
-        tlRmTypeInfo.stndPersonCnt = match ? matchAdminRmTypeInfo.stndPersonCnt : ''
+        tlRmTypeInfo.minPersonCount = match ? matchAdminRmTypeInfo.minPersonCount : ''
         // 최대인원수
-        tlRmTypeInfo.maxPersonCnt = match ? matchAdminRmTypeInfo.maxPersonCnt : ''
+        tlRmTypeInfo.maxPersonCount = match ? matchAdminRmTypeInfo.maxPersonCount : ''
         // PMS 블럭코드
         tlRmTypeInfo.blockList = match ? matchAdminRmTypeInfo.blockList : _.cloneDeep(this.defaultBlockList)
         // 사업장 코드
-        tlRmTypeInfo.brcNo = this.brcNo
+        tlRmTypeInfo.branchNo = this.branchNo
 
         // 패키지 여부
-        tlRmTypeInfo.pkgYn = match ? matchAdminRmTypeInfo.pkgYn : 'N'
+        tlRmTypeInfo.packageYn = match ? matchAdminRmTypeInfo.packageYn : 'N'
         // 객실타입 코드
         adminRmTypeInfo.tlRmTypeCode = {
           value: tlRmTypeInfo.tlRmTypeCode,
@@ -457,10 +457,10 @@ export default {
           state: !match ? 'insert' : (matchAdminRmTypeInfo.tlNetRmTypeGroupName !== tlRmTypeInfo.tlNetRmTypeGroupName ? 'update' : 'match')
         }
         // 맵핑 AGENT 리스트
-        let agtArray = []
+        const agtArray = []
         for (const tlAgt of tlRmTypeInfo.netAgtRmTypeList) {
           let matchAgt = _.find(matchAdminRmTypeInfo.netAgtRmTypeList, {
-            agtCode: tlAgt.agtCode,
+            agentCode: tlAgt.agentCode,
             netAgtRmTypeCode: tlAgt.netAgtRmTypeCode
           })
           let matchAgtData = true
@@ -469,13 +469,13 @@ export default {
             matchAgtData = false
           }
           agtArray.push({
-            agtName: {
-              value: _.some(commonAgtList, { commonCode: tlAgt.agtCode }) ? _.find(commonAgtList, { commonCode: tlAgt.agtCode }).commonCodeName : tlAgt.agtCode,
-              state: !match || !matchAgtData ? 'insert' : matchAgt.agtCode !== tlAgt.agtCode ? 'update' : 'match'
+            agentName: {
+              value: _.some(commonAgtList, { commonCode: tlAgt.agentCode }) ? _.find(commonAgtList, { commonCode: tlAgt.agentCode }).commonCodeName : tlAgt.agentCode,
+              state: !match || !matchAgtData ? 'insert' : matchAgt.agentCode !== tlAgt.agentCode ? 'update' : 'match'
             },
-            agtCode: {
-              value: tlAgt.agtCode,
-              state: !match || !matchAgtData ? 'insert' : matchAgt.agtCode !== tlAgt.agtCode ? 'update' : 'match'
+            agentCode: {
+              value: tlAgt.agentCode,
+              state: !match || !matchAgtData ? 'insert' : matchAgt.agentCode !== tlAgt.agentCode ? 'update' : 'match'
             },
             netAgtRmTypeCode: {
               value: tlAgt.netAgtRmTypeCode,
@@ -506,11 +506,11 @@ export default {
         // 삭제된 AGENT 리스트가 있다면 체크한다.
         if (match) {
           for (const adminAgt of matchAdminRmTypeInfo.netAgtRmTypeList) {
-            const adminRemoveData = _.find(tlRmTypeInfo.netAgtRmTypeList, { agtCode: adminAgt.agtCode })
+            const adminRemoveData = _.find(tlRmTypeInfo.netAgtRmTypeList, { agentCode: adminAgt.agentCode })
             // 매칭 정보가 없다면 삭제된 데이터이다.
             if (!adminRemoveData) {
               agtArray.push({
-                agtCode: { value: adminAgt.agtCode, state: 'delete' },
+                agentCode: { value: adminAgt.agentCode, state: 'delete' },
                 netAgtRmTypeCode: { value: adminAgt.netAgtRmTypeCode, state: 'delete' },
                 netAgtRmTypeName: { value: adminAgt.netAgtRmTypeName, state: 'delete' },
                 tlRmTypeCode: { value: adminAgt.tlRmTypeCode, state: 'delete' },
@@ -525,7 +525,7 @@ export default {
         tlRmType.adminRmTypeInfo = adminRmTypeInfo
 
         // Plan Group 리스트 매핑
-        let planList = []
+        const planList = []
         // TL 에 저장된 요금 Plan 리스트
         const planTlList = planMasterList.filter(data => {
           const agtList = data.netAgtRmTypeList || []
@@ -536,7 +536,7 @@ export default {
         const planAdminList = matchAdminRmTypeInfo.planList || []
         // 매칭
         for (const plan of planTlList) {
-          let row = { planGroupCode: plan.planGroupCode, planGroupName: plan.planGroupName, state: '' }
+          const row = { planGroupCode: plan.planGroupCode, planGroupName: plan.planGroupName, state: '' }
           const adminMatch = planAdminList.find(data => data.planGroupCode === plan.planGroupCode)
           if (adminMatch) {
             if (plan.planGroupName === adminMatch.planGroupName) {
@@ -559,9 +559,9 @@ export default {
         this.$refs.syncForm.resetValidation()
       }
     },
-    selectHotel(tlRmType) {
-      if (tlRmType.tlRmTypeInfo && tlRmType.tlRmTypeInfo.hotelCode) {
-        const hotelList = _.filter(this.pmsHotelRoomInfoList, { hotelCode: tlRmType.tlRmTypeInfo.hotelCode })
+    selectHotel (tlRmType) {
+      if (tlRmType.tlRmTypeInfo && tlRmType.tlRmTypeInfo.storeCode) {
+        const hotelList = _.filter(this.pmsStoreRoomInfoList, { storeCode: tlRmType.tlRmTypeInfo.storeCode })
         if (hotelList && hotelList.length > 0) {
           tlRmType.rmTypeList = hotelList
         } else {
@@ -571,11 +571,11 @@ export default {
         tlRmType.rmTypeList = []
       }
     },
-    changeRoomType(tlRmTypeInfo) {
-      tlRmTypeInfo.stndPersonCnt = _.find(this.pmsHotelRoomInfoList, { roomType: tlRmTypeInfo.rmTypeCd }).standardPsn
-      tlRmTypeInfo.maxPersonCnt = _.find(this.pmsHotelRoomInfoList, { roomType: tlRmTypeInfo.rmTypeCd }).maximumPsn
+    changeRoomType (tlRmTypeInfo) {
+      tlRmTypeInfo.minPersonCount = _.find(this.pmsStoreRoomInfoList, { roomTypeCode: tlRmTypeInfo.roomTypeCode }).standardPerson
+      tlRmTypeInfo.maxPersonCount = _.find(this.pmsStoreRoomInfoList, { roomTypeCode: tlRmTypeInfo.roomTypeCode }).maxPerson
     },
-    async submit() {
+    async submit () {
       try {
         await this.validForm(this.$refs.syncForm)
         // PMS 블럭코드 맵핑
@@ -588,31 +588,31 @@ export default {
             this.$dialog.alert(info.tlRmTypeName + '의 PMS 마스터 블럭코드를 입력해 주세요.')
             return
           }
-          if (info.stndPersonCnt >= info.maxPersonCnt) {
+          if (info.minPersonCount >= info.maxPersonCount) {
             this.$dialog.alert('기준인원수보다 최대인원수를 크게 설정해 주세요.')
             return
           }
         }
         await this.$dialog.confirm(this.branchName + '사업장의 객실타입을<br/>동기화 하시겠습니까?')
-        let insertArray = []
+        const insertArray = []
         let insertBrcNo = ''
         // 입력 데이터
         for (const room of this.roomTypeSync) {
-          room.tlRmTypeInfo.pkgYn = this.pkgYn
-          let addRow = _.cloneDeep(room.tlRmTypeInfo)
-          insertBrcNo = addRow.brcNo
+          room.tlRmTypeInfo.packageYn = this.packageYn
+          const addRow = _.cloneDeep(room.tlRmTypeInfo)
+          insertBrcNo = addRow.branchNo
           if (addRow.netAgtRmTypeList) {
             for (const agt of addRow.netAgtRmTypeList) {
-              agt.brcNo = addRow.brcNo
+              agt.branchNo = addRow.branchNo
             }
           }
           addRow.planList = room.planList
-          addRow.rmTypeName = _.find(this.pmsHotelRoomInfoList, { roomType: addRow.rmTypeCd }).roomTypeName
-          addRow.hotelName = _.find(this.pmsHotelRoomInfoList, { roomType: addRow.rmTypeCd }).hotelName
+          addRow.roomTypeName = _.find(this.pmsStoreRoomInfoList, { roomTypeCode: addRow.roomTypeCode }).roomTypeName
+          addRow.storeName = _.find(this.pmsStoreRoomInfoList, { roomTypeCode: addRow.roomTypeCode }).storeName
 
           insertArray.push(addRow)
         }
-        await roomTypeService.insertRoomTypeSync(insertBrcNo, this.pkgYn, insertArray)
+        await roomTypeService.insertRoomTypeSync(insertBrcNo, this.packageYn, insertArray)
         this.$emit('sync')
         this.$dialog.alert('동기화에 성공하였습니다.')
         await this.sync()

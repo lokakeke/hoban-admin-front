@@ -55,7 +55,7 @@ export default {
   computed: {
     searchList () {
       return [
-        { key: 'taskType', label: '업무 구분', type: 'code', commCode: 'TASK_TYPE', defaultValue: this.taskType, disabled: this.disabled },
+        { key: 'taskType', label: '업무 구분', type: 'code', commonCode: 'TASK_TYPE', defaultValue: this.taskType, disabled: this.disabled },
         { key: 'memberNo', label: '회원번호', type: 'text', defaultValue: this.memberNo },
         { key: 'partnerName', label: '파트너명', type: 'text' },
         { key: 'useDate', label: '계약 기간', type: 'dateRange', startField: 'useStartDate', endField: 'useEndDate', format: 'YYYYMMDD' },

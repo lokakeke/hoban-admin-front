@@ -34,8 +34,8 @@
           <v-autocomplete v-model="form.requestType"
                           autocomplete="off"
                           :items="requestTypeList"
-                          :item-value="'commCode'"
-                          :item-text="'commCodeName'"
+                          :item-value="'commonCode'"
+                          :item-text="'commonCodeName'"
                           hide-details
                           :rules="emptyRules"
           />

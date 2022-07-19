@@ -1,11 +1,11 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-container fluid pt-0>
+      <vue-tour :steps="steps"/>
       <app-card colClasses="xl12 lg12 md12 sm12 xs12">
-        <vue-tour :steps="steps"/>
         <v-row>
           <v-col cols="8" class="text-left">
-            <branch-list :brcNo.sync="param.brcNo" :branchList.sync="branchList" :branchName.sync="param.branchName"
+            <branch-list :branchNo.sync="param.branchNo" :branchList.sync="branchList" :branchName.sync="param.branchName"
                          @change="branchChange()" class="stock-step-0 mb-2"></branch-list>
             <v-menu v-model="menu" bottom offset-y :close-on-content-click="false" transition="slide-y-transition">
               <template v-slot:activator="{ on }">
@@ -240,7 +240,7 @@
                         </td>
                       </tr>
                     </template>
-                    <template v-else-if="props.item.key !== 'rsvBlockCode' && props.item.key !== 'stockDetailList'">
+                    <template v-else-if="props.item.key !== 'blockCode' && props.item.key !== 'stockDetailList'">
                       <tr>
                         <th colspan="2" class="text-center" v-html="props.item.label"></th>
                         <td v-for="(col, colIndex) in props.item.cols" :key="colIndex" class="text-right" :class="col.syncYn === 'N'? 'no_sync': ''">
@@ -264,7 +264,7 @@
                             <v-switch :label="col.value === 'Y'? '자동' : '수동'" v-model="col.value" :true-value="'Y'" :false-value="'N'"
                                       color="green" hide-details :class="bodyIndex === 0 ? 'stock-step-13' : ''"></v-switch>
                           </template>
-                          <template v-else-if="props.item.key === 'rsvBlockCode'">
+                          <template v-else-if="props.item.key === 'blockCode'">
                             <template v-show="false">
                               <v-autocomplete :class="bodyIndex === 0 ? 'stock-step-8' : ''"
                                               v-model="col.value" :items="room.blockList" single-line hide-details color="primary"
@@ -284,12 +284,12 @@
                       </tr>
                     </template>
                     <template v-else-if="room.showAgt && props.item.key === 'stockDetailList'">
-                      <tr v-for="(agt, agtIndex) in props.item.netAgtRmTypeList" :key="agt.netAgtRmTypeCode + '' + agt.agtCode" class="blue lighten-5">
+                      <tr v-for="(agt, agtIndex) in props.item.netAgtRmTypeList" :key="agt.netAgtRmTypeCode + '' + agt.agentCode" class="blue lighten-5">
                         <th v-if="agtIndex === 0" :rowspan="props.item.netAgtRmTypeList.length" class="text-center">AGENT<br/>리스트
                         </th>
-                        <th class="text-center">{{ agt.agtName || '-' }}<br/>({{ agt.agtCode }}) {{ props.item.block }}
+                        <th class="text-center">{{ agt.agentName || '-' }}<br/>({{ agt.agentCode }}) {{ props.item.block }}
                         </th>
-                        <td v-for="(col, colIndex) in agt.cols" :key="agt.netAgtRmTypeCode + '' + agt.agtCode + '' + colIndex">
+                        <td v-for="(col, colIndex) in agt.cols" :key="agt.netAgtRmTypeCode + '' + agt.agentCode + '' + colIndex">
                           <v-autocomplete v-model="col.value" :items="agtSelect" hide-details></v-autocomplete>
                         </td>
                       </tr>
@@ -349,7 +349,7 @@ export default {
         periodType: '2w',
         // 선택기간
         selectDate: '',
-        pkgYn: 'N'
+        packageYn: 'N'
       },
       cloneParam: {},
       headers: [],
@@ -596,7 +596,7 @@ export default {
       }
     },
     branchChange () {
-      if (!this.param.brcNo) {
+      if (!this.param.branchNo) {
         this.$dialog.alert('사업장을 선택 후 진행하여 주세요.', '알림', {
           confirmButtonText: '확인',
           type: 'warning',
@@ -608,15 +608,15 @@ export default {
       this.param.tlRmTypeCodeList = []
       this.roomTypeList = []
       this.body = []
-      roomTypeService.selectRoomTypeSync(this.param.brcNo, this.param.pkgYn).then(res => {
+      roomTypeService.selectRoomTypeSync(this.param.branchNo, this.param.packageYn).then(res => {
         // 싱크가 맞으면 진행한다.
         if (!res.data) {
           this.$dialog.alert('해당 사업장(' + this.param.branchName + ')의<br/>객실타입마스터 싱크가 맞지 않습니다.')
         } else {
           roomTypeService.selectRoomTypeList({
-            brcNo: this.param.brcNo,
+            branchNo: this.param.branchNo,
             useYn: 'Y',
-            pkgYn: this.param.pkgYn
+            packageYn: this.param.packageYn
           }).then(res => {
             this.roomTypeList = res.data
           })
@@ -664,7 +664,7 @@ export default {
         key = parseInt(key)
         for (const room of this.body) {
           for (const data of room.data) {
-            if (data.key && data.key === 'ratio' || data.key === 'sellYn' || data.key === 'autoYn' || data.key === 'expectStock' || data.key === 'rsvAutoYn' || data.key === 'rsvBlockCode') {
+            if (data.key && data.key === 'ratio' || data.key === 'sellYn' || data.key === 'autoYn' || data.key === 'expectStock' || data.key === 'rsvAutoYn' || data.key === 'blockCode') {
               // 요일 계산
               for (const col of data.cols) {
                 const dateKey = moment(col.date, 'YYYYMMDD').day()
@@ -689,7 +689,7 @@ export default {
                     col.disabled = true
                   } else if (data.key === 'rsvAutoYn') {
                     col.value = value.rsvAuto ? 'Y' : 'N'
-                  } else if (data.key === 'rsvBlockCode') {
+                  } else if (data.key === 'blockCode') {
                     // 마스터 블럭을 구함
                     col.value = _.find(_.find(this.roomTypeList, { tlRmTypeCode: room.tlRmTypeCode }).blockList, {
                       masterYn: 'Y',
@@ -718,7 +718,7 @@ export default {
     allotmentChange (item, col) {
       let block, pmsStock
       // 해당 row 의 재고 block 을 구한다.
-      let row = _.find(item, { key: 'rsvBlockCode' })
+      let row = _.find(item, { key: 'blockCode' })
       if (row) {
         const data = _.find(row.cols, { date: col.date })
         if (data) {
@@ -769,7 +769,7 @@ export default {
       let block, pmsStock, ratio, row
       // 해당 row 의 재고 block 을 구한다.
       if (blockInfo === undefined) {
-        row = _.find(item, { key: 'rsvBlockCode' })
+        row = _.find(item, { key: 'blockCode' })
         if (row) {
           const data = _.find(row.cols, { date: col.date })
           if (data) {
@@ -854,7 +854,7 @@ export default {
       }
     },
     async search () {
-      if (!this.param.brcNo) {
+      if (!this.param.branchNo) {
         this.$dialog.alert('사업장을 선택해 주세요.')
         return
       } else if (!this.param.tlRmTypeCodeList || this.param.tlRmTypeCodeList.length === 0) {
@@ -878,21 +878,21 @@ export default {
       // 파라미터를 만든다.
       const nights = moment(endDate).diff(startDate, 'day')
       const params = {
-        brcNo: this.param.brcNo,
+        branchNo: this.param.branchNo,
         nights: nights,
-        stndYmd: moment(startDate).format('YYYYMMDD'),
+        standardDate: moment(startDate).format('YYYYMMDD'),
         tlRmTypeCodes: this.param.tlRmTypeCodeList,
-        pkgYn: this.param.pkgYn
+        packageYn: this.param.packageYn
       }
       const storeInfo = []
       for (const roomTypeCd of this.param.tlRmTypeCodeList) {
         const roomType = _.find(this.roomTypeList, { tlRmTypeCode: roomTypeCd })
         if (roomType) {
-          const storeCheck = _.find(storeInfo, { hotelCode: roomType.hotelCode })
+          const storeCheck = _.find(storeInfo, { storeCode: roomType.storeCode })
           if (storeCheck) {
-            storeCheck.rmTypeCds.push(roomType.rmTypeCd)
+            storeCheck.roomTypeCodes.push(roomType.roomTypeCode)
           } else {
-            storeInfo.push({ hotelCode: roomType.hotelCode, rmTypeCds: [roomType.rmTypeCd] })
+            storeInfo.push({ storeCode: roomType.storeCode, roomTypeCodes: [roomType.roomTypeCode] })
           }
         }
       }
@@ -959,14 +959,14 @@ export default {
             if (body && body.data) {
               const row = {
                 text: data.tlRmTypeName,
-                brcNo: this.param.brcNo,
+                branchNo: this.param.branchNo,
                 tlRmTypeCode: body.tlRmTypeCode,
                 tlNetRmTypeGroupCode: body.tlNetRmTypeGroupCode,
-                rmTypeCd: body.rmTypeCd,
-                stndYmd: key
+                roomTypeCode: body.roomTypeCode,
+                standardDate: key
               }
               // 블럭
-              row.rsvBlockCode = _.find(_.find(body.data, { key: 'rsvBlockCode' }).cols, { date: key }).value + ''
+              row.blockCode = _.find(_.find(body.data, { key: 'blockCode' }).cols, { date: key }).value + ''
               // 수동여부
               row.autoYn = _.find(_.find(body.data, { key: 'autoYn' }).cols, { date: key }).value + ''
               // 갯수
@@ -987,7 +987,7 @@ export default {
               const blockList = _.find(body.data, { key: 'pmsStock' })
               if (blockList && blockList.blockList) {
                 for (const block of blockList.blockList) {
-                  pmsStock.push({ rsvBlockCode: block.blockCode, cnt: _.find(block.cols, { date: key }).value + '' })
+                  pmsStock.push({ blockCode: block.blockCode, cnt: _.find(block.cols, { date: key }).value + '' })
                 }
               }
               row.pmsStock = pmsStock
@@ -1025,8 +1025,8 @@ export default {
     },
     makeInsertList (tlRmTypeCode) {
       // 데이터를 만든다.
-      // Master : brcNo, tlRmTypeCode, tlNetRmTypeGroupCode, rsvBlockCode, rmTypeCd, stndYmd, stock, ratio, autoYn, sellYn, rsvAutoYn
-      // Detail : brcNo, tlRmTypeCode, tlNetRmTypeGroupCode, rsvBlockCode, stndYmd, agtCode, agtRmTypeCd, agtSellYn
+      // Master : branchNo, tlRmTypeCode, tlNetRmTypeGroupCode, blockCode, roomTypeCode, standardDate, stock, ratio, autoYn, sellYn, rsvAutoYn
+      // Detail : branchNo, tlRmTypeCode, tlNetRmTypeGroupCode, blockCode, standardDate, agentCode, agtRmTypeCd, agentSellYn
       const stockData = []
       for (const room of this.body) {
         // 룸타입을 지정했을 경우
@@ -1034,14 +1034,14 @@ export default {
           // 날짜별 로 데이터를 만든다.
           for (const date of this.dates) {
             const master = {
-              brcNo: this.param.brcNo,
+              branchNo: this.param.branchNo,
               tlRmTypeCode: room.tlRmTypeCode,
               tlNetRmTypeGroupCode: room.tlNetRmTypeGroupCode,
-              rmTypeCd: room.rmTypeCd,
-              stndYmd: date.value
+              roomTypeCode: room.roomTypeCode,
+              standardDate: date.value
             }
-            // rsvBlockCode
-            master.rsvBlockCode = this.selectValue(room.data, 'rsvBlockCode', date.value, '')
+            // blockCode
+            master.blockCode = this.selectValue(room.data, 'blockCode', date.value, '')
             // stock
             master.stock = this.selectValue(room.data, 'expectStock', date.value, '0')
             // ratio
@@ -1053,7 +1053,7 @@ export default {
             // rsvAutoYn
             master.rsvAutoYn = this.selectValue(room.data, 'rsvAutoYn', date.value, 'N')
             // pmsStock
-            master.pmsStock = _.find(_.find(_.find(room.data, { key: 'pmsStock' }).blockList, { blockCode: master.rsvBlockCode }).cols, { date: date.value }).value
+            master.pmsStock = _.find(_.find(_.find(room.data, { key: 'pmsStock' }).blockList, { blockCode: master.blockCode }).cols, { date: date.value }).value
             // agt List 가 있는지 확인한다.
             const stockDetailList = _.find(room.data, { key: 'stockDetailList' })
             if (stockDetailList && stockDetailList.netAgtRmTypeList) {
@@ -1064,9 +1064,9 @@ export default {
                 })
                 if (agtInfo) {
                   dtlArray.push({
-                    agtCode: agt.agtCode,
+                    agentCode: agt.agentCode,
                     netAgtRmTypeCode: agt.netAgtRmTypeCode,
-                    agtSellYn: agtInfo.value
+                    agentSellYn: agtInfo.value
                   })
                 }
               }

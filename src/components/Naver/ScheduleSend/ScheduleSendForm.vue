@@ -11,7 +11,7 @@
         init-search
         :search-param.sync="searchParam"
         :search-list="searchList"
-        v-if="searchVal.dmItemIds.length > 0 && searchVal.sorts.length > 0 && searchVal.weekdays.length > 0"
+        v-if="searchVal.itemIds.length > 0 && searchVal.sorts.length > 0 && searchVal.weekdays.length > 0"
         @search="search"></search-form>
       <v-row>
         <v-col cols="12" class="pb-0">
@@ -38,8 +38,8 @@
             <template v-slot:item.price="{item}">
               {{ item.price | price }}
             </template>
-            <template v-slot:item.pkgYn="{item}">
-              {{ item.pkgYn === 'Y' ? '패키지' : '객실' }}
+            <template v-slot:item.packageYn="{item}">
+              {{ item.packageYn === 'Y' ? '패키지' : '객실' }}
             </template>
             <template v-slot:item.crtId="{item}">
               {{ item.crtId || 'SYSTEM' }}
@@ -84,10 +84,10 @@ export default {
         { text: '서비스명', value: 'serviceName', align: 'center', sortable: false },
         { text: '상품명', value: 'name', align: 'center', sortable: false },
         { text: '영업장코드', value: 'storeCode', align: 'center', sortable: false },
-        { text: '객실타입코드', value: 'rmTypeCode', align: 'center', sortable: false },
-        { text: '패키지여부', value: 'pkgYn', align: 'center', sortable: false },
+        { text: '객실타입코드', value: 'roomTypeCode', align: 'center', sortable: false },
+        { text: '패키지여부', value: 'packageYn', align: 'center', sortable: false },
         { text: '회원번호/패키지번호', value: 'mid', align: 'center', sortable: false },
-        { text: '블럭코드', value: 'rsvBlckCode', align: 'center', sortable: false },
+        { text: '블럭코드', value: 'blockCode', align: 'center', sortable: false },
         { text: '네이버상품ID', value: 'bizItemId', align: 'center', sortable: false },
         { text: '네이버스케줄ID', value: 'scheduleId', align: 'center', sortable: false },
         { text: '스케줄생성시작일', value: 'startDate', align: 'center', sortable: false },
@@ -109,7 +109,7 @@ export default {
       searchVal: {
         sorts: [],
         weekdays: [],
-        dmItemIds: []
+        itemIds: []
       }
     }
   },
@@ -119,11 +119,11 @@ export default {
      */
     searchList () {
       return [
-        { key: 'rmTypeCode', label: '객실타입코드', type: 'text', cols: 4 },
-        { key: 'rsvBlckCode', label: '블럭코드', type: 'text', cols: 4 },
+        { key: 'roomTypeCode', label: '객실타입코드', type: 'text', cols: 4 },
+        { key: 'blockCode', label: '블럭코드', type: 'text', cols: 4 },
         { key: 'mid', label: '회원/패키지번호', type: 'text', cols: 4 },
         { key: 'sorts', label: '정렬', type: 'select', list: this.searchVal.sorts, listValue: 'value', listText: 'text', cols: 4 },
-        { key: 'dmItemIds', label: '상품명', type: 'select', list: this.searchVal.dmItemIds, listValue: 'value', listText: 'text', cols: 4 },
+        { key: 'itemIds', label: '상품명', type: 'select', list: this.searchVal.itemIds, listValue: 'value', listText: 'text', cols: 4 },
         { key: 'weekdays', label: '반복요일', type: 'selectMulti', list: this.searchVal.weekdays, listValue: 'text', listText: 'text', cols: 4 }
       ]
     }
@@ -154,7 +154,7 @@ export default {
       })
       // 객실 검색요소
       const param = {
-        dmStoreId: this.instance.params.form.dmStoreId,
+        storeId: this.instance.params.form.storeId,
         filterItem: 'Y',
         isImp: 'Y'
       }
@@ -162,12 +162,12 @@ export default {
         const itemNameList = []
         res.data.forEach(e => {
           itemNameList.push({
-            code: 'dmItemId',
+            code: 'itemId',
             text: e.name,
             value: e.bizItemId
           })
         })
-        this.searchVal.dmItemIds = itemNameList
+        this.searchVal.itemIds = itemNameList
       })
     }
   },

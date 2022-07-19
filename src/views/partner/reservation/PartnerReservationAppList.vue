@@ -102,8 +102,8 @@ export default {
   },
   computed: {
     /**
-         * 검색 조건
-         */
+     * 검색 조건
+     */
     searchList () {
       // 파트너 여부에 따라 다르다.
       if (this.isPartner) {
@@ -153,49 +153,15 @@ export default {
         ]
       } else {
         return [
-          {
-            key: 'localCode',
-            label: '지역',
-            type: 'select',
-            list: this.localList,
-            listValue: 'localCode',
-            listText: 'localName',
-            cols: 2,
-            event: this.changeLcal
-          },
-          {
-            key: 'storeCode',
-            label: '영업장',
-            type: 'select',
-            list: this.storeList,
-            listValue: 'storeCode',
-            listText: 'storeName',
-            cols: 2,
-            event: this.changeStore
-          },
-          {
-            key: 'rmTypeCode',
-            label: '객실 유형',
-            type: 'select',
-            list: this.roomTypeList,
-            listValue: 'rmTypeCode',
-            listText: 'roomTypeName',
-            cols: 4
-          },
+          { key: 'lcalCode', label: '지역', type: 'select', list: this.localList, listValue: 'lcalCode', listText: 'lcalName', cols: 2, event: this.changeLcal },
+          { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 2, event: this.changeStore },
+          { key: 'rmTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCode', listText: 'rmTypeName', cols: 4 },
           { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 4 },
-          {
-            key: 'checkInDate',
-            label: '입실 일자',
-            type: 'dateRange',
-            format: 'YYYYMMDD',
-            startField: 'checkInStartYmd',
-            endField: 'checkInEndYmd',
-            cols: 2
-          },
-          { key: 'approveCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
-          { key: 'guestName', label: '이용자', type: 'text', cols: 2 },
-          { key: 'rsvSeq', label: '예약번호', type: 'text', cols: 2 },
-          { key: 'reqSeq', label: '요청번호', type: 'text', cols: 2 }
+          { key: 'ciYmd', label: '입실 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 2 },
+          { key: 'aprlCode', label: '승인 상태', type: 'code', commCode: 'OTA0003', cols: 2 },
+          { key: 'userName', label: '이용자', type: 'text', cols: 2 },
+          { key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 },
+          { key: 'appSeq', label: '요청번호', type: 'text', cols: 2 }
         ]
       }
     }
@@ -247,12 +213,11 @@ export default {
       item.guestTelNo = res.data.data.guestTelNo
     },
     /**
-         * 상세보기
-         * @param row 게시물 정보
-         */
+     * 상세보기
+     * @param row 게시물 정보
+     */
     open (row) {
       // 파트너 / 관리자 분기
-      // const componentPath = '/Partner/Reservation/PartnerReservationDetailDialog'
       let componentPath = ''
       if (this.isPartner) {
         componentPath = '/Partner/Reservation/PartnerReservationDetailDialog'
@@ -265,7 +230,7 @@ export default {
       }
 
       this.$store.dispatch('dialog/open', {
-        componentPath: componentPath,
+        componentPath,
         params: {
           isModify: !!row,
           param: row || {}
@@ -282,9 +247,9 @@ export default {
       })
     },
     /**
-         * 예약내역 팝업창 호출
-         * @param keyrsvSeq 예약 번호
-         */
+     * 예약내역 팝업창 호출
+     * @param keyRsvNo 예약 번호
+     */
     openReservation (keyRsvNo) {
       if (keyRsvNo) {
         this.$store.dispatch('dialog/open', {

@@ -25,8 +25,8 @@
             <template v-slot:item.failStatus="{item}">
               {{ getStatus(item.failStatus, 'text') }}
             </template>
-            <template v-slot:item.pkgYn="{item}">
-              {{ item.pkgYn === 'Y' ? '패키지' : '객실' }}
+            <template v-slot:item.packageYn="{item}">
+              {{ item.packageYn === 'Y' ? '패키지' : '객실' }}
             </template>
             <template v-slot:item.status="{item}">
               {{ getStatus(item.status, 'text') }}
@@ -92,7 +92,7 @@
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import service from '@/api/modules/naver/bookingLog.service'
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import MaskPhoneNumber from '@/components/Mask/MaskPhoneNumber.vue'
 import MaskEmail from '@/components/Mask/MaskEmail.vue'
 
@@ -146,13 +146,13 @@ export default {
       },
       {
         text: '서비스명',
-        value: 'dmStoreId',
+        value: 'storeId',
         align: 'center',
         sortable: false
       },
       {
         text: '상품명',
-        value: 'dmItemId',
+        value: 'itemId',
         align: 'center',
         sortable: false
       },
@@ -176,13 +176,13 @@ export default {
       },
       {
         text: '객실타입코드',
-        value: 'rmTypeCode',
+        value: 'roomTypeCode',
         align: 'center',
         sortable: false
       },
       {
         text: '패키지여부',
-        value: 'pkgYn',
+        value: 'packageYn',
         align: 'center',
         sortable: false
       },
@@ -194,7 +194,7 @@ export default {
       },
       {
         text: '블럭코드',
-        value: 'rsvBlckCode',
+        value: 'blockCode',
         align: 'center',
         sortable: false
       },

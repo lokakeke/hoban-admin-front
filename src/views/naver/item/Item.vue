@@ -3,10 +3,10 @@
     <app-card :heading="'객실 목록'" col-classes="col-12">
       <v-row justify="space-between">
         <v-col cols="4">
-          <v-autocomplete v-model="searchParam.dmStoreId" hide-details
+          <v-autocomplete v-model="searchParam.storeId" hide-details
                           autocomplete="off"
                           :items="businessCodeList"
-                          item-value="dmStoreId"
+                          item-value="storeId"
                           item-text="serviceName"
                           label="서비스명"
                           @change="search"
@@ -30,9 +30,9 @@
           ></v-autocomplete>
         </v-col>
         <v-col cols="2">
-          <v-autocomplete v-model="pkgYn" hide-details
+          <v-autocomplete v-model="packageYn" hide-details
                           autocomplete="off"
-                          :items="pkgYnList"
+                          :items="packageYnList"
                           item-value="value"
                           item-text="code"
                           label="상품 타입"
@@ -43,7 +43,7 @@
           <v-text-field v-model="mid" append-icon="search" clearable label="회원번호/패키지번호" hide-details @input="searchList"></v-text-field>
         </v-col>
         <v-col cols="3">
-          <v-text-field v-model="rmTypeCode" append-icon="search" clearable label="객실타입코드" hide-details @input="searchList"></v-text-field>
+          <v-text-field v-model="roomTypeCode" append-icon="search" clearable label="객실타입코드" hide-details @input="searchList"></v-text-field>
         </v-col>
         <v-col cols="2">
           <v-autocomplete v-model="sendYn" hide-details
@@ -95,22 +95,22 @@
           </div>
         </template>
         <template v-slot:item.itemType="{item}">
-          <v-chip v-if="item.pkgYn === 'N'" small color="orange" text-color="white">객실</v-chip>
-          <v-chip v-else-if="item.pkgYn === 'Y'" small color="info">패키지</v-chip>
+          <v-chip v-if="item.packageYn === 'N'" small color="orange" text-color="white">객실</v-chip>
+          <v-chip v-else-if="item.packageYn === 'Y'" small color="info">패키지</v-chip>
         </template>
         <template v-slot:item.pkgInfo="{item}">
-          <div class="text-left pa-1" v-if="item.pkgYn === 'Y'" @click="showPackageInfoModal(item)" style="cursor: pointer;">
+          <div class="text-left pa-1" v-if="item.packageYn === 'Y'" @click="showPackageInfoModal(item)" style="cursor: pointer;">
             <p class="pa-1 ma-0">패키지명 : {{ item.pkgName }} ({{ item.mid }})</p>
             <p class="pa-1 ma-0">영업장명 : {{ item.storeName }} ({{ item.storeCode }})</p>
-            <p class="pa-1 ma-0">객실타입명 : {{ item.rmTypeName }} ({{ item.rmTypeCode }})</p>
+            <p class="pa-1 ma-0">객실타입명 : {{ item.roomTypeName }} ({{ item.roomTypeCode }})</p>
             <p class="pa-1 ma-0">시작/종료일 : {{ moment(item.pkgBgnYmd).format('YYYY.MM.DD') }} ~ {{ moment(item.pkgEndYmd).format('YYYY.MM.DD') }}</p>
-            <p class="pa-1 ma-0">블럭코드 : {{ item.rsvBlckCode }}</p>
+            <p class="pa-1 ma-0">블럭코드 : {{ item.blockCode }}</p>
           </div>
-          <div class="text-left pa-1" v-else-if="item.pkgYn === 'N'" @click="showRoomInfoModal(item)" style="cursor: pointer;">
+          <div class="text-left pa-1" v-else-if="item.packageYn === 'N'" @click="showRoomInfoModal(item)" style="cursor: pointer;">
             <p class="pa-1 ma-0">회원번호 : {{ item.mid }}</p>
             <p class="pa-1 ma-0">영업장명 : {{ item.storeName }} ({{ item.storeCode }})</p>
-            <p class="pa-1 ma-0">객실타입명 : {{ item.rmTypeName }} ({{ item.rmTypeCode }})</p>
-            <p class="pa-1 ma-0">블럭코드 : {{ item.rsvBlckCode }}</p>
+            <p class="pa-1 ma-0">객실타입명 : {{ item.roomTypeName }} ({{ item.roomTypeCode }})</p>
+            <p class="pa-1 ma-0">블럭코드 : {{ item.blockCode }}</p>
           </div>
           <div v-else>
             <v-btn outlined rounded small color="red" @click="showRoomInfoModal(item)" :disabled="isNotEditor(item)">
@@ -140,7 +140,7 @@
         </template>
         <template v-slot:item.isNPayUsed="{item}">
           <v-switch :input-value="item.isNPayUsed" true-value="Y" false-value="N" class="justify-center mt-0"
-                    hide-details dense inset color="info" @click.prevent.stop="changeNpay(item)" :disabled="isNotEditor(item)"></v-switch>
+                    hide-details dense inset color="info" @click="changeNpay(item)" :readonly="!isNotEditor(item)" :disabled="isNotEditor(item)"></v-switch>
         </template>
         <template v-slot:item.review="{item}">
           <v-btn text block rounded color="green" @click="reviewItem(item)" :disabled="isNotEditor(item)">
@@ -148,7 +148,7 @@
           </v-btn>
         </template>
         <template v-slot:item.copy="{item}">
-          <v-btn text block rounded color="green" @click="copyItem(item)" :disabled="(!!(isNotEditor(item) || item.pkgYn === 'N' || item.scheduleSendYn === 'N'))">
+          <v-btn text block rounded color="green" @click="copyItem(item)" :disabled="(!!(isNotEditor(item) || item.packageYn === 'N' || item.scheduleSendYn === 'N'))">
             <v-icon left>file_copy</v-icon>복사
           </v-btn>
         </template>
@@ -158,13 +158,13 @@
           </v-btn>
         </template>
       </v-data-table>
+      <common-snackbars :text="snackbarText" v-model="isShowSnackbar" :type="snackbarType"></common-snackbars>
     </app-card>
-    <common-snackbars :text="snackbarText" v-model="isShowSnackbar" :type="snackbarType"></common-snackbars>
   </v-row>
 </template>
 
 <script>
-import service from '@/api/modules/naver/item.service'
+import itemService from '@/api/modules/naver/item.service'
 import CommonSnackbars from '@/components/Common/CommonSnackbars.vue'
 import CommonTooltip from '@/components/Common/CommonTooltip.vue'
 
@@ -177,7 +177,7 @@ export default {
   data () {
     return {
       searchParam: {
-        dmStoreId: ''
+        storeId: null
       },
       originList: [],
       list: [],
@@ -195,9 +195,9 @@ export default {
       ],
       businessCodeList: [],
       mid: '',
-      rmTypeCode: '',
-      pkgYn: '',
-      pkgYnList: [
+      roomTypeCode: '',
+      packageYn: '',
+      packageYnList: [
         { code: '전체', value: '' },
         { code: '미등록', value: 'X' },
         { code: '패키지', value: 'Y' },
@@ -228,21 +228,21 @@ export default {
       return this.originList.filter(item => { return !item.bizItemId || item.sendYn === 'N' }).length > 0
     },
     isNotSettingDgnsItemList () {
-      return this.originList.filter(item => { return !item.pkgYn }).length > 0
+      return this.originList.filter(item => { return !item.packageYn }).length > 0
     }
   },
   mounted () {
-    service.selectBusinessCodeList().then(res => {
+    itemService.selectBusinessCodeList().then(res => {
       this.businessCodeList = res.data
       if (this.businessCodeList && this.businessCodeList.length > 0) {
-        if (this.$route.query && this.$route.query.dmStoreId) {
-          this.searchParam.dmStoreId = this.$route.query.dmStoreId
+        if (this.$route.query && this.$route.query.storeId) {
+          this.searchParam.storeId = Number(this.$route.query.storeId)
           this.$nextTick(() => {
             this.search()
           })
         } else {
-          this.searchParam.dmStoreId = this.businessCodeList[0].dmStoreId
-          this.$router.replace(this.$route.path + '?dmStoreId=' + this.businessCodeList[0].dmStoreId)
+          this.searchParam.storeId = Number(this.businessCodeList[0].storeId)
+          this.$router.replace(this.$route.path + '?storeId=' + this.businessCodeList[0].storeId)
           this.$nextTick(() => {
             this.search()
           })
@@ -255,19 +255,19 @@ export default {
       return (!item.bizItemId || item.sendYn === 'N')
     },
     isNotSettingDgnsItem (item) {
-      return !item.pkgYn
+      return !item.packageYn
     },
     search (snackbarObj) {
-      this.pkgYn = ''
+      this.packageYn = ''
       this.useYn = ''
       this.mid = ''
-      this.rmTypeCode = ''
+      this.roomTypeCode = ''
       this.sendYn = ''
 
-      if (this.$route.query && this.$route.query.dmStoreId && (this.searchParam.dmStoreId !== this.$route.query.dmStoreId)) {
-        this.$router.replace(this.$route.path + '?dmStoreId=' + this.searchParam.dmStoreId)
+      if (this.$route.query && this.$route.query.storeId && (this.searchParam.storeId !== Number(this.$route.query.storeId))) {
+        this.$router.replace(this.$route.path + '?storeId=' + this.searchParam.storeId)
       }
-      service.selectItemList(this.searchParam).then(res => {
+      itemService.selectItemList(this.searchParam).then(res => {
         this.originList = res.data
         this.list = _.cloneDeep(this.originList)
         if (snackbarObj && snackbarObj.text) {
@@ -277,16 +277,16 @@ export default {
     },
     searchList () {
       this.mid = this.mid || ''
-      this.rmTypeCode = this.rmTypeCode || ''
+      this.roomTypeCode = this.roomTypeCode || ''
       this.list = _.cloneDeep(this.originList).filter((item) => {
         item.mid = item.mid || ''
-        item.rmTypeCode = item.rmTypeCode || ''
+        item.roomTypeCode = item.roomTypeCode || ''
         item.sendYn = item.sendYn || ''
-        item.pkgYn = item.pkgYn || ''
+        item.packageYn = item.packageYn || ''
         if (this.useYn === 'Y' || this.useYn === 'N') {
-          return item.isImp === this.useYn && item.mid.indexOf(this.mid) > -1 && item.rmTypeCode.indexOf(this.rmTypeCode) > -1
+          return item.isImp === this.useYn && item.mid.indexOf(this.mid) > -1 && item.roomTypeCode.indexOf(this.roomTypeCode) > -1
         } else {
-          return item.mid.indexOf(this.mid) > -1 && item.rmTypeCode.indexOf(this.rmTypeCode) > -1
+          return item.mid.indexOf(this.mid) > -1 && item.roomTypeCode.indexOf(this.roomTypeCode) > -1
         }
       }).filter((item) => {
         if (this.sendYn) {
@@ -295,10 +295,10 @@ export default {
           return item
         }
       }).filter((item) => {
-        if (this.pkgYn === 'Y' || this.pkgYn === 'N') {
-          return item.pkgYn === this.pkgYn
-        } else if (this.pkgYn === 'X') {
-          return !item.pkgYn
+        if (this.packageYn === 'Y' || this.packageYn === 'N') {
+          return item.packageYn === this.packageYn
+        } else if (this.packageYn === 'X') {
+          return !item.packageYn
         } else {
           return item
         }
@@ -308,7 +308,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Naver/Item/ItemRoomForm',
         params: {
-          dmStoreId: this.searchParam.dmStoreId
+          storeId: this.searchParam.storeId
         },
         options: {
           fullscreen: true,
@@ -321,7 +321,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Naver/Item/ItemPackageForm',
         params: {
-          dmStoreId: this.searchParam.dmStoreId
+          storeId: this.searchParam.storeId
         },
         options: {
           fullscreen: true,
@@ -342,7 +342,7 @@ export default {
       this.$store.dispatch('dialog/open', {
         componentPath: '/Naver/Item/ItemView',
         params: {
-          dmItemId: item.dmItemId,
+          itemId: item.itemId,
           search: this.search
         },
         options: {
@@ -397,7 +397,7 @@ export default {
     resendNaverApi (item) {
       this.$dialog.confirm('재전송하시겠습니까?').then(() => {
         this.isDisabledResend = true
-        service.resendApiItem(item.dmItemId).then(() => {
+        itemService.resendApiItem(item.itemId).then(() => {
           this.isDisabledResend = false
           this.showSnackbar('success', '재전송되었습니다.')
           this.search()
@@ -418,11 +418,11 @@ export default {
         return
       }
       const param = {
-        dmStoreId: this.searchParam.dmStoreId,
-        dmItemIds: item.dmItemId,
+        storeId: this.searchParam.storeId,
+        itemIds: item.itemId,
         isImp: item.isImp
       }
-      service.patchItem(param).then(() => {
+      itemService.patchItem(param).then(() => {
         this.showSnackbar('success', `[${item.name}] 예약서비스에 [${item.isImp === 'Y' ? '노출' : '미노출'}] 됩니다.`)
         this.search()
       }).catch(() => {
@@ -446,11 +446,11 @@ export default {
         return
       }
       const param = {
-        dmStoreId: this.searchParam.dmStoreId,
-        dmItemIds: item.dmItemId,
+        storeId: this.searchParam.storeId,
+        itemIds: item.itemId,
         scheduleSendYn: item.scheduleSendYn
       }
-      service.patchItem(param).then(() => {
+      itemService.patchItem(param).then(() => {
         this.showSnackbar('success', `[${item.name}] 스케줄 전송이 [${item.scheduleSendYn === 'Y' ? '등록' : '해지'}] 되었습니다.`)
         this.search()
       }).catch(() => {
@@ -467,21 +467,6 @@ export default {
         return
       }
       this.showSnackbar('error', '[네이버 예약 파트너센터] 에서 관리하시기 바랍니다.')
-      // TODO 적용시 아래 주석 제거, 위 1줄 제거.
-      // const text = `네이버페이를 ${item.isNPayUsed === 'Y' ? '적용' : '미적용'}하시겠습니까?`
-      // this.$dialog.confirm(text).then(() => {
-      //   const param = {
-      //     dmStoreId: this.searchParam.dmStoreId,
-      //     dmItemIds: item.dmItemId,
-      //     isNPayUsed: item.isNPayUsed
-      //   }
-      //   service.patchItem(param).then(() => {
-      //     this.showSnackbar('success', `전체 객실에 네이버페이가 [${item.isNPayUsed === 'Y' ? '적용' : '미적용'}]되었습니다.`)
-      //     this.search()
-      //   }).catch(() => {
-      //      this.search()
-      //   })
-      // })
     },
     showSnackbar (type, text) {
       this.isShowSnackbar = true
@@ -607,7 +592,7 @@ export default {
         return
       }
       this.$dialog.confirm(`[${item.name}] 삭제 하시겠습니까? 삭제시 복구할 수 없습니다.`).then(() => {
-        service.deleteItem(item.dmItemId).then(() => {
+        itemService.deleteItem(item.itemId).then(() => {
           this.showSnackbar('success', `[${item.name}] 삭제 되었습니다.`)
           this.search()
         }).catch(() => {

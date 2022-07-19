@@ -27,9 +27,9 @@
 <script>
 import adminAuthService from '@/api/modules/system/authentication/admin/adminAuth.service'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import PartnerProfilePartnerInformation from './PartnerProfilePartnerInformation'
-import PartnerProfileBasicInformation from './PartnerProfileBasicInformation'
-import PartnerProfilePassword from './PartnerProfilePassword'
+import PartnerProfilePartnerInformation from './PartnerProfilePartnerInformation.vue'
+import PartnerProfileBasicInformation from './PartnerProfileBasicInformation.vue'
+import PartnerProfilePassword from './PartnerProfilePassword.vue'
 import PartnerAddCharge from '@/components/Partner/Management/PartnerAddManager.vue'
 
 export default {

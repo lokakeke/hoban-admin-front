@@ -1,14 +1,14 @@
 <template>
     <div>
         <v-label>사업장 이름</v-label>
-        <v-text-field v-model="formData.brcName" :counter="100" label="" :rules="emptyRules" required
+        <v-text-field v-model="formData.branchName" :counter="100" label="" :rules="emptyRules" required
                       class="pt-0 ime-active"></v-text-field>
         <v-label>영업장</v-label>
-        <v-autocomplete v-model="formData.hotelCode" :items="businessList" :rules="emptyRules"
+        <v-autocomplete v-model="formData.storeCode" :items="businessList" :rules="emptyRules"
                         class="pt-0" label=""
                         placeholder="영업장을 선택해 주세요."
-                        :item-value="'hotelCode'"
-                        :item-text="'hotelName'"
+                        :item-value="'storeCode'"
+                        :item-text="'storeName'"
                         required
                         chips
                         deletable-chips>

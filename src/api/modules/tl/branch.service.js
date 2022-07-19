@@ -19,15 +19,15 @@ const branchService = {
   /**
    * PMS 영업장 목록 전체조회
    */
-  selectPmsHotelInfoList () {
-    return api.get('/api/cms/tl/booking/branch/pmsHotelInfoList')
+  selectPmsStoreList () {
+    return api.get('/api/cms/tl/booking/branch/pmsStoreList')
   },
 
   /**
    * PMS 영업장/객실 목록 전체조회
    */
-  selectPmsHotelRoomInfoList (hotelCode) {
-    return api.get('/api/cms/tl/booking/branch/pmsHotelRoomInfoList', { params: { hotelCode: hotelCode } })
+  selectPmsStoreRoomTypeList (storeCode) {
+    return api.get('/api/cms/tl/booking/branch/pmsStoreRoomTypeList', { params: { storeCode: storeCode } })
   },
 
   /**

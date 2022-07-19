@@ -27,7 +27,7 @@
                 <v-container>
                     <v-layout class="headline mb-2">
                         <v-flex xs12 md6>
-                            사업장 : {{ detail.brcName }}
+                            사업장 : {{ detail.branchName }}
                             <v-spacer></v-spacer>
                         </v-flex>
 
@@ -42,25 +42,25 @@
                             <v-flex xs12 md6 border-right>
 
                                 <v-label>사업장</v-label>
-                                <p>{{ detail.brcName }}</p>
+                                <p>{{ detail.branchName }}</p>
 
                                 <v-label>예약구분</v-label>
-                                <p>{{ detail.rsvName }} ({{ detail.rsvIndNm }})</p>
+                                <p>{{ detail.rsvName }} ({{ detail.rsvIndName }})</p>
 
                                 <v-label>판매처</v-label>
-                                <p>{{ detail.agtName }}</p>
+                                <p>{{ detail.agentName }}</p>
 
                                 <v-label>예약자</v-label>
-                                <p>{{ detail.userNm }}</p>
+                                <p>{{ detail.userName }}</p>
 
                                 <v-label>전화번호</v-label>
                                 <p>{{ detail.phoneNo }}</p>
 
                                 <v-label>투숙일</v-label>
-                                <p>{{ detail.roomYmd | date }}</p>
+                                <p>{{ detail.roomDate | date }}</p>
 
                                 <v-label>객실수</v-label>
-                                <p>{{ detail.roomCnt }}</p>
+                                <p>{{ detail.roomCount }}</p>
 
                                 <v-label>박수</v-label>
                                 <p>{{ detail.nights }}</p>
@@ -79,7 +79,7 @@
                                 <template v-if="detail.ciModifyDays">
                                     <v-label>투숙일 기준 변경 차이일(변경 또는 취소시에만 생성)</v-label>
                                     <p :class="{'red--text' : detail.ciModifyDays < 4}">{{ detail.ciModifyDays }} 일
-                                        (투숙일: {{ detail.roomYmd | date }} - 신청일: {{ detail.inputDtlInsDt | date }})</p>
+                                        (투숙일: {{ detail.roomDate | date }} - 신청일: {{ detail.inputDetailInsDatetime | date }})</p>
 
                                 </template>
 
@@ -89,23 +89,23 @@
                                         {{ detail.lastTotalCharge | price }}</p>
                                 </template>
 
-                                <template v-if="detail.notTryConfirmYmd">
+                                <template v-if="detail.notTryConfirmDate">
                                     <v-label>예약 미 시도 확인 일자</v-label>
-                                    <p>{{ detail.notTryConfirmYmd | date }}</p>
+                                    <p>{{ detail.notTryConfirmDate | date }}</p>
                                 </template>
 
                                 <v-label>일별 객실요금</v-label>
                                 <p v-for="(room, index) in detail.roomList" :key="index">{{ room.rmRoomYmd | date }} =
-                                    {{ room.texPerRoomrate | price }} 객실수 : {{ room.detailRoomCnt }}실 <br/>객실정보 :
+                                    {{ room.texPerRoomrate | price }} 객실수 : {{ room.detailRoomCount }}실 <br/>객실정보 :
                                     {{ room.otaRmTypeNm }}</p>
                             </v-flex>
                             <v-flex xs12 md6 class="pl-3">
                                 <pre v-html="detail.telegramData"></pre>
                             </v-flex>
                         </v-layout>
-                        <reservation-history :brc-no="detail.brcNo"
+                        <reservation-history :brc-no="detail.branchNo"
                                              :org-data-id="detail.orgDataId"></reservation-history>
-                        <v-layout justify-end class="mt-3" v-if="detail.noHistoryYn == 'Y' && !detail.notTryConfirmYmd">
+                        <v-layout justify-end class="mt-3" v-if="detail.noHistoryYn == 'Y' && !detail.notTryConfirmDate">
                             <v-btn outlined rounded color="orange"  @click="complete()">
                                 <v-icon>check</v-icon>
                                 예약 미시도 확인완료
@@ -120,7 +120,7 @@
 
 <script>
 import reservationInputService from '@/api/modules/tl/reservation/reservationInput.service'
-import reservationHistory from '@/views/tl/reservation/common/reservationHistory'
+import reservationHistory from '@/views/tl/reservation/common/reservationHistory.vue'
 // import scheduleTempService from '@/api/modules/naver/schedule.service'
 
 export default {
@@ -132,9 +132,9 @@ export default {
       detail: {},
       headers: [
         { text: '예약구분', value: 'rmTypeNm', align: 'center', sortable: false },
-        { text: '등록일자', value: 'insDt', align: 'center', sortable: false },
-        { text: '처리여부', value: 'errorCd', align: 'center', sortable: false },
-        { text: '에러 메시지', value: 'errorMsg', align: 'center', sortable: false }
+        { text: '등록일자', value: 'insDatetime', align: 'center', sortable: false },
+        { text: '처리여부', value: 'errorCode', align: 'center', sortable: false },
+        { text: '에러 메시지', value: 'errorMessage', align: 'center', sortable: false }
       ]
     }
   },

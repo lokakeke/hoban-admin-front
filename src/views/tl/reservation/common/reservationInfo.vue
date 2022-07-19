@@ -40,7 +40,7 @@
                             <v-flex xs12 md6 border-right>
 
                                 <v-label>영업장</v-label>
-                                <p>{{ detail.storeNm }} ({{ detail.hotelCode }})</p>
+                                <p>{{ detail.storeNm }} ({{ detail.storeCode }})</p>
 
                                 <v-label>예약구분</v-label>
                                 <p>{{ detail.rsvTypeNm }}</p>
@@ -52,7 +52,7 @@
                                 <p>{{ detail.memberNo }}</p>
 
                                 <v-label>블럭코드</v-label>
-                                <p>{{ detail.rsvBlockCode }}</p>
+                                <p>{{ detail.blockCode }}</p>
 
                                 <v-label>투숙자명</v-label>
                                 <p>{{ detail.guestName }}</p>
@@ -90,16 +90,16 @@
                             <v-flex xs12 md6 border-right>
 
                                 <v-label>에러코드</v-label>
-                                <p>{{ tlRsv.errorCd }}</p>
+                                <p>{{ tlRsv.errorCode }}</p>
 
                                 <v-label>에러메시지</v-label>
-                                <p class="red--text">{{ tlRsv.errorMsg }}</p>
+                                <p class="red--text">{{ tlRsv.errorMessage }}</p>
 
                                 <v-label>사업장</v-label>
-                                <p>{{ tlRsv.brcName }}</p>
+                                <p>{{ tlRsv.branchName }}</p>
 
                                 <v-label>예약구분</v-label>
-                                <p>{{ tlRsv.rsvTypeNm }} ({{ tlRsv.rsvIndNm }})</p>
+                                <p>{{ tlRsv.rsvTypeNm }} ({{ tlRsv.rsvIndName }})</p>
 
                                 <v-label>PMS 객실이름</v-label>
                                 <p>{{ tlRsv.rmTypeNm }}</p>
@@ -111,19 +111,19 @@
                                 <p>{{ tlRsv.memberNo }}</p>
 
                                 <v-label>블럭코드</v-label>
-                                <p>{{ tlRsv.rsvBlockCode }}</p>
+                                <p>{{ tlRsv.blockCode }}</p>
 
                                 <v-label>예약자</v-label>
-                                <p>{{ tlRsv.userNm }}</p>
+                                <p>{{ tlRsv.userName }}</p>
 
                                 <v-label>전화번호</v-label>
                                 <p>{{ tlRsv.phoneNo }}</p>
 
                                 <v-label>투숙일</v-label>
-                                <p>{{ tlRsv.roomYmd | date }}</p>
+                                <p>{{ tlRsv.roomDate | date }}</p>
 
                                 <v-label>객실수</v-label>
-                                <p>{{ tlRsv.roomCnt }}</p>
+                                <p>{{ tlRsv.roomCount }}</p>
 
                                 <v-label>박수</v-label>
                                 <p>{{ tlRsv.nights }}</p>

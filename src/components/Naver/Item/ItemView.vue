@@ -4,9 +4,6 @@
       객실 상세정보 / 수정 <v-chip v-if="itemInfo && itemInfo.bizItemId" small class="pt-0 ml-2"> BusinessId : {{ itemInfo.businessId }} / BizItemId : {{ itemInfo.bizItemId }}</v-chip>
     </template>
     <template v-slot:buttons>
-      <v-btn dark text @click="compareItemInfo()">
-        <v-icon left>report_problem</v-icon>비교하기
-      </v-btn>
       <v-btn dark text @click="submit()">
         <v-icon left>check</v-icon>수정
       </v-btn>
@@ -14,28 +11,28 @@
     <v-row>
       <v-col cols="6" offset="3">
         <v-row>
-          <v-col cols="12" v-if="itemInfo && itemInfo.rmTypeCode">
+          <v-col cols="12" v-if="itemInfo && itemInfo.roomTypeCode">
             <v-card outlined>
               <v-card-title>
-                {{ itemInfo.pkgYn === 'Y' ? '패키지' : '객실' }} 정보
+                {{ itemInfo.packageYn === 'Y' ? '패키지' : '객실' }} 정보
               </v-card-title>
-              <v-card-text class="black--text" v-if="itemInfo.pkgYn === 'Y'">
+              <v-card-text class="black--text" v-if="itemInfo.packageYn === 'Y'">
                 패키지명 : {{ itemInfo.pkgName }} ({{ itemInfo.mid }})
               </v-card-text>
-              <v-card-text class="black--text" v-if="itemInfo.pkgYn === 'N'">
+              <v-card-text class="black--text" v-if="itemInfo.packageYn === 'N'">
                 회원번호 : {{ itemInfo.mid }}
               </v-card-text>
               <v-card-text class="black--text pt-0">
                 영업장명 : {{ itemInfo.storeName }} ({{ itemInfo.storeCode }})
               </v-card-text>
               <v-card-text class="black--text pt-0">
-                객실타입명 : {{ itemInfo.rmTypeName }} ({{ itemInfo.rmTypeCode }})
+                객실타입명 : {{ itemInfo.roomTypeName }} ({{ itemInfo.roomTypeCode }})
               </v-card-text>
-              <v-card-text class="black--text pt-0" v-if="itemInfo.pkgYn === 'Y'">
+              <v-card-text class="black--text pt-0" v-if="itemInfo.packageYn === 'Y'">
                 시작/종료일 : {{ moment(itemInfo.pkgBgnYmd).format('YYYY.MM.DD') }} ~ {{ moment(itemInfo.pkgEndYmd).format('YYYY.MM.DD') }}
               </v-card-text>
               <v-card-text class="black--text pt-0">
-                객실타입명 : {{ itemInfo.rsvBlckCode }}
+                객실타입명 : {{ itemInfo.blockCode }}
               </v-card-text>
             </v-card>
           </v-col>
@@ -63,17 +60,17 @@ export default {
   },
   data: function () {
     return {
-      dmItemId: '',
+      itemId: '',
       itemInfo: {
-        dmItemId: '',
+        itemId: '',
         bizItemId: '',
-        dmStoreId: '',
+        storeId: '',
         businessId: '',
         storeCode: '',
-        rmTypeCode: '',
-        pkgYn: '',
+        roomTypeCode: '',
+        packageYn: '',
         mid: '',
-        rsvBlckCode: '',
+        blockCode: '',
         name: '',
         desc: '',
         order: 0,
@@ -104,10 +101,10 @@ export default {
         action: this.close
       }]
     })
-    this.dmItemId = this.instance.params.dmItemId
+    this.itemId = this.instance.params.itemId
     this.$nextTick(() => {
-      if (this.dmItemId) {
-        itemService.selectItem(this.dmItemId).then(res => {
+      if (this.itemId) {
+        itemService.selectItem(this.itemId).then(res => {
           delete res.data.additionalInfosStr
           this.itemInfo = res.data
           this.isItemInfo = true
@@ -119,7 +116,7 @@ export default {
     submit () {
       this.$refs.itemInfo.getData().then(() => {
         this.$dialog.confirm('객실 정보를 수정 하시겠습니까? <p style="color: red;">수정시 네이버 예약 파트너센터의 정보를 수정하게 됩니다.</p>').then(() => {
-          this.itemInfo.dmItemId = this.dmItemId
+          this.itemInfo.itemId = this.itemId
 
           itemService.updateItem(this.itemInfo).then(res => {
             this.close()
@@ -133,19 +130,6 @@ export default {
           })
         })
       }).catch(() => {
-      })
-    },
-    compareItemInfo () {
-      this.$store.dispatch('dialog/open', {
-        componentPath: '/Naver/Item/ItemCompareModal',
-        params: {
-          dmItemId: this.dmItemId
-        },
-        options: {
-          fullscreen: true,
-          persistent: true,
-          scrollable: true
-        }
       })
     }
   }

@@ -5,81 +5,81 @@ export default {
    * 상품 목록 조회
    */
   selectItemList (param) {
-    return api.get('/api/naver/item', { params: param })
+    return api.get('/api/cms/naver/booking/item', { params: { q: param } })
   },
   /**
    * 모든 상품 목록 조회
    */
   selectItemListAll (param) {
-    return api.get('/api/naver/item/itemListAll', { params: param })
+    return api.get('/api/cms/naver/booking/item/itemListAll', { params: param })
   },
   /**
    * 상품 상세 조회
    */
-  selectItem (dmItemId) {
-    return api.get(`/api/naver/item/${dmItemId}`)
+  selectItem (itemId) {
+    return api.get(`/api/cms/naver/booking/item/${itemId}`)
   },
   /**
    * 상품 상세 비교
    */
-  compareItem (dmItemId) {
-    return api.get(`/api/naver/item/${dmItemId}/compare`)
+  compareItem (itemId) {
+    return api.get(`/api/cms/naver/booking/item/${itemId}/compare`)
   },
   /**
    * 상품 생성
    */
   insertItem (param) {
-    return api.post('/api/naver/item/insert', param)
+    return api.post('/api/cms/naver/booking/item/insert', param)
   },
   /**
    * 상품 다건 생성
    */
   insertItemList (param) {
-    return api.post('/api/naver/item/list', param)
+    return api.post('/api/cms/naver/booking/item/list', param)
   },
   /**
    * 상품 수정
    */
   updateItem (param) {
-    return api.post(`/api/naver/item/update/${param.dmItemId}`, param)
+    return api.post(`/api/cms/naver/booking/item/update/${param.itemId}`, param)
   },
   /**
    * 상품 부가속성 조회
    */
   selectAdditionalInfo () {
-    return api.get('/api/naver/item/additionalInfo')
+    return api.get('/api/cms/naver/booking/item/additionalInfo')
   },
   /**
    * 상품 조회시 사용하는 사업장 목록 조회
    */
   selectBusinessCodeList (param) {
-    return api.get('/api/naver/item/businessCodeList')
+    return api.get('/api/cms/naver/booking/item/businessCodeList')
   },
   /**
    * 상품 일부정보 수정
    */
   patchItem (param) {
-    return api.post('/api/naver/item/patch', param)
+    return api.post('/api/cms/naver/booking/item/patch', param)
   },
   /**
    * 상품 API 재전송
    */
-  resendApiItem (dmItemId) {
-    return api.post(`/api/naver/item/resendApi/${dmItemId}`)
+  resendApiItem (itemId) {
+    return api.post(`/api/cms/naver/booking/item/resendApi/${itemId}`)
   },
   /**
    * 상품 삭제
    */
-  deleteItem (dmItemId) {
-    return api.post(`/api/naver/item/deleteItem/${dmItemId}`)
+  deleteItem (itemId) {
+    return api.post(`/api/cms/naver/booking/item/deleteItem/${itemId}`)
   },
   /**
    * 상품 복사
    */
   copyItem (type, param) {
-    let url = '/api/naver/item/copy'
+    let url = '/api/cms/naver/booking/item/copy'
     if (type !== 'info') {
-      url = '/api/naver/item/copy/schedule'
+      url = '/api/cms/naver/booking/item/copy/schedule'
     }
     return api.post(url, param)
   },
@@ -87,30 +87,30 @@ export default {
    * DGNS 패키지 마스터 정보 조회
    */
   selectPackageMasterInfo (pkgNo) {
-    return api.get(`/api/naver/item/package/${pkgNo}`)
+    return api.get(`/api/cms/naver/booking/item/package/${pkgNo}`)
   },
   /**
    * DGNS 패키지의 객실 목록 조회
    */
-  selectPackageRoomList (dmStoreId, pkgNo) {
-    return api.get(`/api/naver/item/${dmStoreId}/package/roomList/${pkgNo}`)
+  selectPackageRoomList (storeId, pkgNo) {
+    return api.get(`/api/cms/naver/booking/item/${storeId}/package/roomList/${pkgNo}`)
   },
   /**
    * DGNS 사업장의 객실 목록 조회
    */
   selectOnlyRoomList () {
-    return api.get('/api/naver/item/roomList')
+    return api.get('/api/cms/naver/booking/item/roomList')
   },
   /**
    * DGNS 상품 정보 업데이트
    */
-  updateDgnsItemInfo (dmItemId, param) {
-    return api.post(`/api/naver/item/dgns/${dmItemId}`, param)
+  updateDgnsItemInfo (itemId, param) {
+    return api.post(`/api/cms/naver/booking/item/dgns/${itemId}`, param)
   },
   /**
    * 회원번호 일괄 변경
    */
   updateRoomChangeMid (param) {
-    return api.post('/api/naver/item/roomChangeMid', param)
+    return api.post('/api/cms/naver/booking/item/roomChangeMid', param)
   }
 }

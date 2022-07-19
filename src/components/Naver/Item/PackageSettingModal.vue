@@ -7,14 +7,14 @@
     </template>
     <package-info-component v-if="originRoomInfo && originRoomInfo.mid"
                             type = "view"
-                            :dmStoreId="originRoomInfo.dmStoreId"
+                            :storeId="originRoomInfo.storeId"
                             :viewPkgNo="originRoomInfo.mid"
                             :originRoomInfo="originRoomInfo"
                             :isValidPkg.sync="isValidPkg"
     ></package-info-component>
     <package-info-component v-else
                             type = "view"
-                            :dmStoreId="originRoomInfo.dmStoreId"
+                            :storeId="originRoomInfo.storeId"
                             :isValidPkg.sync="isValidPkg"
     ></package-info-component>
   </dialog-base>
@@ -24,7 +24,7 @@
 import itemService from '@/api/modules/naver/item.service'
 import PackageInfoComponent from './PackageInfoComponent'
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   extends: DialogBase,
@@ -35,12 +35,12 @@ export default {
   data: function () {
     return {
       originRoomInfo: {
-        dmStoreId: '',
-        dmItemId: '',
+        storeId: '',
+        itemId: '',
         mid: '',
         storeCode: '',
-        rmTypeCode: '',
-        rsvBlckCode: ''
+        roomTypeCode: '',
+        blockCode: ''
       },
       isValidPkg: false
     }
@@ -59,12 +59,12 @@ export default {
       }]
     })
     this.$store.dispatch('naver/setRoomInfo', {
-      dmStoreId: this.instance.params.dgnsItemInfo.dmStoreId,
-      dmItemId: this.instance.params.dgnsItemInfo.dmItemId,
+      storeId: this.instance.params.dgnsItemInfo.storeId,
+      itemId: this.instance.params.dgnsItemInfo.itemId,
       mid: this.instance.params.dgnsItemInfo.mid,
       storeCode: this.instance.params.dgnsItemInfo.storeCode,
-      rmTypeCode: this.instance.params.dgnsItemInfo.rmTypeCode,
-      rsvBlckCode: this.instance.params.dgnsItemInfo.rsvBlckCode
+      roomTypeCode: this.instance.params.dgnsItemInfo.roomTypeCode,
+      blockCode: this.instance.params.dgnsItemInfo.blockCode
     })
     this.$nextTick(() => {
       this.originRoomInfo = _.cloneDeep(this.roomInfo)
@@ -76,24 +76,24 @@ export default {
         this.$dialog.alert('패키지를 검색해주세요.')
         return
       }
-      if (!this.roomInfo.rmTypeCode || !this.roomInfo.storeCode) {
+      if (!this.roomInfo.roomTypeCode || !this.roomInfo.storeCode) {
         this.$dialog.alert('객실을 선택해주세요.')
         return
-      } else if (!this.roomInfo.rsvBlckCode) {
+      } else if (!this.roomInfo.blockCode) {
         this.$dialog.alert('블럭코드를 선택해주세요.')
         return
       }
       this.$dialog.confirm('PMS 상품 연결을 하시겠습니까?<br />저장시 상품의 재고/가격이 PMS 재고/가격 기준으로 일괄 변경됩니다.').then(() => {
         const dgnsItemInfo = {
-          dmStoreId: this.roomInfo.dmStoreId,
-          dmItemId: this.roomInfo.dmItemId,
+          storeId: this.roomInfo.storeId,
+          itemId: this.roomInfo.itemId,
           mid: this.roomInfo.mid,
           storeCode: this.roomInfo.storeCode,
-          rmTypeCode: this.roomInfo.rmTypeCode,
-          rsvBlckCode: this.roomInfo.rsvBlckCode,
-          pkgYn: 'Y'
+          roomTypeCode: this.roomInfo.roomTypeCode,
+          blockCode: this.roomInfo.blockCode,
+          packageYn: 'Y'
         }
-        itemService.updateDgnsItemInfo(this.roomInfo.dmItemId, dgnsItemInfo).then(() => {
+        itemService.updateDgnsItemInfo(this.roomInfo.itemId, dgnsItemInfo).then(() => {
           this.close()
           const snackbarObj = { type: 'success', text: '저장되었습니다' }
           this.instance.params.search(snackbarObj)

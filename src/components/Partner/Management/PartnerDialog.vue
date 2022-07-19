@@ -28,9 +28,9 @@
 
 <script>
 import DialogBase from '@/components/Dialog/DialogBase.vue'
-import PartnerBasicInformation from './PartnerBasicInformation'
-import PartnerAddManager from './PartnerAddManager'
-import PartnerApi from './PartnerApi'
+import PartnerBasicInformation from './PartnerBasicInformation.vue'
+import PartnerAddManager from './PartnerAddManager.vue'
+import PartnerApi from './PartnerApi.vue'
 
 export default {
   extends: DialogBase,

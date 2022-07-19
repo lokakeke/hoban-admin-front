@@ -71,12 +71,12 @@ import sendPriceService from '@/api/modules/tl/sendPrice.service'
 import moment from 'moment'
 
 export default {
-  props: ['dialog', 'sendNo', 'maxPersonCnt'],
+  props: ['dialog', 'sendNo', 'maxPersonCount'],
   name: 'sendPriceDetailMonthly',
   watch: {
     dialog: {
       immediate: true,
-      handler(newVal) {
+      handler (newVal) {
         if (newVal) {
           this.selectDetail(this.sendNo, this.searchParam)
           this.setToday()
@@ -84,7 +84,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       searchParam: {
         q: {}
@@ -100,15 +100,15 @@ export default {
     }
   },
   computed: {
-    selectMonthText() {
+    selectMonthText () {
       return moment(this.start, 'YYYY-MM-DD').format('YYYY 년 MM 월')
     }
   },
   methods: {
-    setWeekday(weekday) {
+    setWeekday (weekday) {
       return moment(weekday.date).locale('ko').format('ddd요일')
     },
-    selectDetail(sendNo, searchParam) {
+    selectDetail (sendNo, searchParam) {
       this.sendPriceList = []
       this.pmsPriceList = []
       this.priceMap = {}
@@ -120,27 +120,27 @@ export default {
         })
       })
     },
-    getPriceValue(value) {
+    getPriceValue (value) {
       return this.$options.filters.price(value)
     },
-    setToday() {
+    setToday () {
       this.start = moment().format('YYYY-MM-DD')
     },
-    setSendPriceMap() {
+    setSendPriceMap () {
       this.priceMap = {}
       let colorIndex = this.rnd(0, this.colors.length - 1)
       let color = this.colors[colorIndex]
       this.colors.splice(colorIndex, 1)
 
       _.each(this.sendPriceList, (sendPrice, index) => {
-        const stndYmd = moment(sendPrice.stndYmd).format('YYYY-MM-DD')
+        const standardDate = moment(sendPrice.standardDate).format('YYYY-MM-DD')
         if (_.toLower(sendPrice.planGroupName) === 'roomonly') {
           let text = ''
           sendPrice.sendPricePersonDetailList.forEach(dtl => {
-            text += '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-              + dtl.personCount + '명 ' + this.getPriceValue(dtl.sendPrice)
+            text += '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+              dtl.personCount + '명 ' + this.getPriceValue(dtl.sendPrice)
           });
-          (this.priceMap[stndYmd] = this.priceMap[stndYmd] || []).push({
+          (this.priceMap[standardDate] = this.priceMap[standardDate] || []).push({
             idx: '1' + index,
             type: 'TL',
             planGroupName: 'roomonly',
@@ -151,14 +151,14 @@ export default {
         }
       })
       _.each(this.sendPriceList, (sendPrice, index) => {
-        const stndYmd = moment(sendPrice.stndYmd).format('YYYY-MM-DD')
+        const standardDate = moment(sendPrice.standardDate).format('YYYY-MM-DD')
         if (_.toLower(sendPrice.planGroupName) === 'breakfast') {
           let text = ''
           sendPrice.sendPricePersonDetailList.forEach(dtl => {
-            text += '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-              + dtl.personCount + '명 ' + this.getPriceValue(dtl.sendPrice)
+            text += '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+              dtl.personCount + '명 ' + this.getPriceValue(dtl.sendPrice)
           });
-          (this.priceMap[stndYmd] = this.priceMap[stndYmd] || []).push({
+          (this.priceMap[standardDate] = this.priceMap[standardDate] || []).push({
             idx: '2' + index,
             type: 'TL',
             planGroupName: 'breakfast',
@@ -174,22 +174,22 @@ export default {
       this.colors.splice(colorIndex, 1)
 
       _.each(this.pmsPriceList, (pmsPrice, index) => {
-        const stndYmd = moment(pmsPrice.ciYmd).format('YYYY-MM-DD')
+        const standardDate = moment(pmsPrice.ciYmd).format('YYYY-MM-DD')
 
-        const hasRoomOnly = _.filter(this.priceMap[stndYmd], function (dateInfo) {
+        const hasRoomOnly = _.filter(this.priceMap[standardDate], function (dateInfo) {
           return dateInfo.type === 'TL' && dateInfo.planGroupName === 'roomonly'
         }).length
-        const hasBreakfast = _.filter(this.priceMap[stndYmd], function (dateInfo) {
+        const hasBreakfast = _.filter(this.priceMap[standardDate], function (dateInfo) {
           return dateInfo.type === 'TL' && dateInfo.planGroupName === 'breakfast'
         }).length
 
         if (hasRoomOnly) {
           let text = ''
           pmsPrice.priceList.forEach(dtl => {
-            text += '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-              + dtl.person + '명 ' + this.getPriceValue(dtl.adultRate)
+            text += '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+              dtl.person + '명 ' + this.getPriceValue(dtl.adultRate)
           });
-          (this.priceMap[stndYmd] = this.priceMap[stndYmd] || []).push({
+          (this.priceMap[standardDate] = this.priceMap[standardDate] || []).push({
             idx: '3' + index,
             type: 'PMS',
             planGroupName: 'roomonly',
@@ -197,10 +197,10 @@ export default {
             priceText: '[PMS] 룸온리 판매가: ' + text,
             color: color
           })
-          const tlInfo = _.find(this.priceMap[stndYmd], function (dateInfo) {
+          const tlInfo = _.find(this.priceMap[standardDate], function (dateInfo) {
             return dateInfo.type === 'TL' && dateInfo.planGroupName === 'roomonly'
           })
-          const pmsInfo = _.find(this.priceMap[stndYmd], function (dateInfo) {
+          const pmsInfo = _.find(this.priceMap[standardDate], function (dateInfo) {
             return dateInfo.type === 'PMS' && dateInfo.planGroupName === 'roomonly'
           })
           // 금액이 다를 경우 빨간색
@@ -212,10 +212,10 @@ export default {
         if (hasBreakfast) {
           let text = ''
           pmsPrice.priceList.forEach(dtl => {
-            text += '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-              + dtl.person + '명 ' + this.getPriceValue(dtl.adultRate + dtl.pkgAmt)
+            text += '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+              dtl.person + '명 ' + this.getPriceValue(dtl.adultRate + dtl.pkgAmt)
           });
-          (this.priceMap[stndYmd] = this.priceMap[stndYmd] || []).push({
+          (this.priceMap[standardDate] = this.priceMap[standardDate] || []).push({
             idx: '4' + index,
             type: 'PMS',
             planGroupName: 'breakfast',
@@ -223,10 +223,10 @@ export default {
             priceText: '[PMS] 조식포함 판매가: ' + text,
             color: color
           })
-          const tlInfo = _.find(this.priceMap[stndYmd], function (dateInfo) {
+          const tlInfo = _.find(this.priceMap[standardDate], function (dateInfo) {
             return dateInfo.type === 'TL' && dateInfo.planGroupName === 'breakfast'
           })
-          const pmsInfo = _.find(this.priceMap[stndYmd], function (dateInfo) {
+          const pmsInfo = _.find(this.priceMap[standardDate], function (dateInfo) {
             return dateInfo.type === 'PMS' && dateInfo.planGroupName === 'breakfast'
           })
           // 금액이 다를 경우 빨간색
@@ -237,10 +237,10 @@ export default {
         }
       })
     },
-    rnd(a, b) {
+    rnd (a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a
     },
-    approveSendPrice() {
+    approveSendPrice () {
       this.$dialog.confirm('해당 금액 정보를 전송하시겠습니까?').then(() => {
         sendPriceService.approveSendPrice([this.sendNo]).then(res => {
           this.$dialog.alert('해당 금액 정보를 전송 중입니다. 전송 상태는 알림을 확인해 주세요.').then(() => {
@@ -251,7 +251,7 @@ export default {
       }).catch(() => {
       })
     },
-    deleteSendPrice() {
+    deleteSendPrice () {
       this.$dialog.confirm('해당 금액 정보를 삭제하시겠습니까?').then(() => {
         sendPriceService.deleteSendPrice([this.sendNo]).then(res => {
           this.$dialog.alert('해당 금액 정보가 삭제되었습니다.').then(() => {
@@ -263,7 +263,7 @@ export default {
       })
     }
   },
-  mounted() {
+  mounted () {
     this.start = ''
     this.setToday()
   }
