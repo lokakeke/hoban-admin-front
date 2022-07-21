@@ -64,7 +64,7 @@ import DialogBase from '@/components/Dialog/DialogBase.vue'
 
 export default {
   extends: DialogBase,
-  name: 'SearchDgnsDialog',
+  name: 'SearchPmsDialog',
   data () {
     return {
       pkgNo: '',

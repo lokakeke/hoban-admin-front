@@ -6,7 +6,7 @@ const partnerReservationService = {
    * 파트너 객실예약 요청 리스트
    */
   selectPartnerReservationApplyList (param) {
-    return api.get('/api/cms/system/partnerReservation/applyList', {
+    return api.get('/api/cms/ota/booking/partnerReservation/applyList', {
       params: param
     })
   },
@@ -16,14 +16,14 @@ const partnerReservationService = {
    * @param appSeq 요청번호
    */
   selectPartnerReservationApply (appSeq) {
-    return api.get(`/api/cms/system/partnerReservation/applyData/${appSeq}`)
+    return api.get(`/api/cms/ota/booking/partnerReservation/applyData/${appSeq}`)
   },
 
   /**
    * 파트너 객실이용정보 리스트 조회
    */
   selectPartnerRoomUseInfo () {
-    return api.get('/api/cms/system/partnerReservation/roomUseInfoList')
+    return api.get('/api/cms/ota/booking/partnerReservation/roomUseInfoList')
   },
 
   /**
@@ -39,7 +39,7 @@ const partnerReservationService = {
    * @param appSeq 신청번호
    */
   cancelPartnerReservation (appSeq) {
-    return api.get(`/api/cms/system/partnerReservation/cancel/${appSeq}`)
+    return api.get(`/api/cms/ota/booking/partnerReservation/cancel/${appSeq}`)
   },
 
   /**
@@ -47,7 +47,7 @@ const partnerReservationService = {
    * @param form 신청내용
    */
   insertPartnerReservationApply (form) {
-    return api.post('/api/cms/system/partnerReservation/insertApply', form)
+    return api.post('/api/cms/ota/booking/partnerReservation/insertApply', form)
   },
 
   /**
@@ -56,7 +56,7 @@ const partnerReservationService = {
    * @param form 수정내용
    */
   updatePartnerReservationApply (appSeq, form) {
-    return api.post(`/api/cms/system/partnerReservation/updateApply/${appSeq}`, form)
+    return api.post(`/api/cms/ota/booking/partnerReservation/updateApply/${appSeq}`, form)
   },
 
   /**
@@ -65,7 +65,7 @@ const partnerReservationService = {
    * @param form
    */
   processPartnerReservationApply (appSeq, form) {
-    return api.post(`/api/cms/system/partnerReservation/processApply/${appSeq}`, form)
+    return api.post(`/api/cms/ota/booking/partnerReservation/processApply/${appSeq}`, form)
   }
 }
 

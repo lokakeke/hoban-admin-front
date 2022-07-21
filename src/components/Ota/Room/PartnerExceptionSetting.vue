@@ -1,6 +1,5 @@
 <template>
   <v-container class="pa-0" fluid>
-      {{ this.partnerList }}
     <v-row>
       <v-col align-self="center" cols="6">
         <span class="title font-weight-bold" style="word-break: keep-all">파트너 예외 설정</span>
@@ -80,8 +79,6 @@ export default {
     async getPartnerList () {
       const response = await roomTypeService.selectStoreInPartnerList(this.storeCodeProp)
       this.partnerList = response.data
-      console.log('this.partnerList')
-      console.log(this.partnerList)
       this.isExcept = this.exceptPartnerList.length > 0 ? 'Y' : 'N'
     },
 
