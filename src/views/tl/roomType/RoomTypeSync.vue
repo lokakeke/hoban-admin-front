@@ -62,7 +62,7 @@
                   <tbody>
                   <template v-for="data of roomTypeSync">
                     <tr>
-                      <th rowspan="8" class="bottom-border left-border table-contents">{{ data.tlRmTypeInfo.tlRmTypeName }}</th>
+                      <th rowspan="9" class="bottom-border left-border table-contents">{{ data.tlRmTypeInfo.tlRmTypeName }}</th>
                       <th class="table-contents right-border">TL 객실타입코드</th>
                       <td :class="data.adminRmTypeInfo.tlRmTypeCode.state" class="right-border">
                         {{ data.adminRmTypeInfo.tlRmTypeCode.value }}
@@ -163,8 +163,8 @@
                       </td>
                     </tr>
                     <tr>
-                      <th class="bottom-border table-contents right-border">PMS 숙박 인원 수</th>
-                      <td class="bottom-border right-border">
+                      <th class="table-contents right-border">PMS 숙박 인원 수</th>
+                      <td class="right-border">
                         <v-row wrap>
                           <v-col cols="6">
                             <div class="title-2 font-weight-bold brown--text">기준인원수</div>
@@ -177,7 +177,7 @@
                         </v-row>
                       </td>
                     </tr>
-                    <tr v-show="false">
+                    <tr>
                       <th class="bottom-border table-contents right-border">
                         PMS 블럭 맵핑
                         <br/>
@@ -200,8 +200,8 @@
                           </thead>
                           <tbody>
                           <tr v-for="(block, index) of data.tlRmTypeInfo.blockList">
-                            <td>
-                              <v-checkbox v-model="block.masterYn" class="justify-center mt-0" label="" true-value="Y" false-value="N" hide-details
+                            <td class="text-xs-center">
+                              <v-checkbox v-model="block.masterYn" class="check-center" label="" true-value="Y" false-value="N"
                                           @change="changeMaster(data.tlRmTypeInfo.blockList, index)"/>
                             </td>
                             <td>

@@ -101,7 +101,7 @@
                     </v-row>
                     <v-divider></v-divider>
 
-                    <v-layout v-show="false" align-center justify-space-between>
+                    <v-layout align-center justify-space-between>
                       <div class="pl-1 subheading green--text">PMS 블럭 맵핑<span class="body-2 brown--text"> ( * 마스터 블럭을 필수로 지정해 주세요.)</span>
                       </div>
                       <v-btn small outlined rounded color="blue" @click="add()">
@@ -109,38 +109,50 @@
                         추가
                       </v-btn>
                     </v-layout>
-                    <v-data-table v-show="false" :no-data-text="'데이터가 없습니다.'" :headers="headers" :items="form.blockList" class="condensed">
-                      <template v-slot:headers="props">
-                        <tr>
-                          <th v-for="header in props.headers" :key="header.value">
-                            <span v-html="header.text"></span>
-                          </th>
-                        </tr>
+                    <v-data-table
+                      :no-data-text="'데이터가 없습니다.'"
+                      :headers="headers"
+                      :items="form.blockList"
+                      class="condensed"
+                      disable-pagination
+                      disable-sort
+                      hide-default-header
+                      hide-default-footer>
+                      <template v-slot:header="props">
+                        <thead>
+                          <tr>
+                            <th v-for="header in props.props.headers" :key="header.value">
+                              <span v-html="header.text"></span>
+                            </th>
+                          </tr>
+                        </thead>
                       </template>
-                      <template v-slot:items="props">
-                        <td>
-                          <v-checkbox v-model="props.item.masterYn" class="justify-center" label="" true-value="Y" false-value="N" hide-details @change="changeMaster(props.index)"/>
-                        </td>
-                        <td>
-                          <v-text-field type="text" v-model="props.item.blockCode" label="" :rules="emptyRules" hide-details></v-text-field>
-                        </td>
-                        <td>
-                          <v-switch v-model="props.item.useYn" true-value="Y" false-value="N" class="justify-center" :label="props.item.useYn === 'Y'? '사용': '중지'"
-                                    color="blue" hide-details :readonly="props.item.masterYn === 'Y'"></v-switch>
-                        </td>
-                        <td>
-                          <v-text-field type="number" v-model="props.item.rsvOrder" label="" :rules="orderRules" hide-details></v-text-field>
-                        </td>
-                        <td>
-                          <v-btn small block flat color="amber darken-4" @click="remove(props.index)">
-                            <v-icon small>delete</v-icon>
-                            삭제
-                          </v-btn>
-                        </td>
+                      <template v-slot:item="props">
+                        <tr>
+                          <td>
+                            <v-checkbox v-model="props.item.masterYn" class="check-center" label="" true-value="Y" false-value="N" @change="changeMaster(props.index)"/>
+                          </td>
+                          <td>
+                            <v-text-field type="text" v-model="props.item.blockCode" label="" :rules="emptyRules" hide-details></v-text-field>
+                          </td>
+                          <td>
+                            <v-switch v-model="props.item.useYn" true-value="Y" false-value="N" class="justify-center" :label="props.item.useYn === 'Y'? '사용': '중지'"
+                                      color="blue" hide-details :readonly="props.item.masterYn === 'Y'"></v-switch>
+                          </td>
+                          <td>
+                            <v-text-field type="number" v-model="props.item.rsvOrder" label="" :rules="orderRules" hide-details></v-text-field>
+                          </td>
+                          <td>
+                            <v-btn small rounded outlined color="amber darken-4" @click="remove(props.index)">
+                              <v-icon small>delete</v-icon>
+                              삭제
+                            </v-btn>
+                          </td>
+                        </tr>
                       </template>
                     </v-data-table>
 
-                    <v-divider v-show="false"></v-divider>
+                    <v-divider></v-divider>
 
                     <div class="pl-1 subheading green--text">연결된 판매처 리스트</div>
                     <v-list dense>

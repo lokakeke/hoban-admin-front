@@ -73,7 +73,7 @@
                 <td class="text-xs-center">{{ props.item.tlRmTypeCode }}</td>
                 <td class="text-xs-center">{{ props.item.tlNetRmTypeGroupCode }}</td>
                 <td class="text-xs-right">{{ props.item.stock }}</td>
-                <td v-show="false" class="text-xs-center">{{ props.item.blockCode }} 블럭</td>
+                <td class="text-xs-center">{{ props.item.blockCode }} 블럭</td>
                 <td class="text-xs-right">{{ props.item.pmsStock }}</td>
                 <td class="text-xs-right">{{ props.item.sendCount }}</td>
                 <td class="text-xs-right">{{ props.item.tlSellStock }}</td>

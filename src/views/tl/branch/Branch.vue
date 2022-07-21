@@ -24,8 +24,8 @@
                   </v-btn>
                 </div>
               </v-layout>
-              <v-flex xs6>
-                <v-text-field v-model="search" prepend-icon="search" :append-outer-icon="search && search.length > 0 ? 'close': ''"
+              <v-flex xs6 class="pl-5">
+                <v-text-field v-model="search" prepend-inner-icon="search" :append-outer-icon="search && search.length > 0 ? 'close': ''"
                               @input="filter" single-line placeholder="사업장 필터" @click:append-outer="initFilter" hide-details></v-text-field>
               </v-flex>
               <v-card-text>

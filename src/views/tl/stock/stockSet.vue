@@ -116,7 +116,7 @@
                           {{ room.tlRmTypeName }} - ({{ room.tlNetRmTypeGroupName }})
                         </span>
                       </v-card-text>
-                      <v-card-text v-show="false">
+                      <v-card-text>
                         <v-autocomplete
                           v-model="room.blockCode" :items="room.blockList" hide-details color="primary"
                           :item-text="'blockCode'"
