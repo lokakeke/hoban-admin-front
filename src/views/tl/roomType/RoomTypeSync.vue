@@ -6,21 +6,23 @@
     hide-overlay
     transition="dialog-bottom-transition"
     scrollable>
-    <v-card tile>
+    <v-card>
       <v-card-title class="pa-0">
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="close()">
-            <v-icon>close</v-icon>
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-toolbar-title>{{ packageYn === 'N' ? '객실' : '패키지' }} 동기화</v-toolbar-title>
+        <v-toolbar dark flat color="primary">
+          <v-toolbar-title>
+            <v-row align="center" class="mx-0">
+              <span>{{ packageYn === 'N' ? '객실' : '패키지' }} 동기화</span>
+            </v-row>
+          </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn dark text @click="submit()">
               <v-icon>refresh</v-icon>
               동기화 실행
             </v-btn>
-            <v-btn dark text @click="close()">Close</v-btn>
+            <v-btn dark text @click="close()" title="닫기">
+              <v-icon>close</v-icon>
+            </v-btn>
           </v-toolbar-items>
         </v-toolbar>
       </v-card-title>

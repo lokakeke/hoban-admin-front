@@ -8,19 +8,19 @@
     scrollable>
     <v-card tile>
       <v-card-title class="pa-0">
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="closeCheck()">
-            <v-icon>close</v-icon>
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-toolbar-title>{{ branchName }} ( {{ startDate }} ~ {{ endDate }} ) 미리보기</v-toolbar-title>
+        <v-toolbar dark flat color="primary">
+          <v-toolbar-title>
+            <v-row align="center" class="mx-0">
+              <span>{{ branchName }} ( {{ startDate }} ~ {{ endDate }} ) 미리보기</span>
+            </v-row>
+          </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon dark @click="save()">
               <v-icon>check</v-icon>
               저장
             </v-btn>
-            <v-btn icon dark @click="closeCheck()">
+            <v-btn dark text @click="closeCheck()" title="닫기">
               <v-icon>close</v-icon>
             </v-btn>
           </v-toolbar-items>
