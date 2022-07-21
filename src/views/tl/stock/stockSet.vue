@@ -116,7 +116,7 @@
                           {{ room.tlRmTypeName }} - ({{ room.tlNetRmTypeGroupName }})
                         </span>
                       </v-card-text>
-                      <v-card-text v-show="false">
+                      <v-card-text>
                         <v-autocomplete
                           v-model="room.blockCode" :items="room.blockList" hide-details color="primary"
                           :item-text="'blockCode'"
@@ -193,15 +193,17 @@
       <v-dialog fullscreen transition="dialog-bottom-transition" v-model="dialog">
         <v-card tile>
           <v-card-title class="pa-0">
-            <v-toolbar dark color="primary">
-              <v-btn icon dark @click="dialog = false">
-                <v-icon>close</v-icon>
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-toolbar-title>대규모 업데이트 내역 미리보기</v-toolbar-title>
+            <v-toolbar dark flat color="primary">
+              <v-toolbar-title>
+                <v-row align="center" class="mx-0">
+                  <span>대규모 업데이트 내역 미리보기</span>
+                </v-row>
+              </v-toolbar-title>
               <v-spacer></v-spacer>
               <v-toolbar-items>
-                <v-btn dark text @click="dialog = false">Close</v-btn>
+                <v-btn dark text @click="dialog = false" title="닫기">
+                  <v-icon>close</v-icon>
+                </v-btn>
               </v-toolbar-items>
             </v-toolbar>
           </v-card-title>

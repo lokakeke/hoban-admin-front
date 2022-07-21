@@ -265,7 +265,7 @@
                                       color="green" hide-details :class="bodyIndex === 0 ? 'stock-step-13' : ''"></v-switch>
                           </template>
                           <template v-else-if="props.item.key === 'blockCode'">
-                            <template v-show="false">
+                            <template>
                               <v-autocomplete :class="bodyIndex === 0 ? 'stock-step-8' : ''"
                                               v-model="col.value" :items="room.blockList" single-line hide-details color="primary"
                                               :item-text="'blockCode'"

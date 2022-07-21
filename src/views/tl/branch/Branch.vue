@@ -24,8 +24,8 @@
                   </v-btn>
                 </div>
               </v-layout>
-              <v-flex xs6>
-                <v-text-field v-model="search" prepend-icon="search" :append-outer-icon="search && search.length > 0 ? 'close': ''"
+              <v-flex xs6 class="pl-5">
+                <v-text-field v-model="search" prepend-inner-icon="search" :append-outer-icon="search && search.length > 0 ? 'close': ''"
                               @input="filter" single-line placeholder="사업장 필터" @click:append-outer="initFilter" hide-details></v-text-field>
               </v-flex>
               <v-card-text>
@@ -120,8 +120,16 @@
       right
       app
       temporary>
-      <v-toolbar color="primary" dark>
+      <v-toolbar dark color="primary">
+        <v-btn icon dark @click="dialog = false">
+          <v-icon>close</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
         <v-toolbar-title>사업장 추가</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+          <v-btn dark text @click="dialog = false">Close</v-btn>
+        </v-toolbar-items>
       </v-toolbar>
       <v-container>
         <v-form ref="addForm" lazy-validation autocomplete="off">

@@ -8,15 +8,17 @@
     scrollable>
     <v-card tile>
       <v-card-title class="pa-0">
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="close()">
-            <v-icon>close</v-icon>
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-toolbar-title>재고 전송 이력 상세</v-toolbar-title>
+        <v-toolbar dark flat color="primary">
+          <v-toolbar-title>
+            <v-row align="center" class="mx-0">
+              <span>재고 전송 이력 상세</span>
+            </v-row>
+          </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark text @click="close()">Close</v-btn>
+            <v-btn dark text @click="close()" title="닫기">
+              <v-icon>close</v-icon>
+            </v-btn>
           </v-toolbar-items>
         </v-toolbar>
       </v-card-title>
@@ -71,7 +73,7 @@
                 <td class="text-xs-center">{{ props.item.tlRmTypeCode }}</td>
                 <td class="text-xs-center">{{ props.item.tlNetRmTypeGroupCode }}</td>
                 <td class="text-xs-right">{{ props.item.stock }}</td>
-                <td v-show="false" class="text-xs-center">{{ props.item.blockCode }} 블럭</td>
+                <td class="text-xs-center">{{ props.item.blockCode }} 블럭</td>
                 <td class="text-xs-right">{{ props.item.pmsStock }}</td>
                 <td class="text-xs-right">{{ props.item.sendCount }}</td>
                 <td class="text-xs-right">{{ props.item.tlSellStock }}</td>
