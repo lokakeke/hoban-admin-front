@@ -142,7 +142,7 @@ export default {
   },
   async mounted () {
     try {
-      const store = await storeService.selectStoreSimpleList()
+      const store = await storeService.selectStoreList()
       this.storeList = store.data
       const rmType = await storeService.selectRmTypeSimpleList()
       this.rmTypeList = rmType.data

@@ -241,7 +241,7 @@ export default {
      * 영업장 조회
      */
     async selectStoreList () {
-      const res = await storeService.selectStoreSimpleList()
+      const res = await storeService.selectStoreList()
       this.storeList = res.data
     },
     /**
