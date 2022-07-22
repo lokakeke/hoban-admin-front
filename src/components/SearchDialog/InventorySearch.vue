@@ -83,7 +83,7 @@ export default {
   },
   mounted () {
     // 영업장 조회
-    storeService.selectStoreSimpleList().then(res => {
+    storeService.selectStoreList().then(res => {
       this.storeList = res.data
     })
     // 블럭 리스트 조회
