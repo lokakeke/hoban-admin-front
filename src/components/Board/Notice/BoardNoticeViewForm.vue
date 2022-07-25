@@ -52,8 +52,8 @@
 <!--        TODO 파일 업로드 구현 후 연결-->
 <!--      <attach-->
 <!--        v-model="form.attachBag"-->
-<!--        ref-fld-cd="boardNotice"-->
-<!--        atfl-fld-val="file"-->
+<!--        ref-field-code="boardNotice"-->
+<!--        attachfile-field-value="file"-->
 <!--        extensions="gif,jpg,jpeg,png,pdf,zip"-->
 <!--        accept="image/png, image/gif, image/jpeg, application/pdf, application/zip"-->
 <!--        :limit="3"-->

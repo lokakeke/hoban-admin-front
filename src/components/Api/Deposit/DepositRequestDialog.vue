@@ -60,8 +60,8 @@
           <v-col cols="12">
             <attach
               v-model="form.attachBag"
-              ref-fld-cd="depositRequest"
-              atfl-fld-val="insuDocu"
+              ref-field-code="depositRequest"
+              attachfile-field-value="insuDocu"
               extensions="gif,jpg,jpeg,png,pdf"
               accept="image/png, image/gif, image/jpeg, application/pdf"
               :limit="1"

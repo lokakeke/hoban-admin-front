@@ -90,18 +90,19 @@ export default {
   },
   data () {
     return {
-      uploadUrl: '/zuul/api/cms/system/attach/upload', // 파일 업로드용 URL (/zuul prefix를 붙이지 않으면 파라미터가 손실됨)
+      // uploadUrl: '/zuul/api/cms/system/attach/upload', // 파일 업로드용 URL (/zuul prefix를 붙이지 않으면 파라미터가 손실됨)
+      uploadUrl: '/api/cms/system/attach/upload', // 파일 업로드용 URL (/zuul prefix를 붙이지 않으면 파라미터가 손실됨)
       downloadUrl: '/api/cms/system/attach/download/' // 파일 다운로드용 URL
     }
   },
   props: {
     // 참조항목코드 (ex: exBoard)
-    refFldCd: {
+    refFieldCode: {
       type: String,
       required: true
     },
     // 첨부파일항목값 (ex: thumbs_p)
-    atflFldVal: {
+    attachfileFieldValue: {
       type: String,
       required: true
     },
@@ -169,9 +170,7 @@ export default {
   },
   mixins: [AttachMixin],
   mounted () {
-    console.log('this.value', this.value)
-    console.log('this.atflFldVal', this.atflFldVal)
-    const existFiles = Object.assign([], this.value[this.atflFldVal])
+    const existFiles = Object.assign([], this.value[this.attachfileFieldValue])
     existFiles.forEach(fileItem => {
       this.$refs.upload.add(fileItem)
     })

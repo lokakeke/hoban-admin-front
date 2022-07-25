@@ -54,8 +54,8 @@
       <div class="mb-6">
         <attach
           v-model="form.attachBag"
-          ref-fld-cd="partnerReuqest"
-          atfl-fld-val="file"
+          ref-field-code="partnerReuqest"
+          attachfile-field-value="file"
           extensions="gif,jpg,jpeg,png,pdf"
           accept="image/png, image/gif, image/jpeg, application/pdf"
           :limit="1"
