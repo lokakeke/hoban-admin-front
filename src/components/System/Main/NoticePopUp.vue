@@ -31,8 +31,8 @@
                 </div>
                 <attach
                   v-model="notice.attachBag"
-                  ref-fld-cd="boardNotice"
-                  atfl-fld-val="file"
+                  ref-field-code="boardNotice"
+                  attachfile-field-value="file"
                   extensions="gif,jpg,jpeg,png,pdf,zip"
                   accept="image/png, image/gif, image/jpeg, application/pdf, application/zip"
                   :limit="3"

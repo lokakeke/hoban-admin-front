@@ -61,8 +61,8 @@
 <!--                    FIXME 파일첨부 기능 구현후 주석 제거-->
 <!--                    <attach-->
 <!--                        v-model="form.attachBag"-->
-<!--                        ref-fld-cd="boardNotice"-->
-<!--                        atfl-fld-val="file"-->
+<!--                        ref-field-code="boardNotice"-->
+<!--                        attachfile-field-value="file"-->
 <!--                        extensions="gif,jpg,jpeg,png,pdf,xls,xlsx,zip"-->
 <!--                        accept="image/png, image/gif, image/jpeg, application/pdf, application/vnd.ms-excel, application/msexcel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/zip"-->
 <!--                        :limit="3"-->

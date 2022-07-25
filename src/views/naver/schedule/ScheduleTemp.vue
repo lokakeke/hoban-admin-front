@@ -210,10 +210,6 @@ export default {
       })
     },
     deleteTemp (item) {
-      if (!item.count || item.count === 0) {
-        this.$dialog.alert('아직 임시 스케줄 목록이 생성되지 않았습니다. 알림이 오면 새로고침 후 다시 시도해주세요.')
-        return
-      }
       this.$dialog.confirm('삭제하시겠습니까?').then(() => {
         scheduleTempService.updateScheduleTempMst(item.tempNo, { status: 'D' }).then(() => {
           this.$dialog.alert('삭제되었습니다.').then(() => {

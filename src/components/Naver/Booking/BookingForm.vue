@@ -28,11 +28,11 @@
             </v-row>
             <v-row>
                 <v-col cols="12" class="mx-auto">
-                    <booking-management-table
+                    <booking-table
                         :form="form"
                         :item="item"
                         :dgnsInfo="dgnsInfo"
-                    ></booking-management-table>
+                    ></booking-table>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -68,8 +68,8 @@
                     </div>
                     <attach
                         v-model="attachBag"
-                        ref-fld-cd="naverBooking"
-                        atfl-fld-val="nFile"
+                        ref-field-code="naverBooking"
+                        attachfile-field-value="nFile"
                         extensions="gif,jpg,jpeg,png,pdf,xls,xlsx"
                         accept="image/png, image/gif, image/jpeg, application/pdf, application/vnd.ms-excel, application/msexcel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                         :limit="3"
@@ -350,7 +350,7 @@ export default {
          */
     selectNaverFile () {
       const params = {
-        refFldCd: 'naverBooking',
+        refFieldCode: 'naverBooking',
         refNo: this.instance.params.form.bookingId
       }
       service.selectNaverFile(params).then(res => {
@@ -363,6 +363,7 @@ export default {
     saveFiles () {
       service.insertNaverFile(this.form.naver.bookingId, this.attachBag).then(res => {
         this.$dialog.alert('첨부파일 수정사항이 반영되었습니다.')
+        this.selectNaverFile()
       })
     }
   }

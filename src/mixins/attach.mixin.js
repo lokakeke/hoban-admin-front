@@ -9,8 +9,8 @@ const mixin = {
     return {
       attachHeaders: { 'jwt-header': this.$store.getters['auth/jwtToken'] },
       attachData: {
-        refFldCd: this.refFldCd,
-        atflFldVal: this.atflFldVal
+        refFieldCode: this.refFieldCode,
+        attachfileFieldValue: this.attachfileFieldValue
       },
       uploadFiles: []
     }
@@ -18,7 +18,7 @@ const mixin = {
   watch: {
     uploadFiles (model) {
       const attachBag = _.cloneDeep(this.value)
-      attachBag[this.atflFldVal] = model
+      attachBag[this.attachfileFieldValue] = model
       this.$emit('change', attachBag)
       const onFieldChange = this.$parent.onFieldChange
       if (onFieldChange) {

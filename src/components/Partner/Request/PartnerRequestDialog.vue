@@ -69,8 +69,8 @@
         <v-col cols="12">
           <attach
             v-model="form.attachBag"
-            ref-fld-cd="partnerRequest"
-            atfl-fld-val="file"
+            ref-field-code="partnerRequest"
+            attachfile-field-value="file"
             extensions="gif,jpg,jpeg,png,pdf,xls,xlsx"
             accept="image/png, image/gif, image/jpeg, application/pdf, application/vnd.ms-excel, application/msexcel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             :limit="1"
