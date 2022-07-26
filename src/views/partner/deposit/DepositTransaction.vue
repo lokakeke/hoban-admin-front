@@ -21,6 +21,7 @@
 <script>
 import DepositRequestList from '@/components/Api/Deposit/DepositRequestList'
 import DepositHistoryList from '@/components/Api/Deposit/DepositHistoryList'
+import DepositFailureList from '@/components/Api/Deposit/DepositFailureList'
 
 export default {
   name: 'DepositTransaction',
@@ -33,7 +34,8 @@ export default {
       tab: null,
       tabItems: [
         { tab: '예치금 신청 목록', component: DepositRequestList },
-        { tab: '예치금 이력 목록', component: DepositHistoryList }
+        { tab: '예치금 이력 목록', component: DepositHistoryList },
+        { tab: '예치금 실패 목록', component: DepositFailureList }
       ]
     }
   }

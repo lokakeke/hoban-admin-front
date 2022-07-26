@@ -9,7 +9,6 @@ const PartnerMenuAuthGroup = () => import('@/views/partner/authentication/Partne
 // deposit
 const DepositAccount = () => import('@/views/partner/deposit/DepositAccount.vue')
 const DepositTransaction = () => import('@/views/partner/deposit/DepositTransaction.vue')
-const DepositFailure = () => import('@/views/partner/deposit/DepositFailure.vue')
 
 // partner inventory rate
 const partnerInventoryRate = () =>
@@ -87,17 +86,6 @@ export default {
         requiresAuth: true,
         title: '예치금 입출금 관리',
         breadcrumb: 'Deposit Transaction '
-      }
-    },
-    {
-      path: 'depositFailure',
-      component: DepositFailure,
-      name: 'partner.depositFailure',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '예치금 입출금 실패이력 조회',
-        breadcrumb: 'Deposit Failure '
       }
     },
     {

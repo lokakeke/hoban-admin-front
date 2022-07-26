@@ -18,8 +18,6 @@ const depositAccount = () =>
   import('@/views/partner/deposit/DepositAccount.vue')
 const depositTransaction = () =>
   import('@/views/partner/deposit/DepositTransaction.vue')
-const depositFailure = () =>
-  import('@/views/partner/deposit/DepositFailure.vue')
 const calculate = () =>
   import('@/views/social/calculate/Calculate.vue')
 const calculateHistory = () =>
@@ -118,17 +116,6 @@ export default {
         requiresAuth: true,
         title: '예치금 입출금 관리',
         breadcrumb: 'Deposit Transaction '
-      }
-    },
-    {
-      path: 'depositFailure',
-      component: depositFailure,
-      name: 'social.depositFailure',
-      meta: {
-        auth: true,
-        requiresAuth: true,
-        title: '예치금 입출금 실패이력 조회',
-        breadcrumb: 'Deposit Failure '
       }
     },
     {
