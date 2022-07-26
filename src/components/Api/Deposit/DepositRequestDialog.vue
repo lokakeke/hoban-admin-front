@@ -9,13 +9,13 @@
       <v-row>
         <v-col cols="3">
           <v-label>신청순번</v-label>
-          <v-text-field v-model="form.appSeq" label readonly v-if="isNew === false"></v-text-field>
+          <v-text-field v-model="form.reqSeq" label readonly v-if="isNew === false"></v-text-field>
           <v-text-field value="(등록 시 자동생성)" label disabled hide-details v-else></v-text-field>
         </v-col>
         <v-col cols="3">
           <v-label>예치금KEY</v-label>
           <v-text-field
-            :value="form.depoKey"
+            :value="form.depositKey"
             label
             :rules="emptyRules"
             readonly
@@ -31,8 +31,8 @@
         <v-col cols="3">
           <v-label>입금구분</v-label>
           <v-autocomplete
-            v-model="form.rcpmnyAcct"
-            :items="rcpmnyAcctList"
+            v-model="form.depositAccount"
+            :items="depositAccountList"
             item-value="commonCode"
             item-text="commonCodeName"
             :rules="emptyRules"
@@ -40,7 +40,7 @@
             :readonly="isApproved"
           ></v-autocomplete>
         </v-col>
-        <v-col cols="3" v-if="form.rcpmnyAcct === 'B'">
+        <v-col cols="3" v-if="form.depositAccount === 'B'">
           <v-label>
             보험 보증기간
             <v-tooltip top>
@@ -50,11 +50,11 @@
               <span>보증기간 만료시 자동으로 금액이 차감됩니다.</span>
             </v-tooltip>
           </v-label>
-          <date-range-picker v-model="form.gtnYmd" required :readonly="isApproved"></date-range-picker>
+          <date-range-picker v-model="form.guaranteeDate" required :readonly="isApproved"></date-range-picker>
         </v-col>
       </v-row>
       <!-- 증권의 경우 증권 파일 업로드 필요 -->
-      <template v-if="form.rcpmnyAcct === 'B'">
+      <template v-if="form.depositAccount === 'B'">
         <hr class="mt-5 mb-5" />
         <v-row>
           <v-col cols="12">
@@ -89,28 +89,28 @@
           ></v-autocomplete>
         </v-col>
         <v-col cols="3">
-          <v-label>금액 ￦ {{form.amt | price}}</v-label>
-          <v-text-field v-model="form.amt" prefix="￦" :rules="emptyRules" :readonly="isApproved"></v-text-field>
+          <v-label>금액 ￦ {{form.price | price}}</v-label>
+          <v-text-field v-model="form.price" prefix="￦" :rules="emptyRules" :readonly="isApproved"></v-text-field>
         </v-col>
         <!-- <v-col cols="3">
           <v-label>입금은행</v-label>
-          <v-text-field v-model="form.rcpmnyBank" :rules="emptyRules" :readonly="isApproved"></v-text-field>
+          <v-text-field v-model="form.depositBank" :rules="emptyRules" :readonly="isApproved"></v-text-field>
         </v-col>
         <v-col cols="3">
           <v-label>입금계좌번호</v-label>
-          <v-text-field v-model="form.rcpmnyAcnoNo" :rules="emptyRules" :readonly="isApproved"></v-text-field>
+          <v-text-field v-model="form.accountNo" :rules="emptyRules" :readonly="isApproved"></v-text-field>
         </v-col>-->
         <v-col cols="3">
           <v-label>입금예정일</v-label>
-          <date-picker v-model="form.rcpmnyPlanYmd" required :readonly="isApproved"></date-picker>
+          <date-picker v-model="form.depositPlanDate" required :readonly="isApproved"></date-picker>
         </v-col>
         <v-col cols="3">
-          <v-label>입금내용(고양,캄제주 입금건은 표기)</v-label>
-          <v-text-field v-model="form.rcpmnyName" :rules="emptyRules" :readonly="isApproved"></v-text-field>
+          <v-label>입금내용</v-label>
+          <v-text-field v-model="form.depositSenderName" :rules="emptyRules" :readonly="isApproved"></v-text-field>
         </v-col>
         <v-col cols="6">
           <v-label>기타 요청사항</v-label>
-          <v-textarea auto-grow no-resize rows="1" v-model="form.reqsMemo" :readonly="isApproved"></v-textarea>
+          <v-textarea auto-grow no-resize rows="1" v-model="form.memo" :readonly="isApproved"></v-textarea>
         </v-col>
       </v-row>
       <template v-if="isNew === false">
@@ -118,16 +118,16 @@
         <v-row>
           <v-col cols="3">
             <v-label>승인상태</v-label>
-            <v-text-field :value="form.aprlName" readonly></v-text-field>
+            <v-text-field :value="form.approveCodeName" readonly></v-text-field>
           </v-col>
           <template v-if="isApproved">
             <v-col cols="3">
               <v-label>처리일시</v-label>
-              <v-text-field :value="form.procDt | dateSet" readonly></v-text-field>
+              <v-text-field :value="form.processDatetime | dateSet" readonly></v-text-field>
             </v-col>
           </template>
         </v-row>
-        <v-row v-if="form.aprlCode === 'C'">
+        <v-row v-if="form.approveCode === 'C'">
           <v-col cols="12">
             <v-label>반려사유</v-label>
             <v-textarea no-resize auto-grow rows="1" v-model="form.memo" readonly></v-textarea>
@@ -182,14 +182,14 @@ import depositRequestService from '@/api/modules/api/depositRequest.service'
 import commonCodeService from '@/api/modules/system/commonCode.service'
 
 const DEFAULT_FORM = {
-  depoKey: '',
-  rcpmnyAcct: '',
-  rcpmnyBank: '',
-  rcpmnyAcnoNo: '',
-  rcpmnyPlanYmd: '',
-  amt: 0,
-  rcpmnyName: '',
-  gtnYmd: [],
+  depositKey: '',
+  depositAccount: '',
+  depositBank: '',
+  accountNo: '',
+  depositPlanDate: '',
+  price: 0,
+  depositSenderName: '',
+  guaranteeDate: [],
   attachBag: {
     insuDocu: []
   }
@@ -205,7 +205,7 @@ export default {
       // 원본 폼
       orgForm: {},
       // 입금계정 목록
-      rcpmnyAcctList: [],
+      depositAccountList: [],
       // 업무유형 목록
       taskTypeList: []
     }
@@ -218,7 +218,7 @@ export default {
     isNew () {
       let isNew = true
       try {
-        isNew = Boolean(this.instance.params.item.depoKey) === false
+        isNew = Boolean(this.instance.params.item.depositKey) === false
       } catch {}
       return isNew
     },
@@ -236,7 +236,7 @@ export default {
      * 승인/반려 or 신청 처리 여부
      */
     isApproved () {
-      return this.isNew === false && this.form.aprlCode !== 'A'
+      return this.isNew === false && this.form.approveCode !== 'A'
     }
   },
   methods: {
@@ -245,14 +245,14 @@ export default {
      */
     async init () {
       try {
-        this.selectRcpmnyAcctList()
+        this.selectDepositAccountList()
         this.selectTaskTypeList()
         if (this.isNew === false) {
           const depositRequest = await this.select()
-          if (depositRequest.rcpmnyAcct === 'B') {
-            depositRequest.gtnYmd = [
-              depositRequest.gtnBgnYmd,
-              depositRequest.gtnEndYmd
+          if (depositRequest.depositAccount === 'B') {
+            depositRequest.guaranteeDate = [
+              depositRequest.guaranteeStartDate,
+              depositRequest.guaranteeDateEndDate
             ]
           }
           this.form = _.cloneDeep(depositRequest)
@@ -269,7 +269,7 @@ export default {
      */
     async select () {
       const res = await depositRequestService.selectDepositRequest(
-        this.instance.params.item.appSeq
+        this.instance.params.item.reqSeq
       )
       return Object.assign({}, DEFAULT_FORM, res.data)
     },
@@ -287,7 +287,7 @@ export default {
           width: 1200,
           closeCallback: params => {
             if (params && params.data) {
-              this.$set(this.form, 'depoKey', params.data.depoKey)
+              this.$set(this.form, 'depositKey', params.data.depositKey)
               this.$set(this.form, 'taskType', params.data.taskType)
             }
           }
@@ -297,15 +297,15 @@ export default {
     /**
      * 입금계정 목록 조회
      */
-    async selectRcpmnyAcctList () {
-      this.rcpmnyAcctList = []
+    async selectDepositAccountList () {
+      this.depositAccountList = []
       try {
         const response = await commonCodeService.selectCommonCode('COMM0004')
         if (this.isPartner) {
-          this.rcpmnyAcctList.push(response.data[0])
-          this.rcpmnyAcctList.push(response.data[1])
+          this.depositAccountList.push(response.data[0])
+          this.depositAccountList.push(response.data[1])
         } else {
-          this.rcpmnyAcctList = response.data
+          this.depositAccountList = response.data
         }
       } catch (e) {
         console.error(e)
@@ -329,9 +329,9 @@ export default {
     save () {
       this.validForm(this.$refs.form).then(() => {
         // 입금구분이 증권인 경우 증권 첨부파일이 존재해야함
-        if (this.form.rcpmnyAcct === 'B') {
-          this.form.gtnBgnYmd = this.form.gtnYmd[0]
-          this.form.gtnEndYmd = this.form.gtnYmd[1]
+        if (this.form.depositAccount === 'B') {
+          this.form.gtnBgnYmd = this.form.guaranteeDate[0]
+          this.form.gtnEndYmd = this.form.guaranteeDate[1]
         }
         depositRequestService[
           `${this.isNew === true ? 'insert' : 'update'}DepositRequest`
@@ -352,7 +352,7 @@ export default {
      */
     approval () {
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/Deposit/DepositRequestApprovalDialog',
+        componentPath: '/Api/Deposit/DepositRequestApprovalDialog',
         params: {
           depositRequest: this.form
         },

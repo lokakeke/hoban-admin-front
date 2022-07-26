@@ -9,7 +9,7 @@
       <v-row>
         <v-col sm="6" md="4">
           <v-label>예치금KEY</v-label>
-          <v-text-field v-model="form.depoKey" label readonly v-if="isNew === false"></v-text-field>
+          <v-text-field v-model="form.depositKey" label readonly v-if="isNew === false"></v-text-field>
           <v-text-field value="(등록 시 자동생성)" label disabled hide-details v-else></v-text-field>
         </v-col>
         <v-col sm="3" md="2">
@@ -38,22 +38,22 @@
 
         <v-col sm="6" md="4">
           <v-label>금액</v-label>
-          <v-text-field :value="form.amt | price" label prefix="￦" readonly v-if="isNew === false"></v-text-field>
+          <v-text-field :value="form.price | price" label prefix="￦" readonly v-if="isNew === false"></v-text-field>
           <v-text-field value="(등록 시 0 고정)" label disabled v-else></v-text-field>
         </v-col>
       </v-row>
       <v-row v-if="isNew === false">
         <v-col sm="6" md="4">
           <v-label>증권-입금현황</v-label>
-          <v-text-field class="red--text" color="red" :value="form.insuranceAmt | price" label prefix="￦" readonly></v-text-field>
+          <v-text-field class="red--text" color="red" :value="form.insurancePrice | price" label prefix="￦" readonly></v-text-field>
         </v-col>
         <v-col sm="6" md="4">
           <v-label>기타-입금현황</v-label>
-          <v-text-field class="red--text" color="red" :value="form.uninsuranceAmt | price" label prefix="￦" readonly></v-text-field>
+          <v-text-field class="red--text" color="red" :value="form.uninsurancePrice | price" label prefix="￦" readonly></v-text-field>
         </v-col>
         <v-col sm="6" md="4">
           <v-label>출금현황</v-label>
-          <v-text-field class="blue--text" color="blue" :value="form.accmltWithdrawAmt | price" label prefix="￦" readonly></v-text-field>
+          <v-text-field class="blue--text" color="blue" :value="form.accmltWithdrawPrice | price" label prefix="￦" readonly></v-text-field>
         </v-col>
       </v-row>
       <v-row>
@@ -126,7 +126,7 @@ import commonCodeService from '@/api/modules/system/commonCode.service'
 const DEFAULT_FORM = {
   partnerName: null,
   partnerSeq: null,
-  amt: 0,
+  price: 0,
   useYn: 'N'
 }
 
@@ -157,7 +157,7 @@ export default {
     isNew () {
       let isNew = true
       try {
-        isNew = Boolean(this.instance.params.item.depoKey) === false
+        isNew = Boolean(this.instance.params.item.depositKey) === false
       } catch {}
       return isNew
     },
@@ -208,7 +208,7 @@ export default {
      */
     async select () {
       const res = await depositAccountService.selectDepositAccount(
-        this.instance.params.item.depoKey
+        this.instance.params.item.depositKey
       )
       return res.data
     },

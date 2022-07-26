@@ -22,6 +22,13 @@ const RoomReservationApply = () => import('@/views/partner/reservation/PartnerRe
 // 패키지 예약 신청
 const PackageReservationApply = () => import('@/views/partner/reservation/PartnerPkgReservationAppList.vue')
 
+// 예치금
+const DepositAccount = () => import('@/views/partner/deposit/DepositAccount')
+
+const DepositTransaction = () => import('@/views/partner/deposit/DepositTransaction')
+
+const DepositFailure = () => import('@/views/partner/deposit/DepositFailure')
+
 export default {
   path: '/ota',
   name: 'ota',
@@ -116,6 +123,39 @@ export default {
         requiresAuth: true,
         title: '패키지예약신청',
         breadcrumb: 'packageReservationApply'
+      }
+    },
+    {
+      path: 'depositAccount',
+      component: DepositAccount,
+      name: 'ota.depositAccount',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예치금 계좌 관리',
+        breadcrumb: 'depositAccount'
+      }
+    },
+    {
+      path: 'depositTransaction',
+      component: DepositTransaction,
+      name: 'ota.depositTransaction',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예치금 입출금 관리',
+        breadcrumb: 'depositTransaction'
+      }
+    },
+    {
+      path: 'depositFailure',
+      component: DepositFailure,
+      name: 'ota.depositFailure',
+      meta: {
+        auth: true,
+        requiresAuth: true,
+        title: '예치금 입출금 실패이력',
+        breadcrumb: 'depositFailure'
       }
     }
   ]

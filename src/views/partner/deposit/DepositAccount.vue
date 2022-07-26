@@ -1,61 +1,56 @@
 <template>
-    <v-row wrap>
-        <app-card heading="예치금 계좌 리스트" col-classes="col-12">
-            <search-form
-                :search-param.sync="searchParam"
-                :search-list="searchList"
-                @search="search"
-                init-search
-            ></search-form>
-            <v-data-table
-                :no-data-text="emptyText"
-                :headers="headers"
-                :items="list"
-                disable-sort
-                hide-default-footer
-                disable-pagination
-                @click:row="openDialog"
-                class="click-row bordered"
-            >
-                <!-- 증권-입금현황 -->
-                <template v-slot:[`item.insuranceAmt`]="{item}">
-                    <span class="red--text">{{ item.insuranceAmt | price }}원</span>
-                </template>
-                <!-- 기타-입금현황 -->
-                <template v-slot:[`item.uninsuranceAmt`]="{item}">
-                    <span class="red--text">{{ item.uninsuranceAmt | price }}원</span>
-                </template>
-                <!-- 출금현황 -->
-                <template v-slot:[`item.accmltWithdrawAmt`]="{item}">
-                    <span class="blue--text">{{ item.accmltWithdrawAmt | price }}원</span>
-                </template>
-                <!-- 금액 -->
-                <template v-slot:[`item.price`]="{item}">
-                    <strong>{{ item.price | price }}원</strong>
-                </template>
-                <!-- 사용여부 -->
-                <template v-slot:[`item.useYn`]="{item}">
-                    <strong class="info--text" v-if="item.useYn === 'Y'">
-                        <v-icon small color="info" left>mdi-check</v-icon>
-                        사용</strong>
-                    <strong class="error--text" v-else>
-                        <v-icon small color="error" left>mdi-close</v-icon>
-                        사용안함</strong>
-                </template>
-                <!-- 등록일시 -->
-                <template v-slot:[`item.createDatetime`]="{item}">{{ item.createDatetime | dateSet }}</template>
-            </v-data-table>
-            <v-row>
-                <v-col cols="12" class="text-right pb-0">
-                    <v-btn outlined rounded color="info" @click="openDialog" v-if="writeAuth">
-                        <v-icon left>add</v-icon>
-                        예치금 계좌 등록
-                    </v-btn>
-                </v-col>
-            </v-row>
-            <search-pagination v-model="searchParam" :total-visible="10" circle @change="search"></search-pagination>
-        </app-card>
-    </v-row>
+  <v-row wrap>
+    <app-card heading="예치금 계좌 리스트" col-classes="col-12">
+      <search-form
+        :search-param.sync="searchParam"
+        :search-list="searchList"
+        @search="search"
+        init-search
+      ></search-form>
+      <v-data-table
+        :no-data-text="emptyText"
+        :headers="headers"
+        :items="list"
+        disable-sort
+        hide-default-footer
+        disable-pagination
+        @click:row="openDialog"
+        class="click-row bordered"
+      >
+        <!-- 증권-입금현황 -->
+        <template v-slot:[`item.insurancePrice`]="{item}">
+          <span class="red--text">{{item.insurancePrice | price}}원</span>
+        </template>
+        <!-- 기타-입금현황 -->
+        <template v-slot:[`item.uninsurancePrice`]="{item}">
+          <span class="red--text">{{item.uninsurancePrice | price}}원</span>
+        </template>
+        <!-- 출금현황 -->
+        <template v-slot:[`item.accmltWithdrawPrice`]="{item}">
+          <span class="blue--text">{{item.accmltWithdrawPrice | price}}원</span>
+        </template>
+        <!-- 금액 -->
+        <template v-slot:[`item.price`]="{item}">
+          <strong>{{item.price | price}}원</strong>
+        </template>
+        <!-- 사용여부 -->
+        <template v-slot:[`item.useYn`]="{item}">
+          <strong class="info--text" v-if="item.useYn === 'Y'"><v-icon small color="info" left>mdi-check</v-icon>사용</strong>
+          <strong class="error--text" v-else><v-icon small color="error" left>mdi-close</v-icon>사용안함</strong>
+        </template>
+        <!-- 등록일시 -->
+        <template v-slot:[`item.createDatetime`]="{item}">{{item.createDatetime | dateSet}}</template>
+      </v-data-table>
+      <v-row>
+        <v-col cols="12" class="text-right pb-0">
+          <v-btn outlined rounded color="info" @click="openDialog" v-if="writeAuth">
+            <v-icon left>add</v-icon>예치금 계좌 등록
+          </v-btn>
+        </v-col>
+      </v-row>
+      <search-pagination v-model="searchParam" :total-visible="10" circle @change="search"></search-pagination>
+    </app-card>
+  </v-row>
 </template>
 
 <script>
@@ -83,19 +78,19 @@ export default {
         { text: '업무유형명', value: 'taskTypeName', align: 'center', sortable: false },
         {
           text: '증권-입금현황',
-          value: 'insuranceAmt',
+          value: 'insurancePrice',
           align: 'center',
           sortable: false
         },
         {
           text: '기타-입금현황',
-          value: 'uninsuranceAmt',
+          value: 'uninsurancePrice',
           align: 'center',
           sortable: false
         },
         {
           text: '출금현황',
-          value: 'accmltWithdrawAmt',
+          value: 'accmltWithdrawPrice',
           align: 'center',
           sortable: false
         },
@@ -110,13 +105,6 @@ export default {
       const searchList = [
         { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
         { key: 'partnerName', label: '파트너명', type: 'text', cols: 2 },
-        {
-          key: 'taskType',
-          label: '예치금 구분',
-          type: 'code',
-          commonCode: 'COMM0009',
-          cols: 2
-        },
         { key: 'agentCode', label: 'agent코드', type: 'text', cols: 2 },
         { key: 'useYn', label: '사용여부', type: 'boolean', cols: 2 }
       ]
@@ -129,9 +117,14 @@ export default {
   },
   methods: {
     /**
-         * 검색
-         */
+     * 검색
+     */
     search () {
+      if (this.$route.path.indexOf('/social') === 0) {
+        this.searchParam.q.taskType = 'SOCIAL'
+      } else if (this.$route.path.indexOf('/ota') === 0) {
+        this.searchParam.q.taskType = 'OTA'
+      }
       const searchParam = _.cloneDeep(this.searchParam)
       if (this.searchParam.q.useYn === true) {
         searchParam.q.useYn = 'Y'
@@ -144,12 +137,12 @@ export default {
       })
     },
     /**
-         * 등록/수정 Dialog 열기
-         */
+     * 등록/수정 Dialog 열기
+     */
     openDialog (item = {}) {
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/Deposit/DepositAccountDialog',
+        componentPath: '/Api/Deposit/DepositAccountDialog',
         params: {
           item
         },
