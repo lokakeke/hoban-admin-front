@@ -17,17 +17,17 @@
           disable-sort
           hide-default-footer
       >
-        <template v-slot:item.depoKey="{item}">
-          <span v-if="item.depoKey">{{ item.depoKey }}</span>
+        <template v-slot:item.depositKey="{item}">
+          <span v-if="item.depositKey">{{ item.depositKey }}</span>
           <span v-else>-</span>
         </template>
-        <template v-slot:item.amtInd="{item}">
-          <span class="red--text" v-if="item.amtInd === 'R'">차감</span>
-          <span class="blue--text" v-else-if="item.amtInd === 'C'">반환</span>
+        <template v-slot:item.rsvType="{item}">
+          <span class="red--text" v-if="item.rsvType === 'R'">차감</span>
+          <span class="blue--text" v-else-if="item.rsvType === 'C'">반환</span>
           <span v-else>-</span>
         </template>
-        <template v-slot:item.amt="{item}">
-          <span v-if="typeof item.amt === 'number'">{{ item.amt | price }}원</span>
+        <template v-slot:item.price="{item}">
+          <span v-if="typeof item.price === 'number'">{{ item.price | price }}원</span>
           <span v-else>-</span>
         </template>
         <template v-slot:item.keyRsvNo="{item}">
@@ -48,8 +48,8 @@
           <span v-if="item.ticketSeq">{{ item.ticketSeq }}</span>
           <span v-else>-</span>
         </template>
-        <template v-slot:item.prcpAmt="{item}">
-          <span v-if="typeof item.prcpAmt === 'number'">{{ item.prcpAmt | price }}원</span>
+        <template v-slot:item.originPrice="{item}">
+          <span v-if="typeof item.originPrice === 'number'">{{ item.originPrice | price }}원</span>
           <span v-else>-</span>
         </template>
       </v-data-table>
@@ -73,19 +73,19 @@ export default {
       },
       list: [],
       headers: [
-        { text: '실패순번', value: 'failrSeq', align: 'center', sortable: false },
-        { text: '예치금 키', value: 'depoKey', align: 'center', sortable: false },
-        { text: '금액구분', value: 'amtInd', align: 'center', sortable: false },
-        { text: '금액', value: 'amt', align: 'center', sortable: false },
+        { text: '실패순번', value: 'failSeq', align: 'center', sortable: false },
+        { text: '예치금 키', value: 'depositKey', align: 'center', sortable: false },
+        { text: '금액구분', value: 'rsvType', align: 'center', sortable: false },
+        { text: '금액', value: 'price', align: 'center', sortable: false },
         { text: '예약키번호', value: 'keyRsvNo', align: 'center', sortable: false },
         { text: '예약번호', value: 'rsvNo', align: 'center', sortable: false },
         { text: '우대번호', value: 'ticketNo', align: 'center', sortable: false },
         { text: '우대순번', value: 'ticketSeq', align: 'center', sortable: false },
-        { text: '원금금액', value: 'prcpAmt', align: 'center', sortable: false },
-        { text: '오류 메시지', value: 'errorMsg', align: 'center', sortable: false },
-        { text: '등록 ID', value: 'crtNm', align: 'center', sortable: false },
-        { text: '등록 IP', value: 'crtIp', align: 'center', sortable: false },
-        { text: '발생일시', value: 'crtDt', align: 'center', sortable: false }
+        { text: '원금금액', value: 'originPrice', align: 'center', sortable: false },
+        { text: '오류 메시지', value: 'errorMessage', align: 'center', sortable: false },
+        { text: '등록 ID', value: 'createName', align: 'center', sortable: false },
+        { text: '등록 IP', value: 'createIp', align: 'center', sortable: false },
+        { text: '발생일시', value: 'createDatetime', align: 'center', sortable: false }
       ]
     }
   },
@@ -93,21 +93,21 @@ export default {
     searchList () {
       const searchList = []
       if (!this.isPartner) {
-        searchList.push({ key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 })
+        searchList.push({ key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 })
         searchList.push({ key: 'keyRsvNo', label: '예약키번호', type: 'text', cols: 2 })
         searchList.push({ key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 })
         searchList.push({ key: 'ticketNo', label: '우대번호', type: 'text', cols: 2 })
         searchList.push({ key: 'ticketSeq', label: '우대순번', type: 'text', cols: 2 })
-        searchList.push({ key: 'ptnrNo', label: '파트너', type: 'partner', cols: 2 })
+        searchList.push({ key: 'partnerSeq', label: '파트너', type: 'partner', cols: 2 })
       } else {
-        searchList.push({ key: 'depoKey', label: '예치금 KEY', type: 'text', cols: 2 })
+        searchList.push({ key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 })
         searchList.push({ key: 'keyRsvNo', label: '예약키번호', type: 'text', cols: 2 })
         searchList.push({ key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 })
         searchList.push({ key: 'ticketNo', label: '우대번호', type: 'text', cols: 2 })
         searchList.push({ key: 'ticketSeq', label: '우대순번', type: 'text', cols: 2 })
       }
 
-      if (this.$route.path.indexOf('/social') === 0) {
+      if (this.$route.path.indexOf('/ticket') === 0) {
         searchList.splice(1, 2)
       } else if (this.$route.path.indexOf('/ota') === 0) {
         searchList.splice(3, 2)
@@ -122,7 +122,7 @@ export default {
      */
     filterHeaders () {
       const headers = _.cloneDeep(this.headers)
-      if (this.$route.path.indexOf('/social') === 0) {
+      if (this.$route.path.indexOf('/ticket') === 0) {
         headers.splice(4, 2)
       } else if (this.$route.path.indexOf('/ota') === 0) {
         headers.splice(6, 2)
@@ -133,17 +133,25 @@ export default {
   },
   methods: {
     search () {
-      if (this.$route.path.indexOf('/social') === 0) {
-        this.searchParam.q.taskType = 'S'
+      if (this.$route.path.indexOf('/ticket') === 0) {
+        this.searchParam.q.taskType = 'TICKET'
       } else if (this.$route.path.indexOf('/ota') === 0) {
-        this.searchParam.q.taskType = 'O'
+        this.searchParam.q.taskType = 'OTA'
       }
 
-      // 조회
-      service.selectDepositFailureList(this.searchParam).then(res => {
-        this.list = res.data
-        this.searchParam.total = res.pagination.total
-      })
+      if (this.searchParam.q.taskType === 'OTA') {
+        // 조회
+        service.selectBookingDepositFailureList(this.searchParam).then(res => {
+          this.list = res.data
+          this.searchParam.total = res.pagination.total
+        })
+      } else if (this.searchParam.q.taskType === 'TICKET') {
+        // 조회
+        service.selectTicketDepositFailureList(this.searchParam).then(res => {
+          this.list = res.data
+          this.searchParam.total = res.pagination.total
+        })
+      }
     },
 
     /**

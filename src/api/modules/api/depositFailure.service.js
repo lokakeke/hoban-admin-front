@@ -2,9 +2,16 @@ import api from '@/api'
 
 export default {
   /**
-   * 예치금 오류 목록 조회
+   * 부킹 예치금 오류 목록 조회
    */
-  selectDepositFailureList (params) {
-    return api.get('/api/cms/system/deposit/failure/list', { params })
+  selectBookingDepositFailureList (params) {
+    return api.get('/api/cms/ota/booking/deposit/failure/list', { params })
+  },
+
+  /**
+   * 입장권 예치금 오류 목록 조회
+   */
+  selectTicketDepositFailureList (params) {
+    return api.get('/api/cms/ota/ticket/deposit/failure/list', { params })
   }
 }
