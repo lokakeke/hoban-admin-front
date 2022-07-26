@@ -108,6 +108,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.instance.params)
     this.isNewData = this.instance.params.isNewData
     this.useForm = this.instance.params.useForm
     this.businessList = this.instance.params.businessList

@@ -18,29 +18,29 @@
         class="click-row bordered"
       >
         <!-- 입금예정일 -->
-        <template v-slot:item.depositPlanDate="{item}">
+        <template v-slot:[`item.depositPlanDate`]="{item}">
           {{item.depositPlanDate | date}}
         </template>
         <!-- 금액 -->
-        <template v-slot:item.price="{item}">
+        <template v-slot:[`item.price`]="{item}">
           {{item.price | price}}원
         </template>
         <!-- 등록일시 -->
-        <template v-slot:item.createDatetime="{item}">
+        <template v-slot:[`item.createDatetime`]="{item}">
           {{item.createDatetime | dateSet}}
         </template>
         <!-- 승인상태 -->
-        <template v-slot:item.aprlName="{item}">
+        <template v-slot:[`item.approveCodeName`]="{item}">
           <template v-if="item.approveCode === 'A' && !isPartner">
             <v-btn @click="approval(item)"
                    color="primary"
                    rounded
             >
-              {{ item.aprlName }}
+              {{ item.approveCodeName }}
             </v-btn>
           </template>
           <template v-else>
-            {{ item.aprlName }}
+            {{ item.approveCodeName }}
           </template>
         </template>
         <!-- 승인일시 -->
@@ -50,9 +50,11 @@
       </v-data-table>
       <v-row>
         <v-col cols="12" class="text-right pb-0">
+            <!-- fixme 나중에 구현
           <v-btn outlined rounded color="info" @click="openViewDepositInit" v-if="writeAuth && !isPartner" >
             <v-icon left>refresh</v-icon>예치금 초기화
           </v-btn>
+          -->
           <v-btn outlined rounded color="info" @click="open" v-if="writeAuth">
             <v-icon left>add</v-icon>예치금 신청
           </v-btn>
@@ -78,16 +80,16 @@ export default {
       },
       list: [],
       headers: [
-        { text: '신청순번', value: 'appSeq', align: 'center', sortable: false },
+        { text: '신청순번', value: 'reqSeq', align: 'center', sortable: false },
         { text: '예치금KEY', value: 'depositKey', align: 'center', sortable: false },
         { text: '파트너명', value: 'partnerName', align: 'center', sortable: false },
         { text: '업무유형', value: 'taskTypeName', align: 'center', sortable: false },
-        { text: '입금구분', value: 'rcpmnyAcctName', align: 'center', sortable: false },
+        { text: '입금구분', value: 'depositAccountName', align: 'center', sortable: false },
         { text: '입금예정일', value: 'depositPlanDate', align: 'center', sortable: false },
         { text: '금액', value: 'price', align: 'center', sortable: false },
         { text: '입금내용', value: 'depositSenderName', align: 'center', sortable: false },
         { text: '등록일시', value: 'createDatetime', align: 'center', sortable: false },
-        { text: '승인상태', value: 'aprlName', align: 'center', sortable: false },
+        { text: '승인상태', value: 'approveCodeName', align: 'center', sortable: false },
         { text: '처리일시', value: 'processDatetime', align: 'center', sortable: false }
       ]
     }
@@ -97,7 +99,7 @@ export default {
       const searchList = [
         { key: 'depositKey', label: '예치금 KEY', type: 'text', cols: 2 },
         { key: 'partnerName', label: '파트너명', type: 'text', cols: 2 },
-        { key: 'rcpmnyAcct', label: '입금구분', type: 'code', commonCode: 'COMM0004', cols: 2 },
+        { key: 'depositAccount', label: '입금구분', type: 'code', commonCode: 'COMM0004', cols: 2 },
         { key: 'accountNo', label: '입금계좌번호', type: 'text', cols: 2 },
         { key: 'depositSenderName', label: '입금내용', type: 'text', cols: 2 },
         { key: 'approveCode', label: '승인상태', type: 'code', commonCode: 'COMM0003', cols: 2 }
@@ -132,7 +134,7 @@ export default {
       }
       // dialog open
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/Deposit/DepositRequestDialog',
+        componentPath: '/Api/Deposit/DepositRequestDialog',
         params: {
           isNew,
           item,
@@ -154,7 +156,7 @@ export default {
      */
     openViewDepositInit () {
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/Deposit/DepositInitDialog',
+        componentPath: '/Api/Deposit/DepositInitDialog',
         params: {
         },
         options: {
@@ -173,7 +175,7 @@ export default {
      */
     approval (item) {
       this.$store.dispatch('dialog/open', {
-        componentPath: '@/api/Deposit/DepositRequestApprovalDialog',
+        componentPath: '/Api/Deposit/DepositRequestApprovalDialog',
         params: {
           depositRequest: item
         },
