@@ -269,7 +269,7 @@ export default {
          * 지역코드/명 정보 호출
          */
     async selectLocalCodeAllList () {
-      storeService.selectLocalCodeAllList()
+      storeService.selectLcalCodeAllList()
         .then(res => {
           this.localList = res.data
         })

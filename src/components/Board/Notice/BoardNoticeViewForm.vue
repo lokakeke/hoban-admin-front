@@ -50,16 +50,16 @@
     </v-card>
     <div class="mb-6">
 <!--        TODO 파일 업로드 구현 후 연결-->
-<!--      <attach-->
-<!--        v-model="form.attachBag"-->
-<!--        ref-field-code="boardNotice"-->
-<!--        attachfile-field-value="file"-->
-<!--        extensions="gif,jpg,jpeg,png,pdf,zip"-->
-<!--        accept="image/png, image/gif, image/jpeg, application/pdf, application/zip"-->
-<!--        :limit="3"-->
-<!--        required-->
-<!--        readonly-->
-<!--      ></attach>-->
+      <attach
+        v-model="form.attachBag"
+        ref-field-code="boardNotice"
+        attachfile-field-value="file"
+        extensions="gif,jpg,jpeg,png,pdf,zip"
+        accept="image/png, image/gif, image/jpeg, application/pdf, application/zip"
+        :limit="3"
+        required
+        readonly
+      ></attach>
     </div>
     <v-row>
       <v-col cols="12" v-if="form.confirmList && form.confirmList.length > 0">
