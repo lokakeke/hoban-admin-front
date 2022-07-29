@@ -160,16 +160,18 @@
 
     <app-card heading="객실예약 신청내역 처리결과" custom-classes="border" content-classes="pt-2" class="pt-2" v-else>
       <v-row>
+          {{ form }}
         <v-col cols="2">
           <div class="font-weight-bold info--text body-1">처리 상태</div>
-          <v-text-field :value="form.approveName" dense readonly hide-details
+          <v-text-field :value="form.approveCodeName" dense readonly hide-details
                         :class="form.approveCode === 'B'? 'approval' : form.approveCode === 'C' ? 'restoration' : 'application'" />
         </v-col>
         <template v-if="form.approveCode === 'B'">
           <v-col cols="2">
             <div class="font-weight-bold info--text body-1">예약번호</div>
             <v-text-field :value="form.rsvSeq" dense readonly hide-details>
-              <template v-slot:append-outer>
+<!--           TODO rsvNo(사용자에게 노출되는 네 자리수) 값이 서버에서 오지 않는다. <v-text-field :value="form.rsvNo" dense readonly hide-details>-->
+                <template v-slot:append-outer>
                 <v-btn icon small color="primary" @click="openReservation(form.keyRsvNo)">
                   <v-icon>search</v-icon>
                 </v-btn>

@@ -26,7 +26,8 @@ const storeService = {
    * 파트너 재고관리 사용중인 영업장/객실 목록
    */
   selectPartnerInventoryStoreList () {
-    return api.get('/api/pms/product/store/partnerInventoryStoreList')
+    // FIXME '/api/pms/product/store/partnerInventoryStoreList' 를 호출 했지만, 일단 아래와 같이 변경함
+    return api.get('/api/pms/product/store/roomTypeHierarchyList')
   },
 
   /**

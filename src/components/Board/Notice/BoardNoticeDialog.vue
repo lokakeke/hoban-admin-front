@@ -58,17 +58,17 @@
             </v-row>
             <v-row class="mb-6">
                 <v-col cols="12">
-<!--                    FIXME 파일첨부 기능 구현후 주석 제거-->
-<!--                    <attach-->
-<!--                        v-model="form.attachBag"-->
-<!--                        ref-field-code="boardNotice"-->
-<!--                        attachfile-field-value="file"-->
-<!--                        extensions="gif,jpg,jpeg,png,pdf,xls,xlsx,zip"-->
-<!--                        accept="image/png, image/gif, image/jpeg, application/pdf, application/vnd.ms-excel, application/msexcel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/zip"-->
-<!--                        :limit="3"-->
-<!--                        label="첨부파일"-->
-<!--                        required-->
-<!--                    ></attach>-->
+<!--                    FIXME 현재 작업중 (0728)-->
+                    <attach
+                        v-model="form.attachBag"
+                        ref-field-code="boardNotice"
+                        attachfile-field-value="file"
+                        extensions="gif,jpg,jpeg,png,pdf,xls,xlsx,zip"
+                        accept="image/png, image/gif, image/jpeg, application/pdf, application/vnd.ms-excel, application/msexcel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/zip"
+                        :limit="3"
+                        label="첨부파일"
+                        required
+                    ></attach>
                     <span class="grey--text">※ gif, jpg, jpeg, png, pdf, xls, xlsx, zip 확장자를 가진 파일만 첨부 가능합니다.</span>
                 </v-col>
             </v-row>
@@ -236,11 +236,10 @@ const DEFAULT_FORM = {
   allStoreYn: 'N',
   storeList: [],
   allPartnerYn: 'N',
-  partnerList: []
-  // FIXME 파일 업로드 구현 필요
-  //   ,attachBag: {
-  //   file: []
-  // }
+  partnerList: [],
+  attachBag: {
+    file: []
+  }
 }
 
 export default {
