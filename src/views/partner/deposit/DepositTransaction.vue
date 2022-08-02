@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import DepositRequestList from '@/components/Api/Deposit/DepositRequestList'
-import DepositHistoryList from '@/components/Api/Deposit/DepositHistoryList'
-import DepositFailureList from '@/components/Api/Deposit/DepositFailureList'
+import DepositRequestList from '@/components/Api/Deposit/DepositRequestList.vue'
+import DepositHistoryList from '@/components/Api/Deposit/DepositHistoryList.vue'
+import DepositFailureList from '@/components/Api/Deposit/DepositFailureList.vue'
 
 export default {
   name: 'DepositTransaction',
