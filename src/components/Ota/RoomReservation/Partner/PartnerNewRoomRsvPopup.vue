@@ -345,7 +345,7 @@
             <v-btn outlined rounded color="green" @click="resetSaveForm" class="new-room-step-17">
               <v-icon left>refresh</v-icon>초기화(F4)
             </v-btn>
-            <v-btn v-if="isPartner" outlined rounded color="blue" @click="save" class="new-room-step-18">
+            <v-btn outlined rounded color="blue" @click="save" class="new-room-step-18">
               <v-icon left>save</v-icon>예약(F10)
             </v-btn>
             <v-btn outlined rounded color="primary" @click="close">닫기(ESC)</v-btn>
@@ -546,7 +546,7 @@ export default {
         { code: 'M', name: '회원우선예약' }
       ],
       roomType: {}, // 객실/패키지 정보
-      rmSearchParam: { // 검색 파라미터
+      roomSearchParam: { // 검색 파라미터
         memberNo: '', // 회원번호
         storeCode: '',
         checkInDate: '',
@@ -602,7 +602,7 @@ export default {
   },
   mounted () {
     this.initInfo()
-    this.rmSearchParam.partnerSeq = this.user.number // 파트너번호 세팅
+    this.roomSearchParam.partnerSeq = this.user.number // 파트너번호 세팅
     /* if (!this.isPartner) {
       this.$dialog.alert('이 화면에서는 예약이 불가능 합니다. <br/>실제로 예약하기를 원하시면 창을 닫고 신규 버튼을 <br/>클릭해 진행해주시기 바랍니다.')
     } */
@@ -666,7 +666,7 @@ export default {
      */
     prev () {
       if (
-        (this.rmSearchParam.memberNo && this.rmSearchParam.storeCode) ||
+        (this.roomSearchParam.memberNo && this.roomSearchParam.storeCode) ||
         (this.form.memberNo && this.form.storeCode)
       ) {
         const thisMonth = moment().format('yyyyMM') // 현재달
@@ -688,7 +688,7 @@ export default {
     next () {
       const endDate = moment(this.saleEndDate).format('YYYY-MM-DD') // 판매종료일
       if (
-        (this.rmSearchParam.memberNo && this.rmSearchParam.storeCode) ||
+        (this.roomSearchParam.memberNo && this.roomSearchParam.storeCode) ||
         (this.form.memberNo && this.form.storeCode)
       ) {
         const compareParam = Boolean(Date.parse(this.$refs.calendar.lastEnd.date) >= Date.parse(endDate))
@@ -715,9 +715,9 @@ export default {
       if (this.isSearch) {
         // 회원 번호와 영업장코드 필수
         if (this.form.memberNo && this.form.storeCode) {
-          this.rmSearchParam.storeCode = this.form.storeCode
+          this.roomSearchParam.storeCode = this.form.storeCode
           if (this.form.roomTypeCode) { // 객실유형코드가 있는 경우
-            this.rmSearchParam.roomTypeCode = this.form.roomTypeCode
+            this.roomSearchParam.roomTypeCode = this.form.roomTypeCode
           }
           this.setParams()
         }
@@ -730,15 +730,15 @@ export default {
      * 검색 버튼 클릭시
      */
     async search () {
-      this.rmSearchParam.storeCode = this.form.storeCode
+      this.roomSearchParam.storeCode = this.form.storeCode
       if (this.form.roomTypeCode) { // 객실유형코드가 있는 경우
-        this.rmSearchParam.roomTypeCode = this.form.roomTypeCode
+        this.roomSearchParam.roomTypeCode = this.form.roomTypeCode
       } else {
-        this.rmSearchParam.roomTypeCode = ''
+        this.roomSearchParam.roomTypeCode = ''
         this.form.roomTypeName = ''
       }
       this.isSearch = true
-      await this.selectOneStoreInfo(this.rmSearchParam.storeCode) // 선택된 영업장 정보 조회
+      await this.selectOneStoreInfo(this.roomSearchParam.storeCode) // 선택된 영업장 정보 조회
       this.setParams() // 검색을 위한 파라미터 세팅
     },
     /**
@@ -749,14 +749,14 @@ export default {
       const thisMonth = moment().month() + 1 // 오늘 날짜의 달
       // 검색하려는 달이 현재의 달과 같을 때
       if (currentMonth === thisMonth) {
-        this.rmSearchParam.checkInDate = moment().format('YYYYMMDD')
-        this.rmSearchParam.searchDayCount = moment(this.calendarEndDate).diff(moment().format('YYYY-MM-DD'), 'days') + 1
+        this.roomSearchParam.checkInDate = moment().format('YYYYMMDD')
+        this.roomSearchParam.searchDayCount = moment(this.calendarEndDate).diff(moment().format('YYYY-MM-DD'), 'days') + 1
       } else {
-        this.rmSearchParam.checkInDate = moment(this.calendarStartDate).format('YYYYMMDD')
-        this.calculateNights(moment(this.rmSearchParam.checkInDate).month() + 1, this.rmSearchParam.checkInDate) // 조회할 박수 정보 세팅
+        this.roomSearchParam.checkInDate = moment(this.calendarStartDate).format('YYYYMMDD')
+        this.calculateNights(moment(this.roomSearchParam.checkInDate).month() + 1, this.roomSearchParam.checkInDate) // 조회할 박수 정보 세팅
       }
-      this.$set(this.rmSearchParam, 'nights', this.form.nights)
-      this.$set(this.rmSearchParam, 'roomCount', this.form.roomCount)
+      this.$set(this.roomSearchParam, 'nights', this.form.nights)
+      this.$set(this.roomSearchParam, 'roomCount', this.form.roomCount)
       this.selectInventory() // 재고 조회
     },
     /**
@@ -770,11 +770,11 @@ export default {
       const saleStartYear = moment(this.saleStartDate).year() // 판매 시작일이 있는 년도
       // 종료일이 있는 달인 경우
       if (thisyear === saleEndYear && month === saleEndMonth) {
-        this.rmSearchParam.searchDayCount = moment(this.saleEndDate).diff(moment(this.calendarStartDate), 'days') + 1
+        this.roomSearchParam.searchDayCount = moment(this.saleEndDate).diff(moment(this.calendarStartDate), 'days') + 1
       } else if (thisyear === saleStartYear && month === saleStartMonth) { // 시작일이 있는 달인 경우
-        this.rmSearchParam.searchDayCount = moment(this.calendarEndDate).diff(moment(this.saleStartDate).format('YYYY-MM-DD'), 'days') + 1
+        this.roomSearchParam.searchDayCount = moment(this.calendarEndDate).diff(moment(this.saleStartDate).format('YYYY-MM-DD'), 'days') + 1
       } else {
-        this.rmSearchParam.searchDayCount = moment(monthDate).endOf('month').format('DD')
+        this.roomSearchParam.searchDayCount = moment(monthDate).endOf('month').format('DD')
       }
     },
     /**
@@ -791,15 +791,15 @@ export default {
       // 검색인 경우
       if (this.isSearch) {
         this.validForm(this.$refs.form).then(() => {
-          this.rmSearchParam.isRealLeaveCount = 'Y'
+          this.roomSearchParam.isRealLeaveCount = 'Y'
           // 영업장으로만 조회
-          if (this.rmSearchParam.roomTypeCode === '') {
-            roomService.selectRoomInventory('store', this.rmSearchParam).then(res => {
+          if (this.roomSearchParam.roomTypeCode === '') {
+            roomService.selectRoomInventory('store', this.roomSearchParam).then(res => {
               this.realSetEvents(res.data)
             })
           } else {
             // 영업장과 객실유형으로 조회
-            roomService.selectRoomInventory('store-room', this.rmSearchParam).then(res => {
+            roomService.selectRoomInventory('store-room', this.roomSearchParam).then(res => {
               this.realSetEvents(res.data)
             })
           }
@@ -889,7 +889,8 @@ export default {
                   color: this.colors[0],
                   nameCheck: this.names[0].name,
                   roomTypeCode: event.roomTypeCode,
-                  tooltip: event.roomTypeName + ' / ' + event.leaveCount
+                  tooltip: event.roomTypeName + ' / ' + event.leaveCount,
+                  roomPriceModelList: event.roomPriceModelList
                 })
               }
             }
@@ -1017,16 +1018,16 @@ export default {
       } else {
         res = await roomTypeService.selectRoomTypeInformation(storeCode)
       }
-      this.rmSearchParam.memberNo = this.form.memberNo // 회원번호 세팅
+      this.roomSearchParam.memberNo = this.form.memberNo // 회원번호 세팅
       this.saleStartDate = res.data.saleStartDate // 판매 시작일
       this.saleEndDate = res.data.saleEndDate // 판매 종료일
       this.todayRsvYn = res.data.todayRsvYn // 당일 예약 여부
       if (res.data.todayRsvTime) {
-        this.rmSearchParam.todayRsvTime = res.data.todayRsvTime // 당일 예약 가능 시간
+        this.roomSearchParam.todayRsvTime = res.data.todayRsvTime // 당일 예약 가능 시간
       }
-      this.rmSearchParam.blockCode = res.data.blockCode // 예약 블럭 코드
-      this.rmSearchParam.roomDayLimit = res.data.dailyRsvLimit // 잔여객실 수 최대치 제한
-      this.rmSearchParam.searchDayCount = res.data.roomSearchCount // 오늘부터 며칠까지 조회 가능한지 여부
+      this.roomSearchParam.blockCode = res.data.blockCode // 예약 블럭 코드
+      this.roomSearchParam.roomDayLimit = res.data.dailyRsvLimit // 잔여객실 수 최대치 제한
+      this.roomSearchParam.searchDayCount = res.data.roomSearchCount // 오늘부터 며칠까지 조회 가능한지 여부
       // 박수 배열에 값 추가
       for (let i = 1; i < res.data.nights + 1; i++) {
         this.nightsArr.push(i)
@@ -1137,14 +1138,23 @@ export default {
       priceParam.roomTypeCode = this.saveForm.roomTypeCode
       priceParam.nights = this.saveForm.nights
       priceParam.roomCount = this.saveForm.roomCount
-      priceParam.blockCode = this.rmSearchParam.blockCode
-      try {
-        const res = await roomService.selectRoomAmount(priceParam)
-        this.$set(this.saveForm, 'salePrice', res.data.total) // 판매가
-        this.$set(this.saveForm, 'totalPrice', res.data.rcpmnyTotal) // 입금가
-      } catch (e) {
-        this.$set(this.saveForm, 'totalPrice', 0) // 입금가
-      }
+      priceParam.blockCode = this.roomSearchParam.blockCode
+      priceParam.searchDayCount = this.saveForm.nights
+      // 재고와 금액은 같이 존재
+      roomService.selectRoomInventory('store-room', priceParam).then(res => {
+        try {
+          let totalPrice = 0
+          let originPrice = 0
+          for (let i = 0; i < res.data[0].roomPriceModelList.length; i++) {
+            totalPrice += res.data[0].roomPriceModelList[i].totalPrice
+            originPrice += res.data[0].roomPriceModelList[i].totalPrice
+          }
+          this.$set(this.saveForm, 'salePrice', totalPrice) // 총금액
+          this.$set(this.saveForm, 'totalPrice', originPrice) // 기준금액
+        } catch (e) {
+          this.$set(this.saveForm, 'totalPrice', 0) // 입금가
+        }
+      })
     },
     /**
      * 하나의 객실을 선택했을 때
@@ -1160,18 +1170,18 @@ export default {
           event.start &&
           this.form.memberNo &&
           this.form.storeCode &&
-          this.rmSearchParam.blockCode &&
+          this.roomSearchParam.blockCode &&
           this.form.nights &&
           this.form.roomCount
         ) {
           param.memberNo = this.form.memberNo
           param.storeCode = this.form.storeCode
           param.checkInDate = event.start.replace(/-/gi, '')
-          param.blockCode = this.rmSearchParam.blockCode
+          param.blockCode = this.roomSearchParam.blockCode
           param.nights = this.form.nights
           param.roomCount = this.form.roomCount
           param.todayRsvYn = this.todayRsvYn
-          param.todayRsvTime = this.rmSearchParam.todayRsvTime
+          param.todayRsvTime = this.roomSearchParam.todayRsvTime
           // 예약 가능여부 확인
           const res = await pmsReservationService.selectPossibleRoomInventory(event.roomTypeCode, param)
           if (res.data.procMsg === '0000') {
@@ -1183,6 +1193,7 @@ export default {
             this.$set(this.saveForm, 'childCount', 0)
             this.$set(this.saveForm, 'nights', param.nights)
             this.$set(this.saveForm, 'roomCount', param.roomCount)
+
             // 요금 조회
             this.selectAmount()
           } else {
@@ -1195,7 +1206,7 @@ export default {
      * 예약
      */
     async save () {
-      const basicCheck = Boolean(this.form.memberNo && this.form.storeCode && this.todayRsvYn && this.rmSearchParam.blockCode)
+      const basicCheck = Boolean(this.form.memberNo && this.form.storeCode && this.todayRsvYn && this.roomSearchParam.blockCode)
       const saveFormCheck = Boolean(this.saveForm.checkInDate && this.saveForm.nights && this.saveForm.roomCount && this.saveForm.guestName && this.saveForm.totalPrice && this.saveForm.roomTypeCode && this.saveForm.adultCount)
       // 예약에 필요한 파라미터들이 있는 경우에만 실행
       if (basicCheck && saveFormCheck) {
@@ -1210,8 +1221,8 @@ export default {
           param.roomCount = this.saveForm.roomCount
         })
         param.todayRsvYn = this.todayRsvYn
-        param.todayRsvTime = this.rmSearchParam.todayRsvTime
-        param.blockCode = this.rmSearchParam.blockCode
+        param.todayRsvTime = this.roomSearchParam.todayRsvTime
+        param.blockCode = this.roomSearchParam.blockCode
         // 예약 가능여부 확인
         const res = await pmsReservationService.selectPossibleRoomInventory(this.saveForm.roomTypeCode, param)
         // 예약 가능시
