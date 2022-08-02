@@ -102,7 +102,7 @@
             <v-col :cols="colDetail">
                 <rsv-detail-wrapper ref="child" :room-type="roomType"
                                     :room-type-list="roomTypeList" :rsv-detail.sync="rsvDetail" :btn-name="btnName"
-                                    @select-type="selectType($event)" @change-rm-list="changeRmList($event)"
+                                    @select-type="selectType($event)" @change-rm-list="changeRoomList($event)"
                                     @system-new-rsv="systemNewRsv" @show-detail="showDetail($event)"
                                     @search="search" @change-size="changeSize()" />
             </v-col>
@@ -295,7 +295,7 @@ export default {
       }
     },
     /** 잔여 객실 현황 목록 조회 */
-    async changeRmList (param) {
+    async changeRoomList (param) {
       // 잔여 객실 현황 필수값 확인
       if (param.storeCode && param.blockCode && param.startDate && param.endDate) {
         const newParam = {}
@@ -440,14 +440,16 @@ export default {
           }
 
           // 잔여 객실 조회를 위한 파라미터 세팅
+          /*
           if (!this.isPartner) {
             const param = {}
             param.storeCode = this.rsvDetail.storeCode
             param.startDate = this.rsvDetail.checkInDate
             param.endDate = moment(this.rsvDetail.checkInDate).add(30, 'days').format('YYYYMMDD')
             param.blockCode = this.rsvDetail.blockCode
-            this.changeRmList(param)
+            this.changeRoomList(param)
           }
+             */
         } else {
           this.$dialog.alert('상세 예약 정보가 없습니다. <br />확인 후 다시 시도해 주세요.')
         }
@@ -474,7 +476,7 @@ export default {
         const searchParam = _.cloneDeep(this.searchParam)
         searchParam.q.ciDate = _.join(searchParam.q.ciDate, ',')
         searchParam.q.statusCode = _.join(searchParam.q.statusCode, ',')
-        this.downLoadExcel('/api/system/ota/roomReservation/excel', '객실 예약 관리', searchParam, '.csv')
+        this.downLoadExcel('/api/cms/ota/booking/roomReservation/excel', '객실 예약 관리', searchParam, '.csv')
       } else {
         this.$dialog.alert('다운로드할 예약이 없습니다.')
       }
