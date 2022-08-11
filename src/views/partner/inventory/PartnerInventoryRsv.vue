@@ -146,7 +146,7 @@ export default {
       this.storeList = store.data
       const rmType = await storeService.selectRmTypeSimpleList()
       this.rmTypeList = rmType.data
-      const rmStatus = await commonService.selectDGNSCommonCodeList('RSV0093')
+      const rmStatus = await commonService.selectPmsCommonCodeList('RSV0093')
       this.rmStatusList = rmStatus.data
     } catch (e) {}
   },

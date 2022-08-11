@@ -504,7 +504,7 @@ export default {
       })
     },
     searchDgnsCommCode (data, commTypeCode) {
-      commonCodeService.selectDGNSCommonCodeList(commTypeCode).then(res => {
+      commonCodeService.selectPmsCommonCodeList(commTypeCode).then(res => {
         data.list = res.data
       })
     },

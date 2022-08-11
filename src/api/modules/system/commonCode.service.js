@@ -88,10 +88,10 @@ const commonCodeService = {
   },
 
   /**
-   * DGNS 공통코드 목록 조회
+   * PMS 공통코드 목록 조회
    */
-  selectDGNSCommonCodeList (commTypeCode) {
-    return api.get(`/api/cms/system/commonCode/dgnsCommonCodeList/${commTypeCode}`)
+  selectPmsCommonCodeList (commTypeCode) {
+    return api.get(`/api/pms/product/commonCode/commonCodeList/${commTypeCode}`)
   }
 
 }
