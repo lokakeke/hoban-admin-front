@@ -160,7 +160,6 @@
 
     <app-card heading="객실예약 신청내역 처리결과" custom-classes="border" content-classes="pt-2" class="pt-2" v-else>
       <v-row>
-          {{ form }}
         <v-col cols="2">
           <div class="font-weight-bold info--text body-1">처리 상태</div>
           <v-text-field :value="form.approveCodeName" dense readonly hide-details

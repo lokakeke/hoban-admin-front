@@ -121,7 +121,7 @@
 import DialogBase from '@/components/Dialog/DialogBase.vue'
 import roomService from '@/api/modules/ota/roomReservation.service'
 
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 export default {
   extends: DialogBase,
@@ -263,7 +263,7 @@ export default {
         }
         param.isPartner = this.isPartner
         param.rsvYn = this.rsvYn
-        param.partnerSeq = this.user.number
+        param.partnerSeq = Number(this.user.number)
 
         const res = await roomService.selectPkgInfo(param)
         this.noPackageList(res.data)
@@ -327,7 +327,7 @@ export default {
       this.packageList = param
       if (param && param.length === 0) {
         this.$dialog.alert('조건에 해당하는 자료가 없습니다.')
-      } else if (param && param.length === 1) {
+      } else if (param && param.length === 10) { // TODO KKKK
         this.choosePkg(param[0])
       } else {
         if (this.groupFlag === 'ota') {

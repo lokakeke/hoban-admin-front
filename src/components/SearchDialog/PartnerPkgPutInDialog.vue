@@ -1,13 +1,13 @@
 <template>
   <dialog-base :instance="instance">
     <template v-slot:title>
-      패키지 등록
+      패키지 등록<br>
     </template>
     <v-form ref="form" lazy-validation >
       <v-row>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">패키지</div>
-          <v-text-field v-model="form.pkgName" dense
+          <v-text-field v-model="form.packageName" dense
                         :rules="emptyRules"
                         @click="openPackagePopup(form)"
                         placeholder="패키지를 선택 해주세요."
@@ -22,7 +22,7 @@
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">객실수</div>
-          <v-text-field v-model="form.rmCnt" dense
+          <v-text-field v-model="form.roomCount" dense
                         placeholder="패키지를 선택 해주세요."
                         :rules="emptyRules.concat(numberRules)"
                         readonly
@@ -38,7 +38,7 @@
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">예약블럭</div>
-          <v-text-field v-model="form.rsvBlckCode" dense
+          <v-text-field v-model="form.blockCode" dense
                         placeholder="패키지를 선택 해주세요."
                         :rules="emptyRules"
                         readonly
@@ -60,16 +60,16 @@
         </v-col>
         <v-col cols="6" md="3">
           <div class="font-weight-bold info--text body-1">객실유형</div>
-          <v-autocomplete v-model="form.rmTypeCode" dense
-                          :items="rmTypeList"
-                          :item-value="'rmTypeCode'"
-                          :item-text="'rmTypeName'"
+          <v-autocomplete v-model="form.roomTypeCode" dense
+                          :items="roomTypes"
+                          :item-value="'roomTypeCode'"
+                          :item-text="'roomTypeName'"
                           placeholder="객실유형을 선택 해주세요."
                           :rules="emptyRules" />
         </v-col>
       </v-row>
     </v-form>
-    <template v-slot:actions v-if="this.aprlCode === '' || this.aprlCode === 'A'">
+    <template v-slot:actions v-if="this.approveCode === '' || this.approveCode === 'A'">
       <v-btn v-if="writeAuth" color="info" rounded @click="submit"><v-icon left>check</v-icon>등록 (F4)</v-btn>
       <v-btn color="primary" rounded @click="close"><v-icon left>close</v-icon>닫기</v-btn>
     </template>
@@ -87,26 +87,26 @@ export default {
     return {
       // 파라미터
       form: {
-        pkgNo: '',
-        pkgName: '',
+        packageNo: '',
+        packageName: '',
         storeCode: '',
         storeName: '',
-        rmTypeCode: '',
-        rmTypeName: '',
+        roomTypeCode: '',
+        roomTypeName: '',
         nights: '',
-        rmCnt: '',
-        aprlCode: '',
-        saleBgnYmd: '',
-        saleEndYmd: '',
+        roomCount: '',
+        approveCode: '',
+        saleStartDate: '',
+        saleEndDate: '',
         todayRsvYn: '',
         todayRsvTime: ''
       },
       // 예약가능 영업장 리스트
       storeList: [],
       // 예약가능 객실 리스트
-      rmTypeList: [],
+      roomTypes: [],
       // 신청 상태
-      aprlCode: '',
+      approveCode: '',
       // 패키지예약 신청 목록
       pkgPutInList: []
     }
@@ -114,7 +114,7 @@ export default {
   mounted () {
     try {
       // 파라미터 셋팅
-      this.aprlCode = this.instance.params.aprlCode
+      this.approveCode = this.instance.params.approveCode
       // 패키지예약 신청 목록 셋팅
       this.pkgPutInList = this.instance.params.pkgPutInList
       // 수정 상태 이며, 상태값이 신청인 경우
@@ -131,10 +131,10 @@ export default {
         componentPath: '/Ota/RoomReservation/popup/PackSearchPopup',
         params: {
           item: {
-            pkgNo: item.pkgNo,
+            packageNo: item.packageNo,
             rsvYn: 'Y',
             groupFlag: 'ota',
-            isPtnrPkg: 'Y'
+            isPartnerPackage: 'Y'
           }
         },
         options: {
@@ -143,19 +143,19 @@ export default {
           width: 1400,
           closeCallback: (params) => {
             if (params && params.data) {
-              this.$set(this.form, 'pkgNo', params.data.pkgNo)
-              this.$set(this.form, 'pkgName', params.data.pkgName)
-              this.$set(this.form, 'rmCnt', params.data.rmCnt)
-              this.$set(this.form, 'nights', params.data.stayNights)
-              this.$set(this.form, 'rsvBlckCode', params.data.rsvBlckCode)
-              this.$set(this.form, 'saleBgnYmd', params.data.saleBgnYmd)
-              this.$set(this.form, 'saleEndYmd', params.data.saleEndYmd)
+              this.$set(this.form, 'packageNo', params.data.packageNo)
+              this.$set(this.form, 'packageName', params.data.packageName)
+              this.$set(this.form, 'roomCount', params.data.roomCount)
+              this.$set(this.form, 'nights', params.data.nights)
+              this.$set(this.form, 'blockCode', params.data.blockCode)
+              this.$set(this.form, 'saleStartDate', params.data.saleStartDate)
+              this.$set(this.form, 'saleEndDate', params.data.saleEndDate)
               this.$set(this.form, 'todayRsvYn', params.data.todayRsvYn)
               this.$set(this.form, 'todayRsvTime', params.data.todayRsvTime)
               this.selectPkg = params.data
               this.storeList = []
-              this.rmTypeList = []
-              this.selectPackageStoreList(params.data.pkgNo)
+              this.roomTypes = []
+              this.selectPackageStoreList(params.data.packageNo)
             }
           }
         }
@@ -163,10 +163,10 @@ export default {
     },
     /**
      * 객실패키지 영업장 정보 조회(객실유형 포함)
-     * @param pkgNo 선택 패키지번호
+     * @param packageNo 선택 패키지번호
      */
-    async selectPackageStoreList (pkgNo) {
-      const res = await packageService.selectPackageStoreList(pkgNo)
+    async selectPackageStoreList (packageNo) {
+      const res = await packageService.selectPackageStoreList(packageNo)
       this.storeList = res.data
     },
     /**
@@ -175,9 +175,9 @@ export default {
      */
     changeRmtypeCode (storeCode) {
       const index = this.storeList.findIndex(data => data.storeCode === storeCode)
-      if (index > -1 && this.storeList[index].rmTypeList) {
-        this.rmTypeList = []
-        this.rmTypeList = this.storeList[index].rmTypeList
+      if (index > -1 && this.storeList[index].roomTypes) {
+        this.roomTypes = []
+        this.roomTypes = this.storeList[index].roomTypes
       }
     },
     /**
@@ -189,9 +189,10 @@ export default {
         // 영업장명 가져오기
         this.form.storeName = this.storeList.find(item => item.storeCode === this.form.storeCode).storeName
         // 객실유형명 가져오기
-        this.form.rmTypeName = this.rmTypeList.find(item => item.rmTypeCode === this.form.rmTypeCode).rmTypeName
+        this.form.roomTypeName = this.roomTypes.find(item => item.roomTypeCode === this.form.roomTypeCode).roomTypeName
         // 중복체크
         if (this.duplicateCheck(this.form)) {
+          this.form.approveCode = this.approveCode
           this.close({
             data: this.form
           })
@@ -203,9 +204,9 @@ export default {
      */
     duplicateCheck (item) {
       for (const row of this.pkgPutInList) {
-        if (row.pkgNo === item.pkgNo &&
+        if (row.packageNo === item.packageNo &&
               row.storeCode === item.storeCode &&
-              row.rmTypeCode === item.rmTypeCode) {
+              row.roomTypeCode === item.roomTypeCode) {
           this.$dialog.alert('이미 등록된 패키지 정보입니다. 다른 패키지 정보로 시도해주세요.')
           return false
         }
