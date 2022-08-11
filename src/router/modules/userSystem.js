@@ -23,7 +23,7 @@ export default {
         auth: true,
         requiresAuth: true,
         title: '패키지 관리',
-        breadcrumb: 'Package '
+        breadcrumb: 'Package'
       }
     },
     {
@@ -34,7 +34,7 @@ export default {
         auth: true,
         requiresAuth: true,
         title: '결제 관리',
-        breadcrumb: 'Payment '
+        breadcrumb: 'Payment'
       }
     }
   ]
