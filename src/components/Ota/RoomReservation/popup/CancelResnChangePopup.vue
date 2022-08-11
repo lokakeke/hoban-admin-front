@@ -73,7 +73,7 @@ export default {
      * 취소 사유 코드 목록 조회
      */
     async selectCancelTypeCodeList () {
-      const res = await commonService.selectDGNSCommonCodeList('RSV0096')
+      const res = await commonService.selectPmsCommonCodeList('RSV0096')
       this.isPartner ? this.cancelResnList = [res.data[0]] : this.cancelResnList = res.data
     },
     /**

@@ -296,12 +296,13 @@ export default {
     },
     /** 잔여 객실 현황 목록 조회 */
     async changeRoomList (param) {
+    /*
       // 잔여 객실 현황 필수값 확인
       if (param.storeCode && param.blockCode && param.startDate && param.endDate) {
         const newParam = {}
         newParam.storeCode = param.storeCode
-        newParam.startDate = param.startDate
-        newParam.endDate = param.endDate
+        newParam.checkInDate = param.startDate
+        newParam.checkOutDate = param.endDate
         // 잔여 객실 현황 조회
         const res = await pmsStockPriceService.selectLeaveRooms(param.blockCode, newParam)
         // 조회된 정보 중 날짜만 뽑아서 가공
@@ -315,6 +316,7 @@ export default {
         }
         this.roomList = arr
       }
+         */
     },
     /** 객실 혹은 패키지 선택 */
     changeType (type) {

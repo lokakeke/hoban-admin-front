@@ -398,7 +398,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rcpmny"
+                        v-model="totalPrice"
                         label="입금금액"
                         readonly
                         outlined
@@ -467,7 +467,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.crtName"
+                        v-model="rsvDetailCopy.createName"
                         label="등록자"
                         readonly
                         outlined
@@ -477,7 +477,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.crtDt"
+                        v-model="rsvDetailCopy.createDatetime"
                         label="등록일시"
                         readonly
                         outlined
@@ -487,7 +487,7 @@
                 </v-col>
                 <v-col lg="2" md="3" cols="4">
                     <v-text-field
-                        v-model="rsvDetailCopy.updName"
+                        v-model="rsvDetailCopy.modifyName"
                         label="수정자"
                         readonly
                         outlined
@@ -497,7 +497,7 @@
                 </v-col>
                 <v-col lg="3" md="4" cols="6">
                     <v-text-field
-                        v-model="rsvDetailCopy.updDt"
+                        v-model="rsvDetailCopy.modifyDatetime"
                         label="수정일시"
                         readonly
                         outlined
@@ -559,10 +559,10 @@ export default {
   },
   computed: {
     totalPrice () { // 판매가
-      return NumberUtils.numberWithCommas(this.rsvDetailCopy.salePrice)
+      return NumberUtils.numberWithCommas(this.rsvDetailCopy.totalPrice)
     },
     rcpmny () { // 입금가
-      return NumberUtils.numberWithCommas(this.rsvDetailCopy.partnerRsvPrice)
+      return NumberUtils.numberWithCommas(this.rsvDetailCopy.totalPrice)
     }
   },
   watch: {

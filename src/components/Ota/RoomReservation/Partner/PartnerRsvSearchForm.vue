@@ -378,7 +378,7 @@ export default {
      * 예약상태 리스트 조회
      */
     async selectCommTypeList () {
-      const res = await commonService.selectDGNSCommonCodeList('RSV0093')
+      const res = await commonService.selectPmsCommonCodeList('RSV0093')
       this.statusList = res.data
       for (const code of this.statusList) {
         if (code.item01 === 'Y') {

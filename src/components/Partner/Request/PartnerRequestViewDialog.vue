@@ -174,7 +174,7 @@ export default {
     },
     /** 취소 사유 코드 목록 조회 */
     selectCancelTypeCodeList () {
-      commonService.selectDGNSCommonCodeList('RSV0096').then(res => {
+      commonService.selectPmsCommonCodeList('RSV0096').then(res => {
         // 단순변심 코드 제외
         const cancelCodeList = []
 
