@@ -10,7 +10,7 @@
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">예약 블럭</div>
-        <v-text-field :value="form.rsvBlck + ' - ' + form.blockCode" hide-details readonly></v-text-field>
+        <v-text-field :value="form.blockCode + ' - ' + form.blockCode" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="3">
         <div class="v-label font-weight-bold info--text">KEY 예약 번호</div>

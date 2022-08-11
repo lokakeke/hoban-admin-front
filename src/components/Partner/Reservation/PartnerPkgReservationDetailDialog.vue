@@ -1,13 +1,17 @@
 <template>
     <dialog-base :instance="instance">
+        쓰기권한: {{ writeAuth }} <br>
+        수정가능: {{ canSubmit }} <br>
+        form: {{ form }}
+
         <template v-slot:title>
             파트너 패키지예약 {{ isModify ? "상세보기" : "신규 신청" }}
             <span v-if="isModify" class="ml-3 font-weight-bold">
-        <span v-if="form.aprlCode === 'A'" :class="form.cancelYn === 'Y'? 'warning--text': ''">
+        <span v-if="form.approveCode === 'A'" :class="form.cancelYn === 'Y'? 'warning--text': ''">
           {{ " - " + (form.cancelYn === "Y" ? "취소 됨" : "신청 중") }}
         </span>
-        <span v-else-if="form.aprlCode">
-          {{ " - 처리완료 : " + form.aprlName }}
+        <span v-else-if="form.approveCode">
+          {{ " - 처리완료 : " + form.approveCodeName }}
         </span>
       </span>
         </template>
@@ -61,7 +65,7 @@
                 </v-menu>
                 <v-col cols="6" md="3">
                     <div class="font-weight-bold info--text body-1">이용자 명</div>
-                    <v-text-field v-model="form.userName" dense
+                    <v-text-field v-model="form.guestName" dense
                                   :rules="emptyRules"
                                   placeholder="이용자 명을 입력 해주세요."
                                   :hide-details="!writable"
@@ -69,7 +73,7 @@
                 </v-col>
                 <v-col cols="6" md="3">
                     <div class="font-weight-bold info--text body-1">이용자 핸드폰번호</div>
-                    <v-text-field v-model="form.userTel" dense
+                    <v-text-field v-model="form.guestTelNo" dense
                                   v-mask="['###-####-####', '###-###-####']"
                                   :rules="emptyRules.concat(mobileRegex)"
                                   placeholder="이용자 연락처를 입력 해주세요."
@@ -78,7 +82,7 @@
                 </v-col>
                 <v-col cols="6" md="3">
                     <div class="font-weight-bold info--text body-1">업체 주문번호</div>
-                    <v-text-field v-model="form.comRsvNo" dense
+                    <v-text-field v-model="form.partnerRsvNo" dense
                                   placeholder="업체 주문번호를 입력 해주세요."
                                   :hide-details="!writable"
                                   :readonly="!canSubmit" />
@@ -88,11 +92,11 @@
                 <v-col sm="12" md="12">
                     <v-row>
                         <v-col md="6">
-                            <div class="font-weight-bold info--text body-1">패키지예약 신청 목록</div>
+                            <div class="font-weight-bold info--text body-1">패키지예약 신청 목록 KK</div>
                         </v-col>
                         <v-col md="6" class="text-right">
                             <v-btn rounded outlined @click="pkgPutInList" color="info"
-                                   v-if="form.aprlCode === '' || form.aprlCode === 'A'">
+                                   v-if="form.approveCode === '' || form.approveCode === 'A'">
                                 <v-icon small>add</v-icon>
                                 추가
                             </v-btn>
@@ -137,7 +141,7 @@
                                     <v-card-text class="py-0">
                                         <v-row dense align="center">
                                             <v-col cols="6" class="font-weight-black subtitle-1">
-                                                {{ index + 1 }} - {{ item.pkgName }} ({{ item.pkgNo }})
+                                                {{ index + 1 }} - {{ item.packageName }} ({{ item.packageNo }})
                                             </v-col>
                                             <v-col cols="6" class="text-right">
                                                 <v-btn v-if="writeAuth && canSubmit" small color="accent" rounded
@@ -170,7 +174,7 @@
                                                             </v-col>
                                                             <v-col cols="3">
                                                                 <v-text-field
-                                                                    :value="item.rmTypeName"
+                                                                    :value="item.roomTypeName"
                                                                     v-on="on"
                                                                     :rules="emptyRules"
                                                                     readonly
@@ -181,7 +185,7 @@
                                                             </v-col>
                                                             <v-col cols="3">
                                                                 <v-text-field
-                                                                    :value="item.rmCnt"
+                                                                    :value="item.roomCount"
                                                                     v-on="on"
                                                                     :rules="emptyRules"
                                                                     readonly
@@ -203,7 +207,7 @@
                                                             </v-col>
                                                             <v-col cols="3">
                                                                 <v-text-field
-                                                                    :value="item.saleBgnYmd+'~'+item.saleEndYmd"
+                                                                    :value="item.saleStartDate+'~'+item.saleEndDate"
                                                                     v-on="on"
                                                                     :rules="emptyRules"
                                                                     readonly
@@ -225,7 +229,7 @@
                                                             </v-col>
                                                             <v-col cols="3">
                                                                 <v-text-field
-                                                                    :value="item.rsvBlckCode"
+                                                                    :value="item.blockCode"
                                                                     v-on="on"
                                                                     :rules="emptyRules"
                                                                     readonly
@@ -249,7 +253,7 @@
             <v-row :dense="writable">
                 <v-col cols="6" md="3">
                     <div class="font-weight-bold info--text body-1">입실 일자</div>
-                    <date-picker v-model="form.ciYmd" dense
+                    <date-picker v-model="form.checkInDate" dense
                                  format="YYYYMMDD"
                                  :min="minDate"
                                  :max="maxDate"
@@ -259,7 +263,7 @@
                                  placeholder="입실일자를 선택 해주세요."
                                  clearable />
                 </v-col>
-                <template v-if="form.aprlCode === '' || form.aprlCode === 'A'">
+                <template v-if="form.approveCode === '' || form.approveCode === 'A'">
                     <v-col cols="3" class="font-weight-bold success--text">
                         <div>* 패키지 휴일일자인 경우 전체 객실타입 신청이 불가능 합니다.</div>
                         <div>* 영업장 / 객실타입 휴일일자인 경우 해당 객실타입만 신청이 불가능 합니다.</div>
@@ -278,7 +282,7 @@
                     </v-col>
                     <v-col cols="3">
                         <div class="font-weight-bold info--text body-1">신청 파트너 담당자</div>
-                        <v-text-field v-model="form.chrgName" dense
+                        <v-text-field v-model="form.partnerManagerId" dense
                                       :rules="emptyRules"
                                       placeholder="이용자 명을 입력 해주세요."
                                       :hide-details="!writable"
@@ -288,12 +292,12 @@
             </v-row>
 
             <!-- 신규 / 신청 중인 상태일 경우 휴일 노출 -->
-            <partner-pkg-reservation-holiday v-if="form.aprlCode === '' || form.aprlCode === 'A'"
+            <partner-pkg-reservation-holiday v-if="form.approveCode === '' || form.approveCode === 'A'"
                                              class="pt-3"
-                                             :pkgNo="selectPkgInfo.pkgNo"
+                                             :packageNo="selectPkgInfo.packageNo"
                                              :storeCode="selectPkgInfo.storeCode"
-                                             :rmTypeCode="selectPkgInfo.rmTypeCode"
-                                             :ciYmd="form.ciYmd">
+                                             :roomTypeCode="selectPkgInfo.roomTypeCode"
+                                             :checkInDate="form.checkInDate">
             </partner-pkg-reservation-holiday>
 
             <!-- 관리자 처리 후 결과 노출 -->
@@ -301,9 +305,9 @@
                 <v-row>
                     <v-col cols="2">
                         <div class="font-weight-bold info--text body-1">처리 상태</div>
-                        <v-text-field :value="form.aprlName" dense readonly hide-details />
+                        <v-text-field :value="form.approveCodeName" dense readonly hide-details />
                     </v-col>
-                    <template v-if="form.aprlCode === 'B'">
+                    <template v-if="form.approveCode === 'B'">
                         <v-col cols="2">
                             <div class="font-weight-bold info--text body-1">예약번호</div>
                             <v-text-field :value="form.rsvNo" dense readonly hide-details>
@@ -327,11 +331,12 @@
                     </template>
                     <v-col cols="2">
                         <div class="font-weight-bold info--text body-1">처리 일자</div>
-                        <v-text-field :value="form.procDt" dense readonly hide-details />
+                        <v-text-field :value="form.processDatetime" dense readonly hide-details />
                     </v-col>
+                    <!-- FIXME 왜 주석인지 확인하고 approvePartnerManagerId 확인하기 (원래주석)                    -->
                     <!-- <v-col cols="2">
                       <div class="font-weight-bold info--text body-1">처리 담당자</div>
-                      <v-text-field :value="form.aprlChrgName" dense readonly hide-details />
+                      <v-text-field :value="form.approvePartnerManagerId" dense readonly hide-details />
                     </v-col> -->
                 </v-row>
                 <v-row align="end">
@@ -340,7 +345,7 @@
                         <v-textarea :value="form.memo" class="mt-3" hide-details readonly outlined rows="2" />
                     </v-col>
                     <v-col cols="6" class="text-right">
-                        <v-btn v-if="form.aprlCode === 'C'" color="info" rounded @click="reApply()">
+                        <v-btn v-if="form.approveCode === 'C'" color="info" rounded @click="reApply()">
                             <v-icon left>check</v-icon>
                             재신청
                         </v-btn>
@@ -352,14 +357,14 @@
                 </v-row>
             </app-card>
         </v-form>
-        <template v-slot:actions v-if="form.aprlCode === '' || form.aprlCode === 'A'">
+        <template v-slot:actions v-if="form.approveCode === '' || form.approveCode === 'A'">
             <v-btn v-if="writeAuth && canSubmit && isModify" color="warning" rounded @click="cancel">
                 <v-icon left>cancel</v-icon>
                 취소
             </v-btn>
             <v-btn v-if="writeAuth && canSubmit" color="info" rounded @click="submit">
                 <v-icon left>check</v-icon>
-                {{ isModify ? "수정" : "등록" }} (F4)
+                {{ isModify ? "수정" : "등록KK" }} (F4)
             </v-btn>
             <v-btn color="primary" rounded @click="close">
                 <v-icon left>close</v-icon>
@@ -389,18 +394,18 @@ export default {
       param: {},
       // 게시물 데이터
       form: {
-        pkgNo: '',
-        pkgName: '',
+        packageNo: '',
+        packageName: '',
         agentCode: '',
         agentCodeName: '',
-        userName: '',
-        userTel: '',
+        guestName: '',
+        guestTelNo: '',
         storeCode: '',
-        rmTypeCode: '',
-        ciYmd: '',
+        roomTypeCode: '',
+        checkInDate: '',
         nights: '',
-        rmCnt: '',
-        aprlCode: '',
+        roomCount: '',
+        approveCode: '',
         pkgPutInList: [] // 패키지 신청 목록
       },
       // 선택 패키지
@@ -421,9 +426,9 @@ export default {
       pkgPutInListLimit: 3,
       // 휴일정보
       selectPkgInfo: {
-        pkgNo: '',
+        packageNo: '',
         storeCode: '',
-        rmTypeCode: ''
+        roomTypeCode: ''
       }
     }
   },
@@ -448,8 +453,8 @@ export default {
             todayRsvYn++
           }
           // 예약 최소일자 구하기
-          if (moment(row.saleBgnYmd) > moment(minDate)) {
-            minDate = row.saleBgnYmd
+          if (moment(row.saleStartDate) > moment(minDate)) {
+            minDate = row.saleStartDate
           }
         }
         // 당일예약 가능여부
@@ -468,8 +473,8 @@ export default {
         let maxDate = moment('29991231')
         for (const row of this.form.pkgPutInList) {
           // 종료일자 중 최소일자 구하기
-          if (moment(row.saleEndYmd) < moment(maxDate)) {
-            maxDate = row.saleEndYmd
+          if (moment(row.saleEndDate) < moment(maxDate)) {
+            maxDate = row.saleEndDate
           }
         }
         return moment(maxDate).format('YYYY-MM-DD')
@@ -481,18 +486,18 @@ export default {
     pkgPutInHeaders () {
       if (this.isPartner) {
         return [
-          { text: '패키지 명', value: 'pkgName', align: 'center', sortable: false, width: '20%' },
+          { text: '패키지 명', value: 'packageName', align: 'center', sortable: false, width: '20%' },
           { text: '영업장명', value: 'storeName', align: 'center', sortable: false, width: '10%' },
-          { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false, width: '10%' },
-          { text: '예약블럭', value: 'rsvBlckCode', align: 'center', sortable: false, width: '10%' },
+          { text: '객실유형명', value: 'roomTypeName', align: 'center', sortable: false, width: '10%' },
+          { text: '예약블럭', value: 'blockCode', align: 'center', sortable: false, width: '10%' },
           { text: '삭제', value: 'action', align: 'center', sortable: false, width: '10%' }
         ]
       } else {
         return [
-          { text: '패키지 명', value: 'pkgName', align: 'center', sortable: false, width: '20%' },
+          { text: '패키지 명', value: 'packageName', align: 'center', sortable: false, width: '20%' },
           { text: '영업장명', value: 'storeName', align: 'center', sortable: false, width: '10%' },
-          { text: '객실유형명', value: 'rmTypeName', align: 'center', sortable: false, width: '10%' },
-          { text: '예약블럭', value: 'rsvBlckCode', align: 'center', sortable: false, width: '10%' }
+          { text: '객실유형명', value: 'roomTypeName', align: 'center', sortable: false, width: '10%' },
+          { text: '예약블럭', value: 'blockCode', align: 'center', sortable: false, width: '10%' }
         ]
       }
     }
@@ -530,14 +535,14 @@ export default {
          */
     async search () {
       try {
-        if (this.param.appSeq) {
+        if (this.param.reqSeq) {
           // 패키지예약 정보 맵핑 (객실유형 포함)
-          const res = await partnerPkgReservationService.selectPartnerPkgRsvApplyDataList(this.param.appSeq)
+          const res = await partnerPkgReservationService.selectPartnerPkgRsvApplyDataList(this.param.reqSeq)
           this.form = res.data
           // 변경가능 셋팅
           this.canSubmit = res.data.canSubmit
           // 신청상태가 아니라면 writable false
-          this.writable = res.data.aprlCode === 'A'
+          this.writable = res.data.approveCode === 'A'
         }
       } catch (e) {
       }
@@ -550,6 +555,8 @@ export default {
         if (!this.canSubmit) {
           return
         }
+        console.log('this.form: ', this.form)
+        console.log('this.$refs.form: ', this.$refs.form)
         await this.validForm(this.$refs.form)
         if (this.form.pkgPutInList.length === 0) {
           await this.$dialog.alert('패키지예약 신청 목록이 존재하지 않습니다.')
@@ -557,13 +564,14 @@ export default {
         }
         await this.$dialog.confirm(`패키지예약 신청을 ${this.isModify ? '수정' : '등록'} 하시겠습니까?`)
         if (this.isModify) {
-          if (!this.form.appSeq) {
+          if (!this.form.reqSeq) {
             this.$dialog.alert('신청 정보가 없습니다.')
             return
           }
-          await partnerPkgReservationService.updatePartnerPkgApply(this.form.appSeq, this.form)
-          // await partnerPkgReservationService.updatePartnerPkgReservationApply(this.form.appSeq, this.form) // 추후 삭제 처리(20201130-구지훈 / 신규개발에 따른 사용정지)
+          await partnerPkgReservationService.updatePartnerPkgApply(this.form.reqSeq, this.form)
+          // await partnerPkgReservationService.updatePartnerPkgReservationApply(this.form.reqSeq, this.form) // 추후 삭제 처리(20201130-구지훈 / 신규개발에 따른 사용정지)
         } else {
+          console.log('insert!! ', this.form)
           await partnerPkgReservationService.insertPartnerPkgApply(this.form)
           // await partnerPkgReservationService.insertPartnerPkgReservationApply(this.form) // 추후 삭제 처리(20201124-구지훈 / 신규개발에 따른 사용정지)
         }
@@ -604,7 +612,7 @@ export default {
     async cancel () {
       try {
         await this.$dialog.confirm('패키지예약 신청취소를 진행 하시겠습니까?')
-        await partnerPkgReservationService.cancelPartnerPkgReservation(this.form.appSeq)
+        await partnerPkgReservationService.cancelPartnerPkgReservation(this.form.reqSeq)
         this.$dialog.alert('패키지예약 신청을 취소 하였습니다.')
         this.close({ change: true })
       } catch (e) {
@@ -616,7 +624,7 @@ export default {
     async reApply () {
       try {
         await this.$dialog.confirm('패키지예약 재신청 진행 하시겠습니까?')
-        await partnerPkgReservationService.updatePartnerPkgReApply(this.form.appSeq)
+        await partnerPkgReservationService.updatePartnerPkgReApply(this.form.reqSeq)
         this.$dialog.alert('패키지예약 재신청 하였습니다.')
         this.close({ change: true })
       } catch (e) {
@@ -626,12 +634,12 @@ export default {
          * 휴일정보 파라미터 셋팅
          */
     searchHoliday (data) {
-      if (this.selectPkgInfo.pkgNo === data.pkgNo) {
+      if (this.selectPkgInfo.packageNo === data.packageNo) {
         return
       }
-      this.selectPkgInfo.pkgNo = data.pkgNo
+      this.selectPkgInfo.packageNo = data.packageNo
       this.selectPkgInfo.storeCode = data.storeCode
-      this.selectPkgInfo.rmTypeCode = data.rmTypeCode
+      this.selectPkgInfo.roomTypeCode = data.roomTypeCode
     },
     /**
          * 패키지 신청 목록 삭제
@@ -647,8 +655,10 @@ export default {
          */
     pkgPutInList () {
       // 패키지예약 신청목록 제한 체크
-      if (this.form.pkgPutInList.length >= this.pkgPutInListLimit) {
-        this.$dialog.alert('신청목록은 ' + this.pkgPutInListLimit + '개까지 등록 가능합니다.')
+      // if (this.form.pkgPutInList.length >= this.pkgPutInListLimit) {
+      // this.$dialog.alert('신청목록은 ' + this.pkgPutInListLimit + '개까지 등록 가능합니다.')
+      if (this.form.pkgPutInList.length > 0) {
+        this.$dialog.alert('현재 패키지 다중 신청은 지원하지 않습니다.')
         return
       }
       // dialog open
@@ -656,7 +666,7 @@ export default {
         componentPath: '/SearchDialog/PartnerPkgPutInDialog',
         params: {
           partnerSeq: this.form.partnerSeq,
-          aprlCode: this.form.aprlCode,
+          approveCode: this.form.approveCode,
           pkgPutInList: this.form.pkgPutInList
         },
         options: {
@@ -668,19 +678,25 @@ export default {
           closeCallback: (params) => {
             if (params && params.data) {
               // 신청 목록 추가
+              const keys = Object.keys(params.data)
+              for (const key of keys) {
+                console.log('key: ', key)
+                console.log('value: ', params.data[key])
+                this.form[key] = params.data[key]
+              }
               this.form.pkgPutInList.push({
-                pkgName: params.data.pkgName,
-                pkgNo: params.data.pkgNo,
+                packageName: params.data.packageName,
+                packageNo: params.data.packageNo,
                 storeName: params.data.storeName,
                 storeCode: params.data.storeCode,
-                rmTypeName: params.data.rmTypeName,
-                rmTypeCode: params.data.rmTypeCode,
-                rsvBlckCode: params.data.rsvBlckCode,
-                saleBgnYmd: params.data.saleBgnYmd,
-                saleEndYmd: params.data.saleEndYmd,
+                roomTypeName: params.data.roomTypeName,
+                roomTypeCode: params.data.roomTypeCode,
+                blockCode: params.data.blockCode,
+                saleStartDate: params.data.saleStartDate,
+                saleEndDate: params.data.saleEndDate,
                 todayRsvYn: params.data.todayRsvYn,
                 todayRsvTime: params.data.todayRsvTime,
-                rmCnt: params.data.rmCnt,
+                roomCount: params.data.roomCount,
                 nights: params.data.nights
               })
             }

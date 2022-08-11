@@ -29,11 +29,11 @@
                     <span
                         :class="item.approveCode === 'B' ? 'blue--text' : item.approveCode === 'C' ? 'red--text': ''">{{ item.approveName }} </span>
                 </template>
-                <template v-slot:item.rsvSeq="{item}">
-                    <v-row v-if="!!item.rsvSeq" @click.stop="openReservation(item.keyRsvNo)" align="center">
+                <template v-slot:item.rsvNo="{item}">
+                    <v-row v-if="!!item.rsvNo" @click.stop="openReservation(item.keyRsvNo)" align="center">
                         <v-btn small color="info" text block>
                             <v-icon small>search</v-icon>
-                            {{ item.rsvSeq }}
+                            {{ item.rsvNo }}
                         </v-btn>
                     </v-row>
                 </template>
@@ -83,12 +83,12 @@ export default {
       list: [],
       headers: [
         { text: '요청번호', value: 'reqSeq', align: 'center' },
-        { text: '예약번호', value: 'rsvSeq', align: 'center' },
+        { text: '예약번호', value: 'rsvNo', align: 'center' },
         { text: '객실료', value: 'totalPrice', align: 'center' },
         { text: '메모', value: 'memo', align: 'center' },
         { text: '요청업체/직원명', value: 'partnerName', align: 'center' },
         { text: '신청일', value: 'createDatetime', align: 'center' },
-        { text: '회원번호', value: 'memberName', align: 'center' },
+        { text: '회원번호', value: 'memberNo', align: 'center' },
         { text: '영업장', value: 'storeName', align: 'center' },
         { text: '객실유형', value: 'roomTypeName', align: 'center' },
         { text: '입실일', value: 'checkInDate', align: 'center' },
@@ -129,11 +129,11 @@ export default {
             event: this.changeStore
           },
           {
-            key: 'rmTypeCode',
+            key: 'roomTypeCode',
             label: '객실 유형',
             type: 'select',
             list: this.roomTypeList,
-            listValue: 'rmTypeCode',
+            listValue: 'roomTypeCode',
             listText: 'roomTypeName',
             cols: 4
           },
@@ -148,18 +148,18 @@ export default {
           },
           { key: 'approveCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
           { key: 'guestName', label: '이용자', type: 'text', cols: 2 },
-          { key: 'rsvSeq', label: '예약번호', type: 'text', cols: 2 },
+          { key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 },
           { key: 'reqSeq', label: '요청번호', type: 'text', cols: 2 }
         ]
       } else {
         return [
           { key: 'lcalCode', label: '지역', type: 'select', list: this.localList, listValue: 'lcalCode', listText: 'lcalName', cols: 2, event: this.changeLcal },
           { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 2, event: this.changeStore },
-          { key: 'rmTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'rmTypeCode', listText: 'rmTypeName', cols: 4 },
+          { key: 'roomTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'roomTypeCode', listText: 'rmTypeName', cols: 4 },
           { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 4 },
-          { key: 'ciYmd', label: '입실 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 2 },
-          { key: 'aprlCode', label: '승인 상태', type: 'code', commCode: 'OTA0003', cols: 2 },
-          { key: 'userName', label: '이용자', type: 'text', cols: 2 },
+          { key: 'checkInDate', label: '입실 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 2 },
+          { key: 'approveCode', label: '승인 상태', type: 'code', commCode: 'OTA0003', cols: 2 },
+          { key: 'guestName', label: '이용자', type: 'text', cols: 2 },
           { key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 },
           { key: 'appSeq', label: '요청번호', type: 'text', cols: 2 }
         ]
