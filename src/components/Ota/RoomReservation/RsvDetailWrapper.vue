@@ -18,7 +18,7 @@
                  @click="openChangeLogPopup">변경Log
           </v-btn>
           <!--                    <v-btn outlined rounded color="blue" class="my-1 px-1 room-step-1 package-step-1" @click="makeNew">신규(Ctrl+F5)</v-btn>-->
-          <v-btn outlined rounded color="blue" class="my-1 px-1 room-step-10 package-step-9"
+          <v-btn outlined rounded color="blue" class="my-1 px-1 room-step-1 package-step-9"
                  @click="getPartnerInfo('ROOM')">객실 신규
           </v-btn>
           <v-btn outlined rounded color="blue" class="my-1 px-1 room-step-11 package-step-10"
@@ -183,6 +183,7 @@ export default {
               enableScrolling: false
             }
           },
+        /*
           {
             target: '.room-step-3',
             content: '예약과 관련된 정보를 <br/> 변경하는 버튼입니다.',
@@ -199,8 +200,9 @@ export default {
               enableScrolling: false
             }
           },
+             */
           {
-            target: '.room-step-5',
+            target: '.room-step-8',
             content: '현재의 예약과 같은 내용의 <br/> 신규 예약을 생성하는 버튼입니다.',
             params: {
               placement: 'top',
@@ -208,13 +210,14 @@ export default {
             }
           },
           {
-            target: '.room-step-6',
+            target: '.room-step-9',
             content: '현재의 예약을 취소하는 <br/> 버튼입니다.',
             params: {
               placement: 'top',
               enableScrolling: false
             }
           },
+        /*
           {
             target: '.room-step-7',
             content: '파트너가 보는 객실 예약 <br/> 화면입니다.',
@@ -239,6 +242,7 @@ export default {
               enableScrolling: false
             }
           }
+             */
         ]
       } else { // 패키지
         this.steps = [

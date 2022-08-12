@@ -177,7 +177,7 @@
       </v-row>
     </v-form>
     <v-row no-gutters justify="space-between">
-<!--      <div class="v-input v-input&#45;&#45;hide-details theme&#45;&#45;light v-input&#45;&#45;selection-controls v-input&#45;&#45;checkbox pointer" @click="checkToggle(statusList)">
+    <div class="v-input v-input&#45;&#45;hide-details theme&#45;&#45;light v-input&#45;&#45;selection-controls v-input&#45;&#45;checkbox pointer" @click="checkToggle(statusList)">
         <div class="v-input__slot">
           <div class="v-input&#45;&#45;selection-controls__input">
             <v-icon>{{checkAllList(statusList)}}</v-icon>
@@ -195,7 +195,7 @@
         dense
         multiple
         hide-details
-      />-->
+      />
       <v-col align-self="center" class="text-right pa-0">
         <v-btn outlined rounded color="green" @click="exportExcel">
           <v-icon left>dashboard</v-icon>엑셀(F2)
@@ -381,9 +381,7 @@ export default {
       const res = await commonService.selectPmsCommonCodeList('RSV0093')
       this.statusList = res.data
       for (const code of this.statusList) {
-        if (code.item01 === 'Y') {
-          this.form.statusCode.push(code.commonCode)
-        }
+        this.form.statusCode.push(code.commonCode)
       }
     },
     /**
