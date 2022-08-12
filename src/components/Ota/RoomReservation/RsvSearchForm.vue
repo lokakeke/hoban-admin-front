@@ -176,7 +176,7 @@
       </v-row>
     </v-form>
     <v-row no-gutters justify="space-between">
-<!--      <div class="v-input v-input&#45;&#45;hide-details theme&#45;&#45;light v-input&#45;&#45;selection-controls v-input&#45;&#45;checkbox pointer" @click="checkToggle(statusList)">
+    <div class="v-input v-input&#45;&#45;hide-details theme&#45;&#45;light v-input&#45;&#45;selection-controls v-input&#45;&#45;checkbox pointer" @click="checkToggle(statusList)">
         <div class="v-input__slot">
           <div class="v-input&#45;&#45;selection-controls__input">
             <v-icon>{{checkAllList(statusList)}}</v-icon>
@@ -194,7 +194,7 @@
         dense
         multiple
         hide-details
-      />-->
+      />
       <v-col align-self="center" class="text-right pl-0">
         <v-btn outlined rounded color="green" @click="exportExcel">
           <v-icon left>dashboard</v-icon>엑셀(F2)
@@ -268,7 +268,7 @@ export default {
     }
   },
   mounted () {
-    // FIXME this.selectCommTypeList()
+    this.selectCommTypeList()
     // key press event match
     this.$store.dispatch('keypress/addKeyEventList', {
       eventList: [
@@ -325,13 +325,11 @@ export default {
         return
       } else if (!this.form.statusCode) {
         this.form.statusCode = []
-        this.form.statusCode.push('RS')
-        this.form.statusCode.push('CI')
+        this.form.statusCode.push('R')
       }
       if (param.length === this.form.statusCode.length) {
         this.form.statusCode = []
-        this.form.statusCode.push('RS')
-        this.form.statusCode.push('CI')
+        this.form.statusCode.push('R')
       } else {
         this.form.statusCode = param.map(data => {
           return data.commonCode
@@ -345,9 +343,7 @@ export default {
       const res = await commonService.selectPmsCommonCodeList('RSV0093')
       this.statusList = res.data
       for (const code of this.statusList) {
-        if (code.item01 === 'Y') {
-          this.form.statusCode.push(code.commonCode)
-        }
+        this.form.statusCode.push(code.commonCode)
       }
     },
     /**
@@ -514,9 +510,7 @@ export default {
           this.form.guestTelNo = ''
           this.form.partnerRsvNo = ''
           this.form.statusCode = []
-          this.form.statusCode.push('RS')
-          this.form.statusCode.push('CI')
-          this.form.statusCode.push('NS')
+          this.form.statusCode.push('R')
         } else { // 검색
           const searchForm = _.cloneDeep(this.searchParam)
           searchForm.page = 1

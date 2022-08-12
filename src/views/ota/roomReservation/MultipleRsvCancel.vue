@@ -308,9 +308,9 @@ export default {
         }
 
         if (
-          !this.searchParam.q.ciDate ||
-          !this.searchParam.q.ciDate[0] ||
-          !this.searchParam.q.ciDate[1]
+          !this.searchParam.q.checkInDate ||
+          !this.searchParam.q.checkInDate[0] ||
+          !this.searchParam.q.checkInDate[1]
         ) {
           this.$dialog.alert('입실일자는 필수값 입니다.')
           return
@@ -454,7 +454,7 @@ export default {
     exportExcel () {
       if (this.rsvList.length > 0) {
         const searchParam = _.cloneDeep(this.searchParam)
-        searchParam.q.ciDate = _.join(searchParam.q.ciDate, ',')
+        searchParam.q.checkInDate = _.join(searchParam.q.checkInDate, ',')
         searchParam.q.statusCode = _.join(searchParam.q.statusCode, ',')
         this.downLoadExcel('/api/system/ota/roomReservation/excel', '객실 예약 관리', searchParam, '.csv')
       } else {
