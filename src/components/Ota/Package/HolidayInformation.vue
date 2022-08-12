@@ -171,7 +171,6 @@
     <v-row>
       <app-card col-classes="col-12">
         <div class="app-card-title px-0">
-            {{ events }}
             <div class="title font-weight-bold">휴일 리스트</div>
           <v-spacer />
           <v-text-field

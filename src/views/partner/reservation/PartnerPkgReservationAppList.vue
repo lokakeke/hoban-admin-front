@@ -2,7 +2,7 @@
   <v-row wrap>
     <app-card :heading="'파트너 패키지예약 신청 리스트'" col-classes="col-12">
       <search-form init-search :search-param.sync="searchParam" :search-list="searchList" @search="search" dense id="partnerAppTable"></search-form>
-      <v-data-table
+        <v-data-table
         :no-data-text="emptyText"
         :headers="headers"
         :items="list"
@@ -15,11 +15,11 @@
         class="click-row bordered"
         @click:row="expandRow"
       >
-        <template v-slot:item.totAmt="{item}">
-          {{item.totAmt | price}}원
+        <template v-slot:item.totalPrice="{item}">
+          {{item.totalPrice | price}}원
         </template>
         <template v-slot:item.partnerName="{item}">
-          {{item.partnerName}}/{{item.chrgName}}
+          {{item.partnerName}}/{{item.partnerManagerName}}
         </template>
         <template v-slot:item.checkInDate="{item}">
           {{item.checkInDate | date}}
@@ -30,8 +30,8 @@
         <template v-slot:item.userTel="{item}">
           <mask-tel-number :text="item.guestTelNo" @search="viewTelNo(item)" />
         </template>
-        <template v-slot:item.aprlName="{item}">
-          <span :class="item.aprlCode === 'B' ? 'blue--text' : item.aprlCode === 'C' ? 'red--text': ''">{{item.aprlName}}</span>
+        <template v-slot:item.approveCodeName="{item}">
+          <span :class="item.aprlCode === 'B' ? 'blue--text' : item.aprlCode === 'C' ? 'red--text': ''">{{item.approveCodeName}}</span>
         </template>
         <template v-slot:item.memo="{item}">
           <v-tooltip v-if="!!item.memo" top attach="#partnerAppTable">
@@ -46,18 +46,18 @@
             <v-btn small color="info" text block><v-icon small>search</v-icon>{{item.rsvNo}}</v-btn>
           </v-row>
         </template>
-        <template v-slot:item.appSeq="{item}">
-          <v-row v-if="!!item.appSeq" @click.stop="open(item)" align="center">
-            <v-btn small color="info" text block><v-icon small>mdi-clipboard-text-outline</v-icon>{{item.appSeq}}</v-btn>
+        <template v-slot:item.reqSeq="{item}">
+          <v-row v-if="!!item.reqSeq" @click.stop="open(item)" align="center">
+            <v-btn small color="info" text block><v-icon small>mdi-clipboard-text-outline</v-icon>{{item.reqSeq}}</v-btn>
           </v-row>
         </template>
         <template v-slot:expanded-item="{ headers, item }">
           <!-- 확장된 파트너 패키지예약 신청 상세 -->
           <td :colspan="headers.length">
             <partner-pkg-reservation-sub-list
-              :appSeq="item.appSeq"
-              :aprlName="item.aprlName"
-              v-if="expanded.length > 0 && expanded[0].appSeq === item.appSeq"
+              :reqSeq="item.reqSeq"
+              :approveCodeName="item.approveCodeName"
+              v-if="expanded.length > 0 && expanded[0].reqSeq === item.reqSeq"
               @refresh="search(true)"
             ></partner-pkg-reservation-sub-list>
           </td>
@@ -86,7 +86,7 @@ export default {
   data () {
     return {
       storeList: [],
-      rmTypeList: [],
+      roomTypeList: [],
       localList: [],
       searchParam: {
         q: {},
@@ -96,17 +96,17 @@ export default {
       },
       list: [],
       headers: [
-        { text: '요청번호', value: 'appSeq', align: 'center' },
+        { text: '요청번호', value: 'reqSeq', align: 'center' },
         { text: '예약번호', value: 'rsvNo', align: 'center' },
-        { text: '객실료', value: 'totAmt', align: 'center' },
+        { text: '객실료', value: 'totalPrice', align: 'center' },
         { text: '메모', value: 'memo', align: 'center' },
         { text: '요청업체/직원명', value: 'partnerName', align: 'center' },
-        { text: '신청일', value: 'crtDt', align: 'center' },
-        { text: '신청건수', value: 'rsvRmCount', align: 'center' },
+        { text: '신청일', value: 'createDatetime', align: 'center' },
+        { text: '신청건수', value: 'rsvRoomCount', align: 'center' },
         { text: '입실일', value: 'checkInDate', align: 'center' },
         { text: '이용자명', value: 'guestName', align: 'center' },
         { text: '핸드폰', value: 'guestTelNo', align: 'center' },
-        { text: '상태', value: 'aprlName', align: 'center' }
+        { text: '상태', value: 'approveCodeName', align: 'center' }
       ],
       /**
        * 확장된 파트너 패키지예약 신청 상세
@@ -122,30 +122,98 @@ export default {
       // 파트너 여부에 따라 다르다.
       if (this.isPartner) {
         return [
-          { key: 'localCode', label: '지역', type: 'select', list: this.localList, listValue: 'localCode', listText: 'lcalName', cols: 2, event: this.changeLcal },
-          { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 2, event: this.changeStore },
-          { key: 'roomTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'roomTypeCode', listText: 'rmTypeName', cols: 4 },
-          { key: 'checkInDate', label: '입실 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 4 },
-          { key: 'aprlCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
+          {
+            key: 'localCode',
+            label: '지역',
+            type: 'select',
+            list: this.localList,
+            listValue: 'localCode',
+            listText: 'localName',
+            cols: 2,
+            event: this.changeLcal
+          },
+          {
+            key: 'storeCode',
+            label: '영업장',
+            type: 'select',
+            list: this.storeList,
+            listValue: 'storeCode',
+            listText: 'storeName',
+            cols: 2,
+            event: this.changeStore
+          },
+          {
+            key: 'roomTypeCode',
+            label: '객실 유형',
+            type: 'select',
+            list: this.roomTypeList,
+            listValue: 'roomTypeCode',
+            listText: 'roomTypeName',
+            cols: 4
+          },
+          {
+            key: 'checkInDate',
+            label: '입실 일자',
+            type: 'dateRange',
+            format: 'YYYYMMDD',
+            startField: 'ciBgnYmd',
+            endField: 'ciEndYmd',
+            cols: 4
+          },
+          { key: 'approveCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
           { key: 'guestName', label: '이용자', type: 'text', cols: 2 },
           { key: 'guestTelNo', label: '휴대폰번호', type: 'text', cols: 2 },
           { key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 },
-          { key: 'appSeq', label: '요청번호', type: 'text', cols: 2 },
-          { key: 'comRsvNo', label: '업체주문번호', type: 'text', cols: 2 }
+          { key: 'reqSeq', label: '요청번호', type: 'text', cols: 2 },
+          { key: 'partnerRsvNo', label: '업체주문번호', type: 'text', cols: 2 }
         ]
       } else {
         return [
-          { key: 'localCode', label: '지역', type: 'select', list: this.localList, listValue: 'localCode', listText: 'lcalName', cols: 2, event: this.changeLcal },
-          { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 2, event: this.changeStore },
-          { key: 'roomTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'roomTypeCode', listText: 'rmTypeName', cols: 4 },
+          {
+            key: 'localCode',
+            label: '지역',
+            type: 'select',
+            list: this.localList,
+            listValue: 'localCode',
+            listText: 'localName',
+            cols: 2,
+            event: this.changeLcal
+          },
+          {
+            key: 'storeCode',
+            label: '영업장',
+            type: 'select',
+            list: this.storeList,
+            listValue: 'storeCode',
+            listText: 'storeName',
+            cols: 2,
+            event: this.changeStore
+          },
+          {
+            key: 'roomTypeCode',
+            label: '객실 유형',
+            type: 'select',
+            list: this.roomTypeList,
+            listValue: 'roomTypeCode',
+            listText: 'roomTypeName',
+            cols: 4
+          },
           { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 2 },
-          { key: 'checkInDate', label: '입실 일자', type: 'dateRange', format: 'YYYYMMDD', startField: 'ciBgnYmd', endField: 'ciEndYmd', cols: 2 },
-          { key: 'aprlCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
+          {
+            key: 'checkInDate',
+            label: '입실 일자',
+            type: 'dateRange',
+            format: 'YYYYMMDD',
+            startField: 'ciBgnYmd',
+            endField: 'ciEndYmd',
+            cols: 2
+          },
+          { key: 'approveCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
           { key: 'guestName', label: '이용자', type: 'text', cols: 2 },
           { key: 'guestTelNo', label: '휴대폰번호', type: 'text', cols: 2 },
           { key: 'rsvNo', label: '예약번호', type: 'text', cols: 2 },
-          { key: 'appSeq', label: '요청번호', type: 'text', cols: 2 },
-          { key: 'comRsvNo', label: '업체주문번호', type: 'text', cols: 2 }
+          { key: 'reqSeq', label: '요청번호', type: 'text', cols: 2 },
+          { key: 'partnerRsvNo', label: '업체주문번호', type: 'text', cols: 2 }
         ]
       }
     }
@@ -173,7 +241,7 @@ export default {
       } catch (e) {}
     },
     async viewTelNo (item) {
-      const res = await partnerPkgReservationService.selectPartnerPkgReservationApply(item.appSeq)
+      const res = await partnerPkgReservationService.selectPartnerPkgReservationApply(item.reqSeq)
       item.guestTelNo = res.data.data.guestTelNo
     },
     /**
@@ -181,10 +249,10 @@ export default {
      * @param localCode 선택 지역코드
      */
     changeLcal (localCode) {
-      const index = this.localList.findIndex(data => data.lcalCd === lcalCd)
+      const index = this.localList.findIndex(data => data.localCode === localCode)
       if (index > -1 && this.localList[index].storeList) {
         this.storeList = this.localList[index].storeList
-        this.rmTypeList = []
+        this.roomTypeList = []
       }
     },
     /**
@@ -194,7 +262,7 @@ export default {
     changeStore (storeCode) {
       const index = this.storeList.findIndex(data => data.storeCode === storeCode)
       if (index > -1 && this.storeList[index].rmTypeList) {
-        this.rmTypeList = this.storeList[index].rmTypeList
+        this.roomTypeList = this.storeList[index].rmTypeList
       }
     },
     /**
@@ -253,9 +321,9 @@ export default {
     /**
      * 지역코드/명 정보 호출
      */
-    async selectLcalCdAllList () {
-      const lcal = await storeService.selectLcalCdAllList()
-      this.localList = lcal.data
+    async selectLcalCodeAllList () {
+      const result = await storeService.selectLcalCodeAllList()
+      this.localList = result.data
     },
     /**
      * 행 확장

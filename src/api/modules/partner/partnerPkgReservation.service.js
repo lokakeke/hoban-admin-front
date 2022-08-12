@@ -6,7 +6,7 @@ const partnerPkgReservationService = {
    * 파트너 패키지예약 요청 리스트
    */
   selectPartnerPkgReservationApplyList (param) {
-    return api.get('/api/cms/system/partnerPkgReservation/applyList', {
+    return api.get('/api/cms/ota/booking/partnerPackageReservation/applyList', {
       params: param
     })
   },
@@ -16,7 +16,7 @@ const partnerPkgReservationService = {
    * @param appSeq 요청번호
    */
   selectPartnerPkgReservationApply (appSeq) {
-    return api.get(`/api/cms/system/partnerPkgReservation/applyData/${appSeq}`)
+    return api.get(`/api/cms/ota/partnerPackageReservation/applyData/${appSeq}`)
   },
 
   /**
@@ -24,7 +24,7 @@ const partnerPkgReservationService = {
    * @param appSeq 요청번호
    */
   selectPartnerPkgRsvApplyDataList (appSeq) {
-    return api.get(`/api/cms/system/partnerPkgReservation/applyDataList/${appSeq}`)
+    return api.get(`/api/cms/ota/booking/partnerPackageReservation/applyDataList/${appSeq}`)
   },
 
   /**
@@ -47,7 +47,7 @@ const partnerPkgReservationService = {
    * 파트너 패키지예약 판매가능 대매사 리스트
    */
   selectPartnerPkgAgentList () {
-    return api.get('/api/cms/system/partnerPkgReservation/agentList')
+    return api.get('/api/cms/ota/booking/partnerPackageReservation/agentList')
   },
 
   /**
@@ -81,19 +81,19 @@ const partnerPkgReservationService = {
 
   /**
    * 파트너 패키지예약 신청내역 처리
-   * @param appSeq
+   * @param reqSeq
    * @param form
    */
-  processPartnerPkgRsvApply (appSeq, form) {
-    return api.post(`/api/cms/system/partnerPkgReservation/processPkgApply/${appSeq}`, form)
+  processPartnerPkgRsvApply (reqSeq, form) {
+    return api.post(`/api/cms/ota/booking/partnerPackageReservation/processPkgApply/${reqSeq}`, form)
   },
 
   /**
    * 파트너 패키지예약 취소
    * @param appSeq
    */
-  cancelPartnerPkgReservation (appSeq) {
-    return api.get(`/api/cms/system/partnerPkgReservation/cancel/${appSeq}`)
+  cancelPartnerPkgReservation (reqSeq) {
+    return api.get(`/api/cms/ota/booking/partnerPackageReservation/cancel/${reqSeq}`)
   },
 
   /**
@@ -101,7 +101,7 @@ const partnerPkgReservationService = {
    * @param appSeq 신청번호
    */
   updatePartnerPkgReApply (appSeq) {
-    return api.get(`/api/cms/system/partnerPkgReservation/reApply/${appSeq}`)
+    return api.get(`/api/cms/ota/booking/partnerPackageReservation/reApply/${appSeq}`)
   },
 
   /**
@@ -109,7 +109,7 @@ const partnerPkgReservationService = {
    * @param form 신청내용
    */
   insertPartnerPkgApply (form) {
-    return api.post('/api/cms/system/partnerPkgReservation/insertPkgApply', form)
+    return api.post('/api/cms/ota/booking/partnerPackageReservation/insertPkgApply', form)
   },
 
   /**
@@ -118,7 +118,7 @@ const partnerPkgReservationService = {
    * @param form 수정내용
    */
   updatePartnerPkgApply (appSeq, form) {
-    return api.post(`/api/cms/system/partnerPkgReservation/updatePkgApply/${appSeq}`, form)
+    return api.post(`/api/cms/ota/booking/partnerPackageReservation/updatePkgApply/${appSeq}`, form)
   }
 
 }
