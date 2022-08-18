@@ -98,7 +98,7 @@
         </v-col>
       </v-row>
       <v-row>
-<!--        <v-col lg="2" md="3" sm="4" cols="6">
+        <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
             v-model="form.agentCode"
             label="Agent코드"
@@ -113,7 +113,7 @@
               </v-btn>
             </template>
           </v-text-field>
-        </v-col>-->
+        </v-col>
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
             v-model="form.storeCode"
@@ -176,12 +176,12 @@
       </v-row>
     </v-form>
     <v-row no-gutters justify="space-between">
-    <div class="v-input v-input&#45;&#45;hide-details theme&#45;&#45;light v-input&#45;&#45;selection-controls v-input&#45;&#45;checkbox pointer" @click="checkToggle(statusList)">
+    <div class="v-input v-input--hide-details theme--light v-input--selection-controls v-input--checkbox pointer" @click="checkToggle(statusList)">
         <div class="v-input__slot">
-          <div class="v-input&#45;&#45;selection-controls__input">
+          <div class="v-input--selection-controls__input">
             <v-icon>{{checkAllList(statusList)}}</v-icon>
           </div>
-          <div class="v-label theme&#45;&#45;light mr-2">전체 선택</div>
+          <div class="v-label theme--light mr-2">전체 선택</div>
         </div>
       </div>
       <v-checkbox
@@ -242,7 +242,7 @@ export default {
       type: Boolean
     }
   },
-  name: 'memberSearchForm',
+  name: 'rsvSearchForm',
   data () {
     return {
       form: {

@@ -163,7 +163,6 @@ export default {
     passwordReset (row) {
       this.$dialog.confirm(`${row.partnerName} 의 임시 비밀번호 발급을 진행하시겠습니까?`).then(() => {
         service.createTemporaryPassword(row.loginId).then(res => {
-          console.log('임시 비밀번호 확인용 : ', res.data)
           this.$dialog.alert('임시 비밀번호가 발급되었습니다.')
         })
       })

@@ -20,7 +20,19 @@
           <v-text-field v-model="useForm.memberNo" label="" :clearable="isNewData" :disabled="!(isNewData && useForm.taskType === 'OTA_ROOM_API')"
                         :rules="useForm.taskType === 'OTA_ROOM_API'? emptyRules: undefined"></v-text-field>
         </v-col>
-      </v-row>
+        <v-col sm="6" md="6">
+            <v-label>대매사</v-label>
+            <v-text-field v-model="useForm.agentCodeName" label="" readonly :disabled="isPartner">
+                <template v-slot:append v-if="useForm.agentCode">
+                    ({{useForm.agentCode}})
+                </template>
+            </v-text-field>
+        </v-col>
+        <v-col sm="6" md="6" v-if="!isPartner">
+            <v-label>대매사 코드</v-label>
+            <v-text-field v-model="useForm.agentCode" label="" :rules="emptyRules" clearable v-if="!isPartner"></v-text-field>
+        </v-col>
+        </v-row>
       <v-row>
         <v-col sm="6" md="3">
           <v-label>사용 시작일</v-label>

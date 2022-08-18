@@ -65,8 +65,8 @@ const partnerAccountService = {
    * 예약을 위한 파트너 기본정보 조회
    * @returns {promise<any>}
    */
-  selectPtnrInfoForRsv (param) {
-    return api.get('/api/cms/system/partner/ptnrInfoForRsv', { params: param })
+  selectPartnerInfoForRsv (param) {
+    return api.get('/api/cms/ota/booking/partnerManager/partnerInfoForRsv', { params: param })
   }
 }
 

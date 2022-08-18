@@ -50,7 +50,7 @@
             {{ item.saleEndDate | date}}
           </template>
           <template v-slot:item.roomNightCount="{item}">
-            {{ item.stayNights }} / {{ item.rmCnt }}
+            {{ item.nights }} / {{ item.roomCount }}
           </template>
           <template v-slot:item.todayRsvYn="{item}">
             {{ item.todayRsvYn === 'Y' ? '가능' : '불가능'}}
@@ -83,7 +83,7 @@
 
 <script>
 import packageService from '@/api/modules/ota/package.service'
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'RoomPackage',
