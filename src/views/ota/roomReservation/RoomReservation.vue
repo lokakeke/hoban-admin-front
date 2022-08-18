@@ -112,7 +112,6 @@
 
 <script>
 import roomService from '@/api/modules/ota/roomReservation.service'
-import pmsStockPriceService from '@/api/modules/pms/stockPrice.service'
 
 import RsvSearchForm from '@/components/Ota/RoomReservation/RsvSearchForm.vue'
 import RsvDetailWrapper from '@/components/Ota/RoomReservation/RsvDetailWrapper.vue'
@@ -368,7 +367,7 @@ export default {
       this.partnerSeq = this.searchParam.q.partnerSeq
 
       // keyRsvNo로 검색하지 않는 경우 OR 파트너인 경우 필수 조건 적용
-      /* if (!this.searchParam.q.keyRsvNo || this.isPartner) {
+      if (!this.searchParam.q.keyRsvNo || this.isPartner) {
         if (
           this.searchParam.q.memberNo ||
                     this.searchParam.q.packageNo ||
@@ -386,14 +385,14 @@ export default {
         }
 
         if (
-          !this.searchParam.q.ciDate ||
-                    !this.searchParam.q.ciDate[0] ||
-                    !this.searchParam.q.ciDate[1]
+          !this.searchParam.q.checkInDate ||
+                    !this.searchParam.q.checkInDate[0] ||
+                    !this.searchParam.q.checkInDate[1]
         ) {
           this.$dialog.alert('입실일자는 필수값 입니다.')
           return
         }
-      } */
+      }
 
       // 객실인 경우 패키지 번호 제거, 패키지인 경우 회원 번호 제거
       this.roomType.value === 'OTA_ROOM_API' ? this.searchParam.q.packageNo = '' : this.searchParam.q.memberNo = ''
@@ -476,9 +475,9 @@ export default {
     exportExcel () {
       if (this.rsvList.length > 0) {
         const searchParam = _.cloneDeep(this.searchParam)
-        searchParam.q.ciDate = _.join(searchParam.q.ciDate, ',')
+        searchParam.q.checkInDate = _.join(searchParam.q.checkInDate, ',')
         searchParam.q.statusCode = _.join(searchParam.q.statusCode, ',')
-        this.downLoadExcel('/api/cms/ota/booking/roomReservation/excel', '객실 예약 관리', searchParam, '.csv')
+        this.downLoadExcel('/api/cms/ota/booking/roomReservation/excel', '객실 예약 관리', searchParam)
       } else {
         this.$dialog.alert('다운로드할 예약이 없습니다.')
       }

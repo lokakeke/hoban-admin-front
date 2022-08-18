@@ -98,23 +98,23 @@
         </v-col>
       </v-row>
      <v-row>
-       <!--         <v-col lg="2" md="3" sm="4" cols="6">
-                 <v-text-field
-                   v-model="form.agentCode"
-                   label="Agent코드"
-                   clearable
-                   hide-details
-                   dense
-                   :disabled="roomType.value != 'OTA_ROOM_API'"
-                   @keypress.enter="openAgentPopup(form)"
-                 >
-                   <template v-slot:append>
-                     <v-btn icon small color="primary" tabindex="-1" @click="openAgentPopup(form)">
-                       <v-icon>search</v-icon>
-                     </v-btn>
-                   </template>
-                 </v-text-field>
-               </v-col>-->
+       <v-col lg="2" md="3" sm="4" cols="6">
+         <v-text-field
+           v-model="form.agentCode"
+           label="Agent코드"
+           clearable
+           hide-details
+           dense
+           :disabled="roomType.value != 'OTA_ROOM_API'"
+           @keypress.enter="openAgentPopup(form)"
+         >
+           <template v-slot:append>
+             <v-btn icon small color="primary" tabindex="-1" @click="openAgentPopup(form)">
+               <v-icon>search</v-icon>
+             </v-btn>
+           </template>
+         </v-text-field>
+       </v-col>
         <v-col lg="2" md="3" sm="4" cols="6">
           <v-text-field
             v-model="form.storeCode"
@@ -177,12 +177,12 @@
       </v-row>
     </v-form>
     <v-row no-gutters justify="space-between">
-    <div class="v-input v-input&#45;&#45;hide-details theme&#45;&#45;light v-input&#45;&#45;selection-controls v-input&#45;&#45;checkbox pointer" @click="checkToggle(statusList)">
+    <div class="v-input v-input--hide-details theme--light v-input--selection-controls v-input--checkbox pointer" @click="checkToggle(statusList)">
         <div class="v-input__slot">
-          <div class="v-input&#45;&#45;selection-controls__input">
+          <div class="v-input--selection-controls__input">
             <v-icon>{{checkAllList(statusList)}}</v-icon>
           </div>
-          <div class="v-label theme&#45;&#45;light mr-2">전체 선택</div>
+          <div class="v-label theme--light mr-2">전체 선택</div>
         </div>
       </div>
       <v-checkbox
@@ -249,7 +249,7 @@ export default {
       type: Object
     }
   },
-  name: 'memberSearchForm',
+  name: 'partnerRsvSearchForm',
   data () {
     return {
       form: {
@@ -563,6 +563,11 @@ export default {
           }
           this.form.roomType = this.roomType.value
           searchForm.q = this.form
+          // 날짜 포맷 변경
+          const startDate = this.form.checkInDate[0]
+          const endDate = this.form.checkInDate[1]
+          this.form.checkInDate[0] = moment(startDate).format('YYYY-MM-DD')
+          this.form.checkInDate[1] = moment(endDate).format('YYYY-MM-DD')
           this.$emit('update:searchParam', searchForm)
           this.$emit('search')
         }

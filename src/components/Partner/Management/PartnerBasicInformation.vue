@@ -100,6 +100,8 @@
                 <th class="text-center">업무 구분</th>
                 <th class="text-center">업무 구분명</th>
                 <th class="text-center">회원 번호</th>
+                <th class="text-center">대매사</th>
+                <th class="text-center">대매사 코드</th>
                 <th class="text-center">기간</th>
                 <th class="text-center">예치금 Key</th>
                 <th class="text-center">예치금</th>
@@ -115,6 +117,8 @@
                 <td class="text-center">{{term.taskType | label(businessList, 'commonCode', 'commonCodeName')}}</td>
                 <td class="text-center">{{term.taskTypeName}}</td>
                 <td class="text-center">{{term.memberNo}}</td>
+                <td class="text-center">{{term.agentCodeName}}
+                <td class="text-center">{{term.agentCode}}
                 <td class="text-center">{{term.useStartDate | date}} ~ {{term.useEndDate | date}}</td>
                 <td class="text-center">{{term.depositKey}}</td>
                 <td class="text-center">{{term.price | price}}원</td>

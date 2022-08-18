@@ -559,7 +559,7 @@ export default {
       const param = {}
       param.taskType = this.roomType.value
       param.partnerSeq = this.user.number
-      const res = await partnerAccountService.selectPtnrInfoForRsv(param)
+      const res = await partnerAccountService.selectPartnerInfoForRsv(param)
       this.ptnrBasicInfo = res.data
       if (this.isTodayRsvPkg) {
         this.openPkgTodayRsv() // 당일예약 패키지 오픈
