@@ -153,7 +153,7 @@ export default {
         ]
       } else {
         return [
-          { key: 'lcalCode', label: '지역', type: 'select', list: this.localList, listValue: 'lcalCode', listText: 'lcalName', cols: 2, event: this.changeLcal },
+          { key: 'localCode', label: '지역', type: 'select', list: this.localList, listValue: 'localCode', listText: 'localName', cols: 2, event: this.changeLcal },
           { key: 'storeCode', label: '영업장', type: 'select', list: this.storeList, listValue: 'storeCode', listText: 'storeName', cols: 2, event: this.changeStore },
           { key: 'roomTypeCode', label: '객실 유형', type: 'select', list: this.rmTypeList, listValue: 'roomTypeCode', listText: 'rmTypeName', cols: 4 },
           { key: 'partnerSeq', label: '파트너', type: 'partner', cols: 4 },

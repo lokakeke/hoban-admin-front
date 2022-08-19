@@ -19,7 +19,7 @@
           {{item.totalPrice | price}}원
         </template>
         <template v-slot:item.partnerName="{item}">
-          {{item.partnerName}}/{{item.partnerManagerName}}
+          {{item.partnerName}}/{{item.managerName}}
         </template>
         <template v-slot:item.checkInDate="{item}">
           {{item.checkInDate | date}}
@@ -27,7 +27,7 @@
         <template v-slot:item.guestName="{item}">
           <mask-name :text="item.guestName" />
         </template>
-        <template v-slot:item.userTel="{item}">
+        <template v-slot:item.guestTelNo="{item}">
           <mask-tel-number :text="item.guestTelNo" @search="viewTelNo(item)" />
         </template>
         <template v-slot:item.approveCodeName="{item}">
@@ -156,8 +156,8 @@ export default {
             label: '입실 일자',
             type: 'dateRange',
             format: 'YYYYMMDD',
-            startField: 'ciBgnYmd',
-            endField: 'ciEndYmd',
+            startField: 'checkInStartDate',
+            endField: 'checkInEndDate',
             cols: 4
           },
           { key: 'approveCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },
@@ -204,8 +204,8 @@ export default {
             label: '입실 일자',
             type: 'dateRange',
             format: 'YYYYMMDD',
-            startField: 'ciBgnYmd',
-            endField: 'ciEndYmd',
+            startField: 'checkInStartDate',
+            endField: 'checkInEndDate',
             cols: 2
           },
           { key: 'approveCode', label: '승인 상태', type: 'code', commonCode: 'OTA0003', cols: 2 },

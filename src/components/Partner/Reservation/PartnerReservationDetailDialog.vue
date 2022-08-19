@@ -1,6 +1,5 @@
 <template>
   <dialog-base :instance="instance">
-      {{ this.selectStore }}
     <template v-slot:title>
       파트너 객실예약 {{isModify? '상세보기' : '신규 신청'}}
       <span v-if="isModify" class="ml-3 font-weight-bold">

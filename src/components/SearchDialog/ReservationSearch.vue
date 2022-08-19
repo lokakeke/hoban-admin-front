@@ -78,11 +78,11 @@
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">등록자</div>
-        <v-text-field :value="form.crtName" hide-details readonly></v-text-field>
+        <v-text-field :value="form.createName" hide-details readonly></v-text-field>
       </v-col>
       <v-col cols="6">
         <div class="v-label font-weight-bold info--text">수정자</div>
-        <v-text-field :value="form.updName" hide-details readonly></v-text-field>
+        <v-text-field :value="form.updateName" hide-details readonly></v-text-field>
       </v-col>
     </v-row>
     <v-row v-else class="font-weight-bold title my-10" justify="center">
@@ -108,8 +108,8 @@ export default {
     checkDate () {
       let text = ''
       if (this.form) {
-        if (this.form.ciYmd && this.form.coYmd) {
-          text += moment(this.form.ciYmd).format('YYYY-MM-DD') + ' / ' + moment(this.form.coYmd).format('YYYY-MM-DD')
+        if (this.form.checkInDate && this.form.checkOutDate) {
+          text += moment(this.form.checkInDate).format('YYYY-MM-DD') + ' / ' + moment(this.form.checkOutDate).format('YYYY-MM-DD')
         }
       }
       return text

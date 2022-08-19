@@ -168,7 +168,7 @@
         <template v-if="form.approveCode === 'B'">
           <v-col cols="2">
             <div class="font-weight-bold info--text body-1">예약번호</div>
-            <v-text-field :value="form.rsvSeq" dense readonly hide-details>
+            <v-text-field :value="form.rsvNo" dense readonly hide-details>
 <!--           TODO rsvNo(사용자에게 노출되는 네 자리수) 값이 서버에서 오지 않는다. <v-text-field :value="form.rsvNo" dense readonly hide-details>-->
                 <template v-slot:append-outer>
                 <v-btn icon small color="primary" @click="openReservation(form.keyRsvNo)">
@@ -252,7 +252,7 @@ export default {
         approveManagerName: '',
         memo: '',
         errorMsg: '',
-        rsvSeq: '',
+        rsvNo: '',
         keyRsvNo: '',
         processDatetime: '',
         preReqSeq: '',
