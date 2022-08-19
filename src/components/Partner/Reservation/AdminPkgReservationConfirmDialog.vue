@@ -46,7 +46,7 @@
         <v-col sm="12" md="12">
             <v-row>
               <v-col md="12">
-                <div class="font-weight-bold info--text body-1">패키지예약 신청 목록</div>
+                <div class="font-weight-bold info--text body-1">패키지예약 신청 목록KKKK</div>
               </v-col>
             </v-row>
             <v-row>
@@ -263,7 +263,7 @@ export default {
         { text: '예약블럭', value: 'blockCode', align: 'center' },
         { text: '패키지명', value: 'packageName', align: 'center' },
         { text: '영업장명', value: 'storeName', align: 'center' },
-        { text: '객실유형명', value: 'rmTypeName', align: 'center' },
+        { text: '객실유형명', value: 'roomTypeName', align: 'center' },
         { text: '객실수', value: 'roomCount', align: 'center' },
         { text: '박수', value: 'nights', align: 'center' },
         { text: '판매기간', value: 'saleStartDate', align: 'center' },
