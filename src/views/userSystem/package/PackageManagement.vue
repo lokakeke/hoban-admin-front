@@ -28,7 +28,7 @@
 import packageService from '@/api/modules/userSystem/package.service'
 // import { mapGetters } from 'vuex'
 export default {
-  name: 'PackageManagement',
+  name: 'packageManagement',
   computed: {
     // ...mapGetters({ user: 'auth/user' }),
     searchList () {
