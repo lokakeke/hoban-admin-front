@@ -27,7 +27,7 @@ export default {
    * 패키지에 따른 영업장 정보 조회
    */
   selectStoreInfoByPackageNo (param) {
-    return api.get('/api/cms/ota/booking/roomReservation/storeInfoBypackageNo', { params: param })
+    return api.get('/api/cms/ota/booking/roomReservation/storeInfoByPackageNo', { params: param })
   },
 
   /**
@@ -41,14 +41,14 @@ export default {
    * 패키지 정보 조회
    */
   selectPkgInfo (param) {
-    return api.get('/api/cms/ota/booking/roomReservation/pkgInfo', { params: param })
+    return api.get('/api/cms/ota/booking/roomReservation/packageInfo', { params: param })
   },
 
   /**
    * 네이버 패키지 정보 조회
    */
   selectNaverPkgInfo (param) {
-    return api.get('/api/cms/ota/booking/roomReservation/naverPkgInfo', { params: param })
+    return api.get('/api/cms/ota/booking/roomReservation/naverPackageInfo', { params: param })
   },
 
   /**

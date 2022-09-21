@@ -331,6 +331,7 @@ export default {
             this.form.report = data.report
             this.form.packageDesc = data.packageDesc
             this.form.todaySaleYn = data.todaySaleYn
+            this.form.packageNo = this.packageNo
           }
           packageService.selectPackageMasterInformation(this.packageNo, 1).then((response) => {
             if (response.data.length === 0) {
@@ -341,7 +342,6 @@ export default {
               this.masterInformation.startDate = moment(this.masterInformation.startDate).format('YYYYMMDD')
               this.masterInformation.endDate = moment(this.masterInformation.endDate).format('YYYYMMDD')
               this.masterInformationList = this.masterInformation.packPmsDetailList
-              this.form.packageNo = this.packageNo
               this.isPackageSearch = true
             }
           }).catch((error) => {
