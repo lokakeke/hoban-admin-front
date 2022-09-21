@@ -1184,7 +1184,7 @@ export default {
           param.todayRsvTime = this.roomSearchParam.todayRsvTime
           // 예약 가능여부 확인
           const res = await pmsReservationService.selectPossibleRoomInventory(event.roomTypeCode, param)
-          if (res.data.procMsg === '0000') {
+          if (res.data.resultMessage === '0000') {
             // 예약을 위한 정보 세팅
             this.$set(this.saveForm, 'checkInDate', event.start)
             this.$set(this.saveForm, 'roomTypeName', nativeEvent.target.textContent.substring(0, nativeEvent.target.textContent.lastIndexOf('/')))
@@ -1194,8 +1194,18 @@ export default {
             this.$set(this.saveForm, 'nights', param.nights)
             this.$set(this.saveForm, 'roomCount', param.roomCount)
 
+            // FIXME 별도로 조회 하진 않는다. 현재로선
+            let totalPrice = 0
+            let originPrice = 0
+            for (let i = 0; i < res.data.roomPriceModelList.length; i++) {
+              totalPrice += res.data.roomPriceModelList[i].totalPrice
+              originPrice += res.data.roomPriceModelList[i].totalPrice
+            }
+            this.$set(this.saveForm, 'salePrice', totalPrice) // 판매가
+            this.$set(this.saveForm, 'totalPrice', originPrice) // 입금가
+
             // 요금 조회
-            this.selectAmount()
+            // this.selectAmount()
           } else {
             this.$dialog.alert(res.data.procMsg)
           }
@@ -1226,7 +1236,7 @@ export default {
         // 예약 가능여부 확인
         const res = await pmsReservationService.selectPossibleRoomInventory(this.saveForm.roomTypeCode, param)
         // 예약 가능시
-        if (res.data.procMsg === '0000') {
+        if (res.data.resultMessage === '0000') {
           delete param.todayRsvYn
           delete param.todayRsvTime
           param.partnerName = this.user.name

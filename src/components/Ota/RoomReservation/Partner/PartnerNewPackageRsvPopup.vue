@@ -14,6 +14,23 @@
               dense
             />
           </v-col>
+          <v-col lg="2" md="3" sm="4" cols="6" v-if="roomType.value == 'OTA_PKG_API'">
+                <v-text-field
+                    v-model="form.agentCode"
+                    label="Agent코드"
+                    clearable
+                    hide-details
+                    dense
+                    :disabled="isPartner"
+                    @keypress.enter="openAgentPopup(form)"
+                >
+                    <template v-slot:append>
+                        <v-btn icon small color="primary" tabindex="-1" @click="openAgentPopup(form)">
+                            <v-icon>search</v-icon>
+                        </v-btn>
+                    </template>
+                </v-text-field>
+          </v-col>
           <v-col lg="2" md="3" cols="6">
             <v-autocomplete
               v-model="taskTypeName"
@@ -354,7 +371,7 @@
             <v-btn outlined rounded color="green" @click="resetSaveForm" class="new-package-step-14">
               <v-icon left>refresh</v-icon>초기화(F4)
             </v-btn>
-            <v-btn v-if="isPartner" outlined rounded color="blue" @click="save" class="new-package-step-15">
+            <v-btn outlined rounded color="blue" @click="save" class="new-package-step-15">
               <v-icon left>save</v-icon>예약(F10)
             </v-btn>
             <v-btn outlined rounded color="primary" @click="close">닫기(ESC)</v-btn>
@@ -617,11 +634,13 @@ export default {
      * 기본 정보 설정
      */
     initInfo () {
+      console.log(this.instance.params)
       this.roomType = _.cloneDeep(this.instance.params.roomType)
       this.ptnrBasicInfo = _.cloneDeep(this.instance.params.ptnrBasicInfo)
       if (this.ptnrBasicInfo && this.ptnrBasicInfo.length > 0) {
         for (const info of this.ptnrBasicInfo) {
           this.taskTypeNameList.push(info.taskTypeName)
+          this.form.agentCode = info.agentCode
         }
         if (this.taskTypeNameList.length === 1) {
           this.taskTypeName = this.taskTypeNameList[0]
@@ -862,14 +881,15 @@ export default {
                     procMsg: event.procMsg
                   })
                 }
-              } else if (event.leaveCount && event.procMsg === '0000') {
+              } else if (event.leaveCount) {
                 events.push({ // 예약 가능
                   start: moment(event.checkInDate).format('YYYY-MM-DD'),
                   name: event.roomTypeName + ' / ' + event.leaveCount,
                   color: this.colors[0],
                   nameCheck: this.names[0].name,
                   roomTypeCode: event.roomTypeCode,
-                  tooltip: event.roomTypeName + ' / ' + event.leaveCount
+                  tooltip: event.roomTypeName + ' / ' + event.leaveCount,
+                  roomPriceModelList: event.roomPriceModelList
                 })
               }
             }
@@ -883,7 +903,7 @@ export default {
           const day = moment().day()
           for (let i = 1; i < day; i++) {
             events.push({
-              start: `2020-${month}-${i}`,
+              start: `2022-${month}-${i}`,
               name: this.names[2].name,
               color: this.colors[2]
             })
@@ -1119,9 +1139,10 @@ export default {
         param.todayRsvTime = this.pkgSearchParam.todayRsvTime
         param.blockCode = this.pkgSearchParam.blockCode
         param.leaveCount = event.leaveCount
+        param.roomDayLimit = this.pkgSearchParam.roomDayLimit
         // 예약 가능여부 확인
         const res = await pmsReservationService.selectPossiblePkgInventory(event.roomTypeCode, param)
-        if (res.data.procMsg === '0000') {
+        if (res.data.resultMessage === '0000') {
           // 예약을 위한 정보 세팅
           this.$set(this.saveForm, 'checkInDate', event.start)
           this.$set(this.saveForm, 'roomTypeName', nativeEvent.target.textContent.substring(0, nativeEvent.target.textContent.lastIndexOf('/')))
@@ -1138,14 +1159,22 @@ export default {
           priceParam.roomCount = param.roomCount
           try {
             // 요금 조회
-            const priceRes = await roomService.selectPkgAmount('ota', priceParam)
-            this.$set(this.saveForm, 'salePrice', priceRes.data.total) // 판매가
-            this.$set(this.saveForm, 'totalPrice', priceRes.data.rcpmnyTotal) // 입금가
+            // FIXME 별도로 조회 하진 않는다. 현재로선
+            // const priceRes = await roomService.selectPkgAmount('ota', priceParam)
+
+            let totalPrice = 0
+            let originPrice = 0
+            for (let i = 0; i < res.data.roomPriceModelList.length; i++) {
+              totalPrice += res.data.roomPriceModelList[i].totalPrice
+              originPrice += res.data.roomPriceModelList[i].totalPrice
+            }
+            this.$set(this.saveForm, 'salePrice', totalPrice) // 판매가
+            this.$set(this.saveForm, 'totalPrice', originPrice) // 입금가
           } catch (e) {
             this.$set(this.saveForm, 'totalPrice', 0) // 입금가
           }
         } else {
-          this.$dialog.alert(res.data.procMsg)
+          this.$dialog.alert(res.data.resultMessage)
         }
       }
     },
@@ -1170,20 +1199,22 @@ export default {
         param.todayRsvYn = this.todayRsvYn
         param.todayRsvTime = this.pkgSearchParam.todayRsvTime
         param.blockCode = this.pkgSearchParam.blockCode
+        param.roomDayLimit = this.pkgSearchParam.roomDayLimit
         // 예약 가능여부 확인
         const res = await pmsReservationService.selectPossiblePkgInventory(this.saveForm.roomTypeCode, param)
         // 예약 가능시
-        if (res.data.procMsg === '0000') {
+        if (res.data.resultMessage === '0000') {
           delete param.todayRsvYn
           delete param.todayRsvTime
-          param.partnerName = this.user.name
-          param.modifyId = this.user.number
-          param.partnerSeq = this.user.number // 예치금에 필요
+          param.partnerName = this.isPartner ? this.user.name : this.form.partnerName
+          param.modifyId = this.isPartner ? this.user.number : this.form.partnerSeq
+          param.partnerSeq = this.isPartner ? this.user.number : this.form.partnerSeq // 예치금에 필요
           if (this.saveForm.partnerRsvNo) { // 업체예약번호는 필수값 아님
             param.partnerRsvNo = this.saveForm.partnerRsvNo
           }
           this.validForm(this.$refs.rsvForm).then(() => {
             param.guestName = this.saveForm.guestName
+            param.totalPrice = this.saveForm.totalPrice // 입금가
             param.partnerRsvPrice = this.saveForm.totalPrice
             param.roomTypeCode = this.saveForm.roomTypeCode
             param.adultCount = this.saveForm.adultCount
@@ -1243,6 +1274,38 @@ export default {
       } else {
         this.$dialog.alert('필수값을 입력해 주세요.')
       }
+    },
+
+    /**
+    * Agent코드 검색창 오픈
+    */
+    openAgentPopup () {
+      this.$store.dispatch('dialog/open', {
+        componentPath: '/SearchDialog/PartnerTermSearch',
+        params: {
+          taskType: this.roomType.value
+        },
+        options: {
+          fullscreen: false,
+          retainFocus: false,
+          persistent: true,
+          scrollable: true,
+          width: 1400,
+          closeCallback: (params) => {
+            if (params && params.data) {
+              this.$set(this.form, 'agentCode', params.data.agentCode)
+              this.$set(this.form, 'partnerSeq', params.data.partnerSeq)
+              this.$set(this.form, 'partnerName', params.data.partnerName)
+              this.$set(this.pkgSearchParam, 'partnerSeq', params.data.partnerSeq)
+              this.taskTypeNameList.push(params.data.taskTypeName)
+              this.taskTypeName = params.data.taskTypeName
+
+              this.ptnrBasicInfo = []
+              this.ptnrBasicInfo.push({ agentCode: params.data.agentCode, partnerName: params.data.partnerName, partnerTelNo: params.data.partnerTelNo, taskTypeName: params.data.taskTypeName, termSeq: params.data.termSeq })
+            }
+          }
+        }
+      })
     }
   }
 }
