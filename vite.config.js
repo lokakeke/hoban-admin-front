@@ -56,7 +56,8 @@ const config = defineConfig({
     disableHostCheck: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:9090',
+        target: 'https://localhost:9090',
+        secure: false,
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'
