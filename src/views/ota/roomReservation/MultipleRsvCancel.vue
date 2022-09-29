@@ -395,7 +395,7 @@ export default {
         oneRsv.keySeq = row.keySeq
         oneRsv.cancelResnCode = cancelReason.cancelResnCode
         oneRsv.cancelResnDesc = cancelReason.cancelResnDesc
-        oneRsv.updId = this.user.number // 수정자
+        oneRsv.modifyId = this.user.number // 수정자
         param.push(oneRsv)
       }
       // 취소 사유 변경
@@ -414,7 +414,7 @@ export default {
         oneRsv.guestName = rsv.guestName
         oneRsv.cancelResnCode = cancelReason.cancelResnCode
         oneRsv.cancelResnDesc = cancelReason.cancelResnDesc
-        oneRsv.updId = this.user.number // 수정자
+        oneRsv.modifyId = this.user.number // 수정자
         if (rsv.memberNo && rsv.memberNo.startsWith('56')) { // 객실
           oneRsv.memberNo = rsv.memberNo
         } else { // 패키지

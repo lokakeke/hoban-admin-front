@@ -575,6 +575,7 @@ export default {
       partnerTelNo: '', // 예약자 연락처
       termSeq: '', // 예치금에 필요
       partnerSeq: '', // 파트너번호
+      partnerName: '', // 이름
       key: 0, // 랜더링 버그 관련 key
       holidayYn: false // 휴일 여부
     }
@@ -937,6 +938,7 @@ export default {
               this.form.memberNo = params.data.memberNo
               this.form.memberName = params.data.memberName
               this.partnerSeq = params.data.partnerSeq
+              this.partnerName = params.data.partnerName
               this.agentCode = params.data.agentCode
               this.partnerTelNo = params.data.partnerTelNo
               this.termSeq = params.data.termSeq
@@ -1239,9 +1241,10 @@ export default {
         if (res.data.resultMessage === '0000') {
           delete param.todayRsvYn
           delete param.todayRsvTime
-          param.partnerName = this.user.name
+          param.partnerName = this.isPartner ? this.user.name : this.partnerName
+          param.partnerSeq = this.isPartner ? this.user.number : this.partnerSeq // 예치금에 필요
           param.modifyId = this.user.number
-          param.partnerSeq = this.user.number // 예치금에 필요
+
           if (this.saveForm.partnerRsvNo) { // 업체예약번호는 필수값 아님
             param.partnerRsvNo = this.saveForm.partnerRsvNo
           }

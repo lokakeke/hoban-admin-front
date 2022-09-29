@@ -1207,8 +1207,9 @@ export default {
           delete param.todayRsvYn
           delete param.todayRsvTime
           param.partnerName = this.isPartner ? this.user.name : this.form.partnerName
-          param.modifyId = this.isPartner ? this.user.number : this.form.partnerSeq
           param.partnerSeq = this.isPartner ? this.user.number : this.form.partnerSeq // 예치금에 필요
+          param.modifyId = this.user.number
+
           if (this.saveForm.partnerRsvNo) { // 업체예약번호는 필수값 아님
             param.partnerRsvNo = this.saveForm.partnerRsvNo
           }
